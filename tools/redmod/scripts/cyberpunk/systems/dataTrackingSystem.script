@@ -1,0 +1,753 @@
+enum ETelemetryData
+{
+	MeleeAttacksMade = 0,
+	RangedAttacksMade = 1,
+	BluelinesSelected = 2,
+	MeleeKills = 3,
+	RangedKills = 4,
+	QuickHacksMade = 5,
+	LegendaryItemsCrafted = 6,
+}
+
+enum ENPCTelemetryData
+{
+	HitByLightAttack = 0,
+	HitByStrongAttack = 1,
+	HitByFinalComboAttack = 2,
+	HitByBlockAttack = 3,
+	BlockedAttack = 4,
+	DeflectedAttack = 5,
+	WasGuardBreaked = 6,
+}
+
+enum EDownedType
+{
+	Killed = 0,
+	Finished = 1,
+	Defeated = 2,
+	Unconscious = 3,
+}
+
+class DataTrackingSystem extends ScriptableSystem
+{
+	protected persistent var m_trackedAchievements : array< gamedataAchievement >;
+	protected persistent var m_rangedAttacksMade : Int32;
+	protected persistent var m_meleeAttacksMade : Int32;
+	protected persistent var m_meleeKills : Int32;
+	protected persistent var m_rangedKills : Int32;
+	protected persistent var m_quickhacksMade : Int32;
+	protected persistent var m_distractionsMade : Int32;
+	protected persistent var m_legendaryItemsCrafted : Int32;
+	protected persistent var m_npcMeleeLightAttackReceived : Int32;
+	protected persistent var m_npcMeleeStrongAttackReceived : Int32;
+	protected persistent var m_npcMeleeBlockAttackReceived : Int32;
+	protected persistent var m_npcMeleeBlockedAttacks : Int32;
+	protected persistent var m_npcMeleeDeflectedAttacks : Int32;
+	protected persistent var m_downedEnemies : Int32;
+	protected persistent var m_killedEnemies : Int32;
+	protected persistent var m_defeatedEnemies : Int32;
+	protected persistent var m_incapacitatedEnemies : Int32;
+	protected persistent var m_finishedEnemies : Int32;
+	protected persistent var m_downedWithRanged : Int32;
+	protected persistent var m_downedWithMelee : Int32;
+	protected persistent var m_downedInTimeDilatation : Int32;
+	protected persistent var m_rangedProgress : Int32;
+	protected persistent var m_meleeProgress : Int32;
+	protected persistent var m_dilationProgress : Int32;
+	protected persistent var m_failedShardDrops : Float;
+	protected persistent var m_LegPlusPlusHackDropped : Bool;
+	protected persistent var m_bluelinesUseCount : Int32;
+	private var m_twoHeadssourceID : EntityID;
+	private var m_twoHeadsValidTimestamp : Float;
+	private var m_lastKillTimestamp : Float;
+	private var m_enemiesKilledInTimeInterval : array< weak< GameObject > >;
+	private var m_timeInterval : Float;
+	default m_timeInterval = 5f;
+	private var m_numerOfKillsRequired : Int32;
+	default m_numerOfKillsRequired = 3f;
+	private var m_gunKataKilledEnemies : Int32;
+	private var m_gunKataValidTimestamp : Float;
+	private var m_hardKneesInProgress : Bool;
+	private var m_hardKneesKilledEnemies : Int32;
+	private var m_harKneesValidTimestamp : Float;
+	private var m_resetKilledReqDelayID : DelayID;
+	private var m_resetFinishedReqDelayID : DelayID;
+	private var m_resetDefeatedReqDelayID : DelayID;
+	private var m_resetIncapacitatedReqDelayID : DelayID;
+	private var m_resetDownedReqDelayID : DelayID;
+	private var m_resetMeleeAttackReqDelayID : DelayID;
+	private var m_resetRangedAttackReqDelayID : DelayID;
+	private var m_resetAttackReqDelayID : DelayID;
+	private var m_resetNpcMeleeLightAttackReqDelayID : DelayID;
+	private var m_resetNpcMeleeStrongAttackReqDelayID : DelayID;
+	private var m_resetNpcMeleeFinalAttackReqDelayID : DelayID;
+	private var m_resetNpcMeleeBlockAttackReqDelayID : DelayID;
+	private var m_resetNpcBlockedReqDelayID : DelayID;
+	private var m_resetNpcDeflectedReqDelayID : DelayID;
+	private var m_resetNpcGuardbreakReqDelayID : DelayID;
+
+	private export override function OnAttach() {}
+
+	private export override function OnDetach() {}
+
+	private export override function OnRestored( saveVersion : Int32, gameVersion : Int32 )
+	{
+		RestoreTrackedAchievemenets();
+	}
+
+	private function GetNameFromDataTrackingFactEnum( dataTrackingFact : ETelemetryData ) : CName
+	{
+		return EnumValueToName( 'EDataTrackingFact', ( ( Int32 )( dataTrackingFact ) ) );
+	}
+
+	private function GetCountFromDataTrackingFactEnum( dataTrackingFact : ETelemetryData ) : Int32
+	{
+		return GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( GetNameFromDataTrackingFactEnum( dataTrackingFact ) );
+	}
+
+	private export function OnModifyTelemetryVariable( request : ModifyTelemetryVariable )
+	{
+		switch( request.dataTrackingFact )
+		{
+			case ETelemetryData.MeleeAttacksMade:
+			{
+				m_meleeAttacksMade += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_player_melee_attacks', m_meleeAttacksMade );
+				SetFactValue( GetGameInstance(), 'gmpl_player_melee_attack', 1 );
+				GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetMeleeAttackReqDelayID );
+				m_resetMeleeAttackReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetMeleeAttackDelayedRequest, 1.0 );
+				break;
+			}
+			case ETelemetryData.RangedAttacksMade:
+			{
+				m_rangedAttacksMade += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_player_range_attacks', m_rangedAttacksMade );
+				SetFactValue( GetGameInstance(), 'gmpl_player_range_attack', 1 );
+				GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetRangedAttackReqDelayID );
+				m_resetRangedAttackReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetRangedAttackDelayedRequest, 1.0 );
+				break;
+			}
+			case ETelemetryData.BluelinesSelected:
+			{
+				m_bluelinesUseCount += request.value;
+				SetAchievementProgress( gamedataAchievement.Roleplayer, m_bluelinesUseCount );
+				break;
+			}
+			case ETelemetryData.QuickHacksMade:
+			{
+				m_quickhacksMade += request.value;
+				SetAchievementProgress( gamedataAchievement.MustBeTheRats, m_quickhacksMade );
+				SetFactValue( GetGameInstance(), 'gmpl_player_quickhacks', m_quickhacksMade );
+				SetFactValue( GetGameInstance(), 'gmpl_player_quickhack', 1 );
+				GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetAttackReqDelayID );
+				m_resetAttackReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetAttackDelayedRequest, 1.0 );
+				break;
+			}
+		}
+		if( request.dataTrackingFact != ETelemetryData.QuickHacksMade )
+		{
+			SetFactValue( GetGameInstance(), 'gmpl_player_attacks', ( m_meleeAttacksMade + m_rangedAttacksMade ) + m_quickhacksMade );
+			SetFactValue( GetGameInstance(), 'gmpl_player_attack', 1 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetKilledReqDelayID );
+			m_resetKilledReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCKilledDelayedRequest, 1.0 );
+		}
+		ProcessTutorialFact( request.dataTrackingFact );
+	}
+
+	private export function OnModifyNPCTelemetryVariable( request : ModifyNPCTelemetryVariable )
+	{
+		switch( request.dataTrackingFact )
+		{
+			case ENPCTelemetryData.HitByLightAttack:
+			{
+				m_npcMeleeLightAttackReceived += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_lights', GetFact( GetGameInstance(), 'gmpl_npc_hit_by_melee_lights' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.HitByStrongAttack:
+			{
+				m_npcMeleeStrongAttackReceived += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_strongs', GetFact( GetGameInstance(), 'gmpl_npc_hit_by_melee_strongs' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.HitByFinalComboAttack:
+			{
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_combofinal', GetFact( GetGameInstance(), 'gmpl_npc_hit_by_melee_combofinal' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.HitByBlockAttack:
+			{
+				m_npcMeleeBlockAttackReceived += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_blockattacks', GetFact( GetGameInstance(), 'gmpl_npc_hit_by_melee_blockattacks' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.BlockedAttack:
+			{
+				m_npcMeleeBlockedAttacks += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_npc_blocked_attacks', GetFact( GetGameInstance(), 'gmpl_npc_blocked_attacks' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.DeflectedAttack:
+			{
+				m_npcMeleeDeflectedAttacks += request.value;
+				SetFactValue( GetGameInstance(), 'gmpl_npc_deflected_attacks', GetFact( GetGameInstance(), 'gmpl_npc_deflected_attacks' ) + 1 );
+				SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 1 );
+				break;
+			}
+			case ENPCTelemetryData.WasGuardBreaked:
+			{
+				SetFactValue( GetGameInstance(), 'gmpl_npc_guardbreak', GetFact( GetGameInstance(), 'gmpl_npc_guardbreak' ) + 1 );
+				break;
+			}
+		}
+	}
+
+	private function ProcessTutorialFact( telemetryData : ETelemetryData )
+	{
+		switch( telemetryData )
+		{
+			case ETelemetryData.MeleeAttacksMade:
+			{
+				if( ( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'melee_combat_tutorial' ) == 0 ) && ( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'disable_tutorials' ) == 0 ) )
+				{
+					GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'melee_combat_tutorial', 1 );
+				}
+				break;
+			}
+			case ETelemetryData.RangedAttacksMade:
+			{
+				if( ( ( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'ranged_combat_tutorial' ) == 0 ) && ( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'block_combat_scripts_tutorials' ) == 0 ) ) && ( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'disable_tutorials' ) == 0 ) )
+				{
+					GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'ranged_combat_tutorial', 1 );
+				}
+				break;
+			}
+		}
+	}
+
+	private function OnBluelineSelectedRequest( request : BluelineSelectedRequest )
+	{
+		var mtvRequest : ModifyTelemetryVariable;
+		mtvRequest = new ModifyTelemetryVariable;
+		mtvRequest.dataTrackingFact = ETelemetryData.BluelinesSelected;
+		QueueRequest( mtvRequest );
+	}
+
+	private export function OnSendItemCraftedDataTrackingRequest( request : ItemCraftedDataTrackingRequest )
+	{
+		ProcessHandyManAchievement( request.targetItem, request.amount );
+	}
+
+	private function IsSourcePlayer( attackData : AttackData ) : Bool
+	{
+		return ( ( PlayerPuppet )( attackData.GetInstigator() ) );
+	}
+
+	private function CheckTimeDilationSources() : Bool
+	{
+		var timeSystem : TimeSystem;
+		timeSystem = GameInstance.GetTimeSystem( GetGameInstance() );
+		return ( timeSystem.IsTimeDilationActive( TimeDilationHelper.GetSandevistanKey() ) || timeSystem.IsTimeDilationActive( TimeDilationHelper.GetKerenzikovKey() ) ) || timeSystem.IsTimeDilationActive( TimeDilationHelper.GetFocusedStateKey() );
+	}
+
+	private export function OnNPCKillDataTrackingRequest( request : NPCKillDataTrackingRequest )
+	{
+		var attackRecord : Attack_GameEffect_Record;
+		attackRecord = ( ( Attack_GameEffect_Record )( request.damageEntry.hitEvent.attackData.GetAttackDefinition().GetRecord() ) );
+		if( !( request.isDownedRecorded ) )
+		{
+			m_downedEnemies += 1;
+			if( CheckTimeDilationSources() && IsSourcePlayer( request.damageEntry.hitEvent.attackData ) )
+			{
+				m_downedInTimeDilatation += 1;
+				m_dilationProgress += 1;
+				if( m_dilationProgress >= 2 )
+				{
+					SetAchievementProgress( gamedataAchievement.MaxPain, m_downedInTimeDilatation );
+					m_dilationProgress = 0;
+				}
+			}
+			if( ( ( AttackData.IsMelee( request.damageEntry.hitEvent.attackData.GetAttackType() ) || AttackData.IsThrown( request.damageEntry.hitEvent.attackData.GetAttackType() ) ) || request.damageEntry.hitEvent.attackData.GetWeapon().IsBlade() ) && IsSourcePlayer( request.damageEntry.hitEvent.attackData ) )
+			{
+				m_downedWithMelee += 1;
+				m_meleeProgress += 1;
+				if( m_meleeProgress >= 4 )
+				{
+					SetAchievementProgress( gamedataAchievement.TrueWarrior, m_downedWithMelee );
+					m_meleeProgress = 0;
+				}
+			}
+			if( ( ( AttackData.IsRangedOrDirectOrThrown( request.damageEntry.hitEvent.attackData.GetAttackType() ) || ( AttackData.IsEffect( request.damageEntry.hitEvent.attackData.GetAttackType() ) && request.damageEntry.hitEvent.attackData.GetWeapon().IsBlade() ) ) && attackRecord.EffectName() != 'superheroLanding' ) && IsSourcePlayer( request.damageEntry.hitEvent.attackData ) )
+			{
+				m_downedWithRanged += 1;
+				m_rangedProgress += 1;
+				if( m_rangedProgress >= 5 )
+				{
+					SetAchievementProgress( gamedataAchievement.TrueSoldier, m_downedWithRanged );
+					m_rangedProgress = 0;
+				}
+				ProcessTwoHeadsOneBulletAchievement( request );
+				ProcessGunKataAchievement( request );
+			}
+			if( attackRecord.EffectName() == 'superheroLanding' && StatusEffectSystem.ObjectHasStatusEffectWithTag( request.damageEntry.hitEvent.attackData.GetInstigator(), 'BerserkBuff' ) )
+			{
+				ProcessHardForKneesAchievement();
+			}
+			if( request.damageEntry.hitEvent.attackData.HasFlag( hitFlag.GrenadeQuickhackExplosion ) )
+			{
+				ProcessNotTheMobileAchievement( request.damageEntry );
+			}
+		}
+		switch( request.eventType )
+		{
+			case EDownedType.Killed:
+				m_killedEnemies += 1;
+			SetFactValue( GetGameInstance(), 'gmpl_npc_killed_by_player', 1 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetKilledReqDelayID );
+			m_resetKilledReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCKilledDelayedRequest, 1.0 );
+			break;
+			case EDownedType.Finished:
+				m_finishedEnemies += 1;
+			SetFactValue( GetGameInstance(), 'gmpl_npc_finished_by_player', 1 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetFinishedReqDelayID );
+			m_resetFinishedReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCFinishedDelayedRequest, 1.0 );
+			break;
+			case EDownedType.Defeated:
+				m_defeatedEnemies += 1;
+			SetFactValue( GetGameInstance(), 'gmpl_npc_defeated_by_player', 1 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetDefeatedReqDelayID );
+			m_resetDefeatedReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCDefeatedDelayedRequest, 1.0 );
+			break;
+			case EDownedType.Unconscious:
+				m_incapacitatedEnemies += 1;
+			SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 1 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetIncapacitatedReqDelayID );
+			m_resetIncapacitatedReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCIncapacitatedDelayedRequest, 1.0 );
+		}
+		GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_resetDownedReqDelayID );
+		m_resetDownedReqDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'DataTrackingSystem', new ResetNPCDownedDelayedRequest, 1.0 );
+		ProcessDataTrackingFacts();
+	}
+
+	private export function OnTakedownActionDataTrackingRequest( request : TakedownActionDataTrackingRequest )
+	{
+		switch( request.eventType )
+		{
+			case ETakedownActionType.Takedown:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_killed_by_player', 1 );
+			m_killedEnemies += 1;
+			break;
+			case ETakedownActionType.TakedownNonLethal:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 1 );
+			m_incapacitatedEnemies += 1;
+			break;
+			case ETakedownActionType.TakedownNetrunner:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 1 );
+			m_incapacitatedEnemies += 1;
+			break;
+			case ETakedownActionType.TakedownMassiveTarget:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 1 );
+			m_incapacitatedEnemies += 1;
+			break;
+			case ETakedownActionType.AerialTakedown:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 1 );
+			m_incapacitatedEnemies += 1;
+			break;
+			case ETakedownActionType.KillTarget:
+				SetFactValue( GetGameInstance(), 'gmpl_npc_killed_by_player', 1 );
+			m_killedEnemies += 1;
+			break;
+		}
+		ProcessDataTrackingFacts();
+	}
+
+	private function ProcessDataTrackingFacts()
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npcs_killed_by_player', m_killedEnemies );
+		SetFactValue( GetGameInstance(), 'gmpl_npcs_finished_by_player', m_finishedEnemies );
+		SetFactValue( GetGameInstance(), 'gmpl_npcs_defeated_by_player', m_defeatedEnemies );
+		SetFactValue( GetGameInstance(), 'gmpl_npcs_incapacitated_by_player', m_incapacitatedEnemies );
+		SetFactValue( GetGameInstance(), 'gmpl_npcs_downed_by_player', ( ( m_killedEnemies + m_finishedEnemies ) + m_defeatedEnemies ) + m_incapacitatedEnemies );
+		SetFactValue( GetGameInstance(), 'gmpl_npc_downed_by_player', 1 );
+		if( ( ( m_finishedEnemies > 0 ) || ( m_killedEnemies > 0 ) ) && ( GetFact( GetGameInstance(), 'player_killed_npc' ) == 0 ) )
+		{
+			SetFactValue( GetGameInstance(), 'player_killed_npc', 1 );
+		}
+	}
+
+	private function OnUpdateShardFailedDrops( request : UpdateShardFailedDropsRequest )
+	{
+		if( request.resetCounter )
+		{
+			m_failedShardDrops = 0.0;
+		}
+		else
+		{
+			m_failedShardDrops += request.newFailedAttempts;
+		}
+	}
+
+	public const function GetFailedShardDrops() : Float
+	{
+		return m_failedShardDrops;
+	}
+
+	private function OnFirstPlusPlusLegendaryAwarded( request : FirstPlusPlusLegendaryAwardedRequest )
+	{
+		m_LegPlusPlusHackDropped = true;
+	}
+
+	public const function IsFirstPlusPlusLegendaryAwarded() : Bool
+	{
+		return m_LegPlusPlusHackDropped;
+	}
+
+	private export function OnResetKilledRequest( request : ResetNPCKilledDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npc_killed_by_player', 0 );
+	}
+
+	private function OnResetFinishedRequest( request : ResetNPCFinishedDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npc_finished_by_player', 0 );
+	}
+
+	private export function OnResetDefeatedRequest( request : ResetNPCDefeatedDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npc_defeated_by_player', 0 );
+	}
+
+	private export function OnResetIncapacitatedRequest( request : ResetNPCIncapacitatedDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npc_incapacitated_by_player', 0 );
+	}
+
+	private export function OnResetDownedRequest( request : ResetNPCDownedDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_npc_downed_by_player', 0 );
+	}
+
+	private export function OnResetMeleeAttackRequest( request : ResetMeleeAttackDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_player_melee_attack', 0 );
+	}
+
+	private export function OnResetRangedAttackRequest( request : ResetRangedAttackDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_player_range_attack', 0 );
+	}
+
+	private function OnResetQuickhackRequest( request : ResetAttackDelayedRequest )
+	{
+		SetFactValue( GetGameInstance(), 'gmpl_player_quickhack', 0 );
+	}
+
+	private function OnResetLightHitsReceivedRequest( request : ResetLightHitsReceivedRequest )
+	{
+		m_npcMeleeLightAttackReceived = 0;
+		SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 0 );
+	}
+
+	private function OnResetStrongHitsReceivedRequest( request : ResetStrongHitsReceivedRequest )
+	{
+		m_npcMeleeStrongAttackReceived = 0;
+		SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 0 );
+	}
+
+	private function OnResetFinalComboHitsReceivedRequest( request : ResetFinalComboHitsReceivedRequest )
+	{
+		m_npcMeleeBlockAttackReceived = 0;
+		SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 0 );
+	}
+
+	private function OnResetBlockAttackHitsReceivedRequest( request : ResetBlockAttackHitsReceivedRequest )
+	{
+		m_npcMeleeBlockedAttacks = 0;
+		SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 0 );
+	}
+
+	private function OnResetBlockedHitsRequest( request : ResetBlockedHitsRequest )
+	{
+		m_npcMeleeBlockedAttacks = 0;
+		SetFactValue( GetGameInstance(), 'gmpl_npc_hit_by_melee_attack', 0 );
+	}
+
+	private function RestoreTrackedAchievemenets()
+	{
+		m_trackedAchievements.Clear();
+		if( m_bluelinesUseCount >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.Roleplayer ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.Roleplayer );
+		}
+		if( m_quickhacksMade >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.MustBeTheRats ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.MustBeTheRats );
+		}
+		if( m_legendaryItemsCrafted >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.HandyMan ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.HandyMan );
+		}
+		if( m_downedInTimeDilatation >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.MaxPain ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.MaxPain );
+		}
+		if( m_downedWithMelee >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.TrueWarrior ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.TrueWarrior );
+		}
+		if( m_downedWithRanged >= GetAchievementRecordFromGameDataAchievement( gamedataAchievement.TrueSoldier ).ThresholdValue() )
+		{
+			m_trackedAchievements.PushBack( gamedataAchievement.TrueSoldier );
+		}
+	}
+
+	private function UnlockAchievement( achievement : gamedataAchievement )
+	{
+		var record : weak< Achievement_Record >;
+		var i : Int32;
+		record = GetAchievementRecordFromGameDataAchievement( achievement );
+		if( record.PlaythroughSpecific() )
+		{
+			for( i = 0; i < m_trackedAchievements.Size(); i += 1 )
+			{
+				if( m_trackedAchievements[ i ] == achievement )
+				{
+					break;
+				}
+			}
+			if( i != m_trackedAchievements.Size() )
+			{
+				return;
+			}
+			m_trackedAchievements.PushBack( achievement );
+		}
+		GameInstance.GetAchievementSystem( GetGameInstance() ).UnlockAchievement( record );
+	}
+
+	private function SetAchievementProgress( achievement : gamedataAchievement, trackedData : Int32, optional customTarget : Int32 )
+	{
+		var record : weak< Achievement_Record >;
+		var treshold : Int32;
+		record = GetAchievementRecordFromGameDataAchievement( achievement );
+		treshold = ( ( customTarget != 0 ) ? ( customTarget ) : ( record.ThresholdValue() ) );
+		if( trackedData < treshold )
+		{
+			GameInstance.GetAchievementSystem( GetGameInstance() ).SetAchievementProgress( record, ( ( ( Float )( trackedData ) ) / ( ( Float )( treshold ) ) ) * 100.0 );
+		}
+		else
+		{
+			UnlockAchievement( achievement );
+		}
+	}
+
+	private const function GetAchievementRecordFromGameDataAchievement( achievement : gamedataAchievement ) : weak< Achievement_Record >
+	{
+		var achievementString : String;
+		achievementString = ( ( achievement == gamedataAchievement.LikeFatherLikeSon ) ? ( achievementString = "LikeFatherLIkeSon" ) : ( EnumValueToString( "gamedataAchievement", ( ( Int32 )( achievement ) ) ) ) );
+		return TweakDBInterface.GetAchievementRecord( TDBID.Create( "Achievements." + achievementString ) );
+	}
+
+	private export function OnAddAchievementRequest( request : AddAchievementRequest )
+	{
+		UnlockAchievement( request.achievement );
+	}
+
+	private export function OnSetAchievementProgressRequest( request : SetAchievementProgressRequest )
+	{
+		SetAchievementProgress( request.achievement, request.currentValue, request.customTarget );
+	}
+
+	private export function OnUnlockAllAchievementsRequest( request : UnlockAllAchievementsRequest )
+	{
+		var i : Int32;
+		var achievement : gamedataAchievement;
+		i = 0;
+		for( i; i < ( ( Int32 )( gamedataAchievement.Count ) ); i += 1 )
+		{
+			achievement = ( ( gamedataAchievement )( i ) );
+			if( ( achievement == gamedataAchievement.Breathtaking || achievement == gamedataAchievement.Count ) || achievement == gamedataAchievement.Invalid )
+			{
+				continue;
+			}
+			UnlockAchievement( achievement );
+		}
+	}
+
+	private function ProcessNotTheMobileAchievement( const damageEntry : ref< DamageHistoryEntry > )
+	{
+		var i : Int32;
+		var currentTime : Float;
+		currentTime = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) );
+		if( ( currentTime - m_lastKillTimestamp ) > m_timeInterval )
+		{
+			m_enemiesKilledInTimeInterval.Clear();
+		}
+		m_lastKillTimestamp = currentTime;
+		for( i = 0; i < m_enemiesKilledInTimeInterval.Size(); i += 1 )
+		{
+			if( m_enemiesKilledInTimeInterval[ i ] == damageEntry.hitEvent.target )
+			{
+				return;
+			}
+		}
+		m_enemiesKilledInTimeInterval.PushBack( damageEntry.hitEvent.target );
+		if( m_enemiesKilledInTimeInterval.Size() >= m_numerOfKillsRequired )
+		{
+			UnlockAchievement( gamedataAchievement.NotTheMobile );
+		}
+	}
+
+	private function ProcessHandyManAchievement( targetItem : ItemID, amount : Int32 )
+	{
+		var gameInstance : GameInstance;
+		var transactionSystem : TransactionSystem;
+		var itemdata : weak< gameItemData >;
+		gameInstance = GetGameInstance();
+		transactionSystem = GameInstance.GetTransactionSystem( gameInstance );
+		itemdata = transactionSystem.GetItemData( GameInstance.GetPlayerSystem( gameInstance ).GetLocalPlayerControlledGameObject(), targetItem );
+		if( !( itemdata.HasStatData( gamedataStatType.Quality ) ) )
+		{
+			return;
+		}
+		if( itemdata.GetStatValueByType( gamedataStatType.Quality ) == 4.0 )
+		{
+			m_legendaryItemsCrafted += amount;
+			SetAchievementProgress( gamedataAchievement.HandyMan, m_legendaryItemsCrafted );
+		}
+	}
+
+	private function ProcessTwoHeadsOneBulletAchievement( request : NPCKillDataTrackingRequest )
+	{
+		var damageData : DamageHistoryEntry;
+		var entity : Entity;
+		damageData = request.damageEntry;
+		if( WeaponObject.GetWeaponType( ( ( WeaponObject )( damageData.hitEvent.attackData.GetWeapon() ) ).GetItemID() ) == gamedataItemType.Wea_SniperRifle )
+		{
+			entity = ( ( Entity )( damageData.hitEvent.attackData.GetInstigator() ) );
+			if( ( m_twoHeadssourceID == entity.GetEntityID() ) && ( m_twoHeadsValidTimestamp >= EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) ) )
+			{
+				UnlockAchievement( gamedataAchievement.TwoHeadsOneBullet );
+			}
+			else
+			{
+				m_twoHeadssourceID = entity.GetEntityID();
+				m_twoHeadsValidTimestamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) + 1.0;
+			}
+		}
+	}
+
+	private function ProcessGunKataAchievement( request : NPCKillDataTrackingRequest )
+	{
+		var damageData : DamageHistoryEntry;
+		damageData = request.damageEntry;
+		if( ( WeaponObject.GetWeaponType( ( ( WeaponObject )( damageData.hitEvent.attackData.GetWeapon() ) ).GetItemID() ) == gamedataItemType.Wea_Revolver || WeaponObject.GetWeaponType( ( ( WeaponObject )( damageData.hitEvent.attackData.GetWeapon() ) ).GetItemID() ) == gamedataItemType.Wea_Handgun ) && ( Vector4.Distance( damageData.source.GetWorldPosition(), damageData.target.GetWorldPosition() ) < 7.5 ) )
+		{
+			if( m_gunKataValidTimestamp >= EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) )
+			{
+				m_gunKataKilledEnemies += 1;
+				if( m_gunKataKilledEnemies >= 3 )
+				{
+					UnlockAchievement( gamedataAchievement.GunKata );
+					m_gunKataKilledEnemies = 0;
+				}
+			}
+			else
+			{
+				m_gunKataKilledEnemies = 1;
+				m_gunKataValidTimestamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) + 3.5;
+			}
+		}
+	}
+
+	private function ProcessHardForKneesAchievement()
+	{
+		if( m_hardKneesInProgress )
+		{
+			m_hardKneesKilledEnemies += 1;
+			if( m_harKneesValidTimestamp >= EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) )
+			{
+				UnlockAchievement( gamedataAchievement.ThatIsSoHardForTheKnees );
+			}
+			else
+			{
+				m_hardKneesKilledEnemies = 0;
+				m_hardKneesInProgress = false;
+			}
+		}
+		else
+		{
+			m_hardKneesInProgress = true;
+			m_hardKneesKilledEnemies += 1;
+			m_harKneesValidTimestamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) + 1.0;
+		}
+	}
+
+}
+
+class DelayedAchivementCallback extends DelayCallback
+{
+	protected var id : Int32;
+	protected var progress : Float;
+	protected var dataTrackingSystem : DataTrackingSystem;
+
+	public static function Create( id : Int32, progress : Float, dataTrackingSystem : DataTrackingSystem ) : DelayedAchivementCallback
+	{
+		var callback : DelayedAchivementCallback;
+		callback = new DelayedAchivementCallback;
+		callback.id = id;
+		callback.progress = progress;
+		callback.dataTrackingSystem = dataTrackingSystem;
+		return callback;
+	}
+
+	public override function Call()
+	{
+		var gdAchievement : gamedataAchievement;
+		var evt : SetAchievementProgressRequest;
+		evt = new SetAchievementProgressRequest;
+		if( id == -1 )
+		{
+			gdAchievement = ( ( gamedataAchievement )( RandRange( 0, ( ( Int32 )( gamedataAchievement.Count ) ) ) ) );
+		}
+		else
+		{
+			gdAchievement = ( ( gamedataAchievement )( id ) );
+		}
+		evt.achievement = gdAchievement;
+		evt.currentValue = ( ( Int32 )( progress * 1000.0 ) );
+		dataTrackingSystem.QueueRequest( evt );
+	}
+
+}
+
+function ProgressMultipleAchievementsImpl( gameInstance : GameInstance, achievementId : String, achievementCount : String, baseProgressString : String, intervalString : String )
+{
+	var dataTrackingSystem : DataTrackingSystem;
+	var delaySystem : DelaySystem;
+	var id : Int32;
+	var count : Float;
+	var interval : Float;
+	var baseProgress : Float;
+	var i : Float;
+	i = 0.0;
+	id = StringToInt( achievementId );
+	interval = StringToFloat( intervalString );
+	count = ( ( Float )( StringToInt( achievementCount ) ) );
+	baseProgress = StringToFloat( baseProgressString );
+	dataTrackingSystem = ( ( DataTrackingSystem )( GameInstance.GetScriptableSystemsContainer( gameInstance ).Get( 'DataTrackingSystem' ) ) );
+	delaySystem = GameInstance.GetDelaySystem( gameInstance );
+	if( ( id < 0 ) || ( id >= ( ( Int32 )( gamedataAchievement.Count ) ) ) )
+	{
+		id = -1;
+	}
+	for( i = 0.0; i < count; i += 1.0 )
+	{
+		delaySystem.DelayCallback( DelayedAchivementCallback.Create( id, ( i * 0.01 ) + baseProgress, dataTrackingSystem ), i * interval, false );
+	}
+}
+

@@ -1,0 +1,874 @@
+import enum gameuiTutorialHiddenReason
+{
+	None,
+	DefaultHiddenReason,
+	InPhotomode,
+}
+
+import class PopupsManager extends inkGameController
+{
+	private var m_blackboard : weak< IBlackboard >;
+	private var m_bbDefinition : UIGameDataDef;
+	private var m_journalManager : weak< JournalManager >;
+	private var m_uiSystem : UISystem;
+	private var m_uiSystemBB : weak< IBlackboard >;
+	private var m_uiSystemBBDef : UI_SystemDef;
+	private var m_uiSystemId : CallbackHandle;
+	private var m_isShownBbId : CallbackHandle;
+	private var m_dataBbId : CallbackHandle;
+	private var m_photomodeActiveId : CallbackHandle;
+	private var m_phoneActiveId : CallbackHandle;
+	private var m_tutorialOnHold : Bool;
+	private var m_tutorialData : PopupData;
+	private var m_tutorialSettings : PopupSettings;
+	private var m_phoneMessageOnHold : Bool;
+	private var m_phoneMessageData : JournalNotificationData;
+	private var m_shardReadOnHold : Bool;
+	private var m_shardReadData : NotifyShardRead;
+	private var m_smartFrameData : inkFrameNotificationData;
+	private var m_vehicleColorSelectorData : inkGameNotificationData;
+	private var m_tutorialToken : inkGameNotificationToken;
+	private var m_phoneMessageToken : inkGameNotificationToken;
+	private var m_shardToken : inkGameNotificationToken;
+	private var m_vehiclesManagerToken : inkGameNotificationToken;
+	private var m_vehicleRadioToken : inkGameNotificationToken;
+	private var m_codexToken : inkGameNotificationToken;
+	private var m_ponrToken : inkGameNotificationToken;
+	private var m_twintoneOverride : inkGameNotificationToken;
+	private var m_expansionToken : inkGameNotificationToken;
+	private var m_expansionErrorToken : inkGameNotificationToken;
+	private var m_patchNotesToken : inkGameNotificationToken;
+	private var m_marketingConsentToken : inkGameNotificationToken;
+	private var m_signInToken : inkGameNotificationToken;
+	private var m_expansionStateToken : inkGameNotificationToken;
+	private var m_vehicleVisualCustomizationSelectorToken : inkGameNotificationToken;
+	private var m_frameSwitcherToken : inkGameNotificationToken;
+	private var m_isInMenu : Bool;
+	private var m_isInPhotoMode : Bool;
+	private var m_isOnPhone : Bool;
+	private var m_isBlockingPopupOpened : Bool;
+	private var m_popUpQueue : array< inkGameNotificationData >;
+	private var m_activePopUp : Bool;
+	default m_activePopUp = false;
+
+	protected event OnInitialize()
+	{
+		var requestHandler : weak< inkISystemRequestsHandler >;
+		requestHandler = GetSystemRequestsHandler();
+		requestHandler.RegisterToCallback( 'OnAdditionalContentInstallationRequestResult', this, 'OnAdditionalContentInstallationRequestResult' );
+		requestHandler.RegisterToCallback( 'OnAdditionalContentInstallationResult', this, 'OnAdditionalContentInstallationResult' );
+		requestHandler.RegisterToCallback( 'OnAdditionalContentDataReloadProgressCallback', this, 'OnAdditionalContentDataReloadProgress' );
+	}
+
+	protected event OnUninitialize()
+	{
+		var requestHandler : weak< inkISystemRequestsHandler >;
+		requestHandler = GetSystemRequestsHandler();
+		requestHandler.UnregisterFromCallback( 'OnAdditionalContentInstallationRequestResult', this, 'OnAdditionalContentInstallationRequestResult' );
+		requestHandler.UnregisterFromCallback( 'OnAdditionalContentInstallationResult', this, 'OnAdditionalContentInstallationResult' );
+	}
+
+	protected event OnPlayerAttach( playerPuppet : GameObject )
+	{
+		m_blackboard = GetUIBlackboard();
+		m_bbDefinition = GetAllBlackboardDefs().UIGameData;
+		m_journalManager = GameInstance.GetJournalManager( playerPuppet.GetGame() );
+		m_uiSystem = GameInstance.GetUISystem( playerPuppet.GetGame() );
+		m_uiSystemBB = GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_System );
+		m_uiSystemBBDef = GetAllBlackboardDefs().UI_System;
+		m_uiSystemId = m_uiSystemBB.RegisterListenerBool( m_uiSystemBBDef.IsInMenu, this, 'OnMenuUpdate' );
+		m_isShownBbId = m_blackboard.RegisterDelayedListenerBool( m_bbDefinition.Popup_IsShown, this, 'OnUpdateVisibility' );
+		m_dataBbId = m_blackboard.RegisterDelayedListenerVariant( m_bbDefinition.Popup_Data, this, 'OnUpdateData' );
+		m_photomodeActiveId = GetBlackboardSystem().Get( GetAllBlackboardDefs().PhotoMode ).RegisterListenerBool( GetAllBlackboardDefs().PhotoMode.IsActive, this, 'OnPhotomodeUpdate' );
+		m_phoneActiveId = GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_ComDevice ).RegisterListenerBool( GetAllBlackboardDefs().UI_ComDevice.ContactsActive, this, 'OnPhoneUpdate' );
+	}
+
+	protected event OnPlayerDetach( playerPuppet : GameObject )
+	{
+		m_uiSystemBB.UnregisterListenerBool( m_uiSystemBBDef.IsInMenu, m_uiSystemId );
+		m_blackboard.UnregisterDelayedListener( m_bbDefinition.Popup_IsShown, m_isShownBbId );
+		m_blackboard.UnregisterDelayedListener( m_bbDefinition.Popup_Data, m_dataBbId );
+		GetBlackboardSystem().Get( GetAllBlackboardDefs().PhotoMode ).UnregisterListenerBool( GetAllBlackboardDefs().PhotoMode.IsActive, m_photomodeActiveId );
+		GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_ComDevice ).UnregisterListenerBool( GetAllBlackboardDefs().UI_ComDevice.ContactsActive, m_phoneActiveId );
+	}
+
+	protected event OnMenuUpdate( isInMenu : Bool )
+	{
+		m_isInMenu = isInMenu;
+		SetPhoneMessageVisibility( isInMenu );
+		SetTutorialTokenVisibility( isInMenu );
+		SetShardReadVisibility( isInMenu );
+		ChangeTutorialVisibilityInMenu( isInMenu );
+		if( m_isInMenu )
+		{
+			HideExclusivePopUps();
+		}
+	}
+
+	protected event OnPhotomodeUpdate( isInPhotomode : Bool )
+	{
+		m_isInPhotoMode = isInPhotomode;
+		SetPhoneMessageVisibility( isInPhotomode );
+		SetTutorialTokenVisibility( isInPhotomode );
+		ChangeTutorialVisibility( isInPhotomode, gameuiTutorialHiddenReason.InPhotomode );
+		if( m_isInPhotoMode )
+		{
+			HideExclusivePopUps();
+		}
+	}
+
+	protected event OnPhoneUpdate( isOnPhone : Bool )
+	{
+		m_isOnPhone = isOnPhone;
+		if( m_isOnPhone )
+		{
+			HideExclusivePopUps();
+		}
+	}
+
+	protected event OnUpdateVisibility( value : Bool )
+	{
+		if( !( value ) && m_tutorialToken )
+		{
+			m_tutorialToken.TriggerCallback( NULL );
+		}
+	}
+
+	private function SetPhoneMessageVisibility( hideToken : Bool )
+	{
+		if( hideToken && ( m_phoneMessageToken != NULL ) )
+		{
+			m_phoneMessageOnHold = true;
+			m_phoneMessageToken = NULL;
+			return;
+		}
+		if( ( !( hideToken ) && ( m_phoneMessageToken == NULL ) ) && m_phoneMessageOnHold )
+		{
+			m_phoneMessageOnHold = false;
+			ShowPhoneMessage();
+		}
+	}
+
+	private function SetTutorialTokenVisibility( hideToken : Bool )
+	{
+		if( hideToken )
+		{
+			if( ( m_tutorialToken != NULL ) && m_tutorialSettings.hideInMenu )
+			{
+				m_tutorialOnHold = true;
+				m_tutorialToken = NULL;
+			}
+		}
+		else if( ( m_tutorialToken == NULL ) && m_tutorialOnHold )
+		{
+			m_tutorialOnHold = false;
+			ShowTutorial();
+		}
+	}
+
+	private function HideExclusivePopUps()
+	{
+		if( m_vehicleRadioToken )
+		{
+			m_vehicleRadioToken.TriggerCallback( NULL );
+		}
+		if( m_vehiclesManagerToken )
+		{
+			m_vehiclesManagerToken.TriggerCallback( NULL );
+		}
+		if( m_vehicleVisualCustomizationSelectorToken )
+		{
+			m_vehicleVisualCustomizationSelectorToken.TriggerCallback( m_vehicleColorSelectorData );
+		}
+		if( m_twintoneOverride )
+		{
+			m_twintoneOverride.TriggerCallback( NULL );
+		}
+		if( m_frameSwitcherToken )
+		{
+			m_smartFrameData.shouldApply = false;
+			m_frameSwitcherToken.TriggerCallback( m_smartFrameData );
+		}
+		SendPSMRadialCloseRequest();
+		m_isBlockingPopupOpened = false;
+	}
+
+	private function SendPSMRadialCloseRequest()
+	{
+		var psmEvent : PSMPostponedParameterBool;
+		psmEvent = new PSMPostponedParameterBool;
+		psmEvent.id = 'RadialWheelCloseRequest';
+		psmEvent.value = true;
+		GetPlayerControlledObject().QueueEvent( psmEvent );
+	}
+
+	private function CanShowExclusivePopUp() : Bool
+	{
+		return ( ( !( m_isInMenu ) && !( m_isInPhotoMode ) ) && !( m_isBlockingPopupOpened ) ) && !( m_isOnPhone );
+	}
+
+	private function SetShardReadVisibility( hideToken : Bool )
+	{
+		if( hideToken && ( m_shardToken != NULL ) )
+		{
+			m_shardReadOnHold = true;
+			m_shardToken = NULL;
+			return;
+		}
+		if( ( !( hideToken ) && ( m_shardToken == NULL ) ) && m_shardReadOnHold )
+		{
+			m_shardReadOnHold = false;
+			ShardRead();
+		}
+	}
+
+	protected event OnUpdateData( value : Variant )
+	{
+		m_tutorialOnHold = false;
+		m_tutorialData = ( ( PopupData )value );
+		m_tutorialSettings = ( ( PopupSettings )( m_blackboard.GetVariant( m_bbDefinition.Popup_Settings ) ) );
+		ShowTutorial();
+	}
+
+	protected event OnPopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_tutorialToken = NULL;
+		m_blackboard.SetBool( m_bbDefinition.Popup_IsShown, false );
+	}
+
+	private function ShowTutorial()
+	{
+		var notificationData : TutorialPopupData;
+		notificationData = new TutorialPopupData;
+		notificationData.notificationName = 'base\gameplay\gui\widgets\notifications\tutorial.inkwidget';
+		notificationData.queueName = 'tutorial';
+		notificationData.closeAtInput = m_tutorialSettings.closeAtInput;
+		notificationData.pauseGame = m_tutorialSettings.pauseGame;
+		notificationData.position = m_tutorialSettings.position;
+		notificationData.isModal = m_tutorialSettings.fullscreen;
+		notificationData.margin = m_tutorialSettings.margin;
+		notificationData.title = m_tutorialData.title;
+		notificationData.message = m_tutorialData.message;
+		notificationData.messageOverrideDataList = m_tutorialData.messageOverrideDataList;
+		notificationData.imageId = m_tutorialData.iconID;
+		notificationData.videoType = m_tutorialData.videoType;
+		notificationData.video = PopupData.GetVideo( m_tutorialData );
+		notificationData.isBlocking = m_tutorialSettings.closeAtInput;
+		m_tutorialToken = ShowGameNotification( notificationData );
+		m_tutorialToken.RegisterListener( this, 'OnPopupCloseRequest' );
+	}
+
+	public import function ChangeTutorialVisibilityInMenu( isInMenu : Bool );
+	public import function ChangeTutorialVisibility( hideTutorial : Bool, reason : gameuiTutorialHiddenReason );
+
+	protected event OnExpansionPopupRequest( evt : OpenExpansionPopupEvent )
+	{
+		var uiSystem : UISystem;
+		var isPatchIntroNeeded, isDownloaded : Bool;
+		uiSystem = GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() );
+		isPatchIntroNeeded = uiSystem.IsPatchIntroNeeded( gameuiPatchIntro.Patch2000_EP1 );
+		isDownloaded = evt.m_state == ExpansionStatus.Downloaded;
+		if( !( evt.m_forcibly ) && ( !( isPatchIntroNeeded ) || !( isDownloaded ) ) )
+		{
+			return true;
+		}
+		ShowExpansionPopup( evt.m_state, evt.m_type );
+	}
+
+	public function ShowExpansionPopup( state : ExpansionStatus, type : ExpansionPopupType )
+	{
+		var expansionPopupData : ExpansionPopupData;
+		expansionPopupData = new ExpansionPopupData;
+		expansionPopupData.m_type = type;
+		expansionPopupData.m_state = state;
+		expansionPopupData.isBlocking = true;
+		expansionPopupData.useCursor = true;
+		expansionPopupData.queueName = 'expansion';
+		expansionPopupData.notificationName = 'base\gameplay\gui\fullscreen\dlc\expansion_popup.inkwidget';
+		if( m_activePopUp )
+		{
+			m_popUpQueue.PushBack( expansionPopupData );
+		}
+		else
+		{
+			m_activePopUp = true;
+			m_expansionToken = ShowGameNotification( expansionPopupData );
+			m_expansionToken.RegisterListener( this, 'OnExpansionPopupCloseRequest' );
+		}
+	}
+
+	protected event OnExpansionPopupCloseRequest( data : inkGameNotificationData )
+	{
+		var uiSystem : UISystem;
+		var expansionPopupData : ExpansionPopupData;
+		expansionPopupData = ( ( ExpansionPopupData )( data ) );
+		if( expansionPopupData.m_state == ExpansionStatus.Downloaded )
+		{
+			uiSystem = GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() );
+			uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch2000_EP1 );
+		}
+		m_expansionToken = NULL;
+		m_activePopUp = false;
+		ProcessQueue();
+	}
+
+	protected event OnExpansionErrorPopupRequest( evt : OpenExpansionErrorPopupEvent )
+	{
+		var expansionErrorData : ExpansionErrorPopuppData;
+		expansionErrorData = new ExpansionErrorPopuppData;
+		expansionErrorData.title = evt.m_title;
+		expansionErrorData.description = evt.m_description;
+		expansionErrorData.errorCode = evt.m_errorCode;
+		expansionErrorData.isBlocking = true;
+		expansionErrorData.useCursor = true;
+		expansionErrorData.queueName = 'ExpansionError';
+		expansionErrorData.notificationName = 'base\gameplay\gui\fullscreen\dlc\expansion_error_popup.inkwidget';
+		if( m_activePopUp )
+		{
+			m_popUpQueue.PushBack( expansionErrorData );
+		}
+		else
+		{
+			m_activePopUp = true;
+			m_expansionErrorToken = ShowGameNotification( expansionErrorData );
+			m_expansionErrorToken.RegisterListener( this, 'OnExpansionErrorPopupCloseRequest' );
+		}
+	}
+
+	protected event OnExpansionErrorPopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_expansionErrorToken = NULL;
+		m_activePopUp = false;
+		ProcessQueue();
+	}
+
+	protected event OnPatchNotesPopupRequest( evt : OpenPatchNotesPopupEvent )
+	{
+		ShowPatchNotesPopup();
+	}
+
+	public function ShowPatchNotesPopup()
+	{
+		var patchNotesPopupData : PatchNotesPopupData;
+		patchNotesPopupData = new PatchNotesPopupData;
+		patchNotesPopupData.isBlocking = true;
+		patchNotesPopupData.useCursor = true;
+		patchNotesPopupData.queueName = 'patchnotes';
+		patchNotesPopupData.notificationName = 'base\gameplay\gui\fullscreen\dlc\patch_notes.inkwidget';
+		if( m_activePopUp )
+		{
+			m_popUpQueue.PushBack( patchNotesPopupData );
+		}
+		else
+		{
+			m_activePopUp = true;
+			m_patchNotesToken = ShowGameNotification( patchNotesPopupData );
+			m_patchNotesToken.RegisterListener( this, 'OnPatchNotesPopupCloseRequest' );
+		}
+	}
+
+	protected event OnPatchNotesPopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_patchNotesToken = NULL;
+		m_activePopUp = false;
+		ProcessQueue();
+	}
+
+	protected event OnMarketingConsentPopupRequest( evt : MarketingConsentPopupEvent )
+	{
+		ShowMarketingConsentPopup( evt.m_type );
+	}
+
+	public function ShowMarketingConsentPopup( type : inkMarketingConsentPopupType )
+	{
+		var marketingConsentPopupData : MarketingConsentPopupData;
+		marketingConsentPopupData = new MarketingConsentPopupData;
+		marketingConsentPopupData.m_type = type;
+		marketingConsentPopupData.isBlocking = true;
+		marketingConsentPopupData.useCursor = true;
+		marketingConsentPopupData.queueName = 'marketingConsent';
+		marketingConsentPopupData.notificationName = 'base\gameplay\gui\fullscreen\main_menu\marketing_consent_popup.inkwidget';
+		if( m_activePopUp )
+		{
+			m_popUpQueue.PushBack( marketingConsentPopupData );
+		}
+		else
+		{
+			m_activePopUp = true;
+			m_marketingConsentToken = ShowGameNotification( marketingConsentPopupData );
+			m_marketingConsentToken.RegisterListener( this, 'OnMarketingConsentPopupCloseRequest' );
+		}
+	}
+
+	protected event OnMarketingConsentPopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_marketingConsentToken = NULL;
+		m_activePopUp = false;
+		ProcessQueue();
+	}
+
+	protected event OnSignInPopupRequest( evt : SignInPopupEvent )
+	{
+		ShowSignInPopup();
+	}
+
+	public function ShowSignInPopup()
+	{
+		var signInPopupData : SignInPopupData;
+		signInPopupData = new SignInPopupData;
+		signInPopupData.isBlocking = true;
+		signInPopupData.useCursor = true;
+		signInPopupData.queueName = 'signIn';
+		signInPopupData.notificationName = 'base\gameplay\gui\fullscreen\main_menu\sign_in_popup.inkwidget';
+		if( m_activePopUp )
+		{
+			m_popUpQueue.PushBack( signInPopupData );
+		}
+		else
+		{
+			m_activePopUp = true;
+			m_signInToken = ShowGameNotification( signInPopupData );
+			m_signInToken.RegisterListener( this, 'OnSignInPopupCloseRequest' );
+		}
+	}
+
+	protected event OnSignInPopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_signInToken = NULL;
+		m_activePopUp = false;
+		ProcessQueue();
+	}
+
+	protected event OnCodexPopupRequest( evt : OpenCodexPopupEvent )
+	{
+		var codexPopupData : CodexPopupData;
+		codexPopupData = new CodexPopupData;
+		codexPopupData.m_entry = evt.m_entry;
+		codexPopupData.isBlocking = true;
+		codexPopupData.useCursor = true;
+		codexPopupData.queueName = 'codex';
+		codexPopupData.notificationName = 'base\gameplay\gui\widgets\notifications\codex_popup.inkwidget';
+		m_codexToken = ShowGameNotification( codexPopupData );
+		m_codexToken.RegisterListener( this, 'OnCodexPopupCloseRequest' );
+	}
+
+	protected event OnCodexPopupCloseRequest( data : inkGameNotificationData )
+	{
+		var evt : CodexPopupClosedEvent;
+		evt = new CodexPopupClosedEvent;
+		QueueBroadcastEvent( evt );
+		m_codexToken = NULL;
+	}
+
+	public function ShowPhoneMessage()
+	{
+		m_phoneMessageToken = ShowGameNotification( m_phoneMessageData );
+		m_phoneMessageToken.RegisterListener( this, 'OnMessagePopupUseCloseRequest' );
+	}
+
+	protected event OnPhoneMessageShowRequest( evt : PhoneMessagePopupEvent )
+	{
+		m_phoneMessageData = evt.m_data;
+		ShowPhoneMessage();
+	}
+
+	protected event OnPhoneMessageHideRequest( evt : PhoneMessageHidePopupEvent )
+	{
+		m_phoneMessageToken = NULL;
+	}
+
+	protected event OnMessagePopupUseCloseRequest( data : inkGameNotificationData )
+	{
+		m_phoneMessageToken = NULL;
+	}
+
+	protected event OnShardRead( evt : NotifyShardRead )
+	{
+		m_shardReadData = evt;
+		ShardRead();
+	}
+
+	public function ShardRead()
+	{
+		var notificationData : ShardReadPopupData;
+		notificationData = new ShardReadPopupData;
+		notificationData.notificationName = 'base\gameplay\gui\widgets\notifications\shard_notification.inkwidget';
+		notificationData.queueName = 'shards';
+		notificationData.requiredGameState = 'inkGameState';
+		notificationData.isBlocking = true;
+		notificationData.useCursor = false;
+		notificationData.title = m_shardReadData.title;
+		notificationData.text = m_shardReadData.text;
+		notificationData.isCrypted = m_shardReadData.isCrypted;
+		notificationData.itemID = m_shardReadData.itemID;
+		notificationData.m_imageId = m_shardReadData.m_imageId;
+		m_journalManager.SetEntryVisited( m_shardReadData.entry, true );
+		m_shardToken = ShowGameNotification( notificationData );
+		m_shardToken.RegisterListener( this, 'OnShardReadClosed' );
+		if( notificationData.isCrypted )
+		{
+			ProcessCrackableShardTutorial();
+		}
+	}
+
+	public function ProcessCrackableShardTutorial()
+	{
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetPlayerControlledObject().GetGame() );
+		if( ( questSystem.GetFact( 'encoded_shard_tutorial' ) == 0 ) && ( questSystem.GetFact( 'disable_tutorials' ) == 0 ) )
+		{
+			questSystem.SetFact( 'encoded_shard_tutorial', 1 );
+		}
+	}
+
+	protected event OnShardReadClosed( data : inkGameNotificationData )
+	{
+		m_shardToken = NULL;
+		PlaySound( 'Button', 'OnPress' );
+	}
+
+	protected event OnQuickSlotButtonHoldStartEvent( evt : QuickSlotButtonHoldStartEvent )
+	{
+		switch( evt.dPadItemDirection )
+		{
+			case EDPadSlot.VehicleWheel:
+				SpawnVehiclesManagerPopup();
+			break;
+			case EDPadSlot.VehicleInsideWheel:
+				TrySpawnVehicleRadioPopup();
+			break;
+			case EDPadSlot.PocketRadio:
+				TrySpawnPocketRadioPopup();
+			break;
+			case EDPadSlot.VehicleVisualCustomization:
+				TrySpawnVehicleVisualCustomizationSelectorPopup();
+			break;
+			default:
+				break;
+		}
+	}
+
+	private function SpawnVehiclesManagerPopup()
+	{
+		var data : inkGameNotificationData;
+		if( !( CanShowExclusivePopUp() ) )
+		{
+			return;
+		}
+		m_isBlockingPopupOpened = true;
+		data = new inkGameNotificationData;
+		data.notificationName = 'base\gameplay\gui\widgets\vehicle_control\vehicles_manager.inkwidget';
+		data.queueName = 'VehiclesManager';
+		data.isBlocking = false;
+		m_vehiclesManagerToken = ShowGameNotification( data );
+		m_vehiclesManagerToken.RegisterListener( this, 'OnVehiclesManagerCloseRequest' );
+		m_blackboard.SetBool( m_bbDefinition.Popup_VehiclesManager_IsShown, true );
+	}
+
+	protected event OnVehiclesManagerCloseRequest( data : inkGameNotificationData )
+	{
+		m_vehiclesManagerToken = NULL;
+		m_isBlockingPopupOpened = false;
+		m_blackboard.SetBool( m_bbDefinition.Popup_VehiclesManager_IsShown, false );
+	}
+
+	private function TrySpawnVehicleRadioPopup()
+	{
+		if( m_blackboard.GetBool( m_bbDefinition.Popup_Radio_Enabled ) && !( m_blackboard.GetBool( GetAllBlackboardDefs().UIGameData.Popup_Radio_IsShown ) ) )
+		{
+			SpawnVehicleRadioPopup();
+		}
+		else
+		{
+			ShowActionBlockedNotification();
+		}
+	}
+
+	private function TrySpawnPocketRadioPopup()
+	{
+		if( !( m_blackboard.GetBool( GetAllBlackboardDefs().UIGameData.Popup_Radio_IsShown ) ) )
+		{
+			SpawnVehicleRadioPopup();
+		}
+	}
+
+	private function SpawnVehicleRadioPopup()
+	{
+		var data : inkGameNotificationData;
+		if( !( CanShowExclusivePopUp() ) )
+		{
+			return;
+		}
+		m_isBlockingPopupOpened = true;
+		data = new inkGameNotificationData;
+		data.notificationName = 'base\gameplay\gui\widgets\vehicle_control\vehicles_radio.inkwidget';
+		data.queueName = 'VehiclesRadio';
+		data.isBlocking = false;
+		m_vehicleRadioToken = ShowGameNotification( data );
+		m_vehicleRadioToken.RegisterListener( this, 'OnVehicleRadioCloseRequest' );
+		m_blackboard.SetBool( m_bbDefinition.Popup_Radio_IsShown, true );
+	}
+
+	protected event OnVehicleRadioCloseRequest( data : inkGameNotificationData )
+	{
+		m_vehicleRadioToken = NULL;
+		m_isBlockingPopupOpened = false;
+		m_blackboard.SetBool( m_bbDefinition.Popup_Radio_IsShown, false );
+	}
+
+	private function TrySpawnVehicleVisualCustomizationSelectorPopup()
+	{
+		if( !( m_blackboard.GetBool( GetAllBlackboardDefs().UIGameData.Popup_CarColorPicker_IsShown ) ) )
+		{
+			SpawnVehicleVisualCustomizationSelectorPopup();
+		}
+	}
+
+	private function SpawnVehicleVisualCustomizationSelectorPopup()
+	{
+		if( !( CanShowExclusivePopUp() ) )
+		{
+			return;
+		}
+		m_isBlockingPopupOpened = true;
+		m_vehicleColorSelectorData = new inkGameNotificationData;
+		m_vehicleColorSelectorData.notificationName = 'base\gameplay\gui\widgets\notifications\vehicle_visual_customization.inkwidget';
+		m_vehicleColorSelectorData.queueName = 'VehicleVisualCustomization';
+		m_vehicleColorSelectorData.isBlocking = true;
+		m_vehicleColorSelectorData.useCursor = true;
+		m_vehicleVisualCustomizationSelectorToken = ShowGameNotification( m_vehicleColorSelectorData );
+		m_vehicleVisualCustomizationSelectorToken.RegisterListener( this, 'OnVehicleVisualCustomizationCloseRequest' );
+		m_blackboard.SetBool( m_bbDefinition.Popup_CarColorPicker_IsShown, true );
+	}
+
+	protected event OnVehicleVisualCustomizationCloseRequest( data : inkGameNotificationData )
+	{
+		m_vehicleVisualCustomizationSelectorToken = NULL;
+		m_isBlockingPopupOpened = false;
+		m_blackboard.SetBool( m_bbDefinition.Popup_CarColorPicker_IsShown, false );
+	}
+
+	protected event OnFrameSwitcherEvent( evt : FrameSwitcherEvent )
+	{
+		if( !( CanShowExclusivePopUp() ) )
+		{
+			return false;
+		}
+		m_isBlockingPopupOpened = true;
+		m_smartFrameData = new inkFrameNotificationData;
+		m_smartFrameData.notificationName = 'base\gameplay\devices\frames\base\frame_switcher.inkwidget';
+		m_smartFrameData.queueName = 'FrameSwitcher';
+		m_smartFrameData.isBlocking = true;
+		m_smartFrameData.useCursor = true;
+		m_smartFrameData.frame = evt.frame;
+		m_smartFrameData.hash = evt.hash;
+		m_smartFrameData.index = evt.index;
+		m_smartFrameData.uv = evt.uv;
+		m_smartFrameData.shouldApply = false;
+		m_frameSwitcherToken = ShowGameNotification( m_smartFrameData );
+		m_frameSwitcherToken.RegisterListener( this, 'OnFrameSwitcherCloseRequest' );
+		m_uiSystem.PushGameContext( UIGameContext.QuickHack );
+	}
+
+	protected event OnFrameSwitcherCloseRequest( data : inkFrameNotificationData )
+	{
+		m_frameSwitcherToken = NULL;
+		if( data == NULL )
+		{
+			NotifyFrameCancel( m_smartFrameData );
+		}
+		else if( data.shouldApply )
+		{
+			NotifyFrameSwitch( data );
+		}
+		else
+		{
+			NotifyFrameCancel( data );
+		}
+		m_smartFrameData = NULL;
+		m_isBlockingPopupOpened = false;
+		m_uiSystem.PopGameContext( UIGameContext.QuickHack );
+	}
+
+	private function NotifyFrameSwitch( data : inkFrameNotificationData )
+	{
+		var evt : FrameSwitch;
+		evt = new FrameSwitch;
+		evt.hash = data.hash;
+		evt.index = data.index;
+		evt.uv = data.uv;
+		data.frame.QueueEvent( evt );
+	}
+
+	private function NotifyFrameCancel( data : inkFrameNotificationData )
+	{
+		var evt : FrameCancel;
+		evt = new FrameCancel;
+		data.frame.QueueEvent( evt );
+	}
+
+	private function ShowActionBlockedNotification()
+	{
+		var uiSystem : UISystem;
+		var notificationEvent : UIInGameNotificationEvent;
+		notificationEvent = new UIInGameNotificationEvent;
+		notificationEvent.m_notificationType = UIInGameNotificationType.CombatRestriction;
+		uiSystem = GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() );
+		if( uiSystem )
+		{
+			uiSystem.QueueEvent( new UIInGameNotificationRemoveEvent );
+			uiSystem.QueueEvent( notificationEvent );
+		}
+	}
+
+	protected event OnSpawnPonRRewardsScreen( evt : ShowPointOfNoReturnPromptEvent )
+	{
+		var notificationData : inkGameNotificationData;
+		notificationData = new inkGameNotificationData;
+		notificationData.notificationName = 'base\gameplay\gui\widgets\ponr\ponr_rewards.inkwidget';
+		notificationData.queueName = 'PonR';
+		notificationData.isBlocking = true;
+		notificationData.useCursor = true;
+		m_ponrToken = ShowGameNotification( notificationData );
+		m_ponrToken.RegisterListener( this, 'OnClosePonRRewardsScreen' );
+	}
+
+	protected event OnClosePonRRewardsScreen( data : inkGameNotificationData )
+	{
+		m_ponrToken = NULL;
+	}
+
+	protected event OnSpawnTwintoneOverride( evt : ShowTwintoneOverrideEvent )
+	{
+		var notificationData : TwintoneOverrideData;
+		if( !( CanShowExclusivePopUp() ) )
+		{
+			return false;
+		}
+		m_isBlockingPopupOpened = true;
+		notificationData = new TwintoneOverrideData;
+		notificationData.notificationName = 'base\gameplay\gui\widgets\scanning\twintone\twintoneoverride.inkwidget';
+		notificationData.queueName = 'twintoneOverride';
+		notificationData.isBlocking = true;
+		notificationData.useCursor = false;
+		notificationData.template = evt.template;
+		notificationData.modelName = evt.modelName;
+		m_twintoneOverride = ShowGameNotification( notificationData );
+		m_twintoneOverride.RegisterListener( this, 'OnCloseTwintoneOverrideScreen' );
+	}
+
+	protected event OnCloseTwintoneOverrideScreen( data : inkGameNotificationData )
+	{
+		var notifData : TwintoneOverrideData;
+		var evt : OnTwintoneOverrideClosedEvent;
+		notifData = ( ( TwintoneOverrideData )( data ) );
+		evt = new OnTwintoneOverrideClosedEvent;
+		evt.template = notifData.template;
+		evt.modelName = notifData.modelName;
+		m_twintoneOverride = NULL;
+		m_isBlockingPopupOpened = false;
+		m_blackboard.SetBool( m_bbDefinition.Popup_TwintoneOverride_IsShown, false );
+		GetPlayerControlledObject().QueueEvent( evt );
+	}
+
+	protected event OnAdditionalContentInstallationRequestResult( id : CName, success : Bool )
+	{
+		if( success )
+		{
+			ShowExpansionStatePopupRequest( ExpansionStatus.Owned );
+		}
+	}
+
+	protected event OnAdditionalContentInstallationResult( id : CName, success : Bool )
+	{
+		if( success )
+		{
+			if( !( GetSystemRequestsHandler().IsPreGame() ) )
+			{
+				GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() ).ResetPatchIntro( gameuiPatchIntro.Patch2000_EP1 );
+				ShowExpansionStateGameNotificationRequest( ExpansionStatus.Downloaded );
+			}
+			else
+			{
+				ShowExpansionStatePopupRequest( ExpansionStatus.Reloading );
+			}
+		}
+	}
+
+	protected event OnAdditionalContentDataReloadProgress( progress : Float )
+	{
+		if( progress >= 1.0 )
+		{
+			m_expansionStateToken = NULL;
+		}
+	}
+
+	public function ShowExpansionStatePopupRequest( state : ExpansionStatus )
+	{
+		var expansionPopupData : ExpansionPopupData;
+		if( !( IsFinal() ) )
+		{
+			expansionPopupData = new ExpansionPopupData;
+			expansionPopupData.m_state = state;
+			expansionPopupData.isBlocking = false;
+			expansionPopupData.useCursor = false;
+			expansionPopupData.queueName = 'ExpansionStatePopup';
+			expansionPopupData.notificationName = 'base\gameplay\gui\fullscreen\dlc\expansion_state_popup.inkwidget';
+			m_expansionStateToken = ShowGameNotification( expansionPopupData );
+			m_expansionStateToken.RegisterListener( this, 'OnExpansionStatePopupCloseRequest' );
+		}
+	}
+
+	protected event OnExpansionStatePopupCloseRequest( data : inkGameNotificationData )
+	{
+		m_expansionStateToken = NULL;
+	}
+
+	public function ShowExpansionStateGameNotificationRequest( state : ExpansionStatus )
+	{
+		var notificationEvent : UIInGameNotificationEvent;
+		if( state == ExpansionStatus.Downloaded )
+		{
+			notificationEvent = new UIInGameNotificationEvent;
+			notificationEvent.m_notificationType = UIInGameNotificationType.ExpansionInstalled;
+			notificationEvent.m_overrideCurrentNotification = false;
+			GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() ).QueueEvent( notificationEvent );
+		}
+	}
+
+	public function ProcessQueue()
+	{
+		var nextItemData : inkGameNotificationData;
+		if( m_popUpQueue.Size() > 0 )
+		{
+			nextItemData = m_popUpQueue.PopBack();
+			if( nextItemData.queueName == 'marketingConsent' )
+			{
+				m_marketingConsentToken = ShowGameNotification( ( ( MarketingConsentPopupData )( nextItemData ) ) );
+				m_marketingConsentToken.RegisterListener( this, 'OnMarketingConsentPopupCloseRequest' );
+			}
+			else if( nextItemData.queueName == 'signIn' )
+			{
+				m_signInToken = ShowGameNotification( ( ( SignInPopupData )( nextItemData ) ) );
+				m_signInToken.RegisterListener( this, 'OnSignInPopupCloseRequest' );
+			}
+			else if( nextItemData.queueName == 'expansion' )
+			{
+				m_expansionToken = ShowGameNotification( ( ( ExpansionPopupData )( nextItemData ) ) );
+				m_expansionToken.RegisterListener( this, 'OnExpansionPopupCloseRequest' );
+			}
+			else if( nextItemData.queueName == 'ExpansionError' )
+			{
+				m_expansionErrorToken = ShowGameNotification( ( ( ExpansionErrorPopuppData )( nextItemData ) ) );
+				m_expansionErrorToken.RegisterListener( this, 'OnExpansionErrorPopupCloseRequest' );
+			}
+			else if( nextItemData.queueName == 'patchnotes' )
+			{
+				m_patchNotesToken = ShowGameNotification( ( ( PatchNotesPopupData )( nextItemData ) ) );
+				m_patchNotesToken.RegisterListener( this, 'OnPatchNotesPopupCloseRequest' );
+			}
+		}
+	}
+
+}
+

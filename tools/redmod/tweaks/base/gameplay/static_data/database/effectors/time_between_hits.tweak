@@ -1,0 +1,263 @@
+package Effectors
+using RTDB, Prereqs, Perks
+
+SprintTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "Perks.IsPlayerSprinting";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+DivingTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = 
+	{
+		stateName = "Diving";
+		isInState = true;
+	} : SwimmingPSMPrereq;
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+CrouchTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "NewPerks.IsPlayerCrouchingOrCrouchSprintingPrereq";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 0.5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+VehicleTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "Prereqs.IsInVehiclePrereq";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+LowHealthTBHIncrease : ApplyStatusEffectEffector
+{
+	prereqRecord = 
+	{
+		valueToCheck = 
+		[
+			{
+				statType = "BaseStats.Health";
+				modifierType = "Additive";
+				value = 40.0f;
+			} : ConstantStatModifier
+		];
+		CName statPoolType = "Health";
+		CName comparisonType = "Less";
+		bool skipOnApply = true;
+	} : StatPoolPrereq;
+	statusEffect = "Effectors.LowHealthTBH";
+}
+
+CriticalHealthTBHIncrease : ApplyStatusEffectEffector
+{
+	prereqRecord = 
+	{
+		valueToCheck = 
+		[
+			{
+				statType = "BaseStats.Health";
+				modifierType = "Additive";
+				value = 20.0f;
+			} : ConstantStatModifier
+		];
+		CName statPoolType = "Health";
+		CName comparisonType = "Less";
+		bool skipOnApply = true;
+	} : StatPoolPrereq;
+	statusEffect = "Effectors.CriticalHealthTBH";
+}
+
+DodgingTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "Perks.IsPlayerDodging";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SlidingTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "Perks.IsPlayerSliding";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 1.5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+VaultingTBHIncrease : ApplyStatGroupEffector
+{
+	prereqRecord = "Perks.IsPlayerVaulting";
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.TBHsBaseCoefficient";
+				modifierType = "AdditiveMultiplier";
+				value = 1.5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+HitReactionTBHIncrease : ApplyEffectorEffector
+{
+	prereqRecord = 
+	{
+		statusEffect = "BaseStatusEffect.HitReactionTBHCooldown";
+	} : StatusEffectAbsentPrereq;
+	effectorToApply = 
+	{
+		prereqRecord = "Prereqs.ProcessHitReceived";
+		statusEffect = 
+		{
+			duration = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxDuration";
+						modifierType = "Additive";
+						value = 0.3;
+					} : ConstantStatModifier
+				];
+			};
+			packages = 
+			[
+				{
+					stats = 
+					[
+						{
+							statType = "BaseStats.Accuracy";
+							modifierType = "Multiplier";
+							value = 0.000001;
+						} : ConstantStatModifier
+					];
+					effectors = 
+					[
+						"Effectors.HitReactionTBHCooldown"
+					];
+				}
+			];
+		} : StatusEffect;
+		removeWithEffector = false;
+	} : ApplyStatusEffectEffector;
+}
+
+HitReactionTBHCooldown : ApplyStatusEffectEffector
+{
+	statusEffect = "BaseStatusEffect.HitReactionTBHCooldown";
+	removeWithEffector = false;
+}
+
+LowHealthTBH : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1.5;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.TBHsBaseCoefficient";
+					modifierType = "Multiplier";
+					value = 6;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+CriticalHealthTBH : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2.5;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.TBHsBaseCoefficient";
+					modifierType = "Multiplier";
+					value = 6;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+

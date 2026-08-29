@@ -1,0 +1,1216 @@
+package Proficiencies
+using RTDB, Prereqs, Effectors, BaseStats, Perks
+
+StrengthSkillPassive : CurveStatModifier
+{
+	id = "strength_skill_passives";
+	refStat = "BaseStats.StrengthSkill";
+	refObject = "Player";
+}
+
+ReflexesSkillPassive : CurveStatModifier
+{
+	id = "reflexes_skill_passives";
+	refStat = "BaseStats.ReflexesSkill";
+	refObject = "Player";
+}
+
+IntelligenceSkillPassive : CurveStatModifier
+{
+	id = "intelligence_skill_passives";
+	refStat = "BaseStats.IntelligenceSkill";
+	refObject = "Player";
+}
+
+TechnicalAbilitySkillPassive : CurveStatModifier
+{
+	id = "technical_ability_skill_passives";
+	refStat = "BaseStats.TechnicalAbilitySkill";
+	refObject = "Player";
+}
+
+CoolSkillPassive : CurveStatModifier
+{
+	id = "cool_skill_passives";
+	refStat = "BaseStats.CoolSkill";
+	refObject = "Player";
+}
+
+StreetCredPassive : CurveStatModifier
+{
+	id = "player_level_up_curve";
+	refStat = "BaseStats.StreetCred";
+	refObject = "Player";
+}
+
+Player_StrengthSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			column = "body_skill_to_health";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.CarryCapacity";
+			modifierType = "Additive";
+			column = "body_skill_to_carry_capacity";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.HealthRegainOnKill";
+			modifierType = "AdditiveMultiplier";
+			column = "body_skill_to_finisher_healing";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.OvershieldDecayRate";
+			modifierType = "AdditiveMultiplier";
+			column = "body_skill_to_overshield_decay";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.OvershieldDecayStartThreshold";
+			modifierType = "Additive";
+			column = "body_skill_to_overshield_start_threshold";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.BerserkChargesDecayRateMult";
+			modifierType = "Additive";
+			column = "body_skill_to_berserk_duration_mult";
+		} : StrengthSkillPassive
+	];
+}
+
+Weapon_StrengthSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.AttackSpeed";
+			modifierType = "AdditiveMultiplier";
+			column = "body_skill_to_fists_as_dmg";
+		} : StrengthSkillPassive, 
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "AdditiveMultiplier";
+			column = "body_skill_to_fists_as_dmg";
+		} : StrengthSkillPassive
+	];
+}
+
+Fists_StrengthSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.BleedingApplicationRate";
+			modifierType = "Additive";
+			id = "random_distributions";
+			column = "quality_to_debuff_application_rate_on_fists";
+			refStat = "BaseStats.Quality";
+			refObject = "Self";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.BleedingApplicationRate";
+			modifierType = "Multiplier";
+			refStat = "BaseStats.CanFistsCauseBleeding";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CanFistsCauseBleeding";
+			modifierType = "Additive";
+			column = "body_skill_to_fists_bleeding";
+		} : StrengthSkillPassive
+	];
+}
+
+Player_ReflexesSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxSpeed";
+			modifierType = "AdditiveMultiplier";
+			column = "reflexes_skill_to_max_speed";
+		} : ReflexesSkillPassive, 
+		{
+			statType = "BaseStats.DodgeStaminaCostReduction";
+			modifierType = "Additive";
+			column = "reflexes_skill_to_dash_stamina_costs";
+		} : ReflexesSkillPassive
+	];
+}
+
+Player_IntelligenceSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Memory";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_memory";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.MemoryRegenRateMult";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_memory_regen";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.DeviceMemoryCostReductionMult";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_device_quickhack_costs";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.DurationBonusOverclock";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_overclock_duration";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.OverclockedStateHealthCost";
+			modifierType = "AdditiveMultiplier";
+			column = "intelligence_skill_to_overclock_health_drain";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.DurationBonusControlQuickhack";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_control_quickhack_duration";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.DurationBonusCovertQuickhack";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_covert_quickhack_duration";
+		} : IntelligenceSkillPassive, 
+		{
+			statType = "BaseStats.QuickhackDamageBonusMultiplier";
+			modifierType = "Additive";
+			column = "intelligence_skill_to_quickhack_damage";
+		} : IntelligenceSkillPassive
+	];
+}
+
+Player_TechnicalAbilitySkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Armor";
+			modifierType = "Additive";
+			column = "tech_ability_skill_to_armor";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.Humanity";
+			modifierType = "Additive";
+			column = "tech_ability_skill_to_humanity";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.GrenadeExplosionBonusRange";
+			modifierType = "Additive";
+			column = "tech_ability_skill_to_grenade_dmg_range";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.GrenadeExplosionBonusDamage";
+			modifierType = "Additive";
+			column = "tech_ability_skill_to_grenade_dmg_range";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.InhalerBaseHealing";
+			modifierType = "AdditiveMultiplier";
+			column = "tech_ability_skill_to_healing_items_effect";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.InjectorBaseHealing";
+			modifierType = "AdditiveMultiplier";
+			column = "tech_ability_skill_to_healing_items_effect";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+			modifierType = "AdditiveMultiplier";
+			column = "tech_ability_skill_to_healing_items_effect";
+		} : TechnicalAbilitySkillPassive, 
+		{
+			statType = "BaseStats.SecondaryModifiersAdditiveMultiplier";
+			modifierType = "Additive";
+			column = "tech_ability_skill_to_cw_randon_mods_boost";
+		} : TechnicalAbilitySkillPassive
+	];
+}
+
+Player_CoolSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			column = "cool_skill_to_visibility";
+		} : CoolSkillPassive, 
+		{
+			statType = "BaseStats.ExtendedStealthDuration";
+			modifierType = "Additive";
+			column = "cool_skill_to_extended_stealth_duration";
+		} : CoolSkillPassive
+	];
+}
+
+Player_StreetCred_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.VendorBuyPriceDiscount";
+			modifierType = "Additive";
+			column = "street_cred_to_vendor_discount";
+		} : StreetCredPassive
+	];
+}
+
+Weapon_CoolSkill_Passives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThrowRecovery";
+			modifierType = "AdditiveMultiplier";
+			column = "cool_skill_to_throwables_return";
+		} : CoolSkillPassive
+	];
+}
+
+Cool_10 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					statType = "CoolSkill";
+					valueToCheck = 30;
+					comparisonType = "Less";
+				} : StatPrereq, 
+				{
+					nestedPrereqs = 
+					[
+						{
+							conditions += 
+							[
+								{
+									hitFlag = "Headshot";
+									onlyOncePerShot = true;
+								} : HitFlagHitPrereqCondition
+							];
+						} : ProcessHitTriggeredAllowProjection, 
+						{
+							conditions += 
+							[
+								{
+									hitFlag = "BreachHit";
+									onlyOncePerShot = true;
+								} : HitFlagHitPrereqCondition
+							];
+						} : ProcessHitTriggeredAllowProjection
+					];
+				} : ORPrereq
+			];
+		} : ANDPrereq;
+		value = 1.1;
+	} : MultiplyDamage;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91046";
+		intValues = 
+		[
+			10
+		];
+	};
+}
+
+Cool_20 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					stateName = "Stealth";
+				} : CombatPSMPrereq, 
+				{
+					stateName = "Crouch";
+				} : DetailedLocomotionPSMPrereq
+			];
+		} : ORPrereq;
+		statGroup = 
+		{
+			statModifiers = 
+			[
+				{
+					statType = "BaseStats.SwaySideMaximumAngleDistance";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.SwaySideMinimumAngleDistance";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier
+			];
+		};
+	} : ApplyStatGroupOnWeapon;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91041";
+	};
+}
+
+Cool_30 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					conditions += 
+					[
+						{
+							hitFlag = "Headshot";
+							onlyOncePerShot = true;
+						} : HitFlagHitPrereqCondition
+					];
+				} : ProcessHitTriggeredAllowProjection, 
+				{
+					conditions += 
+					[
+						{
+							hitFlag = "BreachHit";
+							onlyOncePerShot = true;
+						} : HitFlagHitPrereqCondition
+					];
+				} : ProcessHitTriggeredAllowProjection
+			];
+		} : ORPrereq;
+		value = 1.25;
+	} : MultiplyDamage;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91046";
+		intValues = 
+		[
+			15
+		];
+	};
+}
+
+Cool_40 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				"Perks.IsPlayerGrappling", {
+					statusEffect = "BaseStatusEffect.OpticalCamo_Cool_40_Cooldown";
+				} : StatusEffectAbsentPrereq, 
+				{
+					statPoolType = "OpticalCamoCharges";
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.OpticalCamoCharges";
+							modifierType = "Additive";
+							value = 10.0f;
+						} : ConstantStatModifier
+					];
+					comparisonType = "GreaterOrEqual";
+					comparePercentage = true;
+				} : StatPoolPrereq, 
+				{
+					statType = "OpticalCamoRechargeDuration";
+					valueToCheck = 0;
+					comparisonType = "Greater";
+				} : StatPrereq, 
+				{
+					statType = "OpticalCamoIsActive";
+					valueToCheck = 0;
+					comparisonType = "Equal";
+				} : StatPrereq
+			];
+		} : ANDPrereq;
+		statusEffect = "BaseStatusEffect.OpticalCamo_Cool_40";
+		removeWithEffector = true;
+	} : ApplyStatusEffectOnPlayer;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91542";
+	};
+}
+
+Cool_50 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = "NewPerks.IsPlayerCrouchingOrCrouchSprintingPrereq";
+		statGroup = 
+		{
+			statModifiers = 
+			[
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "AdditiveMultiplier";
+					value = 0.3;
+				} : ConstantStatModifier
+			];
+		};
+	} : ApplyStatGroupOnPlayer;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91557";
+		intValues = 
+		[
+			30
+		];
+	};
+}
+
+Cool_55 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.PlayerJustEnteredCombat";
+				} : StatusEffectPrereq, 
+				{
+					CName itemTag = "Hitman_Nova";
+					inverted = true;
+				} : WeaponHeldByTagPrereq
+			];
+		} : ANDPrereq;
+		statusEffect = "BaseStatusEffect.Cool_55_ExtendedStealth_Buff";
+	} : ApplyStatusEffectOnPlayer;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91923";
+		intValues = 
+		[
+			3
+		];
+	};
+}
+
+Cool_60 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					conditions += 
+					[
+						{
+							hitFlag = "StealthHit";
+						} : HitFlagHitPrereqCondition
+					];
+				} : IsTargetKilled, 
+				{
+					conditions += 
+					[
+						{
+							attackType = "Thrown";
+						} : AttackTypeHitPrereqCondition, 
+						{
+							hitFlag = "StealthHit";
+							invert = true;
+						} : HitFlagHitPrereqCondition
+					];
+				} : IsTargetKilled, 
+				{
+					nestedPrereqs = 
+					[
+						{
+							nestedPrereqs = 
+							[
+								{
+									statusEffect = "BaseStatusEffect.FocusedCoolPerkSE";
+									checkType = "CheckType.Record";
+								} : StatusEffectPrereq, 
+								{
+									tagToCheck = "DeadeyeSE";
+									checkType = "CheckType.Tag";
+								} : StatusEffectPrereq
+							];
+						} : ORPrereq, 
+						{
+							conditions += 
+							[
+								{
+									attackType = "QuickMelee";
+									invert = true;
+								} : AttackTypeHitPrereqCondition, 
+								{
+									weaponType = "Ranged";
+								} : WeaponTypeHitPrereqCondition, 
+								{
+									hitFlag = "StealthHit";
+									invert = true;
+								} : HitFlagHitPrereqCondition
+							];
+						} : IsTargetKilled
+					];
+				} : ANDPrereq
+			];
+		} : ORPrereq;
+		statPoolUpdates = 
+		[
+			{
+				statPoolType = "BaseStatPools.OpticalCamoCharges";
+				statPoolValue = 15;
+			} : StatPoolUpdate
+		];
+		bool usePercent = true;
+	} : ModifyStatPoolValueEffector;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91558";
+		intValues = 
+		[
+			15
+		];
+	};
+}
+
+Intelligence_20 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = "Prereqs.SmartWeaponHeldPrereq";
+		statGroup = 
+		{
+			statModifiers = 
+			[
+				{
+					statType = "BaseStats.EffectiveRange";
+					modifierType = "AdditiveMultiplier";
+					column = "intelligence_skill_to_smart_weapons";
+				} : IntelligenceSkillPassive
+			];
+		};
+	} : ApplyStatGroupOnWeapon;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91039";
+		intValues = 
+		[
+			20
+		];
+	};
+}
+
+Intelligence_45 : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		loc_name_key = "LocKey#92031";
+		intValues = 
+		[
+			15, 5
+		];
+	};
+}
+
+Strength_40 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				{
+					conditions += 
+					[
+						{
+							distanceRequired = 5.0f;
+							comparisonType = "LessOrEqual";
+						} : DistanceCoveredHitPrereqCondition
+					];
+				} : IsWeaponMelee, 
+				{
+					conditions += 
+					[
+						{
+							distanceRequired = 5.0f;
+							comparisonType = "LessOrEqual";
+						} : DistanceCoveredHitPrereqCondition
+					];
+				} : IsWeaponRanged
+			];
+		} : ORPrereq;
+		critChance = 
+		[
+			{
+				statType = "BaseStats.CritChance";
+				modifierType = "Additive";
+				value = 0.1f;
+			} : ConstantStatModifier
+		];
+	} : ModifyAttackCritChanceEffector;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91223";
+		intValues = 
+		[
+			10, 5
+		];
+	};
+}
+
+Strength_45 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				"Perks.IsHitStrongAttack", "Perks.IsHitQuickMelee"
+			];
+		} : ORPrereq;
+		value = 1.25;
+	} : MultiplyDamage;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91224";
+		intValues = 
+		[
+			25
+		];
+	};
+}
+
+Reflexes_20 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = "Perks.IsPlayerDodging";
+		statusEffect = "BaseStatusEffect.Reflexes_20_Accuracy_Buff";
+	} : ApplyStatusEffectOnPlayer;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91036";
+	};
+}
+
+Reflexes_40 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = "Perks.IsPlayerInMotion";
+		statGroup = 
+		{
+			statModifiers = 
+			[
+				{
+					statType = "BaseStats.MitigationChance";
+					modifierType = "Additive";
+					refStat = "BaseStats.MaxSpeed";
+					opSymbol = "*";
+					value = 2f;
+				} : CombinedStatModifier
+			];
+		};
+	} : ApplyStatGroupOnPlayer;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91771";
+	};
+}
+
+Reflexes_45 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = "Perks.IsHitComboAttack";
+		value = 1.25;
+	} : MultiplyDamage;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91236";
+		intValues = 
+		[
+			25
+		];
+	};
+}
+
+Reflexes_50 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				"Prereqs.RangedWeaponHeldPrereq", {
+					nestedPrereqs = 
+					[
+						"Perks.IsPlayerAirDashing", "Perks.IsPlayerSliding"
+					];
+				} : ORPrereq
+			];
+		} : ANDPrereq;
+		effectorClassName = "CeaselessLeadAmmoEffector";
+		float percentToRefund = 0.2f;
+	} : Effector;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91255";
+		intValues = 
+		[
+			20
+		];
+	};
+}
+
+Reflexes_55 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				"Perks.IsPlayerInAir", {
+					checkType = "CheckType.Tag";
+					tagToCheck = "TDEffect";
+					invert = false;
+				} : StatusEffectPrereq
+			];
+		} : ORPrereq;
+		statGroup = 
+		{
+			statModifiers = 
+			[
+				{
+					statType = "BaseStats.SpreadDefaultX";
+					modifierType = "Multiplier";
+					column = "stamina_ratio_to_spread_mult";
+					refStat = "BaseStats.StaminaRatio";
+				} : ReflexesSkillPassive, 
+				{
+					statType = "BaseStats.SpreadAdsDefaultX";
+					modifierType = "Multiplier";
+					column = "stamina_ratio_to_spread_mult";
+					refStat = "BaseStats.StaminaRatio";
+				} : ReflexesSkillPassive, 
+				{
+					statType = "BaseStats.SpreadDefaultY";
+					modifierType = "Multiplier";
+					column = "stamina_ratio_to_spread_mult";
+					refStat = "BaseStats.StaminaRatio";
+				} : ReflexesSkillPassive, 
+				{
+					statType = "BaseStats.SpreadAdsDefaultY";
+					modifierType = "Multiplier";
+					column = "stamina_ratio_to_spread_mult";
+					refStat = "BaseStats.StaminaRatio";
+				} : ReflexesSkillPassive, 
+				{
+					statType = "BaseStats.BulletMagnetismDefaultAngle";
+					modifierType = "Multiplier";
+					value = 1.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.BulletMagnetismHighVelocityAngle";
+					modifierType = "Multiplier";
+					value = 1.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanIgnoreWeaponStaminaPenaties";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier
+			];
+		};
+	} : ApplyStatGroupOnWeapon;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91271";
+	};
+}
+
+TechAbility_40 : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		prereqRecord = 
+		{
+			nestedPrereqs = 
+			[
+				"Prereqs.TechWeaponHeldPrereq", {
+					CName itemTag = "Baton";
+				} : WeaponHeldByTagPrereq
+			];
+		} : ORPrereq;
+	} : WeaponChargeRatioCalculatorEffector;
+	uiData = 
+	{
+		loc_name_key = "LocKey#91748";
+	};
+}
+
+GenericMaxSkillBonus : PassiveProficiencyBonus
+{
+	uiData = "Proficiencies.GenericMaxSkillBonusUIData";
+}
+
+AddOnePerkPoint : PassiveProficiencyBonus
+{
+	effectorToTrigger = "Proficiencies.AddPerkPoint";
+	uiData = "Proficiencies.GenericSkillAddPerkPointUIData";
+}
+
+AddOneSpyPerkPoint : PassiveProficiencyBonus
+{
+	effectorToTrigger = "Proficiencies.AddSpyPerkPoint";
+	uiData = "";
+}
+
+AddPerkPoint : AddDevelopmentPointEffector
+{
+	amountOfPoints = 1;
+	pointsType = "Primary";
+}
+
+AddSpyPerkPoint : AddDevelopmentPointEffector
+{
+	amountOfPoints = 1;
+	pointsType = "Espionage";
+}
+
+GenericSkillAddPerkPointUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49579";
+	intValues = 
+	[
+		1
+	];
+}
+
+GenericMaxSkillBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53123";
+}
+
+GenericAddStatUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49582";
+	intValues = 
+	[
+		1
+	];
+}
+
+GenericMultStatUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49617";
+}
+
+GenericStatDecreaseUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#51254";
+}
+
+GunslingerWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49580";
+}
+
+GunslingerPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49581";
+}
+
+AssaultWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49584";
+}
+
+AssaultPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49583";
+}
+
+CraftingPlayerDecreaseBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53235";
+}
+
+CraftingPlayerIncreaseBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53234";
+}
+
+CraftingUncommonRecipesBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53236";
+}
+
+CraftingRareRecipesBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53237";
+}
+
+CraftingEpicRecipesBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53238";
+}
+
+CraftingIconicRecipesBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53239";
+}
+
+DemolitionWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49586";
+}
+
+DemolitionPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49585";
+}
+
+KenjutsuWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49615";
+}
+
+KenjutsuPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49616";
+}
+
+KenjutsuPlayerBonusPercentageUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53125";
+}
+
+BrawlingWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49608";
+}
+
+BrawlingPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49608";
+}
+
+AthleticsPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49617";
+}
+
+AthleticsPlayerNoPercentageBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#53241";
+}
+
+ColdBloodPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49617";
+}
+
+AssassinationPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49617";
+}
+
+EngineeringWeaponBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49618";
+}
+
+EngineeringPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49619";
+}
+
+HackingPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+	loc_name_key = "LocKey#49617";
+}
+
+CustomPlayerBonusUIData : PassiveProficiencyBonusUIData
+{
+}
+
+AddOneMemory : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			"BaseStats.Memory"
+		];
+	} : GenericAddStatUIData;
+}
+
+AddTwoMemory : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			"BaseStats.Memory"
+		];
+		intValues = 
+		[
+			2
+		];
+	} : GenericAddStatUIData;
+}
+
+AddOneIntelligence : PassiveProficiencyBonus
+{
+	effectorToTrigger = 
+	{
+		attributeType = "Intelligence";
+	} : Effectors.BuyAttributeEffector;
+	uiData = 
+	{
+		stats = 
+		[
+			"BaseStats.Intelligence"
+		];
+	} : GenericAddStatUIData;
+}
+
+AddMemoryRegen : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#51253";
+			} : BaseStats.MemoryRegenRate
+		];
+		intValues = 
+		[
+			5
+		];
+	} : GenericMultStatUIData;
+}
+
+AddQuickHacksCooldownReduction : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#51255";
+			} : BaseStats.QuickhacksCooldownReduction
+		];
+		intValues = 
+		[
+			5
+		];
+	} : GenericStatDecreaseUIData;
+}
+
+AddQuickHacksDurationBonus : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#52722";
+			} : BaseStats.QuickHackDuration
+		];
+		intValues = 
+		[
+			5
+		];
+	} : GenericMultStatUIData;
+}
+
+AddMinigameTimer : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#51560";
+			} : BaseStats.MinigameTimeLimitExtension
+		];
+		intValues = 
+		[
+			5
+		];
+	} : GenericMultStatUIData;
+}
+
+AddMaterialsEarned : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#51644";
+			} : BaseStats.MinigameMaterialsEarned
+		];
+		intValues = 
+		[
+			10
+		];
+	} : GenericMultStatUIData;
+}
+
+AddBufferSize : PassiveProficiencyBonus
+{
+	uiData = 
+	{
+		stats = 
+		[
+			{
+				localizedName = "LocKey#51631";
+			} : BaseStats.MinigameBufferExtension
+		];
+		intValues = 
+		[
+			1
+		];
+	} : GenericAddStatUIData;
+}
+
+CraftingSkillUncommonRecipesBonus : AddItemsEffector
+{
+}
+
+CraftingSkillRareRecipesBonus : AddItemsEffector
+{
+}
+
+CraftingSkillEpicRecipesBonus : AddItemsEffector
+{
+}
+
+CraftingSkillIconicRecipesBonus : AddItemsEffector
+{
+}
+

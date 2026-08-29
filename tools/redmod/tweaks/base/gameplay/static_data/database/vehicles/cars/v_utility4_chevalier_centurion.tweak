@@ -1,0 +1,1100 @@
+package Vehicle
+using RTDB, BaseStats, Driving, Camera
+
+v_utility4_chevalier_centurion : Vehicle_4w_Default
+{
+	entityTemplatePath = "ep1\vehicles\utility\v_utility4_chevalier_centurion__basic_01.ent";
+	visualTags = 
+	[
+		"Standard"
+	];
+	manufacturer = "Vehicle.Chevillon";
+	randomPassengers = 
+	[
+		"Passengers.WorkerSpecialistDriverEntry", "Passengers.WorkerSpecialistPassengerFrontEntry"
+	];
+	displayName = "LocKey#94011";
+	vehicleUIData = "Vehicle.VehicleChevalierCenturionUIData";
+	twintoneModelName = "chevalier.centurion";
+	appearancesToColorTemplate = "Vehicle.VehicleChevalierCenturionAppearancesToColorTemplate";
+	destroyedAppearance = "chevalier_centurion_basic_dumptruck_01_burnt";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_AllTerrain_L";
+	fxWheelsDecals = "Vehicle.FxWheels_AllTerrain_M_x2";
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/bratsk/bratsk_stylesheet_regular.inkstyle";
+	model = "Vehicle.Bratsk";
+	string hijackDifficulty = "MEDIUM";
+	string crackLockDifficulty = "MEDIUM";
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.VeryDurable"
+	];
+	enableDestruction = false;
+	destruction = "Vehicle.VehicleDestructionParamsCenturion";
+	tags += 
+	[
+		"DisableChargePortDestruction"
+	];
+	player_audio_resource = "v_car_chevalier_centurion";
+	traffic_audio_resource = "v_car_chevalier_centurion_traffic";
+	vehDataPackage = 
+	{
+		entering = 1.9f;
+		exiting = 1.9f;
+		animVars = 
+		[
+			"sport2_vehicle_seat_front_left", "sport2_vehicle_seat_front_right"
+		];
+	} : Vehicle.VehicleDataPackageUtility4;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.58f;
+			rimRadius = 0.38f;
+			tireWidth = 0.36f;
+			wheelOffset = 0.30f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.58f;
+			rimRadius = 0.39f;
+			tireWidth = 0.59f;
+			wheelOffset = 0.23f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 7000.0f;
+		chassis_mass = 7000.0f;
+		center_of_mass_offset = ( 0.0f, 0.1f, 0.2f );
+		momentOfInertia = ( 27150.0f, 5870.0f, 28300.0f );
+		wheelTurnMaxSubPerSecond = 70.f;
+		turnUpdateMaxSpeedTurnChangeMul = 1.4f;
+		turnUpdateMaxSpeedTurnMul = 0.25f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				frictionMulLateral = 0.78f;
+				frictionMulLongitudinal = 0.8f;
+				springStiffness = 140.0f;
+				springDamping = 13000;
+				visualSuspensionDroop = 0.10f;
+				wheelsVerticalOffset = 0.0f;
+			} : VehicleWheelPreset_Utility;
+			backPreset = 
+			{
+				frictionMulLateral = 1.07f;
+				maxBrakingTorque = 500.0f;
+				springStiffness = 110.0f;
+				springDamping = 10000;
+				visualSuspensionDroop = 0.11f;
+				wheelsVerticalOffset = 0.0f;
+			} : VehicleWheelPreset_Utility;
+		} : VehicleWheelDrivingSetup_4_AWD;
+	} : VehicleDriveModelData_Utility_Big;
+	vehEngineData = 
+	{
+		finalGearTorqueDecimationScalor = 0.7f;
+	} : VehicleEngineData_4_Utility_Big;
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_v_utility4_centurion_High_Close", "Camera.VehicleTPP_v_utility4_centurion_High_Medium", "Camera.VehicleTPP_v_utility4_centurion_High_Far", "Camera.VehicleTPP_v_utility4_centurion_High_DriverCombatClose", "Camera.VehicleTPP_v_utility4_centurion_High_DriverCombatMedium", "Camera.VehicleTPP_v_utility4_centurion_High_DriverCombatFar", "Camera.VehicleTPP_v_utility4_centurion_Low_Close", "Camera.VehicleTPP_v_utility4_centurion_Low_Medium", "Camera.VehicleTPP_v_utility4_centurion_Low_Far", "Camera.VehicleTPP_v_utility4_centurion_Low_DriverCombatClose", "Camera.VehicleTPP_v_utility4_centurion_Low_DriverCombatMedium", "Camera.VehicleTPP_v_utility4_centurion_Low_DriverCombatFar"
+	];
+	vehDriver_FPPCameraParams = 
+	{
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.1045, 2.0184 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		float lookat_yaw_left_offset = 0.6f;
+		float lookat_yaw_left_up_offset = 0.1f;
+		float lookat_yaw_right_offset = 0.6f;
+		float lookat_yaw_right_up_offset = 0.1f;
+		float lookat_offset_vertical = 0.065f;
+		float is_forward_offset = 1.0f;
+		float forward_offset_value = 0.0f;
+	} : VehicleDriverCombatFPPCameraParamsDefault;
+	crowdMemberSettings = "Crowds.Truck_DrivingPackage";
+	trafficSuspension = "Vehicle.TrafficSuspension_Utility";
+	weapons = 
+	[
+		"Vehicle.Vehicle_Power_Weapon_Left_A", "Vehicle.Vehicle_Power_Weapon_Right_A"
+	];
+}
+
+v_utility4_chevalier_centurion_flatbed : v_utility4_chevalier_centurion
+{
+	entityTemplatePath = "ep1\vehicles\utility\v_utility4_chevalier_centurion__flatbed_01.ent";
+	destroyedAppearance = "chevalier_centurion_basic_flatbed_01_burnt";
+	displayName = "LocKey#94010";
+	vehicleUIData = 
+	{
+		mass = 6620.0f;
+	} : VehicleChevalierCenturionUIData;
+}
+
+v_utility4_chevalier_centurion_poor : v_utility4_chevalier_centurion
+{
+	visualTags = 
+	[
+		"Poor"
+	];
+	randomPassengers = 
+	[
+		"Passengers.WorkerSpecialistDriverEntry", "Passengers.WorkerSpecialistPassengerFrontEntry"
+	];
+}
+
+v_utility4_chevalier_centurion_cargo : v_utility4_chevalier_centurion
+{
+	visualTags = 
+	[
+		"Occasional"
+	];
+	randomPassengers = 
+	[
+		"Passengers.WorkerSpecialistDriverEntry", "Passengers.WorkerSpecialistPassengerFrontEntry"
+	];
+	entityTemplatePath = "ep1\vehicles\utility\v_utility4_chevalier_centurion__cargo_01.ent";
+	destroyedAppearance = "chevalier_centurion_basic_dumptruck_01_burnt";
+}
+
+v_utility4_chevalier_centurion_flatbed_poor : v_utility4_chevalier_centurion_flatbed
+{
+	visualTags = 
+	[
+		"Common", "Poor"
+	];
+	randomPassengers = 
+	[
+		"Passengers.WorkerSpecialistDriverEntry", "Passengers.WorkerSpecialistPassengerFrontEntry"
+	];
+}
+
+[ EP1 ]
+v_utility4_chevalier_centurion_poor_dogtown : v_utility4_chevalier_centurion
+{
+	visualTags = 
+	[
+		"Poor"
+	];
+	[ EP1 ]
+	randomPassengers = 
+	[
+		"Passengers.EP1StacksWorkerDriverEntry", "Passengers.EP1StacksWorkerPassengerFrontEntry"
+	];
+}
+
+[ EP1 ]
+v_utility4_chevalier_centurion_cargo_dogtown : v_utility4_chevalier_centurion
+{
+	visualTags = 
+	[
+		"Occasional"
+	];
+	[ EP1 ]
+	randomPassengers = 
+	[
+		"Passengers.EP1StacksWorkerDriverEntry", "Passengers.EP1StacksWorkerPassengerFrontEntry"
+	];
+}
+
+[ EP1 ]
+v_utility4_chevalier_centurion_flatbed_poor_dogtown : v_utility4_chevalier_centurion_flatbed
+{
+	visualTags = 
+	[
+		"Common", "Poor"
+	];
+	[ EP1 ]
+	randomPassengers = 
+	[
+		"Passengers.EP1StacksWorkerDriverEntry", "Passengers.EP1StacksWorkerPassengerFrontEntry"
+	];
+}
+
+[ EP1 ]
+v_utility4_chevalier_legatus_basic : v_utility4_chevalier_centurion
+{
+	entityTemplatePath = "base\vehicles\utility\v_utility4_chevalier_legatus_basic_01.ent";
+	appearanceName = "chevalier_legatus_basic_legatus_01";
+	destroyedAppearance = "chevalier_legatus_basic_burnt_01";
+	vehDataPackage = 
+	{
+		entering = 1.9f;
+		exiting = 1.9f;
+		animVars = 
+		[
+			"sport2_vehicle_seat_front_left", "sport2_vehicle_seat_front_right"
+		];
+	} : Vehicle.VehicleDataPackageUtility4;
+}
+
+v_utility4_chevalier_legatus_aquila_basic : v_utility4_chevalier_centurion
+{
+	entityTemplatePath = "base\vehicles\utility\v_utility4_chevalier_legatus_basic_01.ent";
+	appearanceName = "chevalier_legatus_basic_legatus_aquila_01";
+	destroyedAppearance = "chevalier_legatus_basic_burnt_aquila_01";
+	vehicleUIData = "Vehicle.VehicleChevalierLegatusUIData";
+	fk< UIIcon > icon = "UIIcon.chevalier_legatus_aquila";
+	displayName = "LocKey#96429";
+	vehDataPackage = 
+	{
+		driverCombat = "DriverCombatTypes.MountedWeapons";
+		entering = 1.9f;
+		exiting = 1.9f;
+		animVars = 
+		[
+			"sport2_vehicle_seat_front_left", "sport2_vehicle_seat_front_right"
+		];
+	} : Vehicle.VehicleDataPackageUtility4;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.58f;
+			rimRadius = 0.38f;
+			tireWidth = 0.36f;
+			wheelOffset = 0.30f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.58f;
+			rimRadius = 0.39f;
+			tireWidth = 0.59f;
+			wheelOffset = 0.23f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		float lookat_offset_vertical = 0.065f;
+		float is_forward_offset = 1.0f;
+		float forward_offset_value = 0.0f;
+	} : VehicleDriverFPPCameraParamsDefault;
+}
+
+VehicleDestructionParamsCenturion : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 2.3f, 7.0f, 0.9f );
+	gridLocalOffset = ( 0.0f, 0.0f, 1.3f );
+	chargePortCenter = ( -1.32849407f, -0.110689163f, 0.412152171f );
+	glass = 
+	[
+		{
+			component = "window_f";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				6, 7, 12, 13, 14, 15
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_fr";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl";
+			effect = "damage_glass_bl_01";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br";
+			effect = "damage_glass_br";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_b";
+			effect = "damage_glass_b";
+			gridCells = 
+			[
+				10, 11, 12, 13
+			];
+			threshold = 0.1;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7, 14, 15
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"hood_a", "hood_a_shadow", "hood_graffiti"
+			];
+		}, 
+		{
+			name = "MirrorLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.09;
+			components = 
+			[
+				"mirror_l", "mirror_l_shadow"
+			];
+		}, 
+		{
+			name = "MirrorRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.09;
+			components = 
+			[
+				"mirror_fr", "mirror_fr_shadow"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"bumper_f_01", "bumper_f_shadow", "license_plate_front", "bumper_f_graffiti"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"bumper_b_01", "bumper_b_shadow", "license_plate_back"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fl_a", "door_fl_shadow", "window_fl", "door_fl_graffiti"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fr_a", "door_fr_shadow", "window_fr", "door_fr_graffiti"
+			];
+		}, 
+		{
+			name = "DoorBackLeft";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_bl_a", "door_bl_shadow", "door_bl_b", "window_bl", "door_bl_graffiti"
+			];
+		}, 
+		{
+			name = "DoorBackRight";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_br_a", "door_br_shadow", "door_br_b", "window_br", "door_br_graffiti"
+			];
+		}, 
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.65;
+			components = 
+			[
+				"trunk_01", "trunk_01_shadow"
+			];
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			hitsToFlatten = 3;
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			hitsToFlatten = 3;
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			hitsToFlatten = 4;
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			hitsToFlatten = 4;
+		}, 
+		{
+			name = "BackRight2";
+			intact = "tire_01_br_b";
+			linkedTire = 2;
+			hitsToFlatten = 4;
+		}, 
+		{
+			name = "BackLeft2";
+			intact = "tire_01_bl_b";
+			linkedTire = 3;
+			hitsToFlatten = 4;
+		}
+	];
+	lights = 
+	[
+		{
+			component = "break_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right__01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "bumper_light_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_02";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}
+	];
+}
+
+VehicleChevalierCenturionUIData : VehicleDefaultUIData
+{
+	productionYear = "2020-2057";
+	driveLayout = "LocKey#45372";
+	horsepower = 1000.0f;
+	mass = 7000.0f;
+	info = "LocKey#94012";
+}
+
+VehicleChevalierLegatusUIData : VehicleDefaultUIData
+{
+	productionYear = "2072-2076";
+	driveLayout = "LocKey#45372";
+	horsepower = 1000.0f;
+	mass = 7100.0f;
+	info = "LocKey#96432";
+}
+
+VehicleChevalierCenturionAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_01"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_01"
+			];
+			mainColor = 
+			[
+				89, 101, 96
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_02"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_02"
+			];
+			mainColor = 
+			[
+				94, 63, 65
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_03"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_03"
+			];
+			mainColor = 
+			[
+				124, 119, 116
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_04"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_04"
+			];
+			mainColor = 
+			[
+				146, 119, 83
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_05"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_05"
+			];
+			mainColor = 
+			[
+				95, 101, 116
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_poor_06"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_poor_06"
+			];
+			mainColor = 
+			[
+				68, 56, 64
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_suburban_01"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_suburban_01"
+			];
+			mainColor = 
+			[
+				63, 60, 63
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_suburban_02"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_suburban_02"
+			];
+			mainColor = 
+			[
+				54, 64, 95
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_suburban_03"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_suburban_03"
+			];
+			mainColor = 
+			[
+				43, 55, 114
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_suburban_04"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_suburban_04"
+			];
+			mainColor = 
+			[
+				118, 42, 70
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_suburban_05"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_suburban_05"
+			];
+			mainColor = 
+			[
+				73, 84, 71
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_cargo_01"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_cargo_01"
+			];
+			mainColor = 
+			[
+				59, 60, 56
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_cargo_02"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_cargo_02"
+			];
+			mainColor = 
+			[
+				72, 69, 76
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_cargo_03"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_cargo_03"
+			];
+			mainColor = 
+			[
+				65, 63, 63
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_dumptruck_cargo_04"
+			];
+			matchingColorVariant = 
+			[
+				"dumptruck_cargo_04"
+			];
+			mainColor = 
+			[
+				56, 52, 55
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_01"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_01"
+			];
+			mainColor = 
+			[
+				89, 101, 96
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_02"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_02"
+			];
+			mainColor = 
+			[
+				94, 63, 65
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_03"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_03"
+			];
+			mainColor = 
+			[
+				124, 119, 116
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_04"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_04"
+			];
+			mainColor = 
+			[
+				146, 119, 83
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_05"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_05"
+			];
+			mainColor = 
+			[
+				95, 101, 116
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_poor_06"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_poor_06"
+			];
+			mainColor = 
+			[
+				68, 56, 64
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_suburban_01"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_suburban_01"
+			];
+			mainColor = 
+			[
+				63, 60, 63
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_suburban_02"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_suburban_02"
+			];
+			mainColor = 
+			[
+				54, 64, 95
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_suburban_03"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_suburban_03"
+			];
+			mainColor = 
+			[
+				43, 55, 114
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_suburban_04"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_suburban_04"
+			];
+			mainColor = 
+			[
+				118, 42, 70
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_centurion_basic_flatbed_suburban_05"
+			];
+			matchingColorVariant = 
+			[
+				"flatbed_suburban_05"
+			];
+			mainColor = 
+			[
+				73, 84, 71
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate
+	];
+}
+

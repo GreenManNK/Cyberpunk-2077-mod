@@ -1,0 +1,66 @@
+importonly class IPlayerHandicapSystem extends ScriptableSystem
+{
+}
+
+class PlayerHandicapSystem extends IPlayerHandicapSystem
+{
+	private var m_canDropHealingConsumable : Bool;
+	default m_canDropHealingConsumable = true;
+	private var m_canDropAmmo : Bool;
+	default m_canDropAmmo = true;
+
+	public static function GetInstance( owner : weak< GameObject > ) : PlayerHandicapSystem
+	{
+		var PHS : PlayerHandicapSystem;
+		PHS = ( ( PlayerHandicapSystem )( GameInstance.GetScriptableSystemsContainer( owner.GetGame() ).Get( 'PlayerHandicapSystem' ) ) );
+		return PHS;
+	}
+
+	public const function CanDropHealingConsumable() : Bool
+	{
+		return m_canDropHealingConsumable;
+	}
+
+	private function OnBlockHealingConsumableDrop( request : BlockHealingConsumableDrop )
+	{
+		var delay : Float;
+		var newRequest : UnblockHealingConsumableDrop;
+		if( m_canDropHealingConsumable )
+		{
+			newRequest = new UnblockHealingConsumableDrop;
+			delay = TDB.GetFloat( T"GlobalStats.DelayOnDroppingSupportiveConsumable.value", 30.0 );
+			GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PlayerHandicapSystem', newRequest, delay, true );
+		}
+		m_canDropHealingConsumable = false;
+	}
+
+	private function OnUnblockHealingConsumableDrop( request : UnblockHealingConsumableDrop )
+	{
+		m_canDropHealingConsumable = true;
+	}
+
+	public export const function CanDropAmmo() : Bool
+	{
+		return m_canDropAmmo;
+	}
+
+	private function OnBlockAmmoDrop( request : BlockAmmoDrop )
+	{
+		var delay : Float;
+		var unblockRequest : UnblockAmmoDrop;
+		if( m_canDropAmmo )
+		{
+			delay = TDB.GetFloat( T"GlobalStats.DelayOnDroppingHandicapAmmo.value", 30.0 );
+			unblockRequest = new UnblockAmmoDrop;
+			GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PlayerHandicapSystem', unblockRequest, delay, true );
+		}
+		m_canDropAmmo = false;
+	}
+
+	private function OnUnblockAmmoDrop( request : UnblockAmmoDrop )
+	{
+		m_canDropAmmo = true;
+	}
+
+}
+

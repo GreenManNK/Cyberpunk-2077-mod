@@ -1,0 +1,1 @@
+* Deprecated, use modules to add characters

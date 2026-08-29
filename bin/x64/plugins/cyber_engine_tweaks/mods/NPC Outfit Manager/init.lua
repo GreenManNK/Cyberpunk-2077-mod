@@ -2,9 +2,49 @@
 -- MOD: NPC Outfit Manager (CET Overlay Edition) - EVOLVING WARDROBE
 -- ============================================================================
 
+local Cron = require("External/Cron.lua")
+
 local modName = "NPC Outfit Manager"
 local jsonFileName = "npc_outfits.json"
 local looksJsonFileName = "npc_saved_looks.json"
+
+local refitsJsonFileName = "archive_contents_database.json"
+local refitsDatabase = {}
+
+-- === NOVAS VARIÁVEIS PARA O SISTEMA DE SAVE DE REFITS ===
+local savedRefitsFileName = "npc_saved_refits.json"
+local savedRefits = {} -- Estrutura: savedRefits[NPC_Hash][ItemName] = MeshPath
+local isRefitViewerWindowOpen = false
+local hasMouseEnteredRefitViewer = false
+-- ========================================================
+
+-- === NOVAS VARIÁVEIS PARA O SISTEMA DE CHANGE BODY TYPE ===
+local baseGamePathsFileName = "base_game_paths.json"
+local favoriteBodyTypesFileName = "npc_favorite_body_types.json"
+local isBodyTypeWindowOpen = false
+local hasMouseEnteredBodyType = false
+
+local bodyTypeMeshesList = {}        -- Guarda os .mesh que começam/contêm "t0_"
+local savedFavoriteBodyTypes = {}    -- Guarda as meshes favoritas
+local activeBodyTypes = {}           -- Guarda o corpo ativo por NPC: activeBodyTypes[targetHash] = meshPath
+isModdedMap = {}
+-- ==========================================================
+
+-- === NOVAS VARIÁVEIS PARA O SISTEMA DE HAIRS ===
+local isHairSpawnerWindowOpen = false
+local hasMouseEnteredHairSpawner = false
+local favoriteHairsFileName = "npc_favorite_hairs.json"
+local savedFavoriteHairs = {}
+local hairMeshesList = {} -- Vai guardar apenas os .mesh com "hair"
+-- ===============================================
+
+local hiddenRefits = {}       -- NEW: Stores the visual state of the Refit Hide/Show button
+
+-- State control for the new Refits system
+local refitDropdownOpen = {}  -- Stores if the expanded dropdown is open per slot
+local currentRefitIndex = {}  -- Stores the current rotation index for left click
+local activeRefits = {}       -- NEW: Stores the currently applied refit mesh path per slot
+local assignedMeshes = {}     -- FIXED: Tracks component assignments to prevent slot overlapping/hijacking
 
 -- Global Wardrobe: { ["Head"] = {"Item1", "Item2"}, ["Torso"] = {"Item3"}, ["_FAVORITES_"] = {["Items.X"] = true} }
 local savedOutfits = {}
@@ -14,22 +54,26 @@ local isMainWindowOpen = false
 local isCustomizeWindowOpen = false
 local isResetConfirmWindowOpen = false
 
--- ============================================================================
 -- State Variables for New Features (Audio & Anims)
--- ============================================================================
-local isSoundEnabled = true     -- Controla se o áudio está ativo
-local isAnimPlaying = false     -- Controla se o loop de animação está ativo
-local animTimer = 0.0           -- Temporizador de 30 segundos
+local isSoundEnabled = true     -- Controls if audio is active
+local isAnimPlaying = false     -- Controls if the animation loop is active
+local animTimer = 0.0           -- 30-second timer
 
 -- State Variables for New Features
 local filterFavoritesOnly = false
-local globalSearchOpen = false        -- NOVO: Controla se a barra global está aberta
-local globalSearchQuery = ""          -- NOVO: Guarda o texto pesquisado globalmente
-local justToggledGlobalSearch = false -- NOVO: Evita que a barra feche mal cliques no botão
-local hiddenSlots = {}   -- Memoriza quais os slots ocultos (Eye icon)
-local lockedSlots = {}   -- Memoriza quais os slots bloqueados (Lock icon)
-local isSearching = {}   -- Memoriza quais os slots com a barra de pesquisa aberta
-local searchQueries = {} -- Guarda o texto digitado na pesquisa de cada slot
+local globalSearchOpen = false        -- Controls if the global search bar is open
+local globalSearchQuery = ""          -- Stores the globally searched text
+local justToggledGlobalSearch = false -- Prevents the bar from closing immediately when clicking the button
+local hiddenSlots = {}   -- Remembers hidden slots (Eye icon)
+local lockedSlots = {}   -- Remembers locked slots (Lock icon)
+local isSearching = {}   -- Remembers slots with search bar open
+local searchQueries = {} -- Stores the text typed in each slot's search bar
+
+-- State Variables for Body Hide Window
+local isBodyHideWindowOpen = false
+local hasMouseEnteredBodyHide = false
+local customizeWindowPos = { x = 0, y = 0 }
+local customizeWindowSize = { x = 0, y = 0 }
 
 -- Current rotation string mapping per NPC and per Slot
 local currentSelections = {}
@@ -50,6 +94,18 @@ local function CopySelections(orig)
     end
     return copy
 end
+
+-- State Variables for Body Hide Window
+local bodyPartStates = {} -- Remembers the state (hidden = true/false) per NPC and body part
+local bodyPartPrefixes = {
+    Head = {"h0_", "h1_", "hx_", "he_", "ht_"},
+    Hair = {"hh_"},
+    Torso = {"t0_", "t1_", "t2_"},
+    Arms = {"a0_", "a1_"},
+    Hands = {"g0_", "g1_", "g2_"},
+    Legs = {"l0_", "l1_", "l2_", "p0_", "p1_"},
+    Feet = {"s0_", "s1_", "f0_", "f1_"}
+}
 
 -- List of all organized slots (Complete: Base Game + Equipment EX)
 local allSlots = {
@@ -124,6 +180,44 @@ local allSlots = {
 -- JSON Database Persistence Functions
 -- ============================================================================
 
+local function LoadSavedRefits()
+    local file = io.open(savedRefitsFileName, "r")
+    if file then
+        local content = file:read("*a")
+        savedRefits = json.decode(content) or {}
+        file:close()
+    else
+        savedRefits = {}
+    end
+end
+
+local function SaveSavedRefits()
+    local file = io.open(savedRefitsFileName, "w")
+    if file then
+        file:write(json.encode(savedRefits))
+        file:close()
+    end
+end
+
+local function LoadFavoriteHairs()
+    local file = io.open(favoriteHairsFileName, "r")
+    if file then
+        local content = file:read("*a")
+        savedFavoriteHairs = json.decode(content) or {}
+        file:close()
+    else
+        savedFavoriteHairs = {}
+    end
+end
+
+local function SaveFavoriteHairs()
+    local file = io.open(favoriteHairsFileName, "w")
+    if file then
+        file:write(json.encode(savedFavoriteHairs))
+        file:close()
+    end
+end
+
 local function LoadOutfits()
     local file = io.open(jsonFileName, "r")
     if file then
@@ -131,7 +225,6 @@ local function LoadOutfits()
         savedOutfits = json.decode(content) or {}
         file:close()
         
-        -- Automatic migration se necessário...
         local needsMigration = false
         for k, v in pairs(savedOutfits) do
             if tonumber(k) ~= nil then 
@@ -162,7 +255,6 @@ local function LoadOutfits()
         savedOutfits = {}
     end
     
-    -- Limpar legado se existir para não ocupar espaço
     if savedOutfits["_SAVED_LOOKS_"] then savedOutfits["_SAVED_LOOKS_"] = nil end
     if not savedOutfits["_FAVORITES_"] then savedOutfits["_FAVORITES_"] = {} end
 end
@@ -192,7 +284,350 @@ local function ResetJSON()
     print("[" .. modName .. "] JSON database cleared successfully.")
 end
 
--- ADICIONA ESTAS DUAS FUNÇÕES NOVAS AQUI
+local function SanitizeMeshPath(path)
+    if not path then return "" end
+    local clean = path:gsub("\\\\", "\\")
+    return clean
+end
+
+local function LoadRefitsDatabase()
+    local file = io.open(refitsJsonFileName, "r")
+    if not file then
+        print("[NPC Outfit Manager] WARNING: " .. refitsJsonFileName .. " não encontrado.")
+        return
+    end
+
+    refitsDatabase = {}
+    hairMeshesList = {} -- Limpa a lista de cabelos
+    
+    for line in file:lines() do
+        for path in line:gmatch('"([%w\\_%.%-]+%.[mesh|bin]+)"') do
+            local cleanPath = SanitizeMeshPath(path)
+            
+            -- VERIFICAÇÃO NOVA: Ignorar ficheiros terminados em .mi
+            if not string.find(string.lower(cleanPath), "%.mi$") then
+                
+                table.insert(refitsDatabase, cleanPath)
+                
+                local lowerPath = string.lower(cleanPath)
+                
+                -- Filtra apenas os que contêm "hair" e ignora os que contêm "shadow"
+                if string.find(lowerPath, "hair") and not string.find(lowerPath, "shadow") then
+                    table.insert(hairMeshesList, cleanPath)
+                end
+                
+                -- === BUSCAR CORPOS MODDADOS (t0_ e p0_) ===
+				if string.find(lowerPath, "%.mesh$") then
+					local filename = cleanPath:match("[^/\\]+$") or cleanPath
+					local lowerFilename = string.lower(filename)
+					
+					if string.sub(lowerFilename, 1, 3) == "t0_" or string.find(lowerFilename, "t0_") or
+					   string.sub(lowerFilename, 1, 3) == "p0_" or string.find(lowerFilename, "p0_") then
+					   
+						-- NOVO: Verifica se a mesh já existe na lista antes de a adicionar
+						local exists = false
+						for _, existingMesh in ipairs(bodyTypeMeshesList) do
+							if existingMesh == cleanPath then
+								exists = true
+								break
+							end
+						end
+						
+						if not exists then
+							table.insert(bodyTypeMeshesList, cleanPath)
+						end
+						
+						isModdedMap[cleanPath] = true -- <--- NOVO: Marca este caminho como mod!
+						
+					end
+				end
+				-- =================================================
+                
+            end
+        end
+    end
+    file:close()
+    
+    print("[NPC Outfit Manager] Database carregada: " .. #refitsDatabase .. " itens encontrados.")
+    print("[NPC Outfit Manager] Hairs carregados: " .. #hairMeshesList)
+end
+
+local function LoadFavoriteBodyTypes()
+    local file = io.open(favoriteBodyTypesFileName, "r")
+    if file then
+        local content = file:read("*a")
+        savedFavoriteBodyTypes = json.decode(content) or {}
+        file:close()
+    else
+        savedFavoriteBodyTypes = {}
+    end
+end
+
+local function SaveFavoriteBodyTypes()
+    local file = io.open(favoriteBodyTypesFileName, "w")
+    if file then
+        file:write(json.encode(savedFavoriteBodyTypes))
+        file:close()
+    end
+end
+
+local function LoadBaseGameBodyTypes()
+    local file = io.open(baseGamePathsFileName, "r")
+    if not file then
+        print("[" .. modName .. "] WARNING: " .. baseGamePathsFileName .. " não encontrado.")
+        return
+    end
+
+    bodyTypeMeshesList = {}
+    local content = file:read("*a")
+    file:close()
+
+    local decoded = json.decode(content)
+    if type(decoded) == "table" then
+        for _, item in ipairs(decoded) do
+            -- CORREÇÃO 1: Vai buscar a string dependendo se é objeto JSON ou string direta
+            local rawPath = type(item) == "table" and item.mesh_path or item
+            
+            if rawPath and type(rawPath) == "string" then
+                local cleanPath = SanitizeMeshPath(rawPath)
+                local filename = cleanPath:match("[^/\\]+$") or cleanPath
+                
+                -- Filtra ficheiros .mesh
+                if string.find(string.lower(cleanPath), "%.mesh$") then
+                    local lowerFilename = string.lower(filename)
+                    
+                    -- CORREÇÃO 2: Aceita ficheiros que comecem ou contenham "t0_" OU "p0_"
+					if string.sub(lowerFilename, 1, 3) == "t0_" or string.find(lowerFilename, "t0_") or
+					   string.sub(lowerFilename, 1, 3) == "p0_" or string.find(lowerFilename, "p0_") then
+						
+						-- NOVO: Verificação de duplicados
+						local exists = false
+						for _, existingMesh in ipairs(bodyTypeMeshesList) do
+							if existingMesh == cleanPath then
+								exists = true
+								break
+							end
+						end
+						
+						if not exists then
+							table.insert(bodyTypeMeshesList, cleanPath)
+						end
+					end
+				end	
+            end
+        end
+    else
+        -- Fallback de leitura por Regex caso o JSON esteja quebrado/formato diferente
+        for path in content:gmatch('"([%w\\_%.%-]+%.mesh)"') do
+            local cleanPath = SanitizeMeshPath(path)
+            local filename = cleanPath:match("[^/\\]+$") or cleanPath
+            local lowerFilename = string.lower(filename)
+            
+            -- CORREÇÃO 2 no fallback também ("t0_" ou "p0_")
+			if string.sub(lowerFilename, 1, 3) == "t0_" or string.find(lowerFilename, "t0_") or
+			   string.sub(lowerFilename, 1, 3) == "p0_" or string.find(lowerFilename, "p0_") then
+				
+				-- NOVO: Verificação de duplicados
+				local exists = false
+				for _, existingMesh in ipairs(bodyTypeMeshesList) do
+					if existingMesh == cleanPath then
+						exists = true
+						break
+					end
+				end
+				
+				if not exists then
+					table.insert(bodyTypeMeshesList, cleanPath)
+				end
+			end
+		end		
+    end
+
+    print("[" .. modName .. "] Body Types carregados (t0_ e p0_): " .. #bodyTypeMeshesList)
+end
+
+-- ============================================================================
+-- ALGORITHM: Focuses on filename and dynamically calculates required match
+-- ============================================================================
+local function GetMatchingMeshes(itemName)
+    if not itemName or itemName == "Empty/Remove" then return {} end
+    
+    local words = {}
+    local cleanStr = itemName:gsub("Items%.", ""):lower()
+    
+    for word in cleanStr:gmatch("%w+") do
+        -- Ignores "mesh" and ensures it only accepts words with 3+ letters
+        if word ~= "mesh" and #word >= 3 then 
+            table.insert(words, word)
+        end
+    end
+    
+    if #words == 0 then return {} end
+    
+    local matches = {}
+    
+    for _, path in ipairs(refitsDatabase) do
+        -- Extracts only the filename (after the last slash / or \)
+        local filename = path:match("[^/\\]+$") or path
+        local filenameLower = filename:lower()
+        local score = 0
+        
+        for _, word in ipairs(words) do
+            -- Looks for the word only inside the filename
+            if string.find(filenameLower, word, 1, true) then
+                score = score + 1
+            end
+        end
+        
+        -- FIX: Changed from hardcoded '3' to '2'. 
+        -- This allows items with color suffixes (like "_yellow") that don't exist 
+        -- in the pure .mesh filename to still pass the validation test.
+        if score >= 2 then
+            table.insert(matches, { path = path, score = score })
+        end
+    end
+    
+    -- Sorts to show the best matches first
+    table.sort(matches, function(a, b)
+        if a.score ~= b.score then
+            return a.score > b.score
+        end
+        return a.path < b.path
+    end)
+    
+    return matches
+end
+
+-- ============================================================================
+-- FIXED: Smart calculation function to lock slots to unique mesh components
+-- ============================================================================
+local function GetTargetMeshForSlot(target, slotInfo, currentItemName)
+    if not target then return nil end
+    local targetHash = tostring(target:GetRecordID())
+    if not assignedMeshes[targetHash] then assignedMeshes[targetHash] = {} end
+    
+    -- Clear previous tracking data for this specific slot
+    for compName, slotId in pairs(assignedMeshes[targetHash]) do
+        if slotId == slotInfo.id then
+            assignedMeshes[targetHash][compName] = nil
+        end
+    end
+    
+    local components = target:GetComponents()
+    local bestComp = nil
+    local maxScore = -999
+    
+    local function GetWords(str)
+        local words = {}
+        for w in string.gmatch(string.lower(str or ""), "%w+") do
+            if #w >= 3 and w ~= "items" and w ~= "mesh" and w ~= "outfitslots" and w ~= "attachmentslots" then
+                words[w] = true
+            end
+        end
+        return words
+    end
+    
+    local itemWords = GetWords(currentItemName)
+    local slotWords = GetWords(slotInfo.name)
+    
+    for _, comp in ipairs(components) do
+        local compClassName = NameToString(comp:GetClassName())
+        local compName = string.lower(NameToString(comp.name))
+        
+        -- =========================================================
+        -- NOVA LÓGICA: Verifica se é cabelo vs roupa
+        -- =========================================================
+        local isHair = string.find(string.lower(slotInfo.name or ""), "hair") or string.find(string.lower(currentItemName or ""), "hair")
+        local isValidClass = false
+        
+        if isHair then
+            -- REGRA DO CABELO: Apenas malhas estáticas, sem físicas
+            isValidClass = string.find(compClassName, "Mesh") and not string.find(compClassName, "SkinnedCloth") and not string.find(compClassName, "Physical")
+        else
+            -- REGRA DA ROUPA: Aceita Mesh, SkinnedCloth e Physical livremente
+            isValidClass = string.find(compClassName, "Mesh") or string.find(compClassName, "SkinnedCloth") or string.find(compClassName, "Physical")
+        end
+        
+        if isValidClass then
+        -- =========================================================
+            local isNaked = string.match(compName, "^[tahlswi]0_") or compName == "body" or compName == "base" or string.find(compName, "eyes") or string.find(compName, "teeth")
+            
+            if not isNaked then
+                local score = 0
+                for w in pairs(itemWords) do if string.find(compName, w, 1, true) then score = score + 10 end end
+                for w in pairs(slotWords) do if string.find(compName, w, 1, true) then score = score + 2 end end
+                
+                -- CRITICAL CONFLICT RESOLUTION: Heavily penalize if already claimed by another slot
+                local claimedBy = assignedMeshes[targetHash][compName]
+                if claimedBy and claimedBy ~= slotInfo.id then
+                    score = score - 100
+                end
+                
+                if score > maxScore then
+                    maxScore = score
+                    bestComp = comp
+                end
+            end
+        end
+    end
+    
+    -- Fallback: Pick first available unassigned non-naked component safely
+    if maxScore <= -50 or not bestComp then
+        for _, comp in ipairs(components) do
+            local compClassName = NameToString(comp:GetClassName())
+            local compName = string.lower(NameToString(comp.name))
+            
+            -- =========================================================
+            -- A mesma lógica aplicada ao sistema de segurança (fallback)
+            -- =========================================================
+            local isHair = string.find(string.lower(slotInfo.name or ""), "hair") or string.find(string.lower(currentItemName or ""), "hair")
+            local isValidClass = false
+            
+            if isHair then
+                isValidClass = string.find(compClassName, "Mesh") and not string.find(compClassName, "SkinnedCloth") and not string.find(compClassName, "Physical")
+            else
+                isValidClass = string.find(compClassName, "Mesh") or string.find(compClassName, "SkinnedCloth") or string.find(compClassName, "Physical")
+            end
+            
+            if isValidClass then
+            -- =========================================================
+                local isNaked = string.match(compName, "^[tahlswi]0_") or compName == "body" or compName == "base" or string.find(compName, "eyes") or string.find(compName, "teeth")
+                if not isNaked then
+                    local claimedBy = assignedMeshes[targetHash][compName]
+                    if not claimedBy or claimedBy == slotInfo.id then
+                        bestComp = comp
+                        break
+                    end
+                end
+            end
+        end
+    end
+    
+    -- Claim ownership of this component
+    if bestComp then
+        assignedMeshes[targetHash][string.lower(NameToString(bestComp.name))] = slotInfo.id
+    end
+    
+    return bestComp
+end
+
+local function ApplyMeshNatively(target, slotInfo, meshPath, currentItemName)
+    if not target or not meshPath then return end
+    
+    local cleanPath = SanitizeMeshPath(meshPath)
+    local bestComp = GetTargetMeshForSlot(target, slotInfo, currentItemName)
+    
+    if bestComp then
+        pcall(function()
+            bestComp:ChangeResource(cleanPath)
+            Cron.After(0.2, function()
+                bestComp:Toggle(false)
+                bestComp:Toggle(true)
+            end)
+        end)
+    end
+end
+
 local function LoadLooks()
     local file = io.open(looksJsonFileName, "r")
     if file then
@@ -217,7 +652,6 @@ end
 -- ============================================================================
 local function PlayModSound(soundName)
     if isSoundEnabled then
-        -- O pcall (protected call) impede que o mod crashe caso o som ou o Audioware não existam
         pcall(function()
             Game.GetAudioSystem():Play(CName.new(soundName))
         end)
@@ -227,7 +661,6 @@ end
 local function PlayRandomNPCAnimation(target)
     if not target then return end
     
-    -- A tua lista de animações personalizadas
     local npcAnimations = {
         "dirt  stand  2h on hip  01",
         "dirt  stand  2h on hip  bd  01",
@@ -240,18 +673,18 @@ local function PlayRandomNPCAnimation(target)
         "stand  2h on hip  03  sexy dance  07"
     }
     
-    -- Escolhe uma animação aleatória da tabela
     local randomAnim = npcAnimations[math.random(1, #npcAnimations)]
-    
-    -- ========================================================================
-    -- ATENÇÃO: Como estas strings são de Workspots/AMM, terás de chamar a tua 
-    -- própria função ou a API do AMM aqui para forçar a animação. 
-    -- Exemplo teórico:
-    -- se o AMM estiver instalado: GetMod("AMM"):PlayAnimation(target, randomAnim)
-    -- ========================================================================
-    
-    -- Mostra no ecrã qual foi a animação sorteada para testares se o loop funciona
-    -----------------------------------------Game.GetPlayer():SetWarningMessage("Animação de 30s: " .. randomAnim)
+end
+
+local function GetCategoryPrefix(itemName)
+    if not itemName or itemName == "Empty/Remove" or itemName == "No_Match" or itemName == "No_Records_In_JSON" then return "" end
+    local clean = itemName:gsub("Items%.", "")
+    -- Tries to catch the first two words separated by _ or space
+    local w1, w2 = clean:match("^([A-Za-z0-9]+)[_%s]+([A-Za-z0-9]+)")
+    if w1 and w2 then return w1 .. "_" .. w2 end
+    -- If it only has one, returns that one
+    local w1_only = clean:match("^([A-Za-z0-9]+)")
+    return w1_only or clean
 end
 
 -- ============================================================================
@@ -263,7 +696,6 @@ local function GetFilteredPool(slotName, targetHash, slotId)
     local hasRecords = false
     
     local searchStr = searchQueries[targetHash] and searchQueries[targetHash][slotId] and string.lower(searchQueries[targetHash][slotId]) or ""
-    -- NOVO: Captura o texto da pesquisa global também
     local globalStr = (globalSearchOpen and globalSearchQuery ~= "") and string.lower(globalSearchQuery) or ""
     
     if savedOutfits[slotName] then
@@ -271,12 +703,10 @@ local function GetFilteredPool(slotName, targetHash, slotId)
             hasRecords = true
             local isFav = savedOutfits["_FAVORITES_"][itemName]
             
-            -- Lógica dos Filtros (Estrela Amarela Global, Lupa Local e Pesquisa Global)
             local matchesFav = (not filterFavoritesOnly) or isFav
             local matchesLocalSearch = searchStr == "" or string.find(string.lower(itemName), searchStr, 1, true)
             local matchesGlobalSearch = globalStr == "" or string.find(string.lower(itemName), globalStr, 1, true)
             
-            -- O item só entra na lista se passar em TODOS os filtros
             if matchesFav and matchesLocalSearch and matchesGlobalSearch then
                 table.insert(items, itemName)
             end
@@ -292,7 +722,6 @@ local function GetFilteredPool(slotName, targetHash, slotId)
     return items
 end
 
--- Captures all equipped items via TransactionSystem to include EquipmentEX
 local function GetPlayerOutfit()
     local player = Game.GetPlayer()
     local ts = Game.GetTransactionSystem()
@@ -306,7 +735,6 @@ local function GetPlayerOutfit()
             local itemID = itemObject:GetItemID()
             if itemID and itemID.id then
                 local tdbid = ItemID.GetTDBID(itemID)
-                -- Cleans the ID extracting only "Items.X"
                 local cleanItemName = tostring(tdbid):match("(Items%.[%w_]+)")
                 if cleanItemName then
                     outfit[slotInfo.name] = cleanItemName
@@ -350,7 +778,6 @@ local function GetNPCAppearancesNative(target)
     return template.appearances
 end
 
--- Variável para guardar o NPC e tentar de forma invisível até carregar
 local autoRetryNakedTarget = nil
 
 local function ForceNakedState(target)
@@ -387,9 +814,9 @@ local function ForceNakedState(target)
     end
     
     if nakedAppName then
-        local aparenciaCName = CName.new(nakedAppName)
-        target:PrefetchAppearanceChange(aparenciaCName)
-        target:ScheduleAppearanceChange(aparenciaCName)
+        local appearanceCName = CName.new(nakedAppName)
+        target:PrefetchAppearanceChange(appearanceCName)
+        target:ScheduleAppearanceChange(appearanceCName)
         
         local ts = Game.GetTransactionSystem()
         for _, slotInfo in ipairs(allSlots) do
@@ -431,10 +858,10 @@ local function CycleNPCAppearanceNative(target)
     
     if nextIndex > #appearances then nextIndex = 1 end
     local nextAppearanceStr = NameToString(appearances[nextIndex].name)
-    local aparenciaCName = CName.new(nextAppearanceStr)
+    local appearanceCName = CName.new(nextAppearanceStr)
     
-    target:PrefetchAppearanceChange(aparenciaCName)
-    target:ScheduleAppearanceChange(aparenciaCName)
+    target:PrefetchAppearanceChange(appearanceCName)
+    target:ScheduleAppearanceChange(appearanceCName)
     Game.GetPlayer():SetWarningMessage("Appearance changed to: " .. nextAppearanceStr)
 end
 
@@ -465,11 +892,88 @@ local function ClearAllNPCSlots(target)
     print("[" .. modName .. "] Total NPC slot clearance executed.")
 end
 
--- ============================================================================
--- Filtro de Nomenclatura Vanilla (Base Game)
--- ============================================================================
+local function ToggleBodyPart(target, targetHash, partName)
+    if not target then return end
+    
+    -- Initializes the state for this NPC if it does not exist
+    if not bodyPartStates[targetHash] then bodyPartStates[targetHash] = {} end
+    
+    -- Inverts the current state
+    local isCurrentlyHidden = bodyPartStates[targetHash][partName] or false
+    local nextHiddenState = not isCurrentlyHidden
+    bodyPartStates[targetHash][partName] = nextHiddenState
+    
+    local prefixes = bodyPartPrefixes[partName]
+    local components = target:GetComponents()
+    
+    for _, comp in ipairs(components) do
+        local compClassName = NameToString(comp:GetClassName())
+        if string.find(compClassName, "Mesh") or string.find(compClassName, "SkinnedCloth") then
+            local compName = string.lower(NameToString(comp.name))
+            
+            -- Checks if the mesh name starts with any of the prefixes for this body part
+            local isMatch = false
+            for _, prefix in ipairs(prefixes) do
+                if string.sub(compName, 1, string.len(prefix)) == prefix then
+                    isMatch = true
+                    break
+                end
+            end
+            
+            -- Outputs all names to the CET console for debugging
+            print("---- COMPONENT DEBUG ----")
+            print("Real mesh name: " .. NameToString(comp.name))
+            print("Mesh class: " .. NameToString(comp:GetClassName()))
+            if isMatch then
+                -- Bitmask failsafe (restores full visibility if it was zero)
+                if not nextHiddenState and comp.chunkMask == 0 then
+                    comp.chunkMask = 18446744073709551615ULL
+                end
+                
+                -- If nextHiddenState is true, we want to turn it off (Toggle = false, Hide = true)
+                comp:Toggle(not nextHiddenState)
+                comp:TemporaryHide(nextHiddenState)
+            end
+        end
+    end
+end
+
+local function SetBodyPartState(target, targetHash, partName, hideState)
+    if not target then return end
+    
+    -- Inicializa o estado se não existir
+    if not bodyPartStates[targetHash] then bodyPartStates[targetHash] = {} end
+    bodyPartStates[targetHash][partName] = hideState
+    
+    local prefixes = bodyPartPrefixes[partName]
+    local components = target:GetComponents()
+    
+    for _, comp in ipairs(components) do
+        local compClassName = NameToString(comp:GetClassName())
+        if string.find(compClassName, "Mesh") or string.find(compClassName, "SkinnedCloth") then
+            local compName = string.lower(NameToString(comp.name))
+            
+            -- Verifica se o nome da mesh bate certo com o prefixo
+            local isMatch = false
+            for _, prefix in ipairs(prefixes) do
+                if string.sub(compName, 1, string.len(prefix)) == prefix then
+                    isMatch = true
+                    break
+                end
+            end
+            
+            if isMatch then
+                if not hideState and comp.chunkMask == 0 then
+                    comp.chunkMask = 18446744073709551615ULL
+                end
+                comp:Toggle(not hideState)
+                comp:TemporaryHide(hideState)
+            end
+        end
+    end
+end
+
 local function IsVanillaItem(itemName)
-    -- 1. Verifica os prefixos originais
     local vanillaPrefixes = {
         "Items.TShirt_", "Items.Shirt_", "Items.Jacket_", "Items.Coat_", 
         "Items.Vest_", "Items.Pants_", "Items.Shorts_", "Items.Skirt_", 
@@ -483,43 +987,34 @@ local function IsVanillaItem(itemName)
 
     for _, prefix in ipairs(vanillaPrefixes) do
         if string.sub(itemName, 1, string.len(prefix)) == prefix then 
-            return true -- Bloqueia: É um item do jogo base!
+            return true 
         end
     end
     
-    -- 2. Verifica palavras-chave comuns de qualidade/estilo Vanilla
     local vanillaKeywords = { "_basic", "_poor", "_rich", "_old" }
     local lowerItemName = string.lower(itemName)
     for _, keyword in ipairs(vanillaKeywords) do
         if string.find(lowerItemName, keyword) then 
-            return true -- Bloqueia: Contém uma das palavras-chave Vanilla!
+            return true 
         end
     end
 
-    -- 3. Verifica o padrão de dois pares de números (ex: 01 e 02)
-    -- O padrão "%d%d.*%d%d" deteta 2 números, qualquer texto, e mais 2 números.
     if string.find(itemName, "%d%d.*%d%d") then 
-        return true -- Bloqueia: O nome tem duas sequências de 2 números!
+        return true 
     end
     
-    return false -- Passou nos filtros todos, é garantidamente um Mod!
+    return false 
 end
 
--- ============================================================================
--- Auto-Scanner: Search TweakDB for Custom Clothing ONLY (Mods)
--- ============================================================================
 local function ScanAndUnlockAllClothes()
     local addedCount = 0
-    -- Pede à base de dados do jogo todos os records de roupa
     local records = TweakDBInterface.GetRecords("gamedataClothing_Record")
     
     for _, record in ipairs(records) do
         local itemID = record:GetID()
-        -- Extrai apenas a parte "Items.nome_do_item" do TweakDBID
         local itemStr = tostring(itemID):match("(Items%.[%w_]+)")
         
         if itemStr then
-            -- Só avança se o item NÃO for do jogo base
             if not IsVanillaItem(itemStr) then
                 local pSlots = record:PlacementSlots()
                 if pSlots then
@@ -554,7 +1049,12 @@ end
 
 registerForEvent("onInit", function()
     LoadOutfits()
-    LoadLooks() -- ADICIONA ISTO
+    LoadLooks()
+    LoadBaseGameBodyTypes()
+    LoadRefitsDatabase()
+    LoadSavedRefits()
+    LoadFavoriteHairs()
+    LoadFavoriteBodyTypes()  
 end)
 
 registerForEvent("onDraw", function()
@@ -593,7 +1093,6 @@ registerForEvent("onDraw", function()
         ImGui.Separator()
         ImGui.Spacing()
 
-        -- UPDATED BUTTON: Stores items in an evolving and accumulative way!
         if ImGui.Button("Save Player Clothes to Wardrobe DB", ImGui.GetWindowWidth() - 20, 30) then
             local currentOutfit = GetPlayerOutfit()
             local addedCount = 0
@@ -637,7 +1136,7 @@ registerForEvent("onDraw", function()
         ImGui.Spacing()
 		
         if ImGui.Button("Reset JSON Database", ImGui.GetWindowWidth() - 20, 30) then
-            isResetConfirmWindowOpen = true -- Abre a janela de confirmação em vez de apagar logo
+            isResetConfirmWindowOpen = true 
         end
         ImGui.Spacing()
 
@@ -658,7 +1157,6 @@ registerForEvent("onDraw", function()
         local startX = cx + (custBtnWidth - totalW) * 0.5
         local startY = cy + (custBtnHeight - ImGui.GetTextLineHeight()) * 0.5
         
-        -- Draws icon and text
         ImGui.SetCursorPosX(startX); ImGui.SetCursorPosY(startY)
         ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
         ImGui.Text(cIcon)
@@ -677,80 +1175,96 @@ registerForEvent("onDraw", function()
     if isCustomizeWindowOpen then
         ImGui.SetNextWindowSize(targetWidth * 2.2, 1300, ImGuiCond.Appearing) 
         if ImGui.Begin("Customize your NPC Slots", true, ImGuiWindowFlags.NoScrollbar) then
+            
+            -- ADD THIS HERE: Stores the position for the side window
+            customizeWindowPos.x, customizeWindowPos.y = ImGui.GetWindowPos()
+            customizeWindowSize.x, customizeWindowSize.y = ImGui.GetWindowSize()
+            
             local target = GetLookAtNPC()
             if not target then
                 ImGui.TextColored(1.0, 0.2, 0.2, 1.0, "WARNING: No Valid NPC Targeted!")
             else
                 local targetHash = tostring(target:GetRecordID())
                 
-                -- Inicializar tabelas de estado para este NPC
                 if not hiddenSlots[targetHash] then hiddenSlots[targetHash] = {} end
                 if not lockedSlots[targetHash] then lockedSlots[targetHash] = {} end
                 if not isSearching[targetHash] then isSearching[targetHash] = {} end
                 if not searchQueries[targetHash] then searchQueries[targetHash] = {} end
                 if not currentSelections[targetHash] then currentSelections[targetHash] = {} end
+                if not activeRefits[targetHash] then activeRefits[targetHash] = {} end
+                if not hiddenRefits[targetHash] then hiddenRefits[targetHash] = {} end
+				
+                ImGui.Spacing()
                 
-                ImGui.Spacing()
-                ImGui.SetWindowFontScale(3.5)
-                local npcHeaderIcon = "\u{f1a62}"
-                local npcHeaderIconW = ImGui.CalcTextSize(npcHeaderIcon)
-                ImGui.SetCursorPosX((ImGui.GetWindowWidth() - npcHeaderIconW) * 0.5)
-                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
-                ImGui.Text(npcHeaderIcon)
-                ImGui.PopStyleColor()
+                -- Guardamos a posição Y inicial para alinhar tudo
+                local headerY = ImGui.GetCursorPosY()
                 
-                ImGui.SetWindowFontScale(1.0)
-                ImGui.Spacing()
-                ImGui.Separator()
-                ImGui.Spacing()
-
-                local btnW = ImGui.GetWindowWidth() - 20
                 local btnH = 30
-
-                -- =======================================
-                -- BOTÕES GLOBAIS DO NPC (ALINHADOS E DINÂMICOS)
-                -- =======================================
-                -- Subtrai as margens e os espaços da largura da janela, e divide por 4
-                local topBtnW = (ImGui.GetWindowWidth() - 44) / 4
-
-                local function DrawIconButton(id, icon, text, textR, textG, textB, btnWidth, onClick)
+                -- Aumentado em 30% (de 100 para 130)
+                local topBtnW = 130 
+                
+                -- Função de desenho modificada com as novas cores exclusivas (Branco Nacre / Preto Grafite / Rosa Hover)
+                -- Função de desenho modificada: agora recebe as cores específicas dos ÍCONES (iR, iG, iB)
+                local function DrawIconButtonVertical(id, icon, text, iR, iG, iB, btnWidth, onClick)
                     local cx1 = ImGui.GetCursorPosX()
                     local cy1 = ImGui.GetCursorPosY()
                     
                     local iw1 = ImGui.CalcTextSize(icon)
                     local tw1 = ImGui.CalcTextSize(text)
                     
-                    -- Agora o botão respeita a largura da janela
+                    -- Cores do Botão (Fundo Branco Nacre / Hover Rosa)
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0.96, 0.96, 0.93, 1.0)
+                    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.41, 0.70, 1.0)
+                    ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.85, 0.85, 0.82, 1.0)
+                    
                     if ImGui.Button(id, btnWidth, btnH) then onClick() end
+                    ImGui.PopStyleColor(3)
+                    
                     local sX1 = cx1 + (btnWidth - (iw1 + tw1 + iw1)) * 0.5
                     local sY1 = cy1 + (btnH - ImGui.GetTextLineHeight()) * 0.5
 
-                    -- Removemos o PushClipRect e o PopClipRect daqui!
-
                     ImGui.SetCursorPosX(sX1); ImGui.SetCursorPosY(sY1)
-                    ImGui.PushStyleColor(ImGuiCol.Text, textR, textG, textB, 1.0)
-                    ImGui.Text(icon)
-                    ImGui.SetCursorPosX(sX1 + iw1); ImGui.SetCursorPosY(sY1)
-                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
-                    ImGui.Text(text)
-                    ImGui.SetCursorPosX(sX1 + iw1 + tw1); ImGui.SetCursorPosY(sY1)
-                    ImGui.PushStyleColor(ImGuiCol.Text, textR, textG, textB, 1.0)
-                    ImGui.Text(icon)
-                    ImGui.PopStyleColor(3)
                     
-                    -- Coloca o cursor imediatamente à frente para o próximo botão
-                    ImGui.SetCursorPosX(cx1 + btnWidth + 8)
-                    ImGui.SetCursorPosY(cy1)
+                    -- Pinta o primeiro ícone com a cor escolhida
+                    ImGui.PushStyleColor(ImGuiCol.Text, iR, iG, iB, 1.0)
+                    ImGui.Text(icon)
+                    
+                    -- Pinta o texto do meio de Preto Grafite
+                    ImGui.SetCursorPosX(sX1 + iw1); ImGui.SetCursorPosY(sY1)
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.12, 0.12, 0.15, 1.0)
+                    ImGui.Text(text)
+                    ImGui.PopStyleColor() -- Tira o Preto Grafite
+                    
+                    -- Desenha o segundo ícone (herda a cor do primeiro ícone)
+                    ImGui.SetCursorPosX(sX1 + iw1 + tw1); ImGui.SetCursorPosY(sY1)
+                    ImGui.Text(icon)
+                    ImGui.PopStyleColor() -- Tira a cor do ícone
                 end
 
-                DrawIconButton("##ForceNaked", "\u{f01f4}", " Naked ", 0.60, 0.20, 0.65, topBtnW, function() ForceNakedState(target) end)
-                DrawIconButton("##RotateOutfit", "\u{f0464}", " Rotate ", 0.20, 0.85, 0.20, topBtnW, function() CycleNPCAppearanceNative(target) end)
+                -- =========================================================
+                -- 1. OS 4 BOTÕES ALINHADOS NA VERTICAL (LADO ESQUERDO)
+                -- =========================================================
                 
-                local i3, t3, r3, g3, b3 = "\u{f1222}", " Copy V ", 1.0, 1.0, 1.0
+                -- Botão 1 (Naked) - Ícones Roxo Aubergine
+                ImGui.SetCursorPos(10, headerY)
+                DrawIconButtonVertical("##ForceNaked", "\u{f01f4}", " Naked ", 0.40, 0.15, 0.45, topBtnW, function() ForceNakedState(target) end)
+                
+                -- Botão 2 (Rotate) - Ícones Verdes
+                ImGui.SetCursorPos(10, headerY + 35)
+                DrawIconButtonVertical("##RotateOutfit", "\u{f0464}", " Rotate ", 0.15, 0.75, 0.20, topBtnW, function() CycleNPCAppearanceNative(target) end)
+                
+                -- Botão 3 (Copy V / Apply V) - Ícones Pretos (depois Amarelos)
+                ImGui.SetCursorPos(10, headerY + 70)
+                
+                local i3, t3 = "\u{f1222}", " Copy V "
+                local iR, iG, iB = 0.12, 0.12, 0.15 -- Preto Grafite padrão
+                
                 if savedVOutfitForNPC then
-                    i3, t3, r3, g3, b3 = "\u{f1a7a}", " Apply V ", 0.90, 0.70, 0.10
+                    i3, t3 = "\u{f1a7a}", " Apply V "
+                    iR, iG, iB = 0.95, 0.85, 0.10 -- Amarelo Vivo quando clicado
                 end
-                DrawIconButton("##CopyApplyV", i3, t3, r3, g3, b3, topBtnW, function()
+                
+                DrawIconButtonVertical("##CopyApplyV", i3, t3, iR, iG, iB, topBtnW, function()
                     if not savedVOutfitForNPC then
                         savedVOutfitForNPC = GetPlayerOutfit()
                         Game.GetPlayer():SetWarningMessage("Clothes saved! Click again to apply onto the NPC.")
@@ -760,6 +1274,7 @@ registerForEvent("onDraw", function()
                             if not lockedSlots[targetHash][slotInfo.id] then
                                 ApplyItemFromPool(target, slotInfo.id, itemString or "Empty/Remove")
                                 currentSelections[targetHash][slotInfo.id] = itemString or "Empty/Remove"
+                                activeRefits[targetHash][slotInfo.id] = nil
                             end
                         end
                         savedVOutfitForNPC = nil 
@@ -767,94 +1282,220 @@ registerForEvent("onDraw", function()
                     end
                 end)
 
-                DrawIconButton("##DeleteData", "\u{f06c9}", " Delete ", 0.90, 0.20, 0.20, topBtnW, function()
+                -- Botão 4 (Delete) - Ícones Vermelhos
+                ImGui.SetCursorPos(10, headerY + 105)
+                DrawIconButtonVertical("##DeleteData", "\u{f06c9}", " Delete ", 0.85, 0.15, 0.15, topBtnW, function()
                     ClearAllNPCSlots(target)
                     currentSelections[targetHash] = {}
                     hiddenSlots[targetHash] = {}
                     lockedSlots[targetHash] = {}
                     searchQueries[targetHash] = {}
+                    activeRefits[targetHash] = {}
                 end)
 
-                -- QUEBRA DE LINHA MANUAL PARA SAIR DO ALINHAMENTO LATERAL
-                ImGui.SetCursorPosY(ImGui.GetCursorPosY() + btnH + 10)
-                ImGui.SetCursorPosX(10)
+                -- =========================================================
+                -- 2. ÍCONE GRANDE CENTRALIZADO
+                -- =========================================================
+                ImGui.SetWindowFontScale(3.5)
+                local npcHeaderIcon = "\u{f1a62}"
+                local npcHeaderIconW = ImGui.CalcTextSize(npcHeaderIcon)
+                
+                ImGui.SetCursorPos((ImGui.GetWindowWidth() - npcHeaderIconW) * 0.5, headerY + 30)
+                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
+                ImGui.Text(npcHeaderIcon)
+                ImGui.PopStyleColor()
+                ImGui.SetWindowFontScale(1.0)
 
+                -- =========================================================
+                -- 3. BOTÃO HIDE ALINHADO À DIREITA (Laranja Clarinho / Ícone Branco)
+                -- =========================================================
+                local hideBtnW = 40
+                ImGui.SetCursorPos(ImGui.GetWindowWidth() - hideBtnW - 10, headerY)
+
+                ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.65, 0.30, 0.85)
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.75, 0.45, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.85, 0.55, 0.20, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
+
+                if ImGui.Button("\u{f02e6}##HideBtnTop", hideBtnW, btnH) then
+                    isBodyHideWindowOpen = not isBodyHideWindowOpen
+                    hasMouseEnteredBodyHide = false
+                    isRefitViewerWindowOpen = false 
+                    isHairSpawnerWindowOpen = false 
+                    isBodyTypeWindowOpen = false -- Fecha o Body Types
+                end
+                ImGui.PopStyleColor(4)
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("NPC Body Parts Hide/Show") end
+
+                -- =========================================================
+                -- NOVO: BOTÃO BODY TYPE SPAWNER (Vermelho / Ícone Branco)
+                -- =========================================================
+                ImGui.SetCursorPos(ImGui.GetWindowWidth() - hideBtnW - 10, headerY + 35)
+                
+                if isBodyTypeWindowOpen then
+                    ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.25, 0.25, 0.95) -- Fica Vermelho Vivo
+                else
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0.75, 0.15, 0.15, 0.85) -- Vermelho Normal Escuro
+                end
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.35, 0.35, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.60, 0.10, 0.10, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0) -- Ícone Branco
+                
+                if ImGui.Button("\u{f115d}##BodyTypeTop", hideBtnW, btnH) then
+                    isBodyTypeWindowOpen = not isBodyTypeWindowOpen
+                    hasMouseEnteredBodyType = false
+                    isBodyHideWindowOpen = false
+                    isRefitViewerWindowOpen = false
+                    isHairSpawnerWindowOpen = false
+                end
+                ImGui.PopStyleColor(4)
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("Change Body Type") end
+
+                -- VIEWER DE REFITS (Verde Lima)
+                ImGui.SetCursorPos(ImGui.GetWindowWidth() - hideBtnW - 10, headerY + 70)
+                ImGui.PushStyleColor(ImGuiCol.Button, 0.60, 0.90, 0.20, 0.85)
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.70, 1.0, 0.30, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.50, 0.80, 0.10, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
+                
+                if ImGui.Button("\u{f14e8}##RefitViewerTop", hideBtnW, btnH) then
+                    isRefitViewerWindowOpen = not isRefitViewerWindowOpen
+                    hasMouseEnteredRefitViewer = false
+                    isBodyHideWindowOpen = false 
+                    isHairSpawnerWindowOpen = false 
+                    isBodyTypeWindowOpen = false -- Fecha o Body Types
+                end
+                ImGui.PopStyleColor(4)
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("View Saved Refits for this NPC") end
+
+                -- BOTÃO HAIR SPAWNER (Dourado/Preto -> Verde)
+                ImGui.SetCursorPos(ImGui.GetWindowWidth() - hideBtnW - 10, headerY + 105)
+                
+                if isHairSpawnerWindowOpen then
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0.20, 0.85, 0.20, 0.85)
+                else
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0.85, 0.65, 0.13, 0.85)
+                end
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.84, 0.0, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.72, 0.53, 0.04, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.Text, 0.1, 0.1, 0.1, 1.0)
+                
+                if ImGui.Button("\u{f10f0}##HairSpawnerTop", hideBtnW, btnH) then
+                    isHairSpawnerWindowOpen = not isHairSpawnerWindowOpen
+                    hasMouseEnteredHairSpawner = false
+                    isBodyHideWindowOpen = false
+                    isRefitViewerWindowOpen = false
+                    isBodyTypeWindowOpen = false -- Fecha o Body Types
+                end
+                ImGui.PopStyleColor(4)
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("Spawn Hair Meshes") end
+                
+                -- Empurramos o Cursor para debaixo do 4º botão
+                ImGui.SetCursorPosY(headerY + 145)
+                ImGui.Separator()
                 ImGui.Spacing()
                 
-                -- =======================================
-                -- 5 APPEARANCE BUTTONS
-                -- =======================================
                 if not savedLooks[targetHash] then savedLooks[targetHash] = {} end
-                local btnWidth = (ImGui.GetWindowWidth() - 50) / 5
-                for i = 1, 5 do
-                    -- FORÇA O NÚMERO A SER TEXTO PARA O JSON NÃO SE PERDER NO DIA A SEGUIR
+                local btnWidth = (ImGui.GetWindowWidth() - 110) / 10
+                for i = 1, 10 do
                     local str_i = tostring(i) 
                     local iconStr = string.format("\u{f02c8} %d", i)
-                    
-                    -- Verifica se está guardado no formato novo (texto) ou no antigo (número)
                     local isLookSaved = (savedLooks[targetHash][str_i] ~= nil) or (savedLooks[targetHash][i] ~= nil)
                     
                     if isLookSaved then
                         iconStr = "[ " .. iconStr .. " ]"
-                        -- COR VERDE
-                        ImGui.PushStyleColor(ImGuiCol.Button, 0.56, 0.93, 0.56, 0.75)
-                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.46, 0.83, 0.46, 0.75)
-                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.36, 0.73, 0.36, 0.75)
+                        -- Fundo Cor de Rosa (ativo/salvo)
+                        ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.41, 0.70, 0.90)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.50, 0.75, 0.90)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.90, 0.35, 0.60, 0.90)
+                        -- Letras e Ícone Verde Vivo
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.1, 0.9, 0.1, 1.0)
                     else
-                        -- COR ROSA ORIGINAL
-                        ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.41, 0.70, 0.75)
-                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.55, 0.75, 0.75)
-                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 1.0, 0.30, 0.60, 0.75)
+                        -- Cinzento médio para o slot vazio
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.45, 0.45, 0.45, 0.90)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.55, 0.55, 0.55, 0.90)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.35, 0.35, 0.35, 0.90)
+                        -- Letras brancas escuro (light gray)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0)
                     end
-                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
+                    -- Letras brancas escuro (light gray elegante)
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0)
 
                     if ImGui.Button(iconStr .. "##Look" .. i, btnWidth, 30) then
                         if not isLookSaved then
 							PlayModSound("save_outfit")
-                            
-							-- CAPTURA A APPEARANCE NATIVA ATUAL
                             local currentAppCName = target:GetCurrentAppearanceName()
                             local baseAppearance = currentAppCName and NameToString(currentAppCName) or ""
                             
-                            -- GUARDA TUDO NOVO FORMATO (Appearance + Slots)
+                            -- MUDANÇA: Guarda a roupa, estado do Body Hide e o Cabelo Ativo
                             savedLooks[targetHash][str_i] = {
-                                _base_appearance = baseAppearance,
-                                items = CopySelections(currentSelections[targetHash])
-                            }
+								_base_appearance = baseAppearance,
+								items = CopySelections(currentSelections[targetHash]),
+								body_states = CopySelections(bodyPartStates[targetHash] or {}),
+								hair = activeRefits[targetHash] and activeRefits[targetHash]["AttachmentSlots.Head"] or nil,
+								body_type = activeBodyTypes[targetHash] or nil -- NOVO: Guarda o corpo selecionado
+							}
                             SaveLooks()
-                            -------------------------------Game.GetPlayer():SetWarningMessage("Appearance " .. i .. " Saved!")
                         else
-                            -- CARREGA OS DADOS GUARDADOS
                             local savedData = savedLooks[targetHash][str_i] or savedLooks[targetHash][i]
                             local loadedOutfit = {}
                             
-                            -- Retrocompatibilidade: Identifica se é o Formato Novo ou Antigo
                             if savedData.items then
                                 loadedOutfit = CopySelections(savedData.items)
-                                
-                                -- Aplica a base appearance primeiro se existir!
                                 if savedData._base_appearance and savedData._base_appearance ~= "" then
-                                    local aparenciaCName = CName.new(savedData._base_appearance)
-                                    target:PrefetchAppearanceChange(aparenciaCName)
-                                    target:ScheduleAppearanceChange(aparenciaCName)
+                                    local appearanceCName = CName.new(savedData._base_appearance)
+                                    target:PrefetchAppearanceChange(appearanceCName)
+                                    target:ScheduleAppearanceChange(appearanceCName)
+                                end
+                                
+                                -- 1º PASSO: Dar Load aos Hides do Body PRIMEIRO
+                                if savedData.body_states then
+                                    for partName, isHidden in pairs(savedData.body_states) do
+                                        SetBodyPartState(target, targetHash, partName, isHidden)
+                                    end
+                                else
+                                    -- Restaura tudo caso o save seja antigo e não tenha dados do body
+                                    local allParts = {"Head", "Hair", "Torso", "Arms", "Hands", "Legs", "Feet"}
+                                    for _, partName in ipairs(allParts) do
+                                        SetBodyPartState(target, targetHash, partName, false)
+                                    end
                                 end
                             else
-                                -- Formato Antigo (Lê apenas itens diretamente)
                                 loadedOutfit = CopySelections(savedData)
                             end
                             
-                            -- EQUIPA OS ITEMS
+                            -- 2º PASSO: Aplicar a roupa
                             for _, slotInfo in ipairs(allSlots) do
                                 local itemName = loadedOutfit[slotInfo.id]
                                 if type(itemName) == "number" then itemName = "Empty/Remove" end 
                                 
                                 if itemName and not lockedSlots[targetHash][slotInfo.id] then
                                     currentSelections[targetHash][slotInfo.id] = itemName
+                                    activeRefits[targetHash][slotInfo.id] = nil
                                     if not hiddenSlots[targetHash][slotInfo.id] then
                                         ApplyItemFromPool(target, slotInfo.id, itemName)
                                     end
                                 end
                             end
+                            
+                            -- 3º PASSO: Dar Load ao Cabelo no FIM (com Cron para a roupa não o apagar)
+                            if savedData.hair then
+                                Cron.After(0.4, function() 
+                                    local dummySlot = { id = "AttachmentSlots.Head", name = "Hair" }
+                                    ApplyMeshNatively(target, dummySlot, savedData.hair, "Hair_Mesh")
+                                    if not activeRefits[targetHash] then activeRefits[targetHash] = {} end
+                                    activeRefits[targetHash]["AttachmentSlots.Head"] = savedData.hair
+                                end)
+                            end
+							
+							if savedData.body_type then
+								Cron.After(0.35, function()
+									local dummyTorsoSlot = { id = "AttachmentSlots.Torso", name = "Torso" }
+									ApplyMeshNatively(target, dummyTorsoSlot, savedData.body_type, "Body_Mesh")
+									activeBodyTypes[targetHash] = savedData.body_type
+								end)
+							end
+							
                             Game.GetPlayer():SetWarningMessage("Appearance " .. i .. " Loaded!")
                         end
                     end
@@ -868,23 +1509,19 @@ registerForEvent("onDraw", function()
                         end
                     end
                     
-                    -- Limpa os dados sem duplicações de código e usando o SaveLooks() correto
                     if ImGui.IsItemClicked(1) and isLookSaved then
                         savedLooks[targetHash][str_i] = nil
-                        savedLooks[targetHash][i] = nil -- limpa o registo antigo também se existir
+                        savedLooks[targetHash][i] = nil 
                         SaveLooks() 
                         Game.GetPlayer():SetWarningMessage("Appearance " .. i .. " Deleted!")
                     end
                     
-                    if i < 5 then ImGui.SameLine() end
+                    if i < 10 then ImGui.SameLine() end
                 end
 
                 ImGui.Spacing()
                 ImGui.Separator()
                 
-                -- =======================================
-                -- BOTÃO FAVORITOS GLOBAL (NOVO)
-                -- =======================================
                 local favGlobalW = 280
                 ImGui.SetCursorPosX((ImGui.GetWindowWidth() - favGlobalW) * 0.5)
                 
@@ -903,59 +1540,49 @@ registerForEvent("onDraw", function()
                 
                 ImGui.Spacing()
 				
-				-- =======================================
-                -- BOTÃO GLOBAL SEARCH (NOVO)
-                -- =======================================
                 ImGui.SetCursorPosX((ImGui.GetWindowWidth() - favGlobalW) * 0.5)
+                
+                -- Split size: 240 for the bar, 5 space, 35 for the new button
+                local searchBtnW = 240
+                local hideBtnW = 35
+
+                -- GLOBAL SEARCH COLORS
                 if globalSearchOpen then
-                    ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.41, 0.70, 0.75) -- Rosa ativo
+                    ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.41, 0.70, 0.75) 
                     ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
                 else
                     ImGui.PushStyleColor(ImGuiCol.Button, 0.3, 0.3, 0.3, 0.5)
                     ImGui.PushStyleColor(ImGuiCol.Text, 0.7, 0.7, 0.7, 1.0)
                 end
 
-                if ImGui.Button("\u{f0349} Global Search", favGlobalW, 30) then
+                if ImGui.Button("\u{f0349} Global Search", searchBtnW, 30) then
                     globalSearchOpen = not globalSearchOpen
-                    justToggledGlobalSearch = true -- Impede fechar no frame do clique
+                    justToggledGlobalSearch = true 
                 end
                 ImGui.PopStyleColor(2)
+                
                 ImGui.Spacing()
 
-                -- Caixa de texto do Global Search
                 if globalSearchOpen then
                     ImGui.SetCursorPosX((ImGui.GetWindowWidth() - favGlobalW) * 0.5)
                     ImGui.PushItemWidth(favGlobalW)
-                    
                     globalSearchQuery = ImGui.InputText("##GlobalSearchField", globalSearchQuery, 100)
-                    
-                    -- A REGRA DE FECHAR AO CLICAR FORA FOI REMOVIDA DAQUI
-                    
                     ImGui.PopItemWidth()
                     ImGui.Spacing()
                 end
-                justToggledGlobalSearch = false -- Reseta a proteção de clique
+                justToggledGlobalSearch = false 
 
-				-- ADICIONA ESTAS DUAS LINHAS PARA CRIAR O SEPARADOR:
 				ImGui.Separator()
 				ImGui.Spacing()
 
-				-- =======================================
-				-- INÍCIO DA ÁREA DE SCROLL INDEPENDENTE
-				-- =======================================
-				ImGui.BeginChild("SlotsScrollArea", 0, -75, false)
+				ImGui.BeginChild("SlotsScrollArea", 0, -130, false)
 
-                -- =======================================
-                -- LISTA DE SLOTS
-                -- =======================================
                 for _, slotInfo in ipairs(allSlots) do
                     local pool = GetFilteredPool(slotInfo.name, targetHash, slotInfo.id)
                     
-                    -- NOVA LÓGICA DE VISIBILIDADE
                     local isActivelySearching = isSearching[targetHash] and isSearching[targetHash][slotInfo.id]
                     local hasItems = (pool[2] ~= "No_Records_In_JSON" and pool[2] ~= "No_Match") or isActivelySearching
                     
-                    -- FILTRAGEM GLOBAL (NOVO)
                     local matchesGlobalSearch = true
                     if globalSearchOpen and globalSearchQuery ~= "" then
                         matchesGlobalSearch = false
@@ -970,7 +1597,6 @@ registerForEvent("onDraw", function()
                         end
                     end
 
-                    -- Só renderiza se tiver itens E corresponder à pesquisa global
                     if hasItems and matchesGlobalSearch then
                         ImGui.PushID(slotInfo.id)
                         
@@ -979,7 +1605,6 @@ registerForEvent("onDraw", function()
                         for i, v in ipairs(pool) do
                             if v == currentItemName then currentIdx = i; break end
                         end
-                        -- Se o item atual foi filtrado/removido, reverter para Empty sem forçar Update visual
                         if pool[currentIdx] ~= currentItemName then
                             currentIdx = 1
                             currentItemName = pool[1]
@@ -990,61 +1615,135 @@ registerForEvent("onDraw", function()
                         local isLocked = lockedSlots[targetHash][slotInfo.id]
                         local isHidden = hiddenSlots[targetHash][slotInfo.id]
                         
-                        -- LEFT ICON
+                        -- LEFT ICON (Normal)
                         ImGui.SetCursorPosX(10)
                         local leftIcon = "\u{f004f}"
                         local lW = ImGui.CalcTextSize(leftIcon)
-                        ImGui.InvisibleButton("L_"..slotInfo.id, lW + 10, ImGui.GetTextLineHeight() + 4)
+                        ImGui.InvisibleButton("L_"..slotInfo.id, lW + 5, ImGui.GetTextLineHeight() + 4)
                         local leftHovered = ImGui.IsItemHovered()
                         local leftClicked = ImGui.IsItemClicked()
                         
-                        ImGui.SetCursorPosX(15); ImGui.SetCursorPosY(cyLine + 2)
-                        if isLocked then
-                            ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
-                        elseif leftHovered then
-                            ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
-                        else
-                            ImGui.PushStyleColor(ImGuiCol.Text, 0.53, 0.81, 0.98, 1.0)
-                        end
+                        ImGui.SetCursorPosX(10); ImGui.SetCursorPosY(cyLine + 2)
+                        if isLocked then ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
+                        elseif leftHovered then ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
+                        else ImGui.PushStyleColor(ImGuiCol.Text, 0.53, 0.81, 0.98, 1.0) end
                         ImGui.Text(leftIcon)
                         ImGui.PopStyleColor()
                         
                         if leftClicked and not isLocked then
-							PlayModSound("click_menu")
+                            PlayModSound("click_menu")
                             currentIdx = currentIdx - 1
                             if currentIdx < 1 then currentIdx = #pool end
                             currentItemName = pool[currentIdx]
                             currentSelections[targetHash][slotInfo.id] = currentItemName
+                            activeRefits[targetHash][slotInfo.id] = nil
                             if not isHidden then ApplyItemFromPool(target, slotInfo.id, currentItemName) end
                         end
 
-                        -- RIGHT ICON
+                        -- FAST LEFT ICON (Skip Category Backward)
+                        local fastLeftIcon = "\u{f17b4}"
+                        local flW = ImGui.CalcTextSize(fastLeftIcon)
+                        local fastLeftX = 10 + lW + 10
+                        
+                        ImGui.SetCursorPosX(fastLeftX); ImGui.SetCursorPosY(cyLine)
+                        ImGui.InvisibleButton("FL_"..slotInfo.id, flW + 5, ImGui.GetTextLineHeight() + 4)
+                        local fastLeftHovered = ImGui.IsItemHovered()
+                        local fastLeftClicked = ImGui.IsItemClicked()
+
+                        ImGui.SetCursorPosX(fastLeftX); ImGui.SetCursorPosY(cyLine + 2)
+                        if isLocked then ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
+                        elseif fastLeftHovered then ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
+                        else ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0) end -- White
+                        ImGui.Text(fastLeftIcon)
+                        ImGui.PopStyleColor()
+
+                        if fastLeftClicked and not isLocked then
+                            PlayModSound("click_menu")
+                            local startCat = GetCategoryPrefix(currentItemName)
+                            local found = false
+                            for i = currentIdx - 1, 1, -1 do
+                                if GetCategoryPrefix(pool[i]) ~= startCat then
+                                    currentIdx = i; found = true; break
+                                end
+                            end
+                            if not found then -- Wraps around the list if not found
+                                for i = #pool, currentIdx + 1, -1 do
+                                    if GetCategoryPrefix(pool[i]) ~= startCat then
+                                        currentIdx = i; break
+                                    end
+                                end
+                            end
+                            currentItemName = pool[currentIdx]
+                            currentSelections[targetHash][slotInfo.id] = currentItemName
+                            activeRefits[targetHash][slotInfo.id] = nil
+                            if not isHidden then ApplyItemFromPool(target, slotInfo.id, currentItemName) end
+                        end
+
+                        -- RIGHT ICON (Normal)
                         local rightIcon = "\u{f0056}"
                         local rW = ImGui.CalcTextSize(rightIcon)
                         local rightX = windowW - rW - 40
                         
+                        -- FAST RIGHT ICON (Skip Category Forward)
+                        local fastRightIcon = "\u{f17b0}"
+                        local frW = ImGui.CalcTextSize(fastRightIcon)
+                        local fastRightX = rightX - frW - 15
+
+                        -- Fast Right Button
+                        ImGui.SetCursorPosX(fastRightX); ImGui.SetCursorPosY(cyLine)
+                        ImGui.InvisibleButton("FR_"..slotInfo.id, frW + 10, ImGui.GetTextLineHeight() + 4)
+                        local fastRightHovered = ImGui.IsItemHovered()
+                        local fastRightClicked = ImGui.IsItemClicked()
+
+                        ImGui.SetCursorPosX(fastRightX + 5); ImGui.SetCursorPosY(cyLine + 2)
+                        if isLocked then ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
+                        elseif fastRightHovered then ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
+                        else ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0) end -- White
+                        ImGui.Text(fastRightIcon)
+                        ImGui.PopStyleColor()
+
+                        if fastRightClicked and not isLocked then
+                            PlayModSound("click_menu")
+                            local startCat = GetCategoryPrefix(currentItemName)
+                            local found = false
+                            for i = currentIdx + 1, #pool do
+                                if GetCategoryPrefix(pool[i]) ~= startCat then
+                                    currentIdx = i; found = true; break
+                                end
+                            end
+                            if not found then -- Wraps around
+                                for i = 1, currentIdx - 1 do
+                                    if GetCategoryPrefix(pool[i]) ~= startCat then
+                                        currentIdx = i; break
+                                    end
+                                end
+                            end
+                            currentItemName = pool[currentIdx]
+                            currentSelections[targetHash][slotInfo.id] = currentItemName
+                            activeRefits[targetHash][slotInfo.id] = nil
+                            if not isHidden then ApplyItemFromPool(target, slotInfo.id, currentItemName) end
+                        end
+                        
+                        -- Right Button
                         ImGui.SetCursorPosX(rightX); ImGui.SetCursorPosY(cyLine)
                         ImGui.InvisibleButton("R_"..slotInfo.id, rW + 10, ImGui.GetTextLineHeight() + 4)
                         local rightHovered = ImGui.IsItemHovered()
                         local rightClicked = ImGui.IsItemClicked()
                         
                         ImGui.SetCursorPosX(rightX + 5); ImGui.SetCursorPosY(cyLine + 2)
-                        if isLocked then
-                            ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
-                        elseif rightHovered then
-                            ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
-                        else
-                            ImGui.PushStyleColor(ImGuiCol.Text, 0.53, 0.81, 0.98, 1.0)
-                        end
+                        if isLocked then ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
+                        elseif rightHovered then ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0)
+                        else ImGui.PushStyleColor(ImGuiCol.Text, 0.53, 0.81, 0.98, 1.0) end
                         ImGui.Text(rightIcon)
                         ImGui.PopStyleColor()
                         
                         if rightClicked and not isLocked then
-							PlayModSound("click_menu")
+                            PlayModSound("click_menu")
                             currentIdx = currentIdx + 1
                             if currentIdx > #pool then currentIdx = 1 end
                             currentItemName = pool[currentIdx]
                             currentSelections[targetHash][slotInfo.id] = currentItemName
+                            activeRefits[targetHash][slotInfo.id] = nil
                             if not isHidden then ApplyItemFromPool(target, slotInfo.id, currentItemName) end
                         end
                         
@@ -1061,9 +1760,9 @@ registerForEvent("onDraw", function()
                         local searchIcon = "\u{f0349}"
                         local lockIcon   = isLocked and "\u{f033e}" or "\u{f0340}"
                         local eyeIcon    = isHidden and "\u{f0209}" or "\u{f0208}"
+                        local refitIcon  = "\u{f14e8}" 
                         local favIcon    = isFav and "\u{f04ce}" or "\u{f04d2}"
 
-                        -- Lógica de Zoom (Apenas se o slot NÃO estiver bloqueado)
                         local shouldZoom = (leftHovered or rightHovered) and not isLocked
                         if shouldZoom then ImGui.SetWindowFontScale(1.10)
                         else ImGui.SetWindowFontScale(1.0) end
@@ -1072,6 +1771,7 @@ registerForEvent("onDraw", function()
                         local searchW = ImGui.CalcTextSize(searchIcon)
                         local lockW   = ImGui.CalcTextSize(lockIcon)
                         local eyeW    = ImGui.CalcTextSize(eyeIcon)
+                        local refitW  = ImGui.CalcTextSize(refitIcon)
                         local favW    = ImGui.CalcTextSize(favIcon)
                         local slotW   = ImGui.CalcTextSize(slotPart)
                         local itemW   = ImGui.CalcTextSize(itemPart)
@@ -1079,7 +1779,7 @@ registerForEvent("onDraw", function()
                         
                         local totalW = slotW + itemW
                         if hasValidItem then
-                            totalW = delW + spaceW + slotW + itemW + spaceW + searchW + spaceW + lockW + spaceW + eyeW + spaceW + favW
+                            totalW = delW + spaceW + slotW + itemW + spaceW + searchW + spaceW + lockW + spaceW + eyeW + spaceW + refitW + spaceW + favW
                         end
 
                         local startX = (windowW - totalW) * 0.5
@@ -1087,51 +1787,53 @@ registerForEvent("onDraw", function()
                         if shouldZoom then yOffset = yOffset - 1 end
                         local currentDrawX = startX
 
-                        -- BOTÕES INVISÍVEIS PARA DETEÇÃO DE CLIQUE
                         local delHovered, delClicked = false, false
                         local searchHovered, searchClicked = false, false
                         local lockHovered, lockClicked = false, false
                         local eyeHovered, eyeClicked = false, false
+                        local refitHovered, refitClickedL, refitClickedR = false, false, false
                         local favHovered, favClickedL, favClickedR = false, false, false
                         
                         if hasValidItem then
-                            -- Del
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(cyLine)
                             ImGui.InvisibleButton("DEL_"..slotInfo.id, delW, ImGui.GetTextLineHeight())
                             delHovered, delClicked = ImGui.IsItemHovered(), ImGui.IsItemClicked(0)
                             
-                            -- Search
                             local cxSearch = currentDrawX + delW + spaceW + slotW + itemW + spaceW
                             ImGui.SetCursorPosX(cxSearch); ImGui.SetCursorPosY(cyLine)
                             ImGui.InvisibleButton("SRC_"..slotInfo.id, searchW, ImGui.GetTextLineHeight())
                             searchHovered, searchClicked = ImGui.IsItemHovered(), ImGui.IsItemClicked(0)
                             
-                            -- Lock
                             local cxLock = cxSearch + searchW + spaceW
                             ImGui.SetCursorPosX(cxLock); ImGui.SetCursorPosY(cyLine)
                             ImGui.InvisibleButton("LCK_"..slotInfo.id, lockW, ImGui.GetTextLineHeight())
                             lockHovered, lockClicked = ImGui.IsItemHovered(), ImGui.IsItemClicked(0)
                             
-                            -- Eye
                             local cxEye = cxLock + lockW + spaceW
                             ImGui.SetCursorPosX(cxEye); ImGui.SetCursorPosY(cyLine)
                             ImGui.InvisibleButton("EYE_"..slotInfo.id, eyeW, ImGui.GetTextLineHeight())
                             eyeHovered, eyeClicked = ImGui.IsItemHovered(), ImGui.IsItemClicked(0)
 
-                            -- Fav
-                            local cxFav = cxEye + eyeW + spaceW
+                            local cxRefit = cxEye + eyeW + spaceW
+                            ImGui.SetCursorPosX(cxRefit); ImGui.SetCursorPosY(cyLine)
+                            ImGui.InvisibleButton("RFT_"..slotInfo.id, refitW, ImGui.GetTextLineHeight())
+                            refitHovered = ImGui.IsItemHovered()
+                            refitClickedL = ImGui.IsItemClicked(0)
+                            refitClickedR = ImGui.IsItemClicked(1)
+
+                            local cxFav = cxRefit + refitW + spaceW
                             ImGui.SetCursorPosX(cxFav); ImGui.SetCursorPosY(cyLine)
                             ImGui.InvisibleButton("FAV_"..slotInfo.id, favW, ImGui.GetTextLineHeight())
                             favHovered, favClickedL, favClickedR = ImGui.IsItemHovered(), ImGui.IsItemClicked(0), ImGui.IsItemClicked(1)
                         end
 
-                        -- TRATAMENTO DE CLIQUES
                         if delClicked then
                             for i, v in ipairs(savedOutfits[slotInfo.name]) do
                                 if v == currentItemName then table.remove(savedOutfits[slotInfo.name], i); break end
                             end
                             SaveOutfits()
                             currentSelections[targetHash][slotInfo.id] = "Empty/Remove"
+                            activeRefits[targetHash][slotInfo.id] = nil
                             if not isHidden then ApplyItemFromPool(target, slotInfo.id, "Empty/Remove") end
                             hasValidItem = false
                         end
@@ -1147,6 +1849,25 @@ registerForEvent("onDraw", function()
                             isHidden = hiddenSlots[targetHash][slotInfo.id]
                             eyeIcon = isHidden and "\u{f0209}" or "\u{f0208}"
                         end
+                        if refitClickedL and hasValidItem then
+                            local matches = GetMatchingMeshes(currentItemName)
+                            if #matches > 0 then
+                                if not currentRefitIndex[slotInfo.id] then currentRefitIndex[slotInfo.id] = 1 
+                                else currentRefitIndex[slotInfo.id] = (currentRefitIndex[slotInfo.id] % #matches) + 1 end
+                                
+                                local selectedMesh = matches[currentRefitIndex[slotInfo.id]].path
+                                -- FIX: Added currentItemName tracking to resolve slot hijacking loops
+                                ApplyMeshNatively(target, slotInfo, selectedMesh, currentItemName)
+                                activeRefits[targetHash][slotInfo.id] = selectedMesh -- Saves the active mesh
+                                Game.GetPlayer():SetWarningMessage("Refit Applied: " .. selectedMesh:match("[^\\]+$"))
+                            else
+                                Game.GetPlayer():SetWarningMessage("No compatible mesh found (min. 2 words).")
+                            end
+                        end
+                        if refitClickedR and hasValidItem then
+                            if not refitDropdownOpen[targetHash] then refitDropdownOpen[targetHash] = {} end
+                            refitDropdownOpen[targetHash][slotInfo.id] = not refitDropdownOpen[targetHash][slotInfo.id]
+                        end
                         if favClickedL and hasValidItem then
                             savedOutfits["_FAVORITES_"][currentItemName] = true
                             SaveOutfits(); isFav = true; favIcon = "\u{f04ce}"
@@ -1155,8 +1876,6 @@ registerForEvent("onDraw", function()
                             SaveOutfits(); isFav = false; favIcon = "\u{f04d2}"
                         end
 
-                        -- RENDERIZAÇÃO VISUAL DO TEXTO E ÍCONES
-                        -- 1. DELETE
                         if hasValidItem then
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                             ImGui.PushStyleColor(ImGuiCol.Text, 0.90, 0.20, 0.20, 1.0) 
@@ -1166,14 +1885,12 @@ registerForEvent("onDraw", function()
                             currentDrawX = currentDrawX + delW + spaceW
                         end
 
-                        -- 2. NOME DO SLOT
                         ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                         ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.84, 0.0, 1.0)
                         ImGui.Text(slotPart)
                         ImGui.PopStyleColor()
                         currentDrawX = currentDrawX + slotW
 
-                        -- 3. NOME DO ITEM (Ganha cor graylighted se oculto)
                         ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                         if isHidden then ImGui.PushStyleColor(ImGuiCol.Text, 0.4, 0.4, 0.4, 1.0)
                         elseif hasValidItem then ImGui.PushStyleColor(ImGuiCol.Text, 0.0, 0.85, 1.0, 1.0)
@@ -1183,14 +1900,13 @@ registerForEvent("onDraw", function()
                         if ImGui.IsItemHovered() and not isLocked then ImGui.SetTooltip("Right-Click to Reset") end
                         if ImGui.IsItemClicked(1) and not isLocked then
                             currentSelections[targetHash][slotInfo.id] = "Empty/Remove"
+                            activeRefits[targetHash][slotInfo.id] = nil
                             if not isHidden then ApplyItemFromPool(target, slotInfo.id, "Empty/Remove") end
                         end
                         ImGui.PopStyleColor()
                         currentDrawX = currentDrawX + itemW + spaceW
 
-                        -- 4. SEARCH, LOCK, EYE, FAVORITE
                         if hasValidItem then
-                            -- Search
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                             ImGui.PushStyleColor(ImGuiCol.Text, isSearching[targetHash][slotInfo.id] and 1.0 or 0.8, isSearching[targetHash][slotInfo.id] and 0.84 or 0.8, isSearching[targetHash][slotInfo.id] and 0.0 or 0.8, 1.0)
                             ImGui.Text(searchIcon)
@@ -1198,7 +1914,6 @@ registerForEvent("onDraw", function()
                             if searchHovered then ImGui.SetTooltip("Search Item by Name") end
                             currentDrawX = currentDrawX + searchW + spaceW
 
-                            -- Lock
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                             ImGui.PushStyleColor(ImGuiCol.Text, isLocked and 1.0 or 1.0, isLocked and 0.65 or 1.0, isLocked and 0.0 or 1.0, 1.0)
                             ImGui.Text(lockIcon)
@@ -1206,7 +1921,6 @@ registerForEvent("onDraw", function()
                             if lockHovered then ImGui.SetTooltip(isLocked and "Unlock Selection" or "Lock Selection") end
                             currentDrawX = currentDrawX + lockW + spaceW
 
-                            -- Eye
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                             ImGui.PushStyleColor(ImGuiCol.Text, isHidden and 1.0 or 1.0, isHidden and 0.65 or 1.0, isHidden and 0.0 or 1.0, 1.0)
                             ImGui.Text(eyeIcon)
@@ -1214,7 +1928,24 @@ registerForEvent("onDraw", function()
                             if eyeHovered then ImGui.SetTooltip(isHidden and "Show Item" or "Hide Item") end
                             currentDrawX = currentDrawX + eyeW + spaceW
 
-                            -- Fav
+                            ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
+                            local isDropped = refitDropdownOpen[targetHash] and refitDropdownOpen[targetHash][slotInfo.id]
+                            local currentActiveRefitCheck = activeRefits[targetHash] and activeRefits[targetHash][slotInfo.id]
+                            
+                            if currentActiveRefitCheck then
+                                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.45, 0.0, 1.0) -- Orange if applied
+                            elseif isDropped then
+                                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.5, 0.0, 1.0) -- Dropdown Orange
+                            else
+                                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0) -- Default White
+                            end
+                            ImGui.Text(refitIcon)
+                            ImGui.PopStyleColor()
+                            if refitHovered then 
+                                ImGui.SetTooltip("Left Click: Rotate Compatible Meshes (min. 2 words)\nRight Click: Open Gloss Selection List") 
+                            end
+                            currentDrawX = currentDrawX + refitW + spaceW
+
                             ImGui.SetCursorPosX(currentDrawX); ImGui.SetCursorPosY(yOffset)
                             ImGui.PushStyleColor(ImGuiCol.Text, isFav and 1.0 or 1.0, isFav and 0.84 or 1.0, isFav and 0.0 or 1.0, 1.0)
                             ImGui.Text(favIcon)
@@ -1223,32 +1954,181 @@ registerForEvent("onDraw", function()
                         end
 
                         ImGui.SetWindowFontScale(1.0)
+
+                        -- END OF MAIN LINE:
+                        ImGui.SetCursorPosY(cyLine + ImGui.GetTextLineHeight() + 4)
+
+                        -- =========================================================
+                        -- NEW: CURRENT REFIT MESH DISPLAY AND REMOVAL (RIGHT-CLICK)
+                        -- =========================================================
+                        local currentActiveRefit = activeRefits[targetHash] and activeRefits[targetHash][slotInfo.id]
+                        if currentActiveRefit and hasValidItem then
+                            local refitName = currentActiveRefit:match("[^\\]+$") or currentActiveRefit
+                            local isRefitHidden = hiddenRefits[targetHash] and hiddenRefits[targetHash][slotInfo.id]
+                            local refitEyeIcon = isRefitHidden and "\u{f0209}" or "\u{f0208}"
+                            
+                            -- LÓGICA DE SAVE DO REFIT NO JSON
+                            local isRefitSaved = savedRefits[targetHash] and savedRefits[targetHash][currentItemName] == currentActiveRefit
+                            local saveIcon = isRefitSaved and "\u{f0193}" or "\u{f1b42}"
+
+                            ImGui.SetCursorPosX(startX + delW + spaceW)
+
+                            -- Botão de Guardar (Azul Bebé -> Verde Lima)
+                            if isRefitSaved then
+                                ImGui.PushStyleColor(ImGuiCol.Text, 0.60, 0.90, 0.20, 1.0) -- Verde Lima
+                            else
+                                ImGui.PushStyleColor(ImGuiCol.Text, 0.53, 0.81, 0.98, 1.0) -- Azul Bebé Claro
+                            end
+                            
+                            ImGui.Text(saveIcon)
+                            if ImGui.IsItemClicked() then
+                                PlayModSound("click_menu")
+                                if not savedRefits[targetHash] then savedRefits[targetHash] = {} end
+                                
+                                if isRefitSaved then
+                                    savedRefits[targetHash][currentItemName] = nil -- Remove do JSON
+                                else
+                                    savedRefits[targetHash][currentItemName] = currentActiveRefit -- Guarda no JSON
+                                end
+                                SaveSavedRefits()
+                            end
+                            if ImGui.IsItemHovered() then ImGui.SetTooltip(isRefitSaved and "Refit Saved! Click to Unsave." or "Save this Refit to this Item") end
+                            ImGui.PopStyleColor()
+
+                            ImGui.SameLine()
+
+                            -- Refit Hide/Show Button
+                            if isRefitHidden then ImGui.PushStyleColor(ImGuiCol.Text, 0.4, 0.4, 0.4, 1.0)
+                            else ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.45, 0.0, 1.0) end
+                            ImGui.Text(refitEyeIcon)
+
+                            if ImGui.IsItemClicked() then
+                                PlayModSound("click_menu")
+                                local nextHideState = not isRefitHidden
+                                hiddenRefits[targetHash][slotInfo.id] = nextHideState
+                                
+                                local bestComp = GetTargetMeshForSlot(target, slotInfo, currentItemName)
+                                if bestComp then
+                                    bestComp:Toggle(not nextHideState)
+                                    bestComp:TemporaryHide(nextHideState)
+                                end
+                            end
+                            if ImGui.IsItemHovered() then ImGui.SetTooltip(isRefitHidden and "Show Refit Mesh" or "Hide Refit Mesh") end
+                            ImGui.PopStyleColor()
+                            
+                            ImGui.SameLine()
+                            
+                            ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.45, 0.0, 1.0) -- Bright Orange
+                            ImGui.Text("\u{f14e8} Active Refit: ")
+                            ImGui.PopStyleColor()
+                            
+                            ImGui.SameLine()
+                            if isRefitHidden then ImGui.PushStyleColor(ImGuiCol.Text, 0.4, 0.4, 0.4, 1.0)
+                            else ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0) end
+                            ImGui.Text(refitName)
+                            ImGui.PopStyleColor()
+                            
+                            if ImGui.IsItemHovered() then
+                                ImGui.SetTooltip("RIGHT-CLICK here to remove this refit and restore the original mesh!")
+                            end
+                            
+                            if ImGui.IsItemClicked(1) or (ImGui.IsItemHovered() and ImGui.IsMouseClicked(1)) then
+                                PlayModSound("click_menu")
+                                activeRefits[targetHash][slotInfo.id] = nil
+                                hiddenRefits[targetHash][slotInfo.id] = nil
+                                ApplyItemFromPool(target, slotInfo.id, currentItemName)
+                                Game.GetPlayer():SetWarningMessage("Refit removed! Original mesh restored.")
+                            end
+                            
+                            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 2)
+                        end
+
+                        -- =========================================================
+                        -- NEW: GLOSS REFIT WINDOW (WHITE / BLACK TEXT / ORANGE .MESH)
+                        -- =========================================================
+                        if refitDropdownOpen[targetHash] and refitDropdownOpen[targetHash][slotInfo.id] then
+                            local matches = GetMatchingMeshes(currentItemName)
+                            
+                            ImGui.SetCursorPosX(startX + delW + spaceW)
+                            
+                            -- Premium colors for the Gloss Window
+                            ImGui.PushStyleColor(ImGuiCol.ChildBg, 0.98, 0.98, 0.98, 0.98) -- Pure opaque white
+                            ImGui.PushStyleColor(ImGuiCol.Border, 1.0, 0.45, 0.0, 0.8)     -- Orange border
+                            ImGui.PushStyleColor(ImGuiCol.Header, 0.85, 0.85, 0.85, 0.8)   -- Elegant gray line hover
+                            ImGui.PushStyleColor(ImGuiCol.HeaderHovered, 0.80, 0.80, 0.80, 1.0)
+                            ImGui.PushStyleColor(ImGuiCol.HeaderActive, 0.75, 0.75, 0.75, 1.0)
+                            ImGui.PushStyleVar(ImGuiStyleVar.ChildRounding, 6.0)
+                            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 8.0, 6.0)
+
+                            local childHeight = #matches == 0 and 40 or math.min(#matches * 26 + 16, 160)
+                            ImGui.ChildFrame("RefitDrop_" .. slotInfo.id, 840, childHeight, true)
+                            
+                            if #matches == 0 then
+                                ImGui.PushStyleColor(ImGuiCol.Text, 0.3, 0.3, 0.3, 1.0)
+                                ImGui.Text("No compatible meshes found (min. 2 matching words).")
+                                ImGui.PopStyleColor()
+                            else
+                                for idx, match in ipairs(matches) do
+                                    local shortName = match.path:match("[^\\]+$") or match.path
+                                    local baseName = shortName:gsub("%.mesh$", "")
+                                    local isSelected = (currentRefitIndex[slotInfo.id] == idx)
+                                    
+                                    -- Invisible button across the entire row width
+                                    local clicked = ImGui.Selectable("##refit_sel_" .. idx, isSelected, ImGuiSelectableFlags.SpanAllColumns, 0, 20)
+                                    
+                                    ImGui.SameLine(8)
+                                    -- Graphite Black text!
+                                    ImGui.PushStyleColor(ImGuiCol.Text, 0.12, 0.12, 0.14, 1.0)
+                                    ImGui.Text(string.format("[%d] %s", match.score, baseName))
+                                    ImGui.PopStyleColor()
+                                    
+                                    ImGui.SameLine(0, 0)
+                                    -- .mesh extension in Vibrant Orange!
+                                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.45, 0.0, 1.0)
+                                    ImGui.Text(".mesh")
+                                    ImGui.PopStyleColor()
+                                    
+                                    if clicked then
+                                        currentRefitIndex[slotInfo.id] = idx
+                                        -- FIX: Added currentItemName reference mapping to solve mesh conflicts
+                                        ApplyMeshNatively(target, slotInfo, match.path, currentItemName)
+                                        activeRefits[targetHash][slotInfo.id] = match.path -- Saves on the row
+                                        Game.GetPlayer():SetWarningMessage("Refit Applied: " .. shortName)
+                                    end
+                                    if ImGui.IsItemHovered() then
+                                        ImGui.SetTooltip("Full Path: " .. match.path)
+                                    end
+                                end
+                            end
+                            
+                            ImGui.EndChild()
+                            ImGui.PopStyleVar(2)
+                            ImGui.PopStyleColor(5)
+                            
+                            ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 4)
+                        end
                         
-                        -- CAIXA DE PESQUISA (Aparece em baixo da linha se ativada)
+                        -- SEARCH BOX
                         if isSearching[targetHash][slotInfo.id] then
-                            ImGui.SetCursorPosY(cyLine + ImGui.GetTextLineHeight() + 6)
-                            ImGui.SetCursorPosX(startX + delW + slotW) -- Alinhado com o nome
+                            ImGui.SetCursorPosX(startX + delW + spaceW)
                             ImGui.PushItemWidth(200)
                             
                             local oldQuery = searchQueries[targetHash][slotInfo.id] or ""
                             local newQuery = ImGui.InputText("##SearchInput" .. slotInfo.id, oldQuery, 50)
                             
-                            -- Se o texto da pesquisa mudou, atualiza logo a roupa em tempo real!
                             if newQuery ~= oldQuery then
                                 searchQueries[targetHash][slotInfo.id] = newQuery
-                                
-                                -- Pede a nova lista de itens já filtrada com o que acabaste de escrever
                                 local newPool = GetFilteredPool(slotInfo.name, targetHash, slotInfo.id)
                                 
-                                -- Se houver itens válidos no filtro, equipa o primeiro automaticamente (Index 2, porque o 1 é o Empty)
                                 if #newPool > 1 and newPool[2] ~= "No_Records_In_JSON" and newPool[2] ~= "No_Match" then
                                     currentSelections[targetHash][slotInfo.id] = newPool[2]
+                                    activeRefits[targetHash][slotInfo.id] = nil
                                     if not isHidden and not isLocked then
                                         ApplyItemFromPool(target, slotInfo.id, newPool[2])
                                     end
                                 else
-                                    -- Se não houver nada que corresponda, limpa o slot
                                     currentSelections[targetHash][slotInfo.id] = "Empty/Remove"
+                                    activeRefits[targetHash][slotInfo.id] = nil
                                     if not isHidden and not isLocked then
                                         ApplyItemFromPool(target, slotInfo.id, "Empty/Remove")
                                     end
@@ -1257,79 +2137,147 @@ registerForEvent("onDraw", function()
                             
                             ImGui.PopItemWidth()
                             ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 4)
-                        else
-                            ImGui.SetCursorPosY(cyLine + ImGui.GetTextLineHeight() + 8)
                         end
                         
+                        ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 4)
                         ImGui.PopID()
                     end
                 end
                 
-                -- =======================================
-                -- FIM DA ÁREA DE SCROLL INDEPENDENTE
-                -- =======================================
-                ImGui.EndChild() -- <--- APENAS UM ENDCHILD AQUI PARA FECHAR O SCROLL!
+                ImGui.EndChild()
                 
                 ImGui.Separator()
                 ImGui.Spacing()
+
+                -- NOVO: BOTÃO REFIT ALL CLOTHES
+                local refitAllW = 220
+                ImGui.SetCursorPosX((ImGui.GetWindowWidth() - refitAllW) * 0.5)
+                ImGui.PushStyleColor(ImGuiCol.Button, 0.60, 0.90, 0.20, 0.85) -- Verde Limão
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.70, 1.0, 0.30, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.50, 0.80, 0.10, 1.0)
+                ImGui.PushStyleColor(ImGuiCol.Text, 0.1, 0.1, 0.1, 1.0) -- Letras Escuras para contrastar
+
+                if ImGui.Button("\u{f14e8} Refit All Clothes", refitAllW, 30) then
+                    PlayModSound("click_menu")
+                    local appliedCount = 0
+                    if savedRefits[targetHash] then
+                        for _, slotInfo in ipairs(allSlots) do
+                            local equippedItem = currentSelections[targetHash][slotInfo.id]
+                            -- Verifica se o item está equipado e tem um refit guardado
+                            if equippedItem and equippedItem ~= "Empty/Remove" and not lockedSlots[targetHash][slotInfo.id] then
+                                local savedMesh = savedRefits[targetHash][equippedItem]
+                                if savedMesh then
+                                    ApplyMeshNatively(target, slotInfo, savedMesh, equippedItem)
+                                    if not activeRefits[targetHash] then activeRefits[targetHash] = {} end
+                                    activeRefits[targetHash][slotInfo.id] = savedMesh
+                                    appliedCount = appliedCount + 1
+                                end
+                            end
+                        end
+                        Game.GetPlayer():SetWarningMessage("Success! Applied " .. appliedCount .. " saved refits.")
+                    else
+                        Game.GetPlayer():SetWarningMessage("No refits saved for this NPC.")
+                    end
+                end
+                ImGui.PopStyleColor(4)
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("Applies all registered refits to currently equipped items.") end
+
+                ImGui.Spacing()
+                ImGui.Separator()
+                ImGui.Spacing()
                 
-                -- =======================================
-                -- BARRA DE FUNDO (ÁUDIO E ANIMAÇÃO)
-                -- =======================================
                 local bottomBtnW = 50
                 local bottomBtnH = 30
-                -- Calcula a largura total para centrar perfeitamente (2 botões + 20px de espaço)
-                local totalBottomW = (bottomBtnW * 2) + 20 
+                local totalBottomW = (bottomBtnW * 4) + 60 
                 ImGui.SetCursorPosX((ImGui.GetWindowWidth() - totalBottomW) * 0.5)
                 
-                -- 1. Botão de Áudio
+                -- Cores do fundo para todos os botões de baixo (Branco Escuro / Prateado)
+                ImGui.PushStyleColor(ImGuiCol.Button, 0.82, 0.82, 0.82, 0.95)         -- Branco Escuro
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.92, 0.92, 0.92, 1.0)  -- Branco mais brilhante no hover
+                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.72, 0.72, 0.72, 1.0)   -- Cinzento claro ao clicar
+                
+                -- Button 1: Donations (Ko-Fi)
+                -- Cor do ícone: Vermelho
+                ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.15, 0.15, 1.0) 
+                if ImGui.Button("\u{f10f1}##Kofi", bottomBtnW, bottomBtnH) then 
+                    ImGui.SetClipboardText("https://buymeacoffee.com/vfromnightcity")
+                    Game.GetPlayer():SetWarningMessage("Thank you for the support! Ko-Fi link copied.")
+                end
+                ImGui.PopStyleColor()
+                if ImGui.IsItemHovered() then
+                    ImGui.SetTooltip("Copy donation link:\nVfromNightCity is Cyberpunk MODS")
+                end
+                
+                ImGui.SameLine()
+                ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20)
+                
+                -- Button 2: Endorse (Nexus)
+                -- Cor do ícone: Azul Facebook (#1877F2 -> RGB aproximado: 0.09, 0.46, 0.95)
+                ImGui.PushStyleColor(ImGuiCol.Text, 0.09, 0.46, 0.95, 1.0)
+                if ImGui.Button("\u{f0513}##Nexus", bottomBtnW, bottomBtnH) then
+                    ImGui.SetClipboardText("https://www.nexusmods.com/cyberpunk2077/mods/31327") 
+                    Game.GetPlayer():SetWarningMessage("Nexus link copied! Endorse if you liked it!")
+                end
+                ImGui.PopStyleColor()
+                if ImGui.IsItemHovered() then
+                    ImGui.SetTooltip("Support on Nexus:\nNPC Outfit Manager at Cyberpunk 2077 Nexus - Mods and community")
+                end
+                
+                ImGui.SameLine()
+                ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20)
+                
+                -- Button 3: Toggle Sound
                 if isSoundEnabled then
-                    ImGui.PushStyleColor(ImGuiCol.Text, 0.2, 0.9, 0.2, 1.0) -- Verde (\u{f075a})
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.1, 0.6, 0.1, 1.0) -- Verde ligeiramente mais escuro para contraste
                     if ImGui.Button("\u{f075a}##ToggleSound", bottomBtnW, bottomBtnH) then 
                         isSoundEnabled = false 
                     end
                 else
-                    ImGui.PushStyleColor(ImGuiCol.Text, 0.9, 0.2, 0.2, 1.0) -- Vermelho (\u{f075b})
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.8, 0.1, 0.1, 1.0) -- Vermelho ajustado para contraste
                     if ImGui.Button("\u{f075b}##ToggleSound", bottomBtnW, bottomBtnH) then 
                         isSoundEnabled = true 
                     end
                 end
                 ImGui.PopStyleColor()
-
-                -- TOOLTIP DO SOM (Adicionado aqui)
-                if ImGui.IsItemHovered() then
-                    ImGui.SetTooltip("Enable/Disable UI sound")
-                end
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("Enable/Disable UI Sounds") end
                 
-                -- CORREÇÃO DO ESPAÇAMENTO (Feita no passo anterior)
                 ImGui.SameLine()
                 ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 20)
                 
-                -- 2. Botão de Animação
+                -- Button 4: Toggle Anim
                 if isAnimPlaying then
-                    ImGui.PushStyleColor(ImGuiCol.Text, 0.2, 0.9, 0.2, 1.0) -- Verde (\u{f15c9})
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.1, 0.6, 0.1, 1.0) 
                 else
-                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0) -- Branco (\u{f15c9})
+                    ImGui.PushStyleColor(ImGuiCol.Text, 0.2, 0.2, 0.2, 1.0) -- Cor escura caso esteja desligado para realçar no fundo branco
                 end
                 if ImGui.Button("\u{f15c9}##ToggleAnim", bottomBtnW, bottomBtnH) then 
                     isAnimPlaying = not isAnimPlaying
-                    if isAnimPlaying then
-                        animTimer = 0 -- Ao ativar, dispara a 1ª animação imediatamente
+                    if isAnimPlaying then animTimer = 0 
                     else
-                        -- Se desativar, limpa os status effects do NPC
                         if target then Game.GetStatusEffectSystem():RemoveAllStatusEffects(target:GetEntityID()) end
                     end
                 end
                 ImGui.PopStyleColor()
+                if ImGui.IsItemHovered() then ImGui.SetTooltip("Automatic Animations... (Coming Soon)") end
 
-                -- TOOLTIP DA DANÇA (Adicionado aqui)
-                if ImGui.IsItemHovered() then
-                    ImGui.SetTooltip("Still not working... Soon...")
-                end
+                -- Remove os estilos de fundo dos botões inferiores
+                ImGui.PopStyleColor(3)
                 
-            end -- FECHA O 'else' DO TARGET
-        end -- FECHA O 'if ImGui.Begin'
-        ImGui.End() -- <--- FECHA FINALMENTE A JANELA PRINCIPAL "Customize your NPC Slots"
+                ImGui.Spacing()
+                ImGui.Spacing()
+                
+                -- NOME DO DEVELOPER CENTRADO
+                local devName = " VfromNightCity "
+                local devW = ImGui.CalcTextSize(devName)
+                ImGui.SetCursorPosX((ImGui.GetWindowWidth() - devW) * 0.5)
+                ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.41, 0.70, 1.0) 
+                ImGui.Text(devName)
+                ImGui.PopStyleColor()
+                ImGui.Spacing()
+
+            end
+        end 
+        ImGui.End() 
     end
 	
     -- THIRD WINDOW: JSON Reset Confirmation
@@ -1367,7 +2315,397 @@ registerForEvent("onDraw", function()
         end
         ImGui.End()
     end
-    ImGui.PopStyleColor(7) 
+	
+	-- FOURTH WINDOW: Body Parts Hide (Drawer Side Panel)
+    if isBodyHideWindowOpen then
+        -- Forces the window to snap to the right edge of the main panel layout
+        ImGui.SetNextWindowPos(customizeWindowPos.x + customizeWindowSize.x, customizeWindowPos.y, ImGuiCond.Always)
+        ImGui.SetNextWindowSize(300, customizeWindowSize.y, ImGuiCond.Appearing) -- Matches primary height
+        
+        if ImGui.Begin("Hide Body Parts", true, ImGuiWindowFlags.NoSavedSettings) then
+            
+            ImGui.Spacing()
+            ImGui.SetWindowFontScale(1.5)
+            ImGui.TextColored(1.0, 0.41, 0.70, 1.0, "\u{f02e6} Body Control")
+            ImGui.SetWindowFontScale(1.0)
+            ImGui.Separator()
+            ImGui.Spacing()
+
+            local target = GetLookAtNPC()
+            
+            if not target then
+                ImGui.TextColored(1.0, 0.2, 0.2, 1.0, "WARNING: No Valid NPC Targeted!")
+            else
+                local targetHash = tostring(target:GetRecordID())
+                if not bodyPartStates[targetHash] then bodyPartStates[targetHash] = {} end
+                
+                -- Interface panel rendering order
+                local partsToToggle = {"Head", "Hair", "Torso", "Arms", "Hands", "Legs", "Feet"}
+                local btnWidth = ImGui.GetWindowWidth() - 20
+                
+                for _, part in ipairs(partsToToggle) do
+                    local isHidden = bodyPartStates[targetHash][part] or false
+                    
+                    -- Color logic: Gray (Visible) / Orange-Red (Hidden)
+                    if isHidden then
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.90, 0.20, 0.20, 0.75)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.30, 0.30, 0.75)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.80, 0.10, 0.10, 0.75)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)
+                    else
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.3, 0.3, 0.3, 0.5)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.4, 0.4, 0.4, 0.6)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.5, 0.5, 0.5, 0.7)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.8, 0.8, 0.8, 1.0)
+                    end
+                    
+                    local icon = isHidden and "\u{f0209}" or "\u{f0208}" -- Eye closed/open icon
+                    local label = string.format("%s %s", icon, part)
+                    
+                    if ImGui.Button(label, btnWidth, 30) then
+                        PlayModSound("click_menu")
+                        ToggleBodyPart(target, targetHash, part)
+                    end
+                    
+                    ImGui.PopStyleColor(4)
+                    ImGui.Spacing()
+                end
+            end
+
+            -- Check default hover on the window and its child elements
+            local isHoveringWindow = ImGui.IsWindowHovered(ImGuiHoveredFlags.RootAndChildWindows)
+            local isWindowFocused = ImGui.IsWindowFocused(ImGuiFocusedFlags.RootAndChildWindows)
+            local isItemActive = ImGui.IsAnyItemActive() 
+
+            local isInteracting = isHoveringWindow or isWindowFocused or isItemActive
+
+            if isInteracting then
+                hasMouseEnteredBodyHide = true
+            end
+
+            if hasMouseEnteredBodyHide and not isInteracting then
+                isBodyHideWindowOpen = false
+                hasMouseEnteredBodyHide = false
+            end
+        end 
+        ImGui.End()
+    end
+	
+	-- FIFTH WINDOW: Saved Refits Viewer (Drawer Side Panel)
+    if isRefitViewerWindowOpen then
+        ImGui.SetNextWindowPos(customizeWindowPos.x + customizeWindowSize.x, customizeWindowPos.y, ImGuiCond.Always)
+        ImGui.SetNextWindowSize(300, customizeWindowSize.y, ImGuiCond.Appearing)
+        
+        if ImGui.Begin("Saved Refits List", true, ImGuiWindowFlags.NoSavedSettings) then
+            
+            ImGui.Spacing()
+            ImGui.SetWindowFontScale(1.5)
+            ImGui.TextColored(0.60, 0.90, 0.20, 1.0, "\u{f14e8} Saved Refits")
+            ImGui.SetWindowFontScale(1.0)
+            ImGui.Separator()
+            ImGui.Spacing()
+
+            local target = GetLookAtNPC()
+            
+            if not target then
+                ImGui.TextColored(1.0, 0.2, 0.2, 1.0, "WARNING: No Valid NPC Targeted!")
+            else
+                local targetHash = tostring(target:GetRecordID())
+                
+                if not savedRefits[targetHash] or next(savedRefits[targetHash]) == nil then
+                    ImGui.TextColored(0.7, 0.7, 0.7, 1.0, "No Refits saved for this NPC.")
+                else
+                    local btnWidth = ImGui.GetWindowWidth() - 20
+                    for itemName, meshPath in pairs(savedRefits[targetHash]) do
+                        local shortItem = itemName:gsub("Items%.", "")
+                        local shortMesh = meshPath:match("[^\\]+$") or meshPath
+                        
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.2, 0.2, 0.2, 0.5)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.3, 0.3, 0.3, 0.8)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.4, 0.4, 0.4, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0)
+                        
+                        -- Clicar num nome não o aplica automaticamente pois pode não estar no slot certo, 
+                        -- mas mostra os detalhes para feedback do user.
+                        if ImGui.Button(shortItem, btnWidth, 30) then
+                            PlayModSound("click_menu")
+                            Game.GetPlayer():SetWarningMessage("Linked Mesh: " .. shortMesh)
+                        end
+                        ImGui.PopStyleColor(4)
+                        
+                        if ImGui.IsItemHovered() then
+                            ImGui.SetTooltip("Linked Mesh:\n" .. meshPath)
+                        end
+                        ImGui.Spacing()
+                    end
+                end
+            end
+
+            -- Lógica de Auto-Hide idêntica à do Body Control
+            local isHoveringWindow = ImGui.IsWindowHovered(ImGuiHoveredFlags.RootAndChildWindows)
+            local isWindowFocused = ImGui.IsWindowFocused(ImGuiFocusedFlags.RootAndChildWindows)
+            local isItemActive = ImGui.IsAnyItemActive() 
+
+            local isInteracting = isHoveringWindow or isWindowFocused or isItemActive
+
+            if isInteracting then
+                hasMouseEnteredRefitViewer = true
+            end
+
+            if hasMouseEnteredRefitViewer and not isInteracting then
+                isRefitViewerWindowOpen = false
+                hasMouseEnteredRefitViewer = false
+            end
+
+        end 
+        ImGui.End()
+    end
+	
+	-- SIXTH WINDOW: Hair Spawner (Drawer Side Panel)
+    if isHairSpawnerWindowOpen then
+        ImGui.SetNextWindowPos(customizeWindowPos.x + customizeWindowSize.x, customizeWindowPos.y, ImGuiCond.Always)
+        ImGui.SetNextWindowSize(300, customizeWindowSize.y, ImGuiCond.Appearing)
+        
+        if ImGui.Begin("Hair Spawner", true, ImGuiWindowFlags.NoSavedSettings) then
+            ImGui.Spacing()
+            ImGui.SetWindowFontScale(1.5)
+            ImGui.TextColored(0.85, 0.65, 0.13, 1.0, "\u{f10f0} Hair Meshes")
+            ImGui.SetWindowFontScale(1.0)
+            ImGui.Separator()
+            ImGui.Spacing()
+
+            local target = GetLookAtNPC()
+            
+            if not target then
+                ImGui.TextColored(1.0, 0.2, 0.2, 1.0, "WARNING: No Valid NPC Targeted!")
+            else
+                local targetHash = tostring(target:GetRecordID())
+                
+                -- Organiza a lista: Favoritos aparecem no topo
+                local sortedHairs = {}
+                for _, p in ipairs(hairMeshesList) do table.insert(sortedHairs, p) end
+                table.sort(sortedHairs, function(a, b)
+                    local aFav = savedFavoriteHairs[a] and 1 or 0
+                    local bFav = savedFavoriteHairs[b] and 1 or 0
+                    if aFav ~= bFav then return aFav > bFav end
+                    return a < b
+                end)
+
+                ImGui.BeginChild("HairListScroll", 0, 0, false)
+                local btnWidth = ImGui.GetWindowWidth() - 50 -- Ajuste para caber a estrela
+                
+                for i, meshPath in ipairs(sortedHairs) do
+                    local shortMesh = meshPath:match("[^\\]+$") or meshPath
+                    local isFav = savedFavoriteHairs[meshPath]
+                    
+                    -- Botão da Estrela de Favorito
+                    local favIcon = isFav and "\u{f04ce}" or "\u{f04d2}"
+                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.84, 0.0, 1.0) -- Dourado
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0, 0, 0, 0) -- Fundo Invisível
+                    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.2, 0.2, 0.2, 0.5)
+                    ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.3, 0.3, 0.3, 0.5)
+                    
+                    if ImGui.Button(favIcon .. "##fav_hair_" .. i, 30, 30) then
+                        PlayModSound("click_menu")
+                        if isFav then savedFavoriteHairs[meshPath] = nil else savedFavoriteHairs[meshPath] = true end
+                        SaveFavoriteHairs()
+                    end
+                    ImGui.PopStyleColor(4)
+                    
+                    ImGui.SameLine()
+                    
+                    -- VERIFICAÇÃO: O cabelo atual está equipado no NPC?
+                    local isHairActive = (activeRefits[targetHash] and activeRefits[targetHash]["AttachmentSlots.Head"] == meshPath)
+                    
+                    -- Botão da Mesh com cores dinâmicas
+                    if isHairActive then
+                        -- Amarelo Dourado com texto Preto Fosco (Grafite)
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.85, 0.65, 0.13, 0.85)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.84, 0.0, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.72, 0.53, 0.04, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.12, 0.12, 0.12, 1.0)
+                    else
+                        -- Estilo padrão (Cinzento / Texto Claro)
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.2, 0.2, 0.2, 0.5)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.3, 0.3, 0.3, 0.8)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.4, 0.4, 0.4, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0)
+                    end
+                    
+                    if ImGui.Button(shortMesh .. "##hair_btn_" .. i, btnWidth, 30) then
+                        PlayModSound("click_menu")
+                        -- Dá Spawn à mesh utilizando as tuas funções de Refits
+                        local dummySlot = { id = "AttachmentSlots.Head", name = "Hair" }
+                        ApplyMeshNatively(target, dummySlot, meshPath, "Hair_Mesh")
+                        
+                        -- Regista como active refit para se poder remover mais tarde
+                        if not activeRefits[targetHash] then activeRefits[targetHash] = {} end
+                        activeRefits[targetHash][dummySlot.id] = meshPath
+                        
+                        Game.GetPlayer():SetWarningMessage("Spawned Hair: " .. shortMesh)
+                    end
+                    ImGui.PopStyleColor(4)
+                    
+                    if ImGui.IsItemHovered() then ImGui.SetTooltip("Path: " .. meshPath) end
+                end
+                ImGui.EndChild()
+            end
+
+            -- Lógica de Auto-Hide da janela
+            local isHoveringWindow = ImGui.IsWindowHovered(ImGuiHoveredFlags.RootAndChildWindows)
+            local isWindowFocused = ImGui.IsWindowFocused(ImGuiFocusedFlags.RootAndChildWindows)
+            local isItemActive = ImGui.IsAnyItemActive() 
+
+            local isInteracting = isHoveringWindow or isWindowFocused or isItemActive
+
+            if isInteracting then hasMouseEnteredHairSpawner = true end
+            if hasMouseEnteredHairSpawner and not isInteracting then
+                isHairSpawnerWindowOpen = false
+                hasMouseEnteredHairSpawner = false
+            end
+
+        end 
+        ImGui.End()
+    end
+	
+	-- ============================================================================
+    -- SEVENTH WINDOW: Body Type Changer (Drawer Side Panel)
+    -- ============================================================================
+    if isBodyTypeWindowOpen then
+        ImGui.SetNextWindowPos(customizeWindowPos.x + customizeWindowSize.x, customizeWindowPos.y, ImGuiCond.Always)
+        ImGui.SetNextWindowSize(300, customizeWindowSize.y, ImGuiCond.Appearing)
+        
+        if ImGui.Begin("Body Type Changer", true, ImGuiWindowFlags.NoSavedSettings) then
+            ImGui.Spacing()
+            ImGui.SetWindowFontScale(1.5)
+            ImGui.TextColored(1.0, 0.25, 0.25, 1.0, "\u{f115d} Body Types")
+            ImGui.SetWindowFontScale(1.0)
+            ImGui.Separator()
+            ImGui.Spacing()
+
+            local target = GetLookAtNPC()
+            
+            if not target then
+                ImGui.TextColored(1.0, 0.2, 0.2, 1.0, "WARNING: No Valid NPC Targeted!")
+            else
+                local targetHash = tostring(target:GetRecordID())
+                
+                -- Organiza a lista: Favoritos no topo, seguidos de ordem alfabética
+                local sortedBodies = {}
+                for _, p in ipairs(bodyTypeMeshesList) do 
+                    table.insert(sortedBodies, p) 
+                end
+                
+                table.sort(sortedBodies, function(a, b)
+                    local aFav = savedFavoriteBodyTypes[a] and 1 or 0
+                    local bFav = savedFavoriteBodyTypes[b] and 1 or 0
+                    if aFav ~= bFav then return aFav > bFav end
+                    return a < b
+                end)
+
+                ImGui.BeginChild("BodyListScroll", 0, 0, false)
+                
+                for i, meshPath in ipairs(sortedBodies) do
+                    -- Extrai o nome do ficheiro (suporta barras / e \)
+                    local shortMesh = meshPath:match("[^/\\]+$") or meshPath
+                    local isFav = savedFavoriteBodyTypes[meshPath]
+                    
+                    -- --------------------------------------------------------
+                    -- 1. BOTÃO DE FAVORITO (Estrela)
+                    -- --------------------------------------------------------
+                    local favIcon = isFav and "\u{f04ce}" or "\u{f04d2}"
+                    ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 0.84, 0.0, 1.0)          -- Dourado
+                    ImGui.PushStyleColor(ImGuiCol.Button, 0, 0, 0, 0)               -- Fundo Invisível
+                    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.2, 0.2, 0.2, 0.5)
+                    ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.3, 0.3, 0.3, 0.5)
+                    
+                    if ImGui.Button(favIcon .. "##fav_body_" .. i, 28, 28) then
+                        PlayModSound("click_menu")
+                        if isFav then 
+                            savedFavoriteBodyTypes[meshPath] = nil 
+                        else 
+                            savedFavoriteBodyTypes[meshPath] = true 
+                        end
+                        SaveFavoriteBodyTypes()
+                    end
+                    ImGui.PopStyleColor(4)
+                    
+                    ImGui.SameLine()
+
+                    -- --------------------------------------------------------
+                    -- 2. ETIQUETA "MOD" (Se for um mod externo)
+                    -- --------------------------------------------------------
+                    if isModdedMap and isModdedMap[meshPath] then
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.8, 0.1, 0.1, 0.9)        -- Vermelho
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.8, 0.1, 0.1, 0.9)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.8, 0.1, 0.1, 0.9)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)             -- Texto Branco
+                        
+                        ImGui.Button(" MOD ##tag_" .. i, 0, 28)
+                        ImGui.PopStyleColor(4)
+                        
+                        ImGui.SameLine()
+                    end
+                    
+                    -- --------------------------------------------------------
+                    -- 3. BOTÃO PRINCIPAL DA MESH
+                    -- --------------------------------------------------------
+                    local isBodyActive = (activeBodyTypes[targetHash] == meshPath)
+                    local availWidth = ImGui.GetContentRegionAvail() -- Preenche dinamicamente o espaço restante
+                    
+                    if isBodyActive then
+                        ImGui.PushStyleColor(ImGuiCol.Button, 1.0, 0.25, 0.25, 0.85)        -- Vermelho Ativo
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 1.0, 0.35, 0.35, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.80, 0.15, 0.15, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 1.0, 1.0, 1.0, 1.0)             -- Texto Branco
+                    else
+                        ImGui.PushStyleColor(ImGuiCol.Button, 0.2, 0.2, 0.2, 0.5)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0.3, 0.3, 0.3, 0.8)
+                        ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0.4, 0.4, 0.4, 1.0)
+                        ImGui.PushStyleColor(ImGuiCol.Text, 0.85, 0.85, 0.85, 1.0)
+                    end
+                    
+                    if ImGui.Button(shortMesh .. "##body_btn_" .. i, availWidth, 28) then
+                        PlayModSound("click_menu")
+                        local dummyTorsoSlot = { id = "AttachmentSlots.Torso", name = "Torso" }
+                        ApplyMeshNatively(target, dummyTorsoSlot, meshPath, "Body_Mesh")
+                        activeBodyTypes[targetHash] = meshPath
+                        Game.GetPlayer():SetWarningMessage("Body Type Applied!")
+                    end
+                    ImGui.PopStyleColor(4)
+                    
+                    if ImGui.IsItemHovered() then
+                        ImGui.SetTooltip("Path: " .. meshPath)
+                    end
+                    
+                    ImGui.Spacing()
+                end
+                
+                ImGui.EndChild()
+            end
+
+            -- --------------------------------------------------------
+            -- LÓGICA DE AUTO-HIDE DO PAINEL
+            -- --------------------------------------------------------
+            local isHoveringWindow = ImGui.IsWindowHovered(ImGuiHoveredFlags.RootAndChildWindows)
+            local isWindowFocused = ImGui.IsWindowFocused(ImGuiFocusedFlags.RootAndChildWindows)
+            local isItemActive = ImGui.IsAnyItemActive() 
+
+            local isInteracting = isHoveringWindow or isWindowFocused or isItemActive
+
+            if isInteracting then
+                hasMouseEnteredBodyType = true
+            end
+
+            if hasMouseEnteredBodyType and not isInteracting then
+                isBodyTypeWindowOpen = false
+                hasMouseEnteredBodyType = false
+            end
+        end 
+        ImGui.End()
+    end
+	
+    ImGui.PopStyleColor(7)	
 end)
 
 -- ============================================================================
@@ -1378,11 +2716,11 @@ registerHotkey("NPCOutfitManagerToggle", "Toggle NPC Outfit Manager Menu", funct
 end)
 
 registerForEvent("onUpdate", function(delta)
+	Cron.Update(delta)
     if autoRetryNakedTarget then
         ForceNakedState(autoRetryNakedTarget)
     end
     
-    -- Lógica Temporizada de Animações (30 segundos)
     if isAnimPlaying then
         animTimer = animTimer - delta
         if animTimer <= 0 then
@@ -1390,7 +2728,7 @@ registerForEvent("onUpdate", function(delta)
             if currentTarget then
                 PlayRandomNPCAnimation(currentTarget)
             end
-            animTimer = 30.0 -- Reinicia o relógio para os próximos 30s
+            animTimer = 30.0
         end
     end
 end)

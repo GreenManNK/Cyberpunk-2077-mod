@@ -1,0 +1,22 @@
+Character.GR_ncpd_elite_gorilla:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_gorilla_primary_equipment
+    archetypeData: ArchetypeData.HeavyMeleeT3
+    rarity: NPCRarity.Elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_gorilla_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_gorilla_primary_item
+
+Character.GR_ncpd_elite_gorilla_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.NPC_Strong_Arms
+    equipCondition:
+        - WeaponConditions.BaseMeleePrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition

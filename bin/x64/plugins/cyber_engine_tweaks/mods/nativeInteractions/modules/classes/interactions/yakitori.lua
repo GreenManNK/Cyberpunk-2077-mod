@@ -27,6 +27,7 @@ function yakitori:new(mod, project)
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.FoodDrumstickOutline
+    o.needsUpdate = true
 
     o.maxNodeRefPropertyWidth = nil
     o.stickRef = ""
@@ -46,6 +47,8 @@ function yakitori:load(data)
 end
 
 function yakitori:sessionStart()
+    workspot.sessionStart(self)
+
     self:reset()
 end
 
@@ -75,6 +78,13 @@ function yakitori:stop()
     workspot.stop(self)
 end
 
+local function toggleComponent(entity, name, state)
+    local component = entity:FindComponentByName(name)
+    if not component then return end
+
+    component:Toggle(state)
+end
+
 function yakitori:reset()
     self.eatLevel = 0
     if self.sceneRunning then
@@ -85,10 +95,10 @@ function yakitori:reset()
 
     if not stick then return end
 
-    stick:FindComponentByName("full"):Toggle(true)
-    stick:FindComponentByName("bite_1"):Toggle(false)
-    stick:FindComponentByName("bite_2"):Toggle(false)
-    stick:FindComponentByName("bite_3"):Toggle(false)
+    toggleComponent(stick, "full", true)
+    toggleComponent(stick, "bite_1", false)
+    toggleComponent(stick, "bite_2", false)
+    toggleComponent(stick, "bite_3", false)
 end
 
 function yakitori:onUpdate(playerPosition)
@@ -119,8 +129,8 @@ function yakitori:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.stickRef, changed = ImGui.InputTextWithHint('##stickRef', '$/mod/#yakitori', self.stickRef, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
+        self.project:save()
         self:reset()
     end
     ImGui.SameLine()
@@ -131,7 +141,7 @@ function yakitori:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(80)
     self.resetDistance, changed = ImGui.DragFloat("##resetDistance", self.resetDistance, 0.01, 1, 50, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
-    if changed then self.project:save() end
+    if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     style.tooltip("Distance from the interaction icon where the yakitori stick will reset.")
     ImGui.SameLine()
     if ImGui.Button("Reset") then

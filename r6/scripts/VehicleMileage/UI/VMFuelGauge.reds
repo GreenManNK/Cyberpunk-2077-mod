@@ -4,9 +4,22 @@ import Codeware.UI.VirtualResolutionWatcher
 
 public class VM_FuelGaugeTick extends DelayCallback {
   private let hud: wref<VM_FuelGauge>;
-  public static func Create(h: ref<VM_FuelGauge>) -> ref<VM_FuelGaugeTick> { let t = new VM_FuelGaugeTick(); t.hud = h; return t; }
+  private let generation: Int32;
+
+  public static func Create(
+    h: ref<VM_FuelGauge>,
+    generation: Int32
+  ) -> ref<VM_FuelGaugeTick> {
+    let t = new VM_FuelGaugeTick();
+    t.hud = h;
+    t.generation = generation;
+    return t;
+  }
+
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__armed = false;
       this.hud.Refresh();
       this.hud.ArmNextTick();
@@ -17,15 +30,22 @@ public class VM_FuelGaugeTick extends DelayCallback {
 // high-frequency animation tick (boot/shutdown only)
 public class VM_FGAnimTick extends DelayCallback {
   private let hud: wref<VM_FuelGauge>;
+  private let generation: Int32;
 
-  public static func Create(h: ref<VM_FuelGauge>) -> ref<VM_FGAnimTick> {
+  public static func Create(
+    h: ref<VM_FuelGauge>,
+    generation: Int32
+  ) -> ref<VM_FGAnimTick> {
     let t = new VM_FGAnimTick();
     t.hud = h;
+    t.generation = generation;
     return t;
   }
 
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__animArmed = false;
       this.hud.AnimStep();
     }
@@ -37,6 +57,7 @@ public class VM_FuelGauge extends IScriptable {
   private let tick: ref<VM_FuelGaugeTick>;
   private let period: Float = 0.10; // logic/update tick (~10 Hz)
   public let __armed: Bool;
+  private let callbackGeneration: Int32;
 
   // high-frequency animation tick for boot/shutdown (~60 fps feel)
   private let animTick: ref<VM_FGAnimTick>;
@@ -397,16 +418,23 @@ public class VM_FuelGauge extends IScriptable {
 	private let FG_DEF_SCALE:   Float =    0.55;   // 330 milli
 
 public func OnNewWorld() -> Void {
+		if IsDefined(this.alarmImgRef) {
+			this.alarmImgRef.SetOpacity(0.0);
+			this.alarmImgRef.SetVisible(false);
+		}
+		if IsDefined(this.root) {
+			this.root.SetOpacity(0.0);
+			this.root.SetVisible(false);
+		}
+
+    this.callbackGeneration += 1;
     this.built = false;
     this.__armed = false;
     this.__animArmed = false;
     this.animTick = null;
 
-    // Force first Refresh() to rewrite ODO/fuel from facts.
-    // Prevents stale ODO digits after save/load timing.
     this.lastPermille = -1;
-    this.lastOdoM = -1;
-
+				this.lastOdoM = -1;
     this.lastVisible  = false;
     this.wantVisible  = false;
 
@@ -490,6 +518,10 @@ public func OnNewWorld() -> Void {
 		// reset temp visibility cache
 		this.tempVisibleCached = false; // default off until we read the fact
 
+  }
+
+  public func VM_IsCallbackGeneration(generation: Int32) -> Bool {
+    return generation == this.callbackGeneration;
   }
 	
 	
@@ -1052,8 +1084,26 @@ public func OnNewWorld() -> Void {
 
 
 			// ======= ALARM OVERLAY (top-most) =======
-			let alarmImg: ref<inkImage> = new inkImage();
-			alarmImg.SetName(n"VM_AlarmOverlay");
+			// A world/session rebuild can reuse GaugeRoot. Hide every prior alarm
+			// child, then reuse one instead of leaving an orphaned visible advert.
+			let alarmChildCount: Int32 = cont.GetNumChildren();
+			let alarmChildIndex: Int32 = 0;
+			while alarmChildIndex < alarmChildCount {
+				let alarmChild: wref<inkWidget> = cont.GetWidget(alarmChildIndex);
+				if IsDefined(alarmChild) && Equals(alarmChild.GetName(), n"VM_AlarmOverlay") {
+					alarmChild.SetOpacity(0.0);
+					alarmChild.SetVisible(false);
+				}
+				alarmChildIndex += 1;
+			}
+
+			let alarmImg: ref<inkImage> = cont.GetWidgetByPathName(n"VM_AlarmOverlay") as inkImage;
+			if !IsDefined(alarmImg) {
+				alarmImg = new inkImage();
+				alarmImg.SetName(n"VM_AlarmOverlay");
+			}
+			// Keep the reused overlay as the top-most child as well.
+			alarmImg.Reparent(cont, -1);
 			alarmImg.SetVisible(false);
 			alarmImg.SetOpacity(0.0);   // start hidden via opacity
 			alarmImg.SetAtlasResource(r"ep1\\gameplay\\gui\\world\\adverts\\q304_escape_monitors\\q304_monitors.inkatlas");
@@ -1065,8 +1115,6 @@ public func OnNewWorld() -> Void {
 			alarmImg.SetInteractive(false);
 			alarmImg.SetVisible(false);
 
-			// Make it the last child of the gauge container so it draws on top
-			alarmImg.Reparent(cont);
 			let warm: HDRColor;
 			warm.Red = 1.0; warm.Green = 0.96; warm.Blue = 0.92; warm.Alpha = 1.0; // subtle warm-white
 			alarmImg.SetTintColor(warm);
@@ -1088,10 +1136,8 @@ public func OnNewWorld() -> Void {
 			this.odoValRef = odoDigits;
 			this.odoSpinWrapRef = spinWrap;
 			this.odoSpinImgRef  = spinImg;
-
 			// Force Refresh() to write current vm_hud_meters into the ODO text.
 			this.lastOdoM = -1;
-
 			this.ApplyOdoScale();
 			this.__ApplyThemePalette(true);
 
@@ -1256,7 +1302,7 @@ public func OnNewWorld() -> Void {
 			this.__UpdateTempLabels(this.oilTintInited ? this.oilTempVisC : Cast<Float>(qs.GetFact(n"vm_hud_oil_temp_c")));
 
 			// --- <6% → FADE flash loop ---
-			let wantAlarm: Bool = (cond >= 0) && (cond < 6);
+			let wantAlarm: Bool = this.wantVisible && (cond >= 0) && (cond < 6);
 
 			// change detection without '!=' on Bool
 			if ( (wantAlarm && !this.alarmActive) || (!wantAlarm && this.alarmActive) ) {
@@ -1392,7 +1438,11 @@ public func OnNewWorld() -> Void {
   private func ArmNextTick() -> Void {
     if this.__armed { return; }
     let ds = GameInstance.GetDelaySystem(GetGameInstance());
-    this.tick = VM_FuelGaugeTick.Create(this);
+    if !IsDefined(ds) { return; }
+    this.tick = VM_FuelGaugeTick.Create(
+      this,
+      this.callbackGeneration
+    );
     this.__armed = true;
     ds.DelayCallback(this.tick, this.period, false);
   }
@@ -1404,7 +1454,11 @@ public func OnNewWorld() -> Void {
     if !this.bootupActive && !this.shutdownActive { return; }
 
     let ds = GameInstance.GetDelaySystem(GetGameInstance());
-    this.animTick = VM_FGAnimTick.Create(this);
+    if !IsDefined(ds) { return; }
+    this.animTick = VM_FGAnimTick.Create(
+      this,
+      this.callbackGeneration
+    );
     this.__animArmed = true;
     ds.DelayCallback(this.animTick, this.ANIM_PERIOD, false);
   }
@@ -1922,20 +1976,56 @@ private func __ApplyThemePalette(force: Bool) -> Void {
 	}
 
 
-	// Show/hide gate: vm_hud_visible fact + modal depth (phone, menus, etc.)
+	// Show/hide gate: HUD facts + mounted vehicle dashboard power + modal depth.
+	private func IsMountedVehicleUIActive() -> Bool {
+		let player = GetPlayer(GetGameInstance());
+		if !IsDefined(player) { return false; }
+
+		let vehicle = player.GetMountedVehicle();
+		if !IsDefined(vehicle) { return false; }
+
+		let blackboard: ref<IBlackboard> = vehicle.GetBlackboard();
+		return IsDefined(blackboard)
+			&& blackboard.GetBool(GetAllBlackboardDefs().Vehicle.IsUIActive);
+	}
+
   private func ApplyVisibilityGate() -> Void {
     if !IsDefined(this.root) { return; }
     let qs = GameInstance.GetQuestsSystem(GetGameInstance());
 
     let showByFact: Bool      = IsDefined(qs) && (qs.GetFact(n"vm_hud_visible") == 1);
     let enabledBySwitch: Bool = IsDefined(qs) ? (qs.GetFact(n"vm_fg_enabled") == 1) : true;
-    let want: Bool            = showByFact && enabledBySwitch && (this.modalDepth == 0);
+    let vehicleUIActive: Bool = this.IsMountedVehicleUIActive();
+    let want: Bool            = showByFact && enabledBySwitch && vehicleUIActive && (this.modalDepth == 0);
 
     // Keep for debugging / future use, but don't rely on its transitions
     this.wantVisible = want;
 
+		// Power-off and dismount must clear the alarm even if the normal visibility
+		// transition was missed while the vehicle UI was being disabled.
+		if !want {
+			this.alarmActive = false;
+			this.alarmPhase  = 0;
+			this.alarmTimer  = 0.0;
+			this.alarmAlpha  = 0.0;
+			if IsDefined(this.alarmImgRef) {
+				this.alarmImgRef.SetOpacity(0.0);
+				this.alarmImgRef.SetVisible(false);
+			}
+		}
+
     // Consider the gauge "on" if it was fully visible or currently animating
     let wasOn: Bool = this.lastVisible || this.bootupActive || this.shutdownActive;
+
+		// Direct UI mode calls and reused HUD roots must not be able to bypass
+		// the power/mount gate while it is steadily off.
+		if !want && !wasOn {
+			this.root.SetOpacity(0.0);
+			this.root.SetVisible(false);
+			this.root.SetScale(new Vector2(this.SCALE_X, this.SCALE_Y));
+			this.lastVisible = false;
+			return;
+		}
 
     // ── Turning ON → start boot-up ─────────────────────────────
     if want && !wasOn {
@@ -1966,15 +2056,6 @@ private func __ApplyThemePalette(force: Bool) -> Void {
     if !want && wasOn && !this.shutdownActive {
       // stop any boot-up in progress
       this.bootupActive = false;
-
-      // kill alarm overlay immediately
-      this.alarmActive = false;
-      this.alarmPhase  = 0;
-      this.alarmTimer  = 0.0;
-      if IsDefined(this.alarmImgRef) {
-        this.alarmImgRef.SetOpacity(0.0);
-        this.alarmImgRef.SetVisible(false);
-      }
 
       if IsDefined(this.root) {
         // keep it drawn while we animate the shutdown

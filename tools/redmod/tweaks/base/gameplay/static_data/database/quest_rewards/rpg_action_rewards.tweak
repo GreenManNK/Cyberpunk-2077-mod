@@ -1,0 +1,607 @@
+package RPGActionRewards
+using RTDB
+
+Experience : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 100;
+}
+
+TargetLevelBonus : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refObject = "Target";
+	refStat = "BaseStats.PowerLevel";
+	opSymbol = "*";
+	value = 2f;
+}
+
+TargetHealthBonus : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refObject = "Target";
+	refStat = "BaseStats.Health";
+	opSymbol = "*";
+	value = 0.01f;
+}
+
+TargetItemLevelBonus : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refObject = "Target";
+	refStat = "BaseStats.ItemLevel";
+	opSymbol = "*";
+	value = 2f;
+}
+
+QuickHackReduction : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "AdditiveMultiplier";
+	refObject = "Target";
+	refStat = "BaseStats.WasQuickHacked";
+	opSymbol = "*";
+	value = -0.9f;
+}
+
+PunchingBagBrawlingBonus : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refObject = "Player";
+	refStat = "BaseStats.StrengthSkill";
+	opSymbol = "*";
+	value = 5f;
+}
+
+ColdBloodStacksBonus : CombinedStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refObject = "Player";
+	refStat = "BaseStats.ColdBloodBuffBonus";
+	opSymbol = "*";
+	value = 15f;
+}
+
+NeutralizeTrashEnemy : RewardBase
+{
+	string name = "NeutralizeTrashEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 3;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+NeutralizeWeakEnemy : RewardBase
+{
+	string name = "NeutralizeWeakEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 8;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+NeutralizeNormalEnemy : RewardBase
+{
+	string name = "NeutralizeNormalEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 9;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+NeutralizeRareEnemy : RewardBase
+{
+	string name = "NeutralizeRareEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 10;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+NeutralizeEliteEnemy : RewardBase
+{
+	string name = "NeutralizeEliteEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 15;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+NeutralizeBossEnemy : RewardBase
+{
+	string name = "NeutralizeBossEnemy";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 25;
+				} : Experience, 
+				"RPGActionRewards.TargetHealthBonus"
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+TakedownBonusLevelXP : RewardBase
+{
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 4;
+				} : Experience, 
+				{
+					value = 0.5;
+				} : TargetLevelBonus
+			];
+			type = "Proficiencies.Level";
+		}
+	];
+}
+
+ProficiencyReward : RewardBase
+{
+	string name = "Proficiency Reward";
+}
+
+Gunslinger : ProficiencyReward
+{
+	string name = "Gunslinger";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.CoolSkill";
+		}
+	];
+}
+
+Assault : ProficiencyReward
+{
+	string name = "Assault";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.ReflexesSkill";
+		}
+	];
+}
+
+Kenjutsu : ProficiencyReward
+{
+	string name = "Kenjutsu";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.ReflexesSkill";
+		}
+	];
+}
+
+Demolition : ProficiencyReward
+{
+	string name = "Demolition";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.StrengthSkill";
+		}
+	];
+}
+
+Brawling : ProficiencyReward
+{
+	string name = "Brawling";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.StrengthSkill";
+		}
+	];
+}
+
+BrawlingPunchingBag : ProficiencyReward
+{
+	string name = "Brawling";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 45;
+				} : Experience, 
+				"RPGActionRewards.PunchingBagBrawlingBonus"
+			];
+			type = "Proficiencies.StrengthSkill";
+		}
+	];
+}
+
+Stealth : ProficiencyReward
+{
+	string name = "Stealth";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.CoolSkill";
+		}
+	];
+}
+
+Dispose : ProficiencyReward
+{
+	string name = "Stealth";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 10;
+				} : Experience
+			];
+			type = "Proficiencies.CoolSkill";
+		}
+	];
+}
+
+TakedownAndDisposeStealth : ProficiencyReward
+{
+	string name = "Stealth";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 110;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.CoolSkill";
+		}
+	];
+}
+
+Athletics : ProficiencyReward
+{
+	string name = "Athletics";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.StrengthSkill";
+		}
+	];
+}
+
+Hacking : ProficiencyReward
+{
+	string name = "Netrunning";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 75;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus", "RPGActionRewards.QuickHackReduction"
+			];
+			type = "Proficiencies.IntelligenceSkill";
+		}
+	];
+}
+
+Engineering : ProficiencyReward
+{
+	string name = "Engineering";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 100;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.TechnicalAbilitySkill";
+		}
+	];
+}
+
+Crafting : RewardBase
+{
+	string name = "Crafting";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 130;
+				} : Experience, 
+				"RPGActionRewards.TargetLevelBonus"
+			];
+			type = "Proficiencies.TechnicalAbilitySkill";
+		}
+	];
+}
+
+Upgrading : RewardBase
+{
+	string name = "Crafting";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 70;
+				} : Experience, 
+				"RPGActionRewards.TargetItemLevelBonus"
+			];
+			type = "Proficiencies.TechnicalAbilitySkill";
+		}
+	];
+}
+
+Disassemble : RewardBase
+{
+	string name = "Crafting";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 2;
+				} : Experience
+			];
+			type = "Proficiencies.TechnicalAbilitySkill";
+		}
+	];
+}
+
+ExtractParts : RewardBase
+{
+	string name = "ExtractParts";
+	fk< InventoryItem >[] items = [];
+}
+
+ExtractPartsActivator : ExtractParts
+{
+}
+
+ExtractPartsTerminal : ExtractParts
+{
+}
+
+ExtractPartsVendingMachine : ExtractParts
+{
+}
+
+ExtractPartsSecurityTurret : ExtractParts
+{
+}
+
+ExtractPartsSecurityAlarm : ExtractParts
+{
+}
+
+ExtractPartsDoor : ExtractParts
+{
+}
+
+ProgramParts : RewardBase
+{
+	string name = "ProgramParts";
+	fk< InventoryItem >[] items = [];
+}
+
+ProgramPartsAccessPoint : ProgramParts
+{
+	fk< InventoryItem >[] items += 
+	[
+		{
+			item = "Items.UncommonMaterial1";
+			quantity = 1;
+		}, 
+		{
+			item = "Items.CommonMaterial1";
+			quantity = 1;
+		}
+	];
+}
+
+SkillBookQualityExp : CurveStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Player";
+	id = "progression_shards";
+	column = "shard_quality_to_experience_awarded";
+}
+
+RewardSkillBookQualityExp : CurveStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Player";
+	id = "progression_shards";
+	column = "reward_quality_to_experience_awarded";
+}
+
+SkillBookExpBalance : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Multiplier";
+	value = 0.75f;
+}
+
+SkillLvlExpBase : CurveStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Multiplier";
+	refObject = "Player";
+	id = "progression_shards";
+	column = "skill_level_to_experience_awarded";
+}
+
+StrengthSkillLvlExp : SkillLvlExpBase
+{
+	refStat = "BaseStats.StrengthSkill";
+}
+
+ReflexesSkillLvlExp : SkillLvlExpBase
+{
+	refStat = "BaseStats.ReflexesSkill";
+}
+
+IntelligenceSkillLvlExp : SkillLvlExpBase
+{
+	refStat = "BaseStats.IntelligenceSkill";
+}
+
+TechnicalAbilitySkillLvlExp : SkillLvlExpBase
+{
+	refStat = "BaseStats.TechnicalAbilitySkill";
+}
+
+CoolSkillLvlExp : SkillLvlExpBase
+{
+	refStat = "BaseStats.CoolSkill";
+}
+
+TechnicalAbilityGrenadeExp : ProficiencyReward
+{
+	string name = "Engineering";
+	fk< XPPoints >[] experience = 
+	[
+		{
+			quantityModifiers = 
+			[
+				{
+					value = 30;
+				} : Experience, 
+				{
+					statType = "BaseStats.Quantity";
+					modifierType = "Additive";
+					refObject = "Target";
+					refStat = "BaseStats.PowerLevel";
+					opSymbol = "*";
+					value = 1f;
+				} : CombinedStatModifier
+			];
+			type = "Proficiencies.TechnicalAbilitySkill";
+		}
+	];
+}
+

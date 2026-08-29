@@ -1,0 +1,648 @@
+class ShardsNestedListDataView extends VirtualNestedListDataView
+{
+
+	protected override function SortItems( compareBuilder : CompareBuilder, left : VirutalNestedListData, right : VirutalNestedListData )
+	{
+		var leftData, rightData : ShardEntryData;
+		leftData = ( ( ShardEntryData )( left.m_data ) );
+		rightData = ( ( ShardEntryData )( right.m_data ) );
+		if( leftData && rightData )
+		{
+			compareBuilder.BoolTrue( leftData.m_isNew, rightData.m_isNew ).GameTimeDesc( leftData.m_timeStamp, rightData.m_timeStamp );
+		}
+	}
+
+}
+
+class ShardsVirtualNestedListController extends VirtualNestedListController
+{
+	private var m_currentDataView : weak< ShardsNestedListDataView >;
+
+	protected override function GetDataView() : VirtualNestedListDataView
+	{
+		var view : ShardsNestedListDataView;
+		view = new ShardsNestedListDataView;
+		m_currentDataView = view;
+		return view;
+	}
+
+	public function GetIndexByJournalHash( hash : Int32 ) : Int32
+	{
+		var i : Int32;
+		var dataSize : Int32;
+		var currentData : weak< ShardEntryData >;
+		var listData : weak< VirutalNestedListData >;
+		if( m_currentDataView == NULL )
+		{
+			return -1;
+		}
+		dataSize = ( ( Int32 )( m_currentDataView.Size() ) );
+		for( i = 0; i < dataSize; i = i + 1 )
+		{
+			listData = ( ( VirutalNestedListData )( ( ( IScriptable )( m_currentDataView.GetItem( ( ( Uint32 )( i ) ) ) ) ) ) );
+			currentData = ( ( ShardEntryData )( listData.m_data ) );
+			if( currentData.m_hash == hash )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public function FindDataIndex( hash : Int32 ) : Int32
+	{
+		var itemData : VirutalNestedListData;
+		var shardData : ShardEntryData;
+		var i : Int32;
+		var dataSize : Int32;
+		var dataArray : array< IScriptable >;
+		if( m_dataSource == NULL )
+		{
+			return -1;
+		}
+		dataSize = ( ( Int32 )( m_dataSource.GetArraySize() ) );
+		dataArray = m_dataSource.GetArray();
+		for( i = 0; i < dataSize; i = i + 1 )
+		{
+			itemData = ( ( VirutalNestedListData )( ( ( IScriptable )( dataArray[ i ] ) ) ) );
+			shardData = ( ( ShardEntryData )( itemData.m_data ) );
+			if( ( shardData != NULL ) && ( hash == shardData.m_hash ) )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public function ShowLevelForDataIndex( index : Int32 )
+	{
+		var itemData : VirutalNestedListData;
+		var data : array< IScriptable >;
+		var dataSize : Int32;
+		data = m_dataSource.GetArray();
+		dataSize = ( ( Int32 )( m_dataSource.GetArraySize() ) );
+		if( dataSize <= index )
+		{
+			return;
+		}
+		itemData = ( ( VirutalNestedListData )( ( ( IScriptable )( data[ index ] ) ) ) );
+		if( !( IsLevelToggled( itemData.m_level ) ) )
+		{
+			ToggleLevel( itemData.m_level );
+		}
+	}
+
+}
+
+class GenericCodexEntryData extends IScriptable
+{
+	var m_hash : Int32;
+	var m_title : String;
+	var m_description : String;
+	var m_journalEntryOverrideDataList : array< JournalEntryOverrideData >;
+	var m_imageId : TweakDBID;
+	var m_counter : Int32;
+	var m_timeStamp : GameTime;
+	var m_isNew : Bool;
+	var m_isEp1 : Bool;
+	var m_newEntries : array< Int32 >;
+	var m_itemID : ItemID;
+	var m_activeDataSync : weak< CodexListSyncData >;
+}
+
+class ShardEntryData extends GenericCodexEntryData
+{
+	var m_isCrypted : Bool;
+}
+
+class CodexEntryData extends GenericCodexEntryData
+{
+	var m_category : Int32;
+	var m_imageType : CodexImageType;
+}
+
+class ShardSelectedEvent extends Event
+{
+	var m_group : Bool;
+	var m_entryHash : Int32;
+	var m_level : Int32;
+	var m_data : weak< ShardEntryData >;
+}
+
+class ShardEntrySelectedEvent extends Event
+{
+	var m_hash : Uint32;
+}
+
+class ShardSyncBackEvent extends Event
+{
+}
+
+class CodexListSyncData extends IScriptable
+{
+	var m_entryHash : Int32;
+	var m_level : Int32;
+	var m_toggledLevels : array< Int32 >;
+}
+
+class CodexSelectedEvent extends Event
+{
+	var m_group : Bool;
+	var m_entryHash : Int32;
+	var m_level : Int32;
+	var m_data : weak< CodexEntryData >;
+	var m_activeDataSync : weak< CodexListSyncData >;
+}
+
+class CodexEntrySelectedEvent extends Event
+{
+	var m_hash : Uint32;
+}
+
+class CodexSyncBackEvent extends Event
+{
+}
+
+class CodexForceSelectionEvent extends Event
+{
+	var m_selectionIndex : Int32;
+	var m_hash : Int32;
+}
+
+class CodexUtils
+{
+
+	public static function GetShardsDataArray( journal : JournalManager, activeDataSync : weak< CodexListSyncData > ) : array< VirutalNestedListData >
+	{
+		var i, j : Int32;
+		var hasNewEntries : Bool;
+		var context : JournalRequestContext;
+		var groups : array< JournalOnscreensStructuredGroup >;
+		var curGroup : weak< JournalOnscreensStructuredGroup >;
+		var shards : array< weak< JournalOnscreen > >;
+		var curShard : weak< JournalOnscreen >;
+		var shardData : ShardEntryData;
+		var groupData : ShardEntryData;
+		var shardVirtualListData : VirutalNestedListData;
+		var groupVirtualListData : VirutalNestedListData;
+		var virtualDataList : array< VirutalNestedListData >;
+		var newEntries : array< Int32 >;
+		context.stateFilter.active = true;
+		journal.GetOnscreens( context, groups, 'others' );
+		for( i = 0; i < groups.Size(); i += 1 )
+		{
+			curGroup = groups[ i ];
+			shards = curGroup.GetEntries();
+			hasNewEntries = false;
+			newEntries.Clear();
+			for( j = 0; j < shards.Size(); j += 1 )
+			{
+				curShard = shards[ j ];
+				shardData = new ShardEntryData;
+				shardData.m_title = curShard.GetTitle();
+				shardData.m_description = curShard.GetDescription();
+				shardData.m_imageId = curShard.GetIconID();
+				shardData.m_hash = journal.GetEntryHash( ( ( JournalEntry )( curShard ) ) );
+				shardData.m_timeStamp = journal.GetEntryTimestamp( ( ( JournalEntry )( curShard ) ) );
+				shardData.m_activeDataSync = activeDataSync;
+				shardData.m_isNew = !( journal.IsEntryVisited( ( ( JournalEntry )( curShard ) ) ) );
+				if( shardData.m_isNew )
+				{
+					newEntries.PushBack( shardData.m_hash );
+					shardData.m_newEntries.PushBack( shardData.m_hash );
+				}
+				shardVirtualListData = new VirutalNestedListData;
+				shardVirtualListData.m_level = i;
+				shardVirtualListData.m_widgetType = 0;
+				shardVirtualListData.m_isHeader = false;
+				shardVirtualListData.m_data = shardData;
+				virtualDataList.PushBack( shardVirtualListData );
+				if( shardData.m_isNew )
+				{
+					hasNewEntries = true;
+				}
+			}
+			groupData = new ShardEntryData;
+			groupData.m_title = GetLocalizedTag( curGroup.GetTag() );
+			groupData.m_activeDataSync = activeDataSync;
+			groupData.m_counter = shards.Size();
+			groupData.m_isNew = hasNewEntries;
+			groupData.m_newEntries = newEntries;
+			groupVirtualListData = new VirutalNestedListData;
+			groupVirtualListData.m_level = i;
+			groupVirtualListData.m_widgetType = 1;
+			groupVirtualListData.m_isHeader = true;
+			groupVirtualListData.m_data = groupData;
+			virtualDataList.PushBack( groupVirtualListData );
+		}
+		return virtualDataList;
+	}
+
+	public static function GetCodexReplacementRecord( journal : JournalManager, currentEntry : weak< JournalEntry > ) : weak< JournalCodexEntry >
+	{
+		var innerEntries : array< weak< JournalEntry > >;
+		var filter : JournalRequestStateFilter;
+		var codexEntry : weak< JournalCodexEntry >;
+		var l : Int32;
+		filter.inactive = false;
+		filter.active = true;
+		journal.GetChildren( currentEntry, filter, innerEntries );
+		for( l = 0; l < innerEntries.Size(); l += 1 )
+		{
+			codexEntry = ( ( JournalCodexEntry )( innerEntries[ l ] ) );
+			if( codexEntry )
+			{
+				return codexEntry;
+			}
+		}
+		return NULL;
+	}
+
+	public static function ConvertToCodexData( journal : JournalManager, journalCodexEntry : weak< JournalCodexEntry >, currentCategoryIndex : Int32, stateFilter : JournalRequestStateFilter, newEntries : ref< array< Int32 > >, optional activeDataSync : weak< CodexListSyncData >, optional useFallbackImages : Bool ) : CodexEntryData
+	{
+		var journalCodexEntryData : CodexEntryData;
+		var journalCodexSubEntryList : array< weak< JournalEntry > >;
+		var journalCodexSubEntry : weak< JournalCodexDescription >;
+		var descriptionStateFilter : JournalRequestStateFilter;
+		var replacementEntry : weak< JournalCodexEntry >;
+		var j : Int32;
+		journalCodexSubEntryList.Clear();
+		descriptionStateFilter.inactive = true;
+		descriptionStateFilter.active = true;
+		descriptionStateFilter.succeeded = true;
+		descriptionStateFilter.failed = true;
+		journal.GetChildren( journalCodexEntry, descriptionStateFilter, journalCodexSubEntryList );
+		replacementEntry = GetCodexReplacementRecord( journal, journalCodexEntry );
+		if( replacementEntry )
+		{
+			journalCodexEntry = replacementEntry;
+		}
+		journalCodexEntryData = new CodexEntryData;
+		journalCodexEntryData.m_hash = journal.GetEntryHash( ( ( JournalEntry )( journalCodexEntry ) ) );
+		journalCodexEntryData.m_title = journalCodexEntry.GetTitle();
+		journalCodexEntryData.m_imageId = journalCodexEntry.GetImageID();
+		if( !( TDBID.IsValid( journalCodexEntryData.m_imageId ) ) && useFallbackImages )
+		{
+			journalCodexEntryData.m_imageId = ( ( journalCodexEntryData.m_imageType == CodexImageType.Default ) ? ( T"UIJournalIcons.PlaceholderCodexImage" ) : ( T"UIJournalIcons.PlaceholderCodexCharacterImage" ) );
+		}
+		journalCodexEntryData.m_timeStamp = journal.GetEntryTimestamp( ( ( JournalEntry )( journalCodexEntry ) ) );
+		journalCodexEntryData.m_isNew = !( journal.IsEntryVisited( ( ( JournalEntry )( journalCodexEntry ) ) ) );
+		journalCodexEntryData.m_isEp1 = journal.IsEp1Entry( journalCodexEntry );
+		journalCodexEntryData.m_activeDataSync = activeDataSync;
+		journalCodexEntryData.m_category = currentCategoryIndex;
+		journalCodexEntryData.m_imageType = ( ( currentCategoryIndex != ( ( Int32 )( CodexCategoryType.Characters ) ) ) ? ( CodexImageType.Default ) : ( CodexImageType.Character ) );
+		for( j = 0; j < journalCodexSubEntryList.Size(); j += 1 )
+		{
+			journalCodexSubEntry = ( ( JournalCodexDescription )( journalCodexSubEntryList[ j ] ) );
+			if( journalCodexSubEntry )
+			{
+				journalCodexEntryData.m_description = journalCodexSubEntry.GetTextContent();
+				if( journalCodexSubEntry.GetJournalEntryOverrideDataListCount() > 0 )
+				{
+					journalCodexEntryData.m_journalEntryOverrideDataList.Clear();
+					journalCodexSubEntry.GetJournalEntryOverrideDataList( journalCodexEntryData.m_journalEntryOverrideDataList );
+				}
+			}
+		}
+		if( journalCodexEntryData.m_isNew )
+		{
+			newEntries.PushBack( journalCodexEntryData.m_hash );
+			journalCodexEntryData.m_newEntries.PushBack( journalCodexEntryData.m_hash );
+		}
+		return journalCodexEntryData;
+	}
+
+	public static function IsImageValid( imageId : TweakDBID ) : Bool
+	{
+		var iconRecord : UIIcon_Record;
+		var partName : CName;
+		if( TDBID.IsValid( imageId ) )
+		{
+			iconRecord = TweakDBInterface.GetUIIconRecord( imageId );
+			partName = iconRecord.AtlasPartName();
+			return ( partName != 'empty' && partName != 'empty2' ) && partName != 'c_empty';
+		}
+		return false;
+	}
+
+	public static function GetGroupData( currentGroup : weak< JournalCodexGroup >, out groupsMap : array< VirutalNestedListData > ) : weak< VirutalNestedListData >
+	{
+		var groupIndex, i : Int32;
+		var groupName : String;
+		var groupData : CodexEntryData;
+		var groupVirtualListData : VirutalNestedListData;
+		groupName = currentGroup.GetGroupName();
+		for( i = 0; i < groupsMap.Size(); i += 1 )
+		{
+			groupVirtualListData = groupsMap[ i ];
+			groupData = ( ( CodexEntryData )( groupVirtualListData.m_data ) );
+			if( groupData.m_title == groupName )
+			{
+				return groupVirtualListData;
+			}
+		}
+		groupIndex = groupsMap.Size();
+		groupData = new CodexEntryData;
+		groupData.m_title = groupName;
+		groupVirtualListData = new VirutalNestedListData;
+		groupVirtualListData.m_level = groupIndex;
+		groupVirtualListData.m_widgetType = 1;
+		groupVirtualListData.m_isHeader = true;
+		groupVirtualListData.m_collapsable = true;
+		groupVirtualListData.m_data = groupData;
+		groupsMap.PushBack( groupVirtualListData );
+		return groupVirtualListData;
+	}
+
+	public static function GetCodexDataArray( journal : JournalManager, activeDataSync : weak< CodexListSyncData >, optional useFallbackImages : Bool ) : array< VirutalNestedListData >
+	{
+		var i, j, k, currentCategoryIndex : Int32;
+		var hasNewEntries : Bool;
+		var stateFilter : JournalRequestStateFilter;
+		var context : JournalRequestContext;
+		var currentCategory : weak< JournalCodexCategory >;
+		var currentGroup : weak< JournalCodexGroup >;
+		var currentEntry : weak< JournalCodexEntry >;
+		var categories : array< weak< JournalEntry > >;
+		var groups : array< weak< JournalEntry > >;
+		var entries : array< weak< JournalEntry > >;
+		var groupEntryData : weak< CodexEntryData >;
+		var entryData : CodexEntryData;
+		var entryVirtualListData : VirutalNestedListData;
+		var virtualDataList : array< VirutalNestedListData >;
+		var newEntries : array< Int32 >;
+		var currentGroupVirtualListData : VirutalNestedListData;
+		var isSorted : Bool;
+		context.stateFilter.inactive = false;
+		context.stateFilter.failed = false;
+		context.stateFilter.succeeded = false;
+		context.stateFilter.active = true;
+		stateFilter.inactive = false;
+		stateFilter.failed = false;
+		stateFilter.succeeded = false;
+		stateFilter.active = true;
+		journal.GetCodexCategories( context, categories );
+		for( i = 0; i < categories.Size(); i += 1 )
+		{
+			groups.Clear();
+			currentCategory = ( ( JournalCodexCategory )( categories[ i ] ) );
+			journal.GetChildren( currentCategory, stateFilter, groups );
+			currentCategoryIndex = ( ( Int32 )( CodexUtils.GetCategoryTypeFromId( currentCategory.GetId() ) ) );
+			for( j = 0; j < groups.Size(); j += 1 )
+			{
+				hasNewEntries = false;
+				newEntries.Clear();
+				entries.Clear();
+				currentGroup = ( ( JournalCodexGroup )( groups[ j ] ) );
+				currentGroupVirtualListData = GetGroupData( currentGroup, virtualDataList );
+				groupEntryData = ( ( CodexEntryData )( currentGroupVirtualListData.m_data ) );
+				journal.GetChildren( currentGroup, stateFilter, entries );
+				isSorted = currentGroup.GetIsSorted();
+				for( k = 0; k < entries.Size(); k += 1 )
+				{
+					currentEntry = ( ( JournalCodexEntry )( entries[ k ] ) );
+					entryData = ConvertToCodexData( journal, currentEntry, currentCategoryIndex, stateFilter, newEntries, activeDataSync, useFallbackImages );
+					if( CodexUtils.IsImageValid( currentEntry.GetImageID() ) || ( currentCategoryIndex == ( ( Int32 )( CodexCategoryType.Tutorials ) ) ) )
+					{
+						entryVirtualListData = new VirutalNestedListData;
+						entryVirtualListData.m_level = currentGroupVirtualListData.m_level;
+						entryVirtualListData.m_widgetType = 0;
+						entryVirtualListData.m_isHeader = false;
+						entryVirtualListData.m_data = entryData;
+						entryVirtualListData.m_isSortable = isSorted;
+						virtualDataList.PushBack( entryVirtualListData );
+						if( entryData.m_isNew )
+						{
+							hasNewEntries = true;
+						}
+					}
+				}
+				groupEntryData.m_isNew = hasNewEntries;
+				groupEntryData.m_category = currentCategoryIndex;
+				groupEntryData.m_activeDataSync = activeDataSync;
+				groupEntryData.m_counter += entries.Size();
+				for( k = 0; k < newEntries.Size(); k += 1 )
+				{
+					groupEntryData.m_newEntries.PushBack( newEntries[ k ] );
+				}
+			}
+		}
+		return virtualDataList;
+	}
+
+	public static function GetTutorialsData( journal : JournalManager, activeDataSync : weak< CodexListSyncData >, offset : Int32 ) : array< VirutalNestedListData >
+	{
+		var i : Int32;
+		var entries : array< weak< JournalEntry > >;
+		var currentEntry : weak< JournalOnscreen >;
+		var entryData : CodexEntryData;
+		var groupData : CodexEntryData;
+		var entryVirtualListData : VirutalNestedListData;
+		var groupVirtualListData : VirutalNestedListData;
+		var hasNewEntries : Bool;
+		var newEntries : array< Int32 >;
+		var result : array< VirutalNestedListData >;
+		CodexUtils.AppendTutorialEntries( journal, "onscreens/tutorials", entries );
+		CodexUtils.AppendTutorialEntries( journal, "onscreens/tutorials_new", entries );
+		CodexUtils.AppendTutorialEntries( journal, "onscreens/tutorial_vr", entries );
+		for( i = 0; i < entries.Size(); i += 1 )
+		{
+			currentEntry = ( ( JournalOnscreen )( entries[ i ] ) );
+			entryData = new CodexEntryData;
+			entryData.m_title = currentEntry.GetTitle();
+			entryData.m_description = currentEntry.GetDescription();
+			entryData.m_imageId = currentEntry.GetIconID();
+			entryData.m_hash = journal.GetEntryHash( ( ( JournalEntry )( currentEntry ) ) );
+			entryData.m_timeStamp = journal.GetEntryTimestamp( ( ( JournalEntry )( currentEntry ) ) );
+			entryData.m_activeDataSync = activeDataSync;
+			entryData.m_isNew = !( journal.IsEntryVisited( ( ( JournalEntry )( currentEntry ) ) ) );
+			if( entryData.m_isNew )
+			{
+				newEntries.PushBack( entryData.m_hash );
+				entryData.m_newEntries.PushBack( entryData.m_hash );
+			}
+			if( !( TDBID.IsValid( entryData.m_imageId ) ) )
+			{
+				entryData.m_imageId = T"UIJournalIcons.PlaceholderCodexImage";
+			}
+			entryVirtualListData = new VirutalNestedListData;
+			entryVirtualListData.m_level = ( ( Int32 )( CodexCategoryType.Tutorials ) );
+			entryVirtualListData.m_widgetType = 0;
+			entryVirtualListData.m_isHeader = false;
+			entryVirtualListData.m_data = entryData;
+			result.PushBack( entryVirtualListData );
+			if( entryData.m_isNew )
+			{
+				hasNewEntries = true;
+			}
+		}
+		groupData = new CodexEntryData;
+		groupData.m_title = "Tutorials";
+		groupData.m_activeDataSync = activeDataSync;
+		groupData.m_counter = entries.Size();
+		groupData.m_isNew = hasNewEntries;
+		groupData.m_newEntries = newEntries;
+		groupVirtualListData = new VirutalNestedListData;
+		groupVirtualListData.m_level = ( ( Int32 )( CodexCategoryType.Tutorials ) );
+		groupVirtualListData.m_widgetType = 1;
+		groupVirtualListData.m_isHeader = true;
+		groupVirtualListData.m_data = groupData;
+		result.PushBack( groupVirtualListData );
+		return result;
+	}
+
+	private static function AppendTutorialEntries( journal : JournalManager, const path : ref< String >, output : ref< array< weak< JournalEntry > > > ) : Bool
+	{
+		var i : Int32;
+		var group : weak< JournalOnscreenGroup >;
+		var result : array< weak< JournalEntry > >;
+		var stateFilter : JournalRequestStateFilter;
+		stateFilter.inactive = false;
+		stateFilter.failed = false;
+		stateFilter.succeeded = false;
+		stateFilter.active = true;
+		group = ( ( JournalOnscreenGroup )( journal.GetEntryByString( path, "gameJournalOnscreenGroup" ) ) );
+		journal.GetChildren( group, stateFilter, result );
+		for( i = 0; i < result.Size(); i += 1 )
+		{
+			output.PushBack( result[ i ] );
+		}
+		return result.Size() > 0;
+	}
+
+	public static function JournalToRepresentationArray( journal : JournalManager, const entries : ref< array< weak< JournalEntry > > > ) : array< JournalRepresentationData >
+	{
+		var codexCategoryData : array< JournalRepresentationData >;
+		var codexEntry : JournalRepresentationData;
+		var i : Int32;
+		for( i = 0; i < entries.Size(); i += 1 )
+		{
+			codexEntry = new JournalRepresentationData;
+			codexEntry.Data = entries[ i ];
+			codexEntry.IsNew = journal.IsEntryVisited( entries[ i ] );
+			codexCategoryData.PushBack( codexEntry );
+		}
+		return codexCategoryData;
+	}
+
+	private static function GetLocalizedTag( tag : CName ) : String
+	{
+		var res : String;
+		switch( tag )
+		{
+			case 'literature_fiction':
+				res = GetLocalizedText( "UI-Shards-LiteratureFiction" );
+			break;
+			case 'night_city_people':
+				res = GetLocalizedText( "UI-Shards-NightCityPeople" );
+			break;
+			case 'world':
+				res = GetLocalizedText( "UI-Shards-World" );
+			break;
+			case 'technology':
+				res = GetLocalizedText( "UI-Shards-Technology" );
+			break;
+			case 'notes':
+				res = GetLocalizedText( "UI-Shards-Notes" );
+			break;
+			case 'articles':
+				res = GetLocalizedText( "UI-Shards-Articles" );
+			break;
+			case 'leaflets':
+				res = GetLocalizedText( "UI-Shards-Leaflets" );
+			break;
+			case 'cyberpsycho':
+				res = GetLocalizedText( "LocKey#31788" );
+			break;
+			case 'religion_philosophy':
+				res = GetLocalizedText( "UI-Shards-ReligionPhilosophy" );
+			break;
+			case 'poetry':
+				res = GetLocalizedText( "UI-Shards-Poetry" );
+			break;
+			default:
+				res = GetLocalizedText( "UI-Shards-Others" );
+			break;
+		}
+		return res;
+	}
+
+	public static function GetShardTitleString( isCrypted : Bool, const titleString : ref< String > ) : String
+	{
+		if( isCrypted )
+		{
+			return ( ( GetLocalizedText( titleString ) + " (" ) + GetLocalizedText( "LocKey#42347" ) ) + ")";
+		}
+		else
+		{
+			return GetLocalizedText( titleString );
+		}
+	}
+
+	public static function GetShardTextString( isCrypted : Bool, const textString : ref< String > ) : String
+	{
+		var lineLenght : Uint32;
+		lineLenght = 24;
+		if( isCrypted )
+		{
+			return StringToHex( GetLocalizedText( textString ), lineLenght );
+		}
+		else
+		{
+			return GetLocalizedText( textString );
+		}
+	}
+
+	public static function GetCategoryTypeFromId( const id : ref< String > ) : CodexCategoryType
+	{
+		switch( id )
+		{
+			case "characters":
+				return CodexCategoryType.Characters;
+			case "glossary":
+				return CodexCategoryType.Database;
+			case "locations":
+				return CodexCategoryType.Locations;
+			case "tutorials":
+			case "tutorial_vr":
+			case "tutorials_new":
+				return CodexCategoryType.Tutorials;
+		}
+		return CodexCategoryType.Invalid;
+	}
+
+	public static function GetCodexFilterIcon( category : CodexCategoryType ) : String
+	{
+		switch( category )
+		{
+			case CodexCategoryType.Database:
+				return "UIIcon.Filter_Codex_Database";
+			case CodexCategoryType.Characters:
+				return "UIIcon.Filter_Codex_Characters";
+			case CodexCategoryType.Locations:
+				return "UIIcon.Filter_Codex_Locations";
+			case CodexCategoryType.Tutorials:
+				return "UIIcon.Filter_Codex_Tutorials";
+		}
+		return "UIIcon.Filter_Codex_Default";
+	}
+
+}
+
+enum CodexCategoryType
+{
+	All = 0,
+	Database = 1,
+	Characters = 2,
+	Locations = 3,
+	Tutorials = 4,
+	Count = 5,
+	Invalid = -1,
+}
+
+enum CodexImageType
+{
+	Default = 0,
+	Character = 1,
+}
+

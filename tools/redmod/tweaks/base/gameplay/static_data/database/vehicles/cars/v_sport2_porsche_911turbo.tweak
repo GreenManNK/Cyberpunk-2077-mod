@@ -1,0 +1,677 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_sport2_porsche_911turbo : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport2_porsche_911turbo__basic_01.ent";
+	appearanceName = "porsche_911turbo__basic_johnny";
+	displayName = "LocKey#1617";
+	manufacturer = "Vehicle.Porsche";
+	vehicleUIData = "Vehicle.VehiclePorscheTurboUIData";
+	fk< UIIcon > icon = "UIIcon.porsche_911turbo__basic_johnny";
+	rightFrontCamber = -1.5f;
+	leftFrontCamber = 1.5f;
+	rightBackCamber = -1.0f;
+	leftBackCamber = 1.0f;
+	rightFrontCamberOffset = ( 0.0, 0, 0 );
+	leftFrontCamberOffset = ( 0.0, 0, 0 );
+	rightBackCamberOffset = ( -0.027, 0, 0 );
+	leftBackCamberOffset = ( 0.027, 0, 0 );
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Radial_S";
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_M";
+	model = "Vehicle.Turbo";
+	tags += 
+	[
+		"Sport"
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Weak"
+	];
+	fk< VehicleDataPackage > vehDataPackage = 
+	{
+		useAuxiliary = true;
+		vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+		additionalAnimFeatures = 
+		[
+			"porscheCorrectivePose"
+		];
+	} : VehicleDataPackageSport2;
+	player_audio_resource = "v_car_porsche_911_turbo";
+	traffic_audio_resource = "v_car_porsche_911_turbo_traffic";
+	destroyedAppearance = "porsche_911turbo__basic_burnt_01";
+	enableDestruction = true;
+	destruction = 
+	{
+		gridDimensions = ( 2.0f, 3.8f, 0.25f );
+		gridLocalOffset = ( 0.0f, 0.0f, 0.7f );
+		chargePortCenter = ( -0.802617073f, 0.896210670f, 0.609322190f );
+		glass = 
+		[
+			{
+				component = "window_f";
+				effect = "damage_windshield";
+				isWindshield = true;
+				gridCells = 
+				[
+					6, 7, 4, 5
+				];
+				threshold = 0.15;
+			}, 
+			{
+				component = "window_fl_b";
+				effect = "damage_glass_fl_b";
+				gridCells = 
+				[
+					2, 4
+				];
+				threshold = 0.1;
+			}, 
+			{
+				component = "window_fl_a";
+				effect = "damage_glass_fl_a";
+				gridCells = 
+				[
+					2, 4
+				];
+				threshold = 0.1;
+			}, 
+			{
+				component = "window_bl_01";
+				effect = "damage_glass_bl_01";
+				gridCells = 
+				[
+					2, 0
+				];
+				threshold = 0.15;
+			}, 
+			{
+				component = "window_fr_b";
+				effect = "damage_glass_fr_b";
+				gridCells = 
+				[
+					3, 5
+				];
+				threshold = 0.1;
+			}, 
+			{
+				component = "window_fr_a";
+				effect = "damage_glass_fr_a";
+				gridCells = 
+				[
+					3, 5
+				];
+				threshold = 0.1;
+			}, 
+			{
+				component = "window_br_01";
+				effect = "damage_glass_br_01";
+				gridCells = 
+				[
+					1, 3
+				];
+				threshold = 0.15;
+			}, 
+			{
+				component = "window_b";
+				effect = "damage_glass_b";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.15;
+			}
+		];
+		lights = 
+		[
+			{
+				component = "head_light_left_01";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_right_01";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_left_03";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_right_03";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_left_03";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_right_03";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_left_01";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_left_02";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_01";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_hood_01";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "reverse_light_left_01";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_right_01";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_01";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_right_02";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "reverse_light_right_01";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}
+		];
+		detachableParts = 
+		[
+			{
+				name = "lic_plate_f";
+				gridCells = 
+				[
+					6, 7
+				];
+				threshold = 0.1;
+				components = 
+				[
+					"license_plate_f"
+				];
+			}, 
+			{
+				name = "lic_plate_b";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.1;
+				components = 
+				[
+					"license_plate_b"
+				];
+			}, 
+			{
+				name = "BumperFront";
+				gridCells = 
+				[
+					6, 7
+				];
+				threshold = 0.8;
+				components = 
+				[
+					"bumper_f_01"
+				];
+			}, 
+			{
+				name = "BumperBack";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.8;
+				components = 
+				[
+					"bumper_b_01"
+				];
+			}, 
+			{
+				name = "MirrorLeft";
+				gridCells = 
+				[
+					4, 2
+				];
+				threshold = 0.1;
+				components = 
+				[
+					"mirror_fl_01"
+				];
+			}, 
+			{
+				name = "MirrorRight";
+				gridCells = 
+				[
+					5, 3
+				];
+				threshold = 0.1;
+				components = 
+				[
+					"mirror_fr_01"
+				];
+			}
+		];
+		wheels = 
+		[
+			{
+				name = "FrontLeft";
+				intact = "tire_01_fl_a";
+				flat = "tire_flat_01_fl_a";
+			}, 
+			{
+				name = "FrontRight";
+				intact = "tire_01_fr_a";
+				flat = "tire_flat_01_fr_a";
+			}, 
+			{
+				name = "BackRight";
+				intact = "tire_01_br_a";
+				flat = "tire_flat_01_br_a";
+			}, 
+			{
+				name = "BackLeft";
+				intact = "tire_01_bl_a";
+				flat = "tire_flat_01_bl_a";
+			}
+		];
+		deformableParts = 
+		[
+			{
+				component = "hood_a";
+				zones = 
+				[
+					{
+						shapes = 
+						[
+							0, 1
+						];
+						gridCells = 
+						[
+							0, 1
+						];
+					}
+				];
+			}, 
+			{
+				component = "trunk_a";
+				zones = 
+				[
+					{
+						shapes = 
+						[
+							0, 1, 2, 3, 4
+						];
+						gridCells = 
+						[
+							6, 7
+						];
+					}
+				];
+			}, 
+			{
+				component = "bumper_b_01";
+				zones = 
+				[
+					{
+						shapes = 
+						[
+							0, 1, 2, 3, 4, 5, 6, 7
+						];
+						gridCells = 
+						[
+							0, 1, 8, 9
+						];
+					}
+				];
+			}, 
+			{
+				component = "bumper_f_01";
+				zones = 
+				[
+					{
+						shapes = 
+						[
+							0, 1, 2, 3, 4, 5, 6, 7, 8
+						];
+						gridCells = 
+						[
+							6, 7, 14, 15
+						];
+					}
+				];
+			}, 
+			{
+				component = "body_01";
+				zones = 
+				[
+					{
+						shapes = 
+						[
+							0, 1, 2, 3
+						];
+						gridCells = 
+						[
+							6, 7
+						];
+					}, 
+					{
+						shapes = 
+						[
+							21, 22, 23, 24, 25
+						];
+						gridCells = 
+						[
+							0, 1
+						];
+					}
+				];
+			}
+		];
+	} : VehicleDestructionParamsDefault_4w;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.25f;
+			tireWidth = 0.2f;
+			wheelOffset = 0.10f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.25f;
+			tireWidth = 0.25f;
+			wheelOffset = 0.08f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_911Turbo";
+	vehEngineData = 
+	{
+		gearCurvesPath = "base\gameplay\vehicles\curves\engine_torque\med_lowcomp_bigturbo.curveset";
+		engineMaxTorque = 431.f;
+		minRPM = 900.f;
+		maxRPM = 7000.f;
+		gearChangeTime = 0.31f;
+		fk< VehicleGear >[] gears = 
+		[
+			{
+				minSpeed = 0.f;
+				maxSpeed = 10.f;
+				minEngineRPM = 900.f;
+				maxEngineRPM = 6000.f;
+				torqueMultiplier = 0.87f;
+			}, 
+			{
+				minSpeed = 0.0f;
+				maxSpeed = 15.0f;
+				minEngineRPM = 900.f;
+				maxEngineRPM = 5800.f;
+				torqueMultiplier = 0.87f;
+			}, 
+			{
+				minSpeed = 14.f;
+				maxSpeed = 23.0f;
+				minEngineRPM = 2800.f;
+				maxEngineRPM = 5900.f;
+				torqueMultiplier = 0.54f;
+			}, 
+			{
+				minSpeed = 22.f;
+				maxSpeed = 29.0f;
+				minEngineRPM = 2900.f;
+				maxEngineRPM = 5950.f;
+				torqueMultiplier = 0.39f;
+			}, 
+			{
+				minSpeed = 28.f;
+				maxSpeed = 34.0f;
+				minEngineRPM = 3000.f;
+				maxEngineRPM = 6000.f;
+				torqueMultiplier = 0.31f;
+			}, 
+			{
+				minSpeed = 33.f;
+				maxSpeed = 40.8f;
+				minEngineRPM = 3100.f;
+				maxEngineRPM = 7000.f;
+				torqueMultiplier = 0.25f;
+			}
+		];
+	} : VehicleEngineData_4_Sport_Transaxle_Turbo;
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_911_High_Close", "Camera.VehicleTPP_4w_911_High_Medium", "Camera.VehicleTPP_4w_911_High_Far", "Camera.VehicleTPP_4w_911_High_DriverCombatClose", "Camera.VehicleTPP_4w_911_High_DriverCombatMedium", "Camera.VehicleTPP_4w_911_High_DriverCombatFar", "Camera.VehicleTPP_4w_911_Low_Close", "Camera.VehicleTPP_4w_911_Low_Medium", "Camera.VehicleTPP_4w_911_Low_Far", "Camera.VehicleTPP_4w_911_Low_DriverCombatClose", "Camera.VehicleTPP_4w_911_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_911_Low_DriverCombatFar"
+	];
+	vehDriver_FPPCameraParams = 
+	{
+		enable_rear_view = true;
+	} : VehicleDriverFPPCameraParamsDefault;
+	drivingParamsPanic = "Driving.Panic_Sport";
+	trafficSuspension = "Vehicle.TrafficSuspension_Sport";
+}
+
+VehicleWheelDrivingPreset_911_Front : VehicleWheelDrivingPreset_4_MR_Front
+{
+	maxBrakingTorque = 430.0f;
+	frictionMulLateral = 0.92f;
+	tireLateralSlipEffectsMul = 0.57f;
+	springDamping = 2000.0f;
+	springReboundDamping = 1700.0f;
+	springBoundDampingLowRate = 1400.0f;
+	springReboundDampingLowRate = 1100.0f;
+	springDampingLowRateCompression = 0.20f;
+	springDampingHighRateCompression = 0.35f;
+	extremeCompressionEventScalor = 0.74f;
+	visualSuspensionDroop = 0.11f;
+	logicalSuspensionCompressionLength = 0.43f;
+	wheelsVerticalOffset = 0.0f;
+}
+
+VehicleWheelDrivingPreset_911_Rear : VehicleWheelDrivingPreset_4_MR_Rear
+{
+	maxBrakingTorque = 340.0f;
+	frictionMulLongitudinal = 0.95f;
+	frictionMulLateral = 0.95f;
+	tireLateralSlipEffectsMul = 1.01f;
+	swaybarStiffness = 17.0f;
+	springStiffness = 21.0f;
+	springDamping = 2800.0f;
+	springReboundDamping = 2400.0f;
+	springBoundDampingLowRate = 2100.0f;
+	springReboundDampingLowRate = 2000.0f;
+	springDampingLowRateCompression = 0.20f;
+	springDampingHighRateCompression = 0.35f;
+	extremeCompressionEventScalor = 0.67f;
+	visualSuspensionDroop = 0.09f;
+	logicalSuspensionCompressionLength = 0.45f;
+	wheelsVerticalOffset = 0.01f;
+}
+
+VehicleDriveModelData_911Turbo : VehicleDriveModelData_Regular_Small_RWD
+{
+	center_of_mass_offset = ( 0.0f, -0.16f, 0.14f );
+	momentOfInertia = ( 1890.0f, 600.0f, 2010.0f );
+	chassis_mass = 1290.0f;
+	total_mass = 1290.0f;
+	wheelTurnMaxSubPerSecond = 128.f;
+	airResistanceFactor = 1.93f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+		} : VehicleWheelDrivingPreset_911_Front;
+		backPreset = 
+		{
+		} : VehicleWheelDrivingPreset_911_Rear;
+	} : VehicleWheelDrivingSetup_4_RWD;
+	driveHelpers = 
+	[
+		{
+			type = "Vehicle.RotationLimiter_HelperType";
+			driftLimit = 1.15f;
+		} : RotationLimiter_MidEngined, 
+		{
+			type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+			minLatFrictionCoef = 0.95f;
+			maxSpeed = 13.f;
+		} : RearWheelsFrictionModifier_Sport, 
+		{
+			type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+			rearWheelsLatFrictionCoef = 0.85f;
+			rearWheelsLongFrictionCoef = 0.85f;
+			blendOutTime = 0.5f;
+		} : HandbrakeFrictionModifier_Sport, 
+		{
+			type = "Vehicle.UphillDriveHelper_HelperType";
+		} : UphillDriveHelper_Standard, 
+		{
+			type = "Vehicle.InAirGravityModifier_HelperType";
+		} : InAirGravityModifier, 
+		{
+			type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+		} : DriveWheelsAccelerateNoise_Sport
+	];
+	burnOut = 
+	{
+		lateralForceMaxSpeed = 6.0f;
+		lateralForceMaxAcceleration = 0.52f;
+		lateralAccelForwardSpeedMaxDecimation = 0.73f;
+		maxDriveWheelSlipRatio = 25.0f;
+		maxLateralAccelSlipRatioMultipler = 0.83f;
+		maxLongFrictionSlipRatioMultipler = 0.75f;
+		minLongFrictionCoeff = 0.7f;
+		burnOutGripBonus = 5.9f;
+		gripBonusMaxLaunchSpeed = 8.5f;
+		maxBrakeForceModifier = 0.9f;
+		minBrakeForceModifier = 0.05f;
+	} : VehicleBurnOut_4w_RWD_Mid;
+}
+
+v_sport2_porsche_911turbo_quest : v_sport2_porsche_911turbo
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+}
+
+v_sport2_porsche_911turbo_cabrio : v_sport2_porsche_911turbo
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport2_porsche_911turbo__cabrio_01.ent";
+	appearanceName = "porsche_911turbo__basic_cabrio_01";
+	destroyedAppearance = "porsche_911turbo__basic_cabrio_burnt_01";
+	displayName = "LocKey#95750";
+	hasSideWindows = false;
+	vehicleUIData = 
+	{
+		productionYear = "1988";
+		mass = 1350.0f;
+		info = "LocKey#95770";
+	} : VehiclePorscheTurboUIData;
+	player_audio_resource = "v_car_porsche_911_turbo_targa";
+	traffic_audio_resource = "v_car_porsche_911_turbo_traffic";
+	vehDriveModelData = 
+	{
+		center_of_mass_offset = ( 0.0f, -0.16f, 0.13f );
+		momentOfInertia = ( 2020.0f, 459.0f, 2120.0f );
+		chassis_mass = 1390.0f;
+		total_mass = 1390.0f;
+		airResistanceFactor = 1.94f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				frictionMulLateral = 0.925f;
+			} : VehicleWheelDrivingPreset_911_Front;
+			backPreset = 
+			{
+				visualSuspensionCompressionLength = 0.08f;
+			} : VehicleWheelDrivingPreset_911_Rear;
+		} : VehicleWheelDrivingSetup_4_RWD;
+	} : VehicleDriveModelData_911Turbo;
+}
+
+VehiclePorscheTurboUIData : VehicleDefaultUIData
+{
+	productionYear = "1977";
+	driveLayout = "LocKey#45371";
+	horsepower = 296.0f;
+	mass = 1210.0f;
+	info = "LocKey#53534";
+}
+

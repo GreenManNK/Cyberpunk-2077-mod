@@ -1,0 +1,187 @@
+class CrafringMaterialItemController extends BaseButtonView
+{
+	protected editable var m_nameText : inkTextRef;
+	protected editable var m_quantityText : inkTextRef;
+	protected editable var m_quantityChangeText : inkTextRef;
+	protected editable var m_icon : inkImageRef;
+	protected editable var m_frame : inkWidgetRef;
+	protected editable var m_tooltipAnchor : inkWidgetRef;
+	protected editable var m_data : CachedCraftingMaterial;
+	private var m_quantity : Int32;
+	private var m_hovered : Bool;
+	private var m_lastState : CrafringMaterialItemHighlight;
+	private var m_shouldBeHighlighted : Bool;
+	private var m_useSimpleFromat : Bool;
+	private var m_hideIfZero : Bool;
+	private var m_isCollapsed : Bool;
+
+	protected event OnInitialize()
+	{
+		super.OnInitialize();
+		if( m_ButtonController )
+		{
+			m_ButtonController.RegisterToCallback( 'OnButtonClick', this, 'OnButtonClick' );
+		}
+		RegisterToCallback( 'OnHoverOver', this, 'OnCraftingMaterialHoverOver' );
+		RegisterToCallback( 'OnHoverOut', this, 'OnCraftingMaterialHoverOut' );
+	}
+
+	protected event OnCraftingMaterialHoverOver( evt : inkPointerEvent )
+	{
+		m_hovered = true;
+		SetHighlighted();
+	}
+
+	protected event OnCraftingMaterialHoverOut( evt : inkPointerEvent )
+	{
+		m_hovered = false;
+		SetHighlighted();
+	}
+
+	public function Setup( craftingMaterial : CachedCraftingMaterial )
+	{
+		m_data = craftingMaterial;
+		RefreshUI();
+		SetHighlighted( CrafringMaterialItemHighlight.None );
+	}
+
+	public function SetQuantity( quantity : Int32 )
+	{
+		inkTextRef.SetText( m_quantityText, ( ( quantity <= 999 ) ? ( IntToString( quantity ) ) : ( "999+" ) ) );
+		m_quantity = quantity;
+	}
+
+	public function RefreshUI()
+	{
+		inkTextRef.SetText( m_nameText, m_data.m_displayName );
+		inkTextRef.SetText( m_quantityText, ( ( m_data.m_quantity <= 999 ) ? ( IntToString( m_data.m_quantity ) ) : ( "999+" ) ) );
+		m_quantity = m_data.m_quantity;
+		InkImageUtils.RequestSetImage( this, m_icon, m_data.m_iconPath );
+		if( m_data.m_quantity <= 0 )
+		{
+			GetRootWidget().SetState( 'Empty' );
+		}
+	}
+
+	public function SetHighlighted( type : CrafringMaterialItemHighlight, optional quantityChanged : Int32, optional canAfford : Bool )
+	{
+		m_lastState = type;
+		SetHighlighted( quantityChanged );
+		if( !( canAfford ) )
+		{
+			GetRootWidget().SetState( 'Empty' );
+		}
+	}
+
+	public function SetHighlighted( optional quantityChanged : Int32 )
+	{
+		inkWidgetRef.SetVisible( m_frame, m_lastState != CrafringMaterialItemHighlight.None );
+		m_shouldBeHighlighted = quantityChanged != 0;
+		inkTextRef.SetVisible( m_quantityChangeText, m_shouldBeHighlighted );
+		if( quantityChanged == 0 )
+		{
+			GetRootWidget().SetState( 'Default' );
+		}
+		else
+		{
+			GetRootWidget().SetState( 'Hover' );
+		}
+		if( m_useSimpleFromat )
+		{
+			inkTextRef.SetText( m_quantityChangeText, IntToString( quantityChanged ) );
+		}
+		else
+		{
+			if( m_lastState == CrafringMaterialItemHighlight.Add )
+			{
+				inkTextRef.SetText( m_quantityChangeText, ( "(+" + IntToString( quantityChanged ) ) + ")" );
+			}
+			else
+			{
+				inkTextRef.SetText( m_quantityChangeText, ( "(-" + IntToString( quantityChanged ) ) + ")" );
+			}
+		}
+	}
+
+	public function GetCachedCraftingMaterial() : weak< CachedCraftingMaterial >
+	{
+		return m_data;
+	}
+
+	public function GetItemID() : ItemID
+	{
+		return m_data.m_itemID;
+	}
+
+	public function GetQuantity() : Int32
+	{
+		return m_quantity;
+	}
+
+	public function GetMateialDisplayName() : String
+	{
+		return m_data.m_displayName;
+	}
+
+	protected event OnCraftingMaterialAnimationCompleted( anim : inkAnimProxy )
+	{
+		if( m_shouldBeHighlighted )
+		{
+			GetRootWidget().SetState( 'Default' );
+			GetRootWidget().SetState( 'Hover' );
+		}
+		else
+		{
+			GetRootWidget().SetState( 'Hover' );
+			GetRootWidget().SetState( 'Default' );
+		}
+		if( m_hideIfZero )
+		{
+			GetRootWidget().SetOpacity( 0.0 );
+		}
+	}
+
+	public function PlayAnimation( optional hideIfZero : Bool )
+	{
+		var proxy : inkAnimProxy;
+		proxy = PlayLibraryAnimationOnAutoSelectedTargets( 'craftingMaterial_animation', GetRootWidget() );
+		proxy.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnCraftingMaterialAnimationCompleted' );
+		m_hideIfZero = hideIfZero;
+	}
+
+	public function SetUseSimpleFromat( useSimpleFromat : Bool )
+	{
+		m_useSimpleFromat = useSimpleFromat;
+	}
+
+	public function Collapse( collapse : Bool )
+	{
+		var animOptions : inkAnimOptions;
+		if( collapse && !( m_isCollapsed ) )
+		{
+			PlayLibraryAnimationOnAutoSelectedTargets( 'craftingMaterial_collapse', GetRootWidget() );
+			m_isCollapsed = true;
+		}
+		else if( !( collapse ) && m_isCollapsed )
+		{
+			animOptions.playReversed = true;
+			PlayLibraryAnimationOnAutoSelectedTargets( 'craftingMaterial_collapse', GetRootWidget(), animOptions );
+			m_isCollapsed = false;
+		}
+	}
+
+	public function GetTooltipAnchorWidget() : weak< inkWidget >
+	{
+		return inkWidgetRef.Get( m_tooltipAnchor );
+	}
+
+}
+
+enum CrafringMaterialItemHighlight
+{
+	None = 0,
+	Hover = 1,
+	Add = 2,
+	Remove = 3,
+}
+

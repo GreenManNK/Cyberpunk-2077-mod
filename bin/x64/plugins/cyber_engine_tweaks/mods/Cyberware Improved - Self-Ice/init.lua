@@ -23,6 +23,7 @@ registerForEvent('onInit', function()
 	TweakDB:SetFlat("Items.AdvancedSelfIceLegendaryPlusPlus_inline2.value", 55.0) 			-- 		Cooldown Reduction | Vanilla = 55.0
 	TweakDB:SetFlat("Items.AdvancedSelfIceLegendaryPlusPlus_inline8.floatValues", {20.0}) 	-- UI | Cooldown Reduction | Vanilla = 20.0
 
+--	Max RAM
 	TweakDB:SetFlat("Items.AdvancedSelfIceRare_inline5.value", 1.0) 						-- 		RAM Capacity | Vanilla = 1.0
 	TweakDB:SetFlat("Items.AdvancedSelfIceRare_inline6.floatValues", {1.0}) 				-- UI | RAM Capacity | Vanilla = 1.0
 

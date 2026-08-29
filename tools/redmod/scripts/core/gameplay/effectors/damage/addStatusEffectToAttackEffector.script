@@ -1,0 +1,44 @@
+class AddStatusEffectToAttackEffector extends ModifyAttackEffector
+{
+	var m_isRandom : Bool;
+	var m_applicationChanceMods : array< weak< StatModifier_Record > >;
+	var m_statusEffect : SHitStatusEffect;
+	var m_stacks : Float;
+
+	protected export override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		m_isRandom = TweakDBInterface.GetBool( record + T".isRandom", false );
+		TweakDBInterface.GetAddStatusEffectToAttackEffectorRecord( record ).ApplicationChance( m_applicationChanceMods );
+		m_statusEffect.id = TweakDBInterface.GetAddStatusEffectToAttackEffectorRecord( record ).StatusEffect().GetID();
+		m_statusEffect.stacks = TweakDBInterface.GetAddStatusEffectToAttackEffectorRecord( record ).Stacks();
+	}
+
+	protected export override function Uninitialize( game : GameInstance ) {}
+
+	protected export override function RepeatedAction( owner : GameObject )
+	{
+		var rand : Float;
+		var applicationChance : Float;
+		var hitEvent : gameHitEvent;
+		hitEvent = GetHitEvent();
+		if( hitEvent.attackData.GetAttackType() == gamedataAttackType.Effect )
+		{
+			return;
+		}
+		if( m_isRandom )
+		{
+			rand = RandF();
+			applicationChance = RPGManager.CalculateStatModifiers( m_applicationChanceMods, owner.GetGame(), owner, owner.GetEntityID() );
+			if( rand <= applicationChance )
+			{
+				hitEvent.attackData.AddStatusEffect( m_statusEffect.id, m_statusEffect.stacks );
+			}
+		}
+		else
+		{
+			hitEvent.attackData.AddStatusEffect( m_statusEffect.id, m_statusEffect.stacks );
+		}
+	}
+
+}
+

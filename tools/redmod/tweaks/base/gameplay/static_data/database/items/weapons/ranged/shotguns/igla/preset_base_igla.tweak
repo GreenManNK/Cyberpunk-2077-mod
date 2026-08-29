@@ -1,0 +1,313 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+Preset_Igla_Default : Base_Igla
+{
+	CName appearanceResourceName = "Preset_Igla_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_stdr";
+		}, 
+		"Items.ShotgunScopesPartList", {
+			slot = "AttachmentSlots.Power_Shotgun_WeaponMod1";
+		} : Power_Shotgun_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Power_Shotgun_WeaponMod2";
+		} : Power_Shotgun_ModList_Slot2
+	];
+}
+
+Preset_Igla_Pimp : Preset_Igla_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Igla_Neon : Preset_Igla_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Igla_Military : Preset_Igla_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Igla : Preset_Igla_Default
+{
+	quality = "Quality.Common";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_stdr";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Igla : Craftable_Common_Igla
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Igla : Craftable_Uncommon_Igla
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Igla : Craftable_Uncommon_Igla
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Igla : Craftable_Uncommon_Igla
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Igla_Sovereign : Preset_Igla_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "igla_sovereign_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#40605";
+	visualTags = 
+	[
+		"Sovereign_Igla"
+	];
+	quality = "Quality.Random";
+	localizedDescription = "LocKey#40606";
+	tags += 
+	[
+		"IconicWeapon", "CraftableIconic", "Igla_Sovereign"
+	];
+	triggerModes = 
+	[
+		"TriggerMode.SemiAuto", "TriggerMode.Burst"
+	];
+	primaryTriggerMode = "TriggerMode.Burst";
+	secondaryTriggerMode = "TriggerMode.Burst";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Base_Igla_NPC_Data;
+	CraftingData = "Items.Craftable_Iconic_Weapon";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_igla__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.IglaSovereignWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.CraftableIconicQualityRandomisation", "Items.Base_Sovereign_Igla_Technical_Stats", "Items.Base_Igla_Handling_Stats", "Items.Base_Igla_Recoil_Stats", "Items.Base_Igla_Spread_Stats", "Items.Base_Igla_Aim_Stats", "Items.Base_Sovereign_Igla_Constant_Stats", "Items.Base_Igla_Damage_Stats", "Items.Base_Power_Stats", "Items.Base_Power_Shotgun_Stats", "Items.Base_Power_Shotgun_Mult_Stats", "Items.Base_Dual_Shotgun_RPG_Stats", "Items.Base_Shotgun_Sway_Stats", "Items.Base_Dual_Shotgun_Misc_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Dual_Shotgun_DeadReckoning_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Sovereign_Elemental_Damage_Type_Stats"
+	];
+}
+
+Base_Sovereign_Igla_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.2f;
+		} : CycleTimeModifier, 
+		{
+			value = 2.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 6.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Sovereign_Igla_Constant_Stats : Base_Igla_Constant_Stats
+{
+	statModifiers += 
+	[
+		"AttackModifier.WeaponArmorPenetrationMedium"
+	];
+}
+
+Sovereign_Elemental_Damage_Type_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+Common_Igla_Sovereign : Preset_Igla_Sovereign
+{
+	quality = "Quality.Common";
+	CraftingData = "Items.Craftable_Common_Iconic_Weapon";
+}
+
+[ notQueryable ]
+Uncommon_Igla_Sovereign : Preset_Igla_Sovereign
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Craftable_Uncommon_Iconic_Weapon";
+}
+
+[ notQueryable ]
+Rare_Igla_Sovereign : Preset_Igla_Sovereign
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Craftable_Rare_Iconic_Weapon";
+}
+
+[ notQueryable ]
+Epic_Igla_Sovereign : Preset_Igla_Sovereign
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Craftable_Epic_Iconic_Weapon";
+}
+
+[ notQueryable ]
+Legendary_Igla_Sovereign : Preset_Igla_Sovereign
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Craftable_Legendary_Iconic_Weapon";
+}
+

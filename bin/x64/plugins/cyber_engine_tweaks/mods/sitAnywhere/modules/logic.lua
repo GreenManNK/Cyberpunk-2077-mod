@@ -273,9 +273,7 @@ function logic:hideAllWorkspots()
     for key, _ in pairs(self.sittables) do
         world.interactions[key].pos = Vector4.new(0, 0, 0, 0)
         self.sittables[key].workspot.interactionPosition = Vector4.new(0, 0, 0, 0)
-        if world.interactions[key].pinID then
-            Game.GetMappinSystem():SetMappinPosition(world.interactions[key].pinID, Vector4.new(0, 0, 0, 0))
-        end
+        Game.GetMappinSystem():SetMappinPosition(world.interactions[key].pinID, Vector4.new(0, 0, 0, 0))
     end
 end
 
@@ -323,15 +321,11 @@ function logic:onUpdate()
         self.sittables[benchType].workspot.workspotPosition = workspotPosition
         self.sittables[benchType].workspot.workspotRotation.yaw = forward:ToRotation().yaw + 180
 
-        if world.interactions[benchType].pinID then
-            Game.GetMappinSystem():SetMappinPosition(world.interactions[benchType].pinID, position)
-        end
+        Game.GetMappinSystem():SetMappinPosition(world.interactions[benchType].pinID, position)
 
         world.interactions[1 - benchType].pos = Vector4.new(0, 0, 0, 0)
         self.sittables[1 - benchType].workspot.interactionPosition = Vector4.new(0, 0, 0, 0)
-        if world.interactions[1 - benchType].pinID then
-            Game.GetMappinSystem():SetMappinPosition(world.interactions[1 - benchType].pinID, Vector4.new(0, 0, 0, 0))
-        end
+        Game.GetMappinSystem():SetMappinPosition(world.interactions[1 - benchType].pinID, Vector4.new(0, 0, 0, 0))
 
         logger.log("Benchtype", benchType)
     else

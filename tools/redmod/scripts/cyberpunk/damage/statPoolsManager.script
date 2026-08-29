@@ -1,0 +1,435 @@
+class StatPoolsManager
+{
+
+	public static function ApplyDamage( hitEvent : gameHitEvent, forReal : Bool, out valuesLost : array< SDamageDealt > )
+	{
+		var i, j : Int32;
+		var dmgType : gamedataDamageType;
+		var tempLost : array< SDamageDealt >;
+		var attackValues : array< Float >;
+		var poolType : gamedataStatPoolType;
+		var targetHit : Bool;
+		var hitShapes : array< HitShapeData >;
+		var target : GameObject;
+		var statsSystem : StatsSystem;
+		var maxPercentDamage : Float;
+		var projectilesPerShot : Float;
+		var damageCeiling : Float;
+		var npcTarget : weak< NPCPuppet >;
+		var firstHit : Bool;
+		var asHitDataBase : HitData_Base;
+		var asHitShapeUserDataBase : HitShapeUserDataBase;
+		var isProtectionLayer : Bool;
+		var instigator : weak< GameObject >;
+		hitShapes = hitEvent.hitRepresentationResult.hitShapes;
+		instigator = hitEvent.attackData.GetInstigator();
+		target = hitEvent.target;
+		valuesLost.Clear();
+		attackValues = hitEvent.attackComputed.GetAttackValues();
+		for( i = 0; i < attackValues.Size(); i += 1 )
+		{
+			dmgType = ( ( gamedataDamageType )( i ) );
+			statsSystem = GameInstance.GetStatsSystem( target.GetGame() );
+			maxPercentDamage = statsSystem.GetStatValue( target.GetEntityID(), gamedataStatType.MaxPercentDamageTakenPerHit );
+			npcTarget = ( ( NPCPuppet )( target ) );
+			if( npcTarget && ( maxPercentDamage > 0.0 ) )
+			{
+				if( ( npcTarget.IsBoss() || npcTarget.GetNPCRarity() == gamedataNPCRarity.MaxTac ) && !( instigator.GetIsInFastFinisher() ) )
+				{
+					projectilesPerShot = statsSystem.GetStatValue( hitEvent.attackData.GetWeapon().GetEntityID(), gamedataStatType.ProjectilesPerShot );
+					if( AttackData.IsDoT( hitEvent.attackData ) )
+					{
+						maxPercentDamage *= TweakDBInterface.GetFloat( T"Constants.DamageSystem.maxDamageDoTProportion", 1.0 );
+					}
+					damageCeiling = ( maxPercentDamage / 100.0 ) * statsSystem.GetStatValue( target.GetEntityID(), gamedataStatType.Health );
+					if( projectilesPerShot > 0.0 )
+					{
+						damageCeiling /= projectilesPerShot;
+					}
+					attackValues[ i ] = ClampF( attackValues[ i ], 0.0, damageCeiling );
+				}
+			}
+			if( ( attackValues[ i ] > 0.0 ) && ( attackValues[ i ] < 1.0 ) )
+			{
+				attackValues[ i ] = 1.0;
+			}
+			firstHit = false;
+			for( j = 0; j < hitShapes.Size(); j += 1 )
+			{
+				isProtectionLayer = false;
+				asHitDataBase = ( ( HitData_Base )( hitShapes[ j ].userData ) );
+				asHitShapeUserDataBase = ( ( HitShapeUserDataBase )( hitShapes[ j ].userData ) );
+				if( asHitDataBase )
+				{
+					isProtectionLayer = asHitDataBase.m_hitShapeType == HitShape_Type.ProtectionLayer;
+				}
+				else if( asHitShapeUserDataBase )
+				{
+					isProtectionLayer = ( asHitShapeUserDataBase.m_isProtectionLayer && !( ( hitEvent.attackData.GetAttackType() == gamedataAttackType.Hack && asHitShapeUserDataBase.m_quickHacksPierceProtection ) ) ) && !( instigator.GetIsInFastFinisher() );
+				}
+				if( !( firstHit ) && !( isProtectionLayer ) )
+				{
+					firstHit = true;
+					targetHit = true;
+				}
+				if( ( !( targetHit ) && isProtectionLayer ) && ( hitShapes.Size() < 12 ) )
+				{
+					attackValues[ i ] = 0.0;
+					hitEvent.attackData.RemoveFlag( hitFlag.Headshot );
+					hitEvent.attackData.RemoveFlag( hitFlag.CriticalHit );
+					hitEvent.attackData.RemoveFlag( hitFlag.BreachHit );
+					hitEvent.attackData.SetHitType( gameuiHitType.Glance );
+				}
+				if( asHitDataBase )
+				{
+					if( GetBodyPartStatPool( target, asHitDataBase.m_bodyPartStatPoolName, poolType ) )
+					{
+						ApplyLocalizedDamageSingle( hitEvent, attackValues[ i ], dmgType, poolType, forReal, tempLost );
+						MergeStatPoolsLost( valuesLost, tempLost );
+					}
+				}
+			}
+			ApplyDamageSingle( hitEvent, dmgType, attackValues[ i ], forReal, tempLost );
+			MergeStatPoolsLost( valuesLost, tempLost );
+		}
+		hitEvent.attackComputed.SetAttackValues( attackValues );
+	}
+
+	private static function ApplyLocalizedDamageSingle( hitEvent : gameHitEvent, dmg : Float, dmgType : gamedataDamageType, poolType : gamedataStatPoolType, forReal : Bool, valuesLost : ref< array< SDamageDealt > > )
+	{
+		var currentPoolVal : Float;
+		var valueToDrain : Float;
+		var dmgVal : Float;
+		var newPool : SDamageDealt;
+		var targetID : StatsObjectID;
+		targetID = hitEvent.target.GetEntityID();
+		valuesLost.Clear();
+		currentPoolVal = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() ).GetStatPoolValue( targetID, poolType, false );
+		if( currentPoolVal > 0.0 )
+		{
+			dmgVal = dmg;
+			valueToDrain = ( ( currentPoolVal <= dmgVal ) ? ( currentPoolVal ) : ( dmgVal ) );
+			if( forReal )
+			{
+				DrainStatPool( hitEvent, poolType, valueToDrain );
+			}
+			newPool.affectedStatPool = poolType;
+			newPool.value = valueToDrain;
+			newPool.type = dmgType;
+			valuesLost.PushBack( newPool );
+		}
+	}
+
+	private static function MergeStatPoolsLost( out to : array< SDamageDealt >, const from : ref< array< SDamageDealt > > )
+	{
+		var i : Int32;
+		for( i = 0; i < from.Size(); i += 1 )
+		{
+			AddDrain( to, from[ i ].affectedStatPool, from[ i ].value, from[ i ].type );
+		}
+	}
+
+	private static function GetBodyPartStatPool( obj : GameObject, bodyPartName : CName, out poolType : gamedataStatPoolType ) : Bool
+	{
+		var statPoolType : gamedataStatPoolType;
+		var value : Float;
+		var objectID : StatsObjectID;
+		objectID = obj.GetEntityID();
+		statPoolType = ( ( gamedataStatPoolType )( ( ( Int32 )( EnumValueFromName( 'gamedataStatPoolType', bodyPartName ) ) ) ) );
+		if( IsStatPoolValid( statPoolType ) )
+		{
+			value = GameInstance.GetStatPoolsSystem( obj.GetGame() ).GetStatPoolValue( objectID, statPoolType );
+			if( value > 0.0 )
+			{
+				poolType = statPoolType;
+			}
+			return true;
+		}
+		else
+		{
+			poolType = gamedataStatPoolType.Invalid;
+			return false;
+		}
+	}
+
+	private static function AddDrain( out arr : array< SDamageDealt >, type : gamedataStatPoolType, value : Float, dmgType : gamedataDamageType )
+	{
+		var res : SDamageDealt;
+		var i : Int32;
+		for( i = 0; i < arr.Size(); i += 1 )
+		{
+			if( arr[ i ].affectedStatPool == type )
+			{
+				arr[ i ].value += value;
+				return;
+			}
+		}
+		res.type = dmgType;
+		res.affectedStatPool = type;
+		res.value = value;
+		arr.PushBack( res );
+	}
+
+	private static function ApplyDamageSingle( hitEvent : gameHitEvent, dmgType : gamedataDamageType, initialDamageValue : Float, forReal : Bool, valuesLost : ref< array< SDamageDealt > > )
+	{
+		var attackData : AttackData;
+		var instigator : weak< GameObject >;
+		var statPoolsSystem : StatPoolsSystem;
+		var currentHealthValue : Float;
+		var statPoolValue : SDamageDealt;
+		var npcTarget : weak< NPCPuppet >;
+		var isDeadNPC : Bool;
+		attackData = hitEvent.attackData;
+		instigator = attackData.GetInstigator();
+		statPoolsSystem = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() );
+		valuesLost.Clear();
+		currentHealthValue = statPoolsSystem.GetStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.Health, false );
+		if( currentHealthValue > 0.0 )
+		{
+			ApplyDamageToOverShieldSingle( hitEvent, dmgType, initialDamageValue, forReal, valuesLost );
+			ApplyDamageToArmorSingle( hitEvent, dmgType, initialDamageValue, forReal, valuesLost );
+			if( initialDamageValue >= 0.0 )
+			{
+				if( currentHealthValue < initialDamageValue )
+				{
+					npcTarget = ( ( NPCPuppet )( hitEvent.target ) );
+					isDeadNPC = npcTarget && ( ( npcTarget.IsDead() || ScriptedPuppet.IsDefeated( npcTarget ) ) || npcTarget.IsAboutToDieOrDefeated() );
+					if( hitEvent.target.IsPlayer() && hitEvent.attackData.HasFlag( hitFlag.CannotKillPlayer ) )
+					{
+						initialDamageValue = currentHealthValue - 1.0;
+					}
+					else if( ( !( hitEvent.target.IsPlayer() ) && !( isDeadNPC ) ) && IsFinisherGrace( hitEvent ) )
+					{
+						initialDamageValue = currentHealthValue - 1.0;
+						if( npcTarget && ( npcTarget.IsBoss() || npcTarget.GetNPCRarity() == gamedataNPCRarity.MaxTac ) )
+						{
+							GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() ).RequestSettingStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.Poise, 0.0, hitEvent.attackData.GetInstigator(), true );
+						}
+					}
+					else if( ( ( !( hitEvent.target.IsPlayer() ) && !( isDeadNPC ) ) && hitEvent.attackData.HasFlag( hitFlag.BleedingDot ) ) && ( PlayerDevelopmentSystem.GetData( instigator ).IsNewPerkBought( gamedataNewPerkType.Reflexes_Master_Perk_5 ) > 0 ) )
+					{
+						initialDamageValue = currentHealthValue - 1.0;
+						if( npcTarget && ( npcTarget.IsBoss() || npcTarget.GetNPCRarity() == gamedataNPCRarity.MaxTac ) )
+						{
+							GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() ).RequestSettingStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.Poise, 0.0, hitEvent.attackData.GetInstigator(), true );
+						}
+					}
+					else
+					{
+						attackData.AddFlag( hitFlag.WasKillingBlow, 'Killing Blow' );
+						initialDamageValue = currentHealthValue;
+					}
+				}
+				if( forReal )
+				{
+					statPoolsSystem.RequestSettingStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.CPO_Armor, 0.0, instigator );
+					DrainStatPool( hitEvent, gamedataStatPoolType.Health, initialDamageValue );
+				}
+				statPoolValue.type = dmgType;
+				statPoolValue.affectedStatPool = gamedataStatPoolType.Health;
+				statPoolValue.value = initialDamageValue;
+				valuesLost.PushBack( statPoolValue );
+				attackData.AddFlag( hitFlag.SuccessfulAttack, 'DealtDamage' );
+			}
+		}
+	}
+
+	private static function IsFinisherGrace( hitEvent : gameHitEvent ) : Bool
+	{
+		var player : weak< PlayerPuppet >;
+		var currentPercValue, healthThreshold : Float;
+		var chance : Float;
+		var weapon : WeaponObject;
+		chance = 0.0;
+		if( !( hitEvent.attackData.GetInstigator().IsPlayer() ) )
+		{
+			return false;
+		}
+		if( hitEvent.attackData.HasFlag( hitFlag.QuickHack ) )
+		{
+			return false;
+		}
+		player = ( ( PlayerPuppet )( hitEvent.attackData.GetInstigator() ) );
+		if( player.GetIsInFastFinisher() )
+		{
+			return false;
+		}
+		currentPercValue = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() ).GetStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.Health );
+		healthThreshold = TweakDBInterface.GetFloat( T"NewPerks.Reflexes_Right_Milestone_3.graceChanceHealthThreshold", 0.0 );
+		if( currentPercValue < healthThreshold )
+		{
+			return false;
+		}
+		weapon = GameObject.GetActiveWeapon( player );
+		if( ( weapon.IsThrowable() || weapon.IsMelee() ) || weapon.IsMonowire() )
+		{
+			if( weapon.IsMelee() )
+			{
+				chance = TweakDBInterface.GetFloat( T"NewPerks.Reflexes_Right_Milestone_3.graceChance", 0.0 );
+			}
+			if( weapon.IsThrowable() )
+			{
+				chance = TweakDBInterface.GetFloat( T"NewPerks.Reflexes_Right_Milestone_3.graceChanceThrowable", 0.0 );
+			}
+			if( player && player.HasFinisherAvailable() )
+			{
+				return RandF() < chance;
+			}
+		}
+		return false;
+	}
+
+	private static function ApplyDamageToArmorSingle( hitEvent : gameHitEvent, dmgType : gamedataDamageType, out initialDamageValue : Float, forReal : Bool, valuesLost : ref< array< SDamageDealt > > )
+	{
+		var currentArmorValue : Float;
+		var statPoolsSystem : StatPoolsSystem;
+		var statPoolValue : SDamageDealt;
+		statPoolsSystem = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() );
+		currentArmorValue = statPoolsSystem.GetStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.CPO_Armor, false );
+		if( currentArmorValue > 0.0 )
+		{
+			if( forReal )
+			{
+				DrainStatPool( hitEvent, gamedataStatPoolType.CPO_Armor, initialDamageValue );
+			}
+			statPoolValue.type = dmgType;
+			statPoolValue.affectedStatPool = gamedataStatPoolType.CPO_Armor;
+			statPoolValue.value = MinF( initialDamageValue, currentArmorValue );
+			valuesLost.PushBack( statPoolValue );
+			initialDamageValue = initialDamageValue - currentArmorValue;
+		}
+	}
+
+	private static function ApplyDamageToOverShieldSingle( hitEvent : gameHitEvent, dmgType : gamedataDamageType, out initialDamageValue : Float, forReal : Bool, valuesLost : ref< array< SDamageDealt > > )
+	{
+		var currentOvershieldValue : Float;
+		var statPoolsSystem : StatPoolsSystem;
+		var statPoolValue : SDamageDealt;
+		statPoolsSystem = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() );
+		currentOvershieldValue = statPoolsSystem.GetStatPoolValue( hitEvent.target.GetEntityID(), gamedataStatPoolType.Overshield, false );
+		if( currentOvershieldValue <= 0.0 )
+		{
+			return;
+		}
+		if( forReal )
+		{
+			DrainStatPool( hitEvent, gamedataStatPoolType.Overshield, initialDamageValue );
+		}
+		statPoolValue.type = dmgType;
+		statPoolValue.affectedStatPool = gamedataStatPoolType.Overshield;
+		statPoolValue.value = MinF( initialDamageValue, currentOvershieldValue );
+		valuesLost.PushBack( statPoolValue );
+		initialDamageValue = initialDamageValue - currentOvershieldValue;
+		RPGManager.AwardExperienceFromResourceSpent( ( ( PlayerPuppet )( hitEvent.target ) ), statPoolValue.value, gamedataStatPoolType.Overshield, hitEvent );
+	}
+
+	public static function ApplyStatusEffectDamage( hitEvent : gameHitEvent, resistPoolRecord : StatPool_Record, statusEffectID : TweakDBID )
+	{
+		var target : GameObject;
+		var instigator : weak< GameObject >;
+		var statPoolsSystem : StatPoolsSystem;
+		var targetID : EntityID;
+		var statusEffectListener : StatusEffectTriggerListener;
+		var resistPool : gamedataStatPoolType;
+		var baseDamage : Float;
+		var finalDamage : Float;
+		var resistanceFactor : Float;
+		target = hitEvent.target;
+		instigator = hitEvent.attackData.GetInstigator();
+		targetID = target.GetEntityID();
+		statPoolsSystem = GameInstance.GetStatPoolsSystem( target.GetGame() );
+		resistPool = resistPoolRecord.StatPoolType();
+		baseDamage = hitEvent.attackComputed.GetTotalAttackValue( gamedataStatPoolType.Health );
+		if( !( statPoolsSystem.IsStatPoolAdded( targetID, resistPool ) ) )
+		{
+			statusEffectListener = new StatusEffectTriggerListener;
+			statusEffectListener.m_owner = target;
+			statusEffectListener.m_statusEffect = statusEffectID;
+			statusEffectListener.m_statPoolType = resistPool;
+			statusEffectListener.m_instigator = instigator;
+			statPoolsSystem.RequestAddingStatPool( targetID, resistPoolRecord.GetID() );
+			statPoolsSystem.RequestRegisteringListener( targetID, resistPool, statusEffectListener );
+			GameObject.AddStatusEffectTriggerListener( target, statusEffectListener );
+		}
+		resistanceFactor = 0.5;
+		finalDamage = baseDamage * resistanceFactor;
+		StatPoolsManager.DrainStatPool( hitEvent, resistPool, finalDamage );
+	}
+
+	public static function DrainStatPool( hitEvent : gameHitEvent, statPoolType : gamedataStatPoolType, value : Float )
+	{
+		var percValueToDrain, currentPercValue, currentPointValue, minHealthPercentValue, dmgExpPercent : Float;
+		var statPoolsSystem : StatPoolsSystem;
+		var targetID : StatsObjectID;
+		var godModeSystem : GodModeSystem;
+		var isTargetImmortal : Bool;
+		var processVendettaEvent : ProcessVendettaAchievementEvent;
+		targetID = hitEvent.target.GetEntityID();
+		godModeSystem = GameInstance.GetGodModeSystem( GetGameInstance() );
+		statPoolsSystem = GameInstance.GetStatPoolsSystem( hitEvent.target.GetGame() );
+		currentPercValue = statPoolsSystem.GetStatPoolValue( targetID, statPoolType );
+		currentPointValue = statPoolsSystem.ToPoints( targetID, statPoolType, currentPercValue );
+		if( currentPointValue <= 0.0 )
+		{
+			currentPointValue = 1.0;
+		}
+		percValueToDrain = ( value * currentPercValue ) / currentPointValue;
+		minHealthPercentValue = hitEvent.attackData.GetMinimumHealthPercent();
+		isTargetImmortal = godModeSystem.HasGodMode( hitEvent.target.GetEntityID(), gameGodModeType.Immortal );
+		if( isTargetImmortal )
+		{
+			minHealthPercentValue = MaxF( minHealthPercentValue, 1.0 );
+		}
+		if( ( gamedataStatPoolType.Health == statPoolType && ( minHealthPercentValue > 0.0 ) ) && ( ( currentPercValue - percValueToDrain ) < minHealthPercentValue ) )
+		{
+			percValueToDrain = MaxF( currentPercValue - minHealthPercentValue, 0.0 );
+		}
+		percValueToDrain = MinF( percValueToDrain, currentPercValue );
+		if( percValueToDrain == 0.0 )
+		{
+			return;
+		}
+		statPoolsSystem.RequestChangingStatPoolValue( targetID, statPoolType, -( percValueToDrain ), hitEvent.attackData.GetInstigator(), true, true, hitEvent.attackData.HasFlag( hitFlag.IgnoreStatPoolCustomLimit ) );
+		dmgExpPercent = percValueToDrain;
+		if( ( ( ( isTargetImmortal && ( ( currentPercValue - percValueToDrain ) <= 1.0 ) ) && hitEvent.target.IsPlayer() ) && hitEvent.attackData.GetInstigator().IsNPC() ) && statPoolType == gamedataStatPoolType.Health )
+		{
+			processVendettaEvent = new ProcessVendettaAchievementEvent;
+			processVendettaEvent.deathInstigator = hitEvent.attackData.GetInstigator();
+			hitEvent.target.QueueEvent( processVendettaEvent );
+		}
+		if( dmgExpPercent > 0.0 )
+		{
+			RPGManager.AwardExperienceFromDamage( hitEvent, dmgExpPercent );
+		}
+	}
+
+	public static function IsStatPoolValid( type : gamedataStatPoolType ) : Bool
+	{
+		var i : Int32;
+		for( i = 0; i < ( ( Int32 )( gamedataStatPoolType.Count ) ); i += 1 )
+		{
+			if( type == ( ( gamedataStatPoolType )( i ) ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static function SimulateKill( hitEvent : gameHitEvent ) : Bool
+	{
+		var target : GameObject;
+		var curStatPoolValue : Float;
+		var valueToDrain : Float;
+		target = hitEvent.target;
+		valueToDrain = hitEvent.attackComputed.GetTotalAttackValue( gamedataStatPoolType.Health );
+		if( valueToDrain > 0.0 )
+		{
+			curStatPoolValue = GameInstance.GetStatPoolsSystem( target.GetGame() ).GetStatPoolValue( target.GetEntityID(), gamedataStatPoolType.Health, false );
+			return ( ( valueToDrain >= curStatPoolValue ) ? ( true ) : ( false ) );
+		}
+		return false;
+	}
+
+}
+

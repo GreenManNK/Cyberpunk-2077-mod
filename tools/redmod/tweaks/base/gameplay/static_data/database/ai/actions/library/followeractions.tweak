@@ -1,0 +1,1914 @@
+package FollowerActions
+using RTDB, ItemHandling, AIActionTarget, Condition, CoverActions
+
+Success : AIAction
+{
+}
+
+FollowComposite : AIActionSmartComposite
+{
+	disableActionsLimit = true;
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.MovementNotAvailable", "FollowerActions.EnterStealth", "FollowerActions.EnterVehicle", "FollowerActions.TurningToThreatSequence", "FollowerActions.TurningToFollowerSequence", "FollowerActions.FollowFar", "FollowerActions.FollowClose", "FollowerActions.FollowGetOutOfWay", "GenericArchetype.Failure"
+	];
+}
+
+FollowerStealthComposite : AIActionSmartComposite
+{
+	disableActionsLimit = true;
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.MovementNotAvailable", "FollowerActions.EnterVehicle", "FollowerActions.TurningStealthToThreatSequence", "FollowerActions.TurningStealthToFollowerSequence", "FollowerActions.StealthFollowAction", "FollowerActions.StealthFollowGetOutOfWay", "FollowerActions.Success"
+	];
+	gracefulInterruptionConditionCheckInterval = 0.5f;
+	gracefulInterruptionCondition = 
+	[
+		{
+			condition = 
+			{
+				OR = 
+				[
+					"Condition.FriendlyTargetInStatesSprint"
+				];
+			} : AIActionOR;
+		}
+	];
+}
+
+FollowerStealthDecorator : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"ItemHandling.ReloadSelector", "FollowerActions.EquipWeaponSequence", "FollowerActions.Success"
+	];
+}
+
+FollowerIdleComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"ItemHandling.ReloadSelector", "FollowerActions.EquipWeaponSequence", "FollowerActions.ReactToFollowerUnequippingWeapon", "FollowerActions.Success"
+	];
+}
+
+MoveOnSplineWithCompanionComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.Success"
+	];
+}
+
+CombatMovementComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.CombatMovementPolicySelector", "GenericArchetype.Success"
+	];
+}
+
+CombatMovementPolicySelector : AIActionSelector
+{
+	activationCondition = "FollowerActions.CombatMovementCondition";
+	actions = 
+	[
+		"MovementActions.LocomotionMalfunction", "FollowerActions.CombatGetOutOfWay", "FollowerActions.SprintToFollower", "FollowerActions.WalkToFollower", "FollowerActions.StayCloseToFollower"
+	];
+	defaultAction = "FollowerActions.Success";
+}
+
+NoWeaponCombatMovementPolicySelector : AIActionSelector
+{
+	activationCondition = "FollowerActions.NoWeaponCombatMovementCondition";
+	actions = 
+	[
+		"FollowerActions.NoWeaponCombatStayCloseToFollower"
+	];
+	defaultAction = "FollowerActions.Success";
+}
+
+CoverPresetDecoratorSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = "Condition.IsFollower";
+	};
+	actions = 
+	[
+		"FollowerActions.CoverPresetDecorator"
+	];
+	defaultAction = "FollowerActions.Success";
+}
+
+FollowGetOutOfWayMovePolicy : MovementPolicy
+{
+	target = "AIActionTarget.FriendlyTarget";
+	movementType = "Walk";
+	distance = 4.f;
+	dontUseStart = true;
+	getOutOfWay = true;
+	deadAngle = 40.f;
+	dynamicTargetUpdateTimer = 0.2f;
+	ignoreSpotReservation = true;
+}
+
+CombatGetOutOfWayMovePolicy : FollowGetOutOfWayMovePolicy
+{
+	strafingTarget = "AIActionTarget.CombatTarget";
+}
+
+FollowCloseMovePolicy : MovementPolicy
+{
+	target = "AIActionTarget.FriendlyTarget";
+	movementType = "Walk";
+	tolerance = 3.f;
+	distance = 3.f;
+	deadAngle = 40.f;
+	useFollowSlots = true;
+	spatialHintMults = ( 1.f, 2.f, 3.f );
+	maxPathLengthToDirectDistanceRatioCurve = "FollowersRatio";
+	maxPathLength = 100.f;
+}
+
+FollowStayPolicy : FollowCloseMovePolicy
+{
+}
+
+FollowTurningToFollowerHighDeadAngleMovePolicy : FollowTurningToFollowerMovePolicy
+{
+	deadAngle = 130.f;
+}
+
+FollowTurningToFollowerMovePolicy : FollowCloseMovePolicy
+{
+	strafingTarget = "AIActionTarget.FriendlyTarget";
+}
+
+FollowTurningToThreatHighDeadAngleMovePolicy : FollowTurningToThreatMovePolicy
+{
+	deadAngle = 90.f;
+}
+
+FollowTurningToThreatMovePolicy : FollowCloseMovePolicy
+{
+	strafingTarget = "AIActionTarget.TopThreat";
+}
+
+StealthFollowPolicy : MovementPolicy
+{
+	target = "AIActionTarget.FriendlyTarget";
+	movementType = "Walk";
+	tolerance = 3.f;
+	distance = 3.f;
+	deadAngle = 40.f;
+	useFollowSlots = true;
+	spatialHintMults = ( 1.f, 2.f, 3.f );
+	maxPathLengthToDirectDistanceRatioCurve = "FollowersRatio";
+	maxPathLength = 100.f;
+	keepLineOfSight = "Avoid";
+}
+
+FollowStealthTurningToFollowerHighDeadAngleMovePolicy : FollowStealthTurningToFollowerMovePolicy
+{
+	deadAngle = 130.f;
+}
+
+FollowStealthTurningToFollowerMovePolicy : StealthFollowPolicy
+{
+	strafingTarget = "AIActionTarget.FriendlyTarget";
+}
+
+FollowStealthTurningToThreatHighDeadAngleMovePolicy : FollowStealthTurningToThreatMovePolicy
+{
+	deadAngle = 90.f;
+}
+
+FollowStealthTurningToThreatMovePolicy : StealthFollowPolicy
+{
+	strafingTarget = "AIActionTarget.TopThreat";
+}
+
+FollowSprintMovePolicy : MovementPolicy
+{
+	target = "AIActionTarget.FriendlyTarget";
+	movementType = "Sprint";
+	tolerance = 3.f;
+	distance = 3.f;
+	useFollowSlots = true;
+	spatialHintMults = ( 1.f, 2.f, 3.f );
+	maxPathLengthToDirectDistanceRatioCurve = "FollowersRatio";
+	maxPathLength = 100.f;
+}
+
+MovementNotAvailable : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			OR = 
+			[
+				"Condition.EnterCoverCondition", "Condition.TicketTakeCover", "Condition.IsEnteringOrLeavingCover", "Condition.IsUsingOffMeshLink", "Condition.NotMovePolicyCooldown"
+			];
+		} : AIActionOR;
+	};
+	loop = 
+	{
+		duration = 0.2f;
+	};
+}
+
+CombatMovementCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			"Condition.NotTicketTakeCover", "Condition.InStatesMoving", "Condition.NotIsEnteringOrLeavingCover", "Condition.NotIsUsingOffMeshLink", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand"
+		];
+	} : AIActionAND;
+}
+
+NoWeaponCombatMovementCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			"Condition.NotIsFriendInVeryFarRange", "Condition.CalculatePathToFollower", "Condition.NotIsCoverSelected", "Condition.NotIsEnteringOrLeavingCover", "Condition.NotIsUsingOffMeshLink", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand"
+		];
+	} : AIActionAND;
+}
+
+SuccessIfFollower : FollowerActions.Success
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsFollower"
+			];
+		} : AIActionAND;
+	};
+}
+
+SprintToFollower : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CombatSprintToFollowerCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = 
+		{
+			target = "AIActionTarget.FriendlyTarget";
+			movementType = "Sprint";
+			tolerance = 3.f;
+			distance = 5.f;
+			zDiff = 3.2f;
+			avoidThreatRange = 0.f;
+			avoidThreatCost = 0.f;
+			spatialHintMults = ( 1.f, 1.5f, 2.f );
+		};
+		toNextPhaseConditionCheckInterval = 0.2f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CombatMovementInterruptionCondition", "Condition.SprintToFollowerInterruptionCondition"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	subActions = 
+	[
+		{
+			cooldowns = 
+			[
+				{
+					duration = 0.f;
+				} : FollowerActions.SetDesiredCoverCooldown
+			];
+		} : AISubActionStartCooldown
+	];
+}
+
+WalkToFollower : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CombatTooFarToFollowerCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = 
+		{
+			target = "AIActionTarget.FriendlyTarget";
+			movementType = "Walk";
+			tolerance = 4.f;
+			distance = 2.f;
+			zDiff = 3.2f;
+			avoidThreatRange = 0.f;
+			avoidThreatCost = 0.f;
+			spatialHintMults = ( 1.f, 1.5f, 2.f );
+		};
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CombatMovementInterruptionCondition", "Condition.SprintToFollowerInterruptionCondition"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	subActions = 
+	[
+		{
+			cooldowns = 
+			[
+				{
+					duration = 0.f;
+				} : FollowerActions.SetDesiredCoverCooldown
+			];
+		} : AISubActionStartCooldown
+	];
+}
+
+StayCloseToFollower : AIAction
+{
+	loop = 
+	{
+		movePolicy = 
+		{
+			target = "AIActionTarget.FriendlyTarget";
+			strafingTarget = "AIActionTarget.CombatTarget";
+			movementType = "Walk";
+			tolerance = 3.f;
+			distance = 5.f;
+			avoidThreatRange = 0.f;
+			avoidThreatCost = 0.f;
+			spatialHintMults = ( 1.f, 1.5f, 2.f );
+			keepLineOfSight = "Keep";
+		};
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CombatMovementInterruptionCondition", "Condition.GetOutOfWayDoublePredictionCond", "Condition.CombatSprintToFollowerCondition"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	subActions = 
+	[
+		{
+			cooldowns = 
+			[
+				{
+					duration = 0.f;
+				} : FollowerActions.SetDesiredCoverCooldown
+			];
+		} : AISubActionStartCooldown
+	];
+}
+
+NoWeaponCombatStayCloseToFollower : FollowerActions.StayCloseToFollower
+{
+	activationCondition = 
+	{
+	};
+}
+
+IsCombatTargetNotTooFarToFriendlyTarget : IsFriendInVeryFarRange
+{
+	fk< AIActionTarget > source = "AIActionTarget.FriendlyTarget";
+	fk< AIActionTarget > target = "AIActionTarget.CombatTarget";
+	distance = ( 0.0f, 34.0f );
+}
+
+CoverPresetDecorator : AIAction
+{
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 1.f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.NotFollower"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	subActions = 
+	[
+		{
+			preset = "FollowerCompound";
+			initialPreset = "FollowerCompound";
+			gatheringObjectCenter = "AIActionTarget.FriendlyTarget";
+		} : AISubActionChangeCoverSelectionPreset
+	];
+}
+
+HasTopThreat : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.TopThreat";
+	};
+}
+
+WillTakedownBeVisible : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			OR = 
+			[
+				"Condition.IsInCameraFrustrum", "Condition.IsTargetInCameraFrustrum"
+			];
+		} : AIActionOR;
+	};
+}
+
+IncreaseFollowingSpeedEnterCondition : AIActionCondition
+{
+	condition = "Condition.IncreaseFollowingSpeedCondition";
+}
+
+IncreaseFollowingSpeedExitCondition : AIActionCondition
+{
+	condition = "Condition.NotIncreaseFollowingSpeedCondition";
+}
+
+FollowGetOutOfWay : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = "Condition.GetOutOfWayDoublePredictionCond";
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowGetOutOfWayMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = "Condition.LeaveGetOutOfWayCondition";
+			}
+		];
+	};
+}
+
+CombatGetOutOfWay : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.GetOutOfWayDoublePredictionCond";
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.CombatGetOutOfWayMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = "Condition.LeaveGetOutOfWayCondition";
+			}
+		];
+	};
+}
+
+StealthFollowGetOutOfWay : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.GetOutOfWayDoublePredictionCond";
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowGetOutOfWayMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeaveGetOutOfWayCondition", "Condition.EnterCoverCondition"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowFar : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotGetOutOfWayDoublePredictionCond", "Condition.CalculatePathToFollower", "Condition.FollowFarEnterCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowSprintMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = "Condition.FollowFarStopCondition";
+			}
+		];
+	};
+}
+
+FollowClose : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotGetOutOfWayDoublePredictionCond", "Condition.CalculatePathToFollower", "Condition.IsMoving", "Condition.NotFollowFarEnterCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowCloseMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotIsUsingOffMeshLink", {
+							OR = 
+							[
+								"Condition.FollowFarEnterCondition", "Condition.GetOutOfWayDoublePredictionCond", "Condition.EnterStealthCondition", "Condition.EnterVehicleAICondition", "Condition.NotIsMoving"
+							];
+						} : AIActionOR
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+TurningToFollowerSequence : AIActionSequence
+{
+	failOnNodeActivationConditionFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotGetOutOfWayDoublePredictionCond", "Condition.NotTopThreatMinAccuracySharedValue0"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"FollowerActions.FollowTurningToFollower", "FollowerActions.FollowStay"
+	];
+}
+
+TurningStealthToFollowerSequence : TurningToFollowerSequence
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotGetOutOfWayDoublePredictionCond"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"FollowerActions.FollowStealthTurningToFollower", "FollowerActions.FollowStealthStay"
+	];
+}
+
+TurningToThreatSequence : AIActionSequence
+{
+	failOnNodeActivationConditionFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotGetOutOfWayDoublePredictionCond", "Condition.TopThreatMinAccuracySharedValue0dot5"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"FollowerActions.FollowTurningToThreat", "FollowerActions.FollowStayTurningToThreat"
+	];
+}
+
+TurningStealthToThreatSequence : AIActionSequence
+{
+	failOnNodeActivationConditionFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.TopThreatMinAccuracySharedValue0dot5"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"FollowerActions.FollowStealthTurningToThreat", "FollowerActions.FollowStealthStayTurningToThreat"
+	];
+}
+
+FollowTurningToFollower : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerAbove40deg", "Condition.NotIsMoving"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowTurningToFollowerMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingTurningCond"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStealthTurningToFollower : FollowTurningToFollower
+{
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowStealthTurningToFollowerMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingTurningStealthCond"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowTurningToThreat : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerAbove40deg", "Condition.NotIsMoving"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowTurningToThreatMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingTurningCond"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStealthTurningToThreat : FollowTurningToThreat
+{
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowStealthTurningToThreatMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingTurningStealthCond"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStayTurningToThreat : FollowStay
+{
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowTurningToThreatHighDeadAngleMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingStayingCond", "Condition.NotTopThreatMinAccuracySharedValue0"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStay : AIAction
+{
+	completeWithFailure = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotIsMoving"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowTurningToFollowerHighDeadAngleMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingStayingCond", "Condition.TopThreatMinAccuracySharedValue0dot5"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStealthStayTurningToThreat : FollowStealthStay
+{
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowStealthTurningToThreatHighDeadAngleMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingStayingStealthCond", "Condition.NotTopThreatMinAccuracySharedValue0"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowStealthStay : FollowStay
+{
+	loop = 
+	{
+		movePolicy = "FollowerActions.FollowStealthTurningToFollowerHighDeadAngleMovePolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.LeavingStayingStealthCond", "Condition.TopThreatMinAccuracySharedValue0dot5"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+StealthFollowActionCondition : AIActionAND
+{
+	AND = 
+	[
+		"Condition.IsMoving", "Condition.NotIsFriendInMiddleRange"
+	];
+}
+
+StealthFollowAction : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"FollowerActions.StealthFollowActionCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		movePolicy = "FollowerActions.StealthFollowPolicy";
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotIsUsingOffMeshLink", {
+							OR = 
+							[
+								"Condition.EnterCoverCondition", "Condition.NotIsMoving", "Condition.GetOutOfWayDoublePredictionCond", "Condition.EnterVehicleAICondition"
+							];
+						} : AIActionOR
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+TeleportToTarget : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerPOVAbove270deg", "Condition.NotFollowerInVehicle", "Condition.NotIsUsingOffMeshLink", "Condition.IsFollowerOnNavmesh", "Condition.NotStatusEffectMyersNoTeleport", {
+					OR = 
+					[
+						"Condition.PathFindingFailed", {
+							AND = 
+							[
+								"Condition.NotIsMoving", "Condition.NotCalculatePathToFollower"
+							];
+						} : AIActionAND
+					];
+				} : AIActionOR, 
+				"Condition.TeleportToFollowerCooldown", "Condition.NotFriendlyTargetInStatesJump"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+	};
+	subActions = 
+	[
+		"FollowerActions.TeleportToFollower"
+	];
+}
+
+CombatTeleportToTarget : TeleportToTarget
+{
+}
+
+EquipWeaponSequence : ItemHandling.EquipPrimarySequence
+{
+	activationCondition = "FollowerActions.EquipWeaponActivationCondition";
+}
+
+ReactToFollowerUnequippingWeapon : AIActionSequence
+{
+	activationCondition = "FollowerActions.UnequipWeaponActivationCondition";
+	actions = 
+	[
+		"FollowerActions.FollowerReactionDelay", "FollowerActions.UnequipWeapon", "FollowerActions.Success"
+	];
+}
+
+FollowerReactionDelay : AIAction
+{
+	loop = 
+	{
+		duration = 0.666f;
+	};
+}
+
+SwitchWeaponCooldown : AISubActionStartCooldown
+{
+	cooldowns = 
+	[
+		{
+			duration = 2.f;
+			name = "SwitchWeapon";
+		}
+	];
+}
+
+SwitchStatesCooldown : AISubActionStartCooldown
+{
+	delay = -1.f;
+	cooldowns = 
+	[
+		{
+			duration = 2.f;
+			name = "SwitchStates";
+		}
+	];
+}
+
+TeleportToFollower : AISubActionStartCooldown
+{
+	cooldowns = 
+	[
+		{
+			duration = 6.f;
+			name = "TeleportToFollower";
+		}
+	];
+}
+
+EquipWeaponActivationCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			"Condition.NotHasAnyWeapon", "Condition.SwitchWeaponCooldown", {
+				OR = 
+				[
+					"Condition.StatusEffectNPCForceEquipPrimaryWeapon", "Condition.StatusEffectNPCForceEquipSecondaryWeapon", {
+						AND = 
+						[
+							"Condition.FriendlyTargetHasWeapon", {
+								OR = 
+								[
+									"Condition.TopThreat", "Condition.NotFriendlyTargetInStatesPublic"
+								];
+							} : AIActionOR
+						];
+					} : AIActionAND
+				];
+			} : AIActionOR
+		];
+	} : AIActionAND;
+}
+
+UnequipWeaponActivationCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			"Condition.SwitchWeaponCooldown", "Condition.HasAnyItem", "Condition.NotInCover", "Condition.NotIsEnteringOrLeavingCover", "Condition.NotIsUsingOffMeshLink", "Condition.NotSprint", "Condition.NotStatusEffectNPCForceEquipPrimaryWeapon", "Condition.NotStatusEffectNPCForceEquipSecondaryWeapon", {
+				OR = 
+				[
+					"Condition.NotFriendlyTargetHasWeapon", "Condition.FriendlyTargetInStatesPublic"
+				];
+			} : AIActionOR
+		];
+	} : AIActionAND;
+}
+
+UnequipWeapon : AIAction
+{
+	tickets = 
+	[
+		"AITicketType.Equip"
+	];
+	activationCondition = "FollowerActions.UnequipWeaponActivationCondition";
+	loop = 
+	{
+		duration = 1.333f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			animationTime = 1.333f;
+			delay = -1.f;
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			animationTime = 1.333f;
+			delay = -1.f;
+		} : AISubActionForceUnequip, 
+		"FollowerActions.SwitchWeaponCooldown"
+	];
+}
+
+UnequipWeaponInStealth : AIAction
+{
+	tickets = 
+	[
+		"AITicketType.Equip"
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyItem"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			animationTime = 1.333f;
+			delay = -1.f;
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			animationTime = 1.333f;
+			delay = -1.f;
+		} : AISubActionForceUnequip, 
+		"FollowerActions.SwitchWeaponCooldown"
+	];
+}
+
+Cover : AIAction
+{
+	tickets = 
+	[
+		"AITicketType.TakeCover"
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.EnterCoverCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			stanceState = "Cover";
+		};
+		conditionSuccessDuration = 0.5f;
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotIsUsingOffMeshLink", "Condition.NotIsEnteringOrLeavingCover", {
+							OR = 
+							[
+								"Condition.NotTopThreat", {
+									AND = 
+									[
+										"Condition.SwitchStatesCooldown", "Condition.NotFriendlyTargetInStatesCrouch", "Condition.NotTicketEquip", {
+											OR = 
+											[
+												"Condition.FriendlyTargetInStatesSprint", "Condition.NotTopThreatMinAccuracySharedValue0dot5", "Condition.StatusEffectFollowerGameplayRestrictionNoCombat"
+											];
+										} : AIActionOR
+									];
+								} : AIActionAND
+							];
+						} : AIActionOR
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+StealthCoverBehaviorComposite : AIActionSmartComposite
+{
+	nodes = 
+	[
+		"FollowerActions.CoverDecision", "FollowerActions.StealthCoverPeek", "GenericArchetype.WaitASecond"
+	];
+	type = "AISmartCompositeType.Sequence";
+}
+
+SetDesiredCoverCooldown : AIActionCooldown
+{
+	name = "SetDesiredCover";
+	duration = 5.f;
+}
+
+ChangeSelectCoverPreset : AIAction
+{
+	loop = 
+	{
+	};
+	subActions = 
+	[
+		{
+			preset = "Follower";
+			initialPreset = "Follower";
+			gatheringObjectCenter = "AIActionTarget.FriendlyTarget";
+			coverDisablingDuration = 7.0f;
+		} : AISubActionChangeCoverSelectionPreset
+	];
+}
+
+WalkToCoverDecorator : AIAction
+{
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 0.2f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotIsEnteringOrLeavingCover", "Condition.DesiredCoverChanged", "Condition.NotIsUsingOffMeshLink"
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+LeaveCoverCondition : AIActionAND
+{
+	AND = 
+	[
+		"Condition.NotIsEnteringOrLeavingCover", {
+			OR = 
+			[
+				"Condition.DesiredCoverChanged", "Condition.NotInCover", "Condition.NotIsCoverInMiddleRange", "Condition.IsFriendInTooCloseRange"
+			];
+		} : AIActionOR
+	];
+}
+
+InsideCoverDecorator : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.EnterCoverCondition"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			locomotionMode = "Static";
+		};
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"FollowerActions.LeaveCoverCondition", "Condition.TopThreatAbove120deg"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	animData = 
+	{
+		animVariationSubAction = 
+		{
+			setInitialCoverData = true;
+		} : AISubActionCover;
+	};
+}
+
+SetCoverExposureAnim : AISubActionCover
+{
+	target = "AIActionTarget.TopThreat";
+	setCoverExposureAnim = true;
+	coverExposureMethods = 
+	[
+		"Crouching_Step_Left", "Crouching_Step_Right", "Stand_Up"
+	];
+}
+
+CoverDecision : AIAction
+{
+	loop = 
+	{
+		duration = 0.f;
+	};
+	subActions = 
+	[
+		"FollowerActions.SetCoverExposureAnim"
+	];
+	animData = 
+	{
+		animVariationSubAction = "FollowerActions.SetCoverExposureAnim";
+	};
+}
+
+StealthCoverPeek : CoverPeek
+{
+	activationCondition = "";
+	cooldowns = 
+	[
+		{
+			name = "StealthCoverPeek";
+			duration = 8.5f;
+		}
+	];
+	lookats = 
+	[
+		{
+			preset = "LookatPreset.Gang_Rifle_Body_LootAt";
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.TopThreat;
+		}
+	];
+	allowBlendDuration = 0.2f;
+}
+
+FollowerLookatDecorator : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.Idle_ObjectOfInterestLookAt", "FollowerActions.Moving_FollowerLookAtSequence", "FollowerActions.Success"
+	];
+}
+
+NotShouldLookAtObjectOfInterest : ShouldLookAtObjectOfInterest
+{
+	invert = true;
+}
+
+ShouldLookAtObjectOfInterest : AITargetCond
+{
+	target = "AIActionTarget.ObjectOfInterest";
+}
+
+Idle_ObjectOfInterestLookAt : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotIsMoving"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 1.f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.IsMoving"
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+	loopSubActions = 
+	[
+		{
+			randomPointDurationRange = ( 0.5f, 2.5f );
+			squadMateDurationRange = ( 3.0f, 6.0f );
+			friendlyTargetDurationRange = ( 3.0f, 10.0f );
+			closestThreatDurationRange = ( 3.0f, 6.0f );
+			choosingRandomPointChanceWeight = 4.0f;
+			choosingSquadMateChanceWeight = 4.0f;
+			choosingFriendlyTargetChanceWeight = 6.0f;
+			choosingClosestThreatChanceWeight = 16.0f;
+			squadMateWatchingMaxAngle = 120.0f;
+			friendlyTargetWatchingMaxAngle = 140.0f;
+			closestThreatWatchingMaxAngle = 120.0f;
+			randomPointZRotationAngleRange = ( -60.0f, 60.0f );
+			randomPointYRotationAngleRange = ( -6.0f, 10.0f );
+		} : AISubActionGeneratePointOfInterestTarget
+	];
+	lookats = 
+	[
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"FollowerActions.ShouldLookAtObjectOfInterest", "Condition.NotInStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.ObjectOfInterest;
+			preset = "LookatPreset.LookAtObjectOfInterest";
+		}, 
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"FollowerActions.ShouldLookAtObjectOfInterest", "Condition.InStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.ObjectOfInterest;
+			preset = "LookatPreset.LookAtObjectOfInterestStealth";
+		}, 
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"FollowerActions.NotShouldLookAtObjectOfInterest", "Condition.NotInStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+			} : AIActionTarget.PointOfInterest;
+			preset = "LookatPreset.LookAtPointOfInterest";
+		}, 
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"FollowerActions.NotShouldLookAtObjectOfInterest", "Condition.InStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+			} : AIActionTarget.PointOfInterest;
+			preset = "LookatPreset.LookAtPointOfInterestStealth";
+		}
+	];
+	subActionsCanCompleteAction = true;
+}
+
+Moving_ObjectOfInterestLookAt : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerBelow180deg", "Condition.NotIsMoving"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+	};
+	loopSubActions = 
+	[
+		{
+			randomPointDurationRange = ( 2.0f, 4.0f );
+			friendlyTargetDurationRange = ( 2.0f, 4.0f );
+			choosingRandomPointChanceWeight = 0.0f;
+			choosingSquadMateChanceWeight = 0.0f;
+			choosingFriendlyTargetChanceWeight = 1.0f;
+			choosingClosestThreatChanceWeight = 1.0f;
+			friendlyTargetWatchingMaxAngle = 90.0f;
+			randomPointZRotationAngleRange = ( -10.0f, 10.0f );
+			randomPointYRotationAngleRange = ( -0.0f, 0.0f );
+		} : AISubActionGeneratePointOfInterestTarget
+	];
+	lookats = 
+	[
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotInStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.FriendlyTarget;
+			preset = "LookatPreset.LookAtObjectOfInterest";
+		}, 
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.InStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.FriendlyTarget;
+			preset = "LookatPreset.LookAtObjectOfInterestStealth";
+		}
+	];
+	subActionsCanCompleteAction = true;
+}
+
+Moving_FollowerLookAtSequence : AIActionSequence
+{
+	actions = 
+	[
+		"FollowerActions.FollowerLookAt", "FollowerActions.Moving_ObjectOfInterestLookAt"
+	];
+}
+
+Moving_FollowerWithoutLookAt : AIAction
+{
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 1.f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.FollowerBelow180deg", "Condition.NotIsMoving"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowerLookAt : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerBelow180deg"
+			];
+		} : AIActionAND;
+	};
+	lookats = 
+	[
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotInStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.FriendlyTarget;
+			preset = "LookatPreset.LookAtObjectOfInterest";
+		}, 
+		{
+			activationCondition = 
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.InStatesStealth"
+					];
+				} : AIActionAND;
+			};
+			target = 
+			{
+				trackingMode = "TargetTracking.RealPosition";
+				targetSlot = "Head";
+			} : AIActionTarget.FriendlyTarget;
+			preset = "LookatPreset.LookAtObjectOfInterestStealth";
+		}
+	];
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 1.f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.FollowerAbove180deg", "Condition.NotIsMoving"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+}
+
+FollowerStealthLookatDecorator : FollowerLookatDecorator
+{
+}
+
+WaitToStop : AIAction
+{
+	startup = 
+	{
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotIsMoving"
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+EnterStealth : AIActionSequence
+{
+	activationCondition = 
+	{
+		condition = "Condition.EnterStealthCondition";
+	};
+	actions = 
+	[
+		"FollowerActions.WaitBeforeEnteringStealth", "FollowerActions.SendEnterStealthEvent"
+	];
+}
+
+IdleToStealth : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotInStatesStealth", "Condition.NotInCover"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 0.2f;
+	};
+	loop = 
+	{
+		duration = 0.367f;
+	};
+	recovery = 
+	{
+		duration = 0.233f;
+	};
+	animData = 
+	{
+		animFeature = "IdleToStealth";
+		animSlot = 
+		{
+		};
+		weaponOverride = 2;
+	};
+}
+
+StealthToIdle : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.InStatesStealth", "Condition.NotInCover", "Condition.NotStatusEffectFollowerDontLeaveStealth"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 0.267f;
+	};
+	loop = 
+	{
+		duration = 0.333f;
+	};
+	recovery = 
+	{
+		duration = 0.2f;
+	};
+	animData = 
+	{
+		animFeature = "StealthToIdle";
+		animSlot = 
+		{
+		};
+		weaponOverride = 2;
+	};
+}
+
+WaitBeforeEnteringStealth : FollowerActions.WaitToStop
+{
+	loop = 
+	{
+		duration = 0.7f;
+		toNextPhaseConditionCheckInterval = 0.35f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = "Condition.LeaveStealthCondition";
+			}
+		];
+	};
+}
+
+SendEnterStealthEvent : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.EnterStealthCondition";
+	};
+	loop = 
+	{
+		duration = 0.01f;
+	};
+	loopSubActions = 
+	[
+		{
+			name = "EnterStealth";
+		} : AISubActionQueueAIEvent, 
+		"FollowerActions.SwitchStatesCooldown"
+	];
+}
+
+LeaveStealth : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.LeaveStealthCondition";
+	};
+}
+
+LeaveStealthSequence : AIActionSequence
+{
+	actions = 
+	[
+		"FollowerActions.WaitBeforeLeavingStealth", "FollowerActions.SendLeaveStealthEvent"
+	];
+}
+
+WaitBeforeLeavingStealth : FollowerActions.WaitToStop
+{
+	loop = 
+	{
+		duration = 0.7f;
+		toNextPhaseConditionCheckInterval = 0.35f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = "Condition.EnterStealthCondition";
+			}
+		];
+	};
+}
+
+SendLeaveStealthEvent : AIAction
+{
+	activationCondition = 
+	{
+		condition = "Condition.LeaveStealthCondition";
+	};
+	loop = 
+	{
+		duration = 0.01f;
+	};
+	loopSubActions = 
+	[
+		{
+			name = "LeaveStealth";
+		} : AISubActionQueueAIEvent, 
+		"FollowerActions.SwitchStatesCooldown"
+	];
+}
+
+EnterVehicleCondition : AIActionCondition
+{
+	condition = "Condition.EnterVehicleAICondition";
+}
+
+EnterVehicle : AIAction
+{
+	activationCondition = "FollowerActions.EnterVehicleCondition";
+	loop = 
+	{
+	};
+	loopSubActions = 
+	[
+		{
+			vehicle = "AIActionTarget.FriendlyTarget";
+			mountInstantly = false;
+			ignoreFlatTires = true;
+		} : AISubActionMountVehicle
+	];
+}
+
+ExitVehicle : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsFollower", "Condition.NotDriver", "Condition.NotFollowerInVehicle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+	};
+	subActions = 
+	[
+		{
+			name = "ExitVehicle";
+		} : AISubActionQueueAIEvent
+	];
+}
+
+MyersNoVehicleCombat : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.StatusEffectMyersNoCarCombat"
+			];
+		} : AIActionAND;
+	};
+}
+
+FollowerDontLeaveStealthInCombat : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotStatusEffectFollowerDontLeaveStealth"
+			];
+		} : AIActionAND;
+	};
+}
+

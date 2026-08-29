@@ -1,0 +1,179 @@
+package scanning
+using RTDB
+
+mq059_clue_engineer_1 : FocusClue
+{
+	string friendlyName = "mq059_clue_engineer_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#96606";
+	localizedDescription = "LocKey#97072";
+}
+
+mq059_clue_engineer_2 : FocusClue
+{
+	string friendlyName = "mq059_clue_engineer_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97073";
+	localizedDescription = "LocKey#97074";
+}
+
+mq059_clue_engineer_conclusion : FocusClue
+{
+	string friendlyName = "mq059_clue_engineer_conclusion";
+	int revealOrder = 1;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#97075";
+}
+
+mq059_corpse_gang_1 : FocusClue
+{
+	string friendlyName = "mq059_corpse_gang_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#97088";
+	localizedDescription = "LocKey#96616";
+}
+
+mq059_corpse_gang_2 : FocusClue
+{
+	string friendlyName = "mq059_corpse_gang_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97073";
+	localizedDescription = "LocKey#97090";
+}
+
+mq059_corpse_gang_conclusion : FocusClue
+{
+	string friendlyName = "mq059_corpse_gang_conclusion";
+	int revealOrder = 1;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#97089";
+}
+
+mq059_corpse_merc_1 : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#97088";
+	localizedDescription = "LocKey#96827";
+}
+
+mq059_corpse_merc_2 : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97073";
+	localizedDescription = "LocKey#97091";
+}
+
+mq059_corpse_merc_conclusion : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_conclusion";
+	int revealOrder = 1;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#96614";
+}
+
+mq059_corpse_crushed_1 : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#96606";
+	localizedDescription = "LocKey#96614";
+}
+
+mq059_corpse_crushed_2 : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97073";
+	localizedDescription = "LocKey#97087";
+}
+
+mq059_corpse_crushed_conclusion : FocusClue
+{
+	string friendlyName = "mq059_corpse_merc_conclusion";
+	int revealOrder = 1;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#96614";
+}
+
+mq059_tire_tracks_Rayfield_1 : FocusClue
+{
+	string friendlyName = "mq059_tire_tracks_Rayfield_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#96608";
+	localizedDescription = "LocKey#97077";
+}
+
+mq059_tire_tracks_Rayfield_Conclusion : FocusClue
+{
+	string friendlyName = "mq059_tire_tracks_Rayfield_Conclusion";
+	int revealOrder = 2;
+	localizedName = "LocKey#97093";
+	localizedDescription = "LocKey#97078";
+}
+
+mq059_tire_tracks_Gang : FocusClue
+{
+	string friendlyName = "mq059_tire_tracks_Gang";
+	int revealOrder = 1;
+	localizedName = "LocKey#97080";
+	localizedDescription = "LocKey#96610";
+}
+
+mq059_antenna_1 : FocusClue
+{
+	string friendlyName = "mq059_antenna_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#97081";
+	localizedDescription = "LocKey#96612";
+}
+
+mq059_antenna_2 : FocusClue
+{
+	string friendlyName = "mq059_antenna_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97083";
+	localizedDescription = "LocKey#97082";
+}
+
+mq059_antenna_3 : FocusClue
+{
+	string friendlyName = "mq059_antenna_3";
+	int revealOrder = 3;
+	localizedName = "LocKey#97084";
+	localizedDescription = "LocKey#97085";
+}
+
+mq059_antenna_conclusion : FocusClue
+{
+	string friendlyName = "mq059_antenna_conclusion";
+	int revealOrder = 1;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#97075";
+}
+
+mq059_loc2_computer_1 : FocusClue
+{
+	string friendlyName = "mq059_computer_1";
+	int revealOrder = 1;
+	localizedName = "LocKey#96619";
+	localizedDescription = "LocKey#96591";
+}
+
+mq059_loc2_computer_2 : FocusClue
+{
+	string friendlyName = "mq059_computer_2";
+	int revealOrder = 2;
+	localizedName = "LocKey#97083";
+	localizedDescription = "LocKey#97101";
+}
+
+mq059_loc2_computer_conclusion : FocusClue
+{
+	string friendlyName = "mq059_computer_conclusion";
+	int revealOrder = 2;
+	localizedName = "LocKey#97076";
+	localizedDescription = "LocKey#97075";
+}
+

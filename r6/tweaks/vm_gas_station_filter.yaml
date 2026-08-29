@@ -1,0 +1,48 @@
+# Dedicated world-map category for Immersive Odometer and Fuel gas stations.
+# The custom mappin definition keeps these pins separate from vanilla filters.
+
+Mappins.VehicleMileageGasStationVariant:
+  $type: gamedataMappinVariant_Record
+  enumName: CPO_PingGoHereVariant
+
+WorldMap.VehicleMileageGasStationsFilter:
+  $type: gamedataWorldMapFilter_Record
+  enumName: CustomFilter
+
+WorldMap.VehicleMileageGasStationsFilterGroup:
+  $type: gamedataMappinUIFilterGroup_Record
+  filterName: VehicleMileage-GasStations-FilterName
+  filterType: WorldMap.VehicleMileageGasStationsFilter
+  mappins:
+    - Mappins.VehicleMileageGasStationVariant
+  shouldCollectMappins: false
+
+WorldMap.WorldMapQuickFiltersList.list:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup
+
+WorldMap.WorldMapCustomFiltersList.list:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup
+
+Mappins.VehicleMileageGasStationMappinDefinition:
+  $type: gamedataMappinDefinition_Record
+  showInWorld: true
+  showOnMap: true
+  showOnMinimap: true
+  visibilityRange: 0
+  possibleVariants:
+    - Mappins.VehicleMileageGasStationVariant
+
+WorldMappinUIProfile.VehicleMileageGasStation:
+  $base: WorldMappinUIProfile.Quest
+
+WorldMap.ZoomLevelImportant.mappinFilterGroups:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup
+
+WorldMap.ZoomLevelAllMappins.mappinFilterGroups:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup
+
+WorldMap.ZoomLevelExtraMappins.mappinFilterGroups:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup
+
+WorldMap.ZoomLevelSubDistricts.mappinFilterGroups:
+  - !append-once WorldMap.VehicleMileageGasStationsFilterGroup

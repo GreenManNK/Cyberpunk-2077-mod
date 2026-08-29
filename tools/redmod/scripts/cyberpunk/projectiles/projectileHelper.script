@@ -1,0 +1,354 @@
+class ProjectileLaunchHelper
+{
+
+	public static function SpawnArmsLauncherProjectileWithRotation( ownerObject : GameObject, projectileTemplateName : CName, itemObj : ItemObject, optional rotationRad : Float ) : Bool
+	{
+		var launchEvent : gameprojectileSpawnerLaunchEvent;
+		var targetingSystem : TargetingSystem;
+		var targetComponent : IPlacedComponent;
+		var componentPosition : Vector4;
+		var customTargetSearchQuery : TargetSearchQuery;
+		var angleDist : EulerAngles;
+		var targetingAngle : Float;
+		var orientationEntitySpace : Quaternion;
+		var position, forward : Vector4;
+		targetingSystem = GameInstance.GetTargetingSystem( ownerObject.GetGame() );
+		launchEvent = new gameprojectileSpawnerLaunchEvent;
+		launchEvent.launchParams.logicalPositionProvider = targetingSystem.GetDefaultCrosshairPositionProvider( ownerObject );
+		if( ( ( Bool )rotationRad ) )
+		{
+			targetingSystem.GetDefaultCrosshairData( ownerObject, position, forward );
+			Quaternion.SetIdentity( orientationEntitySpace );
+			Quaternion.SetZRot( orientationEntitySpace, rotationRad );
+			launchEvent.launchParams.logicalOrientationProvider = targetingSystem.GetDefaultCrosshairOrientationProvider( ownerObject, orientationEntitySpace );
+		}
+		else
+		{
+			launchEvent.launchParams.logicalOrientationProvider = targetingSystem.GetDefaultCrosshairOrientationProvider( ownerObject );
+		}
+		launchEvent.templateName = projectileTemplateName;
+		launchEvent.appearance = '';
+		launchEvent.owner = ownerObject;
+		customTargetSearchQuery = TSQ_EnemyNPC();
+		customTargetSearchQuery.maxDistance = TDB.GetFloat( T"Items.ProjectileLauncher.projectileSmartTargetingDistance", 100.0 );
+		targetComponent = ProjectileTargetingHelper.GetTargetsTargetingComponent( ownerObject, customTargetSearchQuery, angleDist );
+		if( targetComponent )
+		{
+			targetingAngle = TDB.GetFloat( T"Items.ProjectileLauncher.projectileSmartTargetingAngle", 120.0 );
+			if( ( ( angleDist.Pitch * angleDist.Pitch ) + ( angleDist.Yaw * angleDist.Yaw ) ) < targetingAngle )
+			{
+				componentPosition = ProjectileTargetingHelper.GetTargetingComponentsWorldPosition( targetComponent );
+				launchEvent.projectileParams.trackedTargetComponent = targetComponent;
+				launchEvent.projectileParams.targetPosition = componentPosition;
+			}
+		}
+		itemObj.QueueEvent( launchEvent );
+		return true;
+	}
+
+	public static function SpawnProjectileFromRightHand( ownerObject : GameObject, projectileTemplateName : CName, appearance : CName, itemObj : ItemObject ) : Bool
+	{
+		var targetingSystem : TargetingSystem;
+		var aimPosition : Vector4;
+		var aimForward : Vector4;
+		targetingSystem = GameInstance.GetTargetingSystem( ownerObject.GetGame() );
+		targetingSystem.GetCrosshairData( ownerObject, aimPosition, aimForward );
+		return SpawnProjectile( ownerObject, projectileTemplateName, appearance, itemObj, IPositionProvider.CreateSlotPositionProvider( ownerObject, 'RightHand' ), IOrientationProvider.CreateStaticOrientationProvider( Quaternion.BuildFromDirectionVector( aimForward ) ) );
+		return false;
+	}
+
+	public static function SpawnProjectileFromScreenCenter( ownerObject : GameObject, projectileTemplateName : CName, appearance : CName, itemObj : ItemObject ) : Bool
+	{
+		var targetingSystem : TargetingSystem;
+		targetingSystem = GameInstance.GetTargetingSystem( ownerObject.GetGame() );
+		return SpawnProjectile( ownerObject, projectileTemplateName, appearance, itemObj, targetingSystem.GetDefaultCrosshairPositionProvider( ownerObject ), targetingSystem.GetDefaultCrosshairOrientationProvider( ownerObject ) );
+	}
+
+	private static function SpawnProjectile( ownerObject : GameObject, projectileTemplateName : CName, appearance : CName, itemObj : ItemObject, logicalPositionProvider : IPositionProvider, logicalOrientationProvider : IOrientationProvider ) : Bool
+	{
+		var launchEvent : gameprojectileSpawnerLaunchEvent;
+		var componentPosition : Vector4;
+		var angleDist : EulerAngles;
+		var targetingAngle : Float;
+		var customTargetSearchQuery : TargetSearchQuery;
+		var preferableComponent : IPlacedComponent;
+		customTargetSearchQuery = TSQ_EnemyNPC();
+		launchEvent = new gameprojectileSpawnerLaunchEvent;
+		launchEvent.launchParams.logicalPositionProvider = logicalPositionProvider;
+		launchEvent.launchParams.logicalOrientationProvider = logicalOrientationProvider;
+		launchEvent.templateName = projectileTemplateName;
+		launchEvent.appearance = appearance;
+		launchEvent.owner = ownerObject;
+		launchEvent.projectileParams.ignoreMountedVehicleCollision = true;
+		if( itemObj.GetItemData().GetItemType() == gamedataItemType.Wea_Knife )
+		{
+			customTargetSearchQuery.maxDistance = TDB.GetFloat( T"Items.Base_Knife.projectileSmartTargetingDistance", 100.0 );
+		}
+		else if( itemObj.GetItemData().GetItemType() == gamedataItemType.Wea_Axe )
+		{
+			customTargetSearchQuery.maxDistance = TDB.GetFloat( T"Items.Base_Axe.projectileSmartTargetingDistance", 100.0 );
+		}
+		else
+		{
+			customTargetSearchQuery.maxDistance = TDB.GetFloat( T"Items.ProjectileLauncher.projectileSmartTargetingDistance", 100.0 );
+		}
+		preferableComponent = ProjectileTargetingHelper.GetTargetsTargetingComponent( ownerObject, customTargetSearchQuery, angleDist );
+		if( preferableComponent )
+		{
+			if( itemObj.GetItemData().GetItemType() == gamedataItemType.Wea_Knife || itemObj.GetItemData().GetItemType() == gamedataItemType.Wea_Axe )
+			{
+				targetingAngle = TDB.GetFloat( T"Items.Base_Knife.projectileSmartTargetingAngle", 30.0 );
+			}
+			else
+			{
+				targetingAngle = TDB.GetFloat( T"Items.ProjectileLauncher.projectileSmartTargetingAngle", 120.0 );
+			}
+			if( ( ( angleDist.Pitch * angleDist.Pitch ) + ( angleDist.Yaw * angleDist.Yaw ) ) < targetingAngle )
+			{
+				componentPosition = ProjectileTargetingHelper.GetTargetingComponentsWorldPosition( preferableComponent );
+				launchEvent.projectileParams.trackedTargetComponent = preferableComponent;
+				launchEvent.projectileParams.targetPosition = componentPosition;
+			}
+		}
+		itemObj.QueueEvent( launchEvent );
+		return true;
+	}
+
+	public static function SetLinearLaunchTrajectory( projectileComponent : ProjectileComponent, velocity : Float ) : Bool
+	{
+		var linearParams : LinearTrajectoryParams;
+		if( velocity <= 0.0 )
+		{
+			return false;
+		}
+		linearParams = new LinearTrajectoryParams;
+		linearParams.startVel = velocity;
+		projectileComponent.AddLinear( linearParams );
+		return true;
+	}
+
+	public static function SetParabolicLaunchTrajectory( projectileComponent : ProjectileComponent, gravitySimulation : Float, velocity : Float, energyLossFactorAfterCollision : Float ) : Bool
+	{
+		var parabolicParams : ParabolicTrajectoryParams;
+		if( velocity <= 0.0 )
+		{
+			return false;
+		}
+		parabolicParams = ParabolicTrajectoryParams.GetAccelVelParabolicParams( Vector4( 0.0, 0.0, gravitySimulation, 0.0 ), velocity );
+		projectileComponent.SetEnergyLossFactor( energyLossFactorAfterCollision, energyLossFactorAfterCollision );
+		projectileComponent.AddParabolic( parabolicParams );
+		return true;
+	}
+
+	public static function SetCurvedLaunchTrajectory( projectileComponent : ProjectileComponent, optional targetObject : weak< GameObject >, targetComponent : IPlacedComponent, startVelocity : Float, linearTimeRatio : Float, interpolationTimeRatio : Float, returnTimeMargin : Float, bendTimeRatio : Float, bendFactor : Float, halfLeanAngle : Float, endLeanAngle : Float, angleInterpolationDuration : Float ) : Bool
+	{
+		var followCurveParams : FollowCurveTrajectoryParams;
+		followCurveParams = new FollowCurveTrajectoryParams;
+		if( ( ( ( !( targetComponent ) && !( targetObject ) ) || ( startVelocity <= 0.0 ) ) || ( linearTimeRatio <= 0.0 ) ) || ( interpolationTimeRatio <= 0.0 ) )
+		{
+			return false;
+		}
+		followCurveParams.startVelocity = startVelocity;
+		followCurveParams.linearTimeRatio = linearTimeRatio;
+		followCurveParams.interpolationTimeRatio = interpolationTimeRatio;
+		followCurveParams.returnTimeMargin = returnTimeMargin;
+		followCurveParams.bendTimeRatio = bendTimeRatio;
+		followCurveParams.bendFactor = bendFactor;
+		followCurveParams.halfLeanAngle = halfLeanAngle;
+		followCurveParams.endLeanAngle = endLeanAngle;
+		followCurveParams.angleInterpolationDuration = angleInterpolationDuration;
+		followCurveParams.targetComponent = targetComponent;
+		followCurveParams.target = targetObject;
+		projectileComponent.AddFollowCurve( followCurveParams );
+		return true;
+	}
+
+	public static function SetCustomTargetPositionToFollow( projectileComponent : ProjectileComponent, const localToWorld : ref< Matrix >, startVelocity : Float, distance : Float, sideOffset : Float, height : Float, linearTimeRatio : Float, interpolationTimeRatio : Float, returnTimeMargin : Float, bendTimeRatio : Float, bendFactor : Float, accuracy : Float, halfLeanAngle : Float, endLeanAngle : Float, angleInterpolationDuration : Float ) : Bool
+	{
+		var followCurveParams : FollowCurveTrajectoryParams;
+		var customTargetPosition : Vector4;
+		followCurveParams = new FollowCurveTrajectoryParams;
+		if( startVelocity <= 0.0 )
+		{
+			return false;
+		}
+		followCurveParams.startVelocity = startVelocity;
+		followCurveParams.linearTimeRatio = linearTimeRatio;
+		followCurveParams.interpolationTimeRatio = interpolationTimeRatio;
+		followCurveParams.returnTimeMargin = returnTimeMargin;
+		followCurveParams.bendTimeRatio = bendTimeRatio;
+		followCurveParams.bendFactor = bendFactor;
+		followCurveParams.accuracy = accuracy;
+		followCurveParams.halfLeanAngle = halfLeanAngle;
+		followCurveParams.endLeanAngle = endLeanAngle;
+		followCurveParams.angleInterpolationDuration = angleInterpolationDuration;
+		customTargetPosition = ( ( Matrix.GetTranslation( localToWorld ) + ( Matrix.GetAxisY( localToWorld ) * distance ) ) - ( Matrix.GetAxisX( localToWorld ) * sideOffset ) ) + ( Matrix.GetAxisZ( localToWorld ) * height );
+		followCurveParams.targetPosition = customTargetPosition;
+		projectileComponent.AddFollowCurve( followCurveParams );
+		return true;
+	}
+
+}
+
+struct ProjectileHitAoEData
+{
+	var source : weak< GameObject >;
+	var instigator : weak< GameObject >;
+	var position : Vector4;
+	var radius : Float;
+	var duration : Float;
+	var attackRecord : Attack_Record;
+	var weapon : weak< WeaponObject >;
+	var disableVfx : Bool;
+	var enableImpulseFalloff : Bool;
+	var impulseFalloffFactor : Float;
+	default impulseFalloffFactor = 0.5f;
+}
+
+class ProjectileGameEffectHelper
+{
+
+	public static function FillProjectileHitAoEData( const aoeData : ref< ProjectileHitAoEData > ) : Bool
+	{
+		var attack : Attack_GameEffect;
+		var effect : EffectInstance;
+		var attackContext : AttackInitContext;
+		var statMods : array< gameStatModifierData >;
+		var flag : SHitFlag;
+		var hitFlags : array< SHitFlag >;
+		var i : Int32;
+		attackContext.record = aoeData.attackRecord;
+		attackContext.instigator = aoeData.instigator;
+		attackContext.source = aoeData.source;
+		attackContext.weapon = aoeData.weapon;
+		attack = ( ( Attack_GameEffect )( IAttack.Create( attackContext ) ) );
+		attack.GetStatModList( statMods );
+		effect = attack.PrepareAttack( aoeData.instigator );
+		if( !( attack ) )
+		{
+			return false;
+		}
+		EffectData.SetFloat( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.range, aoeData.radius );
+		EffectData.SetFloat( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.radius, aoeData.radius );
+		EffectData.SetFloat( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.duration, aoeData.duration );
+		EffectData.SetVector( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.position, aoeData.position );
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.attack, ( ( IAttack )( attack ) ) );
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.attackStatModList, statMods );
+		EffectData.SetBool( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.disableVfx, aoeData.disableVfx );
+		EffectData.SetBool( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.enableImpulseFalloff, aoeData.enableImpulseFalloff );
+		EffectData.SetFloat( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.impulseFalloffFactor, aoeData.impulseFalloffFactor );
+		for( i = 0; i < aoeData.attackRecord.GetHitFlagsCount(); i += 1 )
+		{
+			flag.flag = ( ( hitFlag )( ( ( Int32 )( EnumValueFromString( "hitFlag", aoeData.attackRecord.GetHitFlagsItem( i ) ) ) ) ) );
+			flag.source = 'Attack';
+			hitFlags.PushBack( flag );
+		}
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.flags, hitFlags );
+		attack.StartAttack();
+		return true;
+	}
+
+	public static function FillProjectileHitData( source : weak< GameObject >, user : weak< GameObject >, projectileComponent : ProjectileComponent, eventData : gameprojectileHitEvent ) : Bool
+	{
+		var effect : EffectInstance;
+		var effectData : EffectData;
+		effect = projectileComponent.GetGameEffectInstance();
+		if( !( effect ) )
+		{
+			return false;
+		}
+		effectData = effect.GetSharedData();
+		EffectData.SetVariant( effectData, GetAllBlackboardDefs().EffectSharedData.projectileHitEvent, eventData );
+		effect.Run();
+		return true;
+	}
+
+	public static function RunEffectFromAttack( instigator : weak< GameObject >, source : weak< GameObject >, weapon : weak< WeaponObject >, attackRecord : Attack_Record, eventData : gameprojectileHitEvent ) : Bool
+	{
+		var attack : Attack_GameEffect;
+		var effect : EffectInstance;
+		var attackContext : AttackInitContext;
+		var statMods : array< gameStatModifierData >;
+		attackContext.record = attackRecord;
+		attackContext.instigator = instigator;
+		attackContext.source = source;
+		attackContext.weapon = weapon;
+		attack = ( ( Attack_GameEffect )( IAttack.Create( attackContext ) ) );
+		if( !( attack ) )
+		{
+			return false;
+		}
+		attack.GetStatModList( statMods );
+		effect = attack.PrepareAttack( instigator );
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.attack, ( ( IAttack )( attack ) ) );
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.attackStatModList, statMods );
+		EffectData.SetVariant( effect.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.projectileHitEvent, eventData );
+		effect.Run();
+		return true;
+	}
+
+}
+
+class ProjectileTargetingHelper
+{
+
+	public static function GetTargetsTargetingComponent( ownerObject : weak< GameObject >, filterBy : TargetSearchQuery, out angleDist : EulerAngles ) : IPlacedComponent
+	{
+		var component : IPlacedComponent;
+		component = GameInstance.GetTargetingSystem( ownerObject.GetGame() ).GetComponentClosestToCrosshair( ownerObject, angleDist, filterBy );
+		return component;
+	}
+
+	public static function GetTargetingComponentsWorldPosition( targetComponent : IPlacedComponent ) : Vector4
+	{
+		var componentPositionMatrix : Matrix;
+		var componentPosition : Vector4;
+		componentPositionMatrix = targetComponent.GetLocalToWorld();
+		componentPosition = Matrix.GetTranslation( componentPositionMatrix );
+		return componentPosition;
+	}
+
+	public static function GetObjectCurrentPosition( obj : weak< GameObject > ) : Vector4
+	{
+		var objectPosition : Vector4;
+		var positionParameter : Variant;
+		positionParameter = obj.GetWorldPosition();
+		objectPosition = ( ( Vector4 )positionParameter );
+		return objectPosition;
+	}
+
+}
+
+class ProjectileHitHelper
+{
+
+	public static function GetHitObject( const hitInstance : ref< gameprojectileHitInstance > ) : weak< GameObject >
+	{
+		var object : GameObject;
+		object = ( ( GameObject )( hitInstance.hitObject ) );
+		return object;
+	}
+
+}
+
+class ProjectileHelper
+{
+
+	public static function SpawnTrailVFX( projectileComponent : ProjectileComponent )
+	{
+		projectileComponent.SpawnTrailVFX();
+	}
+
+	public static function GetPSMBlackboardIntVariable( user : weak< GameObject >, id : BlackboardID_Int ) : Int32
+	{
+		var blackboardSystem : BlackboardSystem;
+		var blackboard : IBlackboard;
+		var playerPuppet : GameObject;
+		playerPuppet = GameInstance.GetPlayerSystem( user.GetGame() ).GetLocalPlayerMainGameObject();
+		blackboardSystem = GameInstance.GetBlackboardSystem( user.GetGame() );
+		blackboard = blackboardSystem.GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		return blackboard.GetInt( id );
+	}
+
+}
+

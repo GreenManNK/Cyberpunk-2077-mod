@@ -1,0 +1,820 @@
+package Vehicle
+using RTDB, BaseStats, Driving, Camera
+
+v_sport2_quadra_type66_nomad : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport2_quadra_type66_nomad__basic_01.ent";
+	visualTags = 
+	[
+		"Aldecados"
+	];
+	tags += 
+	[
+		"Sport"
+	];
+	manufacturer = "Vehicle.Quadra";
+	displayName = "LocKey#22091";
+	vehicleUIData = "Vehicle.VehicleQuadraType66NomadUIData";
+	colorProfilesRestricted = true;
+	fk< UIIcon > icon = "UIIcon.quadra_type66_nomad_player_01";
+	destroyedAppearance = "quadra_type66_nomad_burnt_01";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_AllTerrain_L";
+	fxWheelsDecals = "Vehicle.FxWheels_AllTerrain_XL";
+	model = "Vehicle.Type66";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Durable"
+	];
+	fk< VehicleDataPackage > vehDataPackage = 
+	{
+		useAuxiliary = true;
+		driverCombat = "DriverCombatTypes.MountedWeapons";
+		vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+		entering = 2.4f;
+		slideDuration = 0.8f;
+		open_close_duration = 1.2f;
+		normal_open = 1.7f;
+		exitDelay = 0.4f;
+	} : VehicleDataPackageSport2;
+	weapons = 
+	[
+		"Vehicle.Vehicle_Power_Weapon_Left_A", "Vehicle.Vehicle_Power_Weapon_Right_A", "Vehicle.Vehicle_Power_Weapon_Left_B", "Vehicle.Vehicle_Power_Weapon_Right_B", "Vehicle.Vehicle_Power_Weapon_Left_C", "Vehicle.Vehicle_Power_Weapon_Right_C", "Vehicle.Vehicle_Missile_Launcher_A", "Vehicle.Vehicle_Missile_Launcher_B", "Vehicle.Vehicle_Missile_Launcher_C"
+	];
+	enableDestruction = true;
+	isArmoredVehicle = true;
+	player_audio_resource = "v_car_quadra_type_66_nomad";
+	traffic_audio_resource = "v_car_quadra_type_66_nomad_traffic";
+	destruction = "Vehicle.VehicleDestructionParamsQuadraType66Nomad";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.415f;
+			rimRadius = 0.30f;
+			tireWidth = 0.3f;
+			wheelOffset = 0.1f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.415f;
+			rimRadius = 0.31f;
+			tireWidth = 0.38f;
+			wheelOffset = 0.15f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Type66_Nomad";
+	vehEngineData = 
+	{
+		engineMaxTorque = 1000.0f;
+		gearChangeTime = 0.2f;
+		finalGearTorqueDecimationScalor = 0.85f;
+	} : VehicleEngineData_4_Muscle;
+	vehDriver_ProceduralFPPCameraParams = 
+	{
+		float sideDampFactor = 0.2f;
+		float heightDampFactor = 0.2f;
+		float maxAccelerationTiltAngle = 5.0f;
+		float maxSlowdownTiltAngle = -6.0f;
+		float impactDamperDampFactor = 1.0f;
+	} : VehicleProceduralFPPCameraParams;
+	vehDriver_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.02f;
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.1589, 1.0550 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.02f;
+		is_forward_offset = 0.0f;
+		forward_offset_value = 0.0f;
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.1589, 1.0550 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_Quadra66_Nomad_High_Close", "Camera.VehicleTPP_4w_Quadra66_Nomad_High_Medium", "Camera.VehicleTPP_4w_Quadra66_Nomad_High_Far", "Camera.VehicleTPP_4w_Quadra66_Nomad_High_DriverCombatClose", "Camera.VehicleTPP_4w_Quadra66_Nomad_High_DriverCombatMedium", "Camera.VehicleTPP_4w_Quadra66_Nomad_High_DriverCombatFar", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_Close", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_Medium", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_Far", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_DriverCombatClose", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_Quadra66_Nomad_Low_DriverCombatFar"
+	];
+	queryOnlyExceptions = 
+	[
+		"trunk_a", "trunk_b", "hood_a"
+	];
+	drivingParamsPanic = "Driving.Panic_Sport";
+	trafficSuspension = "Vehicle.TrafficSuspension_Sport";
+}
+
+VehicleWheelDrivingPreset_Type66_Nomad_Front : VehicleWheelDrivingPreset_Nomad_AWD_Front
+{
+	maxBrakingTorque = 850.0f;
+	frictionMulLateral = 0.94f;
+	frictionMulLongitudinal = 0.93f;
+	tireLateralSlipEffectsMul = 1.1f;
+	swaybarStiffness = 22.0f;
+	swaybarDisplacementLimit = 0.12f;
+	springStiffness = 24.0f;
+	springDamping = 4200;
+	springReboundDamping = 4100;
+	springBoundDampingLowRate = 2400.0f;
+	springReboundDampingLowRate = 2300.0f;
+	springDampingLowRateCompression = 0.15f;
+	springDampingHighRateCompression = 0.48f;
+	extremeCompressionEventScalor = 0.65f;
+	logicalSuspensionCompressionLength = 0.4f;
+	visualSuspensionCompressionLength = 0.22f;
+	visualSuspensionDroop = 0.12f;
+	wheelsVerticalOffset = -0.01f;
+}
+
+VehicleWheelDrivingPreset_Type66_Nomad_Rear : VehicleWheelDrivingPreset_Nomad_AWD_Rear
+{
+	maxBrakingTorque = 700.0f;
+	frictionMulLateral = 0.99f;
+	frictionMulLongitudinal = 0.93f;
+	tireLateralSlipEffectsMul = 0.93f;
+	swaybarStiffness = 13.0f;
+	swaybarLengthScalar = 1.0f;
+	swaybarDisplacementLimit = 0.12f;
+	springStiffness = 21.0f;
+	springDamping = 3800;
+	springReboundDamping = 3700;
+	springBoundDampingLowRate = 2000.0f;
+	springReboundDampingLowRate = 1900.0f;
+	springDampingLowRateCompression = 0.15f;
+	springDampingHighRateCompression = 0.48f;
+	logicalSuspensionCompressionLength = 0.4f;
+	visualSuspensionCompressionLength = 0.14f;
+	visualSuspensionDroop = 0.12f;
+	wheelsVerticalOffset = -0.0f;
+}
+
+VehicleBurnOut_Type66_Nomad : VehicleBurnOut_NomadSport_AWD
+{
+	lateralForceMaxAcceleration = 0.45f;
+	maxBrakeForceModifier = 0.5f;
+	minBrakeForceModifier = 0.02f;
+	burnOutGripBonus = 10.0f;
+	gripBonusMaxLaunchSpeed = 9.0f;
+}
+
+VehicleDriveModelData_Type66_Nomad : VehicleDriveModelData_Nomad_Sport
+{
+	total_mass = 1800.0f;
+	chassis_mass = 1800.0f;
+	center_of_mass_offset = ( 0.0f, 0.01f, 0.1f );
+	momentOfInertia = ( 3617.0f, 1028.0f, 3982.0f );
+	airResistanceFactor = 2.65f;
+	turnUpdateMidSpeedTurnMul = 0.58f;
+	turnUpdateMaxSpeedTurnMul = 0.23f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_Nomad_Front;
+		backPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_Nomad_Rear;
+	} : VehicleWheelDrivingSetup_4_AWD;
+	burnOut = "Vehicle.VehicleBurnOut_Type66_Nomad";
+	driveHelpers = 
+	[
+		{
+			type = "Vehicle.RotationLimiter_HelperType";
+			maxAngularSpeedRad = 2.7;
+		} : RotationLimiter_Sport, 
+		{
+			type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+			maxSpeed = 16.f;
+		} : RearWheelsFrictionModifier_Exotic, 
+		{
+			type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+			accelerationBoostReverse = 1.0;
+		} : DriveWheelsAccelerateNoise_Sport, 
+		{
+			type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+		} : HandbrakeFrictionModifier_Drift, 
+		{
+			type = "Vehicle.UphillDriveHelper_HelperType";
+		} : UphillDriveHelper_Standard, 
+		{
+			type = "Vehicle.DynamicDownforceHelper_HelperType";
+			maxSpeedFactorGround = 0.4f;
+		} : DynamicDownforceHelper_Exotic, 
+		{
+			type = "Vehicle.InAirGravityModifier_HelperType";
+		} : InAirGravityModifier
+	];
+}
+
+v_sport2_quadra_type66_nomad_kb : v_sport2_quadra_type66_nomad
+{
+	fk< UIIcon > icon = "UIIcon.v_sport2_quadra_type66_nomad_tribute";
+	displayName = "LocKey#93149";
+	string crackLockDifficulty = "TRIVIAL";
+	vehicleUIData = 
+	{
+		productionYear = "2055";
+		horsepower = 845.0f;
+	} : VehicleQuadraType66NomadUIData;
+	appearanceName = "quadra_type66_nomad_tribute_01";
+	vehDriveModelData = 
+	{
+		airResistanceFactor = 3.6f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				frictionMulLateral = 0.91f;
+				frictionMulLongitudinal = 0.85f;
+				swaybarStiffness = 21.0f;
+			} : VehicleWheelDrivingPreset_Type66_Nomad_Front;
+			backPreset = 
+			{
+				frictionMulLateral = 0.92f;
+				frictionMulLongitudinal = 0.85f;
+				springDamping = 3900;
+				springReboundDamping = 3800;
+				springBoundDampingLowRate = 2100.0f;
+				springReboundDampingLowRate = 2000.0f;
+				swaybarStiffness = 15.0f;
+			} : VehicleWheelDrivingPreset_Type66_Nomad_Rear;
+		} : VehicleWheelDrivingSetup_4_AWD;
+		burnOut = 
+		{
+			lateralForceMaxSpeed = 7.0f;
+			maxLateralAccelSlipRatioMultipler = 0.59f;
+			minBrakeForceModifier = 0.01f;
+			burnOutGripBonus = 8.5f;
+			gripBonusMaxLaunchSpeed = 8.0f;
+		} : VehicleBurnOut_Type66_Nomad;
+	} : VehicleDriveModelData_Type66_Nomad;
+	vehEngineData = 
+	{
+		engineMaxTorque = 1100.0f;
+		gearChangeTime = 0.24f;
+		finalGearTorqueDecimationScalor = 0.95f;
+		fk< VehicleGear >[] gears = 
+		[
+			{
+				minSpeed = 0.f;
+				maxSpeed = 10.f;
+				minEngineRPM = 800.f;
+				maxEngineRPM = 6800.f;
+				torqueMultiplier = 1.0f;
+			}, 
+			{
+				minSpeed = 0.f;
+				maxSpeed = 14.f;
+				minEngineRPM = 800.f;
+				maxEngineRPM = 6600.f;
+				torqueMultiplier = 0.88f;
+			}, 
+			{
+				minSpeed = 12.5f;
+				maxSpeed = 21.5f;
+				minEngineRPM = 2700.f;
+				maxEngineRPM = 6600.f;
+				torqueMultiplier = 0.67f;
+			}, 
+			{
+				minSpeed = 20.f;
+				maxSpeed = 27.5f;
+				minEngineRPM = 2800.f;
+				maxEngineRPM = 6700.f;
+				torqueMultiplier = 0.49f;
+			}, 
+			{
+				minSpeed = 26.0f;
+				maxSpeed = 32.7f;
+				minEngineRPM = 2850.f;
+				maxEngineRPM = 6750.f;
+				torqueMultiplier = 0.353f;
+			}, 
+			{
+				minSpeed = 31.f;
+				maxSpeed = 36.f;
+				minEngineRPM = 3000.f;
+				maxEngineRPM = 6900.f;
+				torqueMultiplier = 0.25f;
+			}, 
+			{
+				minSpeed = 35.0f;
+				maxSpeed = 39.f;
+				minEngineRPM = 3100.f;
+				maxEngineRPM = 7000.f;
+				torqueMultiplier = 0.23f;
+			}, 
+			{
+				minSpeed = 38.0f;
+				maxSpeed = 42.f;
+				minEngineRPM = 3200.f;
+				maxEngineRPM = 8100.f;
+				torqueMultiplier = 0.21f;
+			}
+		];
+	} : VehicleEngineData_4_Muscle;
+}
+
+v_sport2_quadra_type66_nomad_quest : v_sport2_quadra_type66_nomad
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+}
+
+v_sport2_quadra_type66_nomad_wraith : v_sport2_quadra_type66_nomad
+{
+	displayName = "LocKey#22341";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	visualTags = 
+	[
+		"Wraiths"
+	];
+}
+
+VehicleDestructionParamsQuadraType66Nomad : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.9f, 4.7f, 0.2f );
+	gridLocalOffset = ( 0.0f, 0.0f, 0.75f );
+	chargePortCenter = ( -1.10184145f, 0.667654037f, 0.543430030f );
+	pointDampers = 
+	[
+		{
+			pointIndex = 0;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 1;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 2;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 3;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 5;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 6;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 8;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 9;
+			dampValue = 0.70;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 10;
+			dampValue = 0.50;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 11;
+			dampValue = 0.50;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 12;
+			dampValue = 0.50;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 13;
+			dampValue = 0.50;
+			pointFragility = 0.80;
+		}, 
+		{
+			pointIndex = 14;
+			dampValue = 0.50;
+			pointFragility = 0.80;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "detachable_sensor_l_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_l_01"
+			];
+		}, 
+		{
+			name = "detachable_sensor_l_02";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_l_02"
+			];
+		}, 
+		{
+			name = "detachable_sensor_l_03";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_l_03"
+			];
+		}, 
+		{
+			name = "detachable_sensor_r_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_r_01"
+			];
+		}, 
+		{
+			name = "detachable_sensor_r_02";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_r_02"
+			];
+		}, 
+		{
+			name = "detachable_sensor_r_03";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.2;
+			components = 
+			[
+				"detachable_sensor_r_03"
+			];
+		}, 
+		{
+			name = "detachable_sensor_medium_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"detachable_sensor_medium_01"
+			];
+		}, 
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				4, 5
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"hood_a", "hood_a_shadow"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fl_a", "window_fl"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				2, 3
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fr_a", "window_fr"
+			];
+		}, 
+		{
+			name = "detachable_body_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_01", "v_common_nomad_part__ext01_detector_medium_01_shadow"
+			];
+		}, 
+		{
+			name = "detachable_body_02";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_5673", "v_common_nomad_part__ext01_detector_medium_01_shadow0875"
+			];
+		}, 
+		{
+			name = "detachable_body_03";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_5045", "v_common_nomad_part__ext01_detector_medium_01_shadow5388"
+			];
+		}, 
+		{
+			name = "detachable_body_04";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_8528", "v_common_nomad_part__ext01_detector_medium_01_shadow1335"
+			];
+		}, 
+		{
+			name = "detachable_body_05";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_5777", "v_common_nomad_part__ext01_detector_medium_01_shadow6478"
+			];
+		}, 
+		{
+			name = "detachable_body_06";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"v_common_nomad_part__ext01_detector_medium_2218", "v_common_nomad_part__ext01_detector_medium_01_shadow3686"
+			];
+		}, 
+		{
+			name = "detachable_body_07";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.3;
+			components = 
+			[
+				"detachable_body_04", "detachable_body_04_shadow"
+			];
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			hitsToFlatten = 2;
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			hitsToFlatten = 2;
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			hitsToFlatten = 3;
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			hitsToFlatten = 3;
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_02";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_left_03";
+			gridCells = 
+			[
+				4, 6
+			];
+			threshold = 0.2f;
+		}, 
+		{
+			component = "head_light_right_03";
+			gridCells = 
+			[
+				5, 7
+			];
+			threshold = 0.2f;
+		}, 
+		{
+			component = "brake_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_01";
+			gridCells = 
+			[
+				0, 1, 2, 3
+			];
+			threshold = 0.2f;
+		}, 
+		{
+			component = "reverse_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 3
+					];
+					gridCells = 
+					[
+						4, 5, 6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_b_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						8, 12, 13, 15, 16, 17, 18
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}
+	];
+}
+
+VehicleQuadraType66NomadUIData : VehicleDefaultUIData
+{
+	productionYear = "2055-2077";
+	driveLayout = "LocKey#45372";
+	horsepower = 1000.0f;
+	mass = 1723.0f;
+	info = "LocKey#53538";
+}
+

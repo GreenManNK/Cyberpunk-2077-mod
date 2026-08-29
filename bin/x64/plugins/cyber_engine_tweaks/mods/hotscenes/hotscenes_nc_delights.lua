@@ -1,6 +1,6 @@
--- Jul 8, 2026 by anygoodname
+-- Jul 12, 2026 by anygoodname
 
-local modVer='v1.32.1'
+local modVer='v1.33.0'
 local modName='Hotscenes Night City Delights'
 local modAuthorName='anygoodname'
 
@@ -119,6 +119,8 @@ lookedCharacterTypes["Character.sts_ep1_06_sexworker_crowd_ma"]	= {idStr = "Char
 lookedCharacterTypes["Character.sts_ep1_06_sexworker_city_ma"]	= {idStr = "Character.SexworkerMale", gender = "Male", baseEntPath = 4530233927708058735ULL, ep1EntPath = 13520257471097300901ULL}
 lookedCharacterTypes["Character.ep1_combat_zone_service_sexworker_ma"]	= {idStr = "Character.ep1_combat_zone_service_sexworker_ma", gender = "Male", baseEntPath = 3778249100674482345ULL, ep1EntPath = 3778249100674482345ULL, ltd = 3778249100674482345ULL, isCombatZone = true}
 
+lookedCharacterTypes["Character.ServiceDancerFemale"] = {idStr = "Character.ServiceDancerFemale", gender = "Female", isFemale = true, baseEntPath = 7991896737060504235ULL, ep1EntPath = 9177551480965185870ULL, ltd = 8714268863093043283ULL, isStripper = true}
+
 local lookedCharacterTypesByTemplatePath = {}
 local lookedCharacterTypesByIdHash = {}
 local supportedLocations = {}
@@ -215,7 +217,7 @@ thisMod.ncdApi = ncdApi
 local ncdApiFeatures = {}
 
 local watsonCommonArea, westbrookCommonArea, arroyoWestCommonArea
-local setUpFemaleInserts, isFastTravelPointAvaliable, createDefaultSceneLocationMappinData, resetSceneControls, getNodeTransformByNodeRef, setCinematicMode, setMappinToPosition, resetScenePlaybackStateFacts, isKnownName, isObjectInSimpleArea
+local setUpFemaleInserts, isFastTravelPointAvaliable, createDefaultSceneLocationMappinData, resetSceneControls, getNodeTransformByNodeRef, setCinematicMode, setMappinToPosition, resetScenePlaybackStateFacts, isKnownName, isObjectInSimpleArea, setCommonFemalePerformerEntPath
 local function dataSetup()
 	if not TweakDB:GetRecord("Character.nc_delighs_hey_gle_prostitute_male_mod_hotscenes") then TweakDB:CloneRecord("Character.nc_delighs_hey_gle_prostitute_male_mod_hotscenes", "Character.hey_gle_prostitute_male") end;
 	if not TweakDB:GetRecord("Character.nc_delighs_prostitute_female_mod_hotscenes") then TweakDB:CloneRecord("Character.nc_delighs_prostitute_female_mod_hotscenes", "Character.hey_gle_prostitute_female") end;
@@ -361,13 +363,12 @@ local function dataSetup()
 	end
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delighs_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.hey_gle_prostitute_female" -- old record id
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.nc_delights_poor_room_little_china_01_mod_hotscenes") then TweakDB:CloneRecord("Props.nc_delights_poor_room_little_china_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.nc_delights_poor_room_little_china_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\little_china_01\\environment\\decoration\\poor_room_little_china_01.ent');
@@ -382,7 +383,7 @@ local function dataSetup()
 		questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 1);
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delighs_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.hey_gle_prostitute_male" -- old record id
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -515,13 +516,12 @@ local function dataSetup()
 	end
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delighs_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.hey_gle_prostitute_female" -- old record id
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.nc_delights_poor_bedding_kabuki_roundabout_01_mod_hotscenes") then TweakDB:CloneRecord("Props.nc_delights_poor_bedding_kabuki_roundabout_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.nc_delights_poor_bedding_kabuki_roundabout_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\kabuki_roundabout_01\\environment\\decoration\\poor_bedding_b_no_duvet_kabuki_roundabout_01.ent');
@@ -536,7 +536,7 @@ local function dataSetup()
 		questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 1);
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delighs_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.hey_gle_prostitute_male" -- old record id
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -668,13 +668,12 @@ local function dataSetup()
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
 	thisScene.isJapantownFemaleScene = true
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.accessories_kabuki_ntm_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_kabuki_ntm_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.accessories_kabuki_ntm_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\kabuki_ntm_01\\environment\\decoration\\accessories_kabuki_ntm_01.ent');
@@ -688,7 +687,7 @@ local function dataSetup()
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
 	thisScene.isJapantownMaleScene = true
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -809,13 +808,12 @@ local function dataSetup()
 	end
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delighs_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.hey_gle_prostitute_female" -- old record id
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.nc_delights_poor_room_kabuki_hotel_01_mod_hotscenes") then TweakDB:CloneRecord("Props.nc_delights_poor_room_kabuki_hotel_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.nc_delights_poor_room_kabuki_hotel_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\kabuki_hotel_01\\environment\\decoration\\hotel_room_kabuki_hotel_01.ent');
@@ -830,7 +828,7 @@ local function dataSetup()
 		questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 1);
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delighs_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.hey_gle_prostitute_male" -- old record id
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -957,13 +955,12 @@ local function dataSetup()
 	end
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delighs_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.hey_gle_prostitute_female" -- old record id
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.nc_delights_poor_bedding_wat_nid_dock_market_01_mod_hotscenes") then TweakDB:CloneRecord("Props.nc_delights_poor_bedding_wat_nid_dock_market_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.nc_delights_poor_bedding_wat_nid_dock_market_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\wat_nid_dock_market_01\\environment\\decoration\\poor_bedding_b_no_duvet_wat_nid_dock_market_01.ent');
@@ -977,7 +974,7 @@ local function dataSetup()
 		questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 1);
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delighs_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.hey_gle_prostitute_male" -- old record id
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -1091,13 +1088,12 @@ local function dataSetup()
 	end
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delights_hey_gle_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.hey_gle_prostitute_female"
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		if not TweakDB:GetRecord("Props.nc_delights_poor_room_wbr_jpn_jj_02_mod_hotscenes") then TweakDB:CloneRecord("Props.nc_delights_poor_room_wbr_jpn_jj_02_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 		TweakDB:SetFlat("Props.nc_delights_poor_room_wbr_jpn_jj_02_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\wbr_jpn_jj_02\\environment\\decoration\\cabin_wbr_jpn_jj_01_new_02.ent');
@@ -1110,7 +1106,7 @@ local function dataSetup()
 		questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 1);
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delighs_hey_gle_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.hey_gle_prostitute_male"
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -1225,13 +1221,12 @@ local function dataSetup()
 	thisScene.updateSceneLocationMappins = function(forceRemoval) thisScene.toggleSceneLocationMappins(thisScene.shouldShowSceneLocationMappin(), forceRemoval) end
 	thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
 	thisScene.isJapantownFemaleScene = true
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.femalePerformerIdStr) then TweakDB:CloneRecord(thisScene.femalePerformerIdStr, thisScene.sourceFemaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 		else
-			if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-			else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+			setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 		end
 		resetSceneControls() resetScenePlaybackStateFacts()
 		setUpFemaleInserts("mod_hotscenes_nc_delights_f__jj_01_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -1243,7 +1238,7 @@ local function dataSetup()
 	end
 	thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
 	thisScene.isJapantownMaleScene = true
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not TweakDB:GetRecord(thisScene.malePerformerIdStr) then TweakDB:CloneRecord(thisScene.malePerformerIdStr, thisScene.sourceMaleCharacterRecordIdStr) end;
 		if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 			TweakDB:SetFlat(thisScene.malePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
@@ -1412,7 +1407,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -1421,8 +1416,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_wbr_jpn_apt_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_wbr_jpn_apt_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_wbr_jpn_apt_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\wbr_jpn_apt_01\\entities\\mq005_table_01.ent');
@@ -1443,8 +1437,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_01_wbr_jpn_apt_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_01_wbr_jpn_apt_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_01_wbr_jpn_apt_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\wbr_jpn_apt_01\\entities\\bedroom_accessories.ent');
@@ -1469,7 +1462,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -1639,7 +1632,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		thisScene.femaleSceneSelected = 1
 		if thisScene.femaleSceneSelected == 0 then
@@ -1649,8 +1642,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__hey_gle_dm_02_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -1667,8 +1659,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__hey_gle_dm_02_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -1692,7 +1683,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		thisScene.maleSceneSelected = 1
 		if thisScene.maleSceneSelected == 0 then
@@ -1838,7 +1829,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -1847,8 +1838,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__wat_lch_aph10_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -1865,8 +1855,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__wat_lch_aph10_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -1889,7 +1878,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -2043,7 +2032,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -2052,8 +2041,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_cct_dtn_apt_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_cct_dtn_apt_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_cct_dtn_apt_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\cct_dtn_apt_01\\entities\\accessories.ent');
@@ -2072,8 +2060,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_cct_dtn_apt_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_cct_dtn_apt_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_cct_dtn_apt_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\cct_dtn_apt_01\\entities\\accessories.ent');
@@ -2098,7 +2085,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -2258,7 +2245,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -2267,8 +2254,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_cct_dtn_05_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_cct_dtn_05_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_cct_dtn_05_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\cct_dtn_05\\entities\\accessories.ent');
@@ -2291,8 +2277,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_cct_dtn_05_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_cct_dtn_05_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_cct_dtn_05_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\cct_dtn_05\\entities\\accessories.ent');
@@ -2321,7 +2306,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -2511,7 +2496,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -2520,8 +2505,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__hey_gle_apt_01_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -2538,8 +2522,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			resetSceneControls() resetScenePlaybackStateFacts()
 			setUpFemaleInserts("mod_hotscenes_nc_delights_f__hey_gle_apt_01_insert_01_available", thisScene.checkNodeRef, isNcdApiCall, ncdApiSceneSpec)
@@ -2562,7 +2545,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -2703,7 +2686,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if thisScene.femaleSceneSelected == 0 then
 			thisScene.femalePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_female_mod_hotscenes" thisScene.sourceFemaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_female"
@@ -2712,8 +2695,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\bls_ina_se1_roadhouse_01\\entities\\accessories.ent');
@@ -2733,8 +2715,7 @@ local function dataSetup()
 			if isNcdApiCall and ncdApiSceneSpec and ncdApiSceneSpec.performerEntPath then
 				TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", ncdApiSceneSpec.performerEntPath);
 			else
-				if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-				else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+				setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 			end
 			if not TweakDB:GetRecord("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
 			TweakDB:SetFlat("Props.accessories_bls_ina_se1_roadhouse_01_mod_hotscenes.entityTemplatePath", 'base\\hotscenes_overrides\\nc_delights\\bls_ina_se1_roadhouse_01\\entities\\accessories.ent');
@@ -2762,7 +2743,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if thisScene.maleSceneSelected == 0 then
 			thisScene.malePerformerIdStr = "Character.nc_delights_wbr_jpn_prostitute_male_mod_hotscenes" thisScene.sourceMaleCharacterRecordIdStr = "Character.wbr_jpn_prostitute_male"
@@ -2873,7 +2854,7 @@ local function dataSetup()
 		if not thisScene.isObjectWithinArea(player, playerPos) then return false end
 		if not thisScene.isQuestActivated() then return false end
 		if not thisScene.isSceneWorldDataAvailable() then return false end
-		if player:IsA(n_PlayerPuppet) and player:GetSceneTier() == 2 then setCinematicMode(false, _, _, player) end
+		if player:IsA(n_PlayerPuppet) and player:GetSceneTier() == 2 then setCinematicMode(false, nil, nil, player) end
 		return true
 	end
 	thisScene.createSceneLocationMappinData = function()
@@ -2926,7 +2907,7 @@ local function dataSetup()
 		end
 		return thisScene.femalePerformerIdStr, thisScene.isJapantownFemaleScene
 	end
-	thisScene.startFemaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startFemaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.femaleSceneSelected or thisScene.femaleSceneSelected < 0 then thisScene.femaleSceneSelected = 0 end
 		if not getNodeTransformByNodeRef("#wbr_sm_jpn_prostitute_sex_intro_hh_01_mod_hotscenes", true) then thisScene.femaleSceneSelected = 1 end
 		if thisScene.femaleSceneSelected == 0 then
@@ -2940,8 +2921,7 @@ local function dataSetup()
 					if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\ep1\\common_characters\\entities\\service\\service__ep1_combat_zone_sexworker_wa_variant_uncensored.ent');
 					else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\ep1\\common_characters\\entities\\service\\service__ep1_combat_zone_sexworker_wa_uncensored.ent'); end;
 				else
-					if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-					else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+					setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 				end
 			end
 			if not TweakDB:GetRecord("Props.accessories_hh_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_hh_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
@@ -2973,8 +2953,7 @@ local function dataSetup()
 					if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\ep1\\common_characters\\entities\\service\\service__ep1_combat_zone_sexworker_wa_variant_uncensored.ent');
 					else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\ep1\\common_characters\\entities\\service\\service__ep1_combat_zone_sexworker_wa_uncensored.ent'); end;
 				else
-					if isVariant then TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
-					else TweakDB:SetFlat(thisScene.femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+					setCommonFemalePerformerEntPath(thisScene.femalePerformerIdStr, isVariant, isStripper)
 				end
 			end
 			if not TweakDB:GetRecord("Props.accessories_hh_01_mod_hotscenes") then TweakDB:CloneRecord("Props.accessories_hh_01_mod_hotscenes", "Props.mq019_champagne_glass_prop") end;
@@ -3009,7 +2988,7 @@ local function dataSetup()
 		end
 		return thisScene.malePerformerIdStr, thisScene.isJapantownMaleScene
 	end
-	thisScene.startMaleScene = function(isVariant, isCombatZone, isNcdApiCall, ncdApiSceneSpec)
+	thisScene.startMaleScene = function(isVariant, isCombatZone, isStripper, isNcdApiCall, ncdApiSceneSpec)
 		if not thisScene.maleSceneSelected or thisScene.maleSceneSelected < 0 then thisScene.maleSceneSelected = 0 end
 		if not getNodeTransformByNodeRef("#wbr_sm_jpn_prostitute_sex_intro_hh_01_mod_hotscenes", true) then thisScene.maleSceneSelected = 1 end
 		if thisScene.maleSceneSelected == 0 then
@@ -3090,6 +3069,19 @@ local function dataSetup()
 	end
 end
 
+setCommonFemalePerformerEntPath = function(femalePerformerIdStr, isVariant, isStripper)
+	if not isStripper then
+		if isVariant then TweakDB:SetFlat(femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_variant_uncensored.ent');
+		else TweakDB:SetFlat(femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service__sexworker_wa_uncensored.ent'); end;
+		return
+	end
+	if isEp1 then
+		TweakDB:SetFlat(femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\ep1\\common_characters\\entities\\service\\service__ep1_dancer_wa_uncensored_ltd.ent');
+	else
+		TweakDB:SetFlat(femalePerformerIdStr..".entityTemplatePath", 'base\\hotscenes_overrides\\base\\common_characters\\entities\\service\\service_dancer_wa_uncensored_ltd.ent');
+	end
+end
+
 local function isAnyHotscenePlaying()
 	return thisMod.sceneState.isPlayerInScene or thisMod.sceneState.isNCDelightsScenePlaying
 end
@@ -3107,7 +3099,13 @@ end
 
 local femInserts01 = {"mod_hotscenes_fem_insert_01_01", "mod_hotscenes_fem_insert_01_02", "mod_hotscenes_fem_insert_01_03", "mod_hotscenes_fem_insert_01_04", "mod_hotscenes_fem_insert_01_05"}
 local femInserts01Exceptions = {
-	mod_hotscenes_fem_insert_01_03 = {any = true, facts = {q004_done = 1, q004_judy_met = 1, q004_evelyn_ended_walk = 1, ep1_standalone = 1}}
+	mod_hotscenes_fem_insert_01_03 = {any = true, facts = {q004_done = 1, q004_judy_met = 1, q004_evelyn_ended_walk = 1, ep1_standalone = 1}},
+	mod_hotscenes_fem_insert_01_04 = {isAllowed = function()
+		local entry = journalManager:GetEntry(3482186852)
+		if not entry then return true end
+		if journalManager:GetEntryState(entry) ~= gameJournalEntryState.Active then return true end
+		return false
+	end}
 }
 local EntityGameInterfaceGetEntity
 local function runtimePatch03(this, evt)
@@ -3313,6 +3311,7 @@ thisMod.scheduleGameNpcRecordsVerification = scheduleGameNpcRecordsVerification
 
 local setObservers, shouldAllowActivity, isArchiveXLActive
 local isInitialized = false
+local isEp1
 thisMod.onInit = function()
 	if isInitialized then thisMod.isInitialized = true return end
 	thisMod.isInitialized = false
@@ -3324,14 +3323,11 @@ thisMod.onInit = function()
 	isArchiveXLActive = ArchiveXL ~= nil
 	n = CName
 	t = TweakDBID
-
 	isSameInstance = Game['OperatorEqual;IScriptableIScriptable;Bool']
-
+	isEp1 = IsEP1 and IsEP1()
 	isNudityCensored = isCensored()
-
 	Vector4ToRotation = Vector4.ToRotation
 	Vector4GetAngleDegAroundAxis = Vector4.GetAngleDegAroundAxis
-
 	workspotSystem = RefWeak(Game.GetWorkspotSystem())
 	cameraSystem = RefWeak(Game.GetCameraSystem())
 	questsSystem = RefWeak(Game.GetQuestsSystem())
@@ -3806,6 +3802,8 @@ createAdHocInteraction = function(targetNpc, npcCharacterData)
 	if isQuestActivated then return createSceneStartInteraction(targetNpc, npcCharacterData) end
 end
 
+local mathCeil = math.ceil
+local mathFloor = math.floor
 local function getInteractionChoiceForScene(thisScene, targetNpc, npcCharacterData)
 	local captionText
 	if thisScene and type(thisScene.getInteractionCaptionText) == 'function' then
@@ -3820,7 +3818,8 @@ local function getInteractionChoiceForScene(thisScene, targetNpc, npcCharacterDa
 		captionText = stringGsub(captionText, "[ ]+$", "")
 	end
 	local price = 50
-	if thisScene and type(thisScene.priceTag) == 'number' then price = math.floor(mathMax(price, thisScene.priceTag)) end
+	if thisScene and type(thisScene.priceTag) == 'number' then price = mathFloor(mathMax(price, thisScene.priceTag)) end
+	if npcCharacterData.isStripper then price = mathMax(100 * mathCeil(price * 1.5 / 100) , 200) end
 	return interaction.createChoice("["..tostring(price).."]"..captionText, TweakDBInterface.GetChoiceCaptionIconPartRecord("ChoiceCaptionParts.PayIcon"), gameinteractionsChoiceType.QuestImportant)
 end
 
@@ -3927,7 +3926,7 @@ local function startCharacterInteraction(owner, verifiedCharacterId, caller)
 	if not isParent and (not substituteVariantAppearancesWithKnownParents) then return end
 
 	if IsDefinedNS(lastInteractionOwner) and lastInteractionOwner:GetEntityID().hash ~= owner:GetEntityID().hash then
-		if interaction.hubShown and isPlayerFacingNpc(_, lastInteractionOwner, 15 , 89) then return end
+		if interaction.hubShown and isPlayerFacingNpc(nil, lastInteractionOwner, 15 , 89) then return end
 		lastInteractionOwner = nil
 		lastInteractionOwner = nil
 		interaction.hideHub()
@@ -3938,7 +3937,7 @@ end
 local moneyItem
 local function spendMoney(amount)
 	if type(amount) ~= 'number' then return end
-	amount = math.ceil(amount)
+	amount = mathCeil(amount)
 	if amount < 1 then return end
 	if not moneyItem then moneyItem = gameItemID.FromTDBID(t"Items.money") end
 	transactionSystem():RemoveItem(GetPlayer(), moneyItem, amount)
@@ -4506,7 +4505,7 @@ setObservers = function()
 			questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 0);
 			selectedScenePerformer.ltd = nil
 			if isLtd then selectedScenePerformer.ltd = "_ltd" end
-			payload = function() selectedScene.startFemaleScene(shouldUseVariantAppearance, npcCharacterData.isCombatZone) end
+			payload = function() selectedScene.startFemaleScene(shouldUseVariantAppearance, npcCharacterData.isCombatZone, npcCharacterData.isStripper) end
 		else
 			selectedScenePerformer.isFemale = false
 			selectedScenePerformer.performerGender = "Male"
@@ -4515,7 +4514,7 @@ setObservers = function()
 			questsSystem:SetFactStr("mod_hotscenes_requesting_custom_location_playback", 0);
 			selectedScenePerformer.ltd = nil
 			if isLtd then selectedScenePerformer.ltd = "_ltd" end
-			payload = function() selectedScene.startMaleScene(shouldUseVariantAppearance, npcCharacterData.isCombatZone) end
+			payload = function() selectedScene.startMaleScene(shouldUseVariantAppearance, npcCharacterData.isCombatZone, npcCharacterData.isStripper) end
 		end
 		if not payload then return end
 
@@ -4543,7 +4542,7 @@ setObservers = function()
 			currentAppearanceNameStr = currentAppearanceNameStr or owner:GetCurrentAppearanceName().value
 			if (not isKnownName(currentAppearanceNameStr.."_naked_ltd")) then return end
 		end
-		attachDynamicMappinToNpc(owner, _, _, _, _, isScanning)
+		attachDynamicMappinToNpc(owner, nil, nil, nil, nil, isScanning)
 	end
 	function processComponentOwner(this, caller)
 		local owner = this:GetOwner()
@@ -5031,13 +5030,13 @@ ncdApi.playScene = function(featureName, ncdApiSceneSpec, delay, verbose)
 		if type(selectedScene.getFemalePerformerIdStr) == 'function' then selectedScenePerformer.performerIdStr = selectedScene.getFemalePerformerIdStr() else selectedScenePerformer.performerIdStr = selectedScene.femalePerformerIdStr end
 		selectedScenePerformer.performerId = t(selectedScenePerformer.performerIdStr)
 		selectedScenePerformer.shouldUseNoCoatAppearance = selectedScene.isJapantownFemaleScene
-		launchScene = function() isNcdApiPlayback = true selectedScene.startFemaleScene(false, false, true, newNcdApiSceneSetupData) end
+		launchScene = function() isNcdApiPlayback = true selectedScene.startFemaleScene(false, false, false, true, newNcdApiSceneSetupData) end
 	else
 		selectedScenePerformer.isFemale = false
 		selectedScenePerformer.performerGender = "Male"
 		if type(selectedScene.getMalePerformerIdStr) == 'function' then selectedScenePerformer.performerIdStr = selectedScene.getMalePerformerIdStr() else selectedScenePerformer.performerIdStr = selectedScene.malePerformerIdStr end
 		selectedScenePerformer.performerId = t(selectedScenePerformer.performerIdStr)
-		launchScene = function() isNcdApiPlayback = true selectedScene.startMaleScene(false, false, true, newNcdApiSceneSetupData) end
+		launchScene = function() isNcdApiPlayback = true selectedScene.startMaleScene(false, false, false, true, newNcdApiSceneSetupData) end
 	end
 	if not launchScene then return false, getResultByKeyName("api_scene_launch_failed") end
 	selectedScenePerformer.isNcdApiCall = true

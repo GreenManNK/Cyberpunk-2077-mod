@@ -1,0 +1,363 @@
+package Character
+using RTDB, BaseStats, ArchetypeData
+
+mws_hey_02_woman : Quest_NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_02\characters\mws_hey_02.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#80423";
+	fullDisplayName = "LocKey#80424";
+	savable = true;
+	isCrowd = false;
+	priority = "SpawnableObjectPriority.Regular";
+	fk< Affiliation > affiliation = "Factions.Civilian";
+}
+
+mws_hey_01_girl : Quest_NPC_Base
+{
+	priority = "SpawnableObjectPriority.Quest";
+	tags = 
+	[
+		"Invulnerable"
+	];
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_01\characters\mws_hey_girl_01.ent";
+	reactionPreset = "ReactionPresets.Child";
+	baseAttitudeGroup = "friendly";
+	displayName = "LocKey#82778";
+	fullDisplayName = "LocKey#82779";
+	savable = true;
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	isChild = true;
+	isBumpable = false;
+}
+
+mws_hey_04_dj : generic_merc_ranged2_copperhead_ma
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_04\characters\mws_hey_04_ent_ma.ent";
+	reactionPreset = "ReactionPresets.NoReaction";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+}
+
+mws_hey_04_ma : LowlifeMale
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_04\characters\mws_hey_04_ent_ma.ent";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+}
+
+mws_hey_04_wa : LowlifeWoman
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_04\characters\mws_hey_04_ent_wa.ent";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+}
+
+mws_hey_04_mb : street_big_goon_short_range_m_hard
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\heywood\mws_hey_04\characters\mws_hey_04_ent_mb.ent";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+}
+
+mws_hey_05_dtn_tyger_claws_gangster2_ranged2_sidewinder_wa : dtn_tyger_claws_gangster2_ranged2_sidewinder_wa
+{
+	displayName = "LocKey#44176";
+}
+
+mws_hey_07_trauma_soldier_01 : trauma_soldier_ranged2_dian_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	fullDisplayName = "LocKey#95204";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_soldier_02 : trauma_soldier_ranged2_dian_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95212";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_soldier_03 : trauma_soldier_shotgun2_zhuo_ma_rare
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95208";
+	fullDisplayName = "LocKey#95209";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_soldier_04 : trauma_soldier_shotgun2_zhuo_ma_rare
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	fullDisplayName = "LocKey#95206";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_soldier_05 : trauma_soldier_ranged2_dian_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95207";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_soldier_06 : trauma_soldier_shotgun2_zhuo_ma_rare
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95213";
+	fullDisplayName = "LocKey#95214";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_medic_01 : trauma_rare_officer_chao_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95210";
+	fullDisplayName = "LocKey#95211";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_medic_02 : trauma_rare_officer_chao_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95201";
+	fullDisplayName = "LocKey#95202";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_pilot_01 : trauma_rare_officer_chao_ma
+{
+	baseAttitudeGroup = "traumateam";
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+	displayName = "LocKey#95215";
+	fullDisplayName = "LocKey#95216";
+	skipDisplayArchetype = true;
+	savable = true;
+}
+
+mws_hey_07_trauma_pilot_02 : trauma_rare_officer_chao_ma
+{
+	baseAttitudeGroup = "neutral";
+	displayName = "LocKey#95226";
+	lootDrop = "LootTables.ma_wbr_jpn_01_shard_loot_table";
+	skipDisplayArchetype = true;
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	tags = 
+	[
+		"DoNotTriggerPrevention"
+	];
+	savable = true;
+}
+
+mws_hey_07_zetatech_executive : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__corporat_ma.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#95227";
+	fullDisplayName = "LocKey#95228";
+	savable = true;
+}
+
+mws_hey_07_tyger_claws_gangster1_ranged1_copperhead_wa : tyger_claws_gangster1_ranged1_copperhead_wa
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_gangster1_ranged1_copperhead_ma : tyger_claws_gangster1_ranged1_copperhead_ma
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_biker3_shotgun2_tactician_wa : tyger_claws_biker3_shotgun2_tactician_wa
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_officergangster_officer_nue_ma : tyger_claws_officergangster_officer_nue_ma
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_kunoichi_fmelee3_katana_wa_elite : tyger_claws_kunoichi_fmelee3_katana_wa_elite
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_kunoichi_fmelee3_fists_ma_elite : tyger_claws_kunoichi_fmelee3_fists_ma_elite
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_gangster2_ranged2_shingen_ma : tyger_claws_gangster2_ranged2_shingen_ma
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_gangster2_ranged2_sidewinder_ma : tyger_claws_gangster2_ranged2_sidewinder_ma
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_gangster2_ranged2_sidewinder_wa : tyger_claws_gangster2_ranged2_sidewinder_wa
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_martial_hmelee3_StrongArms_mb : tyger_claws_martial_hmelee3_StrongArms_mb
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_claws_biker3_shotgun3_zhuo_ma_elite : tyger_claws_biker3_shotgun3_zhuo_ma_elite
+{
+	statModifiers += 
+	[
+		"Character.open_world_power_level_rand"
+	];
+}
+
+mws_hey_07_tyger_dead_01 : tyger_claws_biker1_ranged1_saratoga_ma
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_tyger_dead_02 : tyger_claws_gangster2_ranged2_shingen_ma
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_tyger_dead_03 : tyger_claws_biker2_melee2_baseball_wa
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_tyger_dead_04 : tyger_claws_gangster1_ranged1_nue_wa
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_tyger_dead_05 : tyger_claws_gangster2_ranged2_sidewinder_wa
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_tyger_dead_06 : tyger_claws_biker1_melee1_tireiron_wa
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_zetatech_dead_01 : security_security2_gunner2_defender_mb_rare
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+
+mws_hey_07_zetatech_dead_02 : security_guard1_ranged1_saratoga_ma
+{
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	uiNameplate = "UINameplate.Disabled";
+	objectActions = [];
+	savable = true;
+}
+

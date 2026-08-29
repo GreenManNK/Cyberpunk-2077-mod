@@ -1,0 +1,893 @@
+package Attacks
+using RTDB
+
+BaseDOTTick : Attack_GameEffect
+{
+	attackType = "AttackType.Effect";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier
+	];
+	effectName = "damage_over_time";
+	effectTag = "default";
+	hitFlags = 
+	[
+		"FriendlyFire", "CanDamageSelf", "DisableNPCHitReaction", "Nonlethal", "DamageOverTime"
+	];
+}
+
+TargetBaseHealth : CurveStatModifier
+{
+	modifierType = "Additive";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Target";
+	id = "puppet_power_level_to_health_easy";
+	column = "puppet_powerLevelToHealth_base";
+}
+
+TargetMaxHealth : CombinedStatModifier
+{
+	modifierType = "Additive";
+	refStat = "BaseStats.Health";
+	refObject = "Target";
+	opSymbol = "*";
+	value = 1;
+}
+
+VeryLowTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.010;
+}
+
+LowerTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.015;
+}
+
+LowTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.02;
+}
+
+MediumTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.04;
+}
+
+HighTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.08;
+}
+
+VeryHighTargetPercentage : ConstantStatModifier
+{
+	modifierType = "Multiplier";
+	value = 0.1;
+}
+
+NPCDamageOverTime : CombinedStatModifier
+{
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDoTDPS";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.05;
+}
+
+LightNPCDamageOverTime : NPCDamageOverTime
+{
+	value = 0.03;
+}
+
+HeavyNPCDamageOverTime : NPCDamageOverTime
+{
+	value = 0.07;
+}
+
+EnemyNetrunnerDamageOverTime : CombinedStatModifier
+{
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDoTDPS";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.12;
+}
+
+OutOfOxygenDamageOverTime : BaseDOTTick
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.15f;
+		} : CombinedStatModifier
+	];
+	attackTag = "outOfOxygen_dot";
+	hitFlags += 
+	[
+		"IgnoreDifficulty"
+	];
+}
+
+LowChokingDamageOverTime : BaseDOTTick
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.03f;
+		} : CombinedStatModifier
+	];
+	attackTag = "outOfOxygen_dot";
+	hitFlags += 
+	[
+		"IgnoreDifficulty"
+	];
+}
+
+HighChokingDamageOverTime : BaseDOTTick
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.08f;
+		} : CombinedStatModifier
+	];
+	attackTag = "outOfOxygen_dot";
+	hitFlags += 
+	[
+		"IgnoreDifficulty"
+	];
+}
+
+SandstormDamageOverTime : BaseDOTTick
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+	attackTag = "sandstorm_dot";
+	hitFlags += 
+	[
+		"IgnoreDifficulty"
+	];
+}
+
+BasePhysicalDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Physical";
+	attackTag = "Bleeding";
+	hitFlags += 
+	[
+		"BleedingDot"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : TargetBaseHealth
+	];
+}
+
+VeryLowPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : VeryLowTargetPercentage
+	];
+}
+
+LowPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : LowTargetPercentage
+	];
+}
+
+PhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : MediumTargetPercentage
+	];
+}
+
+HighPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : HighTargetPercentage
+	];
+}
+
+BaseChemicalDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Chemical";
+	attackTag = "Poisoned";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : TargetBaseHealth
+	];
+}
+
+RareBioGrenadeDoT : VeryLowChemicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			refObject = "Player";
+			refStat = "BaseStats.GrenadeExplosionBonusDamage";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier
+	];
+}
+
+PlayerBioGrenadeDoT : BaseChemicalDamageOverTime
+{
+	hitFlags += 
+	[
+		"PlayerGrenadeDamageOverride", "PlayerBioGrenadeDOTOverride"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			opSymbol = "*";
+			refStat = "BaseStats.Health";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+VeryLowChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : VeryLowTargetPercentage
+	];
+}
+
+LowChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : LowTargetPercentage
+	];
+}
+
+ChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : MediumTargetPercentage
+	];
+}
+
+GrenadeChemicalDamageOverTime : ChemicalDamageOverTime
+{
+	hitFlags += 
+	[
+		"Grenade"
+	];
+}
+
+HighChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : HighTargetPercentage
+	];
+}
+
+BaseElectricDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Electric";
+	attackTag = "Electrocuted";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : TargetBaseHealth, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			refObject = "Player";
+			refStat = "BaseStats.GrenadeExplosionBonusDamage";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier
+	];
+}
+
+PlayerEMPGrenadeDoT : BaseElectricDamageOverTime
+{
+	hitFlags += 
+	[
+		"PlayerGrenadeDamageOverride", "PlayerEMPGrenadeDOTOverride"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			opSymbol = "*";
+			refStat = "BaseStats.Health";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+EnvironmentalElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier
+	];
+}
+
+ElectrifiedWaterElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadElectricDamage : BaseElectricDamageOverTime
+{
+	hitFlags += 
+	[
+		"OverloadElectricDamage", "NonEliteDamageBonus", "QuickHack"
+	];
+	float nonEliteDamageBonusMultiplier = 0.2f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 4.8;
+		} : ConstantStatModifier
+	];
+}
+
+VeryLowElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : VeryLowTargetPercentage
+	];
+}
+
+VeryLowQuickhackElectricDamageOverTime : VeryLowElectricDamageOverTime
+{
+	hitFlags = 
+	[
+		"QuickHack"
+	];
+}
+
+LowElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : LowTargetPercentage
+	];
+}
+
+LowQuickhackElectricDamageOverTime : LowElectricDamageOverTime
+{
+	hitFlags = 
+	[
+		"QuickHack"
+	];
+}
+
+ElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : MediumTargetPercentage
+	];
+}
+
+HighElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : HighTargetPercentage
+	];
+}
+
+VeryHighElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : VeryHighTargetPercentage
+	];
+}
+
+LowGrenadeElectricDamageOverTime : LowElectricDamageOverTime
+{
+	hitFlags = 
+	[
+		"Grenade"
+	];
+}
+
+GrenadeElectricDamageOverTime : ElectricDamageOverTime
+{
+	hitFlags = 
+	[
+		"Grenade"
+	];
+}
+
+HighGrenadeElectricDamageOverTime : HighElectricDamageOverTime
+{
+	hitFlags = 
+	[
+		"Grenade"
+	];
+}
+
+EnemyNetrunnerHighElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 7.f;
+		} : HighTargetPercentage, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			value = 0.05;
+		} : TargetMaxHealth
+	];
+}
+
+FatalEnvironmentalElectricDamageOverTime : BaseElectricDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			opSymbol = "*";
+			refStat = "BaseStats.Health";
+			value = 0.6f;
+		} : CombinedStatModifier
+	];
+}
+
+BaseThermalDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Thermal";
+	attackTag = "Burning";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : TargetBaseHealth
+	];
+}
+
+PlayerBurnGrenadeDoT : BaseThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"PlayerGrenadeDamageOverride", "PlayerBurnGrenadeDOTOverride"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			opSymbol = "*";
+			refStat = "BaseStats.Health";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+NPCBurnGrenadeDoT : BaseThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"BurnGrenadeDOT"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			opSymbol = "*";
+			refStat = "BaseStats.Health";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+EnvironmentalThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier
+	];
+}
+
+LightThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : LowTargetPercentage
+	];
+}
+
+ThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : MediumTargetPercentage
+	];
+}
+
+HighThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : HighTargetPercentage
+	];
+}
+
+LightGrenadeThermalDamageOverTime : LightThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"Grenade"
+	];
+}
+
+GrenadeThermalDamageOverTime : ThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"Grenade"
+	];
+}
+
+HighGrenadeThermalDamageOverTime : HighThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"Grenade"
+	];
+}
+
+AirDropThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	hitFlags += 
+	[
+		"AirDropBurningDoT"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : LowerTargetPercentage
+	];
+}
+
+VehicleBaseDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Physical";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	hitFlags = 
+	[
+		"FriendlyFire", "CanDamageSelf"
+	];
+}
+
+VehicleHighDamageOverTime : BaseDOTTick
+{
+	damageType = "DamageTypes.Physical";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier
+	];
+	hitFlags = 
+	[
+		"FriendlyFire", "CanDamageSelf"
+	];
+}
+
+NPCPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : NPCDamageOverTime
+	];
+}
+
+NPCThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : NPCDamageOverTime
+	];
+}
+
+Testera_Nicolas_ThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+EnemyNetrunnerThermalDamageOverTime : NPCThermalDamageOverTime
+{
+	attackType = "AttackType.Hack";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 3;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			value = 0.03;
+		} : TargetMaxHealth
+	];
+}
+
+EnemyNetrunnerRibakovThermalDamageOverTime : NPCThermalDamageOverTime
+{
+	attackType = "AttackType.Hack";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			value = 0.03;
+		} : TargetMaxHealth
+	];
+}
+
+NPCChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : NPCDamageOverTime
+	];
+}
+
+NPCElectricDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : NPCDamageOverTime
+	];
+}
+
+LightNPCPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : LightNPCDamageOverTime
+	];
+}
+
+LightNPCThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : LightNPCDamageOverTime
+	];
+}
+
+LightNPCChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : LightNPCDamageOverTime
+	];
+}
+
+LightNPCElectricDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : LightNPCDamageOverTime
+	];
+}
+
+HeavyNPCPhysicalDamageOverTime : BasePhysicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : HeavyNPCDamageOverTime
+	];
+}
+
+HeavyNPCThermalDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : HeavyNPCDamageOverTime
+	];
+}
+
+HeavyNPCChemicalDamageOverTime : BaseChemicalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : HeavyNPCDamageOverTime
+	];
+}
+
+HeavyNPCElectricDamageOverTime : BaseThermalDamageOverTime
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : HeavyNPCDamageOverTime
+	];
+}
+
+AccumulatedDoTTick : BaseDOTTick
+{
+	hitFlags += 
+	[
+		"IgnoreDifficulty", "DisablePlayerHitReaction", "CannotKillPlayer"
+	];
+	attackTag = "AccumulatedDoT";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refObject = "Target";
+			refStat = "BaseStats.AccumulatedDoTDecayRate";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+

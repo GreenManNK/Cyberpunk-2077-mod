@@ -1,0 +1,564 @@
+struct SAreaEffectData
+{
+	instanceeditable inlined var action : ScriptableDeviceAction;
+	instanceeditable var areaEffectID : CName;
+	[ category = "VFX Data" ]
+	instanceeditable var indicatorEffectName : CName;
+	default indicatorEffectName = 'focus_10m';
+	[ category = "VFX Data" ]
+	instanceeditable var useIndicatorEffect : Bool;
+	default useIndicatorEffect = false;
+	[ category = "VFX Data" ][ rangeMin = "0.f" ][ rangeMax = "1.f" ]
+	instanceeditable var indicatorEffectSize : Float;
+	default indicatorEffectSize = 1.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimRange : Float;
+	default stimRange = 10.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimLifetime : Float;
+	default stimLifetime = 5.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimType : DeviceStimType;
+	default stimType = DeviceStimType.Distract;
+	[ category = "Stim Data" ]
+	instanceeditable var stimSource : NodeRef;
+	[ category = "Stim Data" ]
+	mutable instanceeditable var additionaStimSources : array< NodeRef >;
+	[ category = "Stim Data" ]
+	instanceeditable var investigateSpot : NodeRef;
+	[ category = "Stim Data" ]
+	instanceeditable var investigateController : Bool;
+	[ category = "Stim Data" ]
+	instanceeditable var controllerSource : NodeRef;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightTargets : Bool;
+	default highlightTargets = true;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightType : EFocusForcedHighlightType;
+	default highlightType = EFocusForcedHighlightType.DISTRACTION;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightPriority : EPriority;
+	default highlightPriority = EPriority.High;
+	var effectInstance : EffectInstance;
+}
+
+class OptionalAreaEffectData extends IScriptable
+{
+	private instanceeditable var m_includeInAoeData : Bool;
+	private editable inlined var m_aoeData : AreaEffectData;
+
+	public function GetAoeData() : AreaEffectData
+	{
+		return m_aoeData;
+	}
+
+	public function ShouldIncludeInAoeData() : Bool
+	{
+		return m_includeInAoeData;
+	}
+
+}
+
+class AreaEffectData extends IScriptable
+{
+	instanceeditable inlined var action : ScriptableDeviceAction;
+	[ customEditor = "TweakDBGroupInheritance;ObjectAction" ]
+	instanceeditable inlined var actionRecordID : TweakDBID;
+	instanceeditable var areaEffectID : CName;
+	[ category = "VFX Data" ]
+	instanceeditable var indicatorEffectName : CName;
+	default indicatorEffectName = 'focus_10m';
+	[ category = "VFX Data" ]
+	instanceeditable var useIndicatorEffect : Bool;
+	default useIndicatorEffect = false;
+	[ category = "VFX Data" ][ rangeMin = "0.f" ][ rangeMax = "1.f" ]
+	instanceeditable var indicatorEffectSize : Float;
+	default indicatorEffectSize = 1.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimRange : Float;
+	default stimRange = 10.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimLifetime : Float;
+	default stimLifetime = 5.f;
+	[ category = "Stim Data" ]
+	instanceeditable var stimType : DeviceStimType;
+	default stimType = DeviceStimType.Distract;
+	[ category = "Stim Data" ]
+	instanceeditable var stimSource : NodeRef;
+	[ category = "Stim Data" ]
+	mutable instanceeditable var additionaStimSources : array< NodeRef >;
+	[ category = "Stim Data" ]
+	instanceeditable var investigateSpot : NodeRef;
+	[ category = "Stim Data" ]
+	instanceeditable var investigateController : Bool;
+	[ category = "Stim Data" ]
+	instanceeditable var controllerSource : NodeRef;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightTargets : Bool;
+	default highlightTargets = true;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightType : EFocusForcedHighlightType;
+	default highlightType = EFocusForcedHighlightType.INVALID;
+	[ category = "Highlight Data" ]
+	instanceeditable var outlineType : EFocusOutlineType;
+	default outlineType = EFocusOutlineType.DISTRACTION;
+	[ category = "Highlight Data" ]
+	instanceeditable var highlightPriority : EPriority;
+	default highlightPriority = EPriority.High;
+	var effectInstance : EffectInstance;
+	var gameEffectOverrideName : CName;
+
+	public function EffectInstanceClear()
+	{
+		effectInstance = NULL;
+	}
+
+	public function SetEffectInstance( effect : EffectInstance )
+	{
+		effectInstance = effect;
+	}
+
+	public const function GetActionRecord() : weak< ObjectAction_Record >
+	{
+		return TweakDBInterface.GetObjectActionRecord( actionRecordID );
+	}
+
+	private const function GetActionNameFromRecord( record : weak< ObjectAction_Record > ) : CName
+	{
+		if( record != NULL )
+		{
+			return record.ActionName();
+		}
+		else
+		{
+			return '';
+		}
+	}
+
+	public const function GetActionNameFromRecord() : CName
+	{
+		return GetActionNameFromRecord( GetActionRecord() );
+	}
+
+	public const function IsMatching( _action : BaseScriptableAction ) : Bool
+	{
+		if( !( _action ) )
+		{
+			return false;
+		}
+		if( TDBID.IsValid( actionRecordID ) && ( _action.GetObjectActionID() == actionRecordID ) )
+		{
+			return true;
+		}
+		else if( action && action.GetClassName() == _action.GetClassName() )
+		{
+			return true;
+		}
+		else if( areaEffectID == _action.GetClassName() )
+		{
+			return true;
+		}
+		else if( TDBID.IsValid( actionRecordID ) && areaEffectID == _action.GetObjectActionRecord().ActionName() )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function CopyData( const areaEffectDataToCopy : AreaEffectData )
+	{
+		var data : SAreaEffectData;
+		data = areaEffectDataToCopy.GetData();
+		this.CopyData( data );
+	}
+
+	public function CopyData( const sAreaEffectDataToCopy : SAreaEffectData )
+	{
+		var i : Int32;
+		action = sAreaEffectDataToCopy.action;
+		areaEffectID = sAreaEffectDataToCopy.areaEffectID;
+		indicatorEffectName = sAreaEffectDataToCopy.indicatorEffectName;
+		useIndicatorEffect = sAreaEffectDataToCopy.useIndicatorEffect;
+		indicatorEffectSize = sAreaEffectDataToCopy.indicatorEffectSize;
+		stimRange = sAreaEffectDataToCopy.stimRange;
+		stimLifetime = sAreaEffectDataToCopy.stimLifetime;
+		stimType = sAreaEffectDataToCopy.stimType;
+		stimSource = sAreaEffectDataToCopy.stimSource;
+		for( i = 0; i < sAreaEffectDataToCopy.additionaStimSources.Size(); i += 1 )
+		{
+			additionaStimSources.PushBack( sAreaEffectDataToCopy.additionaStimSources[ i ] );
+		}
+		investigateSpot = sAreaEffectDataToCopy.investigateSpot;
+		investigateController = sAreaEffectDataToCopy.investigateController;
+		controllerSource = sAreaEffectDataToCopy.controllerSource;
+		highlightTargets = sAreaEffectDataToCopy.highlightTargets;
+		highlightType = sAreaEffectDataToCopy.highlightType;
+		highlightPriority = sAreaEffectDataToCopy.highlightPriority;
+		effectInstance = sAreaEffectDataToCopy.effectInstance;
+	}
+
+	public const function GetData() : SAreaEffectData
+	{
+		var data : SAreaEffectData;
+		var i : Int32;
+		data.action = action;
+		data.areaEffectID = areaEffectID;
+		data.indicatorEffectName = indicatorEffectName;
+		data.useIndicatorEffect = useIndicatorEffect;
+		data.indicatorEffectSize = indicatorEffectSize;
+		data.stimRange = stimRange;
+		data.stimLifetime = stimLifetime;
+		data.stimType = stimType;
+		data.stimSource = stimSource;
+		for( i = 0; i < additionaStimSources.Size(); i += 1 )
+		{
+			data.additionaStimSources.PushBack( additionaStimSources[ i ] );
+		}
+		data.investigateSpot = investigateSpot;
+		data.investigateController = investigateController;
+		data.controllerSource = controllerSource;
+		data.highlightTargets = highlightTargets;
+		data.highlightType = highlightType;
+		data.highlightPriority = highlightPriority;
+		data.effectInstance = effectInstance;
+		return data;
+	}
+
+}
+
+struct SAreaEffectTargetData
+{
+	instanceeditable var areaEffectID : CName;
+	instanceeditable var onSelf : Bool;
+	default onSelf = true;
+	instanceeditable var onSlaves : Bool;
+}
+
+class AreaEffectTargetData extends IScriptable
+{
+	instanceeditable var areaEffectID : CName;
+	instanceeditable var onSelf : Bool;
+	default onSelf = true;
+	instanceeditable var onSlaves : Bool;
+}
+
+class FxResourceMapperComponent extends ScriptableComponent
+{
+	[ category = "Area effects - DEFINE NEW EFFECTS HERE" ]
+	protected mutable instanceeditable inlined var m_areaEffectData : array< AreaEffectData >;
+	[ category = "Area effects - DEFINE NEW EFFECTS HERE" ]
+	protected mutable instanceeditable inlined var m_investigationSlotOffsetMultiplier : Float;
+	default m_investigationSlotOffsetMultiplier = 1.0f;
+	[ category = "Area effects - DEFINE NEW EFFECTS HERE" ]
+	protected mutable instanceeditable inlined var m_areaEffectInFocusMode : array< AreaEffectTargetData >;
+	[ category = "Area effects - DEFINE NEW EFFECTS HERE" ][ tooltip = "Do NOT add/remove any data locally. Check/Uncheck a flag instead." ]
+	protected const editable inlined var m_optionalAreaEffectData : array< OptionalAreaEffectData >;
+	private var DEBUG_copiedDataFromEntity : Bool;
+	private var DEBUG_copiedDataFromFXStruct : Bool;
+	private var m_isInitialized : Bool;
+
+	private function OnGameAttach()
+	{
+		TryInitialize();
+	}
+
+	private function TryInitialize()
+	{
+		if( !( m_isInitialized ) )
+		{
+			Initialize();
+		}
+	}
+
+	private function Initialize()
+	{
+		TryAddOptionalAoeData();
+		m_isInitialized = true;
+	}
+
+	private function TryAddOptionalAoeData()
+	{
+		var i : Int32;
+		for( i = 0; i < m_optionalAreaEffectData.Size(); i += 1 )
+		{
+			if( m_optionalAreaEffectData[ i ].ShouldIncludeInAoeData() )
+			{
+				m_areaEffectData.PushBack( m_optionalAreaEffectData[ i ].GetAoeData() );
+			}
+		}
+	}
+
+	public function CopyDataToFxMapClass( const areaEffectsData : ref< array< SAreaEffectData > >, DEBUG_entityCopy : Bool, DEBUG_fxCopy : Bool )
+	{
+		var i : Int32;
+		var areaEffectDataClass : AreaEffectData;
+		if( m_areaEffectData.Size() > 0 )
+		{
+			return;
+		}
+		for( i = 0; i < areaEffectsData.Size(); i += 1 )
+		{
+			areaEffectDataClass = new AreaEffectData;
+			areaEffectDataClass.CopyData( areaEffectsData[ i ] );
+			m_areaEffectData.PushBack( areaEffectDataClass );
+			if( DEBUG_entityCopy )
+			{
+				DEBUG_copiedDataFromEntity = DEBUG_entityCopy;
+			}
+			if( DEBUG_fxCopy )
+			{
+				DEBUG_copiedDataFromFXStruct = DEBUG_fxCopy;
+			}
+		}
+	}
+
+	public function CopyEffectToFxMapClass( const areaEffectsInFocusMode : ref< array< SAreaEffectTargetData > > )
+	{
+		var i : Int32;
+		var effctDataClass : AreaEffectTargetData;
+		if( m_areaEffectInFocusMode.Size() > 0 )
+		{
+			return;
+		}
+		for( i = 0; i < areaEffectsInFocusMode.Size(); i += 1 )
+		{
+			effctDataClass = new AreaEffectTargetData;
+			effctDataClass.areaEffectID = areaEffectsInFocusMode[ i ].areaEffectID;
+			effctDataClass.onSelf = areaEffectsInFocusMode[ i ].onSelf;
+			effctDataClass.onSlaves = areaEffectsInFocusMode[ i ].onSlaves;
+			m_areaEffectInFocusMode.PushBack( effctDataClass );
+		}
+	}
+
+	public const function GetInvestigationSlotOffset() : Float
+	{
+		return m_investigationSlotOffsetMultiplier;
+	}
+
+	public const function GetAreaEffectData() : array< AreaEffectData >
+	{
+		return m_areaEffectData;
+	}
+
+	public const function GetAreaEffectDataByIndex( index : Int32 ) : AreaEffectData
+	{
+		return m_areaEffectData[ index ];
+	}
+
+	public const function GetAreaEffectDataSize() : Int32
+	{
+		return m_areaEffectData.Size();
+	}
+
+	public const function GetAreaEffectInFocusMode() : array< AreaEffectTargetData >
+	{
+		return m_areaEffectInFocusMode;
+	}
+
+	public const function GetAreaEffectInFocusModeByIndex( index : Int32 ) : AreaEffectTargetData
+	{
+		return m_areaEffectInFocusMode[ index ];
+	}
+
+	public const function GetAreaEffectInFocusSize() : Int32
+	{
+		return m_areaEffectInFocusMode.Size();
+	}
+
+	public const function HasAnyDistractions() : Bool
+	{
+		var i : Int32;
+		for( i = 0; i < m_areaEffectData.Size(); i += 1 )
+		{
+			if( m_areaEffectData[ i ].stimType == DeviceStimType.Distract || m_areaEffectData[ i ].stimType == DeviceStimType.VisualDistract )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function CreateEffectStructDataFromAttack( attackTDBID : TweakDBID, index : Int32, optional gameEffectNameOverride : CName, optional dontHighlightOnLookat : Bool )
+	{
+		CreateData( attackTDBID, index, gameEffectNameOverride, dontHighlightOnLookat );
+	}
+
+	private function CreateData( attackTDBID : TweakDBID, index : Int32, optional gameEffectNameOverride : CName, optional dontHighlightOnLookat : Bool )
+	{
+		var effectData : AreaEffectData;
+		var distractForEffectData : AreaEffectData;
+		var effectRange : Float;
+		effectData = new AreaEffectData;
+		distractForEffectData = new AreaEffectData;
+		effectRange = TweakDBInterface.GetAttackRecord( attackTDBID ).Range();
+		effectData.areaEffectID = StringToName( "hardCodeDoNotRemove" + index );
+		effectData.stimRange = effectRange;
+		effectData.highlightTargets = true;
+		effectData.highlightType = EFocusForcedHighlightType.INVALID;
+		effectData.outlineType = EFocusOutlineType.AOE;
+		effectData.highlightPriority = EPriority.Medium;
+		effectData.stimType = DeviceStimType.None;
+		effectData.indicatorEffectName = '';
+		effectData.gameEffectOverrideName = gameEffectNameOverride;
+		m_areaEffectData.PushBack( effectData );
+		if( !( dontHighlightOnLookat ) )
+		{
+			CreateAreaEffectTargetData( effectData );
+		}
+		distractForEffectData.areaEffectID = StringToName( "hardCodeDoNotRemoveExplosion" + index );
+		CalculateRangeSphere( effectRange * 3.0, distractForEffectData.indicatorEffectName, distractForEffectData.indicatorEffectSize );
+		distractForEffectData.stimRange = effectRange * 3.0;
+		distractForEffectData.highlightTargets = false;
+		distractForEffectData.stimType = DeviceStimType.Explosion;
+		m_areaEffectData.PushBack( distractForEffectData );
+		if( !( dontHighlightOnLookat ) )
+		{
+			CreateAreaEffectTargetData( distractForEffectData );
+		}
+	}
+
+	private function CalculateRangeSphere( desiredRange : Float, out effectName : CName, out effectSize : Float )
+	{
+		if( desiredRange <= 5.0 )
+		{
+			effectName = 'focus_5m';
+			effectSize = desiredRange / 5.0;
+		}
+		else if( desiredRange <= 10.0 )
+		{
+			effectName = 'focus_10m';
+			effectSize = desiredRange / 10.0;
+		}
+		else if( desiredRange <= 20.0 )
+		{
+			effectName = 'focus_20m';
+			effectSize = desiredRange / 20.0;
+		}
+		else if( desiredRange <= 30.0 )
+		{
+			effectName = 'focus_30m';
+			effectSize = desiredRange / 30.0;
+		}
+	}
+
+	protected function CreateAreaEffectTargetData( mainEffect : AreaEffectData )
+	{
+		var data : AreaEffectTargetData;
+		data = new AreaEffectTargetData;
+		data.areaEffectID = mainEffect.areaEffectID;
+		data.onSelf = true;
+		m_areaEffectInFocusMode.PushBack( data );
+	}
+
+	public const function GetAreaEffectDataIndexByName( effectName : CName ) : Int32
+	{
+		var i : Int32;
+		for( i = 0; i < m_areaEffectData.Size(); i += 1 )
+		{
+			if( ( m_areaEffectData[ i ].action != NULL ) && m_areaEffectData[ i ].action.GetClassName() == effectName )
+			{
+				return i;
+			}
+			else if( IsNameValid( effectName ) && m_areaEffectData[ i ].areaEffectID == effectName )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public const function GetAreaEffectDataIndexByAction( action : BaseScriptableAction ) : Int32
+	{
+		var i : Int32;
+		if( !( action ) )
+		{
+			return -1;
+		}
+		for( i = 0; i < m_areaEffectData.Size(); i += 1 )
+		{
+			if( m_areaEffectData[ i ].IsMatching( action ) )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public const function GetAreaEffectDataNameByIndex( effectIndex : Int32 ) : CName
+	{
+		if( ( effectIndex < 0 ) || ( effectIndex >= m_areaEffectData.Size() ) )
+		{
+			return '';
+		}
+		if( TDBID.IsValid( m_areaEffectData[ effectIndex ].actionRecordID ) )
+		{
+			return m_areaEffectData[ effectIndex ].GetActionNameFromRecord();
+		}
+		else if( m_areaEffectData[ effectIndex ].action != NULL )
+		{
+			return m_areaEffectData[ effectIndex ].action.GetClassName();
+		}
+		else
+		{
+			return m_areaEffectData[ effectIndex ].areaEffectID;
+		}
+	}
+
+	public const function GetDistractionRange( type : DeviceStimType ) : Float
+	{
+		var i : Int32;
+		var currentRange : Float;
+		for( i = 0; i < m_areaEffectData.Size(); i += 1 )
+		{
+			if( CanCompareRanges( type, m_areaEffectData[ i ].stimType ) && ( m_areaEffectData[ i ].stimRange > currentRange ) )
+			{
+				currentRange = m_areaEffectData[ i ].stimRange;
+			}
+		}
+		return currentRange;
+	}
+
+	public const function GetSmallestDistractionRange( type : DeviceStimType ) : Float
+	{
+		var i : Int32;
+		var currentRange : Float;
+		var foundAnyRange : Bool;
+		currentRange = 999999.0;
+		for( i = 0; i < m_areaEffectData.Size(); i += 1 )
+		{
+			if( CanCompareRanges( type, m_areaEffectData[ i ].stimType ) && ( m_areaEffectData[ i ].stimRange < currentRange ) )
+			{
+				currentRange = m_areaEffectData[ i ].stimRange;
+				foundAnyRange = true;
+			}
+		}
+		return ( ( foundAnyRange ) ? ( currentRange ) : ( 0.0 ) );
+	}
+
+	private const function CanCompareRanges( type : DeviceStimType, currentType : DeviceStimType ) : Bool
+	{
+		return type == currentType || ( ( type == DeviceStimType.Distract || type == DeviceStimType.VisualDistract ) && ( currentType == DeviceStimType.Distract || currentType == DeviceStimType.VisualDistract ) );
+	}
+
+	public function TryGetAreaEffectByAction( action : ScriptableDeviceAction, out areaEffectData : AreaEffectData ) : Bool
+	{
+		var actionIndex : Int32;
+		if( TryGetActionIndex( action, actionIndex ) )
+		{
+			areaEffectData = GetAreaEffectDataByIndex( actionIndex );
+			return true;
+		}
+		return false;
+	}
+
+	public const function TryGetActionIndex( action : ScriptableDeviceAction, out actionIndex : Int32 ) : Bool
+	{
+		actionIndex = GetAreaEffectDataIndexByAction( action );
+		return actionIndex >= 0;
+	}
+
+}
+

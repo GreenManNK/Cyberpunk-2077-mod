@@ -1,0 +1,1167 @@
+package DeviceAction
+using RTDB, QuickHack, Prereqs, BaseStatusEffect
+
+ActionEngineering : ObjectAction
+{
+	actionName = "ActionEngineering";
+	rewards = 
+	[
+		"RPGActionRewards.Engineering"
+	];
+	objectActionUI = "Interactions.ActionEngineering";
+}
+
+ActionHacking : ObjectAction
+{
+	actionName = "ActionHacking";
+	objectActionUI = "Interactions.ActionHacking";
+}
+
+ActionDemolition : ObjectAction
+{
+	actionName = "ActionDemolition";
+	rewards = 
+	[
+		"RPGActionRewards.Athletics"
+	];
+	objectActionUI = "Interactions.ActionDemolition";
+}
+
+DisposeBody : ObjectAction
+{
+	actionName = "DisposeBody";
+	rewards = 
+	[
+		"RPGActionRewards.Dispose"
+	];
+}
+
+TakedownAndDisposeBody : ObjectAction
+{
+	actionName = "TakedownAndDisposeBody";
+	rewards = 
+	[
+		"RPGActionRewards.TakedownAndDisposeStealth"
+	];
+}
+
+NonlethalTakedownAndDisposeBody : ObjectAction
+{
+	actionName = "NonlethalTakedownAndDisposeBody";
+	rewards = 
+	[
+		"RPGActionRewards.TakedownAndDisposeStealth"
+	];
+}
+
+DeviceQuickHack : QuickHack
+{
+	actionName = "DeviceQuickHack";
+	interactionLayer = "any";
+	targetActivePrereqs += 
+	[
+		"Prereqs.NetworkBreachedActive"
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	objectActionType = "ObjectActionType.DeviceQuickHack";
+	activationTime += 
+	[
+		{
+			statType = "BaseStats.QuickHackUpload";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	hackCategory = "HackCategory.DeviceHack";
+	awarenessCost = "";
+}
+
+VehicleQuickHack : QuickHack
+{
+	interactionLayer = "any";
+	objectActionType = "ObjectActionType.VehicleQuickHack";
+	hackCategory = "HackCategory.VehicleHack";
+}
+
+MalfunctionClassHack : DeviceQuickHack
+{
+	actionName = "MalfunctionClassHack";
+	gameplayCategory = "ActionCategories.Malfunction";
+	fk< InteractionBase > objectActionUI = "Interactions.MalfunctionHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 3;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+[ EP1 ]
+FanMalfunctionClassHack : DeviceQuickHack
+{
+	priority = 2.f;
+	actionName = "MalfunctionClassHack";
+	gameplayCategory = "ActionCategories.Malfunction";
+	fk< InteractionBase > objectActionUI = "Interactions.FanMalfunctionHack";
+}
+
+BroadcastClassHack : DeviceQuickHack
+{
+	actionName = "BroadcastClassHack";
+	gameplayCategory = "ActionCategories.Broadcast";
+}
+
+EndMalfunction : ObjectAction
+{
+	actionName = "EndMalfunction";
+	gameplayCategory = "ActionCategories.Malfunction";
+	fk< InteractionBase > objectActionUI = "Interactions.MalfunctionHack";
+}
+
+HighPitchNoiseQuickHack : DeviceQuickHack
+{
+	actionName = "HighPitchNoiseQuickHack";
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HighPitchNoiseCooldown";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+	fk< InteractionBase > objectActionUI = "Interactions.CommsNoiseHack";
+	deviceHackCategory = "DeviceHacks.DamageHack";
+	hackTier = "DeviceHacks.Tier2DeviceHack";
+}
+
+ToggleStateClassHack : DeviceQuickHack
+{
+	actionName = "ToggleStateClassHack";
+	gameplayCategory = "ActionCategories.ToggleState";
+	fk< InteractionBase > objectActionUI = "Interactions.ToggleStateHack";
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+TurretToggleStateClassHack : DeviceQuickHack
+{
+	actionName = "TurretToggleStateClassHack";
+	gameplayCategory = "ActionCategories.ToggleState";
+	fk< InteractionBase > objectActionUI = "Interactions.ToggleStateHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+TurretToggleStateClassLvl2Hack : TurretToggleStateClassHack
+{
+	priority = 2.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretToggleStateClassLvl3Hack : TurretToggleStateClassLvl2Hack
+{
+	priority = 3.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretToggleStateClassLvl4Hack : TurretToggleStateClassLvl3Hack
+{
+	priority = 4.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretToggleStateClassLvl5Hack : TurretToggleStateClassLvl4Hack
+{
+	priority = 5.f;
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+}
+
+OverloadClassHack : DeviceQuickHack
+{
+	actionName = "OverloadClassHack";
+	gameplayCategory = "ActionCategories.OverLoad";
+	fk< InteractionBase > objectActionUI = "Interactions.OverloadHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 1;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.DamageHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+TurretOverloadClassHack : OverloadClassHack
+{
+	actionName = "TurretOverloadClassHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	hackTier = "DeviceHacks.Tier2DeviceHack";
+}
+
+[ EP1 ]
+ServerOverloadClassHack : DeviceQuickHack
+{
+	actionName = "ServerOverloadClassHack";
+	gameplayCategory = "ActionCategories.OverLoad";
+	fk< InteractionBase > objectActionUI = "Interactions.ServerOverloadHack";
+	activationTime += 
+	[
+		{
+			value = 2.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 35;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.DamageHack";
+	hackTier = "DeviceHacks.Tier4DeviceHack";
+}
+
+[ EP1 ]
+ServerSingleOverloadClassHack : OverloadClassHack
+{
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	priority = 3.f;
+}
+
+OverloadClassLvl4Hack : OverloadClassHack
+{
+	actionName = "OverloadClassHack";
+	priority = 4.f;
+}
+
+TakeControlClassHack : DeviceQuickHack
+{
+	actionName = "TakeControlClassHack";
+	gameplayCategory = "ActionCategories.TakeControl";
+	fk< InteractionBase > objectActionUI = "Interactions.TakeControlHack";
+	activationTime += 
+	[
+		{
+			value = 1.0;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.ControlHack";
+	hackTier = "DeviceHacks.Tier2DeviceHack";
+}
+
+TakeControlCameraClassHack : DeviceQuickHack
+{
+	actionName = "TakeControlCameraClassHack";
+	gameplayCategory = "ActionCategories.TakeControl";
+	fk< InteractionBase > objectActionUI = "Interactions.TakeControlCameraHack";
+	activationTime += 
+	[
+		{
+			value = 1.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.ControlHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+TakeControlVehicleClassHack : VehicleQuickHack
+{
+	actionName = "TakeControlVehicleClassHack";
+	gameplayCategory = "ActionCategories.TakeControl";
+	fk< InteractionBase > objectActionUI = "Interactions.TakeControlVehicleHack";
+	activationTime += 
+	[
+		{
+			value = 1.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+	hackTier = "DeviceHacks.Tier3DeviceHack";
+}
+
+VehicleForceBrakesClassHack : VehicleQuickHack
+{
+	actionName = "VehicleForceBrakesClassHack";
+	gameplayCategory = "ActionCategories.OverrideAttitude";
+	fk< InteractionBase > objectActionUI = "Interactions.VehicleForceBrakesClassHack";
+	activationTime += 
+	[
+		{
+			value = 0.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 5;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+VehicleExplodeClassHack : VehicleQuickHack
+{
+	actionName = "VehicleExplodeClassHack";
+	gameplayCategory = "ActionCategories.OverrideAttitude";
+	fk< InteractionBase > objectActionUI = "Interactions.VehicleExplodeClassHack";
+	activationTime += 
+	[
+		{
+			value = 5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 14;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	hackTier = "DeviceHacks.Tier4DeviceHack";
+}
+
+VehicleAccelerateClassHack : VehicleQuickHack
+{
+	actionName = "VehicleAccelerateClassHack";
+	gameplayCategory = "ActionCategories.OverrideAttitude";
+	fk< InteractionBase > objectActionUI = "Interactions.VehicleAccelerateClassHack";
+	activationTime += 
+	[
+		{
+			value = 0.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 5;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	hackTier = "DeviceHacks.Tier2DeviceHack";
+}
+
+OverrideAttitudeClassHack : DeviceQuickHack
+{
+	actionName = "OverrideAttitudeClassHack";
+	gameplayCategory = "ActionCategories.OverrideAttitude";
+	fk< InteractionBase > objectActionUI = "Interactions.OverrideAttitudeHack";
+	activationTime += 
+	[
+		{
+			value = 1.5;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	durationTime += 
+	[
+		{
+			value = 20.0f;
+		} : BaseDurationMod
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier2DeviceHack";
+}
+
+OverrideAttitudeClassLvl2Hack : OverrideAttitudeClassHack
+{
+	priority = 2.f;
+	durationTime += 
+	[
+		{
+			value = 0.0f;
+		} : BaseDurationMod
+	];
+}
+
+OverrideAttitudeClassLvl3Hack : OverrideAttitudeClassLvl2Hack
+{
+	priority = 3.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+OverrideAttitudeClassLvl4Hack : OverrideAttitudeClassLvl3Hack
+{
+	priority = 4.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+OverrideAttitudeClassLvl5Hack : OverrideAttitudeClassLvl4Hack
+{
+	priority = 5.f;
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretOverrideAttitudeClassHack : OverrideAttitudeClassHack
+{
+	actionName = "TurretOverrideAttitudeClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.TurretOverrideAttitudeHack";
+	activationTime += 
+	[
+		{
+			value = 2.0;
+		} : UploadTimeModifier
+	];
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	durationTime += 
+	[
+		{
+			value = 20.0f;
+		} : BaseDurationMod
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier4DeviceHack";
+}
+
+TurretOverrideAttitudeClassLvl2Hack : TurretOverrideAttitudeClassHack
+{
+	priority = 2.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretOverrideAttitudeClassLvl3Hack : TurretOverrideAttitudeClassLvl2Hack
+{
+	priority = 3.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretOverrideAttitudeClassLvl4Hack : TurretOverrideAttitudeClassLvl3Hack
+{
+	priority = 4.f;
+	durationTime += 
+	[
+		{
+			value = 10.0f;
+		} : BaseDurationMod
+	];
+}
+
+TurretOverrideAttitudeClassLvl5Hack : TurretOverrideAttitudeClassLvl4Hack
+{
+	priority = 5.f;
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+}
+
+DataExtractionClassHack : DeviceQuickHack
+{
+	actionName = "DataExtractionClassHack";
+	gameplayCategory = "ActionCategories.DataExtraction";
+	fk< InteractionBase > objectActionUI = "Interactions.DataExtractionHack";
+	activationTime += 
+	[
+		{
+			value = 0.5;
+		} : UploadTimeModifier
+	];
+	deviceHackCategory = "DeviceHacks.ControlHack";
+	hackTier = "DeviceHacks.Tier1DeviceHack";
+}
+
+SuicideClassHack : BroadcastClassHack
+{
+	actionName = "SuicideClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.SuicideHack";
+}
+
+BlindClassHack : BroadcastClassHack
+{
+	actionName = "BlindClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.BlindHack";
+}
+
+DeafClassHack : BroadcastClassHack
+{
+	actionName = "DeafClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.HackVolume";
+}
+
+ExplodeClassHack : DeviceQuickHack
+{
+	actionName = "ExplodeClassHack";
+	gameplayCategory = "ActionCategories.OverLoad";
+	fk< InteractionBase > objectActionUI = "Interactions.Explode";
+}
+
+JamWeaponClassHack : BroadcastClassHack
+{
+	actionName = "JamWeaponClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.JamWeaponAction";
+}
+
+GrenadeClassHack : BroadcastClassHack
+{
+	actionName = "GrenadeClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.GrenadeHack";
+}
+
+HeartAttackClassHack : DeviceQuickHack
+{
+	actionName = "HeartAttackClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.HeartattackHack";
+}
+
+OverrideAuthorizationClassHack : DeviceQuickHack
+{
+	actionName = "OverrideAuthorizationClassHack";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackAuthorization";
+	gameplayCategory = "ActionCategories.DataExtraction";
+}
+
+ToggleTakeOverControl : ObjectAction
+{
+	actionName = "ToggleTakeOverControl";
+	fk< InteractionBase > objectActionUI = "Interactions.TakeControl";
+	gameplayCategory = "ActionCategories.TakeControl";
+}
+
+QuickHackToggleON : ToggleStateClassHack
+{
+	actionName = "QuickHackToggleON";
+	fk< InteractionBase > objectActionUI = "Interactions.ToggleOnHack";
+}
+
+ChangeMusicAction : ObjectAction
+{
+	actionName = "ChangeMusicAction";
+	fk< InteractionBase > objectActionUI = "Interactions.ChangeMusicHack";
+}
+
+QuickHackDistraction : ObjectAction
+{
+	actionName = "QuickHackDistraction";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackDistraction";
+}
+
+GlitchScreen : ObjectAction
+{
+	actionName = "GlitchScreen";
+	fk< InteractionBase > objectActionUI = "Interactions.GlitchScreen";
+}
+
+GlitchScreenSuicide : SuicideClassHack
+{
+	actionName = "GlitchScreenSuicide";
+	fk< InteractionBase > objectActionUI = "Interactions.BroadcastSuicideHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.DamageHack";
+}
+
+GlitchScreenJamWeapon : JamWeaponClassHack
+{
+	actionName = "GlitchScreenJamWeapon";
+	fk< InteractionBase > objectActionUI = "Interactions.BroadcastJamWeaponAction";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+}
+
+GlitchScreenBlind : BlindClassHack
+{
+	actionName = "GlitchScreenBlind";
+	fk< InteractionBase > objectActionUI = "Interactions.BroadcastBlindHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 6;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+}
+
+GlitchScreenHeartAttack : HeartAttackClassHack
+{
+	actionName = "GlitchScreenHeartAttack";
+	fk< InteractionBase > objectActionUI = "Interactions.BroadcastHeartattackHack";
+}
+
+GlitchScreenGrenade : GrenadeClassHack
+{
+	actionName = "GlitchScreenGrenade";
+	fk< InteractionBase > objectActionUI = "Interactions.BroadcastGrenadeHack";
+	costs = 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 4;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	deviceHackCategory = "DeviceHacks.DamageHack";
+}
+
+SetDeviceAttitude : OverrideAttitudeClassHack
+{
+	actionName = "SetDeviceAttitude";
+	fk< InteractionBase > objectActionUI = "Interactions.SetDeviceAttitude";
+}
+
+SetDeviceTagKillMode : OverrideAttitudeClassHack
+{
+	actionName = "SetDeviceTagKillMode";
+	fk< InteractionBase > objectActionUI = "Interactions.SetDeviceSupportMode";
+	durationTime = 
+	[
+		{
+			value = -1.0f;
+		} : BaseDurationMod
+	];
+	deviceHackCategory = "DeviceHacks.CovertHack";
+	hackTier = "DeviceHacks.Tier3DeviceHack";
+}
+
+ForceIgnoreTargets : OverrideAttitudeClassHack
+{
+	actionName = "ForceIgnoreTargets";
+	fk< InteractionBase > objectActionUI = "Interactions.ForceIgnoreTargets";
+}
+
+CameraTagSeenEnemies : OverrideAttitudeClassHack
+{
+	actionName = "CameraTagSeenEnemies";
+	fk< InteractionBase > objectActionUI = "Interactions.CameraTagSeenEnemies";
+}
+
+ForceCarAlarm : MalfunctionClassHack
+{
+	actionName = "ForceCarAlarm";
+	fk< InteractionBase > objectActionUI = "Interactions.TurnOnCarAlarm";
+}
+
+ActivateDevice : ObjectAction
+{
+	actionName = "ActivateDevice";
+	fk< InteractionBase > objectActionUI = "Interactions.Activate";
+}
+
+QuickHackToggleOpen : ToggleStateClassHack
+{
+	actionName = "QuickHackToggleOpen";
+	fk< InteractionBase > objectActionUI = "Interactions.HackOpen";
+}
+
+QuickHackCallElevator : ToggleStateClassHack
+{
+	actionName = "QuickHackCallElevator";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackCallElevator";
+}
+
+QuickHackAuthorization : OverrideAuthorizationClassHack
+{
+	actionName = "QuickHackAuthorization";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackAuthorization";
+}
+
+DetonateC4 : ObjectAction
+{
+	actionName = "DetonateC4";
+	fk< InteractionBase > objectActionUI = "Interactions.DetonateC4";
+}
+
+QuickHackDistractExplosive : MalfunctionClassHack
+{
+	actionName = "QuickHackDistractExplosive";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackDistractExplosive";
+}
+
+QuickHackExplodeExplosive : OverloadClassHack
+{
+	actionName = "QuickHackExplodeExplosive";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackExplodeExplosive";
+}
+
+ToggleTiltBlinders : ObjectAction
+{
+	actionName = "ToggleTiltBlinders";
+	fk< InteractionBase > objectActionUI = "Interactions.TiltBlindersOpen";
+}
+
+ToggleAlarm : ObjectAction
+{
+	actionName = "ToggleAlarm";
+	fk< InteractionBase > objectActionUI = "Interactions.StartAlarm";
+}
+
+ToggleActivation : ObjectAction
+{
+	actionName = "ToggleActivation";
+	fk< InteractionBase > objectActionUI = "Interactions.Activate";
+}
+
+FactQuickHack : DataExtractionClassHack
+{
+	actionName = "FactQuickHack";
+	fk< InteractionBase > objectActionUI = "Interactions.DownloadData";
+}
+
+InstallKeylogger : DataExtractionClassHack
+{
+	actionName = "InstallKeylogger";
+	fk< InteractionBase > objectActionUI = "Interactions.InstallKeylogger";
+}
+
+ToggleBlockade : ObjectAction
+{
+	actionName = "ToggleBlockade";
+	fk< InteractionBase > objectActionUI = "Interactions.RaiseBlockade";
+}
+
+CustomDeviceAction : ObjectAction
+{
+	actionName = "CustomDeviceAction";
+	fk< InteractionBase > objectActionUI = "Interactions.QuickHackDistraction";
+}
+
+ToggleON : ObjectAction
+{
+	actionName = "ToggleON";
+	fk< InteractionBase > objectActionUI = "Interactions.On";
+}
+
+TogglePower : ObjectAction
+{
+	actionName = "TogglePower";
+	fk< InteractionBase > objectActionUI = "Interactions.Power";
+}
+
+PlayDeafeningMusic : MalfunctionClassHack
+{
+	actionName = "PlayDeafeningMusic";
+	fk< InteractionBase > objectActionUI = "Interactions.HackVolume";
+}
+
+ChestPressWeightHack : OverloadClassHack
+{
+	actionName = "ChestPressWeightHack";
+	fk< InteractionBase > objectActionUI = "Interactions.ChestPressWeightHack";
+}
+
+QuickHackToggleBlockade : ToggleStateClassHack
+{
+	actionName = "QuickHackToggleBlockade";
+	fk< InteractionBase > objectActionUI = "Interactions.RaiseBlockade";
+}
+
+ToggleGlassTintHack : ObjectAction
+{
+	actionName = "ToggleGlassTintHack";
+	fk< InteractionBase > objectActionUI = "Interactions.TintGlass";
+}
+
+QuickHackToggleActivate : ToggleStateClassHack
+{
+	actionName = "QuickHackToggleActivate";
+	fk< InteractionBase > objectActionUI = "Interactions.ToggleActivate";
+}
+
+OverloadDevice : OverloadClassHack
+{
+	actionName = "OverloadDevice";
+	fk< InteractionBase > objectActionUI = "Interactions.OverloadHack";
+}
+
+RemoteBreach : DeviceQuickHack
+{
+	actionName = "RemoteBreach";
+	fk< IPrereq >[] instigatorPrereqs += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.RemoteBreachCooldown";
+		} : StatusEffectAbsentPrereq
+	];
+	gameplayCategory = "ActionCategories.TakeControl";
+	fk< InteractionBase > objectActionUI = "Interactions.RemoteBreach";
+	costs = [];
+	targetActivePrereqs = 
+	[
+		"Prereqs.NetworkNotBreachedActive", "Prereqs.ConnectedToBackdoorActive"
+	];
+	activationTime = [];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.RemoteBreachCooldown";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+	rewards = [];
+}
+
+PingDevice : DeviceQuickHack
+{
+	actionName = "Ping";
+	gameplayCategory = "ActionCategories.Ping";
+	fk< InteractionBase > objectActionUI = "Interactions.PingHack";
+	targetActivePrereqs = 
+	[
+		"Prereqs.ConnectedToBackdoorActive"
+	];
+	activationTime += 
+	[
+		{
+			statType = "BaseStats.QuickHackUpload";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HackingTutorialStage01PingUsed";
+			recipient = "ObjectActionReference.Instigator";
+		}, 
+		{
+			statusEffect = "BaseStatusEffect.Ping";
+			recipient = "ObjectActionReference.Target";
+		}
+	];
+}
+
+PingDeviceLvl2Hack : DeviceQuickHack
+{
+	actionName = "Ping";
+	priority = 2.f;
+	gameplayCategory = "ActionCategories.Ping";
+	fk< InteractionBase > objectActionUI = "Interactions.PingHack";
+	targetActivePrereqs = 
+	[
+		"Prereqs.ConnectedToBackdoorActive"
+	];
+	activationTime += 
+	[
+		{
+			statType = "BaseStats.QuickHackUpload";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HackingTutorialStage01PingUsed";
+			recipient = "ObjectActionReference.Instigator";
+		}, 
+		{
+			statusEffect = "BaseStatusEffect.Ping";
+			recipient = "ObjectActionReference.Target";
+		}
+	];
+}
+
+PingDeviceLvl3Hack : DeviceQuickHack
+{
+	actionName = "Ping";
+	priority = 3.f;
+	gameplayCategory = "ActionCategories.Ping";
+	fk< InteractionBase > objectActionUI = "Interactions.PingHack";
+	targetActivePrereqs = 
+	[
+		"Prereqs.ConnectedToBackdoorActive"
+	];
+	activationTime += 
+	[
+		{
+			statType = "BaseStats.QuickHackUpload";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HackingTutorialStage01PingUsed";
+			recipient = "ObjectActionReference.Instigator";
+		}, 
+		{
+			statusEffect = "BaseStatusEffect.Ping";
+			recipient = "ObjectActionReference.Target";
+		}
+	];
+}
+
+PingDeviceLvl4Hack : DeviceQuickHack
+{
+	actionName = "Ping";
+	priority = 4.f;
+	gameplayCategory = "ActionCategories.Ping";
+	fk< InteractionBase > objectActionUI = "Interactions.PingHack";
+	targetActivePrereqs = 
+	[
+		"Prereqs.ConnectedToBackdoorActive"
+	];
+	activationTime += 
+	[
+		{
+			statType = "BaseStats.QuickHackUpload";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HackingTutorialStage01PingUsed";
+			recipient = "ObjectActionReference.Instigator";
+		}, 
+		{
+			statusEffect = "BaseStatusEffect.PingLevel4";
+			recipient = "ObjectActionReference.Target";
+		}
+	];
+}
+
+PingDeviceTutorial : DeviceQuickHack
+{
+	actionName = "Ping";
+	priority = 99.f;
+	costs += 
+	[
+		{
+			costMods += 
+			[
+				{
+					value = 2;
+				} : QuickHack.MemoryMod
+			];
+		} : QuickHack.DeviceMemoryCost
+	];
+	gameplayCategory = "ActionCategories.Ping";
+	fk< InteractionBase > objectActionUI = "Interactions.PingHack";
+	targetActivePrereqs = 
+	[
+		"Prereqs.ConnectedToBackdoorActive"
+	];
+	fk< StatModifier >[] activationTime = [];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.HackingTutorialStage01PingUsed";
+			recipient = "ObjectActionReference.Instigator";
+		}, 
+		{
+			statusEffect = "BaseStatusEffect.Ping";
+			recipient = "ObjectActionReference.Target";
+		}
+	];
+}
+
+FrameSwitcher : ObjectAction
+{
+	actionName = "FrameSwitcher";
+	fk< InteractionBase > objectActionUI = "Interactions.FrameSwitcher";
+}
+

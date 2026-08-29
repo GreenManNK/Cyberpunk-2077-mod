@@ -1,0 +1,159 @@
+class PatchNotesGameController extends inkGameController
+{
+	private editable var m_notesContainerRef : inkCompoundRef;
+	private editable var m_patch20TitleContainerRef : inkWidgetRef;
+	private editable var m_patch21TitleContainerRef : inkWidgetRef;
+	private editable var m_patch22TitleContainerRef : inkWidgetRef;
+	private editable var m_patch23TitleContainerRef : inkWidgetRef;
+	private editable var m_itemLibraryName : CName;
+	default m_itemLibraryName = 'item';
+	private editable var m_introAnimationName : CName;
+	default m_introAnimationName = 'intro';
+	private editable var m_outroAnimationName : CName;
+	private editable var m_closeButtonRef : inkWidgetRef;
+	private var m_uiSystem : UISystem;
+	private var m_introAnimProxy : inkAnimProxy;
+	private var m_isInputBlocked : Bool;
+	default m_isInputBlocked = true;
+	private var m_data : PatchNotesPopupData;
+	private var m_requestHandler : weak< inkISystemRequestsHandler >;
+
+	protected event OnInitialize()
+	{
+		m_data = ( ( PatchNotesPopupData )( GetRootWidget().GetUserData( 'PatchNotesPopupData' ) ) );
+		m_requestHandler = GetSystemRequestsHandler();
+		PlaySound( 'GameMenu', 'OnOpen' );
+		RegisterToGlobalInputCallback( 'OnPreOnRelease', this, 'OnGlobalRelease' );
+		inkWidgetRef.RegisterToCallback( m_closeButtonRef, 'OnPress', this, 'OnPressClose' );
+		m_requestHandler.RegisterToCallback( 'OnAdditionalContentPurchaseResult', this, 'OnAdditionalContentPurchaseResult_PatchNotes' );
+		m_requestHandler.RegisterToCallback( 'OnAdditionalContentInstallationResult', this, 'OnAdditionalContentInstallationResult_PatchNotes' );
+		m_uiSystem = GameInstance.GetUISystem( GetPlayerControlledObject().GetGame() );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch1500_NextGen );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch1600 );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch2000 );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch2100 );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch2200 );
+		m_uiSystem.MarkPatchIntroAsSeen( gameuiPatchIntro.Patch2300 );
+		m_uiSystem.QueueMenuEvent( 'OnRequestPatchNotes' );
+		PlayAnimation( m_introAnimationName );
+		m_introAnimProxy.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnIntroAnimationFinished' );
+		PopulateNotesList();
+	}
+
+	protected event OnUninitialize()
+	{
+		UnregisterFromGlobalInputCallback( 'OnPostOnRelease', this, 'OnGlobalRelease' );
+		UnregisterFromGlobalInputCallback( 'OnPress', this, 'OnPressClose' );
+		m_requestHandler.UnregisterFromCallback( 'OnAdditionalContentPurchaseResult', this, 'OnAdditionalContentPurchaseResult_PatchNotes' );
+		m_requestHandler.UnregisterFromCallback( 'OnAdditionalContentInstallationResult', this, 'OnAdditionalContentInstallationResult_PatchNotes' );
+	}
+
+	private function PopulateNotesList()
+	{
+		inkCompoundRef.ReorderChild( m_notesContainerRef, inkWidgetRef.Get( m_patch23TitleContainerRef ), inkCompoundRef.GetNumChildren( m_notesContainerRef ) - 1 );
+		SpawnNote( 'UI-DLC-PatchNotes2300-AutodriveTitle', 'UI-DLC-PatchNotes2300-AutodriveDescription', '2_3_autodrive' );
+		SpawnNote( 'UI-DLC-PatchNotes2300-NewCarsTitle', 'UI-DLC-PatchNotes2300-NewCarsDescription', '2_3_new_cars' );
+		SpawnNote( 'UI-DLC-PatchNotes2300-PhotomodeTitle', 'UI-DLC-PatchNotes2300-PhotomodeDescription', '2_3_photomode' );
+		inkCompoundRef.ReorderChild( m_notesContainerRef, inkWidgetRef.Get( m_patch22TitleContainerRef ), inkCompoundRef.GetNumChildren( m_notesContainerRef ) - 1 );
+		SpawnNote( 'UI-DLC-PatchNotes2200-YourStyleTitle', 'UI-DLC-PatchNotes2200-YourStyleDescription', '2_2_your_style' );
+		SpawnNote( 'UI-DLC-PatchNotes2200-PhotomodeTitle', 'UI-DLC-PatchNotes2200-PhotomodeDescription', '2_2_photomode' );
+		SpawnNote( 'UI-DLC-PatchNotes2200-YourRideTitle', 'UI-DLC-PatchNotes2200-YourRideDescription', '2_2_your_ride' );
+		inkCompoundRef.ReorderChild( m_notesContainerRef, inkWidgetRef.Get( m_patch21TitleContainerRef ), inkCompoundRef.GetNumChildren( m_notesContainerRef ) - 1 );
+		SpawnNote( 'UI-DLC-PatchNotes2100-HangoutsTitle', 'UI-DLC-PatchNotes2100-HangoutsDescription', '2_1_hangouts' );
+		SpawnNote( 'UI-DLC-PatchNotes2100-MetroTitle', 'UI-DLC-PatchNotes2100-MetroDescription', '2_1_metro' );
+		SpawnNote( 'UI-DLC-PatchNotes2100-RadioportTitle', 'UI-DLC-PatchNotes2100-RadioportDescription', '2_1_pocket_radio' );
+		inkCompoundRef.ReorderChild( m_notesContainerRef, inkWidgetRef.Get( m_patch20TitleContainerRef ), inkCompoundRef.GetNumChildren( m_notesContainerRef ) - 1 );
+		SpawnNote( 'UI-DLC-PatchNotes2000-VehicleCombatTitle', 'UI-DLC-PatchNotes2000-VehicleCombatDescription', 'Police_Chase_Vehicle_Combat' );
+		SpawnNote( 'UI-DLC-PatchNotes2000-PoliceSystemTitle', 'UI-DLC-PatchNotes2000-PoliceSystemDescription', 'MaxTac' );
+		SpawnNote( 'UI-DLC-PatchNotes2000-PerksTitle', 'UI-DLC-PatchNotes2000-PerksDescription', 'Skill_and_perk' );
+		SpawnNote( 'UI-DLC-PatchNotes2000-CyberwareTitle', 'UI-DLC-PatchNotes2000-CyberwareDescription', 'Cyberware' );
+		SpawnNote( 'UI-DLC-PatchNotes2000-AiimprovementsTitle', 'UI-DLC-PatchNotes2000-AiimprovementsDescription', 'AI_improvements' );
+	}
+
+	private function Close()
+	{
+		var playbackOptions : inkAnimOptions;
+		PlaySound( 'Button', 'OnPress' );
+		PlaySound( 'GameMenu', 'OnClose' );
+		if( m_outroAnimationName != '' )
+		{
+			PlayAnimation( m_outroAnimationName );
+		}
+		else
+		{
+			playbackOptions.playReversed = true;
+			PlayAnimation( m_introAnimationName, playbackOptions );
+		}
+		m_introAnimProxy.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnOutroAnimationFinished' );
+		m_isInputBlocked = true;
+	}
+
+	private function PlayAnimation( animationName : CName, optional playbackOptions : inkAnimOptions )
+	{
+		if( m_introAnimProxy && m_introAnimProxy.IsPlaying() )
+		{
+			m_introAnimProxy.Stop( true );
+		}
+		m_introAnimProxy = PlayLibraryAnimation( animationName, playbackOptions );
+	}
+
+	private function SpawnNote( title : CName, description : CName, imagePart : CName )
+	{
+		var widget : inkWidget;
+		var data : DlcDescriptionData;
+		var itemCtrl : weak< DlcDescriptionController >;
+		data = new DlcDescriptionData;
+		data.m_title = title;
+		data.m_description = description;
+		data.m_imagePart = imagePart;
+		widget = SpawnFromLocal( inkCompoundRef.Get( m_notesContainerRef ), m_itemLibraryName );
+		if( widget )
+		{
+			itemCtrl = ( ( DlcDescriptionController )( widget.GetController() ) );
+			itemCtrl.SetData( data );
+		}
+	}
+
+	protected event OnGlobalRelease( evt : inkPointerEvent )
+	{
+		if( !( m_isInputBlocked ) )
+		{
+			if( evt.IsAction( 'close_popup' ) )
+			{
+				PlaySound( 'Button', 'OnPress' );
+				Close();
+			}
+		}
+	}
+
+	protected event OnPressClose( evt : inkPointerEvent )
+	{
+		if( evt.IsAction( 'click' ) )
+		{
+			PlaySound( 'Button', 'OnPress' );
+			Close();
+		}
+	}
+
+	protected event OnIntroAnimationFinished( proxy : inkAnimProxy )
+	{
+		m_isInputBlocked = false;
+		m_introAnimProxy.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnIntroAnimationFinished' );
+	}
+
+	protected event OnOutroAnimationFinished( proxy : inkAnimProxy )
+	{
+		m_uiSystem.QueueMenuEvent( 'OnRequetClosePatchNotes' );
+		m_data.token.TriggerCallback( m_data );
+	}
+
+}
+
+class OpenPatchNotesPopupEvent extends Event
+{
+}
+
+class PatchNotesPopupData extends inkGameNotificationData
+{
+}
+

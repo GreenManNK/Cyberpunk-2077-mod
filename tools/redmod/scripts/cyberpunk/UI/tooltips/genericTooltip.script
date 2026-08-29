@@ -1,0 +1,124 @@
+abstract class AGenericTooltipController extends inkLogicController
+{
+	protected var m_Root : weak< inkCompoundWidget >;
+
+	protected event OnInitialize()
+	{
+		m_Root = GetRootCompoundWidget();
+	}
+
+	public virtual function SetStyle( styleResPath : ResRef ) {}
+
+	public virtual function Show()
+	{
+		m_Root.SetVisible( true );
+		m_Root.SetAffectsLayoutWhenHidden( true );
+	}
+
+	public virtual function Hide()
+	{
+		m_Root.SetVisible( false );
+		m_Root.SetAffectsLayoutWhenHidden( false );
+	}
+
+	public virtual function SetData( tooltipData : ATooltipData ) {}
+
+	public virtual function Refresh() {}
+
+	public virtual function PrespawnLazyModules() {}
+}
+
+abstract class AGenericTooltipControllerWithDebug extends AGenericTooltipController
+{
+	protected var DEBUG_showDebug : Bool;
+	protected var DEBUG_openInVSCode : Bool;
+	protected var DEBUG_openInVSCodeBlocked : Bool;
+
+	protected virtual function DEBUG_UpdateDebugInfo() {}
+
+	protected function OpenTweakDBRecordInVSCodeIfRequested( tdbID : TweakDBID )
+	{
+		if( DEBUG_openInVSCode && !( DEBUG_openInVSCodeBlocked ) )
+		{
+			TDBID.OpenRecordInVSCode( tdbID );
+			DEBUG_openInVSCodeBlocked = true;
+		}
+	}
+
+	protected event OnInitialize()
+	{
+		super.OnInitialize();
+		if( !( IsFinal() ) )
+		{
+			RegisterToGlobalInputCallback( 'OnPostOnPress', this, 'OnGlobalPress_DEBUG' );
+			RegisterToGlobalInputCallback( 'OnPostOnRelease', this, 'OnGlobalRelease_DEBUG' );
+		}
+	}
+
+	protected event OnUninitialize()
+	{
+		if( !( IsFinal() ) )
+		{
+			UnregisterFromGlobalInputCallback( 'OnPostOnPress', this, 'OnGlobalPress_DEBUG' );
+			UnregisterFromGlobalInputCallback( 'OnPostOnRelease', this, 'OnGlobalRelease_DEBUG' );
+		}
+	}
+
+	protected event OnGlobalPress_DEBUG( evt : inkPointerEvent )
+	{
+		DEBUG_showDebug = evt.IsShiftDown();
+		DEBUG_openInVSCode = evt.IsControlDown();
+		DEBUG_openInVSCodeBlocked = !( DEBUG_showDebug );
+		DEBUG_UpdateDebugInfo();
+	}
+
+	protected event OnGlobalRelease_DEBUG( evt : inkPointerEvent )
+	{
+		DEBUG_showDebug = false;
+		DEBUG_openInVSCode = false;
+		DEBUG_openInVSCodeBlocked = false;
+		DEBUG_UpdateDebugInfo();
+	}
+
+}
+
+abstract class ATooltipData extends IScriptable
+{
+}
+
+class IdentifiedWrappedTooltipData extends ATooltipData
+{
+	var m_identifier : CName;
+	var m_tooltipOwner : EntityID;
+	var m_data : ATooltipData;
+
+	public static function Make( identifier : CName, optional data : ATooltipData ) : IdentifiedWrappedTooltipData
+	{
+		var instance : IdentifiedWrappedTooltipData;
+		instance = new IdentifiedWrappedTooltipData;
+		instance.m_identifier = identifier;
+		instance.m_data = data;
+		return instance;
+	}
+
+}
+
+class UIInventoryItemTooltipWrapper extends ATooltipData
+{
+	var m_data : weak< UIInventoryItem >;
+	var m_displayContext : ItemDisplayContextData;
+	var m_overridePrice : Int32;
+	default m_overridePrice = -1;
+	var m_comparisonData : UIInventoryItemComparisonManager;
+
+	public static function Make( data : weak< UIInventoryItem >, displayContext : ItemDisplayContextData ) : UIInventoryItemTooltipWrapper
+	{
+		var instance : UIInventoryItemTooltipWrapper;
+		instance = new UIInventoryItemTooltipWrapper;
+		instance.m_data = data;
+		instance.m_displayContext = displayContext;
+		return instance;
+	}
+
+}
+

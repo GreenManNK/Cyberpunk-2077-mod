@@ -1,0 +1,71 @@
+Character.GR_militech_ranger1_ranged1_saratoga_ma:
+    $base: Character.militech_ranger1_ranged1_saratoga_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_ranger1_ranged1_lexington_ma:
+    $base: Character.militech_ranger1_ranged1_lexington_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_ranger2_ranged2_omaha_ma:
+    $base: Character.militech_ranger2_ranged2_omaha_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_ranger2_ranged2_ajax_ma:
+    $base: Character.militech_ranger2_ranged2_ajax_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_tech_grenadier2_omaha_ma_rare:
+    $base: Character.militech_tech_grenadier2_omaha_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_android_android2_ajax_ma:
+    $base: Character.militech_android_android2_ajax_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_android_android2_crusher_ma:
+    $base: Character.militech_android_android2_crusher_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_tech_franged2_omaha_ma_rare:
+    $base: Character.militech_tech_franged2_omaha_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_recon_sniper2_achilles_ma_rare:
+    $base: Character.militech_recon_sniper2_achilles_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_enforcer2_shotgun2_tactician_mah_rare:
+    $base: Character.militech_enforcer2_shotgun2_tactician_mah_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_soldier3_shotgun3_crusher_mah_elite:
+    $base: Character.militech_soldier3_shotgun3_crusher_mah_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_militech_enforcer3_gunner3_HMG_mb_elite:
+    $base: Character.militech_enforcer3_gunner3_HMG_mb_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat

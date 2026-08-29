@@ -1,0 +1,1026 @@
+package Vehicle
+using RTDB, BaseStats, Driving, Camera
+
+v_sport2_villefort_alvarado_hearse : v_sport2_villefort_alvarado
+{
+	entityTemplatePath = "ep1\vehicles\sport\v_sport2_villefort_alvarado__hearse_01.ent";
+	displayName = "LocKey#94013";
+	vehicleUIData = "Vehicle.VehicleVillefortAlvaradoHearseUIData";
+	twintoneModelName = "villefort.alvarado.hearse";
+	appearancesToColorTemplate = "Vehicle.VehicleVillefortAlvaradoHearseAppearancesToColorTemplate";
+	destroyedAppearance = "villefort_alvarado_hearse_01_basic_burnt_01";
+	destruction = "Vehicle.VehicleDestructionParamsAlvaradoHearse";
+	model = "Vehicle.Hearse";
+	player_audio_resource = "v_car_villefort_alvarado_wagon";
+	traffic_audio_resource = "v_car_villefort_alvarado_wagon_traffic";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.315f;
+			tireWidth = 0.29f;
+			wheelOffset = 0.05f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.34f;
+			tireWidth = 0.29f;
+			wheelOffset = 0.05f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Alvarado_Hearse";
+	vehDriver_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.07f;
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -3.3507, 0.2962 );
+	} : VehicleDriverFPPCameraParamsDefault;
+}
+
+VehicleDriveModelData_Alvarado_Hearse : VehicleDriveModelData_Alvarado
+{
+	center_of_mass_offset = ( 0.0f, 0.16f, 0.23f );
+	momentOfInertia = ( 7400.0f, 1170.0f, 8020.0f );
+	chassis_mass = 2404.0f;
+	total_mass = 2404.0f;
+}
+
+v_sport2_villefort_alvarado_hearse_poor : v_sport2_villefort_alvarado_hearse
+{
+	visualTags = 
+	[
+		"Poor"
+	];
+	randomPassengers = 
+	[
+		"Passengers.LowlifeDriverEntry", "Passengers.LowlifePassengerFrontEntry"
+	];
+}
+
+v_sport2_villefort_alvarado_hearse_premium : v_sport2_villefort_alvarado_hearse
+{
+	visualTags = 
+	[
+		"Premium"
+	];
+	randomPassengers = 
+	[
+		"Passengers.CorporatDriverEntry", "Passengers.CorporatPassengerFrontEntry"
+	];
+}
+
+VehicleDestructionParamsAlvaradoHearse : VehicleDestructionParamsDefault_4w
+{
+	chargePortCenter = ( -1.05772018f, -2.76122379f, 0.472473741f );
+	glass = 
+	[
+		{
+			component = "window_f_01";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				4, 5, 12, 13
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl_01";
+			effect = "damage_glass_fl_01";
+			gridCells = 
+			[
+				2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_fr_01";
+			effect = "damage_glass_fr_01";
+			gridCells = 
+			[
+				3, 11
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl_02";
+			effect = "damage_glass_bl_02";
+			gridCells = 
+			[
+				2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl_03";
+			effect = "damage_glass_bl_03";
+			gridCells = 
+			[
+				0, 2, 8, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_l_01";
+			effect = "damage_glass_l_01";
+			gridCells = 
+			[
+				0, 8
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br_02";
+			effect = "damage_glass_br_02";
+			gridCells = 
+			[
+				11, 3
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br_03";
+			effect = "damage_glass_br_03";
+			gridCells = 
+			[
+				1, 3, 9, 11
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_r_01";
+			effect = "damage_glass_r_01";
+			gridCells = 
+			[
+				1, 9
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "trunk_window_01";
+			effect = "damage_glass_b";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.1;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Trunk_a";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.6;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow"
+			];
+		}, 
+		{
+			name = "Trunk_b";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.6;
+			components = 
+			[
+				"trunk_b", "trunk_b_shadow"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"hood_a", "hood_a_shadow"
+			];
+		}, 
+		{
+			name = "license_plate";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.6;
+			components = 
+			[
+				"bumper_f_01", "bumper_f_shadow"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.6;
+			components = 
+			[
+				"bumper_hearse_b_01", "bumper_b_shadow", "bumper_b_01_lights", "license_plate"
+			];
+		}, 
+		{
+			name = "MirrorLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"mirror_fl"
+			];
+		}, 
+		{
+			name = "MirrorRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"mirror_fr"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.5;
+			components = 
+			[
+				"door_fl_a", "door_fl_shadow", "window_fl_01"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.5;
+			components = 
+			[
+				"door_fr_a", "door_fr_shadow", "window_fr_01"
+			];
+		}, 
+		{
+			name = "DoorBackLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.5;
+			components = 
+			[
+				"door_bl_a", "door_bl_shadow", "window_bl_02"
+			];
+		}, 
+		{
+			name = "DoorBackRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.5;
+			components = 
+			[
+				"door_br_a", "door_br_shadow", "window_br_02"
+			];
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_back_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "bumper_f_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3, 4, 5
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "diodes";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3, 4, 5
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_hearse_b_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_b";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3, 4
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						1, 2, 3, 4, 5, 6, 7, 9
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						13, 15, 16
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+}
+
+VehicleVillefortAlvaradoHearseAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_01"
+			];
+			matchingColorVariant = 
+			[
+				"poor_01"
+			];
+			mainColor = 
+			[
+				58, 89, 96
+			];
+			secondaryColor = 
+			[
+				117, 76, 69
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_02"
+			];
+			matchingColorVariant = 
+			[
+				"poor_02"
+			];
+			mainColor = 
+			[
+				164, 155, 144
+			];
+			secondaryColor = 
+			[
+				76, 73, 72
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_03"
+			];
+			matchingColorVariant = 
+			[
+				"poor_03"
+			];
+			mainColor = 
+			[
+				216, 211, 199
+			];
+			secondaryColor = 
+			[
+				81, 100, 85
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_04"
+			];
+			matchingColorVariant = 
+			[
+				"poor_04"
+			];
+			mainColor = 
+			[
+				135, 133, 120
+			];
+			secondaryColor = 
+			[
+				80, 76, 75
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_05"
+			];
+			matchingColorVariant = 
+			[
+				"poor_05"
+			];
+			mainColor = 
+			[
+				136, 122, 80
+			];
+			secondaryColor = 
+			[
+				72, 71, 69
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_06"
+			];
+			matchingColorVariant = 
+			[
+				"poor_06"
+			];
+			mainColor = 
+			[
+				109, 103, 97
+			];
+			secondaryColor = 
+			[
+				72, 70, 69
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_07"
+			];
+			matchingColorVariant = 
+			[
+				"poor_07"
+			];
+			mainColor = 
+			[
+				116, 101, 87
+			];
+			secondaryColor = 
+			[
+				163, 141, 118
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_08"
+			];
+			matchingColorVariant = 
+			[
+				"poor_08"
+			];
+			mainColor = 
+			[
+				60, 78, 104
+			];
+			secondaryColor = 
+			[
+				173, 150, 141
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_09"
+			];
+			matchingColorVariant = 
+			[
+				"poor_09"
+			];
+			mainColor = 
+			[
+				102, 60, 64
+			];
+			secondaryColor = 
+			[
+				86, 84, 80
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_poor_10"
+			];
+			matchingColorVariant = 
+			[
+				"poor_10"
+			];
+			mainColor = 
+			[
+				153, 89, 80
+			];
+			secondaryColor = 
+			[
+				63, 63, 61
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_02"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_02"
+			];
+			mainColor = 
+			[
+				223, 218, 206
+			];
+			secondaryColor = 
+			[
+				65, 67, 64
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_03"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_03"
+			];
+			mainColor = 
+			[
+				218, 168, 59
+			];
+			secondaryColor = 
+			[
+				70, 67, 67
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_04"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_04"
+			];
+			mainColor = 
+			[
+				69, 84, 61
+			];
+			secondaryColor = 
+			[
+				210, 142, 31
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_05"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_05"
+			];
+			mainColor = 
+			[
+				122, 177, 202
+			];
+			secondaryColor = 
+			[
+				49, 121, 126
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_06"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_06"
+			];
+			mainColor = 
+			[
+				29, 52, 114
+			];
+			secondaryColor = 
+			[
+				70, 67, 66
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_07"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_07"
+			];
+			mainColor = 
+			[
+				107, 82, 88
+			];
+			secondaryColor = 
+			[
+				71, 71, 67
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_01"
+			];
+			matchingColorVariant = 
+			[
+				"urban_01"
+			];
+			mainColor = 
+			[
+				205, 136, 21
+			];
+			secondaryColor = 
+			[
+				134, 72, 120
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_02"
+			];
+			matchingColorVariant = 
+			[
+				"urban_02"
+			];
+			mainColor = 
+			[
+				50, 121, 107
+			];
+			secondaryColor = 
+			[
+				228, 217, 187
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_03"
+			];
+			matchingColorVariant = 
+			[
+				"urban_03"
+			];
+			mainColor = 
+			[
+				33, 111, 125
+			];
+			secondaryColor = 
+			[
+				102, 87, 80
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_04"
+			];
+			matchingColorVariant = 
+			[
+				"urban_04"
+			];
+			mainColor = 
+			[
+				120, 124, 124
+			];
+			secondaryColor = 
+			[
+				169, 169, 159
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_05"
+			];
+			matchingColorVariant = 
+			[
+				"urban_05"
+			];
+			mainColor = 
+			[
+				107, 95, 88
+			];
+			secondaryColor = 
+			[
+				117, 89, 72
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_06"
+			];
+			matchingColorVariant = 
+			[
+				"urban_06"
+			];
+			mainColor = 
+			[
+				119, 100, 129
+			];
+			secondaryColor = 
+			[
+				150, 171, 159
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_07"
+			];
+			matchingColorVariant = 
+			[
+				"urban_07"
+			];
+			mainColor = 
+			[
+				181, 177, 19
+			];
+			secondaryColor = 
+			[
+				78, 67, 97
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_urban_08"
+			];
+			matchingColorVariant = 
+			[
+				"urban_08"
+			];
+			mainColor = 
+			[
+				100, 84, 70
+			];
+			secondaryColor = 
+			[
+				104, 83, 127
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_web_01"
+			];
+			matchingColorVariant = 
+			[
+				"web_01"
+			];
+			mainColor = 
+			[
+				99, 29, 42
+			];
+			secondaryColor = 
+			[
+				158, 155, 155
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"villefort_alvarado_hearse_01_basic_suburban_08"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_08"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_villefort_alvarado_hearse_01_basic_suburban_08";
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fl_b", "wheel_01_fr_a", "wheel_01_fr_b", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "ep1\vehicles\sport\v_sport1_villefort_alvarado\entities\meshes\textures\ml_v_sport2_villefort_alvarado_hearse__ext01_suburban_08.mlsetup";
+					customMlMask = "ep1\vehicles\sport\v_sport1_villefort_alvarado\entities\meshes\textures\ml_v_sport2_villefort_alvarado_hearse__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 1.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate
+	];
+}
+
+VehicleVillefortAlvaradoHearseUIData : VehicleDefaultUIData
+{
+	productionYear = "2044-2055";
+	driveLayout = "LocKey#45371";
+	horsepower = 407.0f;
+	mass = 2324.0f;
+	info = "LocKey#53541";
+}
+

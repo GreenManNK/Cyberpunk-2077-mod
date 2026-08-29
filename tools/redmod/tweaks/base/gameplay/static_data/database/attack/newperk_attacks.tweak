@@ -1,0 +1,42 @@
+package Attacks
+using RTDB, AttackModifier, BaseStatusEffect
+
+Reflexes_Right_Milestone_2_BaseDeflect : Bullet_GameEffect
+{
+	fk< StatModifier >[] statModifiers = [];
+	hitFlags += 
+	[
+		"WasBulletDeflected"
+	];
+	staminaCost = [];
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 2;
+}
+
+Reflexes_Right_Milestone_2_Deflect : Reflexes_Right_Milestone_2_BaseDeflect
+{
+	hitFlags += 
+	[
+		"ForceHeadshotMult10", "ForceWeakspotMult10"
+	];
+}
+
+Reflexes_Right_Milestone_2_ParryDeflect : Reflexes_Right_Milestone_2_BaseDeflect
+{
+	hitFlags += 
+	[
+		"CriticalHit", "ForceHeadshotMult25", "ForceWeakspotMult25"
+	];
+}
+
+Finisher_Fake_Attack : Attack_GameEffect
+{
+	effectName = "melee";
+	effectTag = "impact";
+	attackType = "AttackType.Direct";
+	hitFlags += 
+	[
+		"DealNoDamage", "FinisherTriggered"
+	];
+}
+

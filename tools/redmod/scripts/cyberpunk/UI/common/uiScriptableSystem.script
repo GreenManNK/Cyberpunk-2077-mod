@@ -1,0 +1,434 @@
+class UIScriptableSystem extends ScriptableSystem
+{
+	private persistent var m_backpackActiveSorting : Int32;
+	private persistent var m_backpackActiveFilter : Int32;
+	private persistent var m_isBackpackActiveFilterSaved : Bool;
+	private persistent var m_vendorPanelPlayerActiveSorting : Int32;
+	private persistent var m_vendorPanelVendorActiveSorting : Int32;
+	private persistent var m_playerFavouriteItems : array< ItemID >;
+	private persistent var m_newItems : array< ItemID >;
+	private persistent var m_DLCAddedItems : array< TweakDBID >;
+	private persistent var m_newWardrobeSets : array< gameWardrobeClothingSetIndex >;
+	private persistent var m_newWardrobeItems : array< ItemID >;
+	private persistent var m_availableCars : array< CName >;
+	private persistent var m_previousAttributeLevels : array< UIScriptableSystemAttributeLevel >;
+	private persistent var m_comparisionTooltipDisabled : Bool;
+	private var m_attachedPlayer : weak< PlayerPuppet >;
+	private var m_inventoryListenerCallback : UIScriptableInventoryListenerCallback;
+	private var m_inventoryListener : InventoryScriptListener;
+	private persistent var m_DEV_useNewTooltips : Bool;
+	private persistent var m_DEV_useLongScanTooltips : Bool;
+	default m_DEV_useLongScanTooltips = true;
+
+	private export override function OnAttach()
+	{
+		SetupInstance();
+	}
+
+	private export override function OnRestored( saveVersion : Int32, gameVersion : Int32 )
+	{
+		SetupInstance();
+	}
+
+	private export override function OnDetach()
+	{
+		GameInstance.GetTransactionSystem( m_attachedPlayer.GetGame() ).UnregisterInventoryListener( m_attachedPlayer, m_inventoryListener );
+		m_inventoryListener = NULL;
+	}
+
+	private function SetupInstance()
+	{
+		m_inventoryListenerCallback = new UIScriptableInventoryListenerCallback;
+	}
+
+	private export function OnPlayerAttach( request : PlayerAttachRequest )
+	{
+		if( m_attachedPlayer != NULL )
+		{
+			GameInstance.GetTransactionSystem( m_attachedPlayer.GetGame() ).UnregisterInventoryListener( m_attachedPlayer, m_inventoryListener );
+		}
+		m_attachedPlayer = ( ( PlayerPuppet )( request.owner ) );
+		m_inventoryListener = GameInstance.GetTransactionSystem( m_attachedPlayer.GetGame() ).RegisterInventoryListener( m_attachedPlayer, m_inventoryListenerCallback );
+		m_inventoryListenerCallback.AttachScriptableSystem( m_attachedPlayer.GetGame() );
+	}
+
+	public static function GetInstance( gameInstance : GameInstance ) : UIScriptableSystem
+	{
+		var system : UIScriptableSystem;
+		system = ( ( UIScriptableSystem )( GameInstance.GetScriptableSystemsContainer( gameInstance ).Get( 'UIScriptableSystem' ) ) );
+		return system;
+	}
+
+	private function OnSetBackpackSorting( request : UIScriptableSystemSetBackpackSorting )
+	{
+		m_backpackActiveSorting = request.sortMode;
+	}
+
+	private export function OnSetBackpackFilter( request : UIScriptableSystemSetBackpackFilter )
+	{
+		m_backpackActiveFilter = request.filterMode;
+		m_isBackpackActiveFilterSaved = true;
+	}
+
+	private function OnSetVendorPanelVendorSorting( request : UIScriptableSystemSetVendorPanelVendorSorting )
+	{
+		m_vendorPanelVendorActiveSorting = request.sortMode;
+	}
+
+	private function OnSetVendorPanelPlayerSorting( request : UIScriptableSystemSetVendorPanelPlayerSorting )
+	{
+		m_vendorPanelPlayerActiveSorting = request.sortMode;
+	}
+
+	private function OnComparisionTooltipDisabled( request : UIScriptableSystemSetComparisionTooltipDisabled )
+	{
+		m_comparisionTooltipDisabled = request.value;
+	}
+
+	private export function OnInventoryItemAdded( request : UIScriptableSystemInventoryAddItem )
+	{
+		if( !( m_newItems.Contains( request.itemID ) ) )
+		{
+			m_newItems.PushBack( request.itemID );
+		}
+	}
+
+	private export function OnInventoryItemRemoved( request : UIScriptableSystemInventoryRemoveItem )
+	{
+		if( m_newItems.Contains( request.itemID ) )
+		{
+			m_newItems.Remove( request.itemID );
+		}
+	}
+
+	private export function OnInventoryItemInspected( request : UIScriptableSystemInventoryInspectItem )
+	{
+		if( m_newItems.Contains( request.itemID ) )
+		{
+			m_newItems.Remove( request.itemID );
+		}
+	}
+
+	private function OnDLCAddedItemInspected( request : UIScriptableSystemDLCAddedItemInspected )
+	{
+		if( !( m_DLCAddedItems.Contains( request.itemTDBID ) ) )
+		{
+			m_DLCAddedItems.PushBack( request.itemTDBID );
+		}
+	}
+
+	private function OnWardrobeSetAdded( request : UIScriptableSystemWardrobeSetAdded )
+	{
+		if( !( m_newWardrobeSets.Contains( request.wardrobeSet ) ) )
+		{
+			m_newWardrobeSets.PushBack( request.wardrobeSet );
+		}
+	}
+
+	private function OnWardrobeSetInspected( request : UIScriptableSystemWardrobeSetInspected )
+	{
+		if( m_newWardrobeSets.Contains( request.wardrobeSet ) )
+		{
+			m_newWardrobeSets.Remove( request.wardrobeSet );
+		}
+	}
+
+	private function OnWardrobeItemAdded( request : UIScriptableSystemWardrobeAddItem )
+	{
+		if( !( m_newWardrobeItems.Contains( request.itemID ) ) )
+		{
+			m_newWardrobeItems.PushBack( request.itemID );
+		}
+	}
+
+	private function OnWardrobeItemInspected( request : UIScriptableSystemWardrobeInspectItem )
+	{
+		if( m_newWardrobeItems.Contains( request.itemID ) )
+		{
+			m_newWardrobeItems.Remove( request.itemID );
+		}
+	}
+
+	private function OnAvailableCarAdded( request : UIScriptableSystemAddAvailableCar )
+	{
+		if( !( m_availableCars.Contains( request.carFact ) ) )
+		{
+			m_availableCars.PushBack( request.carFact );
+		}
+	}
+
+	private function OnSetItemPlayerFavourite( request : UIScriptableSystemSetItemPlayerFavourite )
+	{
+		if( request.favourite )
+		{
+			if( !( m_playerFavouriteItems.Contains( request.itemID ) ) )
+			{
+				m_playerFavouriteItems.PushBack( request.itemID );
+			}
+		}
+		else
+		{
+			m_playerFavouriteItems.Remove( request.itemID );
+		}
+	}
+
+	private function OnSetPreviousAttributeLevel( request : UIScriptableSystemSetPreviousAttributeLevel )
+	{
+		var i, limit : Int32;
+		var set : Bool;
+		var attributeLevel : UIScriptableSystemAttributeLevel;
+		for( i = 0, limit = m_previousAttributeLevels.Size(); i < limit; i += 1 )
+		{
+			if( m_previousAttributeLevels[ i ].m_stat == request.stat )
+			{
+				m_previousAttributeLevels[ i ].m_level = request.level;
+				set = true;
+			}
+		}
+		if( !( set ) )
+		{
+			attributeLevel.m_stat = request.stat;
+			attributeLevel.m_level = request.level;
+			m_previousAttributeLevels.PushBack( attributeLevel );
+		}
+	}
+
+	private function On_DEV_ScriptableSystemUseNewTooltips( request : UI_DEV_ScriptableSystemUseNewTooltips )
+	{
+		m_DEV_useNewTooltips = request.value;
+	}
+
+	private function OnEnableScanLongDescription( request : ScanLongDescriptionCall )
+	{
+		m_DEV_useLongScanTooltips = request.isEnabled;
+	}
+
+	public const function GetBackpackActiveSorting( optional defaultValue : Int32 ) : Int32
+	{
+		if( m_backpackActiveSorting == 0 )
+		{
+			return defaultValue;
+		}
+		return m_backpackActiveSorting;
+	}
+
+	public const function GetBackpackActiveFilter( optional defaultValue : Int32 ) : Int32
+	{
+		if( !( m_isBackpackActiveFilterSaved ) )
+		{
+			return defaultValue;
+		}
+		return m_backpackActiveFilter;
+	}
+
+	public const function GetVendorPanelVendorActiveSorting( optional defaultValue : Int32 ) : Int32
+	{
+		if( m_vendorPanelVendorActiveSorting == 0 )
+		{
+			return defaultValue;
+		}
+		return m_vendorPanelVendorActiveSorting;
+	}
+
+	public const function GetVendorPanelPlayerActiveSorting( optional defaultValue : Int32 ) : Int32
+	{
+		if( m_vendorPanelPlayerActiveSorting == 0 )
+		{
+			return defaultValue;
+		}
+		return m_vendorPanelPlayerActiveSorting;
+	}
+
+	public const function IsInventoryItemNew( itemID : ItemID ) : Bool
+	{
+		return m_newItems.Contains( itemID );
+	}
+
+	public const function IsWardrobeSetNew( wardrobeSet : gameWardrobeClothingSetIndex ) : Bool
+	{
+		return m_newWardrobeSets.Contains( wardrobeSet );
+	}
+
+	public const function IsWardrobeItemNew( itemID : ItemID ) : Bool
+	{
+		return m_newWardrobeItems.Contains( itemID );
+	}
+
+	public const function IsAvailableCarNew( carFact : CName ) : Bool
+	{
+		return !( m_availableCars.Contains( carFact ) );
+	}
+
+	public const function IsDLCAddedActiveItem( itemTweakDBID : TweakDBID ) : Bool
+	{
+		return !( m_DLCAddedItems.Contains( itemTweakDBID ) );
+	}
+
+	public const function IsItemPlayerFavourite( itemID : ItemID ) : Bool
+	{
+		return m_playerFavouriteItems.Contains( itemID );
+	}
+
+	public const function GetPreviousAttributeLevel( stat : gamedataStatType ) : Int32
+	{
+		var i, limit : Int32;
+		for( i = 0, limit = m_previousAttributeLevels.Size(); i < limit; i += 1 )
+		{
+			if( m_previousAttributeLevels[ i ].m_stat == stat )
+			{
+				return m_previousAttributeLevels[ i ].m_level;
+			}
+		}
+		return -1;
+	}
+
+	public const function IsComparisionTooltipDisabled() : Bool
+	{
+		return m_comparisionTooltipDisabled;
+	}
+
+	public const function DEV_IsNewTooltipEnabled() : Bool
+	{
+		return m_DEV_useNewTooltips;
+	}
+
+	public const function DEV_IsScanLongTooltipEnabled() : Bool
+	{
+		return m_DEV_useLongScanTooltips;
+	}
+
+}
+
+class UIScriptableSystemSetBackpackSorting extends ScriptableSystemRequest
+{
+	var sortMode : Int32;
+}
+
+class UIScriptableSystemSetBackpackFilter extends ScriptableSystemRequest
+{
+	var filterMode : Int32;
+}
+
+class UIScriptableSystemSetVendorPanelVendorSorting extends ScriptableSystemRequest
+{
+	var sortMode : Int32;
+}
+
+class UIScriptableSystemSetVendorPanelPlayerSorting extends ScriptableSystemRequest
+{
+	var sortMode : Int32;
+}
+
+class UIScriptableSystemSetComparisionTooltipDisabled extends ScriptableSystemRequest
+{
+	var value : Bool;
+}
+
+class UIScriptableSystemInventoryAddItem extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+}
+
+class UIScriptableSystemInventoryRemoveItem extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+}
+
+class UIScriptableSystemInventoryInspectItem extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+}
+
+class UIScriptableSystemDLCAddedItemInspected extends ScriptableSystemRequest
+{
+	var itemTDBID : TweakDBID;
+}
+
+class UIScriptableSystemWardrobeSetAdded extends ScriptableSystemRequest
+{
+	var wardrobeSet : gameWardrobeClothingSetIndex;
+}
+
+class UIScriptableSystemWardrobeSetInspected extends ScriptableSystemRequest
+{
+	var wardrobeSet : gameWardrobeClothingSetIndex;
+}
+
+class UIScriptableSystemWardrobeAddItem extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+}
+
+class UIScriptableSystemWardrobeInspectItem extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+}
+
+class UIScriptableSystemAddAvailableCar extends ScriptableSystemRequest
+{
+	var carFact : CName;
+}
+
+class UIScriptableSystemSetItemPlayerFavourite extends ScriptableSystemRequest
+{
+	var itemID : ItemID;
+	var favourite : Bool;
+}
+
+class UIScriptableSystemSetPreviousAttributeLevel extends ScriptableSystemRequest
+{
+	var stat : gamedataStatType;
+	var level : Int32;
+}
+
+class UI_DEV_ScriptableSystemUseNewTooltips extends ScriptableSystemRequest
+{
+	var value : Bool;
+}
+
+class ScanLongDescriptionCall extends ScriptableSystemRequest
+{
+	var isEnabled : Bool;
+}
+
+class UIScriptableInventoryListenerCallback extends InventoryScriptCallback
+{
+	private var m_uiScriptableSystem : weak< UIScriptableSystem >;
+
+	public function AttachScriptableSystem( gameInstance : GameInstance )
+	{
+		m_uiScriptableSystem = UIScriptableSystem.GetInstance( gameInstance );
+	}
+
+	public export override function OnItemAdded( item : ItemID, itemData : weak< gameItemData >, flaggedAsSilent : Bool )
+	{
+		var request : UIScriptableSystemInventoryAddItem;
+		request = new UIScriptableSystemInventoryAddItem;
+		request.itemID = item;
+		m_uiScriptableSystem.QueueRequest( request );
+	}
+
+	public export override function OnItemRemoved( item : ItemID, difference : Int32, currentQuantity : Int32 )
+	{
+		var request : UIScriptableSystemInventoryRemoveItem;
+		request = new UIScriptableSystemInventoryRemoveItem;
+		request.itemID = item;
+		m_uiScriptableSystem.QueueRequest( request );
+	}
+
+	public override function OnItemExtracted( item : ItemID )
+	{
+		var request : UIScriptableSystemInventoryRemoveItem;
+		request = new UIScriptableSystemInventoryRemoveItem;
+		request.itemID = item;
+		m_uiScriptableSystem.QueueRequest( request );
+	}
+
+}
+
+struct UIScriptableSystemAttributeLevel
+{
+	var m_stat : gamedataStatType;
+	var m_level : Int32;
+}
+

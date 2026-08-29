@@ -1,0 +1,70 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Effectors
+
+[ notQueryable ]
+Preset_Silverhand_3516 : Base_Silverhand
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "silverhand_3516_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	displayName = "LocKey#40567";
+	visualTags = 
+	[
+		"Silverhand_Malorian"
+	];
+	CName[] tags += 
+	[
+		"BaseWeapon", "SkipActivityLog", "Quest", "IconicWeapon"
+	];
+	quality = "Quality.Random";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40568";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Silverhand_NPC_Data;
+	statModifierGroups += 
+	[
+		"Items.IconicQualityRandomization"
+	];
+	CName appearanceResourceName = "Preset_Silverhand_3516";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__malorian_silverhand__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__malorian_silverhand__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__malorian_silverhand__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__malorian_silverhand__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.Silverhand3516WeaponMod";
+		}
+	];
+}
+

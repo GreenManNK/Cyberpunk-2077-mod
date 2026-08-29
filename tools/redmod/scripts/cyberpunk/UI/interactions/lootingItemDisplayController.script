@@ -1,0 +1,182 @@
+class MinimalLootingListItemData
+{
+	var gameItemData : weak< gameItemData >;
+	var itemId : ItemID;
+	var itemName : String;
+	var itemCategoryName : String;
+	var itemType : gamedataItemType;
+	var equipmentArea : gamedataEquipmentArea;
+	var quality : gamedataQuality;
+	var isIconic : Bool;
+	var quantity : Int32;
+	var lootItemType : LootItemType;
+	var isQuestContainer : Bool;
+	var tweakDBID : TweakDBID;
+	var dpsDiff : Float;
+	var armorDiff : Float;
+	var qualityF : Float;
+	var comparedQualityF : Float;
+	default comparedQualityF = -1.0f;
+}
+
+class LootingListItemController extends inkLogicController
+{
+	protected editable var m_widgetWrapper : inkWidgetRef;
+	protected editable var m_itemName : inkTextRef;
+	protected editable var m_itemRarity : inkWidgetRef;
+	protected editable var m_iconicLines : inkWidgetRef;
+	protected editable var m_itemQuantity : inkTextRef;
+	protected editable var m_defaultIcon : inkWidgetRef;
+	protected editable var m_specialIcon : inkImageRef;
+	protected editable var m_comparisionArrow : inkImageRef;
+	protected editable var m_itemTypeIconWrapper : inkWidgetRef;
+	protected editable var m_itemTypeIcon : inkImageRef;
+	protected const editable var m_highlightFrames : array< inkWidgetRef >;
+	protected var m_tooltipData : InventoryTooltipData;
+	protected var m_lootingData : MinimalLootingListItemData;
+
+	protected event OnInitialize() {}
+
+	public virtual function Setup( lootingData : MinimalLootingListItemData, optional force : Bool )
+	{
+		if( ( m_lootingData != lootingData ) || force )
+		{
+			m_lootingData = lootingData;
+		}
+		RefreshUI();
+	}
+
+	public function SetData( data : MinimalLootingListItemData )
+	{
+		Setup( data, true );
+	}
+
+	public function SetData( data : MinimalLootingListItemData, isSelected : Bool )
+	{
+		Setup( data );
+		SetHighlighted( isSelected );
+	}
+
+	public function GetItemID() : ItemID
+	{
+		return m_lootingData.itemId;
+	}
+
+	public function SetComparedQualityF( valueF : Float )
+	{
+		m_lootingData.comparedQualityF = valueF;
+	}
+
+	protected virtual function RefreshUI()
+	{
+		UpdateItemName();
+		UpdateRarity();
+		UpdateQuantity();
+		UpdateLootIcon();
+		UpdateIcon();
+	}
+
+	protected virtual function UpdateIcon()
+	{
+		var iconName : CName;
+		iconName = UIItemsHelper.GetLootingShadowIcon( m_lootingData.tweakDBID, TDBID.None(), m_lootingData.itemType, m_lootingData.equipmentArea );
+		if( IsNameValid( iconName ) && iconName != 'UIIcon.LootingShadow_Default' )
+		{
+			inkWidgetRef.SetVisible( m_itemTypeIconWrapper, true );
+			InkImageUtils.RequestSetImage( this, m_itemTypeIcon, iconName );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemTypeIconWrapper, false );
+		}
+	}
+
+	protected virtual function UpdateItemName()
+	{
+		if( inkTextRef.Get( m_itemName ) )
+		{
+			inkTextRef.SetText( m_itemName, m_lootingData.itemName );
+		}
+	}
+
+	protected virtual function UpdateRarity()
+	{
+		var qualityName : CName;
+		qualityName = UIItemsHelper.QualityEnumToName( m_lootingData.quality );
+		inkWidgetRef.SetVisible( m_itemRarity, m_lootingData.quality != gamedataQuality.Invalid );
+		inkWidgetRef.SetState( m_itemRarity, ( ( m_lootingData.isIconic ) ? ( 'Iconic' ) : ( qualityName ) ) );
+		inkWidgetRef.SetVisible( m_iconicLines, m_lootingData.isIconic );
+	}
+
+	protected virtual function UpdateQuantity()
+	{
+		var displayQuantityText : Bool;
+		var quantityText : String;
+		displayQuantityText = false;
+		if( m_lootingData )
+		{
+			if( ( m_lootingData.quantity > 0 ) || m_lootingData.itemType == gamedataItemType.Con_Ammo )
+			{
+				quantityText = ( ( m_lootingData.quantity > 9999 ) ? ( "9999+" ) : ( IntToString( m_lootingData.quantity ) ) );
+				inkTextRef.SetText( m_itemQuantity, quantityText );
+				displayQuantityText = true;
+			}
+			if( m_lootingData.equipmentArea == gamedataEquipmentArea.Weapon )
+			{
+				displayQuantityText = false;
+			}
+		}
+		inkTextRef.SetVisible( m_itemQuantity, displayQuantityText );
+	}
+
+	protected virtual function UpdateLootIcon()
+	{
+		inkWidgetRef.SetVisible( m_defaultIcon, true );
+		if( m_lootingData.lootItemType == LootItemType.Default )
+		{
+			inkImageRef.SetVisible( m_comparisionArrow, false );
+			inkImageRef.SetVisible( m_specialIcon, false );
+			if( m_lootingData.comparedQualityF >= 0.0 )
+			{
+				if( !( FloatIsEqual( m_lootingData.qualityF, m_lootingData.comparedQualityF ) ) )
+				{
+					inkWidgetRef.SetVisible( m_defaultIcon, false );
+					if( m_lootingData.qualityF > m_lootingData.comparedQualityF )
+					{
+						inkImageRef.SetVisible( m_comparisionArrow, true );
+						inkImageRef.SetState( m_comparisionArrow, 'Better' );
+						inkImageRef.SetRotation( m_comparisionArrow, 0.0 );
+					}
+					else
+					{
+						inkImageRef.SetVisible( m_comparisionArrow, true );
+						inkImageRef.SetState( m_comparisionArrow, 'Worse' );
+						inkImageRef.SetRotation( m_comparisionArrow, 180.0 );
+					}
+				}
+			}
+		}
+		else
+		{
+			inkImageRef.SetVisible( m_comparisionArrow, false );
+			inkImageRef.SetVisible( m_specialIcon, m_lootingData.isQuestContainer );
+			if( m_lootingData.lootItemType == LootItemType.Quest )
+			{
+				inkWidgetRef.SetVisible( m_defaultIcon, false );
+				inkImageRef.SetVisible( m_specialIcon, true );
+				inkImageRef.SetTexturePart( m_specialIcon, 'quest' );
+			}
+		}
+	}
+
+	public virtual function SetHighlighted( value : Bool )
+	{
+		var i : Int32;
+		for( i = 0; i < m_highlightFrames.Size(); i += 1 )
+		{
+			inkWidgetRef.SetVisible( m_highlightFrames[ i ], value );
+		}
+	}
+
+}
+

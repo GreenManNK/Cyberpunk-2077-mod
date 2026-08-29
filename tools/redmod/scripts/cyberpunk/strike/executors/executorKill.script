@@ -1,0 +1,20 @@
+class StrikeExecutor_Kill extends EffectExecutor_Scripted
+{
+
+	public function Process( ctx : EffectScriptContext, applierCtx : EffectExecutionScriptContext ) : Bool
+	{
+		var puppet : ScriptedPuppet;
+		puppet = ( ( ScriptedPuppet )( EffectExecutionScriptContext.GetTarget( applierCtx ) ) );
+		if( puppet )
+		{
+			puppet.Kill();
+			return true;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+}
+

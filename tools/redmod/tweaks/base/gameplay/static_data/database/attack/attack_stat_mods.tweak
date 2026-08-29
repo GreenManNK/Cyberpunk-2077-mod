@@ -1,0 +1,366 @@
+package AttackModifier
+using RTDB
+
+AlliedDamage : CombinedStatModifier
+{
+	modifierType = "Additive";
+	refObject = "Owner";
+	opSymbol = "*";
+	value = 1.0f;
+}
+
+BaseBulletExplosionDamage : AlliedDamage
+{
+	statType = "BaseStats.PhysicalDamage";
+	refStat = "BaseStats.DamagePerHit";
+}
+
+BaseAlliedDamage : AlliedDamage
+{
+	statType = "BaseStats.PhysicalDamage";
+	refStat = "BaseStats.BaseDamage";
+}
+
+PhysicalAlliedDamage : AlliedDamage
+{
+	statType = "BaseStats.PhysicalDamage";
+	refStat = "BaseStats.PhysicalDamage";
+}
+
+ThermalAlliedDamage : AlliedDamage
+{
+	statType = "BaseStats.ThermalDamage";
+	refStat = "BaseStats.ThermalDamage";
+}
+
+ElectricAlliedDamage : AlliedDamage
+{
+	statType = "BaseStats.ElectricDamage";
+	refStat = "BaseStats.ElectricDamage";
+}
+
+ChemicalAlliedDamage : AlliedDamage
+{
+	statType = "BaseStats.ChemicalDamage";
+	refStat = "BaseStats.ChemicalDamage";
+}
+
+EnemyDamage : CombinedStatModifier
+{
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 1.0f;
+}
+
+PhysicalEnemyDamage : EnemyDamage
+{
+	statType = "BaseStats.PhysicalDamage";
+}
+
+ThermalEnemyDamage : EnemyDamage
+{
+	statType = "BaseStats.ThermalDamage";
+}
+
+ElectricEnemyDamage : EnemyDamage
+{
+	statType = "BaseStats.ElectricDamage";
+}
+
+ChemicalEnemyDamage : EnemyDamage
+{
+	statType = "BaseStats.ChemicalDamage";
+}
+
+OneShotKillDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	opSymbol = "*";
+	refStat = "BaseStats.Health";
+	refObject = "Target";
+	value = 100;
+}
+
+OverloadQuickHackAttackMod : CombinedStatModifier
+{
+	statType = "BaseStats.ElectricDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.Health";
+	opSymbol = "*";
+	refObject = "Target";
+}
+
+OverheatQuickHackAttackMod : CombinedStatModifier
+{
+	statType = "BaseStats.ThermalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.Health";
+	opSymbol = "*";
+	refObject = "Target";
+}
+
+BrainMeltQuickHackAttackMod : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.Health";
+	opSymbol = "*";
+	refObject = "Target";
+}
+
+MinTBHModifier_Curve : CurveStatModifier
+{
+	modifierType = "Additive";
+	statType = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+	id = "puppet_accuracy";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Root";
+}
+
+MinTBHModifier : ConstantStatModifier
+{
+	modifierType = "Additive";
+	statType = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+}
+
+AssaultRifleMinTBH : MinTBHModifier_Curve
+{
+	column = "assault_rifle_tbh_multcoef";
+}
+
+HandgunMinTBH : MinTBHModifier_Curve
+{
+	column = "handgun_tbh_multcoef";
+}
+
+HMGMinTBH : MinTBHModifier_Curve
+{
+	column = "hmg_tbh_multcoef";
+}
+
+LMGMinTBH : MinTBHModifier_Curve
+{
+	column = "lmg_tbh_multcoef";
+}
+
+PrecisionRifleMinTBH : MinTBHModifier_Curve
+{
+	column = "precision_rifle_tbh_multcoef";
+}
+
+RevolverMinTBH : MinTBHModifier_Curve
+{
+	column = "revolver_tbh_multcoef";
+}
+
+ShotgunMinTBH : CombinedStatModifier
+{
+	statType = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+	modifierType = "Additive";
+	refStat = "BaseStats.CycleTime";
+	opSymbol = "*";
+	value = 1.f;
+}
+
+DualShotgunMinTBH : ShotgunMinTBH
+{
+}
+
+SMGMinTBH : MinTBHModifier_Curve
+{
+	column = "smg_tbh_multcoef";
+}
+
+SniperRifleMinTBH : MinTBHModifier_Curve
+{
+	column = "sniper_tbh_multcoef";
+}
+
+MinotaurHGMMinTBH : MinTBHModifier
+{
+	value = 0.2;
+}
+
+ChopperMinTBH : MinTBHModifier
+{
+	value = 0.17;
+}
+
+TurretMinTBH : HMGMinTBH
+{
+}
+
+SniperRifleNPCDamageMultiplier : ConstantStatModifier
+{
+	statType = "BaseStats.NPCDamage";
+	modifierType = "Multiplier";
+	value = 1.f;
+}
+
+ShotgunNPCDamageMultiplier : ConstantStatModifier
+{
+	statType = "BaseStats.NPCDamage";
+	modifierType = "Multiplier";
+	value = 2.2f;
+}
+
+DualShotgunNPCDamageMultiplier : ConstantStatModifier
+{
+	statType = "BaseStats.NPCDamage";
+	modifierType = "Multiplier";
+	value = 2.5f;
+}
+
+HMGDamageMultiplier : ConstantStatModifier
+{
+	statType = "BaseStats.DPS";
+	modifierType = "Multiplier";
+	value = 2.5f;
+}
+
+SmartGunTBHModifier : MinTBHModifier
+{
+	modifierType = "Multiplier";
+	value = 0.2;
+}
+
+MinLineOfSightTimeModifier : CurveStatModifier
+{
+	modifierType = "Additive";
+	statType = "BaseStats.TBHsMinimumLineOfSightTime";
+	id = "puppet_accuracy";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Root";
+}
+
+AssaultRifleMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "assault_rifle_tbh_lineofsight";
+}
+
+HandgunMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "handgun_tbh_lineofsight";
+}
+
+HMGMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "hmg_tbh_lineofsight";
+}
+
+LMGMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "lmg_tbh_lineofsight";
+}
+
+PrecisionRifleMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "precision_rifle_tbh_lineofsight";
+}
+
+RevolverMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "revolver_tbh_lineofsight";
+}
+
+SMGMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "smg_tbh_lineofsight";
+}
+
+SniperRifleMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "sniper_tbh_lineofsight";
+}
+
+ShotgunMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "shotgun_tbh_lineofsight";
+}
+
+DualShotgunMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "dual_shotgun_tbh_lineofsight";
+}
+
+TurretMinLineOfSight : MinLineOfSightTimeModifier
+{
+	column = "turret_tbh_lineofsight";
+}
+
+SmartWeaponDPSReduction : ConstantStatModifier
+{
+	statType = "BaseStats.DPS";
+	modifierType = "Multiplier";
+	value = 0.8;
+}
+
+TechWeaponDPSReduction : ConstantStatModifier
+{
+	statType = "BaseStats.DPS";
+	modifierType = "Multiplier";
+	value = 0.9;
+}
+
+NPCAttacksPerSecondFactor : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Multiplier";
+	refStat = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+	opSymbol = "*";
+	refObject = "Root";
+	value = 1;
+}
+
+WeaponNegativeArmorPenetration : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = -0.5f;
+}
+
+WeaponLowNegativeArmorPenetration : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = -0.25f;
+}
+
+WeaponArmorPenetrationLow : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = 0.25f;
+}
+
+WeaponArmorPenetrationMedium : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = 0.5f;
+}
+
+WeaponArmorPenetrationHigh : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = 0.75f;
+}
+
+WeaponArmorPenetrationVeryHigh : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = 0.9f;
+}
+
+WeaponArmorPenetrationFull : ConstantStatModifier
+{
+	statType = "BaseStats.CanWeaponIgnoreArmor";
+	modifierType = "Additive";
+	value = 1.f;
+}
+

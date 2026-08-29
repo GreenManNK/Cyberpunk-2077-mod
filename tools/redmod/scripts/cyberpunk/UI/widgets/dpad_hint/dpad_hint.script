@@ -1,0 +1,363 @@
+enum EUIActionState
+{
+	Invalid = 0,
+	DEFAULT = 1,
+	STARTED = 2,
+	COMPLETED = 3,
+	ABORTED = 4,
+}
+
+class DPADActionPerformed extends Event
+{
+	var ownerID : EntityID;
+	var state : EUIActionState;
+	var stateInt : Int32;
+	var action : EHotkey;
+	var successful : Bool;
+}
+
+class HotkeyRadioStatusListener extends ScriptStatusEffectListener
+{
+	var m_radioWidgetController : weak< HotkeyConsumableWidgetController >;
+
+	public function Init( radioWidgetController : weak< HotkeyConsumableWidgetController > )
+	{
+		m_radioWidgetController = radioWidgetController;
+	}
+
+	public export virtual function OnStatusEffectApplied( statusEffect : weak< StatusEffect_Record > )
+	{
+		m_radioWidgetController.RefreshStatusEffect();
+	}
+
+	public export virtual function OnStatusEffectRemoved( statusEffect : weak< StatusEffect_Record > )
+	{
+		m_radioWidgetController.RefreshStatusEffect();
+	}
+
+}
+
+class HotkeyCustomRadioWidgetController extends gameuiNewPhoneRelatedHUDGameController
+{
+	private editable var m_radioSlot : inkCompoundRef;
+	private editable var m_DpadHintLibraryPath : inkWidgetLibraryReference;
+
+	protected event OnInitialize()
+	{
+		SpawnFromExternal( inkCompoundRef.Get( m_radioSlot ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'radio' );
+	}
+
+}
+
+class HotkeyConsumableWidgetController extends gameuiNewPhoneRelatedHUDGameController
+{
+	private editable var m_radioSlot : inkCompoundRef;
+	private editable var m_vehicleCustomizationSlot : inkCompoundRef;
+	private editable var m_autodriveSlot : inkCompoundRef;
+	private editable var m_container : inkCompoundRef;
+	private editable var m_DpadHintLibraryPath : inkWidgetLibraryReference;
+	private editable var m_autodriveLibraryPath : inkWidgetLibraryReference;
+	private var m_IsInDriverCombat : Bool;
+	private var m_IsPoliceVehicle : Bool;
+	private var m_isRadioBlocked : Bool;
+	private var m_isInVehicleScene : Bool;
+	private var m_isQuestBlocked : Bool;
+	private var m_carHudListenerId : Uint32;
+	private var m_statusListener : HotkeyRadioStatusListener;
+	private var m_PlayerEnteredVehicleListener : CallbackHandle;
+	private var m_autodriveToggledListener : CallbackHandle;
+	private var m_containerAnimProxy : inkAnimProxy;
+	private var m_containerVisibility : Bool;
+	default m_containerVisibility = true;
+
+	protected event OnInitialize()
+	{
+		SpawnFromExternal( inkCompoundRef.Get( m_radioSlot ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'radio' );
+		SpawnFromExternal( inkCompoundRef.Get( m_vehicleCustomizationSlot ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'vehicleVisualCustomization' );
+		SpawnFromExternal( inkCompoundRef.Get( m_autodriveSlot ), inkWidgetLibraryResource.GetPath( m_autodriveLibraryPath.widgetLibrary ), 'Root' );
+		SpawnFromExternal( inkCompoundRef.Get( m_container ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'consumable' );
+		SpawnFromExternal( inkCompoundRef.Get( m_container ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'gadgetVehicle' );
+		SpawnFromExternal( inkCompoundRef.Get( m_container ), inkWidgetLibraryResource.GetPath( m_DpadHintLibraryPath.widgetLibrary ), 'cyberware' );
+	}
+
+	protected event OnPlayerAttach( player : GameObject )
+	{
+		super.OnPlayerAttach( player );
+		SetContainerVisibility( true, true );
+		RegisterFactVisibilityListeners();
+		RegisterCarHudListener();
+		RegisterStatusEffectListeners();
+		RegisterBlackboardListeners();
+		RefreshInPoliceVehicle();
+		RefreshStatusEffect();
+		RefreshUnlockCarHud();
+		UpdateVisibility();
+	}
+
+	protected event OnPlayerDetach( player : GameObject )
+	{
+		UnregisterBlackboardListeners();
+		UnregisterCarHudListener();
+		UnregisterFactVisibilityListeners();
+		m_statusListener = NULL;
+	}
+
+	private function RegisterBlackboardListeners()
+	{
+		var psmBB : IBlackboard;
+		var autodriveBB : IBlackboard;
+		psmBB = GetPSMBlackboard( m_player );
+		autodriveBB = GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_AutodriveData );
+		m_PlayerEnteredVehicleListener = psmBB.RegisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle, this, 'OnPlayerEnteredVehicle', true );
+		m_autodriveToggledListener = autodriveBB.RegisterDelayedListenerBool( GetAllBlackboardDefs().UI_AutodriveData.AutoDriveEnabled, this, 'OnAutodriveToggled' );
+		SetContainerVisibility( !( autodriveBB.GetBool( GetAllBlackboardDefs().UI_AutodriveData.AutoDriveEnabled ) ), true );
+	}
+
+	private function RegisterCarHudListener()
+	{
+		m_carHudListenerId = GameInstance.GetQuestsSystem( m_player.GetGame() ).RegisterListener( 'unlock_car_hud_dpad', this, 'OnUnlockCarHud' );
+	}
+
+	protected event OnUnlockCarHud( value : Int32 )
+	{
+		RefreshUnlockCarHud();
+	}
+
+	protected event OnPlayerEnteredVehicle( val : Int32 )
+	{
+		RefreshInPoliceVehicle();
+	}
+
+	protected event OnAutodriveToggled( value : Bool )
+	{
+		SetContainerVisibility( !( value ), false );
+	}
+
+	private function SetContainerVisibility( visible : Bool, instant : Bool )
+	{
+		var progress : Float;
+		var params : inkAnimOptions;
+		if( visible == m_containerVisibility )
+		{
+			return;
+		}
+		m_containerVisibility = visible;
+		if( instant )
+		{
+			inkCompoundRef.SetVisible( m_container, visible );
+			return;
+		}
+		inkCompoundRef.SetVisible( m_container, true );
+		params.dependsOnTimeDilation = false;
+		if( m_containerAnimProxy.IsValid() && m_containerAnimProxy.IsPlaying() )
+		{
+			progress = 1.0 - m_containerAnimProxy.GetProgression();
+			m_containerAnimProxy.Stop();
+		}
+		m_containerAnimProxy = PlayLibraryAnimation( ( ( visible ) ? ( 'showContainer' ) : ( 'hideContainer' ) ), params );
+		m_containerAnimProxy.SetNormalizedPosition( progress, true );
+	}
+
+	private function RefreshInPoliceVehicle()
+	{
+		m_IsPoliceVehicle = m_player.IsInPoliceVehicle();
+		UpdateBlackboard();
+	}
+
+	public function RefreshUnlockCarHud()
+	{
+		m_isQuestBlocked = GameInstance.GetQuestsSystem( m_player.GetGame() ).GetFact( 'unlock_car_hud_dpad' ) == 0;
+		UpdateBlackboard();
+		UpdateVisibility();
+		ResolveRadioState();
+	}
+
+	private function RegisterStatusEffectListeners()
+	{
+		m_statusListener = new HotkeyRadioStatusListener;
+		m_statusListener.Init( this );
+		GameInstance.GetStatusEffectSystem( m_player.GetGame() ).RegisterListener( m_player.GetEntityID(), m_statusListener );
+	}
+
+	private function UnregisterCarHudListener()
+	{
+		GameInstance.GetQuestsSystem( m_player.GetGame() ).UnregisterListener( 'unlock_car_hud_dpad', m_carHudListenerId );
+	}
+
+	private function UnregisterBlackboardListeners()
+	{
+		var psmBB : weak< IBlackboard >;
+		if( m_PlayerEnteredVehicleListener )
+		{
+			psmBB = GetPSMBlackboard( m_player );
+			psmBB.UnregisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle, m_PlayerEnteredVehicleListener );
+		}
+		if( m_autodriveToggledListener )
+		{
+			GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_AutodriveData ).UnregisterListenerBool( GetAllBlackboardDefs().UI_AutodriveData.AutoDriveEnabled, m_autodriveToggledListener );
+		}
+	}
+
+	public function RefreshStatusEffect()
+	{
+		m_IsInDriverCombat = StatusEffectSystem.ObjectHasStatusEffect( m_player, T"BaseStatusEffect.DriverCombat" );
+		m_isRadioBlocked = StatusEffectSystem.ObjectHasStatusEffectWithTag( m_player, 'VehicleBlockRadioInput' );
+		m_isInVehicleScene = StatusEffectSystem.ObjectHasStatusEffectWithTag( m_player, 'VehicleScene' );
+		UpdateBlackboard();
+		UpdateRadioVisibility();
+		UpdateVisibility();
+		ResolveRadioState();
+	}
+
+	private function UpdateRadioVisibility()
+	{
+		inkCompoundRef.SetVisible( m_radioSlot, !( m_IsInDriverCombat ) );
+	}
+
+	protected function ResolveRadioState()
+	{
+		if( IsRadioEnabled() )
+		{
+			inkCompoundRef.SetState( m_radioSlot, 'Default' );
+		}
+		else
+		{
+			inkCompoundRef.SetState( m_radioSlot, 'Unavailable' );
+		}
+	}
+
+	private function IsRadioEnabled() : Bool
+	{
+		return ( ( ( !( m_IsInDriverCombat ) && !( m_IsPoliceVehicle ) ) && !( m_isRadioBlocked ) ) && !( m_isInVehicleScene ) ) && !( m_isQuestBlocked );
+	}
+
+	private function UpdateBlackboard()
+	{
+		GetUIBlackboard().SetBool( GetAllBlackboardDefs().UIGameData.Popup_Radio_Enabled, IsRadioEnabled() );
+	}
+
+}
+
+class HotkeysWidgetController extends gameuiNewPhoneRelatedHUDGameController
+{
+	private editable var m_phoneSlot : inkCompoundRef;
+	private editable var m_carSlot : inkCompoundRef;
+	private editable var m_radioSlot : inkCompoundRef;
+	private editable var m_dpadHintsPanel : inkCompoundRef;
+	private editable var m_phone : weak< inkWidget >;
+	private editable var m_car : weak< inkWidget >;
+	private editable var m_radio : weak< inkWidget >;
+	private editable var m_consumables : weak< inkWidget >;
+	private editable var m_gadgets : weak< inkWidget >;
+	private editable var m_cyberware : weak< inkWidget >;
+	private editable var m_leeroy : weak< inkWidget >;
+	private editable var m_timeBank : weak< inkWidget >;
+	private var m_berserkEnabledBBId : CallbackHandle;
+
+	protected event OnInitialize()
+	{
+		if( isNewPhoneEnabled )
+		{
+			m_car = SpawnFromLocal( inkCompoundRef.Get( m_carSlot ), 'vehicle' );
+			if( PocketRadio.ConfigEnablePocketRadio() )
+			{
+				m_radio = SpawnFromLocal( inkCompoundRef.Get( m_radioSlot ), 'radio' );
+			}
+			m_consumables = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'consumable' );
+			m_gadgets = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'gadget' );
+		}
+		else
+		{
+			m_phone = SpawnFromLocal( inkCompoundRef.Get( m_phoneSlot ), 'DPAD_DOWN' );
+			m_car = SpawnFromLocal( inkCompoundRef.Get( m_carSlot ), 'DPAD_RIGHT' );
+			m_consumables = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'DPAD_UP' );
+			m_gadgets = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'RB' );
+		}
+		m_cyberware = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'cyberware' );
+		m_leeroy = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'leeroy' );
+		m_timeBank = SpawnFromLocal( inkCompoundRef.Get( m_dpadHintsPanel ), 'timeBank' );
+		m_consumables.SetName( 'consumable' );
+		m_gadgets.SetName( 'gadget' );
+		m_cyberware.SetName( 'cyberware' );
+		m_leeroy.SetName( 'leeroy' );
+		m_timeBank.SetName( 'timeBank' );
+	}
+
+	protected event OnPlayerAttach( player : GameObject )
+	{
+		super.OnPlayerAttach( player );
+		RegisterFactVisibilityListeners();
+		RegisterBlackboardListeners();
+		UpdateVisibility();
+		HandleBerserkActive( StatusEffectSystem.ObjectHasStatusEffectWithTag( m_player, 'BerserkBuff' ) );
+	}
+
+	protected event OnPlayerDetach( player : GameObject )
+	{
+		UnregisterFactVisibilityListeners();
+		UnregisterBlackboardListeners();
+	}
+
+	private function RegisterBlackboardListeners()
+	{
+		var blackboardSystem : BlackboardSystem;
+		var uiGameBlackboard : weak< IBlackboard >;
+		blackboardSystem = GetBlackboardSystem();
+		uiGameBlackboard = blackboardSystem.Get( GetAllBlackboardDefs().UIGameData );
+		m_berserkEnabledBBId = uiGameBlackboard.RegisterDelayedListenerBool( GetAllBlackboardDefs().UIGameData.BerserkActive, this, 'OnBerserkActive' );
+		RegisterCommonBlackboardListeners();
+	}
+
+	private function UnregisterBlackboardListeners()
+	{
+		var blackboardSystem : BlackboardSystem;
+		var uiGameBlackboard : weak< IBlackboard >;
+		blackboardSystem = GetBlackboardSystem();
+		uiGameBlackboard = blackboardSystem.Get( GetAllBlackboardDefs().UIGameData );
+		if( m_berserkEnabledBBId )
+		{
+			uiGameBlackboard.UnregisterListenerBool( GetAllBlackboardDefs().UIGameData.BerserkActive, m_berserkEnabledBBId );
+		}
+		UnregisterCommonBlackboardListeners();
+	}
+
+	protected override function IsDerivedHUDVisible() : Bool
+	{
+		return !( m_isRemoteControllingVehicle ) || CanUseOverclock();
+	}
+
+	protected event OnBerserkActive( value : Bool )
+	{
+		HandleBerserkActive( value );
+	}
+
+	private function HandleBerserkActive( isBerserkActive : Bool )
+	{
+		if( isBerserkActive )
+		{
+			m_car.SetVisible( false );
+			m_radio.SetVisible( false );
+			m_consumables.SetVisible( false );
+			m_gadgets.SetVisible( false );
+		}
+		else
+		{
+			m_car.SetVisible( true );
+			m_radio.SetVisible( true );
+			SendBlackboardHotkeyUpdates();
+		}
+	}
+
+	private function SendBlackboardHotkeyUpdates()
+	{
+		var uiHotkeyBlackboard : weak< IBlackboard >;
+		uiHotkeyBlackboard = GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_Hotkeys );
+		if( uiHotkeyBlackboard )
+		{
+			uiHotkeyBlackboard.SetVariant( GetAllBlackboardDefs().UI_Hotkeys.ModifiedHotkey, EHotkey.DPAD_UP, true );
+			uiHotkeyBlackboard.SetVariant( GetAllBlackboardDefs().UI_Hotkeys.ModifiedHotkey, EHotkey.RB, true );
+		}
+	}
+
+}
+

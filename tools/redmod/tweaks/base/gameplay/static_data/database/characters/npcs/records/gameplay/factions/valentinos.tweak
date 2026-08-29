@@ -1,0 +1,1610 @@
+package Character
+using RTDB, BaseStats, Factions, Perks, Prereqs, ArchetypeType, ArchetypeData
+
+valentinos_base : Gameplay_NPC_Base
+{
+	reactionPreset = "ReactionPresets.Ganger_Aggressive";
+	baseAttitudeGroup = "valentinos";
+	actionMap = "Gang.Map";
+	fk< AISquadParams > squadParamsID = "FactionSquads.ValentinosSquad";
+	fk< Affiliation > affiliation = "Factions.Valentinos";
+	bountyDrawTable = "BountyDrawTable.Valentinos";
+	visualTags = 
+	[
+		"Valentinos"
+	];
+	isBumpable = true;
+	abilities += 
+	[
+		"Ability.CanUseIncendiaryGrenades", "Ability.IsBalanced"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			column = "valentinos";
+		} : FactionNPCRarityBonus
+	];
+	statModifierGroups += 
+	[
+	];
+	lootBagEntity = "valentinosDropBag";
+}
+
+valentinos_base_ma : valentinos_base
+{
+	[ EP1 ]
+	entityTemplatePath = "ep1\characters\entities\gang\gang__ep1_valentinos_ma.ent";
+}
+
+valentinos_base_wa : valentinos_base
+{
+	[ EP1 ]
+	entityTemplatePath = "ep1\characters\entities\gang\gang__ep1_valentinos_wa.ent";
+}
+
+valentinos_base_mb : valentinos_base
+{
+	visualTags += 
+	[
+		"Big"
+	];
+	[ EP1 ]
+	entityTemplatePath = "ep1\characters\entities\gang\gang__ep1_valentinos_mb.ent";
+}
+
+valentinos_grunt1_ranged1_nova_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22766";
+		} : ArchetypeType.GenericRangedT1;
+	} : ArchetypeData.GenericRangedT1;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT1";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt1_ranged1_nue_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22766";
+		} : ArchetypeType.GenericRangedT1;
+	} : ArchetypeData.GenericRangedT1;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT1";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt1_ranged1_nova_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22767";
+		} : ArchetypeType.GenericRangedT1;
+	} : ArchetypeData.GenericRangedT1;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT1";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt1_ranged1_nue_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22767";
+		} : ArchetypeType.GenericRangedT1;
+	} : ArchetypeData.GenericRangedT1;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT1";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_ajax_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosAssaultRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22771";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_rifle";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_ajax_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosAssaultRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22769";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_rifle";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_nue_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22771";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_sideArm";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_nue_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22769";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_sideArm";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_overture_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22771";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_sideArm";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_ranged2_overture_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22769";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.ValentinosGenericRangedGruntT2_sideArm";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt1_melee1_baseball_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Baseball_Bat_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42681";
+		} : ArchetypeType.GenericMeleeT1;
+	} : ArchetypeData.GenericMeleeT1;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT1_blunt";
+}
+
+valentinos_grunt1_melee1_baseball_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Baseball_Bat_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42682";
+		} : ArchetypeType.GenericMeleeT1;
+	} : ArchetypeData.GenericMeleeT1;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT1_blunt";
+}
+
+valentinos_grunt1_melee1_knife_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Punk_Knife_Pimp";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42681";
+		} : ArchetypeType.GenericMeleeT1;
+	} : ArchetypeData.GenericMeleeT1;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT1_blade";
+}
+
+valentinos_grunt1_melee1_knife_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Punk_Knife_Pimp";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42682";
+		} : ArchetypeType.GenericMeleeT1;
+	} : ArchetypeData.GenericMeleeT1;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT1_blade";
+}
+
+valentinos_grunt2_melee2_knife_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Punk_Knife_Pimp";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42683";
+		} : ArchetypeType.GenericMeleeT2;
+	} : ArchetypeData.GenericMeleeT2;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT2_knife";
+}
+
+valentinos_grunt2_melee2_knife_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Punk_Knife_Pimp";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42684";
+		} : ArchetypeType.GenericMeleeT2;
+	} : ArchetypeData.GenericMeleeT2;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT2_knife";
+}
+
+valentinos_grunt2_melee2_machete_ma : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42683";
+		} : ArchetypeType.GenericMeleeT2;
+	} : ArchetypeData.GenericMeleeT2;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT2_blade";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_grunt2_melee2_machete_wa : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl2"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42684";
+		} : ArchetypeType.GenericMeleeT2;
+	} : ArchetypeData.GenericMeleeT2;
+	lootDrop = "Loot.ValentinosGenericMeleeGruntT2_blade";
+	abilities += 
+	[
+		"Ability.DealsThermalDamage"
+	];
+}
+
+valentinos_strong2_shotgun2_igla_ma_rare : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Lvl2", "Strong"
+	];
+	rarity = "NPCRarity.Rare";
+	lootDrop = "Loot.ValentinosShotgunStrongT2";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42685";
+		} : ArchetypeType.FastShotgunnerT2;
+	} : ArchetypeData.FastShotgunnerT2;
+}
+
+valentinos_shotgun3_shotgun3_testera_ma_elite : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	lootDrop = "Loot.ValentinosShotgunShotgunT3";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22779";
+		} : ArchetypeType.FastShotgunnerT3;
+	} : ArchetypeData.FastShotgunnerT3;
+	rarity = "NPCRarity.Elite";
+	visualTags += 
+	[
+		"Lvl3", "Shotgun"
+	];
+}
+
+valentinos_grunt3_fmelee2_machete_ma_rare : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl3"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42686";
+		} : ArchetypeType.FastMeleeT2;
+	} : ArchetypeData.FastMeleeT2;
+	lootDrop = "Loot.ValentinosFastMeleeGruntT2_blade";
+}
+
+valentinos_grunt3_fmelee2_knife_ma_rare : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Punk_Knife_Pimp";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl3"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42686";
+		} : ArchetypeType.FastMeleeT2;
+	} : ArchetypeData.FastMeleeT2;
+	lootDrop = "Loot.ValentinosFastMeleeGruntT2_knife";
+}
+
+valentinos_grunt4_hmelee2_fists_mb_rare : valentinos_base_mb
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.NPC_Strong_Arms";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"StrongArms"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22773";
+		} : ArchetypeType.HeavyMeleeT2;
+	} : ArchetypeData.HeavyMeleeT2;
+	lootDrop = "Loot.ValentinosHeavyMeleeGruntT2_fist";
+	dropsWeaponOnDeath = false;
+}
+
+valentinos_grunt4_hmelee2_knife_mb_rare : valentinos_base_mb
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22773";
+		} : ArchetypeType.HeavyMeleeT2;
+	} : ArchetypeData.HeavyMeleeT2;
+	lootDrop = "Loot.ValentinosHeavyMeleeGruntT2_knife";
+}
+
+valentinos_machete_hmelee3_machete_mb_elite : valentinos_base_mb
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Valentinos";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Machete"
+	];
+	rarity = "NPCRarity.Elite";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22774";
+		} : ArchetypeType.HeavyMeleeT3;
+	} : ArchetypeData.HeavyMeleeT3;
+	lootDrop = "Loot.ValentinosHeavyMeleeMacheteT3";
+}
+
+valentinos_sniper_sniper3_grad_wa_elite : valentinos_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSniperRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	sensePreset = "Senses.SniperRelaxed50m";
+	relaxedSensesPreset = "SniperRelaxed50m";
+	alertedSensesPreset = "SniperAlerted50m";
+	combatSensesPreset = "SniperCombat50m";
+	visualTags += 
+	[
+		"Sniper"
+	];
+	rarity = "NPCRarity.Elite";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22782";
+		} : ArchetypeType.FastSniperT3;
+	} : ArchetypeData.FastSniperT3;
+	lootDrop = "Loot.ValentinosSniperSniperT3";
+}
+
+valentinos_elite2_ranged3_dual_ma_rare : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunDualPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Elite", "Lvl2"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = "ArchetypeData.GenericRangedT3";
+}
+
+valentinos_elite3_ranged3_dual_ma_elite : valentinos_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosPrimaryHandgunDualPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ValentinosSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Elite", "Lvl3"
+	];
+	rarity = "NPCRarity.Elite";
+	archetypeData = "ArchetypeData.FastRangedT3";
+}
+
+ValentinosPrimaryHandgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Liberty_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nova_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Quasar_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 10;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nue_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 17;
+			weight = 30;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Overture_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 33;
+			weight = 15;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Overture_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 33;
+			weight = 30;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+ValentinosPrimaryHandgunDualPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Unity_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem, 
+				{
+					item = "Items.Preset_Unity_Pimp_Left_Hand_2";
+					equipSlot = "AttachmentSlots.WeaponLeft";
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nue_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem, 
+				{
+					item = "Items.Preset_Nue_Pimp_Left_Hand_2";
+					equipSlot = "AttachmentSlots.WeaponLeft";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 17;
+			weight = 30;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+ValentinosSecondaryHandgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Liberty_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nova_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Quasar_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Overture_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nue_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+ValentinosAssaultRiflePool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Copperhead_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Sidewinder_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Kyubi_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 33;
+			weight = 3;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Ajax_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 17;
+			weight = 4;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+ValentinosShotgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Palica_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Igla_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Tactician_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 1;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Pozhar_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Zhuo_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 1;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+ValentinosSniperRiflePool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Grad_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Sor22_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nekomata_Pimp";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+					equipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.SniperPrimaryWeaponSniperUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+

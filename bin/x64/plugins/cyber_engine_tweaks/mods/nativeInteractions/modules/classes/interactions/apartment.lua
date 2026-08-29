@@ -35,6 +35,7 @@ local Cron = require("modules/utils/Cron")
 ---@field purchaseMappinID userdata
 ---@field apartmentMappinID userdata
 ---@field messageDelayCron number
+---@field purchaseJournalPath string
 local apartment = setmetatable({}, { __index = workspot })
 
 function apartment:new(mod, project)
@@ -54,6 +55,7 @@ function apartment:new(mod, project)
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.Home
+    o.needsUpdate = true
 
     o.maxBasePropertyWidth = nil
     o.maxTerminalPropertyWidth = nil
@@ -89,6 +91,7 @@ function apartment:new(mod, project)
     o.purchaseMappinID = nil
     o.apartmentMappinID = nil
     o.messageDelayCron = nil
+    o.purchaseJournalPath = ""
 
     setmetatable(o, { __index = self })
    	return o
@@ -112,6 +115,7 @@ function apartment:load(data)
     self:addKey()
     self:addIcon()
     self:addOffer()
+    self:refreshMessageJournalPath()
 end
 
 function apartment:remove()
@@ -159,6 +163,10 @@ function apartment:getJournalPatch()
     }
 end
 
+function apartment:refreshMessageJournalPath()
+    self.purchaseJournalPath = 'contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact
+end
+
 function apartment:start()
     if not self.sceneRunning then
         Game.GetQuestsSystem():SetFactStr("nif_apartment_type", self.isTablet and 0 or 1)
@@ -168,6 +176,12 @@ function apartment:start()
 end
 
 function apartment:sessionStart()
+    workspot.sessionStart(self)
+
+    self:refresh()
+end
+
+function apartment:refresh()
     -- Remove any mappins
     self:sessionEnd()
 
@@ -203,9 +217,9 @@ function apartment:reset()
     Game.GetTransactionSystem():RemoveItem(GetPlayer(), ItemID.FromTDBID(self:getKeyTDBID()), 9999)
 
     Game.AddToInventory("Items.money", self.cost)
-    Game.GetJournalManager():ChangeEntryState('contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
+    Game.GetJournalManager():ChangeEntryState(self.purchaseJournalPath, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
 
-    self:sessionStart()
+    self:refresh()
 end
 
 function apartment:sessionEnd()
@@ -243,16 +257,16 @@ function apartment:onSceneEnd()
 
         Game.GetTransactionSystem():RemoveItem(GetPlayer(), ItemID.FromTDBID("Items.money"), self.cost)
 
-        self:sessionStart()
+        self:refresh()
     end
 end
 
 function apartment:canSendMessage(canPurchase)
     local journalManager = Game.GetJournalManager()
 
-    local inactive = journalManager:GetEntryState(journalManager:GetEntryByString('contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact, 'gameJournalPhoneMessage')) == gameJournalEntryState.Inactive
+    local inactive = journalManager:GetEntryState(journalManager:GetEntryByString(self.purchaseJournalPath, 'gameJournalPhoneMessage')) == gameJournalEntryState.Inactive
     if not inactive then return false end
-    local contactEnabled = journalManager:GetEntryState(journalManager:GetEntryByString('contacts/muamar_el_capitan_reyes/apartments', 'gameJournalPhoneConversation')) == gameJournalEntryState.Active
+    local contactEnabled = journalManager:GetEntryState(journalManager:GetEntryByString(self.purchaseJournalPath, 'gameJournalPhoneConversation')) == gameJournalEntryState.Active
     if not contactEnabled then return false end
     local canPurchase = canPurchase == nil and self:purchaseEnabled() or canPurchase
 
@@ -263,8 +277,8 @@ function apartment:sendMessage()
     if self.purchasedFact == "" then return end
 
     self.messageDelayCron = Cron.After(2.5, function ()
-        Game.GetJournalManager():ChangeEntryState('contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
-        Game.GetJournalManager():ChangeEntryState('contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact, 'gameJournalPhoneMessage', gameJournalEntryState.Active, gameJournalNotifyOption.Notify)
+        Game.GetJournalManager():ChangeEntryState(self.purchaseJournalPath, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
+        Game.GetJournalManager():ChangeEntryState(self.purchaseJournalPath, 'gameJournalPhoneMessage', gameJournalEntryState.Active, gameJournalNotifyOption.Notify)
 
         self.messageDelayCron = nil
     end)
@@ -275,9 +289,9 @@ function apartment:onUpdate(playerPosition)
 
     -- Handle purchasing mappin becoming available
     if purchaseEnabled and not self.purchaseMappinID then
-        self:sessionStart()
+        self:refresh()
     elseif not purchaseEnabled and self.purchaseMappinID then
-        self:sessionStart()
+        self:refresh()
     end
 
     if purchaseEnabled and self.messageLocKey ~= "" and self:canSendMessage(purchaseEnabled) then
@@ -302,14 +316,20 @@ function apartment:addKey()
 end
 
 function apartment:removeKey()
+    if self.purchasedFact == "" then return end
+
     TweakDB:DeleteRecord("Keycards." .. self.purchasedFact)
 end
 
 function apartment:removeIcon()
+    if self.purchasedFact == "" then return end
+
     TweakDB:DeleteRecord("UIJournalIcons." .. self.purchasedFact)
 end
 
 function apartment:removeOffer()
+    if self.purchasedFact == "" then return end
+
     TweakDB:DeleteRecord("EconomicAssignment." .. self.purchasedFact)
     TweakDB:DeleteRecord("Apartment." .. self.purchasedFact)
 end
@@ -372,7 +392,6 @@ function apartment:drawBase()
     ImGui.SetCursorPosX(self.maxBasePropertyWidth)
     style.setNextItemWidth(250)
     local text, changed = ImGui.InputTextWithHint('##purchasedFact', 'apartment_id', self.purchasedFact, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
         self:removeKey()
         self:removeIcon()
@@ -383,8 +402,10 @@ function apartment:drawBase()
         self:addKey()
         self:addIcon()
         self:addOffer()
+        self:refreshMessageJournalPath()
         -- Update mappins
-        self:sessionStart()
+        self:refresh()
+        self.project:save()
     end
     reloadJournalOnEdit()
     style.tooltip("Must be set to something. This fact will be set to 1 when the apartment is purchased.")
@@ -394,12 +415,14 @@ function apartment:drawBase()
     ImGui.SetCursorPosX(self.maxBasePropertyWidth)
     style.setNextItemWidth(250)
     self.apartmentName, changed = ImGui.InputTextWithHint('##apartmentName', 'LocKey#123', self.apartmentName, 250)
-    if changed then self.project:save() end
-    if ImGui.IsItemDeactivatedAfterEdit() and self:getKeyTDBID() ~= "" then
-        self:removeKey()
-        self:removeOffer()
-        self:addKey()
-        self:addOffer()
+    if ImGui.IsItemDeactivatedAfterEdit() then
+        if self:getKeyTDBID() ~= "" then
+            self:removeKey()
+            self:removeOffer()
+            self:addKey()
+            self:addOffer()
+        end
+
         self.project:save()
     end
     ImGui.SameLine()
@@ -436,7 +459,7 @@ function apartment:drawBase()
     if self.useCustomKey then
         style.setNextItemWidth(250)
         self.apartmentKeyTDBID, changed = ImGui.InputTextWithHint('##apartmentKeyTDBID', 'Keycards.apartment_key', self.apartmentKeyTDBID, 250)
-        if changed then self.project:save() end
+        if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     else
         ImGui.Text("Keycards." .. (self.purchasedFact ~= "" and self.purchasedFact or "MISSING"))
 
@@ -453,7 +476,7 @@ function apartment:drawBase()
     ImGui.SetCursorPosX(self.maxBasePropertyWidth)
     style.setNextItemWidth(250)
     self.enablePurchaseFact, changed = ImGui.InputTextWithHint('##enablePurchaseFact', 'apartment_purchase_enabled', self.enablePurchaseFact, 250)
-    if changed then self.project:save() end
+    if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     style.tooltip("Optional fact that controls whether the purchase interaction and mappin is enabled.")
 
     style.sectionHeaderEnd(true)
@@ -487,14 +510,16 @@ function apartment:drawPurchaseTerminal()
     ImGui.SetCursorPosX(self.maxTerminalPropertyWidth)
     style.setNextItemWidth(250)
     local ref, changed = ImGui.InputTextWithHint('##terminalRef', '$/mod/#apartment_terminal', self.isTablet and self.tabletRef or self.terminalRef, 250)
+    local finished = ImGui.IsItemDeactivatedAfterEdit()
     if changed then
-        self.project:save()
-
         if self.isTablet then
             self.tabletRef = ref
         else
             self.terminalRef = ref
         end
+    end
+    if finished then
+        self.project:save()
     end
     style.tooltip("NodeRef of the purchase terminal/scanner that will be used for this apartment.")
     ImGui.SameLine()
@@ -519,7 +544,7 @@ function apartment:drawPositions()
         if self.purchaseMappinID then
             Game.GetMappinSystem():SetMappinPosition(self.purchaseMappinID, ToVector4(self.apartmentPurchasePosition))
         elseif not self.purchaseMappinID then
-            self:sessionStart()
+            self:refresh()
         end
     end
     ImGui.SameLine()
@@ -535,7 +560,7 @@ function apartment:drawPositions()
         if self.apartmentMappinID then
             Game.GetMappinSystem():SetMappinPosition(self.apartmentMappinID, ToVector4(self.apartmentPurchasedPosition))
         elseif not self.apartmentMappinID then
-            self:sessionStart()
+            self:refresh()
         end
     end
     ImGui.SameLine()
@@ -573,7 +598,7 @@ function apartment:drawMedia()
         ImGui.SetCursorPosX(self.maxOptionalPropertyWidth)
         style.setNextItemWidth(250)
         self.apartmentPictureAtlas, changed = ImGui.InputTextWithHint('##apartmentPictureAtlas', 'base\\apartment\\images.inkatlas', self.apartmentPictureAtlas, 250)
-        if changed then
+        if ImGui.IsItemDeactivatedAfterEdit() then
             self.project:save()
             self:removeIcon()
             self:addIcon()
@@ -586,7 +611,7 @@ function apartment:drawMedia()
         ImGui.SetCursorPosX(self.maxOptionalPropertyWidth)
         style.setNextItemWidth(150)
         self.apartmentPicturePart, changed = ImGui.InputTextWithHint('##apartmentPicturePart', 'part_name', self.apartmentPicturePart, 50)
-        if changed then
+        if ImGui.IsItemDeactivatedAfterEdit() then
             self.project:save()
             self:removeIcon()
             self:addIcon()
@@ -599,7 +624,7 @@ function apartment:drawMedia()
         ImGui.SetCursorPosX(self.maxOptionalPropertyWidth)
         style.setNextItemWidth(250)
         self.apartmentPictureRecord, changed = ImGui.InputTextWithHint('##apartmentPictureRecord', 'UIJournalIcons.l_costview', self.apartmentPictureRecord, 250)
-        if changed then self.project:save() end
+        if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
         reloadJournalOnEdit()
         style.tooltip("TweakDBID of the icon record that will be used for the apartment picture.")
     end
@@ -610,14 +635,22 @@ function apartment:drawMedia()
     style.setNextItemWidth(250)
     local newText, _ = ImGui.InputTextWithHint('##messageLocKey', 'LocKey#99999', self.messageLocKey, 250)
     if ImGui.IsItemDeactivatedAfterEdit() then
+        local wasEmpty = self.messageLocKey == ""
         self.messageLocKey = newText
+
+        if wasEmpty and newText ~= "" then
+            apartmentManager.registerJournalPatch(self)
+        elseif not wasEmpty and newText == "" then
+            apartmentManager.removeJournalPatch(self)
+        end
+
         self.project:save()
     end
     reloadJournalOnEdit()
     style.tooltip("Optional LocKey for a message that will be sent by El Capitan when the apartment can be purchased.")
     ImGui.SameLine()
     if style.buttonNoBG(IconGlyphs.Reload) then
-        Game.GetJournalManager():ChangeEntryState('contacts/muamar_el_capitan_reyes/apartments/' .. self.purchasedFact, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
+        Game.GetJournalManager():ChangeEntryState(self.purchaseJournalPath, 'gameJournalPhoneMessage', gameJournalEntryState.Inactive, gameJournalNotifyOption.Notify)
     end
     style.tooltip("Deactivate message, so it can be sent again")
 
@@ -651,7 +684,7 @@ function apartment:drawTutorial()
         ImGui.SetCursorPosX(self.maxTutorialPropertyWidth)
         style.setNextItemWidth(250)
         self.apartmentVideo, changed = ImGui.InputTextWithHint('##apartmentVideo', 'base\\apartment\\intro.bk2', self.apartmentVideo, 250)
-        if changed then self.project:save() end
+        if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
         style.tooltip("Path to the video that will be played when the apartment is entered for the first time.")
 
         style.mutedText("Video Message:")
@@ -659,7 +692,7 @@ function apartment:drawTutorial()
         ImGui.SetCursorPosX(self.maxTutorialPropertyWidth)
         style.setNextItemWidth(250)
         self.tutorialLocKey, changed = ImGui.InputTextWithHint('##tutorialLocKey', 'LocKey#88888', self.tutorialLocKey, 250)
-        if changed then self.project:save() end
+        if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
         style.tooltip("LocKey for the text which will be displayed together with the tutorial video.")
 
         style.mutedText("Entrance Position:")

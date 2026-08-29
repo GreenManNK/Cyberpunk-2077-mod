@@ -1,6 +1,6 @@
 local CodewareVersion = "1.15.0"
 local ArchiveXLVersion = "1.22.0"
-local ModVersion = "1.0.5"
+local ModVersion = "1.1.2"
 local ModName = "Native Interactions"
 
 local style = require("modules/ui/style")
@@ -44,9 +44,13 @@ function baseUI.init()
     end
 end
 
+local function getWindowName()
+    return ModName .. " " .. ModVersion .. "###Native Interactions 1.1.1" -- use fixed ID, pin it at 1.1.1 to avoid another window reset
+end
+
 function baseUI.draw(debug)
     if #baseUI.requirementsIssues > 0 then
-        if ImGui.Begin(ModName .. " " .. ModVersion, ImGuiWindowFlags.AlwaysAutoResize) then
+        if ImGui.Begin(getWindowName(), ImGuiWindowFlags.AlwaysAutoResize) then
             style.mutedText("The following issues are preventing Native Interactions from running:")
 
             for _, issue in pairs(baseUI.requirementsIssues) do
@@ -58,7 +62,7 @@ function baseUI.draw(debug)
         return
     end
 
-    if ImGui.Begin(ModName .. " " .. ModVersion, ImGuiWindowFlags.AlwaysAutoResize) then
+    if ImGui.Begin(getWindowName(), ImGuiWindowFlags.AlwaysAutoResize) then
         if ImGui.BeginTabBar("Tabbar", ImGuiTabItemFlags.NoTooltip) then
             if ImGui.BeginTabItem("Projects") then
                 ImGui.Spacing()

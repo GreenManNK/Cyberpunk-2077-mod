@@ -1,0 +1,320 @@
+package Attacks
+using RTDB, BaseStatusEffect
+
+BaseProjectileAoEAttack : Attack_GameEffect
+{
+	attackType = "AttackType.Explosion";
+	effectName = "projectile_aoe";
+	range = 1.0f;
+	damageType = "DamageTypes.Physical";
+	explosionDamageVSVehicles = 600.0f;
+	hitFlags = 
+	[
+		"ProjectileLauncherAttack"
+	];
+}
+
+ProjectileChargedMultiplier : ConstantStatModifier
+{
+	modifierType = "AdditiveMultiplier";
+	value = 0.3;
+}
+
+ProjectileGigaChadMultiplier : ConstantStatModifier
+{
+	modifierType = "AdditiveMultiplier";
+	value = -0.5;
+}
+
+QualityScalingMultiplier : CurveStatModifier
+{
+	modifierType = "Multiplier";
+	refStat = "BaseStats.ProjectileLauncherQualityMult";
+	refObject = "Root";
+	id = "quality_curves";
+	column = "quality_to_dps_multiplier_new";
+}
+
+TechAttunement : CombinedStatModifier
+{
+	modifierType = "AdditiveMultiplier";
+	refStat = "BaseStats.TechnicalAbility";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.005f;
+}
+
+MissileProjectile : BaseProjectileAoEAttack
+{
+	effectTag = "explosion_round";
+	range = 4.0f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 128f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : TechAttunement, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : QualityScalingMultiplier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "AdditiveMultiplier";
+			value = 0.4f;
+		} : ConstantStatModifier
+	];
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ExplosionStun";
+			applyImmediately = true;
+		}
+	];
+}
+
+MissileProjectileCharged : MissileProjectile
+{
+	effectTag = "explosion_round_charged";
+	range = 5.0f;
+	hitFlags += 
+	[
+		"WeaponFullyCharged"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : ProjectileChargedMultiplier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "AdditiveMultiplier";
+			value = 0.4f;
+		} : ConstantStatModifier
+	];
+}
+
+MissileProjectileGigaChadRelicCharged : MissileProjectileCharged
+{
+	effectName = "ep1_projectile_aoe";
+	effectTag = "explosion_relic_round_charged";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : ProjectileGigaChadMultiplier
+	];
+	explosionDamageVSVehicles = 300.0f;
+}
+
+EMPProjectile : BaseProjectileAoEAttack
+{
+	effectTag = "emp_round";
+	range = 4.0f;
+	damageType = "DamageTypes.Electric";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 116.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : TechAttunement, 
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : QualityScalingMultiplier
+	];
+}
+
+EMPProjectileCharged : EMPProjectile
+{
+	effectTag = "emp_round_charged";
+	range = 5.0f;
+	hitFlags += 
+	[
+		"WeaponFullyCharged"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : ProjectileChargedMultiplier
+	];
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = 
+			{
+				gameplayTags += 
+				[
+					"DoNotApplyOnPlayer"
+				];
+			} : BaseStatusEffect.Stun;
+			applyImmediately = true;
+		}
+	];
+}
+
+EMPProjectileGigaChadRelicCharged : EMPProjectileCharged
+{
+	effectName = "ep1_projectile_aoe";
+	effectTag = "explosion_relic_round_charged";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : ProjectileGigaChadMultiplier
+	];
+	explosionDamageVSVehicles = 300.0f;
+}
+
+ThermalProjectile : BaseProjectileAoEAttack
+{
+	effectTag = "thermal_round";
+	range = 4.0f;
+	damageType = "DamageTypes.Thermal";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 116.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : TechAttunement, 
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : QualityScalingMultiplier
+	];
+}
+
+ThermalProjectileCharged : ThermalProjectile
+{
+	effectTag = "thermal_round_charged";
+	range = 5.0f;
+	hitFlags += 
+	[
+		"WeaponFullyCharged"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : ProjectileChargedMultiplier
+	];
+}
+
+ThermalProjectileGigaChadRelicCharged : ThermalProjectileCharged
+{
+	effectName = "ep1_projectile_aoe";
+	effectTag = "explosion_relic_round_charged";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+		} : ProjectileGigaChadMultiplier
+	];
+	explosionDamageVSVehicles = 300.0f;
+}
+
+ChemicalProjectile : BaseProjectileAoEAttack
+{
+	effectTag = "chemical_round";
+	range = 4.0f;
+	damageType = "DamageTypes.Chemical";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 116.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : TechAttunement, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : QualityScalingMultiplier
+	];
+}
+
+ChemicalProjectileCharged : ChemicalProjectile
+{
+	effectTag = "chemical_round_charged";
+	range = 5.0f;
+	hitFlags += 
+	[
+		"WeaponFullyCharged"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : ProjectileChargedMultiplier
+	];
+}
+
+ChemicalProjectileGigaChadRelicCharged : ChemicalProjectileCharged
+{
+	effectName = "ep1_projectile_aoe";
+	effectTag = "explosion_relic_round_charged";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : ProjectileGigaChadMultiplier
+	];
+	explosionDamageVSVehicles = 300.0f;
+}
+
+TranquilizerProjectile : BaseProjectileAoEAttack
+{
+	effectTag = "tranquilizer_round";
+	range = 0.1f;
+	fk< StatModifier >[] statModifiers = [];
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.TranquilizerUnconscious";
+			applyImmediately = true;
+		}
+	];
+}
+
+TranquilizerProjectileCharged : TranquilizerProjectile
+{
+	effectTag = "tranquilizer_round_charged";
+	range = 0.1f;
+}
+
+TranquilizerProjectileGigaChadRelicCharged : TranquilizerProjectileCharged
+{
+}
+
+ProjectileLauncherAttackHelper : Attack_Projectile
+{
+	projectileTemplateName = "launcher_round";
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.FistsStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			value = 25.f;
+		} : ConstantStatModifier
+	];
+}
+

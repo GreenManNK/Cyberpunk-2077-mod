@@ -1,0 +1,1551 @@
+package UIIcon
+using RTDB
+
+vehicle_unique_template_default : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vehicle_unique_template_quadra_turbo_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vehicle_unique_template_quadra_turbo_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vehicle_unique_template_quadra_turbo_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_quadra_turbo_urban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vehicle_unique_template_quadra_turbo_urban_09 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_09";
+}
+
+vehicle_unique_template_quadra_turbo_urban_10 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_turbo\vehicle_quadra_turbo_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_10";
+}
+
+vehicle_unique_template_quadra_type66_poor_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "poor_02";
+}
+
+vehicle_unique_template_quadra_type66_poor_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "poor_03";
+}
+
+vehicle_unique_template_quadra_type66_poor_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "poor_04";
+}
+
+vehicle_unique_template_quadra_type66_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vehicle_unique_template_quadra_type66_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vehicle_unique_template_quadra_type66_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vehicle_unique_template_quadra_type66_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_quadra_type66_avenger_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "avenger_01";
+}
+
+vehicle_unique_template_quadra_type66_avenger_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "avenger_04";
+}
+
+vehicle_unique_template_quadra_type66_avenger_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "avenger_05";
+}
+
+vehicle_unique_template_quadra_type66_avenger_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\quadra_type66\vehicle_quadra_type66_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "avenger_06";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_01";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_01_1 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_01_1";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_01_2 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_01_2";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_02_1 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_02_1";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_02_2 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_02_2";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_03";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_03_1 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_03_1";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_suburban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "suburban_04";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_01_1 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_01_1";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_quadra_sport_r7_basic_web_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\quadra_sport_r7\vehicle_quadra_sport_r7_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "web_01";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vehicle_unique_template_rayfield_aerondight__basic_urban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_aerondight\uniquepaintjobs_icons_rayfieldaerondight.inkatlas";
+	CName atlasPartName = "urban_07";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_00 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_00";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_01";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_02";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_03";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_04";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_05";
+}
+
+vehicle_unique_template_rayfield_caliburn_premium_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\rayfield_caliburn\vehicle_rayfield_caliburn_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "premium_06";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_suburban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "suburban_ext_06";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "suburban_ext_07";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_suburban_08 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "suburban_ext_08";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_01";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_02";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_03";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_04";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_05";
+}
+
+vehicle_unique_template_villefort_alvarado__basic_urban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_basic\uniquepaintjobs_icons_villefortalvaradobasic.inkatlas";
+	CName atlasPartName = "urban_ext_06";
+}
+
+vehicle_unique_template_villefort_alvarado_basic_mox_cabrio_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_cabrio\uniquepaintjobs_icons_villefort.inkatlas";
+	CName atlasPartName = "mox_ext_01";
+}
+
+vehicle_unique_template_villefort_alvarado_basic_premium_cabrio_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_cabrio\uniquepaintjobs_icons_villefort.inkatlas";
+	CName atlasPartName = "rich_01";
+}
+
+vehicle_unique_template_villefort_alvarado_hearse_01_basic_suburban_08 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_cabrio\uniquepaintjobs_icons_villefort.inkatlas";
+	CName atlasPartName = "suburban_08";
+}
+
+vehicle_unique_template_villefort_deleon_basic_suburban_10 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_alvarado_cabrio\uniquepaintjobs_icons_villefort.inkatlas";
+	CName atlasPartName = "suburban_10";
+}
+
+vehicle_unique_template_mizutani_shion__basic_targa_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "targa_01";
+}
+
+vehicle_unique_template_mizutani_shion__basic_targa_black : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "targa_black";
+}
+
+vehicle_unique_template_mizutani_shion__basic_targa_red : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "targa_red";
+}
+
+vehicle_unique_template_mizutani_shion__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vehicle_unique_template_mizutani_shion__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vehicle_unique_template_mizutani_shion__basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vehicle_unique_template_mizutani_shion__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_mizutani_shion_nomad_deathrace_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mizutani_shion\vehicle_mizutani_shion_unique_templates_atlas.inkatlas";
+	CName atlasPartName = "deathrace_01";
+}
+
+vehicle_unique_template_herrera_riptide__basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vehicle_unique_template_herrera_riptide__basic_suburban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "suburban_04";
+}
+
+vehicle_unique_template_herrera_riptide__basic_suburban_06 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "suburban_06";
+}
+
+vehicle_unique_template_herrera_riptide__basic_suburban_08 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "suburban_08";
+}
+
+vehicle_unique_template_herrera_riptide__basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vehicle_unique_template_herrera_riptide__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vehicle_unique_template_herrera_riptide__basic_urban_08 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "urban_08";
+}
+
+vehicle_unique_template_herrera_riptide__basic_web_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\herrera_riptide\uniquepaintjobs_icons_herreraoutlawriptide.inkatlas";
+	CName atlasPartName = "web_01";
+}
+
+vcc_icons_archer_hella__basic_poor_1_6 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_1_6";
+}
+
+vcc_icons_archer_hella__basic_poor_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_2";
+}
+
+vcc_icons_archer_hella__basic_poor_2_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_2_1";
+}
+
+vcc_icons_archer_hella__basic_poor_2_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_2_3";
+}
+
+vcc_icons_archer_hella__basic_poor_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_3";
+}
+
+vcc_icons_archer_hella__basic_poor_3_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_3_1";
+}
+
+vcc_icons_archer_hella__basic_poor_3_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "poor_3_3";
+}
+
+vcc_icons_archer_hella__basic_suburban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_1";
+}
+
+vcc_icons_archer_hella__basic_suburban_1_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_1";
+}
+
+vcc_icons_archer_hella__basic_suburban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_2";
+}
+
+vcc_icons_archer_hella__basic_suburban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_3";
+}
+
+vcc_icons_archer_hella__basic_suburban_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_4";
+}
+
+vcc_icons_archer_hella__basic_suburban_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_2";
+}
+
+vcc_icons_archer_hella__basic_suburban_2_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_2_1";
+}
+
+vcc_icons_archer_hella__basic_suburban_2_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_2_2";
+}
+
+vcc_icons_archer_hella__basic_suburban_2_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_2_3";
+}
+
+vcc_icons_archer_hella__basic_suburban_2_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_hella\vcc_icons_archer_hella_atlas.inkatlas";
+	CName atlasPartName = "suburban_2_4";
+}
+
+vcc_icons_archer_quartz__basic_mox_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "mox_01";
+}
+
+vcc_icons_archer_quartz__basic_poor_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_1";
+}
+
+vcc_icons_archer_quartz__basic_poor_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_2";
+}
+
+vcc_icons_archer_quartz__basic_poor_2_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_2_1";
+}
+
+vcc_icons_archer_quartz__basic_poor_2_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_2_2";
+}
+
+vcc_icons_archer_quartz__basic_poor_2_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_2_3";
+}
+
+vcc_icons_archer_quartz__basic_poor_2_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_2_4";
+}
+
+vcc_icons_archer_quartz__basic_poor_3_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_3_2";
+}
+
+vcc_icons_archer_quartz__basic_poor_3_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "poor_3_3";
+}
+
+vcc_icons_archer_quartz__basic_suburban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "suburban_1";
+}
+
+vcc_icons_archer_quartz__basic_suburban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_2";
+}
+
+vcc_icons_archer_quartz__basic_suburban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_3";
+}
+
+vcc_icons_archer_quartz__basic_urban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1";
+}
+
+vcc_icons_archer_quartz__basic_urban_1_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1_1";
+}
+
+vcc_icons_archer_quartz__basic_urban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1_2";
+}
+
+vcc_icons_archer_quartz__basic_urban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1_3";
+}
+
+vcc_icons_archer_quartz__basic_urban_1_5 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1_5";
+}
+
+vcc_icons_archer_quartz__basic_urban_1_6 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "urban_1_6";
+}
+
+vcc_icons_archer_bandit_bandit_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\archer_quartz\vcc_icons_archer_quartz_atlas.inkatlas";
+	CName atlasPartName = "bandit_bandit_02";
+}
+
+vcc_icons_chevalier_emperor__basic_deathrace_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "deathrace_01";
+}
+
+vcc_icons_chevalier_emperor__basic_suburban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_2";
+}
+
+vcc_icons_chevalier_emperor__basic_suburban_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_4";
+}
+
+vcc_icons_chevalier_emperor__basic_suburban_1_5 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_5";
+}
+
+vcc_icons_chevalier_emperor__basic_suburban_1_6 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_6";
+}
+
+vcc_icons_chevalier_emperor__basic_urban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "urban_1";
+}
+
+vcc_icons_chevalier_emperor__basic_urban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "urban_1_3";
+}
+
+vcc_icons_chevalier_emperor__basic_urban_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "urban_1_4";
+}
+
+vcc_icons_chevalier_emperor__basic_urban_1_5 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "urban_1_5";
+}
+
+vcc_icons_chevalier_emperor__basic_urban_1_6 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\chevillon_emperor\vcc_icons_chevillon_emperor_atlas.inkatlas";
+	CName atlasPartName = "urban_1_6";
+}
+
+vcc_icons_mahir_supron__basic_aldecaldos_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "aldecaldos_01";
+}
+
+vcc_icons_mahir_supron__basic_mox_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "mox_01";
+}
+
+vcc_icons_mahir_supron__basic_poor_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_03";
+}
+
+vcc_icons_mahir_supron__basic_poor_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_04";
+}
+
+vcc_icons_mahir_supron__basic_suburban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_01";
+}
+
+vcc_icons_mahir_supron__basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vcc_icons_mahir_supron__basic_suburban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_03";
+}
+
+vcc_icons_mahir_supron__basic_suburban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_04";
+}
+
+vcc_icons_mahir_supron__basic_suburban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_05";
+}
+
+vcc_icons_mahir_supron__basic_suburban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_06";
+}
+
+vcc_icons_mahir_supron__basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_07";
+}
+
+vcc_icons_mahir_supron__basic_tap_tap : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "tap_tap";
+}
+
+vcc_icons_mahir_supron__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vcc_icons_mahir_supron__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vcc_icons_mahir_supron__basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vcc_icons_mahir_supron__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vcc_icons_mahir_supron__basic_urban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vcc_icons_mahir_supron__basic_urban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\mahir_supron_basic\vcc_icons_mahir_supron_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_07";
+}
+
+vcc_icons_makigai_maimai__basic_gt_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "gt_01";
+}
+
+vcc_icons_makigai_maimai__basic_poor_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "poor_02";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_01";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_03";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_05";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_06";
+}
+
+vcc_icons_makigai_maimai__basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "suburban_07";
+}
+
+vcc_icons_makigai_maimai__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vcc_icons_makigai_maimai__basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vcc_icons_makigai_maimai__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vcc_icons_makigai_maimai__basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\makigai_maimai\vcc_icons_makigai_maimai_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vcc_icons_makigai_tanishi_basic_poor_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "poor_02";
+}
+
+vcc_icons_makigai_tanishi_basic_poor_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "poor_04";
+}
+
+vcc_icons_makigai_tanishi_basic_poor_11 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "poor_11";
+}
+
+vcc_icons_makigai_tanishi_basic_suburban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "suburban_03";
+}
+
+vcc_icons_makigai_tanishi_basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "suburban_07";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_07";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_08 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_08";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_09 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_09";
+}
+
+vcc_icons_makigai_tanishi_basic_urban_10 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\makigai_tanishi\vcc_icons_makigai_tanishi_atlas.inkatlas";
+	CName atlasPartName = "urban_10";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_01";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_03";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_04";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_07";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_08 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_08";
+}
+
+vcc_icons_mizutani_hozuki__basic_suburban_10 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "suburban_10";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_06 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_07";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_08 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_08";
+}
+
+vcc_icons_mizutani_hozuki__basic_urban_09 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "urban_09";
+}
+
+vcc_icons_mizutani_hozuki__basic_web_01 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\mizutani_hozuki\vcc_icons_mizutani_hozuki_atlas.inkatlas";
+	CName atlasPartName = "web_01";
+}
+
+vcc_icons_thorton_colby__basic_family_car : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "family_car";
+}
+
+vcc_icons_thorton_colby__basic_poor_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1";
+}
+
+vcc_icons_thorton_colby__basic_poor_1_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1_1";
+}
+
+vcc_icons_thorton_colby__basic_poor_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1_2";
+}
+
+vcc_icons_thorton_colby__basic_poor_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1_3";
+}
+
+vcc_icons_thorton_colby__basic_poor_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1_4";
+}
+
+vcc_icons_thorton_colby__basic_suburban_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_4";
+}
+
+vcc_icons_thorton_colby__basic_suburban_2_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_2_4";
+}
+
+vcc_icons_thorton_colby__basic_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_basic\vcc_icons_thorton_colby_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_01";
+}
+
+vcc_icons_thorton_colby_pickup_poor_1_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_pickup\vcc_icons_thorton_colby_pickup_atlas.inkatlas";
+	CName atlasPartName = "poor_1_1";
+}
+
+vcc_icons_thorton_colby_pickup_poor_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_pickup\vcc_icons_thorton_colby_pickup_atlas.inkatlas";
+	CName atlasPartName = "poor_1_3";
+}
+
+vcc_icons_thorton_colby_pickup_suburban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_pickup\vcc_icons_thorton_colby_pickup_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_2";
+}
+
+vcc_icons_thorton_colby_pickup_suburban_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_colby_pickup\vcc_icons_thorton_colby_pickup_atlas.inkatlas";
+	CName atlasPartName = "suburban_2";
+}
+
+vcc_icons_thorton_galena__basic_deathrace_galena_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_galena_basic\vcc_icons_thorton_galena_basic_atlas.inkatlas";
+	CName atlasPartName = "deathrace_galena_02";
+}
+
+vcc_icons_thorton_galena__basic_gt_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_galena_basic\vcc_icons_thorton_galena_basic_atlas.inkatlas";
+	CName atlasPartName = "gt_01";
+}
+
+vcc_icons_thorton_galena__basic_suburban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_galena_basic\vcc_icons_thorton_galena_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_05";
+}
+
+vcc_icons_thorton_galena__basic_suburban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_galena_basic\vcc_icons_thorton_galena_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_06";
+}
+
+vcc_icons_thorton_mackinaw__basic_poor_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "poor_1_4";
+}
+
+vcc_icons_thorton_mackinaw__basic_suburban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1";
+}
+
+vcc_icons_thorton_mackinaw__basic_suburban_1_2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_2";
+}
+
+vcc_icons_thorton_mackinaw__basic_suburban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_3";
+}
+
+vcc_icons_thorton_mackinaw__basic_suburban_1_4 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_4";
+}
+
+vcc_icons_thorton_mackinaw__basic_suburban_1_5 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_5";
+}
+
+vcc_icons_thorton_mackinaw__basic_urban_1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_1";
+}
+
+vcc_icons_thorton_mackinaw__basic_urban_1_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "urban_1_3";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_poor_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_poor_03";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_poor_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_poor_05";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_02";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_03";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_04";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_05";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_06";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_07";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_suburban_08 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_suburban_08";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_01";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_02";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_03";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_04";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_05";
+}
+
+vcc_icons_v_standard3_thorton_mackinaw_larimore_urban_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "larimore_urban_06";
+}
+
+vcc_icons_thorton_mackinaw__cargo_cargo_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\thorton_mackinaw_basic\vcc_icons_thorton_mackinaw_basic_atlas.inkatlas";
+	CName atlasPartName = "cargo_cargo_03";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_04";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_05 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_05";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_06 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_06";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_07";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_09 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_09";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_10 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_10";
+}
+
+vcc_icons_thorton_merrimac_basic_poor_11 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "poor_11";
+}
+
+vcc_icons_thorton_merrimac_basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vcc_icons_thorton_merrimac_basic_suburban_04 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "suburban_04";
+}
+
+vcc_icons_thorton_merrimac_basic_suburban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "suburban_07";
+}
+
+vcc_icons_thorton_merrimac_basic_suburban_09 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "suburban_09";
+}
+
+vcc_icons_thorton_merrimac_basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+
+vcc_icons_thorton_merrimac_basic_urban_06 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "urban_06";
+}
+
+vcc_icons_thorton_merrimac_basic_urban_07 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "urban_07";
+}
+
+vcc_icons_thorton_merrimac_basic_urban_09 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "urban_09";
+}
+
+vcc_icons_thorton_merrimac_basic_urban_10 : UIIcon
+{
+	atlasResourcePath = "ep1\gameplay\gui\common\icons\unique_templates\thorton_merrimac\vcc_icons_thorton_merrimac_atlas.inkatlas";
+	CName atlasPartName = "urban_10";
+}
+
+vcc_icons_villefort_columbus__basic_poor_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "poor_02";
+}
+
+vcc_icons_villefort_columbus__basic_suburban_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "suburban_01";
+}
+
+vcc_icons_villefort_columbus__basic_suburban_01_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "suburban_01_02";
+}
+
+vcc_icons_villefort_columbus__basic_suburban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "suburban_02";
+}
+
+vcc_icons_villefort_columbus__basic_suburban_02_3 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "suburban_02_3";
+}
+
+vcc_icons_villefort_columbus__basic_suburban_02_5 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_colombus\vcc_icons_villefort_colombus_atlas.inkatlas";
+	CName atlasPartName = "suburban_02_5";
+}
+
+vcc_icons_villefort_cortes__basic_poor_1_06 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "poor_1_06";
+}
+
+vcc_icons_villefort_cortes__basic_suburban_1_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_02";
+}
+
+vcc_icons_villefort_cortes__basic_suburban_1_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_03";
+}
+
+vcc_icons_villefort_cortes__basic_suburban_1_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_05";
+}
+
+vcc_icons_villefort_cortes__basic_suburban_1_07 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_07";
+}
+
+vcc_icons_villefort_cortes__basic_suburban_1_08 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "suburban_1_08";
+}
+
+vcc_icons_villefort_cortes__basic_urban_1_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "urban_1_02";
+}
+
+vcc_icons_villefort_cortes__basic_urban_1_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "urban_1_03";
+}
+
+vcc_icons_villefort_cortes__basic_urban_1_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "urban_1_04";
+}
+
+vcc_icons_villefort_cortes__basic_urban_1_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\villefort_cortes\vcc_icons_villefort_cortes_atlas.inkatlas";
+	CName atlasPartName = "urban_1_05";
+}
+
+vcc_icons_yaiba_semimaru_basic_urban_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\yaiba_semimaru\vcc_icons_yaiba_semimaru_atlas.inkatlas";
+	CName atlasPartName = "urban_02";
+}
+
+vcc_icons_yaiba_semimaru_basic_urban_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\yaiba_semimaru\vcc_icons_yaiba_semimaru_atlas.inkatlas";
+	CName atlasPartName = "urban_03";
+}
+
+vcc_icons_yaiba_semimaru_basic_urban_04 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\yaiba_semimaru\vcc_icons_yaiba_semimaru_atlas.inkatlas";
+	CName atlasPartName = "urban_04";
+}
+
+vcc_icons_yaiba_semimaru_basic_urban_05 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\unique_templates\yaiba_semimaru\vcc_icons_yaiba_semimaru_atlas.inkatlas";
+	CName atlasPartName = "urban_05";
+}
+

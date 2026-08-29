@@ -1,0 +1,39 @@
+package Items
+using RTDB, ItemAction
+
+mq059_shard_loc_1 : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq059/shard_loc_1/shard";
+	} : ItemAction.Read;
+}
+
+mq059_shard_Mordred : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq059/shard_loc_1/shard_loc_2";
+	} : ItemAction.Read;
+}
+
+mq059_shard_Yorinobu : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq059/shard_loc_1/shard_yorinobu";
+	} : ItemAction.Read;
+}
+
+mq059_shard_Rayfield : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "Onscreens/Emails/Quests/Minor_quest/Mq059/Shards/Shard_Rayfield/shard";
+	} : ItemAction.Read;
+}
+

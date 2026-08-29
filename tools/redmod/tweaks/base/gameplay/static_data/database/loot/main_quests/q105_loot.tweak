@@ -1,0 +1,491 @@
+package LootTables
+using RTDB, Prereqs
+
+Q105_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q105_jigjig_LGM_equipment : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.StylishClothingNoFaction";
+		}
+	];
+}
+
+Q105_finger_MGM_chemicals : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.2;
+			dropCountMin = 3;
+			dropCountMax = 5;
+			itemID = "Items.Endotrisine";
+		}
+	];
+}
+
+Q105_finger_MGM_toolbox : Q105_Loot
+{
+	lootItems = [];
+}
+
+Q105_finger_MGS_first_aid : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q105_finger_MGS_weapon : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RevolverQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+		}
+	];
+}
+
+Q105_dollhouse_MCM_equipment : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.StylishClothingNoFaction";
+		}
+	];
+}
+
+Q105_dollhouse_MCM_toolbox : Q105_Loot
+{
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ToolWeaponQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q105_dollhouse_MCM_weapon : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.KatanaQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumUncommonQuality"
+			];
+		}
+	];
+}
+
+Q105_dollhouse_MCS_ammo : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q105_dollhouse_MCS_consumables : Q105_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q105_dollhouse_MCS_crate : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem4";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem5";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.SexToyJunkItem6";
+		}
+	];
+}
+
+Q105_dollhouse_MCS_equipment : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesFaceClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesFeetClothing";
+		}
+	];
+}
+
+Q105_dollhouse_MCS_first_aid : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q105_dollhouse_MCS_gadgets : Q105_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q105_dollhouse_MCS_valuable : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q105_dollhouse_MCS_weapon : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.SubmachinegunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumUncommonQuality"
+			];
+		}
+	];
+}
+
+Q105_braindance_LGM_chemicals : Q105_Loot
+{
+	lootItems = [];
+}
+
+Q105_braindance_LGM_freezer : Q105_Loot
+{
+}
+
+Q105_braindance_LGM_crate : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MoxiesJunkItem3";
+		}
+	];
+}
+
+Q105_braindance_LGM_cupboard : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}
+	];
+}
+
+Q105_braindance_LGM_equipment : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.StylishClothingNoFaction";
+		}
+	];
+}
+
+Q105_braindance_LGM_ripperdoc : Q105_Loot
+{
+}
+
+Q105_braindance_LGM_safe : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q105_braindance_LGM_toolbox : Q105_Loot
+{
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ToolWeaponQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q105_braindance_LGM_weapon : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumRareQuality"
+			];
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.PrecisionRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumRareQuality"
+			];
+		}
+	];
+}
+
+Q105_braindance_LGS_ammo : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q105_braindance_LGS_suitcase : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesJunk";
+		}
+	];
+}
+
+Q105_braindance_LGS_consumables : Q105_Loot
+{
+	lootItems = [];
+}
+
+Q105_braindance_LGS_crate : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Q105_braindance_LGM_crate"
+	];
+}
+
+Q105_braindance_LGS_equipment : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesFaceClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MoxiesFeetClothing";
+		}
+	];
+}
+
+Q105_braindance_LGS_first_aid : Q105_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q105_braindance_LGS_gadgets : Q105_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q105_braindance_LGS_toolbox : Q105_Loot
+{
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ToolWeaponQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q105_braindance_LGS_valuable : Q105_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q105_braindance_LGS_weapon : Q105_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RevolverQuery";
+		}
+	];
+}
+
+Q105_vip_keycard : Q105_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			playerPrereqID = 
+			{
+				fact = "q105_keycard_dollhouse_vip_owned";
+				value = 0;
+				comparisonType = "LessOrEqual";
+			} : FactValuePrereq;
+			itemID = "Keycards.q105_keycard_dollhouse_vip";
+		} : LootItem
+	];
+}
+

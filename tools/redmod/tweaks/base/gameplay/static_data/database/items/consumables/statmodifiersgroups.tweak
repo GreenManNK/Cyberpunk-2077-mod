@@ -1,0 +1,161 @@
+package Items
+using RTDB
+
+ConsumableDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+FirstAidWhiffDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+}
+
+BlackLaceDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 300f;
+		} : ConstantStatModifier
+	];
+}
+
+BonesMcCoy70Duration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+WellFedDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 450f;
+		} : ConstantStatModifier
+	];
+}
+
+SatedDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 450f;
+		} : ConstantStatModifier
+	];
+}
+
+AlcoholConsumableDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 30.f;
+		} : ConstantStatModifier
+	];
+}
+
+LongLastingConsumableDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 1800f;
+		} : ConstantStatModifier
+	];
+}
+
+CyberwareBuffDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CyberwareDurationBuff";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier
+	];
+}
+
+BloodPumpBuffDuration : CyberwareBuffDuration
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 6f;
+		} : ConstantStatModifier
+	];
+}
+
+IllegalFoodDurations : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			value = 600f;
+		} : ConstantStatModifier
+	];
+}
+
+OpticalCamoDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Additive";
+			refStat = "BaseStats.OpticalCamoCoolAttunementDuration";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "Multiplier";
+			refStat = "BaseStats.OpticalCamoDurationMultiplier";
+			refObject = "Player";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier
+	];
+}
+

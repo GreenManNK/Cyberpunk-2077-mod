@@ -1,0 +1,241 @@
+# weak:
+# Character.militech_ranger1_ranged1_saratoga_ma - recon support
+# Character.militech_ranger1_ranged1_lexington_ma - recon support
+
+# normal:
+# Character.militech_android_android2_ajax_ma - robot
+# Character.militech_android_android2_crusher_ma - robot
+# Character.militech_ranger2_ranged2_omaha_ma - infanry scout
+# Character.militech_ranger2_ranged2_ajax_ma - infantry scout
+
+# rare:
+# Character.militech_tech_grenadier2_omaha_ma_rare - field engi
+# Character.militech_tech_franged2_omaha_ma_rare - commando
+# Character.militech_recon_sniper2_achilles_ma_rare - sniper
+# Character.militech_enforcer2_shotgun2_tactician_mah_rare - ranger
+
+# elite:
+# Character.militech_soldier3_shotgun3_crusher_mah_elite - spec op
+# Character.militech_enforcer3_gunner3_HMG_mb_elite - heavy gunner
+
+#reinforcements
+
+DynamicSpawnSystem.GRMilitechWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger1_ranged1_lexington_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMilitechNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_omaha_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMilitechNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger1_ranged1_lexington_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMilitechRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_grenadier2_omaha_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_franged2_omaha_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_recon_sniper2_achilles_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_omaha_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_omaha_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer2_shotgun2_tactician_mah_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_recon_sniper2_achilles_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_soldier3_shotgun3_crusher_mah_elite
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer3_gunner3_HMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_grenadier2_omaha_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer2_shotgun2_tactician_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_omaha_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer3_gunner3_HMG_mb_elite
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechEliteSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_soldier3_shotgun3_crusher_mah_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_franged2_omaha_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_grenadier2_omaha_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer2_shotgun2_tactician_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_crusher_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_android_android2_ajax_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_franged2_omaha_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_omaha_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_recon_sniper2_achilles_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRMilitechRareSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_militech
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_ranger2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_militech_tech_franged2_omaha_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_militech_enforcer2_shotgun2_tactician_mah_rare
+          weight: 0.5

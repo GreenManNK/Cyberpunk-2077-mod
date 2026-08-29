@@ -1,0 +1,143 @@
+class NPCHitReactionTypePrereqState extends PrereqState
+{
+	var m_listener : PuppetListener;
+}
+
+class NPCHitReactionTypePrereq extends IScriptablePrereq
+{
+	var m_hitReactionType : animHitReactionType;
+	var m_timeout : Float;
+	var m_invert : Bool;
+
+	protected export override function Initialize( recordID : TweakDBID )
+	{
+		var str : String;
+		str = TweakDBInterface.GetString( recordID + T".hitReactionType", "" );
+		m_hitReactionType = ( ( animHitReactionType )( ( ( Int32 )( EnumValueFromString( "animHitReactionType", str ) ) ) ) );
+		m_timeout = TweakDBInterface.GetFloat( recordID + T".timeout", -1.0 );
+		m_invert = TweakDBInterface.GetBool( recordID + T".invert", false );
+	}
+
+	protected export const override function OnRegister( state : PrereqState, game : GameInstance, context : IScriptable ) : Bool
+	{
+		var puppet : ScriptedPuppet;
+		var castedState : NPCHitReactionTypePrereqState;
+		puppet = ( ( ScriptedPuppet )( context ) );
+		if( puppet )
+		{
+			castedState = ( ( NPCHitReactionTypePrereqState )( state ) );
+			castedState.m_listener = new PuppetListener;
+			castedState.m_listener.RegisterOwner( castedState );
+			ScriptedPuppet.AddListener( puppet, castedState.m_listener );
+			return false;
+		}
+		return false;
+	}
+
+	protected export const override function OnUnregister( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var puppet : ScriptedPuppet;
+		var castedState : NPCHitReactionTypePrereqState;
+		puppet = ( ( ScriptedPuppet )( context ) );
+		castedState = ( ( NPCHitReactionTypePrereqState )( state ) );
+		if( puppet && castedState.m_listener )
+		{
+			ScriptedPuppet.RemoveListener( puppet, castedState.m_listener );
+		}
+		castedState.m_listener = NULL;
+	}
+
+	protected export const override function OnApplied( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var puppet : ScriptedPuppet;
+		var hitReactionComponent : HitReactionComponent;
+		var castedState : NPCHitReactionTypePrereqState;
+		puppet = ( ( ScriptedPuppet )( context ) );
+		if( !( puppet ) )
+		{
+			return;
+		}
+		hitReactionComponent = puppet.GetHitReactionComponent();
+		if( !( hitReactionComponent ) )
+		{
+			return;
+		}
+		castedState = ( ( NPCHitReactionTypePrereqState )( state ) );
+		if( castedState.m_listener )
+		{
+			castedState.m_listener.OnHitReactionTypeChanged( hitReactionComponent.GetHitReactionData().hitType );
+		}
+	}
+
+	public export const override function IsFulfilled( game : GameInstance, context : IScriptable ) : Bool
+	{
+		var puppet : ScriptedPuppet;
+		var hitReactionComponent : HitReactionComponent;
+		puppet = ( ( ScriptedPuppet )( context ) );
+		if( !( puppet ) )
+		{
+			return false;
+		}
+		hitReactionComponent = puppet.GetHitReactionComponent();
+		if( !( hitReactionComponent ) )
+		{
+			return false;
+		}
+		return EvaluateCondition( puppet, hitReactionComponent.GetHitReactionData().hitType );
+	}
+
+	public const function EvaluateCondition( puppet : weak< ScriptedPuppet >, hitType : Int32 ) : Bool
+	{
+		var evt : ResetNPCHitReactionTypePrereqStateEvent;
+		var delayArray : array< NPCHitTypeTimeoutStruct >;
+		var arrayElement : NPCHitTypeTimeoutStruct;
+		var bb : IBlackboard;
+		var instanceFound : Bool;
+		var result : Bool;
+		var i : Int32;
+		if( hitType != ( ( Int32 )( m_hitReactionType ) ) )
+		{
+			result = ( ( m_invert ) ? ( true ) : ( false ) );
+		}
+		else
+		{
+			result = ( ( m_invert ) ? ( false ) : ( true ) );
+		}
+		if( ( !( result ) && ( hitType > 0 ) ) && ( m_timeout > 0.0 ) )
+		{
+			bb = puppet.GetAIControllerComponent().GetAIPrereqsBlackboard();
+			delayArray = ( ( array< NPCHitTypeTimeoutStruct > )( bb.GetVariant( GetAllBlackboardDefs().AIPrereqs.npcHitTypeTimeout ) ) );
+			evt = new ResetNPCHitReactionTypePrereqStateEvent;
+			for( i = 0; i < delayArray.Size(); i += 1 )
+			{
+				if( delayArray[ i ].delayID != GetInvalidDelayID() )
+				{
+					GameInstance.GetDelaySystem( puppet.GetGame() ).CancelDelay( delayArray[ i ].delayID );
+					delayArray[ i ].delayID = GetInvalidDelayID();
+				}
+				if( delayArray[ i ].timeout == m_timeout )
+				{
+					instanceFound = true;
+					delayArray[ i ].delayID = GameInstance.GetDelaySystem( puppet.GetGame() ).DelayEvent( puppet, evt, m_timeout );
+					bb.SetVariant( GetAllBlackboardDefs().AIPrereqs.npcHitTypeTimeout, delayArray, true );
+				}
+			}
+			if( !( instanceFound ) )
+			{
+				arrayElement.timeout = m_timeout;
+				arrayElement.delayID = GameInstance.GetDelaySystem( puppet.GetGame() ).DelayEvent( puppet, evt, m_timeout );
+				delayArray.PushBack( arrayElement );
+				bb.SetVariant( GetAllBlackboardDefs().AIPrereqs.npcHitTypeTimeout, delayArray, true );
+			}
+		}
+		return result;
+	}
+
+}
+
+struct NPCHitTypeTimeoutStruct
+{
+	var timeout : Float;
+	var delayID : DelayID;
+}
+

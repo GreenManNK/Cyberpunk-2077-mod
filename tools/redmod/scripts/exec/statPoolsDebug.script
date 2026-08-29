@@ -1,0 +1,37 @@
+function ApplyStatPoolModifier( gi : GameInstance, const statPoolTypeString : ref< String >, rangeBegin : Float, rangeEnd : Float, startDelay : Float, valuePerSec : Float, delayOnChange : Bool, statPoolModType : gameStatPoolModificationTypes )
+{
+	var statPoolInt : Int32;
+	var playerID : StatsObjectID;
+	var statPool : gamedataStatPoolType;
+	var statPoolModifier : StatPoolModifier;
+	statPoolInt = ( ( Int32 )( EnumValueFromString( "gamedataStatPoolType", statPoolTypeString ) ) );
+	if( statPoolInt == -1 )
+	{
+		return;
+	}
+	playerID = GetPlayer( gi ).GetEntityID();
+	statPool = ( ( gamedataStatPoolType )( statPoolInt ) );
+	statPoolModifier.enabled = true;
+	statPoolModifier.rangeBegin = rangeBegin;
+	statPoolModifier.rangeEnd = rangeEnd;
+	statPoolModifier.startDelay = startDelay;
+	statPoolModifier.valuePerSec = valuePerSec;
+	statPoolModifier.delayOnChange = delayOnChange;
+	GameInstance.GetStatPoolsSystem( gi ).RequestSettingModifier( playerID, statPool, statPoolModType, statPoolModifier );
+}
+
+function SetDefaultStatPoolModifiers( gi : GameInstance, const statPoolTypeString : ref< String >, statPoolModType : gameStatPoolModificationTypes )
+{
+	var statPoolInt : Int32;
+	var playerID : StatsObjectID;
+	var statPool : gamedataStatPoolType;
+	statPoolInt = ( ( Int32 )( EnumValueFromString( "gamedataStatPoolType", statPoolTypeString ) ) );
+	if( statPoolInt == -1 )
+	{
+		return;
+	}
+	playerID = GetPlayer( gi ).GetEntityID();
+	statPool = ( ( gamedataStatPoolType )( statPoolInt ) );
+	GameInstance.GetStatPoolsSystem( gi ).RequestResetingModifier( playerID, statPool, statPoolModType );
+}
+

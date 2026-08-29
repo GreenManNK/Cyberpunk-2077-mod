@@ -6,7 +6,7 @@
 --Feel free to ask via nexus/discord, I just dont want my stuff stolen :)
 --===================
 CardEngine = {
-    version = '1.0.3',
+    version = '1.0.2',
     cards = {},
     inMotionCardsList = {},
     inFlippingMotionCardsList = {},
@@ -294,10 +294,8 @@ end
 
 ---Spawns card entities to look like a deck
 ---@param positionVector4 Vector4 spawn position
----@param orientationQuaternion Quaternion orientation quaternion
-function CardEngine.BuildVisualDeck(positionVector4, orientationQuaternion)
-    local deckEuler = orientationQuaternion:ToEulerAngles()
-    local orientationRPY = { r = deckEuler.roll, p = deckEuler.pitch, y = deckEuler.yaw }
+---@param orientationRPY any orientation as {r=,p=,y=}, p=180 for face down
+function CardEngine.BuildVisualDeck(positionVector4, orientationRPY)
     for i = 0, (DECK_CARD_COUNT-1) do
         local newZ = positionVector4.z + (0.0005 * i)
         local newPositionVector4 = Vector4.new(positionVector4.x, positionVector4.y, newZ, 1)

@@ -1,0 +1,840 @@
+package Query
+using RTDB
+
+PartQuery : ItemQuery
+{
+	levelBasedQuality = true;
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+WeaponModsQuery : PartQuery
+{
+	recordType = "Items.Mod";
+}
+
+RifleModsQuery : PartQuery
+{
+	recordType = "Items.AR_SMG_LMG_Mod";
+}
+
+HandgunModsQuery : PartQuery
+{
+	recordType = "Items.Handgun_Mod";
+}
+
+ShotgunModsQuery : PartQuery
+{
+	recordType = "Items.Shotgun_Mod";
+}
+
+PrecisionSniperRifleModsQuery : PartQuery
+{
+	recordType = "Items.Precision_Sniper_Rifle_Mod";
+}
+
+GenericRangedModsQuery : PartQuery
+{
+	recordType = "Items.RangedWeaponMod";
+}
+
+PowerModsQuery : PartQuery
+{
+	recordType = "Items.PowerWeaponMod";
+}
+
+TechModsQuery : PartQuery
+{
+	recordType = "Items.TechWeaponMod";
+}
+
+SmartModsQuery : PartQuery
+{
+	recordType = "Items.SmartWeaponMod";
+}
+
+BladeModsQuery : PartQuery
+{
+	recordType = "Items.Blade_Mod";
+}
+
+BluntModsQuery : PartQuery
+{
+	recordType = "Items.Blunt_Mod";
+}
+
+ThrowableModsQuery : PartQuery
+{
+	recordType = "Items.Throw_Mod";
+}
+
+GenericMeleeModsQuery : PartQuery
+{
+	recordType = "Items.MeleeMod";
+}
+
+GenericModsQuery : PartQuery
+{
+	recordType = "Items.GenericMod1_Base";
+}
+
+AttachmentsBaseQuery : ItemQuery
+{
+	tagsToExclude += 
+	[
+		"LegendaryAttachment"
+	];
+}
+
+Silencers_Tiers_1_to_2 : Silencers_Tiers_1_to_4
+{
+	recordType = "Items.SilencerBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+Silencers_Tiers_1_to_3 : Silencers_Tiers_1_to_4
+{
+	recordType = "Items.SilencerBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+Silencers_Tiers_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.SilencerBase";
+}
+
+Rifle_SMG_Muzzle_Tier_1_to_2 : Rifle_SMG_Muzzle_Tier_1_to_4
+{
+	recordType = "Items.Rifle_SMG_MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+Rifle_SMG_Muzzle_Tier_1_to_3 : Rifle_SMG_Muzzle_Tier_1_to_4
+{
+	recordType = "Items.Rifle_SMG_MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+Rifle_SMG_Muzzle_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.Rifle_SMG_MuzzleBrakeBase";
+}
+
+Handgun_Muzzle_Tier_1_to_2 : Handgun_Muzzle_Tier_1_to_4
+{
+	recordType = "Items.Handgun_MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+Handgun_Muzzle_Tier_1_to_3 : Handgun_Muzzle_Tier_1_to_4
+{
+	recordType = "Items.Handgun_MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+Handgun_Muzzle_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.Handgun_MuzzleBrakeBase";
+}
+
+Muzzle_Brake_Tier_1_to_2 : Muzzle_Brake_Tier_1_to_4
+{
+	recordType = "Items.MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+Muzzle_Brake_Tier_1_to_3 : Muzzle_Brake_Tier_1_to_4
+{
+	recordType = "Items.MuzzleBrakeBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+Muzzle_Brake_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.MuzzleBrakeBase";
+}
+
+AllPowerModules_Tier_1_to_2 : AllPowerModules_Tier_1_to_4
+{
+	recordType = "Items.WeaponMuzzleBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+AllPowerModules_Tier_1_to_3 : AllPowerModules_Tier_1_to_4
+{
+	recordType = "Items.WeaponMuzzleBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+AllPowerModules_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.WeaponMuzzleBase";
+}
+
+ShortScopes_Tier_1_to_2 : ShortScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Short_Scope";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+ShortScopes_Tier_1_to_3 : ShortScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Short_Scope";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+ShortScopes_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.Base_Short_Scope";
+}
+
+LongScopes_Tier_1_to_2 : LongScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Long_Scope";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+LongScopes_Tier_1_to_3 : LongScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Long_Scope";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+LongScopes_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.Base_Long_Scope";
+}
+
+SniperScopes_Tier_1_to_2 : SniperScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Sniper_Scope";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+SniperScopes_Tier_1_to_3 : SniperScopes_Tier_1_to_4
+{
+	recordType = "Items.Base_Sniper_Scope";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+SniperScopes_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.Base_Sniper_Scope";
+}
+
+ShortOrLongScopes_Tier_1_to_2 : ShortOrLongScopes_Tier_1_to_4
+{
+	recordType = "Items.WeaponScopeBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+ShortOrLongScopes_Tier_1_to_3 : ShortOrLongScopes_Tier_1_to_4
+{
+	recordType = "Items.WeaponScopeBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+ShortOrLongScopes_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.WeaponScopeBase";
+	tagsToExclude += 
+	[
+		"SniperScope"
+	];
+}
+
+AllScopes_Tier_1_to_2 : AllScopes_Tier_1_to_4
+{
+	recordType = "Items.WeaponScopeBase";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+AllScopes_Tier_1_to_3 : AllScopes_Tier_1_to_4
+{
+	recordType = "Items.WeaponScopeBase";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+AllScopes_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.WeaponScopeBase";
+}
+
+All_Attachments_Tier_1_to_2 : All_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+All_Attachments_Tier_1_to_3 : All_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+All_Attachments_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"WeaponMod"
+	];
+}
+
+All_Attachments_Tier_5 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	tagsToExclude = [];
+}
+
+Courier_Attachments_Tier_1_to_2 : Courier_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+Courier_Attachments_Tier_1_to_3 : Courier_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+Courier_Attachments_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"CourierReward"
+	];
+}
+
+Courier_Attachments_Tier_5 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	tagsToExclude = 
+	[
+		"LongScope", "SniperScope", "Silenced"
+	];
+}
+
+AirDrop_Attachments_Tier_1_to_2 : AirDrop_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier3-4", "Tier4"
+	];
+}
+
+AirDrop_Attachments_Tier_1_to_3 : AirDrop_Attachments_Tier_1_to_4
+{
+	recordType = "Items.ItemWeaponChild";
+	tagsToExclude += 
+	[
+		"Tier4"
+	];
+}
+
+AirDrop_Attachments_Tier_1_to_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"AirDropReward"
+	];
+}
+
+Treasure_Attachments_Tier_3 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"WeaponMod", "Tier3-4"
+	];
+}
+
+Treasure_Attachments_Tier_4 : AttachmentsBaseQuery
+{
+	recordType = "Items.ItemWeaponChild";
+	tags += 
+	[
+		"WeaponMod", "Tier4"
+	];
+}
+
+SalesDLC_AllScopesQuery : ItemQuery
+{
+	recordType = "Items.WeaponScopeBase";
+}
+
+SalesDLC_ShortScopesQuery : ItemQuery
+{
+	recordType = "Items.Base_Short_Scope";
+}
+
+SalesDLC_LongScopesQuery : ItemQuery
+{
+	recordType = "Items.Base_Long_Scope";
+}
+
+SalesDLC_SniperScopesQuery : ItemQuery
+{
+	recordType = "Items.Base_Sniper_Scope";
+}
+
+SalesDLC_SilencersQuery : ItemQuery
+{
+	recordType = "Items.WeaponMuzzleBase";
+}
+
+EarlyGameWeaponMods : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"EarlyGameWeaponAttachments"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+MidGameWeaponMods : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"MidGameWeaponAttachments"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+EndGameWeaponMods : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"EndGameWeaponAttachments"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+EarlyGameWeaponScopes : ItemQuery
+{
+	recordType = "Items.WeaponScopeBase";
+	tags = 
+	[
+		"EarlyGameWeaponAttachments"
+	];
+}
+
+MidGameWeaponScopes : ItemQuery
+{
+	recordType = "Items.WeaponScopeBase";
+	tags = 
+	[
+		"MidGameWeaponAttachments"
+	];
+}
+
+EndGameWeaponScopes : ItemQuery
+{
+	recordType = "Items.WeaponScopeBase";
+	tags = 
+	[
+		"EndGameWeaponAttachments"
+	];
+}
+
+EarlyGameWeaponSilencers : ItemQuery
+{
+	recordType = "Items.WeaponMuzzleBase";
+	tags = 
+	[
+		"EarlyGameWeaponAttachments"
+	];
+}
+
+MidGameWeaponSilencers : ItemQuery
+{
+	recordType = "Items.WeaponMuzzleBase";
+	tags = 
+	[
+		"MidGameWeaponAttachments"
+	];
+}
+
+EndGameWeaponSilencers : ItemQuery
+{
+	recordType = "Items.WeaponMuzzleBase";
+	tags = 
+	[
+		"EndGameWeaponAttachments"
+	];
+}
+
+CommonWeaponModsQuery : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"Common"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+CommonRangedWeaponModsQuery : CommonWeaponModsQuery
+{
+	recordType = "Items.RangedWeaponMod";
+}
+
+CommonMeleeWeaponModsQuery : CommonWeaponModsQuery
+{
+	recordType = "Items.MeleeMod";
+}
+
+CommonSmartWeaponModsQuery : CommonWeaponModsQuery
+{
+	recordType = "Items.SmartWeaponMod";
+	tags = 
+	[
+		"Common"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+UncommonWeaponModsQuery : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"Uncommon"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+UncommonRangedWeaponModsQuery : UncommonWeaponModsQuery
+{
+	recordType = "Items.RangedWeaponMod";
+}
+
+UncommonMeleeWeaponModsQuery : UncommonWeaponModsQuery
+{
+	recordType = "Items.MeleeMod";
+}
+
+UncommonSmartWeaponModsQuery : UncommonWeaponModsQuery
+{
+	recordType = "Items.SmartWeaponMod";
+}
+
+RareWeaponModsQuery : ItemQuery
+{
+	recordType = "Items.Mod";
+	tags = 
+	[
+		"Rare"
+	];
+	tagsToExclude = 
+	[
+		"InlineRecord"
+	];
+}
+
+RareRangedWeaponModsQuery : RareWeaponModsQuery
+{
+	recordType = "Items.RangedWeaponMod";
+}
+
+RareSmartWeaponModsQuery : RareWeaponModsQuery
+{
+	recordType = "Items.SmartWeaponMod";
+}
+
+RareGenericRangedWeaponModsQuery : RareWeaponModsQuery
+{
+	recordType = "Items.RangedWeaponMod";
+	tags += 
+	[
+		"GenericRangedMod"
+	];
+}
+
+RareShotgunModsQuery : RareWeaponModsQuery
+{
+	recordType = "Items.Shotgun_Mod";
+}
+
+RareMeleeWeaponModsQuery : RareWeaponModsQuery
+{
+	recordType = "Items.MeleeMod";
+}
+
+Gunsmith_Exclusive_Tier4_WeaponModsArrayQuery : Gunsmith_ExclusiveWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Legendary"
+	];
+}
+
+Gunsmith_ExclusiveWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 1;
+	recordType = "Items.RangedWeaponMod";
+	tags += 
+	[
+		"Exclusive"
+	];
+}
+
+Melee_Exclusive_Tier4_WeaponModsArrayQuery : Melee_ExclusiveWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Legendary"
+	];
+}
+
+Melee_ExclusiveWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 1;
+	recordType = "Items.MeleeMod";
+	tags += 
+	[
+		"Exclusive"
+	];
+}
+
+Gunsmith_EpicWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 2;
+	recordType = "Items.Mod";
+	tags += 
+	[
+		"Epic"
+	];
+	tagsToExclude += 
+	[
+		"Exclusive", "MeleeMod", "InlineRecord"
+	];
+}
+
+Gunsmith_EpicAndLegendaryWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 2;
+	recordType = "Items.Mod";
+	tagsToExclude += 
+	[
+		"Exclusive", "MeleeMod", "Common", "Uncommon", "Rare", "InlineRecord"
+	];
+}
+
+Gunsmith_EpicWeaponModsArrayQuery_NoSmart : Gunsmith_EpicWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Smart"
+	];
+}
+
+Gunsmith_EpicAndLegendaryWeaponModsArrayQuery_NoSmart : Gunsmith_EpicAndLegendaryWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Smart"
+	];
+}
+
+Gunsmith_EpicWeaponModsArrayQuery_NoSmartAndTech : Gunsmith_EpicWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Smart", "Tech"
+	];
+}
+
+Gunsmith_EpicAndLegendaryWeaponModsArrayQuery_NoSmartAndTech : Gunsmith_EpicAndLegendaryWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"Smart", "Tech"
+	];
+}
+
+Melee_EpicWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 2;
+	recordType = "Items.Mod";
+	tags += 
+	[
+		"Epic"
+	];
+	tagsToExclude += 
+	[
+		"Exclusive", "RangedMod", "InlineRecord"
+	];
+}
+
+Melee_EpicAndLegendaryWeaponModsArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 2;
+	recordType = "Items.Mod";
+	tagsToExclude += 
+	[
+		"Exclusive", "RangedMod", "Common", "Uncommon", "Rare", "InlineRecord"
+	];
+}
+
+Blade_EpicWeaponModsArrayQuery : Melee_EpicWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BluntMod", "ThrowMod"
+	];
+}
+
+Blade_EpicAndLegendaryWeaponModsArrayQuery : Melee_EpicAndLegendaryWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BluntMod", "ThrowMod"
+	];
+}
+
+Blunt_EpicWeaponModsArrayQuery : Melee_EpicWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BladeMod", "ThrowMod"
+	];
+}
+
+Blunt_EpicAndLegendaryWeaponModsArrayQuery : Melee_EpicAndLegendaryWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BladeMod", "ThrowMod"
+	];
+}
+
+Throw_EpicWeaponModsArrayQuery : Melee_EpicWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BladeMod", "BluntMod"
+	];
+}
+
+Throw_EpicAndLegendaryWeaponModsArrayQuery : Melee_EpicAndLegendaryWeaponModsArrayQuery
+{
+	tagsToExclude += 
+	[
+		"BladeMod", "BluntMod"
+	];
+}
+

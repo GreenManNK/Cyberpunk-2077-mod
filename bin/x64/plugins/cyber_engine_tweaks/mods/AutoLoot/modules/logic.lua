@@ -15,7 +15,7 @@ By modifying the mod code or files, you acknowledge I cannot support the modifie
 You're not allowed to publish your modifications to the mod code or files without my consent.
 You're not allowed to publicly propose unauthorized changes to the mod code or files.
 You're not allowed to use any part of the mod code or files for commercial purposes, advertising or promotion of any kind.
-You can use parts the code or file modifications in your creations only by my consent and on a credit note.
+You may use parts of the code or any original algorithms developed for this mod in your own creations only with my prior consent and proper credit.
 You're not allowed to use parts of the code or files marked as coming from other people without their consent.
 You can create and publish translations of the parts of the mod that are explicitly marked as allowed to translate either in the mod description either in the mod files.
 The translations must follow the Nexusmods translation publishing rules.
@@ -23,13 +23,13 @@ The translations must follow the Nexusmods translation publishing rules.
 
 -- THIS MODULE DOES NOT SUPPORT TRANSLATIONS IN IT'S CURRENT SHAPE
 
--- Jun 20, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
+-- Aug 15, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
 -- Uses (c)psiberx code snippets and libraries on his license.
 
 
 logic = {
-			modVer = 'v3.10.3',
-			moduleVer = 'v3.10.3',
+			modVer = 'v3.10.5',
+			moduleVer = 'v3.10.5',
 			modName = 'Autoloot',
 			modAuthorName = 'keanuWheeze and anygoodname',
 			lastLootCompletedTime = 0,
@@ -703,6 +703,8 @@ function setObservers()
 		{position = Vector4new(-2441.8687, -4224.1006, 68.3107, 1)},
 		{position = Vector4new(-2907.1284, -5338.4458, 80.1940, 1)},
 		{position = Vector4new(-2907.1284, -5338.4458, 80.1940, 1)},
+		{position = Vector4new(-2797.7097, -1923.4358, 8.8454, 1), lrsq = 16},
+		{position = Vector4new(-2788.8352, -1927.6388, 8.8461, 1), lrsq = 16},
 		{position = Vector4new(-2240.6641, -2292.3079, 12.4525, 1)},
 		{position = Vector4new(3964.7839, -1566.3849, 135.0368, 1)},
 		{position = Vector4new(2286.7861, -1050.7792, 55.5045, 1)},
@@ -776,7 +778,12 @@ function setObservers()
 		{position = Vector4new(81.8699, 1335.9733, 118.1546, 1)},
 		{position = Vector4new(554.2794, 1205.2345, 242.0261, 1)},
 		{position = Vector4new(554.2794, 1205.2345, 242.0261, 1)},
-		{position = Vector4new(-1366.8198, -2612.0793, 85.0200, 1)},
+		{position = Vector4new(-1366.8198, -2612.0793, 85.0200, 1), rsq = 0.25},
+		{position = Vector4new(-1368.1023, -2614.0305, 85.2581, 1), lrsq = 9, pdt = 0.5625},
+		{position = Vector4new(-1366.4501, -2610.3401, 85.4400, 1), lrsq = 9, pdt = 0.5625},
+		{position = Vector4new(-1368.4000, -2611.2600, 84.9500, 1), lrsq = 9, pdt = 0.5625},
+		{position = Vector4new(-1368.7600, -2612.1702, 84.8200, 1), lrsq = 9, pdt = 0.5625},
+		{position = Vector4new(-1368.5403, -2613.3699, 85.7500, 1), lrsq = 9, pdt = 0.5625},
 		{position = Vector4new(-1960.9954, -2911.3210, 90.4100, 1)},
 		{position = Vector4new(-2050.1555, -2474.6982, 24.2290, 1)},
 		{position = Vector4new(-2049.4458, -2478.0161, 24.3491, 1)},
@@ -934,6 +941,34 @@ function setObservers()
 		{position = Vector4new(-726.1154, -2011.9991, 6.6462, 1), lrsq = 16},
 		{position = Vector4new(-1054.9734, -1701.3489, 13.911919, 1), lrsq = 25},
 		{position = Vector4new(-11.2479, 2081.3027, 100.49, 1)},
+		{position = Vector4new(-150.2933, -1629.7213, 7.1723, 1), lrsq = 16, pdt = 3},
+		{position = Vector4new(-492.7041, 574.4717, 27.3120, 1)},
+		{position = Vector4new(1199.7400, 1317.8856, 28.0600, 1), lrsq = 20.25},
+		{position = Vector4new(-1299.1766, -1929.3748, 28.359, 1)},
+		{position = Vector4new(-1315.9302, -1901.963, 10.344, 1), lrsq = 16},
+		{position = Vector4new(-2034.4435, -2544.4229, 40.4377, 1), pdt = 1, lrsq = 16},
+		{position = Vector4new(-2030.8453, -2544.5811, 41.1016, 1), lrsq = 16},
+		{position = Vector4new(-1716.1003, -2472.0105, 49.689995, 1), lrsq = 25},
+		{position = Vector4new(-1644.412, -2530.11, 44.862625, 1), lrsq = 36},
+		{position = Vector4new(-1642.3988, -2532.2087, 45.6025, 1), lrsq = 72.25},
+		{position = Vector4new(-1642.3988, -2532.2087, 45.6025, 1), lrsq = 72.25},
+		{position = Vector4new(-1644.2249, -2534.2212, 44.8572, 1), lrsq = 72.25},
+		{position = Vector4new(-1646.7534, -2533.5142, 44.849457, 1), lrsq = 72.25},
+		{position = Vector4new(-2119.9790, -3035.1326, 121.0043, 1)},
+		{position = Vector4new(-2119.0820, -3033.8677, 121.0784, 1), lrsq = 4, pdt = 1},
+		{position = Vector4new(-2217.5999, -2921.2402, 108.5800, 1)},
+		{position = Vector4new(-2220.0601, -2920.4004, 109.1700, 1)},
+		{position = Vector4new(-2209.3909, -2917.4067, 107.9900, 1), lrsq = 4, pdt = 1},
+		{position = Vector4new(-2209.3909, -2917.4067, 107.9900, 1), lrsq = 4, pdt = 1},
+		{position = Vector4new(-2018.5375, -2793.8574, 92.5260, 1), lrsq = 9},
+		{position = Vector4new(-1457.5702, -2685.9893, 90.78, 1), lrsq = 25,  pdt = 1},
+		{position = Vector4new(-1457.5702, -2685.9893, 90.78, 1), lrsq = 25,  pdt = 1},
+		{position = Vector4new(-1536.9404, -2600.9902, 85.71, 1), lrsq = 25},
+		{position = Vector4new(3193.9905, -2090.7122, 118.49533, 1), lrsq = 25},
+		{position = Vector4new(3194.1094, -2089.4258, 118.43974, 1), lrsq = 25},
+		{position = Vector4new(3195.4158, -2091.6897, 118.49533, 1), lrsq = 25},
+		{position = Vector4new(3196.122, -2090.9104, 118.50055, 1), lrsq = 25},
+
 		{position = Vector4new(-908.324, 1855.955, 43.148, 1)},
 		{position = Vector4new(-905.593, 1852.789, 42.808, 1)},
 		{position = Vector4new(-896.745, 1854.101, 43.152, 1)},
@@ -1100,6 +1135,21 @@ function setObservers()
 		t(3921358959, 31),
 		t(4051939949, 19),
 		t(2894998260, 32),
+		t(3479250575, 25),
+		t(0xFF9F289C, 18),
+		t(0x66967926, 18),
+		t(0x119149B0, 18),
+		t(0x8FF5DC13, 18),
+		t(0xF8F2EC85, 18),
+		t(0x61FBBD3F, 18),
+		t(0x16FC8DA9, 18),
+		t(0x86439038, 18),
+		t(0xF144A0AE, 18),
+		t(0x9183294B, 18),
+		t(0xE68419DD, 18),
+		t(0x7F8D4867, 18),
+		t(0x088A78F1, 18),
+		t(0x96EEED52, 18),
 		t(2334032496, 35),
 		t(2519806307, 35),
 		t(1269295334, 35),
@@ -2242,7 +2292,7 @@ function isPlayerSpecialMode(player)
 	if sceneTier >= 3 then return true end
 	if player:IsReplacer() then return true end
 	if player:IsJohnnyReplacer() then return true end
-	if not restrictionTags then restrictionTags = {n"Defeated", n"Cyberspace", n"CyberspacePresence"} end
+	restrictionTags = restrictionTags or {n"Defeated", n"Cyberspace", n"CyberspacePresence"}
 	if StatusEffectSystem.ObjectHasStatusEffectWithTags(player, restrictionTags) then return true end
 end
 

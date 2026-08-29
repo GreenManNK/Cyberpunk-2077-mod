@@ -1,0 +1,107 @@
+class DestroyWeakspotEffector extends Effector
+{
+	var m_weakspotIndex : Int32;
+
+	protected override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		m_weakspotIndex = TweakDBInterface.GetInt( record + T".weakSpotIndex", 0 );
+	}
+
+	protected override function ActionOn( owner : GameObject )
+	{
+		var npc : NPCPuppet;
+		var gi : GameInstance;
+		var weakspotComponent : WeakspotComponent;
+		var breachController : BreachControllerComponent;
+		var breachComponent : BreachComponent;
+		var weakspots : array< weak< WeakspotObject > >;
+		var weakspot : WeakspotObject;
+		var i : Int32;
+		npc = ( ( NPCPuppet )( owner ) );
+		if( !( npc ) )
+		{
+			return;
+		}
+		gi = npc.GetGame();
+		if( GameInstance.GetGodModeSystem( gi ).HasGodMode( npc.GetEntityID(), gameGodModeType.Invulnerable ) || ( GameInstance.GetStatsSystem( gi ).GetStatValue( npc.GetEntityID(), gamedataStatType.IsInvulnerable ) > 0.0 ) )
+		{
+			return;
+		}
+		weakspotComponent = npc.GetWeakspotComponent();
+		if( !( weakspotComponent ) )
+		{
+			return;
+		}
+		weakspotComponent.GetWeakspots( weakspots );
+		if( weakspots.Size() <= 0 )
+		{
+			return;
+		}
+		if( m_weakspotIndex >= weakspots.Size() )
+		{
+			return;
+		}
+		if( m_weakspotIndex >= 0 )
+		{
+			weakspot = weakspots[ m_weakspotIndex ];
+		}
+		else
+		{
+			breachController = npc.GetBreachControllerComponent();
+			if( breachController )
+			{
+				breachComponent = breachController.GetPreviouslyTrackedBreach();
+				if( breachComponent )
+				{
+					weakspot = breachComponent.GetAttachedWeakspot();
+				}
+			}
+			if( !( weakspot ) )
+			{
+				for( i = 0; i < weakspots.Size(); i += 1 )
+				{
+					if( !( weakspots[ i ].IsDead() ) && !( weakspots[ i ].IsInvulnerable() ) )
+					{
+						weakspot = weakspots[ i ];
+						break;
+					}
+				}
+			}
+		}
+		if( ( !( weakspot ) || weakspot.IsDead() ) || weakspot.IsInvulnerable() )
+		{
+			return;
+		}
+		ScriptedWeakspotObject.Kill( weakspot, GameInstance.GetPlayerSystem( npc.GetGame() ).GetLocalPlayerMainGameObject() );
+		StatusEffectHelper.ApplyStatusEffect( npc, T"BaseStatusEffect.JustDestroyedWeakspot", npc.GetEntityID() );
+	}
+
+}
+
+class DestroyBreachEffector extends Effector
+{
+
+	protected override function ActionOn( owner : GameObject )
+	{
+		var npc : NPCPuppet;
+		var gi : GameInstance;
+		var breachController : BreachControllerComponent;
+		npc = ( ( NPCPuppet )( owner ) );
+		if( !( npc ) )
+		{
+			return;
+		}
+		gi = npc.GetGame();
+		if( GameInstance.GetGodModeSystem( gi ).HasGodMode( npc.GetEntityID(), gameGodModeType.Invulnerable ) || ( GameInstance.GetStatsSystem( gi ).GetStatValue( npc.GetEntityID(), gamedataStatType.IsInvulnerable ) > 0.0 ) )
+		{
+			return;
+		}
+		breachController = npc.GetBreachControllerComponent();
+		if( breachController )
+		{
+			breachController.DestroyPreviouslyTrackedBreach();
+		}
+	}
+
+}
+

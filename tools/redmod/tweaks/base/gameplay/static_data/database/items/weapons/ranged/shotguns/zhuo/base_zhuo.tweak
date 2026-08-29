@@ -1,0 +1,578 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage
+
+[ notQueryable ]
+Base_Zhuo : Base_Smart_Shotgun
+{
+	buyPrice += 
+	[
+		"Price.KangTao", "Price.TopManufactureQuality"
+	];
+	sellPrice += 
+	[
+		"Price.KangTao", "Price.TopManufactureQuality"
+	];
+	displayName = "LocKey#3635";
+	string friendlyName = "w_shotgun_zhuo";
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 15;
+	} : ConstantStatModifier;
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Zhuo";
+	localizedDescription = "LocKey#3636";
+	gameplayDescription = "LocKey#92668";
+	fk< SlotItemPartListElement >[] slotPartList = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__kang_tao_zhuo__rcv1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__kang_tao_zhuo__base1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__kang_tao_zhuo__mag_std";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__kang_tao_zhuo__mag_stdr";
+				}
+			];
+		}
+	];
+	CName audioName = "wea_set_zhuo";
+	CName[] tags += 
+	[
+		"Preload", "Weapon", "Unique", "T3_Inject_Weapon", "Zhuo"
+	];
+	fk< TriggerMode >[] triggerModes = 
+	[
+		"TriggerMode.SemiAuto"
+	];
+	fk< TriggerMode > primaryTriggerMode = "TriggerMode.SemiAuto";
+	fk< WeaponManufacturer > manufacturer = "WeaponManufacturer.Corporation";
+	fk< WeaponEvolution > evolution = "WeaponEvolution.Smart";
+	fk< Item > ammo = "Ammo.ShotgunAmmo";
+	enableNpcRPGData = true;
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Zhuo_NPC_Data;
+	statModifierGroups += 
+	[
+		"Items.Base_Zhuo_Technical_Stats", "Items.Base_Zhuo_Handling_Stats", "Items.Base_Zhuo_Recoil_Stats", "Items.Base_Zhuo_Spread_Stats", "Items.Base_Zhuo_SmartGun_Stats", "Items.Base_Zhuo_SmartGun_SmartLink_Stats", "Items.Base_Zhuo_SmartGun_Projectile_Stats", "Items.Base_Zhuo_Flags", "Items.Base_Zhuo_Aim_Stats", "Items.Base_Zhuo_Constant_Stats", "Items.Base_Zhuo_Damage_Stats"
+	];
+	bool saveStatPools = true;
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		"EquipmentGLP.SlowStaminaRegen", "EquipmentGLP.HeavyStaminaDelay", "EquipmentGLP.VeryHeavyWeapon", "Items.SmartWeaponTargetsPriorityQueues"
+	];
+	fk< Crosshair > crosshair = "Crosshairs.SmartGun";
+	fk< RangedAttackPackage > rangedAttacks = "Attacks.SmartBulletHighPackage";
+	fk< WeaponFxPackage > fxPackage = "WeaponFxPackage.SmartShotgun";
+	bool IsIKEnabled = false;
+	baseReloadTime = 2.0f;
+	baseEmptyReloadTime = 2.0f;
+	uninterruptibleReloadStart = 0.5f;
+	uninterruptibleEmptyReloadStart = 0.5f;
+	float weaponNearPlane = 0.27f;
+	float weaponFarPlane = 0.6f;
+	float weaponEdgesSharpness = 0.4958f;
+	float weaponVignetteIntensity = 0.1357f;
+	float weaponVignetteRadius = 0.6482f;
+	float weaponVignetteCircular = 0.0f;
+	float weaponBlurIntensity = 1.0f;
+	float weaponNearPlane_aim = 0.19f;
+	float weaponFarPlane_aim = 0.5f;
+	float weaponEdgesSharpness_aim = 0.4958f;
+	float weaponVignetteIntensity_aim = 0.1357f;
+	float weaponVignetteRadius_aim = 0.6814f;
+	float weaponVignetteCircular_aim = 0.1745f;
+	float weaponBlurIntensity_aim = 1.f;
+}
+
+Base_Zhuo_NPC_Data : Base_Smart_Shotgun_NPC_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Zhuo_NPC_Technical_Stats", "Items.Base_Zhuo_SmartGun_Projectile_Stats", "Items.Base_Zhuo_Damage_NPC_Stats"
+	];
+}
+
+Base_Zhuo_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.4f;
+		} : CycleTimeModifier, 
+		{
+			value = 4.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 8.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Zhuo_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 66f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Zhuo_Damage_NPC_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 60f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Zhuo_NPC_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.4f;
+		} : CycleTimeModifier, 
+		{
+			value = 4.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 5.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Zhuo_Handling_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 2.f;
+		} : ReloadTimeModifier, 
+		{
+			value = 2.f;
+		} : EmptyReloadTimeModifier, 
+		{
+			value = 1.0f;
+		} : ReloadEndTimeModifier, 
+		{
+			value = 1.0f;
+		} : EmptyReloadEndTimeModifier, 
+		{
+			value = 1.2f;
+		} : ZoomLevelModifier, 
+		{
+			value = 0f;
+		} : CycleTriggerModeTimeModifier, 
+		{
+			value = 4.f;
+		} : EquipDuration_FirstModifier
+	];
+}
+
+Base_Zhuo_Recoil_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.f;
+		} : RecoilDirModifier, 
+		{
+			value = 45.f;
+		} : RecoilAngleModifier, 
+		{
+			value = 0.03f;
+		} : RecoilTimeModifier, 
+		{
+			value = 0.05f;
+		} : RecoilDelayModifier, 
+		{
+			value = 0.15f;
+		} : RecoilRecoveryTimeModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXADSModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYADSModifier
+	];
+}
+
+Base_Zhuo_Spread_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : SpreadUseInAdsModifier, 
+		{
+			value = 1.5f;
+		} : SpreadResetSpeedModifier, 
+		{
+			value = 0.3f;
+		} : SpreadResetTimeThresholdModifier, 
+		{
+			value = 0.f;
+		} : SpreadRandomizeOriginPointModifier, 
+		{
+			value = 0.f;
+		} : SpreadUseCircularSpreadModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseEvenDistributionModifier, 
+		{
+			value = 4.f;
+		} : SpreadEvenDistributionRowCountModifier, 
+		{
+			value = 0.1f;
+		} : SpreadEvenDistributionJitterSizeModifier
+	];
+}
+
+Base_Zhuo_Flags : StatModifierGroup
+{
+	statModifiers = [];
+}
+
+Base_Zhuo_SmartGun_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : SmartGunUseEvenDistributionTargetingModifier, 
+		{
+			value = 0.f;
+		} : SmartGunTrackMultipleEntitiesInADSModifier, 
+		{
+			value = 0.f;
+		} : SmartGunHipLockingAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipLockingAngleYawModifier, 
+		{
+			value = 0.f;
+		} : SmartGunAdsLockingAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsLockingAngleYawModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipTargetableAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipTargetableAngleYawModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsTargetableAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsTargetableAngleYawModifier, 
+		{
+			value = 3.f;
+		} : SmartGunHipMaxLockedTargetsModifier, 
+		{
+			value = 1.f;
+		} : SmartGunAdsMaxLockedTargetsModifier, 
+		{
+			value = 1.15f;
+		} : SmartGunHipTimeToLockModifier, 
+		{
+			value = 1.15f;
+		} : SmartGunAdsTimeToLockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunHipTimeToUnlockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunAdsTimeToUnlockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunTimeToRemoveOccludedTargetModifier, 
+		{
+			value = 0.f;
+		} : SmartGunUseTimeBasedAccuracyModifier, 
+		{
+			value = 0.5f;
+		} : SmartGunTimeToMaxAccuracyModifier, 
+		{
+			value = 0.2f;
+		} : SmartGunStartingAccuracyModifier, 
+		{
+			value = 5.0f;
+		} : SmartGunSpreadMultiplierModifier, 
+		{
+			value = 35.f;
+		} : SmartGunPlayerProjectileVelocityModifier, 
+		{
+			value = 0.80f;
+		} : SmartGunHitProbabilityModifier
+	];
+}
+
+Base_Zhuo_SmartGun_SmartLink_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 12.f;
+			statType = "BaseStats.SmartGunHipLockingAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 9.0f;
+			statType = "BaseStats.SmartGunHipLockingAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 12.f;
+			statType = "BaseStats.SmartGunAdsLockingAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 9.0f;
+			statType = "BaseStats.SmartGunAdsLockingAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 11.0f;
+			statType = "BaseStats.SmartGunHipTargetableAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunHipTargetableAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 11.0f;
+			statType = "BaseStats.SmartGunAdsTargetableAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunAdsTargetableAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunHipTimeToUnlock";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunAdsTimeToUnlock";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunTimeToRemoveOccludedTarget";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 35.f;
+			statType = "BaseStats.SmartGunPlayerProjectileVelocity";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 0.20f;
+			statType = "BaseStats.SmartGunHitProbability";
+		} : SmartLinkDependentStatModifier
+	];
+}
+
+Base_Zhuo_SmartGun_Projectile_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.33f;
+		} : SmartGunProjectileVelocityVarianceModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunAddSpiralTrajectoryModifier, 
+		{
+			value = 0.03f;
+		} : SmartGunSpiralRadiusModifier, 
+		{
+			value = 0.2f;
+		} : SmartGunSpiralCycleTimeMinModifier, 
+		{
+			value = 0.3f;
+		} : SmartGunSpiralCycleTimeMaxModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunSpiralRampDistanceStartModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunSpiralRampDistanceEndModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunSpiralRandomizeDirectionModifier, 
+		{
+			value = 0.03f;
+		} : SmartGunMissDelayModifier, 
+		{
+			value = 10.f;
+		} : SmartGunMissRadiusModifier
+	];
+}
+
+Base_Zhuo_Aim_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.AimFOV";
+			modifierType = "Additive";
+			value = 49;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AimOffset";
+			modifierType = "Additive";
+			value = -0.f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Zhuo_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 3.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultY";
+			modifierType = "Additive";
+			value = 4.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultY";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 3.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxY";
+			modifierType = "Additive";
+			value = 4.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxY";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadChangePerShot";
+			modifierType = "Additive";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsChangePerShot";
+			modifierType = "Additive";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 2.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 0.870f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "Multiplier";
+			value = 2.0;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow"
+	];
+}
+
+w_shotgun__kang_tao_zhuo__rcv1 : WeaponShotgunReceiverBase
+{
+	string friendlyName = "w_shotgun__kang_tao_zhuo__rcv1";
+	CName appearanceResourceName = "w_shotgun__kang_tao_zhuo__rcv1_01";
+}
+
+w_shotgun__kang_tao_zhuo__base1 : WeaponShotgunBarrelBase
+{
+	string friendlyName = "w_shotgun__kang_tao_zhuo__base1";
+	CName appearanceResourceName = "w_shotgun__kang_tao_zhuo__base1_01";
+}
+
+w_shotgun__kang_tao_zhuo__mag_std : WeaponMagazineBase
+{
+	string friendlyName = "w_shotgun__kang_tao_zhuo__mag_std";
+	CName appearanceResourceName = "w_shotgun__kang_tao_zhuo__mag_std_01";
+}
+
+w_shotgun__kang_tao_zhuo__mag_stdr : WeaponMagazineBaseEmpty
+{
+	string friendlyName = "w_shotgun__kang_tao_zhuo__mag_stdr";
+	CName appearanceResourceName = "w_shotgun__kang_tao_zhuo__mag_stdr_01";
+}
+

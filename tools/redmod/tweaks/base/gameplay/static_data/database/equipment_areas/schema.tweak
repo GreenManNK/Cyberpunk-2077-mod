@@ -1,0 +1,27 @@
+package RTDB
+using Prereqs, EquipmentArea
+
+EquipSlot
+{
+	fk< IPrereq > unlockPrereqRecord = "Prereqs.AlwaysTruePrereq";
+	fk< GameplayLogicPackage >[] OnInsertion = [];
+	bool visibleWhenLocked = true;
+}
+
+EquipmentArea
+{
+	CName enumName = "";
+	string enumComment = "";
+	string localizedName = "";
+	fk< EquipSlot >[] equipSlots = 
+	[
+		"EquipmentArea.SimpleEquipSlot"
+	];
+}
+
+CyberwareArea : EquipmentArea
+{
+	enumComment = "Area reserved for modules to install at the RipperDoc, AKA BodyPart";
+	fk< StatModifierGroup >[] statModifierGroups = [];
+}
+

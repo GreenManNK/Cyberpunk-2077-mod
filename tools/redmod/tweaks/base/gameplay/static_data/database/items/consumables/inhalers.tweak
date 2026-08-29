@@ -1,0 +1,524 @@
+package Items
+using RTDB, ItemAction
+
+[ notQueryable ]
+Inhaler : ConsumableItem
+{
+	buyPrice += 
+	[
+		"Price.Inhaler"
+	];
+	sellPrice = [];
+	displayName = "LocKey#2677";
+	localizedDescription = "LocKey#2686";
+	tags += 
+	[
+		"Inhaler", "Drug", "Medical", "SkipActivityLogOnRemove", "ChargedConsumable"
+	];
+	CName entityName = "base_inhaler_item";
+	itemType = "ItemType.Con_Inhaler";
+	consumableType = "ConsumableType.Medical";
+	consumableBaseName = "ConsumableBaseName.FirstAidWhiff";
+	iconPath = "inhaler_4_medical_maxdoc";
+	appearanceName = "medical_1";
+	objectActions = [];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 99899;
+		} : ConstantStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.FirstAidWhiffDuration"
+	];
+	castPoint = 0.30f;
+	removePoint = 0.75f;
+	cycleDuration = 0.75f;
+}
+
+[ notQueryable ]
+FirstAidWhiffV0 : Inhaler
+{
+	displayName = "LocKey#35384";
+	quality = "Quality.Common";
+	tags += 
+	[
+		"OnlyBaseQuality"
+	];
+	objectActions += 
+	[
+		{
+			instigatorPrereqs = 
+			[
+				{
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.Health";
+							modifierType = "Additive";
+							value = 00.0f;
+						} : ConstantStatModifier
+					];
+					statPoolType = "Health";
+					comparisonType = "Greater";
+				} : StatPoolPrereq
+			];
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.FirstAidWhiffV0";
+				}
+			];
+		} : UseHealCharge
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 50.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					50
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVCommonPlus : FirstAidWhiffV0
+{
+	quality = "Quality.CommonPlus";
+	tags += 
+	[
+		"InhalerPlus"
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 58.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					58
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVUncommon : Inhaler
+{
+	displayName = "LocKey#2679";
+	quality = "Quality.Uncommon";
+	objectActions += 
+	[
+		{
+			instigatorPrereqs = 
+			[
+				{
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.Health";
+							modifierType = "Additive";
+							value = 0.0f;
+						} : ConstantStatModifier
+					];
+					statPoolType = "Health";
+					comparisonType = "Greater";
+				} : StatPoolPrereq
+			];
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.FirstAidWhiffVUncommon";
+				}
+			];
+		} : UseHealCharge
+	];
+	CraftingData = "Items.UncommonHealingItemCraftingData";
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 65.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					65
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVUncommonPlus : FirstAidWhiffVUncommon
+{
+	quality = "Quality.UncommonPlus";
+	tags += 
+	[
+		"InhalerPlus"
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 72.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					72
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffV1 : Inhaler
+{
+	displayName = "LocKey#35387";
+	quality = "Quality.Rare";
+	objectActions += 
+	[
+		{
+			instigatorPrereqs = 
+			[
+				{
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.Health";
+							modifierType = "Additive";
+							value = 00.0f;
+						} : ConstantStatModifier
+					];
+					statPoolType = "Health";
+					comparisonType = "Greater";
+				} : StatPoolPrereq
+			];
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.FirstAidWhiffV1";
+				}
+			];
+		} : UseHealCharge
+	];
+	CraftingData = "Items.RareHealingItemCraftingData";
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 84.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					84
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVRarePlus : FirstAidWhiffV1
+{
+	quality = "Quality.RarePlus";
+	tags += 
+	[
+		"InhalerPlus"
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 92.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					92
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVEpic : Inhaler
+{
+	displayName = "LocKey#92394";
+	quality = "Quality.Epic";
+	objectActions += 
+	[
+		{
+			instigatorPrereqs = 
+			[
+				{
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.Health";
+							modifierType = "Additive";
+							value = 00.0f;
+						} : ConstantStatModifier
+					];
+					statPoolType = "Health";
+					comparisonType = "Greater";
+				} : StatPoolPrereq
+			];
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.FirstAidWhiffVEpic";
+				}
+			];
+		} : UseHealCharge
+	];
+	CraftingData = "Items.EpicHealingItemCraftingData";
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					100
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVEpicPlus : FirstAidWhiffVEpic
+{
+	quality = "Quality.EpicPlus";
+	tags += 
+	[
+		"InhalerPlus"
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 107.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					107
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffV2 : Inhaler
+{
+	displayName = "LocKey#92395";
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			instigatorPrereqs = 
+			[
+				{
+					valueToCheck = 
+					[
+						{
+							statType = "BaseStats.Health";
+							modifierType = "Additive";
+							value = 00.0f;
+						} : ConstantStatModifier
+					];
+					statPoolType = "Health";
+					comparisonType = "Greater";
+				} : StatPoolPrereq
+			];
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.FirstAidWhiffV2";
+				}
+			];
+		} : UseHealCharge
+	];
+	CraftingData = "Items.LegendaryHealingItemCraftingData";
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 116.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					116
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+[ notQueryable ]
+FirstAidWhiffVLegendaryPlus : FirstAidWhiffV2
+{
+	quality = "Quality.LegendaryPlus";
+	tags += 
+	[
+		"InhalerPlus"
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.IsHealingItemEquipped";
+					modifierType = "Additive";
+					value = 1.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					value = 126.0f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					126
+				];
+			} : FirstAidWhiffUIDataAbility01;
+		}
+	];
+}
+
+FirstAidWhiffUIDataAbility01 : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#42432";
+}
+
+BlackLaceUIDataAbility01 : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#49551";
+}
+

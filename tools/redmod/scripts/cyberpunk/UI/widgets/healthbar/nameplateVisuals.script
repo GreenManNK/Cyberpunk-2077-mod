@@ -1,0 +1,424 @@
+class NameplateVisualsLogicController extends inkLogicController
+{
+	private var m_rootWidget : weak< inkCompoundWidget >;
+	private editable var m_nameTextMain : inkTextRef;
+	private editable var m_nameFrame : inkWidgetRef;
+	private editable var m_healthbarWidget : inkWidgetRef;
+	private editable var m_healthBarFull : inkWidgetRef;
+	private editable var m_healthBarFrame : inkWidgetRef;
+	private editable var m_stealthMappinSlot : inkCompoundRef;
+	private editable var m_damagePreviewWrapper : inkWidgetRef;
+	private editable var m_damagePreviewWidget : inkWidgetRef;
+	private editable var m_damagePreviewArrow : inkWidgetRef;
+	private editable var m_rarityHolder : inkWidgetRef;
+	private const editable var m_rarities : array< inkWidgetRef >;
+	private var m_cachedPuppet : weak< GameObject >;
+	private var m_cachedIncomingData : NPCNextToTheCrosshair;
+	private var m_isBoss : Bool;
+	private var m_isElite : Bool;
+	private var m_isRare : Bool;
+	private var m_isNCPD : Bool;
+	private var m_canCallReinforcements : Bool;
+	private var m_isBurning : Bool;
+	private var m_isPoisoned : Bool;
+	private var m_bossColor : Color;
+	private var m_npcDefeated : Bool;
+	private var m_isStealthMappinVisible : Bool;
+	private var m_playerZone : gamePSMZones;
+	private var m_npcNamesEnabled : Bool;
+	private var m_healthController : weak< NameplateBarLogicController >;
+	private var m_hasCenterIcon : Bool;
+	private var m_animatingObject : inkWidgetRef;
+	private var m_isAnimating : Bool;
+	private var m_animProxy : inkAnimProxy;
+	private var m_alpha_fadein : inkAnimDef;
+	private var m_damagePreviewAnimProxy : inkAnimProxy;
+	private var m_isQuestTarget : Bool;
+	default m_isQuestTarget = false;
+	private var m_forceHide : Bool;
+	default m_forceHide = false;
+	private var m_isHardEnemy : Bool;
+	private var m_npcIsAggressive : Bool;
+	private var m_playerAimingDownSights : Bool;
+	private var m_playerInCombat : Bool;
+	private var m_playerInStealth : Bool;
+	private var m_healthNotFull : Bool;
+	private var m_healthbarVisible : Bool;
+	private var m_levelContainerShouldBeVisible : Bool;
+	private var m_currentHealth : Int32;
+	private var m_maximumHealth : Int32;
+	private var m_currentDamagePreviewValue : Int32;
+
+	protected event OnInitialize()
+	{
+		m_rootWidget = ( ( inkCompoundWidget )( GetRootWidget() ) );
+		m_healthController = ( ( NameplateBarLogicController )( inkWidgetRef.GetController( m_healthbarWidget ) ) );
+		m_npcDefeated = false;
+		m_playerAimingDownSights = false;
+		m_playerInCombat = false;
+		m_playerInStealth = false;
+		m_healthNotFull = false;
+		m_healthbarVisible = false;
+		inkWidgetRef.SetVisible( m_healthbarWidget, false );
+	}
+
+	public function SetVisualData( puppet : GameObject, const incomingData : ref< NPCNextToTheCrosshair >, optional isNewNpc : Bool )
+	{
+		var npc : NPCPuppet;
+		m_cachedPuppet = puppet;
+		m_cachedIncomingData = incomingData;
+		npc = ( ( NPCPuppet )( incomingData.npc ) );
+		if( npc )
+		{
+			if( incomingData.attitude == EAIAttitude.AIA_Hostile )
+			{
+				m_npcIsAggressive = true;
+			}
+			else if( npc.IsAggressive() && incomingData.attitude != EAIAttitude.AIA_Friendly )
+			{
+				m_npcIsAggressive = true;
+			}
+			else
+			{
+				m_npcIsAggressive = false;
+			}
+		}
+		else if( incomingData.npc && incomingData.npc.IsTurret() )
+		{
+			if( incomingData.attitude != EAIAttitude.AIA_Friendly )
+			{
+				m_npcIsAggressive = true;
+			}
+			else
+			{
+				m_npcIsAggressive = false;
+			}
+		}
+		else
+		{
+			m_npcIsAggressive = false;
+		}
+		m_currentHealth = incomingData.currentHealth;
+		m_maximumHealth = incomingData.maximumHealth;
+		m_healthNotFull = ( incomingData.currentHealth + 1 ) < incomingData.maximumHealth;
+		m_npcDefeated = !( ScriptedPuppet.IsActive( incomingData.npc ) );
+		if( npc && !( m_npcDefeated ) )
+		{
+			m_npcDefeated = npc.IsAboutToBeDefeated() || npc.IsAboutToDie();
+		}
+		SetNPCType( ( ( ScriptedPuppet )( puppet ) ) );
+		SetAttitudeColors( ( ( ScriptedPuppet )( puppet ) ), incomingData );
+		SetElementVisibility( incomingData );
+		if( !( incomingData.npc ) || ( ( incomingData.level == 0 ) && !( incomingData.npc.IsTurret() ) ) )
+		{
+			m_levelContainerShouldBeVisible = false;
+		}
+		UpdateHealthbarVisibility();
+		if( incomingData.maximumHealth == 0 )
+		{
+			m_healthController.SetNameplateBarProgress( 0.0, isNewNpc );
+		}
+		else
+		{
+			m_healthController.SetNameplateBarProgress( ( ( Float )( incomingData.currentHealth ) ) / ( ( Float )( incomingData.maximumHealth ) ), isNewNpc );
+		}
+		if( m_currentDamagePreviewValue > 0 )
+		{
+			PreviewDamage( m_currentDamagePreviewValue );
+		}
+	}
+
+	public function PreviewDamage( value : Int32 )
+	{
+		var animOptions : inkAnimOptions;
+		var damagePercentage, currentHealthPercentage, offset, renderTransformXPivot : Float;
+		m_currentDamagePreviewValue = value;
+		if( value <= 0 )
+		{
+			if( m_damagePreviewAnimProxy && m_damagePreviewAnimProxy.IsPlaying() )
+			{
+				m_damagePreviewAnimProxy.Stop();
+			}
+			inkWidgetRef.SetVisible( m_damagePreviewWrapper, false );
+		}
+		else if( m_maximumHealth > 0 )
+		{
+			currentHealthPercentage = ( ( Float )( m_currentHealth ) ) / ( ( Float )( m_maximumHealth ) );
+			damagePercentage = ( ( Float )( value ) ) / ( ( Float )( m_maximumHealth ) );
+			damagePercentage = MinF( damagePercentage, currentHealthPercentage );
+			renderTransformXPivot = ( ( damagePercentage < 1.0 ) ? ( ( currentHealthPercentage - damagePercentage ) / ( 1.0 - damagePercentage ) ) : ( 1.0 ) );
+			offset = ( 100.0 + ( 150.0 * damagePercentage ) ) - ( 150.0 * currentHealthPercentage );
+			inkWidgetRef.SetRenderTransformPivot( m_damagePreviewWidget, Vector2( renderTransformXPivot, 1.0 ) );
+			inkWidgetRef.SetScale( m_damagePreviewWidget, Vector2( damagePercentage, 1.0 ) );
+			inkWidgetRef.SetMargin( m_damagePreviewArrow, 0.0, -22.0, offset, 0.0 );
+			if( !( m_damagePreviewAnimProxy ) || !( m_damagePreviewAnimProxy.IsPlaying() ) )
+			{
+				animOptions.loopType = inkanimLoopType.Cycle;
+				animOptions.loopInfinite = true;
+				m_damagePreviewAnimProxy = PlayLibraryAnimation( 'damage_preview_looping', animOptions );
+			}
+			inkWidgetRef.SetVisible( m_damagePreviewWrapper, true );
+		}
+	}
+
+	public function UpdateBecauseOfMapPin()
+	{
+		SetVisualData( m_cachedPuppet, m_cachedIncomingData );
+	}
+
+	public function UpdatePlayerZone( zone : gamePSMZones, optional onlySetValue : Bool )
+	{
+		m_playerZone = zone;
+		if( m_cachedPuppet && !( onlySetValue ) )
+		{
+			SetVisualData( m_cachedPuppet, m_cachedIncomingData );
+		}
+	}
+
+	public function UpdatePlayerAimStatus( state : gamePSMUpperBodyStates, optional onlySetValue : Bool )
+	{
+		m_playerAimingDownSights = state == gamePSMUpperBodyStates.Aim;
+		if( m_cachedPuppet && !( onlySetValue ) )
+		{
+			UpdateHealthbarVisibility();
+		}
+	}
+
+	public function UpdatePlayerCombat( state : gamePSMCombat, optional onlySetValue : Bool )
+	{
+		m_playerInCombat = state == gamePSMCombat.InCombat;
+		m_playerInStealth = state == gamePSMCombat.Stealth;
+		if( m_cachedPuppet && !( onlySetValue ) )
+		{
+			UpdateHealthbarVisibility();
+		}
+	}
+
+	public function UpdateNPCNamesEnabled( value : Bool, optional onlySetValue : Bool )
+	{
+		m_npcNamesEnabled = value;
+		if( m_cachedPuppet && !( onlySetValue ) )
+		{
+			SetVisualData( m_cachedPuppet, m_cachedIncomingData );
+		}
+	}
+
+	public function UpdateHealthbarColor( isHostile : Bool )
+	{
+		if( isHostile )
+		{
+			inkWidgetRef.SetState( m_healthbarWidget, 'Hostile' );
+			inkWidgetRef.SetState( m_healthBarFull, 'Hostile' );
+			inkWidgetRef.SetState( m_healthBarFrame, 'Hostile' );
+		}
+		else if( m_isNCPD )
+		{
+			inkWidgetRef.SetState( m_healthbarWidget, 'Prevention_Blue' );
+			inkWidgetRef.SetState( m_healthBarFull, 'Prevention_Blue' );
+			inkWidgetRef.SetState( m_healthBarFrame, 'Prevention_Blue' );
+		}
+		else
+		{
+			inkWidgetRef.SetState( m_healthbarWidget, 'Neutral_Enemy' );
+			inkWidgetRef.SetState( m_healthBarFull, 'Neutral_Enemy' );
+			inkWidgetRef.SetState( m_healthBarFrame, 'Neutral_Enemy' );
+		}
+	}
+
+	private function UpdateHealthbarVisibility()
+	{
+		var hpVisible : Bool;
+		var nameplateHpVisible : Bool;
+		var playerPuppet : weak< PlayerPuppet >;
+		var threatPuppet : weak< NPCPuppet >;
+		hpVisible = m_npcIsAggressive && ( ( ( m_healthNotFull || m_playerAimingDownSights ) || m_playerInCombat ) || m_playerInStealth );
+		nameplateHpVisible = hpVisible && !( m_isBoss );
+		if( m_healthbarVisible != nameplateHpVisible )
+		{
+			m_healthbarVisible = nameplateHpVisible;
+			inkWidgetRef.SetVisible( m_healthbarWidget, m_healthbarVisible );
+		}
+		if( m_isBoss && m_cachedPuppet )
+		{
+			playerPuppet = GetPlayer( m_cachedPuppet.GetGame() );
+			threatPuppet = ( ( NPCPuppet )( m_cachedPuppet ) );
+			if( ( ScriptedPuppet.IsAlive( threatPuppet ) && hpVisible ) && !( ScriptedPuppet.IsDefeated( threatPuppet ) ) )
+			{
+				BossHealthBarGameController.ReevaluateBossHealthBar( threatPuppet, playerPuppet );
+			}
+		}
+	}
+
+	private function SetNPCType( puppet : weak< ScriptedPuppet > )
+	{
+		var puppetRarity : gamedataNPCRarity;
+		m_isBoss = false;
+		m_canCallReinforcements = false;
+		m_isElite = false;
+		m_isRare = false;
+		m_isNCPD = false;
+		if( puppet )
+		{
+			m_isNCPD = puppet.IsCharacterPolice();
+			puppetRarity = puppet.GetNPCRarity();
+			switch( puppetRarity )
+			{
+				case gamedataNPCRarity.MaxTac:
+				case gamedataNPCRarity.Boss:
+					m_isBoss = true;
+				break;
+				case gamedataNPCRarity.Elite:
+					m_isElite = true;
+				break;
+				case gamedataNPCRarity.Rare:
+					m_isRare = true;
+				break;
+				case gamedataNPCRarity.Weak:
+					break;
+			}
+			m_canCallReinforcements = GameInstance.GetStatsSystem( puppet.GetGame() ).GetStatBoolValue( puppet.GetEntityID(), gamedataStatType.CanCallReinforcements );
+		}
+	}
+
+	private function SetAttitudeColors( puppet : weak< gamePuppetBase >, const incomingData : ref< NPCNextToTheCrosshair > )
+	{
+		var attitudeColor : CName;
+		inkTextRef.SetLetterCase( m_nameTextMain, textLetterCase.UpperCase );
+		inkTextRef.SetText( m_nameTextMain, incomingData.name );
+		switch( incomingData.attitude )
+		{
+			case EAIAttitude.AIA_Hostile:
+				attitudeColor = 'Hostile';
+			break;
+			case EAIAttitude.AIA_Friendly:
+				attitudeColor = 'Friendly';
+			break;
+			case EAIAttitude.AIA_Neutral:
+				attitudeColor = 'Neutral';
+			break;
+			default:
+				attitudeColor = 'Civilian';
+			break;
+		}
+		if( m_npcIsAggressive )
+		{
+			inkTextRef.SetState( m_nameTextMain, ( ( m_isQuestTarget ) ? ( 'Quest' ) : ( 'Hostile' ) ) );
+			if( m_isNCPD )
+			{
+				inkTextRef.SetState( m_nameTextMain, ( ( m_isQuestTarget ) ? ( 'Quest' ) : ( 'Prevention_Blue' ) ) );
+			}
+		}
+		else
+		{
+			inkTextRef.SetState( m_nameTextMain, ( ( m_isQuestTarget ) ? ( 'Quest' ) : ( attitudeColor ) ) );
+		}
+		if( m_isBoss )
+		{
+			attitudeColor = 'Boss';
+		}
+		if( ( puppet != NULL ) && puppet.IsPlayer() )
+		{
+			inkTextRef.SetState( m_nameTextMain, 'CPO_Player' );
+		}
+	}
+
+	private function SetElementVisibility( const incomingData : ref< NPCNextToTheCrosshair > )
+	{
+		var npc : NPCPuppet;
+		var enemyDifficulty : gameEPowerDifferential;
+		var isTurret : Bool;
+		inkTextRef.SetVisible( m_nameTextMain, false );
+		m_levelContainerShouldBeVisible = false;
+		m_isHardEnemy = false;
+		inkWidgetRef.SetVisible( m_rarityHolder, false );
+		inkWidgetRef.SetVisible( m_rarities[ 0 ], true );
+		inkWidgetRef.SetVisible( m_rarities[ 1 ], true );
+		isTurret = incomingData.npc && incomingData.npc.IsTurret();
+		npc = ( ( NPCPuppet )( incomingData.npc ) );
+		if( npc || isTurret )
+		{
+			m_rootWidget.SetVisible( !( m_forceHide ) && ( incomingData.npc.IsPlayer() || !( m_npcDefeated ) ) );
+		}
+		if( m_npcIsAggressive )
+		{
+			if( isTurret )
+			{
+				enemyDifficulty = gameEPowerDifferential.NORMAL;
+			}
+			else
+			{
+				enemyDifficulty = RPGManager.CalculatePowerDifferential( npc );
+			}
+			if( !( isTurret ) && ( enemyDifficulty == gameEPowerDifferential.IMPOSSIBLE || NPCManager.HasVisualTag( ( ( ScriptedPuppet )( npc ) ), 'Sumo' ) ) )
+			{
+				m_isHardEnemy = true;
+			}
+			else
+			{
+				m_isHardEnemy = false;
+				m_isAnimating = false;
+				if( m_animProxy )
+				{
+					m_animProxy.Stop();
+					m_animProxy.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnFadeInComplete' );
+					m_animProxy.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnFadeOutComplete' );
+					m_animProxy.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnScreenDelayComplete' );
+				}
+			}
+			m_levelContainerShouldBeVisible = true;
+			if( m_isElite )
+			{
+				inkWidgetRef.SetVisible( m_rarityHolder, true );
+			}
+			else if( m_isRare )
+			{
+				inkWidgetRef.SetVisible( m_rarityHolder, true );
+				inkWidgetRef.SetVisible( m_rarities[ 0 ], false );
+			}
+			if( m_isRare )
+			{
+				inkWidgetRef.SetScale( m_healthbarWidget, Vector2( 0.89999998, 1.0 ) );
+			}
+			else if( m_isElite || m_isBoss )
+			{
+				inkWidgetRef.SetScale( m_healthbarWidget, Vector2( 1.0, 1.0 ) );
+			}
+			else
+			{
+				inkWidgetRef.SetScale( m_healthbarWidget, Vector2( 0.60000002, 1.0 ) );
+			}
+		}
+		if( npc && npc.IsVendor() )
+		{
+			inkTextRef.SetVisible( m_nameTextMain, m_npcNamesEnabled );
+			m_levelContainerShouldBeVisible = false;
+		}
+		if( incomingData.attitude == EAIAttitude.AIA_Friendly && !( isTurret ) )
+		{
+			inkTextRef.SetVisible( m_nameTextMain, m_npcNamesEnabled );
+			m_levelContainerShouldBeVisible = false;
+		}
+	}
+
+	public function IsAnyElementVisible() : Bool
+	{
+		return inkTextRef.IsVisible( m_nameTextMain ) || m_levelContainerShouldBeVisible;
+	}
+
+	public function IsQuestTarget() : Bool
+	{
+		return m_isQuestTarget;
+	}
+
+	public function SetQuestTarget( value : Bool )
+	{
+		m_isQuestTarget = value;
+	}
+
+	public function SetForceHide( value : Bool )
+	{
+		m_forceHide = value;
+	}
+
+}
+

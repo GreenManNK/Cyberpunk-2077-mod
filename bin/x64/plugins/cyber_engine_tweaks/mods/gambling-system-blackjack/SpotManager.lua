@@ -1,19 +1,13 @@
 SpotManager = {
-    version = '1.1.18',
+    version = '1.1.15',
     spots = {},
-    activeSpotID = nil, -- Tracks which spot the player is currently in (nil = not in any spot)
+    activeCam = nil,
+    forcedCam = false,
     -- Performance optimization variables
     uiUpdateTimer = nil,
     playerCacheTimer = nil,
     cachedPlayer = nil,
-    cachedPlayerPosition = nil,
-    -- Callback system for external mods to hook into spot events
-    callbacks = {
-        onSpotEnter = {}, -- Array of functions: function(spotID, spotObject)
-        onSpotEnterAfterAnimation = {}, -- Array of functions: function(spotID, spotObject)
-        onSpotExit = {}, -- Array of functions: function(spotID, spotObject)
-        onSpotExitAfterAnimation = {} -- Array of functions: function(spotID, spotObject)
-    }
+    cachedPlayerPosition = nil
 }
 --===================
 --CODE BY Boe6
@@ -22,7 +16,6 @@ SpotManager = {
 --DO NOT REUPLOAD TO OTHER SITES
 --Feel free to ask via nexus/discord, I just dont want my stuff stolen :)
 --===================
--- HUGE Credit and thank you to keanuwheeze for worldInteraction.lua, which I referenced heavily for this script.
 
 local Cron = require('External/Cron.lua')
 local GameUI = require("External/GameUI.lua")
@@ -98,34 +91,6 @@ local function updatePlayerCache()
         SpotManager.cachedPlayerPosition = SpotManager.cachedPlayer:GetWorldPosition()
     end
 end
-
-local function toggleHUD(state)
-    local player = GetPlayer()
-    if not player then
-        return
-    end
-    local blackboardDefs = Game.GetAllBlackboardDefs()
-    local blackboardPSM = Game.GetBlackboardSystem():GetLocalInstanced(player:GetEntityID(), blackboardDefs.PlayerStateMachine)
-    if not blackboardPSM then
-        return
-    end
-    if state then
-        blackboardPSM:SetInt(blackboardDefs.PlayerStateMachine.SceneTier, 1, true)
-    else
-        blackboardPSM:SetInt(blackboardDefs.PlayerStateMachine.SceneTier, 3, true)
-    end
-end
-
-local function handleHUDToggle(spotObj, state)
-    if not spotObj.mappin_toggleHUD then
-        return
-    end
-    if spotObj.mappin_hudVisible == state then
-        return
-    end
-    toggleHUD(state)
-    spotObj.mappin_hudVisible = state
-end
 --- Display Basic UI interaction prompt
 ---@param spotTable table same as spotObject structure
 local function basicInteractionUIPrompt(spotTable) --Display interactionUI menu
@@ -176,7 +141,25 @@ local function animateEnteringSpot(spotObject) --Triggers workspot animation
     end)
 end
 
--- Camera management removed - moved to blackjack init.lua
+---Move player camera to forced position, typically above table
+---@param enable boolean to enable, or disable the forced camera perspective
+---@param spotObject? table spot's animation object
+local function setForcedCamera(enable, spotObject)
+    SpotManager.forcedCam = enable
+    if enable then
+        local camera = GetPlayer():GetFPPCameraComponent()
+        local quatOri = spotObject.camera_OrientationOffset:ToQuat()
+        if ImmersiveFirstPersonInstalled then
+            StatusEffectHelper.ApplyStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
+        end
+        camera:SetLocalTransform(spotObject.camera_worldPositionOffset, quatOri) --default settings
+    else--reset to normal camera control
+        local camera = GetPlayer():GetFPPCameraComponent()
+        camera:SetLocalPosition(Vector4.new(0, 0, 0, 1))
+        camera:SetLocalOrientation(EulerAngles.new(0, 0, 0):ToQuat())
+        StatusEffectHelper.RemoveStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
+    end
+end
 
 --- Modify existing spot data
 ---@param spotID string spotID unique; example 'hooh'
@@ -202,7 +185,22 @@ local function exitSpotTeleport(spotObj)
     Game.GetWorkspotSystem():SendFastExitSignal(player)
 end
 
--- Camera update removed - moved to blackjack init.lua
+local function updateForcedCamera()
+    if SpotManager.forcedCam and SpotManager.activeCam ~= nil then --fixes the camera being reset by workspot animation
+        local spot = SpotManager.spots[SpotManager.activeCam]
+        if spot.spotObject.camera_useForcedCamInWorkspot then
+            local camera = GetPlayer():GetFPPCameraComponent()
+            local o = camera:GetLocalOrientation():ToEulerAngles()
+            local camRotation = spot.spotObject.camera_OrientationOffset
+            local isCorrectOrientation = math.abs(o.pitch - camRotation.pitch) < 0.0001 and math.abs(o.yaw - camRotation.yaw) < 0.0001
+            if not isCorrectOrientation then
+                setForcedCamera(true, spot.spotObject)
+            end
+        end
+    else
+        StatusEffectHelper.RemoveStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl") --insurance/safety
+    end
+end
 
 local function interactionUIUpdate(spotTable)
     local spotObj = spotTable.spotObject
@@ -221,19 +219,8 @@ local function interactionUIUpdate(spotTable)
     if player2mappinDistance >= spotObj.mappin_interactionRange then
         if spotObj.spot_showingInteractUI then
             spotObj.spot_showingInteractUI = false
-            if not spotObj.disableDefaultUI then
-                interactionUI.hideHub()
-            end
-            if spotObj.callback_OnVisibilityChange then
-                spotObj.callback_OnVisibilityChange(false)
-            end
+            interactionUI.hideHub()
         end
-        return
-    end
-
-    -- Skip all UI looking direction updates if player is already in a spot
-    -- Looking direction checks should only apply to the "Join" prompt
-    if SpotManager.IsPlayerInSpot() then
         return
     end
 
@@ -257,23 +244,14 @@ local function interactionUIUpdate(spotTable)
     end
 
     if shouldShowUI ~= spotObj.spot_showingInteractUI then --show or hide the "join" dialog UI
-        spotTable.spotObject.spot_showingInteractUI = shouldShowUI
         if shouldShowUI then
-            if not spotObj.disableDefaultUI then
-                basicInteractionUIPrompt(spotTable)
-            end
-            -- Always call callback when UI should show (for custom UI systems)
-            if spotObj.callback_OnVisibilityChange then
-                spotObj.callback_OnVisibilityChange(true)
-            end
+            -- currently off, turning on UI
+            spotTable.spotObject.spot_showingInteractUI = true
+            basicInteractionUIPrompt(spotTable)
         else
-            if not spotObj.disableDefaultUI then
-                interactionUI.hideHub()
-            end
-            -- Always call callback when UI should hide
-            if spotObj.callback_OnVisibilityChange then
-                spotObj.callback_OnVisibilityChange(false)
-            end
+            -- currently on, hide UI.s
+            spotTable.spotObject.spot_showingInteractUI = false
+            interactionUI.hideHub()
         end
     end
 end
@@ -300,8 +278,6 @@ local function mappinUIUpdate(spotTable)
         shouldShowIcon = false
     elseif player2mappinDistance < spotObj.mappin_rangeMin then
         shouldShowIcon = false
-    elseif spotObj.mappin_extraVisibilityCheck and not spotObj.mappin_extraVisibilityCheck() then
-        shouldShowIcon = false
     end
 
     if shouldShowIcon ~= currentlyShowingIcon then -- show or hide the mappin
@@ -309,13 +285,10 @@ local function mappinUIUpdate(spotTable)
             spotTable.spotObject.mappin_visible = true
             local mappin_data = MappinData.new({ mappinType = 'Mappins.DefaultStaticMappin', variant = spotObj.mappin_variant, visibleThroughWalls = spotTable.spotObject.mappin_visibleThroughWalls })
             spotTable.spotObject.mappin_gameMappinID = Game.GetMappinSystem():RegisterMappin(mappin_data, spotTable.spotObject.mappin_worldPosition)
-            -- Only set HUD to visible state when mappin appears (don't toggle it off when it disappears)
-            handleHUDToggle(spotObj, true)
         else
             spotTable.spotObject.mappin_visible = false
             Game.GetMappinSystem():UnregisterMappin(spotTable.spotObject.mappin_gameMappinID)
             spotTable.spotObject.mappin_gameMappinID = nil
-            -- Don't toggle HUD off when mappin disappears - leave UI visible
         end
     end
 end
@@ -324,32 +297,22 @@ end
 ---@param spotObject table spots information object
 function TriggeredSpot(spotObject)
     animateEnteringSpot(spotObject)
-    SpotManager.activeSpotID = spotObject.spot_id
-    
-    -- Call spot's own callback
     spotObject.callback_OnSpotEnter()
-    
-    -- Call registered callbacks
-    for _, callback in ipairs(SpotManager.callbacks.onSpotEnter) do
-        callback(spotObject.spot_id, spotObject)
+    if ImmersiveFirstPersonInstalled then
+        --disables camera control. User movement input + Immersive First Person causes visual bug
+        StatusEffectHelper.ApplyStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
     end
-    
     local enterCallback = function()
         if spotObject.camera_showElectroshockEffect then
             StatusEffectHelper.ApplyStatusEffect(GetPlayer(), "BaseStatusEffect.FatalElectrocutedParticleStatus")
         end
-        -- Camera management moved to callbacks in init.lua
+        SpotManager.activeCam = spotObject.spot_id
+        if spotObject.camera_useForcedCamInWorkspot then
+            setForcedCamera(true, spotObject)
+        end
     end
     Cron.After(spotObject.animation_defaultEnterTime, enterCallback)
-    
-    -- Call spot's own callback after animation delay
-    Cron.After(spotObject.callback_OnSpotEnterAfterAnimationDelayTime, function()
-        spotObject.callback_OnSpotEnterAfterAnimation()
-        -- Call registered callbacks
-        for _, callback in ipairs(SpotManager.callbacks.onSpotEnterAfterAnimation) do
-            callback(spotObject.spot_id, spotObject)
-        end
-    end)
+    Cron.After(spotObject.callback_OnSpotEnterAfterAnimationDelayTime, spotObject.callback_OnSpotEnterAfterAnimation)
 end
 
 --Register Events (passed from parent)
@@ -430,7 +393,10 @@ function SpotManager.init() --runs on game launch
 
 end
 function SpotManager.update(dt) --runs every frame
-    -- Camera updates moved to blackjack init.lua
+    if  not inMenu and inGame then
+        Cron.Update(dt) -- This is required for Cron to function
+    end
+    updateForcedCamera()
 end
 
 --Methods
@@ -438,32 +404,16 @@ end
 --- Animate player leaving spot
 --- @param id any identification id
 function SpotManager.ExitSpot(id) --Exit spot
+    setForcedCamera(false) --disable forced camera perspective
+    SpotManager.activeCam = nil
     local spot = SpotManager.spots[id]
     local spotObj = spot.spotObject
-    
-    -- Call registered callbacks before exit
-    for _, callback in ipairs(SpotManager.callbacks.onSpotExit) do
-        callback(id, spotObj)
-    end
-    
-    -- Call spot's own callback
-    spot.spotObject.callback_OnSpotExit()
-    
     SpotManager.ChangeAnimation(spot.spotObject.exit_animationName, spot.spotObject.callback_OnSpotExitAfterAnimationDelayTime + 3, spot.spotObject.animation_defaultName)
 
+    spot.spotObject.callback_OnSpotExit()
     Cron.After(spotObj.callback_OnSpotExitAfterAnimationDelayTime, function() -- Wait for animation to finish
         exitSpotTeleport(spotObj)
-        
-        -- Call spot's own callback
         spot.spotObject.callback_OnSpotExitAfterAnimation()
-        
-        -- Call registered callbacks
-        for _, callback in ipairs(SpotManager.callbacks.onSpotExitAfterAnimation) do
-            callback(id, spotObj)
-        end
-        
-        -- Clear active spot after all callbacks
-        SpotManager.activeSpotID = nil
     end)
 end
 
@@ -510,63 +460,6 @@ function SpotManager.spotCoordsToWorldVector(spotID, xyz, rpy)
     local spotDirection = spot.spotObject.spot_orientation  --EulerAngles.new()
 
     --wip
-end
-
----Set the player as being in a spot
----@param spotID string|nil The spot ID the player is entering, or nil to clear
-function SpotManager.SetPlayerInSpot(spotID)
-    SpotManager.activeSpotID = spotID
-end
-
----Check if the player is currently in any spot
----@return boolean True if player is in a spot, false otherwise
-function SpotManager.IsPlayerInSpot()
-    return SpotManager.activeSpotID ~= nil
-end
-
----Get the ID of the spot the player is currently in
----@return string|nil The active spot ID, or nil if not in any spot
-function SpotManager.GetActiveSpotID()
-    return SpotManager.activeSpotID
-end
-
----Clear the player from the current spot (same as SetPlayerInSpot(nil))
-function SpotManager.ClearPlayerInSpot()
-    SpotManager.activeSpotID = nil
-end
-
----Register a callback for when a player enters a spot
----@param callback function function(spotID, spotObject) - called when player enters a spot
-function SpotManager.RegisterOnSpotEnter(callback)
-    table.insert(SpotManager.callbacks.onSpotEnter, callback)
-end
-
----Register a callback for when a player enters a spot (after animation)
----@param callback function function(spotID, spotObject) - called when player enters a spot after animation
-function SpotManager.RegisterOnSpotEnterAfterAnimation(callback)
-    table.insert(SpotManager.callbacks.onSpotEnterAfterAnimation, callback)
-end
-
----Register a callback for when a player exits a spot
----@param callback function function(spotID, spotObject) - called when player exits a spot
-function SpotManager.RegisterOnSpotExit(callback)
-    table.insert(SpotManager.callbacks.onSpotExit, callback)
-end
-
----Register a callback for when a player exits a spot (after animation)
----@param callback function function(spotID, spotObject) - called when player exits a spot after animation
-function SpotManager.RegisterOnSpotExitAfterAnimation(callback)
-    table.insert(SpotManager.callbacks.onSpotExitAfterAnimation, callback)
-end
-
----Get the currently active spot object (if player is in a spot)
----@return table|nil spot object or nil if not in any spot
-function SpotManager.GetActiveSpotObject()
-    if not SpotManager.activeSpotID then
-        return nil
-    end
-    local spot = SpotManager.spots[SpotManager.activeSpotID]
-    return spot and spot.spotObject or nil
 end
 
 return SpotManager

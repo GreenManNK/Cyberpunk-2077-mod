@@ -1,0 +1,29 @@
+package LootTables
+using RTDB, Loot
+
+mq059_master_key : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems += 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.mq059_master_key";
+		}
+	];
+}
+
+mq059_shards_container : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems += 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.mq059_shard_Mordred";
+		}
+	];
+}
+

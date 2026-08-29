@@ -1,0 +1,183 @@
+package Prereqs
+using RTDB
+
+AttackType : HitPrereqConditionType
+{
+	enumName = "AttackType";
+}
+
+AttackSubType : HitPrereqConditionType
+{
+	enumName = "AttackSubType";
+}
+
+AttackTag : HitPrereqConditionType
+{
+	enumName = "AttackTag";
+}
+
+DamageType : HitPrereqConditionType
+{
+	enumName = "DamageType";
+}
+
+DistanceCovered : HitPrereqConditionType
+{
+	enumName = "DistanceCovered";
+}
+
+DamageOverTimeType : HitPrereqConditionType
+{
+	enumName = "DamageOverTimeType";
+}
+
+HitFlag : HitPrereqConditionType
+{
+	enumName = "HitFlag";
+}
+
+WoundedTriggered : HitPrereqConditionType
+{
+	enumName = "WoundedTriggered";
+}
+
+StatusEffectPresent : HitPrereqConditionType
+{
+	enumName = "StatusEffectPresent";
+}
+
+TargetNPCRarity : HitPrereqConditionType
+{
+	enumName = "TargetNPCRarity";
+}
+
+TargetNPCType : HitPrereqConditionType
+{
+	enumName = "TargetNPCType";
+}
+
+BodyPart : HitPrereqConditionType
+{
+	enumName = "BodyPart";
+}
+
+InstigatorType : HitPrereqConditionType
+{
+	enumName = "InstigatorType";
+}
+
+TargetType : HitPrereqConditionType
+{
+	enumName = "TargetType";
+}
+
+SourceType : HitPrereqConditionType
+{
+	enumName = "SourceType";
+}
+
+SameTarget : HitPrereqConditionType
+{
+	enumName = "SameTarget";
+}
+
+StatPool : HitPrereqConditionType
+{
+	enumName = "StatPool";
+}
+
+StatPoolComparison : HitPrereqConditionType
+{
+	enumName = "StatPoolComparison";
+}
+
+Stat : HitPrereqConditionType
+{
+	enumName = "Stat";
+}
+
+StatComparison : HitPrereqConditionType
+{
+	enumName = "StatComparison";
+}
+
+TargetKilled : HitPrereqConditionType
+{
+	enumName = "TargetKilled";
+}
+
+TargetCanGetKilledByDamage : HitPrereqConditionType
+{
+	enumName = "TargetCanGetKilledByDamage";
+}
+
+TargetBreachCanGetKilledByDamage : HitPrereqConditionType
+{
+	enumName = "TargetBreachCanGetKilledByDamage";
+}
+
+AgentMoving : HitPrereqConditionType
+{
+	enumName = "AgentMoving";
+}
+
+AmmoState : HitPrereqConditionType
+{
+	enumName = "AmmoState";
+}
+
+WeaponType : HitPrereqConditionType
+{
+	enumName = "WeaponType";
+}
+
+WeaponEvolution : HitPrereqConditionType
+{
+	enumName = "WeaponEvolution";
+}
+
+ReactionPreset : HitPrereqConditionType
+{
+	enumName = "ReactionPreset";
+}
+
+TriggerMode : HitPrereqConditionType
+{
+	enumName = "TriggerMode";
+}
+
+ConsecutiveHits : HitPrereqConditionType
+{
+	enumName = "ConsecutiveHits";
+}
+
+WeaponItemType : HitPrereqConditionType
+{
+	enumName = "WeaponItemType";
+}
+
+SelfHit : HitPrereqConditionType
+{
+	enumName = "SelfHit";
+}
+
+HitIsQuickhackPresentInQueue : HitPrereqConditionType
+{
+	enumName = "HitIsQuickhackPresentInQueue";
+}
+
+EffectNamePresent : HitPrereqConditionType
+{
+	enumName = "EffectNamePresent";
+}
+
+DismembermentTriggered : HitPrereqConditionType
+{
+	enumName = "DismembermentTriggered";
+}
+
+TargetIsCrowd : HitPrereqConditionType
+{
+	enumName = "TargetIsCrowd";
+}
+

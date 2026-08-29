@@ -1,0 +1,359 @@
+package Perks
+using RTDB, Prereqs
+
+CombatHackingProficiencyPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Intelligence";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+CombatHackingMasteryPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "CombatHacking";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+CombatHacking_Area_01 : PerkArea
+{
+	enumName = "CombatHacking_Area_01";
+	requirement = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_01_Perk_1", "Perks.CombatHacking_Area_01_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+CombatHacking_Area_02 : PerkArea
+{
+	enumName = "CombatHacking_Area_02";
+	requirement = 
+	{
+		valueToCheck = 5;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_02_Perk_1", "Perks.CombatHacking_Area_02_Perk_2", "Perks.CombatHacking_Area_02_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+CombatHacking_Area_03 : PerkArea
+{
+	enumName = "CombatHacking_Area_03";
+	requirement = 
+	{
+		valueToCheck = 7;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_03_Perk_1", "Perks.CombatHacking_Area_03_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+CombatHacking_Area_04 : PerkArea
+{
+	enumName = "CombatHacking_Area_04";
+	requirement = 
+	{
+		valueToCheck = 9;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_04_Perk_1"
+	];
+	maxLevel = 2;
+}
+
+CombatHacking_Area_05 : PerkArea
+{
+	enumName = "CombatHacking_Area_05";
+	requirement = 
+	{
+		valueToCheck = 11;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_05_Perk_1"
+	];
+	maxLevel = 2;
+}
+
+CombatHacking_Area_06 : PerkArea
+{
+	enumName = "CombatHacking_Area_06";
+	requirement = 
+	{
+		valueToCheck = 12;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_06_Perk_1", "Perks.CombatHacking_Area_06_Perk_2", "Perks.CombatHacking_Area_06_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+CombatHacking_Area_07 : PerkArea
+{
+	enumName = "CombatHacking_Area_07";
+	requirement = 
+	{
+		valueToCheck = 14;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_07_Perk_1"
+	];
+	maxLevel = 3;
+}
+
+CombatHacking_Area_08 : PerkArea
+{
+	enumName = "CombatHacking_Area_08";
+	requirement = 
+	{
+		valueToCheck = 16;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_08_Perk_1", "Perks.CombatHacking_Area_08_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+CombatHacking_Area_09 : PerkArea
+{
+	enumName = "CombatHacking_Area_09";
+	requirement = 
+	{
+		valueToCheck = 18;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_09_Perk_1"
+	];
+	maxLevel = 3;
+}
+
+CombatHacking_Area_10 : PerkArea
+{
+	enumName = "CombatHacking_Area_10";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : CombatHackingProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : CombatHackingMasteryPrereq;
+	perks = 
+	[
+		"Perks.CombatHacking_Area_10_Perk_1", "Perks.CombatHacking_Area_10_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+CombatHacking_Area_01_Perk_1 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_01_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_01_Perk_1";
+	loc_name_key = "LocKey#14949";
+	loc_desc_key = "LocKey#14948";
+	levels = [];
+}
+
+CombatHacking_Area_01_Perk_2 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_01_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_01_Perk_2";
+	loc_name_key = "LocKey#14942";
+	loc_desc_key = "LocKey#14941";
+	levels = [];
+}
+
+CombatHacking_Area_02_Perk_1 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_02_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_02_Perk_1";
+	loc_name_key = "LocKey#14957";
+	loc_desc_key = "LocKey#14956";
+	levels = [];
+}
+
+CombatHacking_Area_02_Perk_2 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_02_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_02_Perk_2";
+	loc_name_key = "LocKey#14959";
+	loc_desc_key = "LocKey#14958";
+	levels = [];
+}
+
+CombatHacking_Area_02_Perk_3 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_02_Perk_3";
+	perkIcon = "UIIcon.CombatHacking_Area_02_Perk_3";
+	loc_name_key = "LocKey#53638";
+	loc_desc_key = "LocKey#53639";
+	levels = [];
+}
+
+CombatHacking_Area_03_Perk_1 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_03_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_03_Perk_1";
+	loc_name_key = "LocKey#14953";
+	loc_desc_key = "LocKey#14952";
+	levels = [];
+}
+
+CombatHacking_Area_03_Perk_2 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_03_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_03_Perk_2";
+	loc_name_key = "LocKey#14965";
+	loc_desc_key = "LocKey#14971";
+	levels = [];
+}
+
+CombatHacking_Area_04_Perk_1 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_04_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_04_Perk_1";
+	loc_name_key = "LocKey#14960";
+	loc_desc_key = "LocKey#14970";
+	levels = [];
+}
+
+CombatHacking_Area_05_Perk_1 : CombatHackingPerk
+{
+	CName enumName = "CombatHacking_Area_05_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_05_Perk_1";
+	loc_name_key = "LocKey#14968";
+	loc_desc_key = "LocKey#14977";
+	levels = [];
+}
+
+CombatHacking_Area_06_Perk_1 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_06_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_06_Perk_1";
+	loc_name_key = "LocKey#14951";
+	loc_desc_key = "LocKey#14950";
+	levels = [];
+}
+
+CombatHacking_Area_06_Perk_2 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_06_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_06_Perk_2";
+	loc_name_key = "LocKey#14963";
+	loc_desc_key = "LocKey#14976";
+	levels = [];
+}
+
+CombatHacking_Area_06_Perk_3 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_06_Perk_3";
+	perkIcon = "UIIcon.CombatHacking_Area_06_Perk_3";
+	loc_name_key = "LocKey#53640";
+	loc_desc_key = "LocKey#53641";
+	levels = [];
+}
+
+CombatHacking_Area_07_Perk_1 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_07_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_07_Perk_1";
+	loc_name_key = "LocKey#40504";
+	loc_desc_key = "LocKey#40505";
+	levels = [];
+}
+
+CombatHacking_Area_08_Perk_1 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_08_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_08_Perk_1";
+	loc_name_key = "LocKey#14962";
+	loc_desc_key = "LocKey#14974";
+	levels = [];
+}
+
+CombatHacking_Area_08_Perk_2 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_08_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_08_Perk_2";
+	loc_name_key = "LocKey#53642";
+	loc_desc_key = "LocKey#53644";
+	levels = [];
+}
+
+CombatHacking_Area_09_Perk_1 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_09_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_09_Perk_1";
+	loc_name_key = "LocKey#14964";
+	loc_desc_key = "LocKey#14969";
+	levels = [];
+}
+
+CombatHacking_Area_10_Perk_1 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_10_Perk_1";
+	perkIcon = "UIIcon.CombatHacking_Area_10_Perk_1";
+	loc_name_key = "LocKey#14961";
+	loc_desc_key = "LocKey#14972";
+	levels = [];
+}
+
+CombatHacking_Area_10_Perk_2 : CombatHackingPerk
+{
+	enumName = "CombatHacking_Area_10_Perk_2";
+	perkIcon = "UIIcon.CombatHacking_Area_10_Perk_2";
+	loc_name_key = "LocKey#53643";
+	loc_desc_key = "LocKey#53645";
+	levels = [];
+}
+

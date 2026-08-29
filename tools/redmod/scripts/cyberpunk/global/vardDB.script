@@ -1,0 +1,55 @@
+function DebugGiveHotkeys( gameInstance : GameInstance )
+{
+	AddFact( gameInstance, 'dpad_hints_visibility_enabled' );
+	AddFact( gameInstance, 'unlock_phone_hud_dpad' );
+	AddFact( gameInstance, 'unlock_car_hud_dpad' );
+	AddFact( gameInstance, 'initial_gadget_picked' );
+}
+
+function AddFact( game : GameInstance, factName : CName, optional factCount : Int32 ) : Bool
+{
+	var currentFactCount : Int32;
+	if( !( GameInstance.IsValid( game ) ) )
+	{
+		return false;
+	}
+	if( !( IsNameValid( factName ) ) )
+	{
+		return false;
+	}
+	if( factCount == 0 )
+	{
+		factCount = 1;
+	}
+	currentFactCount = GameInstance.GetQuestsSystem( game ).GetFact( factName ) + factCount;
+	GameInstance.GetQuestsSystem( game ).SetFact( factName, currentFactCount );
+	return true;
+}
+
+function SetFactValue( game : GameInstance, factName : CName, factCount : Int32 ) : Bool
+{
+	if( !( GameInstance.IsValid( game ) ) )
+	{
+		return false;
+	}
+	if( !( IsNameValid( factName ) ) )
+	{
+		return false;
+	}
+	GameInstance.GetQuestsSystem( game ).SetFact( factName, factCount );
+	return true;
+}
+
+function GetFact( game : GameInstance, factName : CName ) : Int32
+{
+	if( !( IsNameValid( factName ) ) )
+	{
+		return 0;
+	}
+	if( !( GameInstance.IsValid( game ) ) )
+	{
+		return 0;
+	}
+	return GameInstance.GetQuestsSystem( game ).GetFact( factName );
+}
+

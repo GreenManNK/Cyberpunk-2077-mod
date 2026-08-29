@@ -1,0 +1,522 @@
+class UIInventoryItemMod
+{
+}
+
+class UIInventoryItemModDataPackage extends UIInventoryItemMod
+{
+	var Description : String;
+	var DataPackage : UILocalizationDataPackage;
+	var AttunementData : UIInventoryItemModAttunementData;
+}
+
+class UIInventoryItemModAttachment extends UIInventoryItemMod
+{
+	var IsEmpty : Bool;
+	var SlotName : String;
+	var Quality : gamedataQuality;
+	var AbilitiesSize : Int32;
+	var Abilities : array< InventoryItemAbility >;
+}
+
+class UIInventoryItemModAttunementData
+{
+	var Name : String;
+	var Icon : CName;
+}
+
+class UIInventoryItemModsManager
+{
+	private var m_emptySlots : array< TweakDBID >;
+	private var m_usedSlots : array< TweakDBID >;
+	private var m_mods : array< UIInventoryItemMod >;
+	private var m_attachments : array< UIInventoryItemModAttachment >;
+	private var m_dedicatedMod : UIInventoryItemModAttachment;
+	private var m_transactionSystem : TransactionSystem;
+
+	public static function Make( inventoryItem : weak< UIInventoryItem >, transactionSystem : TransactionSystem ) : UIInventoryItemModsManager
+	{
+		var instance : UIInventoryItemModsManager;
+		var owner : weak< GameObject >;
+		var id : ItemID;
+		instance = new UIInventoryItemModsManager;
+		owner = inventoryItem.GetOwner();
+		id = inventoryItem.GetID();
+		if( inventoryItem.IsRecipe() )
+		{
+			inventoryItem.GetItemData().GetEmptySlotsOnItem( instance.m_emptySlots );
+			inventoryItem.GetItemData().GetUsedSlotsOnItem( instance.m_usedSlots );
+		}
+		else
+		{
+			transactionSystem.GetEmptySlotsOnItem( owner, id, instance.m_emptySlots );
+			transactionSystem.GetUsedSlotsOnItem( owner, id, instance.m_usedSlots );
+		}
+		if( !( inventoryItem.IsCyberdeck() ) )
+		{
+			instance.FetchModsDataPackages( inventoryItem );
+		}
+		if( inventoryItem.IsCyberdeck() )
+		{
+			instance.FilterProgramSlots();
+		}
+		if( inventoryItem.GetItemType() == gamedataItemType.Cyb_NanoWires )
+		{
+			instance.FilterNanoWireSlot( inventoryItem );
+		}
+		if( inventoryItem.GetItemType() != gamedataItemType.Prt_Program )
+		{
+			instance.GetAttachements( inventoryItem.GetOwner(), inventoryItem );
+		}
+		return instance;
+	}
+
+	public function GetEmptySlotsSize() : Int32
+	{
+		return m_emptySlots.Size();
+	}
+
+	public function GetUsedSlotsSize() : Int32
+	{
+		return m_usedSlots.Size();
+	}
+
+	public function GetAllSlotsSize() : Int32
+	{
+		return m_emptySlots.Size() + m_usedSlots.Size();
+	}
+
+	public function GetModsSize() : Int32
+	{
+		return m_mods.Size();
+	}
+
+	public function GetAttachmentsSize() : Int32
+	{
+		return m_attachments.Size();
+	}
+
+	public function GetEmptySlot( index : Int32 ) : TweakDBID
+	{
+		return m_emptySlots[ index ];
+	}
+
+	public function GetUsedSlot( index : Int32 ) : TweakDBID
+	{
+		return m_usedSlots[ index ];
+	}
+
+	public function GetAttachment( index : Int32 ) : UIInventoryItemModAttachment
+	{
+		return m_attachments[ index ];
+	}
+
+	public function GetMod( index : Int32 ) : UIInventoryItemMod
+	{
+		return m_mods[ index ];
+	}
+
+	public function GetDedicatedMod() : UIInventoryItemModAttachment
+	{
+		return ( ( UIInventoryItemModAttachment )( m_dedicatedMod ) );
+	}
+
+	public function EmptySlotsContains( slotName : TweakDBID ) : Bool
+	{
+		return m_emptySlots.Contains( slotName );
+	}
+
+	public function UsedSlotsContains( slotName : TweakDBID ) : Bool
+	{
+		return m_usedSlots.Contains( slotName );
+	}
+
+	private function FilterProgramSlots()
+	{
+		var i : Int32;
+		for( i = m_usedSlots.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( !( InventoryDataManagerV2.IsProgramSlot( m_usedSlots[ i ] ) ) )
+			{
+				m_usedSlots.Remove( m_usedSlots[ i ] );
+			}
+		}
+		for( i = m_emptySlots.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( !( InventoryDataManagerV2.IsProgramSlot( m_emptySlots[ i ] ) ) )
+			{
+				m_emptySlots.Remove( m_emptySlots[ i ] );
+			}
+		}
+	}
+
+	private function FilterNanoWireSlot( inventoryItem : weak< UIInventoryItem > )
+	{
+		var i : Int32;
+		var player : weak< GameObject >;
+		var isSlotUnlocked : Bool;
+		player = GameInstance.GetPlayerSystem( inventoryItem.GetOwner().GetGame() ).GetLocalPlayerMainGameObject();
+		isSlotUnlocked = PlayerDevelopmentSystem.GetData( player ).IsNewPerkBought( gamedataNewPerkType.Espionage_Central_Milestone_1 );
+		if( !( isSlotUnlocked ) )
+		{
+			for( i = m_usedSlots.Size() - 1; i >= 0; i -= 1 )
+			{
+				if( m_usedSlots[ i ] == T"AttachmentSlots.NanoWiresQuickhackSlot" )
+				{
+					m_usedSlots.Remove( m_usedSlots[ i ] );
+				}
+			}
+			for( i = m_emptySlots.Size() - 1; i >= 0; i -= 1 )
+			{
+				if( m_emptySlots[ i ] == T"AttachmentSlots.NanoWiresQuickhackSlot" )
+				{
+					m_emptySlots.Remove( m_emptySlots[ i ] );
+				}
+			}
+		}
+	}
+
+	private function FetchModsDataPackages( inventoryItem : weak< UIInventoryItem > )
+	{
+		var i, limit : Int32;
+		var dataPackages : array< weak< GameplayLogicPackage_Record > >;
+		var uiDataPackage : weak< GameplayLogicPackageUIData_Record >;
+		var dataPackagesToDisplay : array< weak< GameplayLogicPackageUIData_Record > >;
+		var innerItemData : InnerItemData;
+		var recordData : UIInventoryItemModDataPackage;
+		var itemRecord : weak< Item_Record >;
+		var isCyberware : Bool;
+		var attunementStatRecord : Stat_Record;
+		isCyberware = inventoryItem.IsCyberware() || inventoryItem.IsCyberwareWeapon();
+		if( isCyberware )
+		{
+			attunementStatRecord = TweakDBInterface.GetStatRecord( T"BaseStats.AttunementHelper" );
+		}
+		itemRecord = inventoryItem.GetItemRecord();
+		itemRecord.OnEquip( dataPackages );
+		for( i = 0, limit = dataPackages.Size(); i < limit; i += 1 )
+		{
+			uiDataPackage = dataPackages[ i ].UIData();
+			if( IsStringValid( uiDataPackage.LocalizedDescription() ) )
+			{
+				dataPackagesToDisplay.PushBack( uiDataPackage );
+			}
+		}
+		dataPackages.Clear();
+		itemRecord.OnAttach( dataPackages );
+		for( i = 0, limit = dataPackages.Size(); i < limit; i += 1 )
+		{
+			uiDataPackage = dataPackages[ i ].UIData();
+			if( IsStringValid( uiDataPackage.LocalizedDescription() ) )
+			{
+				dataPackagesToDisplay.PushBack( uiDataPackage );
+			}
+		}
+		for( i = 0, limit = dataPackagesToDisplay.Size(); i < limit; i += 1 )
+		{
+			recordData = new UIInventoryItemModDataPackage;
+			recordData.Description = dataPackagesToDisplay[ i ].LocalizedDescription();
+			if( isCyberware && dataPackagesToDisplay[ i ].StatsContains( attunementStatRecord ) )
+			{
+				recordData.AttunementData = new UIInventoryItemModAttunementData;
+				recordData.AttunementData.Name = dataPackagesToDisplay[ i ].LocalizedName();
+				recordData.AttunementData.Icon = dataPackagesToDisplay[ i ].IconPath();
+			}
+			if( inventoryItem.Internal_GetParentItem() )
+			{
+				innerItemData = InnerItemData();
+				inventoryItem.Internal_GetParentItem().GetItemPart( innerItemData, inventoryItem.Internal_GetSlotID() );
+				recordData.DataPackage = UILocalizationDataPackage.FromLogicUIDataPackage( dataPackagesToDisplay[ i ], , innerItemData );
+			}
+			else
+			{
+				recordData.DataPackage = UILocalizationDataPackage.FromLogicUIDataPackage( dataPackagesToDisplay[ i ], inventoryItem.GetItemData() );
+			}
+			m_mods.PushBack( recordData );
+		}
+	}
+
+	private function GetAttachements( owner : weak< GameObject >, inventoryItem : weak< UIInventoryItem > )
+	{
+		var i, limit : Int32;
+		var inventorySlots : array< TweakDBID >;
+		var attachmentSlotRecord : weak< AttachmentSlot_Record >;
+		var attachmentType : InventoryItemAttachmentType;
+		var attachmentData : UIInventoryItemModAttachment;
+		var slotsData : array< AttachmentSlotCacheData >;
+		var itemId : ItemID;
+		var partData : InnerItemData;
+		var staticData : weak< Item_Record >;
+		var emptySlotsSize, usedSlotsSize : Int32;
+		var usedSlots, emptySlots : array< TweakDBID >;
+		var itemData : weak< gameItemData >;
+		itemData = inventoryItem.GetItemData();
+		usedSlots = m_usedSlots;
+		emptySlots = m_emptySlots;
+		emptySlotsSize = emptySlots.Size();
+		usedSlotsSize = usedSlots.Size();
+		if( ( emptySlotsSize < 1 ) && ( usedSlotsSize < 1 ) )
+		{
+			return;
+		}
+		itemId = inventoryItem.GetID();
+		inventorySlots = UIInventoryItemModsStaticData.GetAttachmentSlots( inventoryItem.GetItemType() );
+		for( i = 0, limit = inventorySlots.Size(); i < limit; i += 1 )
+		{
+			if( ( emptySlotsSize > 0 ) && emptySlots.Contains( inventorySlots[ i ] ) )
+			{
+				attachmentSlotRecord = TweakDBInterface.GetAttachmentSlotRecord( inventorySlots[ i ] );
+				slotsData.PushBack( AttachmentSlotCacheData( true, attachmentSlotRecord, RPGManager.ShouldSlotBeAvailable( owner, itemId, attachmentSlotRecord ), inventorySlots[ i ] ) );
+				emptySlotsSize -= 1;
+				emptySlots.Remove( inventorySlots[ i ] );
+			}
+			if( ( usedSlotsSize > 0 ) && usedSlots.Contains( inventorySlots[ i ] ) )
+			{
+				attachmentSlotRecord = TweakDBInterface.GetAttachmentSlotRecord( inventorySlots[ i ] );
+				slotsData.PushBack( AttachmentSlotCacheData( false, attachmentSlotRecord, RPGManager.ShouldSlotBeAvailable( owner, itemId, attachmentSlotRecord ), inventorySlots[ i ] ) );
+				usedSlotsSize -= 1;
+				usedSlots.Remove( inventorySlots[ i ] );
+			}
+		}
+		for( i = 0, limit = slotsData.Size(); i < limit; i += 1 )
+		{
+			staticData = NULL;
+			if( slotsData[ i ].attachmentSlotRecord && slotsData[ i ].shouldBeAvailable )
+			{
+				if( !( slotsData[ i ].empty ) )
+				{
+					itemData.GetItemPart( partData, slotsData[ i ].slotId );
+					staticData = InnerItemData.GetStaticData( partData );
+					if( staticData.TagsContains( 'DummyPart' ) )
+					{
+						continue;
+					}
+				}
+				attachmentType = ( ( UIInventoryItemModsStaticData.IsAttachmentDedicated( slotsData[ i ].slotId ) ) ? ( InventoryItemAttachmentType.Dedicated ) : ( InventoryItemAttachmentType.Generic ) );
+				if( attachmentType == InventoryItemAttachmentType.Dedicated && ( staticData == NULL ) )
+				{
+					continue;
+				}
+				attachmentData = new UIInventoryItemModAttachment;
+				attachmentData.IsEmpty = slotsData[ i ].empty;
+				if( staticData != NULL )
+				{
+					if( InnerItemData.HasStatData( partData, gamedataStatType.Quality ) )
+					{
+						attachmentData.Quality = RPGManager.GetInnerItemDataQuality( partData );
+						if( staticData.TagsContains( 'ChimeraMod' ) )
+						{
+							attachmentData.Quality = gamedataQuality.Iconic;
+						}
+					}
+					else
+					{
+						attachmentData.Quality = gamedataQuality.Invalid;
+					}
+					FillSpecialAbilities( staticData, attachmentData.Abilities, itemData, partData );
+					attachmentData.AbilitiesSize = attachmentData.Abilities.Size();
+					attachmentData.SlotName = LocKeyToString( staticData.DisplayName() );
+				}
+				else
+				{
+					attachmentData.SlotName = GetLocalizedText( UIItemsHelper.GetEmptySlotName( slotsData[ i ].slotId ) );
+					attachmentData.Quality = gamedataQuality.Invalid;
+				}
+				if( attachmentType == InventoryItemAttachmentType.Dedicated )
+				{
+					m_dedicatedMod = attachmentData;
+				}
+				else
+				{
+					m_mods.PushBack( attachmentData );
+					m_attachments.PushBack( attachmentData );
+				}
+			}
+		}
+	}
+
+	private const function FillSpecialAbilities( itemRecord : Item_Record, abilities : ref< array< InventoryItemAbility > >, optional itemData : weak< gameItemData >, optional partItemData : InnerItemData )
+	{
+		var GLPAbilities : array< weak< GameplayLogicPackage_Record > >;
+		var i, limit : Int32;
+		var ability : InventoryItemAbility;
+		var uiData : weak< GameplayLogicPackageUIData_Record >;
+		itemRecord.OnAttach( GLPAbilities );
+		for( i = 0, limit = GLPAbilities.Size(); i < limit; i += 1 )
+		{
+			if( GLPAbilities[ i ] )
+			{
+				uiData = GLPAbilities[ i ].UIData();
+				if( uiData )
+				{
+					ability = InventoryItemAbility( uiData.IconPath(), uiData.LocalizedName(), uiData.LocalizedDescription(), UILocalizationDataPackage.FromLogicUIDataPackage( uiData, , partItemData ) );
+					abilities.PushBack( ability );
+				}
+			}
+		}
+		GLPAbilities.Clear();
+		itemRecord.OnEquip( GLPAbilities );
+		for( i = 0, limit = GLPAbilities.Size(); i < limit; i += 1 )
+		{
+			if( GLPAbilities[ i ] )
+			{
+				uiData = GLPAbilities[ i ].UIData();
+				if( uiData )
+				{
+					ability = InventoryItemAbility( uiData.IconPath(), uiData.LocalizedName(), uiData.LocalizedDescription(), UILocalizationDataPackage.FromLogicUIDataPackage( uiData ) );
+					abilities.PushBack( ability );
+				}
+			}
+		}
+	}
+
+}
+
+final abstract class UIInventoryItemModsStaticData
+{
+
+	public static function GetAttachmentSlots( itemType : gamedataItemType ) : array< TweakDBID >
+	{
+		var slots : array< TweakDBID >;
+		switch( itemType )
+		{
+			case gamedataItemType.Clo_Head:
+				slots.PushBack( T"AttachmentSlots.HeadFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.HeadFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.HeadFabricEnhancer3" );
+			break;
+			case gamedataItemType.Clo_Face:
+				slots.PushBack( T"AttachmentSlots.FaceFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.FaceFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.FaceFabricEnhancer3" );
+			break;
+			case gamedataItemType.Clo_OuterChest:
+				slots.PushBack( T"AttachmentSlots.OuterChestFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.OuterChestFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.OuterChestFabricEnhancer3" );
+			slots.PushBack( T"AttachmentSlots.OuterChestFabricEnhancer4" );
+			break;
+			case gamedataItemType.Clo_InnerChest:
+				slots.PushBack( T"AttachmentSlots.InnerChestFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.InnerChestFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.InnerChestFabricEnhancer3" );
+			slots.PushBack( T"AttachmentSlots.InnerChestFabricEnhancer4" );
+			break;
+			case gamedataItemType.Clo_Legs:
+				slots.PushBack( T"AttachmentSlots.LegsFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.LegsFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.LegsFabricEnhancer3" );
+			break;
+			case gamedataItemType.Clo_Feet:
+				slots.PushBack( T"AttachmentSlots.FootFabricEnhancer1" );
+			slots.PushBack( T"AttachmentSlots.FootFabricEnhancer2" );
+			slots.PushBack( T"AttachmentSlots.FootFabricEnhancer3" );
+			break;
+			case gamedataItemType.Wea_HeavyMachineGun:
+			case gamedataItemType.Wea_LightMachineGun:
+			case gamedataItemType.Wea_PrecisionRifle:
+			case gamedataItemType.Wea_Revolver:
+			case gamedataItemType.Wea_Rifle:
+			case gamedataItemType.Wea_Shotgun:
+			case gamedataItemType.Wea_ShotgunDual:
+			case gamedataItemType.Wea_SniperRifle:
+			case gamedataItemType.Wea_SubmachineGun:
+			case gamedataItemType.Wea_Handgun:
+			case gamedataItemType.Wea_AssaultRifle:
+				slots.PushBack( T"AttachmentSlots.Scope" );
+			slots.PushBack( T"AttachmentSlots.PowerModule" );
+			slots.PushBack( T"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Power_Handgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Power_Handgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Power_Handgun_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Power_Handgun_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Tech_Handgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Tech_Handgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Smart_Handgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Smart_Handgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Power_Shotgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Power_Shotgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Tech_Shotgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Tech_Shotgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Smart_Shotgun_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Smart_Shotgun_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.IconicWeaponModLegendary" );
+			break;
+			case gamedataItemType.Wea_Fists:
+			case gamedataItemType.Wea_TwoHandedClub:
+			case gamedataItemType.Wea_Hammer:
+			case gamedataItemType.Wea_ShortBlade:
+			case gamedataItemType.Wea_OneHandedClub:
+			case gamedataItemType.Wea_LongBlade:
+			case gamedataItemType.Wea_Melee:
+			case gamedataItemType.Wea_Katana:
+			case gamedataItemType.Wea_Sword:
+			case gamedataItemType.Wea_Knife:
+			case gamedataItemType.Wea_Axe:
+			case gamedataItemType.Wea_Chainsword:
+			case gamedataItemType.Wea_Machete:
+				slots.PushBack( T"AttachmentSlots.Blade_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Blade_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Blade_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Blade_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Blunt_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Blunt_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Blunt_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Blunt_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Throwable_WeaponMod1" );
+			slots.PushBack( T"AttachmentSlots.Throwable_WeaponMod2" );
+			slots.PushBack( T"AttachmentSlots.Throwable_WeaponMod1_Collectible" );
+			slots.PushBack( T"AttachmentSlots.Throwable_WeaponMod2_Collectible" );
+			slots.PushBack( T"AttachmentSlots.IconicMeleeWeaponMod1" );
+			break;
+			default:
+				slots.PushBack( T"AttachmentSlots.KiroshiOpticsSlot1" );
+			slots.PushBack( T"AttachmentSlots.KiroshiOpticsSlot2" );
+			slots.PushBack( T"AttachmentSlots.KiroshiOpticsSlot3" );
+			slots.PushBack( T"AttachmentSlots.SandevistanSlot1" );
+			slots.PushBack( T"AttachmentSlots.SandevistanSlot2" );
+			slots.PushBack( T"AttachmentSlots.SandevistanSlot3" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram1" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram2" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram3" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram4" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram5" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram6" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram7" );
+			slots.PushBack( T"AttachmentSlots.CyberdeckProgram8" );
+			slots.PushBack( T"AttachmentSlots.BerserkSlot1" );
+			slots.PushBack( T"AttachmentSlots.BerserkSlot2" );
+			slots.PushBack( T"AttachmentSlots.BerserkSlot3" );
+			slots.PushBack( T"AttachmentSlots.NanoWiresQuickhackSlot" );
+			break;
+		}
+		return slots;
+	}
+
+	public static function IsAttachmentDedicated( slotID : TweakDBID ) : Bool
+	{
+		return ( slotID == T"AttachmentSlots.IconicMeleeWeaponMod1" ) || ( slotID == T"AttachmentSlots.IconicWeaponModLegendary" );
+	}
+
+}
+

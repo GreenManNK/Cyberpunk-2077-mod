@@ -1,0 +1,167 @@
+Character.GR_arasaka_ranger1_ranged2_masamune_ma:
+  $base: Character.arasaka_ranger1_ranged2_masamune_ma
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_ranger1_ranged2_shingen_ma:
+  $base: Character.arasaka_ranger1_ranged2_shingen_ma
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_ranger1_ranged2_shingen_wa:
+  $base: Character.arasaka_ranger1_ranged2_shingen_wa
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_bodyguard_ranged3_kenshin_mb_rare:
+  $base: Character.arasaka_bodyguard_ranged3_kenshin_mb_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare:
+  $base: Character.arasaka_bodyguard_ranged3_masamune_mb_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare:
+  $base: Character.arasaka_soldier1_ranged3_masamune_mah_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_agent_fshotgun2_tactician_ma_rare:
+  $base: Character.arasaka_agent_fshotgun2_tactician_ma_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_agent_franged2_yukimura_wa_rare:
+  $base: Character.arasaka_agent_franged2_yukimura_wa_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare:
+  $base: Character.arasaka_agent_fmelee2rare_katana_ma_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_soldier2_shotgun2_tactician_mah_rare:
+  $base: Character.arasaka_soldier2_shotgun2_tactician_mah_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_agent_fmelee2rare_katana_wa_rare:
+  $base: Character.arasaka_agent_fmelee2rare_katana_wa_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_sniper_sniper3_nekomata_ma_elite:
+  $base: Character.arasaka_sniper_sniper3_nekomata_ma_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_netrunner_netrunner2_yukimura_ma_rare:
+  $base: Character.arasaka_netrunner_netrunner2_yukimura_ma_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_tank2_gunner2_defender_mb_rare:
+  $base: Character.arasaka_tank2_gunner2_defender_mb_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_sniper_sniper3_ashura_ma_elite:
+  $base: Character.arasaka_sniper_sniper3_ashura_ma_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_netrunner_netrunner2_yukimura_wa_rare:
+  $base: Character.arasaka_netrunner_netrunner2_yukimura_wa_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_agent_fshotgun2_tactician_wa_rare:
+  $base: Character.arasaka_agent_fshotgun2_tactician_wa_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_bodyguard_hmelee2_fists_mb_rare:
+  $base: Character.arasaka_bodyguard_hmelee2_fists_mb_rare
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_cyborg_franged3_shingen_ma_elite:
+  $base: Character.arasaka_cyborg_franged3_shingen_ma_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_cyborg_franged3_shingen_wa_elite:
+  $base: Character.arasaka_cyborg_franged3_shingen_wa_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_ninja_fmelee3_katana_wa_elite:
+  $base: Character.arasaka_ninja_fmelee3_katana_wa_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_ninja_fmelee3_mantis_ma_elite:
+  $base: Character.arasaka_ninja_fmelee3_mantis_ma_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_ninja_fmelee3_mantis_wa_elite:
+  $base: Character.arasaka_ninja_fmelee3_mantis_wa_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_cyborg_fshotgun3_zhuo_ma_elite:
+  $base: Character.arasaka_cyborg_fshotgun3_zhuo_ma_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_rare2_gunner3_hmg_mm_elite:
+  $base: Character.arasaka_rare2_gunner3_hmg_mm_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_rare2_hmelee3_fists_mm_elite:
+  $base: Character.arasaka_rare2_hmelee3_fists_mm_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_terminator_shotgun3_zhuo_mah_elite:
+  $base: Character.arasaka_terminator_shotgun3_zhuo_mah_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_arasaka_terminator_shotgun3_zhuo_mah_elite:
+  $base: Character.arasaka_terminator_shotgun3_zhuo_mah_elite
+  tags: 
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat

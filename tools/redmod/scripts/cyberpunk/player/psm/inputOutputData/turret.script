@@ -1,0 +1,12 @@
+class TurretInitData extends IScriptable
+{
+	var turret : weak< GameObject >;
+}
+
+class FinisherInitData extends IScriptable
+{
+	var target : weak< GameObject >;
+	var actionName : CName;
+	var IsBossFinisher : Bool;
+}
+

@@ -1,0 +1,10 @@
+importonly abstract class IActivityLogSystem extends IGameSystem
+{
+}
+
+importonly class ActivityLogSystem extends IActivityLogSystem
+{
+	public import function AddLog( logEntry : String );
+	public import function AddLogFromParts( textpart1 : String, optional textpart2 : String, optional textpart3 : String, optional textpart4 : String, optional textpart5 : String );
+}
+

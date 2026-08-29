@@ -1,0 +1,155 @@
+Character.GR_animals_bouncer1_ranged1_kenshin_mb:
+    $base: Character.animals_bouncer1_ranged1_kenshin_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt1_ranged1_nova_mb:
+    $base: Character.animals_grunt1_ranged1_nova_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt1_ranged1_pulsar_mb:
+    $base: Character.animals_grunt1_ranged1_pulsar_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer2_melee2_fists_mb:
+    $base: Character.animals_bouncer2_melee2_fists_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_melee2_hammer_mb:
+    $base: Character.animals_grunt2_melee2_hammer_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_melee2_machete_mb:
+    $base: Character.animals_grunt2_melee2_machete_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer2_ranged2_burya_mb:
+    $base: Character.animals_bouncer2_ranged2_burya_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer2_ranged2_omaha_mb:
+    $base: Character.animals_bouncer2_ranged2_omaha_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer1_ranged1_omaha_mb:
+    $base: Character.animals_bouncer1_ranged1_omaha_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_ranged2_pulsar_mb:
+    $base: Character.animals_grunt2_ranged2_pulsar_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_ranged2_overture_mb:
+    $base: Character.animals_grunt2_ranged2_overture_mb
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer2_hmelee2_fists_mba_rare:
+    $base: Character.animals_bouncer2_hmelee2_fists_mba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer2_hmelee2_hammer_mba_rare:
+    $base: Character.animals_bouncer2_hmelee2_hammer_mba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite2_hmelee2_fists_mba_rare:
+    $base: Character.animals_elite2_hmelee2_fists_mba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_hmelee2_fists_wba_rare:
+    $base: Character.animals_grunt2_hmelee2_fists_wba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite2_hmelee2_hammer_mba_rare:
+    $base: Character.animals_elite2_hmelee2_hammer_mba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_hmelee2_hammer_wba_rare:
+    $base: Character.animals_grunt2_hmelee2_hammer_wba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite2_ranged3_burya_mba_rare:
+    $base: Character.animals_elite2_ranged3_burya_mba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt2_shotgun2_igla_wba_rare:
+    $base: Character.animals_grunt2_shotgun2_igla_wba_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_grunt3_gunner2_defender_mb_rare:
+    $base: Character.animals_grunt3_gunner2_defender_mb_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_bouncer3_hmelee3_fists_mba_elite:
+    $base: Character.animals_bouncer3_hmelee3_fists_mba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite3_gunner3_hmg_mba_elite:
+    $base: Character.animals_elite3_gunner3_hmg_mba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite3_hmelee3_fists_mba_elite:
+    $base: Character.animals_elite3_hmelee3_fists_mba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite2_shotgun3_carnage_wba_elite:
+    $base: Character.animals_elite2_shotgun3_carnage_wba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite2_shotgun3_testera_wba_elite:
+    $base: Character.animals_elite2_shotgun3_testera_wba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_animals_elite3_shotgun3_carnage_mba_elite:
+    $base: Character.animals_elite3_shotgun3_carnage_mba_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat

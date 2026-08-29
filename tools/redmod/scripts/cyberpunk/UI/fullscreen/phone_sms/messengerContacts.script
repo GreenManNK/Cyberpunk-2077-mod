@@ -1,0 +1,135 @@
+class SimpleMessengerItemVirtualController extends inkVirtualCompoundItemController
+{
+	private editable var m_label : inkTextRef;
+	private editable var m_msgPreview : inkTextRef;
+	private editable var m_msgIndicator : inkWidgetRef;
+	private editable var m_replyAlertIcon : inkWidgetRef;
+	private editable var m_collapseIcon : inkWidgetRef;
+	private editable var m_image : inkImageRef;
+	private var m_type : MessengerContactType;
+	private var m_contactData : ContactData;
+	private var m_activeItemSync : weak< MessengerContactSyncData >;
+	private var m_isContactActive : Bool;
+	private var m_isItemHovered : Bool;
+	private var m_isItemToggled : Bool;
+
+	protected event OnInitialize()
+	{
+		RegisterToCallback( 'OnToggledOn', this, 'OnToggledOn' );
+		RegisterToCallback( 'OnToggledOff', this, 'OnToggledOff' );
+		RegisterToCallback( 'OnSelected', this, 'OnSelected' );
+		RegisterToCallback( 'OnDeselected', this, 'OnDeselected' );
+	}
+
+	protected event OnDataChanged( value : Variant )
+	{
+		m_contactData = ( ( ContactData )( ( ( IScriptable )value ) ) );
+		m_activeItemSync = m_contactData.activeDataSync;
+		m_type = m_contactData.type;
+		if( m_contactData.unreadMessages.Size() > 0 )
+		{
+			inkTextRef.SetState( m_msgPreview, 'isNew' );
+			inkTextRef.SetState( m_label, 'isNew' );
+		}
+		else
+		{
+			inkTextRef.SetState( m_msgPreview, 'Default' );
+			inkTextRef.SetState( m_label, 'Default' );
+		}
+		inkWidgetRef.SetVisible( m_replyAlertIcon, m_contactData.playerCanReply );
+		inkTextRef.SetText( m_label, m_contactData.localizedName );
+		if( !( m_contactData.hasValidTitle ) )
+		{
+			if( m_contactData.playerIsLastSender )
+			{
+				inkTextRef.SetText( m_msgPreview, GetLocalizedTextByKey( 'UI-Phone-LabelYou' ) + GetLocalizedText( m_contactData.lastMesssagePreview ) );
+			}
+			else
+			{
+				inkTextRef.SetText( m_msgPreview, m_contactData.lastMesssagePreview );
+			}
+		}
+		else
+		{
+			inkTextRef.SetText( m_msgPreview, m_contactData.localizedPreview );
+		}
+		if( TDBID.IsValid( m_contactData.avatarID ) )
+		{
+			inkImageRef.SetVisible( m_image, true );
+			InkImageUtils.RequestSetImage( this, m_image, m_contactData.avatarID );
+		}
+		UpdateState();
+	}
+
+	protected event OnContactSyncData( evt : MessengerContactSyncBackEvent )
+	{
+		UpdateState();
+	}
+
+	protected event OnMessengerThreadSelectedEvent( evt : MessengerThreadSelectedEvent )
+	{
+		m_contactData.unreadMessages.Remove( ( ( Int32 )( evt.m_hash ) ) );
+		if( m_contactData.unreadMessages.Size() > 0 )
+		{
+			inkWidgetRef.SetVisible( m_msgIndicator, true );
+			inkTextRef.SetState( m_msgPreview, 'isNew' );
+			inkTextRef.SetState( m_label, 'isNew' );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_msgIndicator, false );
+			inkTextRef.SetState( m_msgPreview, 'Default' );
+			inkTextRef.SetState( m_label, 'Default' );
+		}
+	}
+
+	protected event OnToggledOn( itemController : weak< inkVirtualCompoundItemController > )
+	{
+		var evt : MessengerContactSelectedEvent;
+		evt = new MessengerContactSelectedEvent;
+		evt.m_type = m_type;
+		evt.m_entryHash = m_contactData.hash;
+		QueueEvent( evt );
+		m_isItemToggled = true;
+	}
+
+	protected event OnToggledOff( itemController : weak< inkVirtualCompoundItemController > )
+	{
+		m_isItemToggled = false;
+		UpdateState();
+	}
+
+	protected event OnSelected( itemController : weak< inkVirtualCompoundItemController >, discreteNav : Bool )
+	{
+		m_isItemHovered = true;
+		UpdateState();
+		if( discreteNav )
+		{
+			SetCursorOverWidget( GetRootWidget() );
+		}
+	}
+
+	protected event OnDeselected( itemController : weak< inkVirtualCompoundItemController > )
+	{
+		m_isItemHovered = false;
+		UpdateState();
+	}
+
+	private function UpdateState()
+	{
+		if( m_activeItemSync.m_entryHash == m_contactData.hash )
+		{
+			GetRootWidget().SetState( 'Active' );
+		}
+		else if( m_isItemHovered )
+		{
+			GetRootWidget().SetState( 'Hover' );
+		}
+		else
+		{
+			GetRootWidget().SetState( 'Default' );
+		}
+	}
+
+}
+

@@ -1,0 +1,242 @@
+package Loot
+using RTDB
+
+SantoDomingoArroyo : Loot.District
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+}
+
+SantoDomingoArroyoAll : SantoDomingoArroyo
+{
+	lootTableInclusions = 
+	[
+		"Loot.SantoDomingoArroyoClothing", "Loot.SantoDomingoArroyoWeapons", "Loot.SantoDomingoArroyoConsumables", "Loot.SantoDomingoArroyoEdibles", "Loot.SantoDomingoArroyoGadgets", "Loot.SantoDomingoArroyoJunk", "Loot.SantoDomingoArroyoFragments", "Loot.SantoDomingoArroyoPrograms", "Loot.SantoDomingoArroyoJewellery"
+	];
+}
+
+SantoDomingoArroyoClothing : SantoDomingoArroyo
+{
+	queries = 
+	[
+		{
+			dropChance = 0.35;
+			query = "Query.SimpleClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.IndustrialClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+SantoDomingoArroyoWeapons : SantoDomingoArroyo
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.TwoHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.PrecisionRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunDualQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+SantoDomingoArroyoConsumables : SantoDomingoArroyo
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			query = "Query.LowQualityDrink";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+SantoDomingoArroyoEdibles : SantoDomingoArroyo
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+}
+
+SantoDomingoArroyoGadgets : SantoDomingoArroyo
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+SantoDomingoArroyoJunk : SantoDomingoArroyo
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem6";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem8";
+		}
+	];
+}
+
+SantoDomingoArroyoFragments : SantoDomingoArroyoJunk
+{
+}
+
+SantoDomingoArroyoPrograms : SantoDomingoArroyo
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15f;
+			query = "Query.LowQualityShard";
+		}
+	];
+}
+
+SantoDomingoArroyoJewellery : SantoDomingoArroyo
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityJewellery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityJewellery";
+		}
+	];
+}
+
+SantoDomingoArroyoCraftingMaterials : SantoDomingoArroyo
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

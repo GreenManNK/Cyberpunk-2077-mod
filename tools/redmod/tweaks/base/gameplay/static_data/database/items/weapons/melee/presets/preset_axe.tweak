@@ -1,0 +1,375 @@
+package Items
+using RTDB, BaseStats, Prereqs, Perks, Effectors
+
+Preset_Tomahawk_Default : Base_Axe
+{
+	displayName = "LocKey#40213";
+	localizedDescription = "LocKey#40214";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"Tomahawk"
+	];
+	CName appearanceResourceName = "Preset_Tomahawk_Default";
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"w_tomahawk"
+			];
+		} : GameplayLogicPackage
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Tomahawk";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_tomahawk_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.Throwable_WeaponMod1";
+		} : ThrowableModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Throwable_WeaponMod2";
+		} : ThrowableModList_Slot2
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_tomahawk";
+	statModifierGroups += 
+	[
+		"Items.Tomahawk_Default_Damage_Stats"
+	];
+}
+
+Tomahawk_Default_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 76f;
+		} : ConstantStatModifier
+	];
+}
+
+Preset_Fanged_Axe_Default : Base_Axe
+{
+	displayName = "LocKey#82860";
+	localizedDescription = "LocKey#82861";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"Fanged_Axe"
+	];
+	CName projectileTemplateName = "fanged_axe";
+	CName appearanceResourceName = "Preset_Fanged_Axe_Default";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Fanged_Axe";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_machete_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.Throwable_WeaponMod1";
+		} : ThrowableModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Throwable_WeaponMod2";
+		} : ThrowableModList_Slot2
+	];
+	OnAttach += 
+	[
+		"GLP.HoldingSlowMelee"
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_tomahawk";
+	fk< StatModifierGroup >[] statModifierGroups += 
+	[
+		"Items.Borg_Axe_Stats", "Items.Borg_Axe_Damage_Stats"
+	];
+}
+
+Borg_Axe_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 76f;
+		} : ConstantStatModifier
+	];
+}
+
+Preset_Fanged_Axe_Neon : Preset_Fanged_Axe_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Fanged_Axe_Military : Preset_Fanged_Axe_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Tomahawk : Preset_Tomahawk_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_tomahawk_common_grip";
+		}
+	];
+	CraftingData = "Items.Small_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Tomahawk : Craftable_Common_Tomahawk
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Small_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Tomahawk : Craftable_Uncommon_Tomahawk
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Small_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Tomahawk : Craftable_Uncommon_Tomahawk
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Small_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Tomahawk : Craftable_Uncommon_Tomahawk
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Small_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Common_Fanged_Axe : Preset_Fanged_Axe_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_machete_common_grip";
+		}
+	];
+	CraftingData = "Items.Small_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Fanged_Axe : Craftable_Common_Fanged_Axe
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Small_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Fanged_Axe : Craftable_Uncommon_Fanged_Axe
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Small_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Fanged_Axe : Craftable_Uncommon_Fanged_Axe
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Small_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Fanged_Axe : Craftable_Uncommon_Fanged_Axe
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Small_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_VB_Axe : Preset_Tomahawk_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "vb_axe_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Melee_Blueprint";
+	displayName = "LocKey#86806";
+	[ EP1 ]
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.VB_Axe";
+	localizedDescription = "LocKey#86807";
+	CName projectileTemplateName = "vb_axe";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	visualTags = 
+	[
+		"VooDoo_Melee"
+	];
+	quality = "Quality.Random";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Axe_NPC_Data;
+	slotPartListPreset += 
+	[
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.VBAxeWeaponMod";
+		}
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_vb_axe";
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Base_Axe_RPG_Stats", "Items.Base_Axe_Handling_Stats", "Items.Base_Axe_Misc_Stats", "Proficiencies.Weapon_CoolSkill_Passives", "Items.Base_Melee_Weapon_Damage_Type_Electric", "Items.Base_Melee_Weapon_Damage_Type_Electric_Min_Max", "Items.Tomahawk_Default_Damage_Stats"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Fanged_Axe_Collectible : Preset_Fanged_Axe_Default
+{
+	fk< ItemBlueprint > blueprint = "Items.Collectible_Throwable_Blueprint";
+	displayName = "LocKey#95296";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	visualTags = 
+	[
+		"XMOD2"
+	];
+	quality = "Quality.Random";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Axe_NPC_Data;
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_machete_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.CollectibleIconicWeaponMod";
+		}
+	];
+	float projectileSmartTargetingAngle = 20;
+	float projectileSmartTargetingDistance = 20;
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Base_Axe_RPG_Stats", "Items.Base_Axe_Handling_Stats", "Items.Borg_Axe_Collectible_Misc_Stats", "Proficiencies.Weapon_CoolSkill_Passives", "Items.Base_Melee_Weapon_Damage_Type_Physical", "Items.Base_Melee_Weapon_Damage_Type_Physical_Min_Max", "Items.Borg_Axe_Collectible_Stats", "Items.Borg_Axe_Damage_Stats"
+	];
+}
+
+Borg_Axe_Collectible_Misc_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		"BaseStats.EquipDurationModifier", "BaseStats.UnequipDurationModifier", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EquipDuration_First";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HasMeleeTargeting";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			value = 20.f;
+		} : EffectiveRangeModifier
+	];
+}
+
+Borg_Axe_Collectible_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Weight";
+			modifierType = "Additive";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttackSpeed";
+			modifierType = "Multiplier";
+			value = 0.9f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "Multiplier";
+			value = 1.12f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 3.0f;
+		} : ConstantStatModifier
+	];
+}
+

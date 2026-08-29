@@ -1,0 +1,113 @@
+package LootTables
+using RTDB
+
+SQ012_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+SQ012_shop_MCL_decorative : SQ012_Loot
+{
+	lootItems = [];
+}
+
+SQ012_shop_MCM_equipment : SQ012_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.PoorClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.SimpleClothing";
+		}
+	];
+}
+
+SQ012_shop_MCM_toolbox : SQ012_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+SQ012_shop_MCS_consumables : SQ012_Loot
+{
+	lootItems = [];
+}
+
+SQ012_shop_MCS_gadgets : SQ012_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+SQ012_shop_MCS_valuable : SQ012_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.8f;
+			dropCountMin = 300;
+			dropCountMax = 600;
+			itemID = "Items.money";
+		}
+	];
+}
+
+SQ012_diner_LCM_freezer : SQ012_Loot
+{
+	minItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityFood5";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityFood6";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityDrink8";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityDrink9";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityAlcohol5";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GoodQualityAlcohol6";
+		}
+	];
+}
+

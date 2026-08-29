@@ -1,0 +1,159 @@
+package LootTables
+using RTDB
+
+Q003_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q003_factory_MGM_chemicals : Q003_Loot
+{
+	maxItemsToLoot = 1;
+	lootItems = [];
+}
+
+Q003_factory_MGM_equipment : Q003_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MaelstromClothing";
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.Maelstrom_WeaponQuery";
+		}
+	];
+}
+
+Q003_factory_MGM_locker : Q003_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MaelstromClothing";
+		}
+	];
+}
+
+Q003_factory_MGM_ripperdoc : Q003_Loot
+{
+}
+
+Q003_factory_MGM_safe : Q003_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q003_factory_MGM_toolbox : Q003_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q003_factory_MGS_ammo : Q003_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q003_factory_MGS_freezer : Q003_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Q003_factory_MGM_ripperdoc"
+	];
+}
+
+Q003_factory_MGS_consumables : Q003_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Q003_factory_MGM_chemicals"
+	];
+}
+
+Q003_factory_MGS_crate : Q003_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.MaelstromJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MaelstromJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.MaelstromJunkItem3";
+		}
+	];
+}
+
+Q003_factory_MGS_first_aid : Q003_Loot
+{
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q003_factory_MGS_gadgets : Q003_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q003_factory_MGS_valuable : Q003_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			dropCountMin = 750;
+			dropCountMax = 1000;
+			itemID = "Items.money";
+		}
+	];
+}
+

@@ -1,0 +1,899 @@
+package Character
+using RTDB, BaseStats, Factions, ArchetypeData, ArchetypeType
+
+voodooboys_base : Gameplay_NPC_Base
+{
+	displayName = "LocKey#42728";
+	reactionPreset = "ReactionPresets.Ganger_Aggressive";
+	baseAttitudeGroup = "voodooBoys";
+	actionMap = "Gang.Map";
+	fk< AISquadParams > squadParamsID = "FactionSquads.VoodooBoysSquad";
+	fk< Affiliation > affiliation = "Factions.VoodooBoys";
+	visualTags = 
+	[
+		"VoodooBoys"
+	];
+	fk< GameplayAbility >[] abilities += 
+	[
+		"Ability.CanUseEMPGrenades", "Ability.IsDefensive"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			column = "voodoo_boys";
+		} : FactionNPCRarityBonus
+	];
+	statModifierGroups += 
+	[
+	];
+	bountyDrawTable = "BountyDrawTable.VoodooBoys";
+	isBumpable = true;
+	lootBagEntity = "voodooboysDropBag";
+}
+
+voodooboys_base_ma : voodooboys_base
+{
+	[ EP1 ]
+	entityTemplatePath = "ep1\characters\entities\gang\gang__ep1_voodoo_ma.ent";
+}
+
+voodooboys_base_wa : voodooboys_base
+{
+	[ EP1 ]
+	entityTemplatePath = "ep1\characters\entities\gang\gang__ep1_voodoo_wa.ent";
+}
+
+VoodooBoysNetrunnerT2 : ArchetypeData.NetrunnerT2
+{
+	abilityGroups += 
+	[
+		{
+			abilities += [];
+		}
+	];
+}
+
+VoodooBoysNetrunnerT3 : ArchetypeData.NetrunnerT3
+{
+	abilityGroups += 
+	[
+		{
+			abilities += [];
+		}
+	];
+}
+
+voodooboys_grunt1_ranged2_saratoga_ma : voodooboys_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSMGPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22785";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.VoodooBoysGenericRangedGruntT2";
+}
+
+voodooboys_grunt1_ranged2_sidewinder_ma : voodooboys_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysAssaultRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22785";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.VoodooBoysGenericRangedSmartGruntT2";
+}
+
+voodooboys_grunt1_ranged2_saratoga_wa : voodooboys_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSMGPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	rarity = "NPCRarity.Normal";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42687";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.VoodooBoysGenericRangedGruntT2";
+}
+
+voodooboys_grunt1_ranged2_sidewinder_wa : voodooboys_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysAssaultRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt", "Lvl1"
+	];
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42687";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.VoodooBoysGenericRangedSmartGruntT2";
+}
+
+voodooboys_grunt1coat_shotgun2_palica_ma : voodooboys_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Lvl2", "Shotgun"
+	];
+	rarity = "NPCRarity.Normal";
+	lootDrop = "Loot.VoodooBoysShotgunShotgunT2";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42688";
+		} : ArchetypeType.ShotgunnerT2;
+	} : ArchetypeData.ShotgunnerT2;
+}
+
+voodooboys_grunt2coat_shotgun2_palica_wa : voodooboys_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Lvl2", "Coat"
+	];
+	rarity = "NPCRarity.Normal";
+	lootDrop = "Loot.VoodooBoysShotgunGruntT2";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22789";
+		} : ArchetypeType.ShotgunnerT2;
+	} : ArchetypeData.ShotgunnerT2;
+}
+
+voodooboys_grunt3coat_shotgun3_zhuo_ma_elite : voodooboys_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	rarity = "NPCRarity.Elite";
+	lootDrop = "Loot.VoodooBoysShotgunShotgunT3";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22798";
+		} : ArchetypeType.FastShotgunnerT3;
+	} : ArchetypeData.FastShotgunnerT3;
+	visualTags += 
+	[
+		"Lvl3", "Shotgun"
+	];
+}
+
+voodooboys_grunt1_fmelee2rare_baseball_ma_rare : voodooboys_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Baseball_Bat_Default";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				onBodySlot = "AttachmentSlots.ItemSlotKatana";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Fast", "Lvl1"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22787";
+		} : ArchetypeType.FastMeleeT2;
+	} : ArchetypeData.FastMeleeT2;
+	lootDrop = "Loot.VoodooBoysFastMeleeFastT2";
+}
+
+voodooboys_netrunner2_netrunner2_lexington_ma_rare : voodooboys_base_ma
+{
+	bountyDrawTable = "BountyDrawTable.VoodooNetrunner";
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	actionMap = "GangNetrunner.Map";
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42689";
+		} : ArchetypeType.NetrunnerT2;
+	} : VoodooBoysNetrunnerT2;
+	lootDrop = "Loot.VoodooBoysNetrunnerNetrunnerT2";
+	visualTags += 
+	[
+		"Netrunner", "Lvl2"
+	];
+}
+
+voodooboys_netrunner2_netrunner2_lexington_wa_rare : voodooboys_base_wa
+{
+	bountyDrawTable = "BountyDrawTable.VoodooNetrunner";
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	actionMap = "GangNetrunner.Map";
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22801";
+		} : ArchetypeType.NetrunnerT2;
+	} : VoodooBoysNetrunnerT2;
+	lootDrop = "Loot.VoodooBoysNetrunnerNetrunnerT2";
+	visualTags += 
+	[
+		"Netrunner", "Lvl2"
+	];
+}
+
+voodooboys_netrunner3_netrunner3_quasar_wa_elite : voodooboys_base_wa
+{
+	bountyDrawTable = "BountyDrawTable.VoodooNetrunner";
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : VoodooboysSecondaryHandgunPool
+		];
+	};
+	actionMap = "GangNetrunner.Map";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22804";
+		} : ArchetypeType.NetrunnerT3;
+	} : VoodooBoysNetrunnerT3;
+	lootDrop = "Loot.VoodooBoysNetrunnerNetrunnerT3";
+	rarity = "NPCRarity.Elite";
+	visualTags += 
+	[
+		"Netrunner", "Lvl3"
+	];
+}
+
+VoodooboysShotgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Palica_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Tactician_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Satara_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Zhuo_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			minLevel = 33;
+			weight = 5;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+VoodooboysSMGPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Pulsar_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Saratoga_Arasaka_2077";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Saratoga_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 6;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Dian_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 6;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+VoodooboysPrimaryHandgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Unity_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Quasar_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Nue_Arasaka_2077";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Chao_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Omaha_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Yukimura_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Kenshin_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+VoodooboysSecondaryHandgunPool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Unity_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Quasar_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			weight = 5;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Omaha_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Yukimura_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Chao_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+				} : NPCEquipmentItem
+			];
+			weight = 5;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+
+VoodooboysAssaultRiflePool : NPCEquipmentItemPool
+{
+	pool = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Masamune_Arasaka_2077";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Ajax_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 17;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Umbra_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Sidewinder_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 2;
+		} : NPCEquipmentItemsPoolEntry, 
+		{
+			items = 
+			[
+				{
+					item = "Items.Preset_Masamune_Default";
+					equipSlot = "AttachmentSlots.WeaponRight";
+					equipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponEquipCondition"
+					];
+					unequipCondition = 
+					[
+						"WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition"
+					];
+				} : NPCEquipmentItem
+			];
+			weight = 4;
+			minLevel = 33;
+		} : NPCEquipmentItemsPoolEntry
+	];
+}
+

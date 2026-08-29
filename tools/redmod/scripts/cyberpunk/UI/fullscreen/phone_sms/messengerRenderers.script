@@ -1,0 +1,187 @@
+enum MessageViewType
+{
+	Sent = 0,
+	Received = 1,
+}
+
+class MessangerReplyItemRenderer extends JournalEntryListItemController
+{
+	private var m_selectedState : Bool;
+	private var m_isQuestImportant : Bool;
+	private var m_isActive : Bool;
+	private editable var m_stateDefault : CName;
+	default m_stateDefault = 'Default';
+	private editable var m_stateSelected : CName;
+	default m_stateSelected = 'Selected';
+	private editable var m_stateQuestDefault : CName;
+	default m_stateQuestDefault = 'Quest';
+	private editable var m_stateQuestSelected : CName;
+	default m_stateQuestSelected = 'QuestSelected';
+	private editable var m_stateDisabled : CName;
+	default m_stateDisabled = 'Disabled';
+
+	protected event OnInitialize()
+	{
+		RegisterToCallback( 'OnSelected', this, 'OnSelected' );
+		RegisterToCallback( 'OnDeselected', this, 'OnDeselected' );
+		RegisterToCallback( 'OnButtonStateChanged', this, 'OnButtonStateChanged' );
+	}
+
+	protected event OnUninitialize()
+	{
+		UnregisterFromCallback( 'OnSelected', this, 'OnSelected' );
+		UnregisterFromCallback( 'OnDeselected', this, 'OnDeselected' );
+		UnregisterFromCallback( 'OnButtonStateChanged', this, 'OnButtonStateChanged' );
+	}
+
+	protected event OnButtonStateChanged( controller : weak< inkButtonController >, oldState : inkEButtonState, newState : inkEButtonState )
+	{
+		if( oldState == inkEButtonState.Normal && newState == inkEButtonState.Hover )
+		{
+			SetSelected( true );
+		}
+		else if( oldState == inkEButtonState.Hover && newState != inkEButtonState.Hover )
+		{
+			SetSelected( false );
+		}
+	}
+
+	protected event OnSelected( parent : weak< ListItemController > )
+	{
+		if( !( m_selectedState ) )
+		{
+			m_selectedState = !( m_selectedState );
+			AnimateSelection();
+		}
+	}
+
+	protected event OnDeselected( parent : weak< ListItemController > )
+	{
+		if( m_selectedState )
+		{
+			m_selectedState = !( m_selectedState );
+			AnimateSelection();
+		}
+	}
+
+	protected override function OnJournalEntryUpdated( entry : weak< JournalEntry >, extraData : IScriptable )
+	{
+		var choiceEntry : weak< JournalPhoneChoiceEntry >;
+		choiceEntry = ( ( JournalPhoneChoiceEntry )( entry ) );
+		inkTextRef.SetText( m_labelPathRef, choiceEntry.GetText() );
+		m_isQuestImportant = choiceEntry.IsQuestImportant();
+		AnimateSelection();
+	}
+
+	public function AnimateSelection()
+	{
+		if( !( m_isActive ) )
+		{
+			GetRootWidget().SetState( m_stateDisabled );
+		}
+		else if( m_selectedState )
+		{
+			GetRootWidget().SetState( ( ( m_isQuestImportant ) ? ( m_stateQuestSelected ) : ( m_stateSelected ) ) );
+			PlayLibraryAnimation( 'Send_Indicator_intro' );
+		}
+		else
+		{
+			GetRootWidget().SetState( ( ( m_isQuestImportant ) ? ( m_stateQuestDefault ) : ( m_stateDefault ) ) );
+		}
+	}
+
+	public function SetActive( active : Bool )
+	{
+		m_isActive = active;
+		AnimateSelection();
+	}
+
+}
+
+class MessangerItemRenderer extends JournalEntryListItemController
+{
+	private editable var m_image : inkImageRef;
+	private editable var m_container : inkWidgetRef;
+	private editable var m_MessageBubbleBG : inkImageRef;
+	private editable var m_MessageBubbleFG : inkImageRef;
+	private editable var m_ReplyBubbleBG : inkImageRef;
+	private editable var m_ReplyBubbleFG : inkImageRef;
+	private editable var m_stateMessage : CName;
+	default m_stateMessage = 'Default';
+	private editable var m_statePlayerReply : CName;
+	default m_statePlayerReply = 'Player';
+	private editable var m_stateQuestReply : CName;
+	default m_stateQuestReply = 'Quest';
+	private var m_imageId : TweakDBID;
+
+	protected override function OnJournalEntryUpdated( entry : weak< JournalEntry >, extraData : IScriptable )
+	{
+		var message : weak< JournalPhoneMessage >;
+		var choiceEntry : weak< JournalPhoneChoiceEntry >;
+		var type : MessageViewType;
+		var contact : ContactData;
+		var txt : String;
+		inkImageRef.SetVisible( m_image, false );
+		message = ( ( JournalPhoneMessage )( entry ) );
+		contact = ( ( ContactData )( extraData ) );
+		if( message )
+		{
+			txt = message.GetText();
+			type = ( ( message.GetSender() == gameMessageSender.NPC ) ? ( MessageViewType.Received ) : ( MessageViewType.Sent ) );
+			SetMessageView( txt, type, contact.localizedName );
+			m_imageId = message.GetImageID();
+			if( message.IsQuestImportant() )
+			{
+				GetRootWidget().SetState( m_stateQuestReply );
+			}
+			if( TDBID.IsValid( m_imageId ) )
+			{
+				inkImageRef.SetVisible( m_image, true );
+				InkImageUtils.RequestSetImage( this, m_image, m_imageId );
+			}
+			else
+			{
+				inkImageRef.SetVisible( m_image, false );
+			}
+		}
+		else
+		{
+			choiceEntry = ( ( JournalPhoneChoiceEntry )( entry ) );
+			if( choiceEntry )
+			{
+				txt = choiceEntry.GetText();
+				SetMessageView( txt, MessageViewType.Sent, "" );
+				if( choiceEntry.IsQuestImportant() )
+				{
+					GetRootWidget().SetState( m_stateQuestReply );
+				}
+			}
+			else
+			{
+			}
+		}
+	}
+
+	private function SetMessageView( const txt : ref< String >, type : MessageViewType, const contactName : ref< String > )
+	{
+		var isMessage : Bool;
+		inkTextRef.SetText( m_labelPathRef, txt );
+		isMessage = type == MessageViewType.Received;
+		inkImageRef.SetVisible( m_MessageBubbleBG, isMessage );
+		inkImageRef.SetVisible( m_MessageBubbleFG, isMessage );
+		inkImageRef.SetVisible( m_ReplyBubbleBG, !( isMessage ) );
+		inkImageRef.SetVisible( m_ReplyBubbleFG, !( isMessage ) );
+		if( isMessage )
+		{
+			GetRootWidget().SetState( m_stateMessage );
+			inkWidgetRef.SetHAlign( m_container, inkEHorizontalAlign.Left );
+		}
+		else
+		{
+			GetRootWidget().SetState( m_statePlayerReply );
+			inkWidgetRef.SetHAlign( m_container, inkEHorizontalAlign.Right );
+		}
+	}
+
+}
+

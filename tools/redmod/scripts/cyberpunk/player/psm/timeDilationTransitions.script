@@ -1,0 +1,664 @@
+class TimeDilationTransitions extends DefaultTransition
+{
+
+	protected const function IsSandevistanActivationRequested( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return stateContext.GetBoolParameter( 'requestSandevistanActivation', false );
+	}
+
+	protected const function IsForceDeactivationRequested( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return stateContext.GetBoolParameter( 'requestSandevistanDeactivation', false ) || stateContext.GetBoolParameter( 'requestKerenzikovDeactivation', false );
+	}
+
+	protected const function IsSandevistanDeactivationRequested( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return stateContext.GetBoolParameter( 'requestSandevistanDeactivation', false );
+	}
+
+	protected const function IsKerenzikovActivationRequested( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return stateContext.GetBoolParameter( 'requestKerenzikovActivation', false );
+	}
+
+	protected const function IsKerenzikovDeactivationRequested( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return stateContext.GetBoolParameter( 'requestKerenzikovDeactivation', false ) || stateContext.GetBoolParameter( 'requestKerenzikovDeactivationWithEaseOut', false );
+	}
+
+	protected const function IsWorkspotValid( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return ( !( IsInWorkspot( scriptInterface ) ) || TimeDilationHelper.CanUseTimeDilation( scriptInterface.executionOwner ) ) || GetPlayerPuppet( scriptInterface ).PlayerContainsWorkspotTag( 'FinisherWorkspot' );
+	}
+
+	protected const function IsInVisionMode( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Vision ) == ( ( Int32 )( gamePSMVision.Focus ) );
+	}
+
+	protected const function IsChangingTarget( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var isQuickHackScreenActivated : StateResultBool;
+		isQuickHackScreenActivated = stateContext.GetTemporaryBoolParameter( 'quickHackChangeTarget' );
+		return isQuickHackScreenActivated.valid && isQuickHackScreenActivated.value;
+	}
+
+	protected const function IsTargetChanged( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var isQuickHackScreenActivated : StateResultBool;
+		isQuickHackScreenActivated = stateContext.GetTemporaryBoolParameter( 'quickHackChangeTarget' );
+		return isQuickHackScreenActivated.valid && !( isQuickHackScreenActivated.value );
+	}
+
+	protected const function IsPlayerMovementDetected( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return scriptInterface.IsMoveInputConsiderable();
+	}
+
+	protected const function IsCameraRotated( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( ( ( ( scriptInterface.GetActionValue( 'CameraMouseX' ) != 0.0 ) || ( scriptInterface.GetActionValue( 'CameraX' ) != 0.0 ) ) || ( scriptInterface.GetActionValue( 'CameraMouseY' ) != 0.0 ) ) || ( scriptInterface.GetActionValue( 'CameraY' ) != 0.0 ) )
+		{
+			return true;
+		}
+		if( IsChangingTarget( stateContext, scriptInterface ) )
+		{
+			return true;
+		}
+		if( IsTargetChanged( stateContext, scriptInterface ) )
+		{
+			return false;
+		}
+		return false;
+	}
+
+	protected const function GetBoolFromTimeSystemTweak( const tweakDBPath : ref< String >, const paramName : ref< String > ) : Bool
+	{
+		return TDB.GetBool( TDBID.Create( ( ( "timeSystem." + tweakDBPath ) + "." ) + paramName ), false );
+	}
+
+	protected const function GetFloatFromTimeSystemTweak( const tweakDBPath : ref< String >, const paramName : ref< String > ) : Float
+	{
+		return TDB.GetFloat( TDBID.Create( ( ( "timeSystem." + tweakDBPath ) + "." ) + paramName ), 0.0 );
+	}
+
+	protected const function GetCNameFromTimeSystemTweak( const tweakDBPath : ref< String >, const paramName : ref< String > ) : CName
+	{
+		return TDB.GetCName( TDBID.Create( ( ( "timeSystem." + tweakDBPath ) + "." ) + paramName ), '' );
+	}
+
+}
+
+class TimeDilationEventsTransitions extends TimeDilationTransitions
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface ) {}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface ) {}
+
+	protected function SetTimeDilationGlobal( stateContext : StateContext, scriptInterface : StateGameScriptInterface, reason : CName, timeDilation : Float, optional duration : Float, optional easeInCurve : CName, optional easeOutCurve : CName, optional listener : TimeDilationListener )
+	{
+		var timeSystem : TimeSystem;
+		timeSystem = scriptInterface.GetTimeSystem();
+		if( reason == TimeDilationHelper.GetSandevistanKey() || ( reason == TimeDilationHelper.GetFocusModeKey() && !( GetBoolFromTimeSystemTweak( "focusModeTimeDilation", "applyTimeDilationToPlayer" ) ) ) )
+		{
+			timeSystem.SetIgnoreTimeDilationOnLocalPlayerZero( true );
+		}
+		else
+		{
+			timeSystem.SetIgnoreTimeDilationOnLocalPlayerZero( false );
+		}
+		timeSystem.SetTimeDilation( reason, timeDilation, duration, easeInCurve, easeOutCurve, listener );
+	}
+
+	protected function SetTimeDilationOnLocalPlayer( reason : CName, timeDilation : Float, optional duration : Float, easeInCurve : CName, easeOutCurve : CName, stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		var timeSystem : TimeSystem;
+		timeSystem = scriptInterface.GetTimeSystem();
+		timeSystem.SetTimeDilationOnLocalPlayerZero( reason, timeDilation, duration, easeInCurve, easeOutCurve );
+	}
+
+	protected function SetCameraTimeDilationCurve( stateContext : StateContext, scriptInterface : StateGameScriptInterface, curveName : CName )
+	{
+		scriptInterface.SetCameraTimeDilationCurve( curveName );
+	}
+
+	protected function UnsetTimeDilation( stateContext : StateContext, scriptInterface : StateGameScriptInterface, reason : CName, optional easeOutCurve : CName )
+	{
+		var timeSystem : TimeSystem;
+		var cleanUpTimeDilationEvt : CleanUpTimeDilationEvent;
+		timeSystem = scriptInterface.GetTimeSystem();
+		if( !( IsNameValid( easeOutCurve ) ) || IsForceDeactivationRequested( stateContext, scriptInterface ) )
+		{
+			timeSystem.UnsetTimeDilation( reason, '' );
+			timeSystem.UnsetTimeDilationOnLocalPlayerZero( reason, '' );
+		}
+		else
+		{
+			timeSystem.UnsetTimeDilation( reason, easeOutCurve );
+			timeSystem.UnsetTimeDilationOnLocalPlayerZero( reason, easeOutCurve );
+		}
+		if( !( cleanUpTimeDilationEvt ) )
+		{
+			cleanUpTimeDilationEvt = new CleanUpTimeDilationEvent;
+			cleanUpTimeDilationEvt.reason = reason;
+			GameInstance.GetDelaySystem( scriptInterface.executionOwner.GetGame() ).DelayEvent( scriptInterface.executionOwner, cleanUpTimeDilationEvt, 1.0, false );
+		}
+	}
+
+}
+
+class SandevistanDecisions extends TimeDilationTransitions
+{
+	private var m_statListener : DefaultTransitionStatListener;
+
+	protected export function OnAttach( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface )
+	{
+		var test : Bool;
+		test = scriptInterface.HasStatFlag( gamedataStatType.HasSandevistan );
+		m_statListener = new DefaultTransitionStatListener;
+		m_statListener.m_transitionOwner = this;
+		scriptInterface.GetStatsSystem().RegisterListener( scriptInterface.executionOwnerEntityID, m_statListener );
+		EnableOnEnterCondition( test );
+	}
+
+	protected export function OnDetach( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface )
+	{
+		scriptInterface.GetStatsSystem().UnregisterListener( scriptInterface.executionOwnerEntityID, m_statListener );
+		m_statListener = NULL;
+	}
+
+	public override function OnStatChanged( ownerID : StatsObjectID, statType : gamedataStatType, diff : Float, total : Float )
+	{
+		if( statType == gamedataStatType.HasSandevistan )
+		{
+			EnableOnEnterCondition( total > 0.0 );
+		}
+	}
+
+	protected export const function EnterCondition( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var r : Bool;
+		if( !( IsWorkspotValid( stateContext, scriptInterface ) ) )
+		{
+			return false;
+		}
+		if( IsMultiplayer() )
+		{
+			return false;
+		}
+		if( ( ( ( IsTimeDilationActive( stateContext, scriptInterface, '' ) && !( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetFocusModeKey() ) ) ) && !( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetFocusedStateKey() ) ) ) && !( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetSandevistanKey() ) ) ) && !( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetKerenzikovKey() ) ) )
+		{
+			return false;
+		}
+		if( ( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Takedown ) == ( ( Int32 )( gamePSMTakedown.Grapple ) ) ) || ( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Takedown ) == ( ( Int32 )( gamePSMTakedown.Takedown ) ) ) )
+		{
+			return false;
+		}
+		if( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.HighLevel ) != ( ( Int32 )( gamePSMHighLevel.SceneTier1 ) ) )
+		{
+			return false;
+		}
+		r = IsSandevistanActivationRequested( stateContext, scriptInterface );
+		if( !( r ) )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	protected const function ToTimeDilationReady( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( !( IsWorkspotValid( stateContext, scriptInterface ) ) )
+		{
+			return true;
+		}
+		if( IsSandevistanDeactivationRequested( stateContext, scriptInterface ) )
+		{
+			return true;
+		}
+		if( !( IsTimeDilationActive( stateContext, scriptInterface, TimeDilationHelper.GetSandevistanKey() ) ) )
+		{
+			return true;
+		}
+		if( GameInstance.GetStatPoolsSystem( scriptInterface.executionOwner.GetGame() ).HasStatPoolValueReachedMin( scriptInterface.executionOwner.GetEntityID(), gamedataStatPoolType.SandevistanCharge ) )
+		{
+			if( !( GameInstance.GetStatusEffectSystem( scriptInterface.executionOwner.GetGame() ).HasStatusEffect( scriptInterface.executionOwnerEntityID, T"BaseStatusEffect.PlayerInFinisherWorkspot" ) ) )
+			{
+				return true;
+			}
+		}
+		if( !( StatusEffectSystem.ObjectHasStatusEffectOfType( scriptInterface.executionOwner, gamedataStatusEffectType.Sandevistan ) ) )
+		{
+			return true;
+		}
+		if( !( scriptInterface.HasStatFlag( gamedataStatType.HasSandevistan ) ) )
+		{
+			return false;
+		}
+		return false;
+	}
+
+}
+
+class SandevistanEvents extends TimeDilationEventsTransitions
+{
+	private var m_lastTimeDilation : Float;
+
+	protected override function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		var timeDilation : Float;
+		var enterCost : Float;
+		timeDilation = scriptInterface.GetStatsSystem().GetStatValue( scriptInterface.executionOwnerEntityID, gamedataStatType.TimeDilationSandevistanTimeScale );
+		enterCost = scriptInterface.GetStatsSystem().GetStatValue( scriptInterface.executionOwnerEntityID, gamedataStatType.TimeDilationSandevistanEnterCost );
+		m_lastTimeDilation = timeDilation;
+		SetBlackboardIntVariable( scriptInterface, GetAllBlackboardDefs().PlayerStateMachine.TimeDilation, ( ( Int32 )( gamePSMTimeDilation.Sandevistan ) ) );
+		if( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetKerenzikovKey() ) )
+		{
+			scriptInterface.GetTimeSystem().UnsetTimeDilation( TimeDilationHelper.GetKerenzikovKey(), 'KerenzikovEaseOut' );
+		}
+		if( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetSandevistanKey() ) )
+		{
+			scriptInterface.GetTimeSystem().UnsetTimeDilation( TimeDilationHelper.GetSandevistanKey(), 'SandevistanEaseOut' );
+		}
+		SetCameraTimeDilationCurve( stateContext, scriptInterface, 'Sandevistan' );
+		SetTimeDilationGlobal( stateContext, scriptInterface, TimeDilationHelper.GetSandevistanKey(), timeDilation, 999.0, ,  );
+		GameInstance.GetRazerChromaEffectsSystem( scriptInterface.GetGame() ).PlayAnimation( 'SlowMotion', true );
+		GameInstance.GetStatPoolsSystem( scriptInterface.GetGame() ).RequestChangingStatPoolValue( scriptInterface.executionOwner.GetEntityID(), gamedataStatPoolType.SandevistanCharge, enterCost, NULL, false );
+	}
+
+	protected function OnForcedExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		UnsetTimeDilation( stateContext, scriptInterface, TimeDilationHelper.GetSandevistanKey(), 'SandevistanEaseOut' );
+		GameInstance.GetRazerChromaEffectsSystem( scriptInterface.GetGame() ).StopAnimation( 'SlowMotion' );
+	}
+
+	protected override function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		SetBlackboardIntVariable( scriptInterface, GetAllBlackboardDefs().PlayerStateMachine.TimeDilation, ( ( Int32 )( gamePSMTimeDilation.Default ) ) );
+		stateContext.SetPermanentFloatParameter( 'SandevistanDeactivationTimeStamp', scriptInterface.GetNow(), true );
+		UnsetTimeDilation( stateContext, scriptInterface, TimeDilationHelper.GetSandevistanKey(), 'SandevistanEaseOut' );
+		StatusEffectHelper.RemoveAllStatusEffectsByType( scriptInterface.executionOwner, gamedataStatusEffectType.Sandevistan );
+		GameInstance.GetRazerChromaEffectsSystem( scriptInterface.GetGame() ).StopAnimation( 'SlowMotion' );
+	}
+
+	protected export function OnUpdate( timeDelta : Float, stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		var timeDilation : Float;
+		timeDilation = scriptInterface.GetStatsSystem().GetStatValue( scriptInterface.executionOwnerEntityID, gamedataStatType.TimeDilationSandevistanTimeScale );
+		if( ( m_lastTimeDilation != 0.0 ) && ( timeDilation != m_lastTimeDilation ) )
+		{
+			SetTimeDilationGlobal( stateContext, scriptInterface, TimeDilationHelper.GetSandevistanKey(), timeDilation, 999.0, ,  );
+		}
+		m_lastTimeDilation = timeDilation;
+	}
+
+}
+
+class KerenzikovDecisions extends TimeDilationTransitions
+{
+	var m_statListener : DefaultTransitionStatListener;
+	var m_activationGracePeriod : Float;
+	default m_activationGracePeriod = 0.33f;
+
+	protected export function OnAttach( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface )
+	{
+		m_statListener = new DefaultTransitionStatListener;
+		m_statListener.m_transitionOwner = this;
+		scriptInterface.GetStatsSystem().RegisterListener( scriptInterface.owner.GetEntityID(), m_statListener );
+		EnableOnEnterCondition( scriptInterface.HasStatFlag( gamedataStatType.HasKerenzikov ) );
+	}
+
+	protected export function OnDetach( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface )
+	{
+		scriptInterface.GetStatsSystem().UnregisterListener( scriptInterface.owner.GetEntityID(), m_statListener );
+		m_statListener = NULL;
+	}
+
+	public override function OnStatChanged( ownerID : StatsObjectID, statType : gamedataStatType, diff : Float, total : Float )
+	{
+		if( statType == gamedataStatType.HasKerenzikov )
+		{
+			EnableOnEnterCondition( total > 0.0 );
+		}
+	}
+
+	protected export const function EnterCondition( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var aimInTimeRemaining : Float;
+		if( scriptInterface.GetNow() < ( stateContext.GetFloatParameter( 'KerenzikovDeactivationTimeStamp', true ) + 0.1 ) )
+		{
+			return false;
+		}
+		if( !( IsWorkspotValid( stateContext, scriptInterface ) ) )
+		{
+			return false;
+		}
+		if( IsTimeDilationActive( stateContext, scriptInterface, '' ) && !( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetFocusedStateKey() ) ) )
+		{
+			return false;
+		}
+		if( IsKerenzikovActivationRequested( stateContext, scriptInterface ) )
+		{
+			return true;
+		}
+		if( IsRequiredLocomotionStateActive( stateContext, scriptInterface ) )
+		{
+			if( stateContext.GetBoolParameter( 'CombatGadgetPreviewShown', true ) )
+			{
+				return true;
+			}
+			aimInTimeRemaining = scriptInterface.localBlackboard.GetFloat( GetAllBlackboardDefs().PlayerStateMachine.AimInTimeRemaining );
+			if( aimInTimeRemaining <= 0.0 )
+			{
+				if( stateContext.GetStateMachineCurrentState( 'LeftHandCyberware' ) == 'leftHandCyberwareCharge' )
+				{
+					return true;
+				}
+				if( ( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.UpperBody ) == ( ( Int32 )( gamePSMUpperBodyStates.Aim ) ) ) && ( UpperBodyTransition.HasRangedWeaponEquipped( scriptInterface.executionOwner ) || UpperBodyTransition.HasThrowableMeleeEqupped( scriptInterface.executionOwner ) ) )
+				{
+					return true;
+				}
+			}
+		}
+		if( TimeDilationHelper.CanUseTimeDilation( scriptInterface.executionOwner ) && IsRequiredVehicleAction( stateContext, scriptInterface ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	protected const function IsRequiredLocomotionStateActive( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var locomotionState : CName;
+		var lastDodgeTime : Float;
+		var timeSinceLastDodge : Float;
+		var aimInTime : Float;
+		aimInTime = scriptInterface.localBlackboard.GetFloat( GetAllBlackboardDefs().PlayerStateMachine.AimInTime );
+		locomotionState = stateContext.GetStateMachineCurrentState( 'Locomotion' );
+		lastDodgeTime = scriptInterface.localBlackboard.GetFloat( GetAllBlackboardDefs().PlayerStateMachine.DodgeTimeStamp );
+		timeSinceLastDodge = EngineTime.ToFloat( GameInstance.GetEngineTime( scriptInterface.GetGame() ) ) - lastDodgeTime;
+		return ( ( timeSinceLastDodge <= ( aimInTime + m_activationGracePeriod ) ) || locomotionState == 'slide' ) || locomotionState == 'coolExitJump';
+	}
+
+	private const function IsRequiredVehicleAction( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		var aimInTime : Float;
+		var pressHandBreak : Bool;
+		var aimInTimeRemaining : Float;
+		var isAiming : Bool;
+		var handBreakAction : CName;
+		var vehicle : weak< VehicleObject >;
+		handBreakAction = 'Handbrake';
+		isAiming = scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.UpperBody ) == ( ( Int32 )( gamePSMUpperBodyStates.Aim ) );
+		if( !( stateContext.GetBoolParameter( 'isInDriverCombat', true ) ) )
+		{
+			return false;
+		}
+		if( !( isAiming ) && !( ( scriptInterface.GetActionValue( 'AimLock' ) > 0.0 ) ) )
+		{
+			return false;
+		}
+		if( !( VehicleComponent.GetVehicle( scriptInterface.executionOwner.GetGame(), scriptInterface.executionOwner.GetEntityID(), vehicle ) ) )
+		{
+			return false;
+		}
+		if( AbsF( vehicle.GetCurrentSpeed() ) < 5.0 )
+		{
+			return false;
+		}
+		aimInTime = scriptInterface.localBlackboard.GetFloat( GetAllBlackboardDefs().PlayerStateMachine.AimInTime );
+		pressHandBreak = scriptInterface.GetActionValue( handBreakAction ) > 0.0;
+		if( !( pressHandBreak ) && ( scriptInterface.GetActionPressCount( handBreakAction ) > 0 ) )
+		{
+			pressHandBreak = scriptInterface.GetActionStateTime( handBreakAction ) < ( aimInTime + m_activationGracePeriod );
+		}
+		aimInTimeRemaining = scriptInterface.localBlackboard.GetFloat( GetAllBlackboardDefs().PlayerStateMachine.AimInTimeRemaining );
+		if( pressHandBreak && ( aimInTimeRemaining <= 0.0 ) )
+		{
+			return !( IsInWeaponReloadState( scriptInterface ) );
+		}
+		return false;
+	}
+
+	protected const function ToTimeDilationReady( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( !( IsWorkspotValid( stateContext, scriptInterface ) ) )
+		{
+			return true;
+		}
+		if( UpperBodyTransition.HasRangedWeaponEquipped( scriptInterface.executionOwner ) && ( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.UpperBody ) != ( ( Int32 )( gamePSMUpperBodyStates.Aim ) ) ) )
+		{
+			return true;
+		}
+		if( !( scriptInterface.HasStatFlag( gamedataStatType.HasKerenzikov ) ) )
+		{
+			return true;
+		}
+		if( !( StatusEffectSystem.ObjectHasStatusEffect( scriptInterface.executionOwner, T"BaseStatusEffect.KerenzikovPlayerBuff" ) ) )
+		{
+			return true;
+		}
+		if( IsKerenzikovDeactivationRequested( stateContext, scriptInterface ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+}
+
+class KerenzikovEvents extends TimeDilationEventsTransitions
+{
+	var m_allowMovementModifier : gameStatModifierData;
+
+	protected function OnForcedExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		ClearKerenzikov( stateContext, scriptInterface );
+	}
+
+	protected override function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		ClearKerenzikov( stateContext, scriptInterface );
+	}
+
+	private function ClearKerenzikov( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		stateContext.SetPermanentFloatParameter( 'KerenzikovDeactivationTimeStamp', scriptInterface.GetNow(), true );
+		SetBlackboardIntVariable( scriptInterface, GetAllBlackboardDefs().PlayerStateMachine.Locomotion, ( ( Int32 )( gamePSMLocomotionStates.Default ) ) );
+		UnsetTimeDilation( stateContext, scriptInterface, TimeDilationHelper.GetKerenzikovKey(), 'KerenzikovEaseOut' );
+		StatusEffectHelper.RemoveStatusEffect( scriptInterface.executionOwner, T"BaseStatusEffect.KerenzikovPlayerBuff" );
+		EnableAllowMovementInputStatModifier( stateContext, scriptInterface, false );
+		GameInstance.GetRazerChromaEffectsSystem( scriptInterface.GetGame() ).StopAnimation( 'SlowMotion' );
+	}
+
+	protected override function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		var timeDilation : Float;
+		var playerDilation : Float;
+		var easeInCurve : CName;
+		var easeOutCurve : CName;
+		var isSliding : Bool;
+		var timeDilationReason : CName;
+		isSliding = IsInSlidingState( stateContext );
+		GetPlayerTimeDilation( stateContext, scriptInterface, isSliding, playerDilation );
+		timeDilation = scriptInterface.GetStatsSystem().GetStatValue( scriptInterface.executionOwnerEntityID, gamedataStatType.TimeDilationKerenzikovTimeScale );
+		easeInCurve = ( ( isSliding ) ? ( 'KereznikovSlideEaseIn' ) : ( 'KereznikovDodgeEaseIn' ) );
+		easeOutCurve = 'KerenzikovEaseOut';
+		timeDilationReason = TimeDilationHelper.GetKerenzikovKey();
+		if( !( isSliding ) )
+		{
+			EnableAllowMovementInputStatModifier( stateContext, scriptInterface, true );
+		}
+		SetBlackboardIntVariable( scriptInterface, GetAllBlackboardDefs().PlayerStateMachine.Locomotion, ( ( Int32 )( gamePSMLocomotionStates.Kereznikov ) ) );
+		SetCameraTimeDilationCurve( stateContext, scriptInterface, 'Kerenzikov' );
+		if( scriptInterface.GetTimeSystem().IsTimeDilationActive( TimeDilationHelper.GetFocusedStateKey() ) )
+		{
+			scriptInterface.GetTimeSystem().UnsetTimeDilation( TimeDilationHelper.GetFocusedStateKey(), 'MeleeHitEaseOut' );
+		}
+		SetTimeDilationGlobal( stateContext, scriptInterface, timeDilationReason, timeDilation, 999.0, easeInCurve, easeOutCurve );
+		SetTimeDilationOnLocalPlayer( timeDilationReason, playerDilation, 999.0, easeInCurve, easeOutCurve, stateContext, scriptInterface );
+		StatusEffectHelper.ApplyStatusEffect( scriptInterface.executionOwner, T"BaseStatusEffect.KerenzikovPlayerBuff" );
+		GameInstance.GetRazerChromaEffectsSystem( scriptInterface.GetGame() ).PlayAnimation( 'SlowMotion', true );
+	}
+
+	protected virtual function GetPlayerTimeDilation( stateContext : StateContext, scriptInterface : StateGameScriptInterface, isSliding : Bool, out playerDilation : Float )
+	{
+		var playerTimeScaleTarget : Float;
+		playerTimeScaleTarget = scriptInterface.GetStatsSystem().GetStatValue( scriptInterface.executionOwnerEntityID, gamedataStatType.TimeDilationKerenzikovPlayerTimeScale );
+		playerDilation = ( ( isSliding ) ? ( playerDilation = playerTimeScaleTarget * 2.0 ) : ( playerTimeScaleTarget ) );
+	}
+
+	protected virtual function EnableAllowMovementInputStatModifier( stateContext : StateContext, scriptInterface : StateGameScriptInterface, enable : Bool )
+	{
+		var ownerID : StatsObjectID;
+		ownerID = scriptInterface.executionOwnerEntityID;
+		if( enable && !( m_allowMovementModifier ) )
+		{
+			m_allowMovementModifier = RPGManager.CreateStatModifier( gamedataStatType.AllowMovementInput, gameStatModifierType.Additive, 1.0 );
+			scriptInterface.GetStatsSystem().AddModifier( ownerID, m_allowMovementModifier );
+		}
+		else if( !( enable ) && m_allowMovementModifier )
+		{
+			scriptInterface.GetStatsSystem().RemoveModifier( ownerID, m_allowMovementModifier );
+			m_allowMovementModifier = NULL;
+		}
+	}
+
+}
+
+class TimeDilationFocusModeDecisions extends TimeDilationTransitions
+{
+
+	protected export const function EnterCondition( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( ( IsInVisionModeActiveState( stateContext, scriptInterface ) && !( IsPlayerInBraindance( scriptInterface ) ) ) && ShouldActivate( stateContext, scriptInterface ) )
+		{
+			return GetBoolFromTimeSystemTweak( "focusModeTimeDilation", "enableTimeDilation" );
+		}
+		return false;
+	}
+
+	protected export const function ToTimeDilationReady( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( IsInVisionModeActiveState( stateContext, scriptInterface ) && ( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle ) == ( ( Int32 )( gamePSMVehicle.Driving ) ) ) )
+		{
+			return false;
+		}
+		if( !( IsInVisionModeActiveState( stateContext, scriptInterface ) ) || !( ShouldActivate( stateContext, scriptInterface ) ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private const function IsPlayerInCombatState( const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return ( ( PlayerPuppet )( scriptInterface.executionOwner ) ).IsInCombat();
+	}
+
+	protected const function IsPlayerLookingAtQuickHackTarget( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return scriptInterface.GetBlackboardSystem().Get( GetAllBlackboardDefs().UI_Scanner ).GetBool( GetAllBlackboardDefs().UI_Scanner.ScannerLookAt );
+	}
+
+	private const function ShouldActivate( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		if( scriptInterface.localBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle ) == ( ( Int32 )( gamePSMVehicle.Transition ) ) )
+		{
+			return false;
+		}
+		if( IsInTakedownState( stateContext ) )
+		{
+			return false;
+		}
+		if( IsEnemyOrSensoryDeviceVisible( scriptInterface ) && GetBoolFromTimeSystemTweak( "focusModeTimeDilation", "enableTimeDilationOnlyEnemyOrSensorVisible" ) )
+		{
+			return true;
+		}
+		if( IsActiveVehicleVisible( scriptInterface ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+}
+
+class TimeDilationFocusModeEvents extends TimeDilationEventsTransitions
+{
+	var m_timeDilation : Float;
+	var m_playerDilation : Float;
+	var m_easeInCurve : CName;
+	var m_easeOutCurve : CName;
+	var m_applyTimeDilationToPlayer : Bool;
+	var m_timeDilationReason : CName;
+
+	protected export override function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		var playerPuppet : PlayerPuppet;
+		var remoteControlledVehicleID : EntityID;
+		var remoteControlledVehicleWeak : weak< VehicleObject >;
+		var remoteControlledVehicle : VehicleObject;
+		var isPlayerOnRemoteControlledVehicle : Bool;
+		remoteControlledVehicleID = scriptInterface.localBlackboard.GetEntityID( GetAllBlackboardDefs().PlayerStateMachine.EntityIDVehicleRemoteControlled );
+		if( VehicleComponent.GetVehicleFromID( scriptInterface.GetGame(), remoteControlledVehicleID, remoteControlledVehicleWeak ) )
+		{
+			remoteControlledVehicle = remoteControlledVehicleWeak;
+			if( remoteControlledVehicle && remoteControlledVehicle.IsVehicleRemoteControlled() )
+			{
+				playerPuppet = ( ( PlayerPuppet )( scriptInterface.executionOwner ) );
+				if( playerPuppet )
+				{
+					isPlayerOnRemoteControlledVehicle = playerPuppet.CheckIsStandingOnVehicle( remoteControlledVehicleID );
+				}
+			}
+		}
+		if( isPlayerOnRemoteControlledVehicle )
+		{
+			m_timeDilation = TDB.GetFloat( T"timeSystem.vehicleControlFocusModeTimeDilation.timeDilation", 0.0 );
+			m_playerDilation = TDB.GetFloat( T"timeSystem.vehicleControlFocusModeTimeDilation.playerTimeDilation", 0.0 );
+			m_easeInCurve = TDB.GetCName( T"timeSystem.vehicleControlFocusModeTimeDilation.easeInCurve", '' );
+			m_easeOutCurve = TDB.GetCName( T"timeSystem.vehicleControlFocusModeTimeDilation.easeOutCurve", '' );
+			m_applyTimeDilationToPlayer = TDB.GetBool( T"timeSystem.vehicleControlFocusModeTimeDilation.applyTimeDilationToPlayer", false );
+		}
+		else
+		{
+			m_timeDilation = TDB.GetFloat( T"timeSystem.focusModeTimeDilation.timeDilation", 0.0 );
+			m_playerDilation = TDB.GetFloat( T"timeSystem.focusModeTimeDilation.playerTimeDilation", 0.0 );
+			m_easeInCurve = TDB.GetCName( T"timeSystem.focusModeTimeDilation.easeInCurve", '' );
+			m_easeOutCurve = TDB.GetCName( T"timeSystem.focusModeTimeDilation.easeOutCurve", '' );
+			m_applyTimeDilationToPlayer = TDB.GetBool( T"timeSystem.focusModeTimeDilation.applyTimeDilationToPlayer", false );
+		}
+		m_timeDilationReason = 'focusMode';
+	}
+
+	protected export function OnUpdate( timeDelta : Float, stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		if( !( IsTimeDilationActive( stateContext, scriptInterface, '' ) ) )
+		{
+			SetTimeDilationGlobal( stateContext, scriptInterface, m_timeDilationReason, m_timeDilation, 999.0, m_easeInCurve, m_easeOutCurve );
+			if( m_applyTimeDilationToPlayer )
+			{
+				SetTimeDilationOnLocalPlayer( m_timeDilationReason, m_playerDilation, 999.0, m_easeInCurve, m_easeOutCurve, stateContext, scriptInterface );
+			}
+		}
+	}
+
+	protected function OnForcedExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		UnsetTimeDilation( stateContext, scriptInterface, m_timeDilationReason, m_easeOutCurve );
+	}
+
+	protected export override function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+		UnsetTimeDilation( stateContext, scriptInterface, m_timeDilationReason, m_easeOutCurve );
+	}
+
+}
+
+class CleanUpTimeDilationEvent extends Event
+{
+	var reason : CName;
+}
+

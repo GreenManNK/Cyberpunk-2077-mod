@@ -1,0 +1,47 @@
+package LootTables
+using RTDB, Loot
+
+mq057_driver_loot : LootTable
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems += 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.mq057_conversation_thieves";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.CyberpsychoWeaponInLootPrereq_mid";
+			dropChance = 1;
+			itemID = "Items.Preset_Psycho_ma_bls_ina_se1_07_mid";
+		} : CyberpsychoWeapon_LootItem, 
+		{
+			playerPrereqID = "LootPrereqs.CyberpsychoWeaponInLootPrereq_late";
+			dropChance = 1;
+			itemID = "Items.Preset_Psycho_ma_bls_ina_se1_07_late";
+		} : CyberpsychoWeapon_LootItem
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CyberPsychoMoneyReward"
+	];
+}
+
+mq057_driver2_loot : LootTable
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems += 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.RareMaterial1";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.base_game_courier_reward_autofixer_discount";
+		}
+	];
+}
+

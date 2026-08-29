@@ -1,0 +1,42 @@
+Character.GR_the_mox_melee2_baseball_bat_rare:
+    $base: Character.the_mox_base_wa
+    primaryEquipment: Character.GR_the_mox_melee2_baseball_bat_rare_primary_equipment
+    secondaryEquipment: Character.GR_the_mox_melee2_baseball_bat_rare_secondary_equipment
+    archetypeData: ArchetypeData.FastMeleeT2
+    rarity: NPCRarity.Rare
+    abilities:
+        - !append-once Ability.CanUseEMPGrenades
+        - !append-once Ability.DealsElectricDamage
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_the_mox_melee2_baseball_bat_rare_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_the_mox_melee2_baseball_bat_rare_primary_item
+
+Character.GR_the_mox_melee2_baseball_bat_rare_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Baseball_Bat_Mox
+    onBodySlot: AttachmentSlots.ItemSlotGenericMelee
+    equipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponMeleeEquipCondition
+    unequipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponMeleeUnequipCondition
+
+Character.GR_the_mox_melee2_baseball_bat_rare_secondary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_the_mox_melee2_baseball_bat_rare_secondary_item
+
+Character.GR_the_mox_melee2_baseball_bat_rare_secondary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Overture_Neon
+    onBodySlot: AttachmentSlots.ItemSlotHandgunRight
+    equipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponRangedEquipCondition
+    unequipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponRangedUnequipCondition

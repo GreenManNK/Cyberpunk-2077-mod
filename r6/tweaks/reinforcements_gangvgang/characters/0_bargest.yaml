@@ -1,0 +1,229 @@
+Character.2kurtz_grunt1_ranged1_saratoga_ma:
+    $base: Character.kurtz_grunt1_ranged1_saratoga_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_grunt1_ranged1_saratoga_wa:
+    $base: Character.kurtz_grunt1_ranged1_saratoga_wa
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_rifle_flashlight_ma:
+    $base: Character.kurtz_rifle_flashlight_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_v2_grunt1_ranged1_saratoga_ma:
+    $base: Character.kurtz_v2_grunt1_ranged1_saratoga_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_v2_grunt1_ranged1_saratoga_wa:
+    $base: Character.kurtz_v2_grunt1_ranged1_saratoga_wa
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_grunt1_ranged1_handgun_ma:
+    $base: Character.kurtz_grunt1_ranged1_handgun_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_grunt1_ranged1_handgun_wa:
+    $base: Character.kurtz_grunt1_ranged1_handgun_wa
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_rifle_flashlight2_ma:
+    $base: Character.kurtz_rifle_flashlight2_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier1_ranged2_rifle_ma:
+    $base: Character.kurtz_soldier1_ranged2_rifle_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier1_ranged2_rifle_wa:
+    $base: Character.kurtz_soldier1_ranged2_rifle_wa
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_netrunner2_netrunner2_lexington_ma_rare:
+    $base: Character.kurtz_netrunner2_netrunner2_lexington_ma_rare
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_recon_sniper2_achilles_ma_rare:
+    $base: Character.kurtz_recon_sniper2_achilles_ma_rare
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_rifle_flashlight3_ma:
+    $base: Character.kurtz_rifle_flashlight3_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier1_generic_ranged2_rifle_wa:
+    $base: Character.kurtz_soldier1_generic_ranged2_rifle_wa
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier2_generic_ranged3_rifle_ma:
+    $base: Character.kurtz_soldier2_generic_ranged3_rifle_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier2_shotgun2_shotgun_ma_rare:
+    $base: Character.kurtz_soldier2_shotgun2_shotgun_ma_rare
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_tech_franged2_handgun_ma_rare:
+    $base: Character.kurtz_tech_franged2_handgun_ma_rare
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_elite3_gunner3_HMG_mb_elite:
+    $base: Character.kurtz_elite3_gunner3_HMG_mb_elite
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_elite3_gunner3_LMG_mb_elite:
+    $base: Character.kurtz_elite3_gunner3_LMG_mb_elite
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_martial_fmelee3_fists_ma_rare:
+    $base: Character.kurtz_martial_fmelee3_fists_ma_rare
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_martial_hmelee3_fists_mb_elite:
+    $base: Character.kurtz_martial_hmelee3_fists_mb_elite
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_soldier2_shotgun3_shotgun_ma:
+    $base: Character.kurtz_soldier2_shotgun3_shotgun_ma
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.2kurtz_strongarms_hmelee3_fists_mb_elite:
+    $base: Character.kurtz_strongarms_hmelee3_fists_mb_elite
+    baseAttitudeGroup: kurtz_army_ow
+
+Character.GR_2kurtz_grunt1_ranged1_saratoga_ma:
+    $base: Character.2kurtz_grunt1_ranged1_saratoga_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_grunt1_ranged1_saratoga_wa:
+    $base: Character.2kurtz_grunt1_ranged1_saratoga_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma:
+    $base: Character.2kurtz_v2_grunt1_ranged1_saratoga_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_grunt1_ranged1_handgun_ma:
+    $base: Character.2kurtz_grunt1_ranged1_handgun_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_grunt1_ranged1_handgun_wa:
+    $base: Character.2kurtz_grunt1_ranged1_handgun_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_rifle_flashlight_ma:
+    $base: Character.2kurtz_rifle_flashlight_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier1_ranged2_rifle_ma:
+    $base: Character.2kurtz_soldier1_ranged2_rifle_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_rifle_flashlight2_ma:
+    $base: Character.2kurtz_rifle_flashlight2_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_wa:
+    $base: Character.2kurtz_v2_grunt1_ranged1_saratoga_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier1_ranged2_rifle_wa:
+    $base: Character.2kurtz_soldier1_ranged2_rifle_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_netrunner2_netrunner2_lexington_ma_rare:
+    $base: Character.2kurtz_netrunner2_netrunner2_lexington_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_recon_sniper2_achilles_ma_rare:
+    $base: Character.2kurtz_recon_sniper2_achilles_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_rifle_flashlight3_ma:
+    $base: Character.2kurtz_rifle_flashlight3_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier1_generic_ranged2_rifle_wa:
+    $base: Character.2kurtz_soldier1_generic_ranged2_rifle_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier2_generic_ranged3_rifle_ma:
+    $base: Character.2kurtz_soldier2_generic_ranged3_rifle_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier2_shotgun2_shotgun_ma_rare:
+    $base: Character.2kurtz_soldier2_shotgun2_shotgun_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_tech_franged2_handgun_ma_rare:
+    $base: Character.2kurtz_tech_franged2_handgun_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite:
+    $base: Character.2kurtz_elite3_gunner3_HMG_mb_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_elite3_gunner3_LMG_mb_elite:
+    $base: Character.2kurtz_elite3_gunner3_LMG_mb_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_martial_fmelee3_fists_ma_rare:
+    $base: Character.2kurtz_martial_fmelee3_fists_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_martial_hmelee3_fists_mb_elite:
+    $base: Character.2kurtz_martial_hmelee3_fists_mb_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_soldier2_shotgun3_shotgun_ma:
+    $base: Character.2kurtz_soldier2_shotgun3_shotgun_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_2kurtz_strongarms_hmelee3_fists_mb_elite:
+    $base: Character.2kurtz_strongarms_hmelee3_fists_mb_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat

@@ -1,0 +1,23 @@
+Character.GR_kangtao_normal2_shotgun2_palica:
+    $base: Character.kangtao_android_android2_dian_ma
+    primaryEquipment: Character.GR_kangtao_normal2_shotgun2_palica_primary_equipment
+    archetypeData: ArchetypeData.ShotgunnerT2
+    rarity: NPCRarity.Normal
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_normal2_shotgun2_palica_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_normal2_shotgun2_palica_primary_item
+
+Character.GR_kangtao_normal2_shotgun2_palica_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Palica_Military
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

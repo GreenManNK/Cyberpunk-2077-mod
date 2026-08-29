@@ -24,6 +24,12 @@ streaming:
           type: worldAmbientAreaNode
         - index: 2123 #{cs_riots_crowd}
           type: worldAmbientAreaNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-29_58_1_0.streamingsector
+      expectedNodes: 483
+      nodeMutations:
+        - index: 315 #a_ceiling_tiles_a_vent
+          type: worldStaticMeshNode
+          position: [-902.629,1865.652,46.052, 0.0]
 quest:
   phases:
     - path: base\dbf\phases\dbf_1.questphase

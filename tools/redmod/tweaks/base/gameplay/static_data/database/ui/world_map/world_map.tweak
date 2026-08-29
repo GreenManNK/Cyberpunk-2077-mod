@@ -1,0 +1,561 @@
+package WorldMap
+using RTDB
+
+NoFilter : WorldMapFilter
+{
+	CName enumName = "NoFilter";
+}
+
+CommonFilter : WorldMapFilter
+{
+	CName enumName = "CommonFilter";
+}
+
+CustomFilter : WorldMapFilter
+{
+	CName enumName = "CustomFilter";
+}
+
+QuestFilter : WorldMapFilter
+{
+	CName enumName = "Quest";
+}
+
+GigsFilter : WorldMapFilter
+{
+	CName enumName = "Gigs";
+}
+
+CourierFilter : WorldMapFilter
+{
+	CName enumName = "Courier";
+}
+
+WorldEncounterFilter : WorldMapFilter
+{
+	CName enumName = "Outpost";
+}
+
+PsychoFilter : WorldMapFilter
+{
+	CName enumName = "PsychoFilter";
+}
+
+StoryFilter : WorldMapFilter
+{
+	CName enumName = "Story";
+}
+
+FastTravelFilter : WorldMapFilter
+{
+	CName enumName = "FastTravel";
+}
+
+ServicePointFilter : WorldMapFilter
+{
+	CName enumName = "ServicePoint";
+}
+
+DropPointFilter : WorldMapFilter
+{
+	CName enumName = "DropPoint";
+}
+
+ExplorationFilter : WorldMapFilter
+{
+	CName enumName = "ExplorationFilter";
+}
+
+TarotFilter : WorldMapFilter
+{
+	CName enumName = "TarotFilter";
+}
+
+VendorFilter : WorldMapFilter
+{
+	CName enumName = "VendorFilter";
+}
+
+VehicleForSaleFilter : WorldMapFilter
+{
+	CName enumName = "VehicleForSaleFilter";
+}
+
+RipperdocFilter : WorldMapFilter
+{
+	CName enumName = "RipperdocFilter";
+}
+
+ApartmentToPurchaseFilter : WorldMapFilter
+{
+	CName enumName = "ApartmentToPurchaseFilter";
+}
+
+DogtownGateFilter : WorldMapFilter
+{
+	CName enumName = "DogtownGateFilter";
+}
+
+AutofixerFilter : WorldMapFilter
+{
+	CName enumName = "AutofixerFilter";
+}
+
+RelicDeviceFilter : WorldMapFilter
+{
+	CName enumName = "RelicDeviceFilter";
+}
+
+NoFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Dynamic";
+	filterType = "WorldMap.NoFilter";
+	mappins = [];
+}
+
+CustomFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Settings-Video-QualitySetting-Custom";
+	filterType = "WorldMap.CustomFilter";
+	mappins = [];
+}
+
+CommonFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-YourProperty";
+	filterType = "WorldMap.CommonFilter";
+	mappins = 
+	[
+		"Mappins.CustomPositionVariant", "Mappins.DelamainTaxiVariant", "Mappins.DelamainTaxiDestinationVariant", "Mappins.VehicleVariant", "Mappins.MotorcycleVariant", "Mappins.PointOfInterest_ApartmentVariant"
+	];
+}
+
+JobsFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Jobs";
+	filterType = "WorldMap.GigsFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ExclamationMarkVariant", "Mappins.DefaultQuestVariant", "Mappins.PointOfInterest_FixerVariant", "Mappins.QuestGiverVariant", "Mappins.PointOfInterest_BountyHuntVariant", "Mappins.PointOfInterest_RetrievingVariant", "Mappins.PointOfInterest_ThieveryVariant", "Mappins.PointOfInterest_SabotageVariant", "Mappins.PointOfInterest_ClientInDistressVariant", "Mappins.PointOfInterest_ConvoyVariant", "Mappins.PointOfInterest_HuntForPsychoVariant", "Mappins.PointOfInterest_RacingVariant", "Mappins.NCPDGigVariant", "Mappins.WorldEncounterVariant", "Mappins.Zzz09_CourierSandboxActivityVariant"
+	];
+}
+
+AllServicePointsFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-ServicePoint";
+	filterType = "WorldMap.ServicePointFilter";
+	mappins = 
+	[
+		"Mappins.CustomPositionVariant", "Mappins.DelamainTaxiVariant", "Mappins.DelamainTaxiDestinationVariant", "Mappins.VehicleVariant", "Mappins.MotorcycleVariant", "Mappins.PointOfInterest_ApartmentVariant", "Mappins.PointOfInterest_ServicePointRipperdocVariant", "Mappins.PointOfInterest_ServicePointClothesVariant", "Mappins.PointOfInterest_ServicePointFoodVariant", "Mappins.PointOfInterest_ServicePointJunkVariant", "Mappins.PointOfInterest_ServicePointMedsVariant", "Mappins.PointOfInterest_ServicePointNetTrainerVariant", "Mappins.PointOfInterest_ServicePointGunsVariant", "Mappins.ServicePointBlackMarketVariant", "Mappins.PointOfInterest_ServicePointMeleeTrainerVariant", "Mappins.PointOfInterest_ServicePointBarVariant", "Mappins.PointOfInterest_ServicePointProstituteVariant", "Mappins.PointOfInterest_ServicePointDropPoint", "Mappins.PointOfInterest_FastTravelVariant", "Mappins.PointOfInterest_NCARTVariant", "Mappins.CarForPurchaseVariant"
+	];
+}
+
+QuestFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Quests-Labels-StreetStories";
+	filterType = "WorldMap.GigsFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_FixerVariant", "Mappins.QuestGiverVariant", "Mappins.WorldEncounterVariant", "Mappins.Zzz09_CourierSandboxActivityVariant", "Mappins.PointOfInterest_BountyHuntVariant", "Mappins.PointOfInterest_RetrievingVariant", "Mappins.PointOfInterest_ThieveryVariant", "Mappins.PointOfInterest_SabotageVariant", "Mappins.PointOfInterest_ClientInDistressVariant", "Mappins.PointOfInterest_ConvoyVariant", "Mappins.PointOfInterest_RacingVariant", "Mappins.NCPDGigVariant"
+	];
+}
+
+CyberPsychoFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-MappinTypes-HuntforPsycho";
+	filterType = "WorldMap.PsychoFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_HuntForPsychoVariant"
+	];
+}
+
+MainQuestFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Jobs";
+	filterType = "WorldMap.QuestFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ExclamationMarkVariant", "Mappins.DefaultQuestVariant"
+	];
+}
+
+CourierFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-MappinTypes-CourierTitleDiscovered";
+	filterType = "WorldMap.CourierFilter";
+	mappins = 
+	[
+		"Mappins.Zzz09_CourierSandboxActivityVariant"
+	];
+}
+
+WorldEncounterFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-MappinTypes-WorldEncounter";
+	filterType = "WorldMap.WorldEncounterFilter";
+	mappins = 
+	[
+		"Mappins.WorldEncounterVariant"
+	];
+}
+
+ApartmentToPurchaseFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-MappinTypes-ApartmentToPurchase";
+	filterType = "WorldMap.ApartmentToPurchaseFilter";
+	mappins = 
+	[
+		"Mappins.ApartmentToPurchaseVariant"
+	];
+}
+
+FastTravelFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-FastTravel";
+	filterType = "WorldMap.FastTravelFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_FastTravelVariant", "Mappins.PointOfInterest_NCARTVariant"
+	];
+}
+
+ServicePointFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-ServicePoint";
+	filterType = "WorldMap.ServicePointFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ServicePointClothesVariant", "Mappins.PointOfInterest_ServicePointRipperdocVariant", "Mappins.PointOfInterest_ServicePointNetTrainerVariant", "Mappins.PointOfInterest_ServicePointGunsVariant", "Mappins.ServicePointBlackMarketVariant", "Mappins.PointOfInterest_ServicePointMeleeTrainerVariant", "Mappins.PointOfInterest_ServicePointMedsVariant", "Mappins.PointOfInterest_ServicePointFoodVariant", "Mappins.PointOfInterest_ServicePointBarVariant", "Mappins.PointOfInterest_ServicePointProstituteVariant", "Mappins.PointOfInterest_ServicePointJunkVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+DropPointFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-MappinTypes-Dropbox";
+	filterType = "WorldMap.DropPointFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ServicePointDropPoint"
+	];
+}
+
+StoryFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-NcpdScanner";
+	filterType = "WorldMap.StoryFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_MinorActivityVariant", "Mappins.PointOfInterest_GangWatchVariant", "Mappins.PointOfInterest_HiddenStashVariant", "Mappins.PointOfInterest_OutpostVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+ExplorationFilterGroup : MappinUIFilterGroup
+{
+	filterName = "Story-base-journal-codex-tutorials-Exploration_groupName";
+	filterType = "WorldMap.ExplorationFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ServicePointProstituteVariant", "Mappins.WorldEncounterVariant", "Mappins.RelicDeviceBasicVariant", "Mappins.RelicDeviceSpecialVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+TarotFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-PanelNames-TAROT";
+	filterType = "WorldMap.TarotFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_TarotVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+VendorFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Vendor";
+	filterType = "WorldMap.VendorFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ServicePointClothesVariant", "Mappins.PointOfInterest_ServicePointFoodVariant", "Mappins.PointOfInterest_ServicePointJunkVariant", "Mappins.PointOfInterest_ServicePointMedsVariant", "Mappins.PointOfInterest_ServicePointNetTrainerVariant", "Mappins.PointOfInterest_ServicePointGunsVariant", "Mappins.ServicePointBlackMarketVariant", "Mappins.PointOfInterest_ServicePointMeleeTrainerVariant", "Mappins.PointOfInterest_ServicePointBarVariant", "Mappins.PointOfInterest_ServicePointProstituteVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+RipperdocFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Ripperdoc";
+	filterType = "WorldMap.RipperdocFilter";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_ServicePointRipperdocVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+DogtownGateFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-DogtownGate";
+	filterType = "WorldMap.DogtownGateFilter";
+	mappins = 
+	[
+		"Mappins.DogtownGateVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+AutofixerFilterGroup : MappinUIFilterGroup
+{
+	filterName = "UI-Menus-WorldMap-Filter-Autofixer";
+	filterType = "WorldMap.AutofixerFilter";
+	mappins = 
+	[
+		"Mappins.CarForPurchaseVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+RelicDeviceFilterGroup : MappinUIFilterGroup
+{
+	filterName = "Gameplay-Devices-DisplayNames-CorporateCoreDataHolder";
+	filterType = "WorldMap.AutofixerFilter";
+	mappins = 
+	[
+		"Mappins.RelicDeviceBasicVariant", "Mappins.RelicDeviceSpecialVariant"
+	];
+	shouldCollectMappins = true;
+}
+
+ServicePointMappinsGroup : MappinsGroup
+{
+	groupName = "ServicePoint";
+	widgetState = "ServicePoint";
+	mappins = 
+	[
+		"Mappins.CustomPositionVariant", "Mappins.DelamainTaxiVariant", "Mappins.DelamainTaxiDestinationVariant", "Mappins.VehicleVariant", "Mappins.MotorcycleVariant", "Mappins.PointOfInterest_ApartmentVariant", "Mappins.PointOfInterest_ServicePointRipperdocVariant", "Mappins.PointOfInterest_ServicePointClothesVariant", "Mappins.PointOfInterest_ServicePointFoodVariant", "Mappins.PointOfInterest_ServicePointJunkVariant", "Mappins.PointOfInterest_ServicePointMedsVariant", "Mappins.PointOfInterest_ServicePointNetTrainerVariant", "Mappins.PointOfInterest_ServicePointGunsVariant", "Mappins.ServicePointBlackMarketVariant", "Mappins.PointOfInterest_ServicePointMeleeTrainerVariant", "Mappins.PointOfInterest_ServicePointBarVariant", "Mappins.PointOfInterest_ServicePointProstituteVariant", "Mappins.PointOfInterest_ServicePointDropPoint", "Mappins.RelicDeviceBasicVariant", "Mappins.RelicDeviceSpecialVariant", "Mappins.DogtownGateVariant"
+	];
+}
+
+FastTravelMappinsGroup : MappinsGroup
+{
+	groupName = "FastTravel";
+	widgetState = "FastTravel";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_TarotVariant", "Mappins.PointOfInterest_FastTravelVariant", "Mappins.PointOfInterest_NCARTVariant"
+	];
+}
+
+PlayerMappinsGroup : MappinsGroup
+{
+	groupName = "Player";
+	widgetState = "Gigs";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_FixerVariant"
+	];
+}
+
+SecondaryQuestMappinsGroup : MappinsGroup
+{
+	groupName = "SecondaryQuest";
+	widgetState = "Gigs";
+	mappins = 
+	[
+		"Mappins.QuestGiverVariant", "Mappins.PointOfInterest_BountyHuntVariant", "Mappins.PointOfInterest_RetrievingVariant", "Mappins.PointOfInterest_ThieveryVariant", "Mappins.PointOfInterest_SabotageVariant", "Mappins.PointOfInterest_ClientInDistressVariant", "Mappins.PointOfInterest_ConvoyVariant", "Mappins.PointOfInterest_HuntForPsychoVariant", "Mappins.PointOfInterest_RacingVariant", "Mappins.NCPDGigVariant"
+	];
+}
+
+SandboxActivitesMappinsGroup : MappinsGroup
+{
+	groupName = "SandboxActivites";
+	widgetState = "Gigs";
+	mappins = 
+	[
+		"Mappins.Zzz09_CourierSandboxActivityVariant", "Mappins.WorldEncounterVariant"
+	];
+}
+
+ApartmentToPurchaseMappinsGroup : MappinsGroup
+{
+	groupName = "ApartmentToPurchase";
+	widgetState = "Gigs";
+	mappins = 
+	[
+		"Mappins.ApartmentToPurchaseVariant"
+	];
+}
+
+VehicleForPurchaseMappinsGroup : MappinsGroup
+{
+	groupName = "VehicleForPurchase";
+	widgetState = "ServicePoint";
+	mappins = 
+	[
+		"Mappins.CarForPurchaseVariant", "Mappins.MotorcycleForPurchaseVariant"
+	];
+}
+
+QuestMappinsGroup : MappinsGroup
+{
+	groupName = "Quest";
+	widgetState = "Quest";
+	mappins = 
+	[
+		"Mappins.DefaultQuestVariant", "Mappins.PointOfInterest_ExclamationMarkVariant"
+	];
+}
+
+StoryMappinsGroup : MappinsGroup
+{
+	groupName = "Story";
+	widgetState = "Story";
+	mappins = 
+	[
+		"Mappins.PointOfInterest_MinorActivityVariant", "Mappins.PointOfInterest_GangWatchVariant", "Mappins.PointOfInterest_OutpostVariant", "Mappins.PointOfInterest_HiddenStashVariant"
+	];
+}
+
+WorldMapQuickFiltersList : WorldMapFiltersList
+{
+	fk< MappinUIFilterGroup >[] list = 
+	[
+		"WorldMap.NoFilterGroup", "WorldMap.JobsFilterGroup", "WorldMap.AllServicePointsFilterGroup", "WorldMap.CustomFilterGroup"
+	];
+}
+
+WorldMapCustomFiltersList : WorldMapFiltersList
+{
+	fk< MappinUIFilterGroup >[] list = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.StoryFilterGroup", "WorldMap.FastTravelFilterGroup", "WorldMap.RipperdocFilterGroup", "WorldMap.VendorFilterGroup", "WorldMap.AutofixerFilterGroup", "WorldMap.DropPointFilterGroup", "WorldMap.ApartmentToPurchaseFilterGroup", "WorldMap.TarotFilterGroup", "WorldMap.CommonFilterGroup"
+	];
+}
+
+BaseZoomLevel : WorldMapZoomLevel
+{
+	rotation = ( 0.f, -85.f, 0.f );
+	fov = 25.f;
+}
+
+ZoomLevelDistricts : BaseZoomLevel
+{
+	zoom = 11000.f;
+	panSpeed = 3500.f;
+	iconScale = 1.0f;
+	showDistricts = true;
+	canChangeFilters = true;
+	mappinFilterGroups = 
+	[
+		"WorldMap.CommonFilterGroup", "WorldMap.MainQuestFilterGroup", "WorldMap.DogtownGateFilterGroup"
+	];
+}
+
+ZoomLevelSubDistricts : BaseZoomLevel
+{
+	zoom = 7000.f;
+	panSpeed = 3000.f;
+	iconScale = 1.0f;
+	showSubDistricts = true;
+	canChangeFilters = true;
+	mappinFilterGroups = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.CommonFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.CourierFilterGroup", "WorldMap.WorldEncounterFilterGroup", "WorldMap.DogtownGateFilterGroup"
+	];
+}
+
+ZoomLevelImportant : BaseZoomLevel
+{
+	zoom = 4500.f;
+	panSpeed = 1400.f;
+	iconScale = 1.0f;
+	mappinFilterGroups = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.CommonFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.CourierFilterGroup", "WorldMap.WorldEncounterFilterGroup", "WorldMap.ApartmentToPurchaseFilterGroup", "WorldMap.TarotFilterGroup", "WorldMap.DogtownGateFilterGroup"
+	];
+}
+
+ZoomLevelVendors : BaseZoomLevel
+{
+	zoom = 3500.f;
+	panSpeed = 1400.f;
+	iconScale = 1.0f;
+	mappinFilterGroups = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.CommonFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.CourierFilterGroup", "WorldMap.WorldEncounterFilterGroup", "WorldMap.RipperdocFilterGroup", "WorldMap.ApartmentToPurchaseFilterGroup", "WorldMap.TarotFilterGroup", "WorldMap.DogtownGateFilterGroup", "WorldMap.RelicDeviceFilterGroup"
+	];
+}
+
+ZoomLevelAllMappins : BaseZoomLevel
+{
+	zoom = 2500.f;
+	panSpeed = 1400.f;
+	iconScale = 1.0f;
+	mappinFilterGroups = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.CommonFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.CourierFilterGroup", "WorldMap.WorldEncounterFilterGroup", "WorldMap.RipperdocFilterGroup", "WorldMap.FastTravelFilterGroup", "WorldMap.DropPointFilterGroup", "WorldMap.ApartmentToPurchaseFilterGroup", "WorldMap.TarotFilterGroup", "WorldMap.DogtownGateFilterGroup", "WorldMap.RelicDeviceFilterGroup"
+	];
+}
+
+ZoomLevelExtraMappins : BaseZoomLevel
+{
+	zoom = 1000.f;
+	panSpeed = 1400.f;
+	iconScale = 1.0f;
+	mappinFilterGroups = 
+	[
+		"WorldMap.MainQuestFilterGroup", "WorldMap.CommonFilterGroup", "WorldMap.QuestFilterGroup", "WorldMap.CyberPsychoFilterGroup", "WorldMap.CourierFilterGroup", "WorldMap.WorldEncounterFilterGroup", "WorldMap.RipperdocFilterGroup", "WorldMap.AutofixerFilterGroup", "WorldMap.FastTravelFilterGroup", "WorldMap.VendorFilterGroup", "WorldMap.DropPointFilterGroup", "WorldMap.ExplorationFilterGroup", "WorldMap.ApartmentToPurchaseFilterGroup", "WorldMap.TarotFilterGroup", "WorldMap.DogtownGateFilterGroup", "WorldMap.RelicDeviceFilterGroup"
+	];
+}
+
+FreeCameraSettingsDefault : WorldMapFreeCameraSettings
+{
+	zoomMin = 800.f;
+	zoomMax = 10500.f;
+	zoomDefault = 3000.f;
+	zoomDefaultInFastTravel = 5000.f;
+	zoomSpeedMin = 1500.f;
+	zoomSpeedMax = 20000.f;
+	panSpeedMin = 250.f;
+	panSpeedMax = 3500.f;
+	fovMin = 25.f;
+	fovMax = 25.f;
+	rotationSpeed = ( 75.f, 75.f, 95.f );
+	rotationMin = ( 0.f, -85.f, -360.f );
+	rotationMax = ( 0.f, -30.f, 360.f );
+	rotationDefault = ( 0.f, -45.f, 0.f );
+	mouseZoomSpeedMin = 200.f;
+	mouseZoomSpeedMax = 4000.f;
+	mousePanStrength = 0.0014f;
+	mouseRotateStrength = 0.0008f;
+}
+
+TopDownCameraSettingsDefault : FreeCameraSettingsDefault
+{
+	zoomMax = 15000.f;
+	rotationSpeed = ( 0.f, 0.f, 0.f );
+	rotationMin = ( 0.f, -75.f, 0.f );
+	rotationMax = ( 0.f, -89.f, 0.f );
+	rotationDefault = ( 0.f, 45.f, 0.f );
+	pitchRelativeToZoom = true;
+}
+
+DefaultSettings : WorldMapSettings
+{
+	zoomLevels = 
+	[
+		"WorldMap.ZoomLevelDistricts", "WorldMap.ZoomLevelSubDistricts", "WorldMap.ZoomLevelImportant", "WorldMap.ZoomLevelVendors", "WorldMap.ZoomLevelAllMappins", "WorldMap.ZoomLevelExtraMappins"
+	];
+	cursorBoundaryMin = ( -5500, -7300 );
+	cursorBoundaryMax = ( 6050, 5000 );
+	mouseZoomTransitionTime = 0.1f;
+	cameraModeTransitionTime = 0.35f;
+	zoomTransitionTime = 0.25f;
+	zoomToZoomValue = 1250;
+	zoomToEnabledAtMinimumZoom = 2000;
+	enableGroupTransitionAnimations = true;
+}
+

@@ -1,0 +1,26 @@
+class ModifyAttackCritChanceEffector extends ModifyAttackEffector
+{
+	var m_applicationChanceMods : array< weak< StatModifier_Record > >;
+
+	protected override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		TweakDBInterface.GetModifyAttackCritChanceEffectorRecord( record ).CritChance( m_applicationChanceMods );
+	}
+
+	protected override function Uninitialize( game : GameInstance ) {}
+
+	protected override function RepeatedAction( owner : GameObject )
+	{
+		var hitEvent : gameHitEvent;
+		var critChance : Float;
+		hitEvent = GetHitEvent();
+		if( !( hitEvent ) )
+		{
+			return;
+		}
+		critChance = RPGManager.CalculateStatModifiers( m_applicationChanceMods, owner.GetGame(), owner, owner.GetEntityID() );
+		hitEvent.attackData.SetAdditionalCritChance( critChance );
+	}
+
+}
+

@@ -1,0 +1,62 @@
+import enum GOGRewardsSystemStatus
+{
+	Uninitialized,
+	GeneratingCPID,
+	CheckingRegistrationStatus,
+	RegistrationPending,
+	Registered,
+	Error,
+}
+
+import enum GOGRewardsSystemErrors
+{
+	None,
+	RequestFailed,
+	TemporaryFailure,
+	NoInternetConnection,
+	NotSignedInGalaxy,
+	NotSignedInLauncher,
+	NotSignedInGame,
+}
+
+importonly struct GOGRewardPack
+{
+	import const var id : String;
+	import const var title : String;
+	import const var reason : String;
+	import const var iconSlot : CName;
+	import const var group : CName;
+	import const var slotType : CName;
+	import const var rewards : array< Uint64 >;
+}
+
+importonly abstract class IOnlineSystem extends IGameSystem
+{
+	public import function GetStatus() : GOGRewardsSystemStatus;
+	public import function GetError() : GOGRewardsSystemErrors;
+	public import function RequestInitialStatus();
+	public import function SignOut();
+	public import function FindRewardRecordByRewardToken( token : Uint64 ) : weak< GOGReward_Record >;
+	public import function IsRewardUnlocked( rewardRecord : GOGReward_Record ) : Bool;
+	public import function GetUnlockedRewardPacks() : array< GOGRewardPack >;
+	public import function GetRegistrationUrl() : String;
+}
+
+import function GOGRewardSystemErrorToDisplayString( error : GOGRewardsSystemErrors ) : String;
+
+class WrappedGOGRewardPack
+{
+	var index : Uint64;
+	var data : GOGRewardPack;
+
+	public static function Make( index : Uint64, data : ref< GOGRewardPack > ) : WrappedGOGRewardPack
+	{
+		var instance : WrappedGOGRewardPack;
+		instance = new WrappedGOGRewardPack;
+		instance.index = index;
+		instance.data = data;
+		return instance;
+	}
+
+}
+

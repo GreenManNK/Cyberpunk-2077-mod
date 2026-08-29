@@ -1,0 +1,486 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Proficiencies, AttachmentSlots, Prereqs
+
+[ notQueryable ]
+Base_Revolver : Base_Weapon
+{
+	fk< ItemType > itemType = "ItemType.Wea_Revolver";
+	triggerEffectName = "te_wea_aim_mid";
+	buyPrice += 
+	[
+		"Price.RevolverMultiplier"
+	];
+	sellPrice += 
+	[
+		"Price.RevolverMultiplier"
+	];
+	fk< TriggerMode >[] triggerModes = 
+	[
+		"TriggerMode.SemiAuto"
+	];
+	fk< Attack >[] attacks += 
+	[
+		"Attacks.SuicideBulletEffect", "Attacks.SuicideBulletProjectile"
+	];
+	fk< AttachmentSlot >[] placementSlots += 
+	[
+		"AttachmentSlots.ItemSlotHandgunRightJackie", "AttachmentSlots.ItemSlotHandgunLeftJackie"
+	];
+	tags += 
+	[
+		"OneHandedRangedWeapon", "DriverCombatRangedWeapon", "DriverCombatBikeWeapon"
+	];
+	statModifierGroups += 
+	[
+		"Items.Base_Revolver_RPG_Stats", "Items.Base_Revolver_Misc_Stats", "Items.Base_Revolver_DeadReckoning_Stats", "Items.Base_Revolver_Sway_Stats", "Items.Base_PlayerState_Spread_Stats"
+	];
+	Vector3 position = ( 0.0f, 0.f, 0.047f );
+	float offset = 0.0f;
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"w_base_revolver"
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+Base_Revolver_RPG_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Weight";
+			modifierType = "Additive";
+			value = 3.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HeadshotDamageMultiplier";
+			modifierType = "Additive";
+			value = 2.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.WeaponTypeToStaminaCost";
+			modifierType = "Multiplier";
+			value = 160f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.WeaponVehicleDamagePercentBonus";
+			modifierType = "Additive";
+			value = 0.7f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaCostReduction";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.RevolverStaminaCostReduction";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+Base_Revolver_Misc_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			float value = 0.3f;
+		} : UnequipDurationModifier, 
+		{
+			float value = 0.3f;
+		} : EquipDurationModifier, 
+		"BaseStats.SlideWhenLeaningOutOfCoverModifier", "BaseStats.BlockLocomotionWhenLeaningOutOfCoverModifier", {
+			statType = "BaseStats.BulletMagnetismDefaultAngle";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BulletMagnetismHighVelocityAngle";
+			modifierType = "Additive";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			value = 35.f;
+		} : EffectiveRangeModifier, 
+		{
+			value = 0.3f;
+		} : ShootingOffsetAIModifier, 
+		{
+			value = 1.f;
+		} : RecoilRecoveryMinSpeedModifier, 
+		{
+			value = 30.f;
+		} : RecoilMaxLengthModifier, 
+		{
+			value = 2.f;
+		} : AttackPenetrationModifier, 
+		{
+			value = 30.f;
+		} : PhysicalImpulseModifier, 
+		{
+			value = 30.f;
+		} : KnockdownImpulseModifier, 
+		{
+			value = 30.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			value = 30.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			value = 0.15f;
+		} : AimInTimeModifier, 
+		{
+			value = 0.2f;
+		} : AimOutTimeModifier, 
+		{
+			value = 100.f;
+		} : MaximumRangeModifier
+	];
+}
+
+Base_Revolver_DeadReckoning_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.BulletDeadReckoningEnabled";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BulletDeadReckoningMinimumSpeed";
+			modifierType = "Additive";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BulletDeadReckoningMaxRange";
+			modifierType = "Additive";
+			value = 40.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BulletDeadReckoningMaxAngleCorrection";
+			modifierType = "Additive";
+			value = 25.f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Revolver_Sway_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.f;
+		} : SwayResetOnAimStartModifier, 
+		{
+			value = 7.f;
+		} : SwayTraversalTimeModifier, 
+		{
+			value = 2.1f;
+		} : SwaySideMaximumAngleDistanceModifier, 
+		{
+			value = 1.7f;
+		} : SwaySideMinimumAngleDistanceModifier, 
+		{
+			value = 75.f;
+		} : SwaySideTopAngleLimitModifier, 
+		{
+			value = 75.f;
+		} : SwaySideBottomAngleLimitModifier, 
+		{
+			value = 0.1f;
+		} : SwaySideStepChangeMaximumFactorModifier, 
+		{
+			value = 0.05f;
+		} : SwaySideStepChangeMinimumFactorModifier, 
+		{
+			value = 0.55f;
+		} : SwayCurvatureMaximumFactorModifier, 
+		{
+			value = 0.55f;
+		} : SwayCurvatureMinimumFactorModifier, 
+		{
+			value = 0.165f;
+		} : SwayCenterMaximumAngleOffsetModifier, 
+		{
+			value = 0.0f;
+		} : SwayInitialOffsetRandomFactorModifier, 
+		{
+			value = 0.03f;
+		} : SwayStartDelayModifier, 
+		{
+			value = 2.0f;
+		} : SwayStartBlendTimeModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "Additive";
+			value = 0.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "Additive";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilMagForFullDrift";
+			modifierType = "Additive";
+			value = 3.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAnimation";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAnimation";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Revolver_NPC_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.CanUseCloseRing";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseMediumRing";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseFarRing";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseExtremeRing";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Additive";
+			value = 2.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			value = 30.f;
+		} : PhysicalImpulseModifier, 
+		{
+			value = 30.f;
+		} : KnockdownImpulseModifier, 
+		{
+			value = 30.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			value = 30.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			value = 0.22f;
+		} : EquipItemTime_GangModifier, 
+		{
+			value = 0.3f;
+		} : EquipAnimationDuration_GangModifier, 
+		{
+			value = 0.7f;
+		} : EquipActionDuration_GangModifier, 
+		{
+			value = 0.434f;
+		} : UnequipItemTime_GangModifier, 
+		{
+			value = 1.033f;
+		} : UnequipAnimationDuration_GangModifier, 
+		{
+			value = 1.1f;
+		} : UnequipDuration_GangModifier, 
+		{
+			value = 0.233f;
+		} : EquipItemTime_CorpoModifier, 
+		{
+			value = 0.5f;
+		} : EquipAnimationDuration_CorpoModifier, 
+		{
+			value = 0.733f;
+		} : EquipActionDuration_CorpoModifier, 
+		{
+			value = 0.5f;
+		} : UnequipItemTime_CorpoModifier, 
+		{
+			value = 1.033f;
+		} : UnequipAnimationDuration_CorpoModifier, 
+		{
+			value = 1.1f;
+		} : UnequipDuration_CorpoModifier
+	];
+}
+
+Base_Revolver_Mult_Stats : StatModifierGroup
+{
+}
+
+Base_Revolver_NPC_Data : Base_NPC_RPG_Data
+{
+	statModifiers += 
+	[
+		"AttackModifier.RevolverMinTBH", "AttackModifier.RevolverMinLineOfSight"
+	];
+	statModifierGroups += 
+	[
+		"Items.Base_Revolver_NPC_Stats"
+	];
+}
+
+[ notQueryable ]
+Base_Power_Revolver : Base_Revolver
+{
+	buyPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+	tags += 
+	[
+		"PowerWeapon"
+	];
+	fk< ItemBlueprint > blueprint = "Items.Base_Power_Handgun_NoMuzzle_Blueprint";
+	previewEffectName = "weaponPreview";
+	previewEffectTag = "ricochet";
+	rangedAttacks = "Attacks.PowerBulletsBulletPackage";
+	statModifierGroups += 
+	[
+		"Items.Base_Power_Stats", "Items.Base_Power_Revolver_Mult_Stats", "Items.Base_Power_Revolver_Stats"
+	];
+}
+
+Base_Power_Revolver_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.05f;
+		} : RicochetChanceModifier, 
+		{
+			statType = "BaseStats.RicochetChance";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.HasPowerGrip";
+			opSymbol = "*";
+			value = 0.95f;
+		} : CombinedStatModifier, 
+		{
+			value = 1.f;
+		} : RicochetCountModifier, 
+		{
+			value = 12.5f;
+		} : RicochetTargetSearchAngleModifier, 
+		{
+			value = 0.f;
+		} : RicochetMinAngleModifier, 
+		{
+			value = 60.f;
+		} : RicochetMaxAngleModifier
+	];
+}
+
+Base_Power_Revolver_Mult_Stats : StatModifierGroup
+{
+	statModifiers += 
+	[
+		{
+			column = "amount_of_possible_mods_for_power_hg_to_quality";
+		} : ModsAmountInGenerationPoolCurveModifier
+	];
+}
+
+Base_Power_Revolver_NPC_Data : Base_Revolver_NPC_Data
+{
+	statModifiers += 
+	[
+		{
+			column = "amount_of_possible_mods_for_power_hg_to_quality";
+		} : ModsAmountInGenerationPoolCurveModifier
+	];
+}
+
+Broken_Power_Revolver_NPC_Data : Base_Power_Revolver_NPC_Data
+{
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+}
+
+[ notQueryable ]
+Base_Tech_Revolver : Base_Revolver
+{
+	buyPrice += 
+	[
+		"Price.TechWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.TechWeapon"
+	];
+	tags += 
+	[
+		"TechWeapon"
+	];
+	blueprint = "Items.Base_Tech_Handgun_NoMuzzle_Blueprint";
+	statModifierGroups += 
+	[
+		"Items.Base_Tech_Stats", "Items.Base_Tech_Revolver_Mult_Stats"
+	];
+}
+
+Base_Tech_Revolver_Mult_Stats : StatModifierGroup
+{
+	statModifiers += 
+	[
+		"AttackModifier.TechWeaponDPSReduction", {
+			column = "amount_of_possible_mods_for_tech_hg_to_quality";
+		} : ModsAmountInGenerationPoolCurveModifier
+	];
+}
+
+Base_Tech_Revolver_NPC_Data : Base_Revolver_NPC_Data
+{
+	statModifierGroups += 
+	[
+	];
+	statModifiers += 
+	[
+		{
+			column = "amount_of_possible_mods_for_tech_hg_to_quality";
+		} : ModsAmountInGenerationPoolCurveModifier
+	];
+}
+
+Broken_Tech_Revolver_NPC_Data : Base_Tech_Revolver_NPC_Data
+{
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+}
+

@@ -1,0 +1,611 @@
+package Query
+using RTDB
+
+CorpoClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Corpo"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+PoorClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Poor"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+RichClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Rich"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+IndustrialClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Industrial"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+SimpleClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Simple"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+StylishClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Stylish"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+CowboyClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Cowboy"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+StreetwearClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Streetwear"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+CasualClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Casual"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+FormalClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Formal"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+SportsClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Sports"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+RockerClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Rocker"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+BikerClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Biker"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+MilitaryClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Military"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+PunkClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Punk"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+TomboyClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Tomboy"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+ValentinosClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Valentinos"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+MaelstromClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Maelstrom"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+VoodooBoysClothing : GeneralClothing
+{
+	tags = 
+	[
+		"VoodooBoys"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+AldecaldosClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Aldecaldos"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+MilitechClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Militech"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+ArasakaClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Arasaka"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+KangTaoClothing : GeneralClothing
+{
+	tags = 
+	[
+		"KangTao"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+NCPDClothing : GeneralClothing
+{
+	tags = 
+	[
+		"NCPD"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+AnimalsClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Animals"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+TygerClawsClothing : GeneralClothing
+{
+	tags = 
+	[
+		"TygerClaws"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+SixthStreetClothing : GeneralClothing
+{
+	tags = 
+	[
+		"SixthStreet"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+WraithsClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Wraiths"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+ScavengersClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Scavengers"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+MoxiesClothing : GeneralClothing
+{
+	tags = 
+	[
+		"Moxies"
+	];
+	tagsToExclude += 
+	[
+		"EP1"
+	];
+}
+
+CorpoClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Corpo"
+	];
+}
+
+PoorClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Poor"
+	];
+}
+
+RichClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Rich"
+	];
+}
+
+IndustrialClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Industrial"
+	];
+}
+
+SimpleClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Simple"
+	];
+}
+
+StylishClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Stylish"
+	];
+}
+
+CowboyClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Cowboy"
+	];
+}
+
+StreetwearClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Streetwear"
+	];
+}
+
+CasualClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Casual"
+	];
+}
+
+FormalClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Formal"
+	];
+}
+
+SportsClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Sports"
+	];
+}
+
+RockerClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Rocker"
+	];
+}
+
+BikerClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Biker"
+	];
+}
+
+MilitaryClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Military"
+	];
+}
+
+PunkClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Punk"
+	];
+}
+
+TomboyClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Tomboy"
+	];
+}
+
+ValentinosClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Valentinos"
+	];
+}
+
+MaelstromClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Maelstrom"
+	];
+}
+
+VoodooBoysClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "VoodooBoys"
+	];
+}
+
+AldecaldosClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Aldecaldos"
+	];
+}
+
+MilitechClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Militech"
+	];
+}
+
+ArasakaClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Arasaka"
+	];
+}
+
+KangTaoClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "KangTao"
+	];
+}
+
+NCPDClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "NCPD"
+	];
+}
+
+AnimalsClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Animals"
+	];
+}
+
+TygerClawsClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "TygerClaws"
+	];
+}
+
+SixthStreetClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "SixthStreet"
+	];
+}
+
+WraithsClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Wraiths"
+	];
+}
+
+ScavengersClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Scavengers"
+	];
+}
+
+MoxiesClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Moxies"
+	];
+}
+
+BarghestClothing_EP1 : GeneralClothing
+{
+	tags = 
+	[
+		"EP1", "Barghest"
+	];
+}
+

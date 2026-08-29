@@ -1,0 +1,315 @@
+package Items
+using RTDB, BaseStats, Prereqs, Perks, Effectors
+
+Preset_Baton_Alpha : Base_Baton
+{
+	displayName = "LocKey#40179";
+	localizedDescription = "LocKey#40180";
+	CName appearanceResourceName = "Preset_Baton_Alpha";
+	CName[] visualTags = 
+	[
+		"Baton_Alpha"
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baton_1";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baton_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.Blunt_WeaponMod1";
+		} : BluntModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Blunt_WeaponMod2";
+		} : BluntModList_Slot2
+	];
+	OnAttach = 
+	[
+		"GLP.HoldingSlowMelee"
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_baton_alpha";
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization", "Items.ItemPlusRandomizer_MaxQuality", "Items.ItemPlusRandomizer_Below_MaxQuality", "Items.WeaponModsWeights_On_Tier2Plus", "Items.WeaponModsWeights_On_Tier3Plus", "Items.WeaponModsWeights_On_Tier4Plus", "Items.WeaponModsWeights_On_Tier5Plus", "Items.WeaponModsWeights_On_Tier5PlusPlus", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Melee_Tech_Stats", "Items.Base_Baton_RPG_Stats", "Items.Base_Baton_Handling_Stats", "Items.Base_Baton_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Electric", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Baton_Damage_Stats", "Items.Base_Baton_Alpha_Stats"
+	];
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Baton_NPC_Data;
+}
+
+Preset_Baton_Beta : Preset_Baton_Alpha
+{
+	displayName = "LocKey#52418";
+	localizedDescription = "LocKey#40181";
+	CName[] visualTags = 
+	[
+		"Baton_Beta"
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baton_1";
+	audioWeaponConfiguration = "audio_melee_metadata_baton_beta";
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization", "Items.ItemPlusRandomizer_MaxQuality", "Items.ItemPlusRandomizer_Below_MaxQuality", "Items.WeaponModsWeights_On_Tier2Plus", "Items.WeaponModsWeights_On_Tier3Plus", "Items.WeaponModsWeights_On_Tier4Plus", "Items.WeaponModsWeights_On_Tier5Plus", "Items.WeaponModsWeights_On_Tier5PlusPlus", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Melee_Tech_Stats", "Items.Base_Baton_RPG_Stats", "Items.Base_Baton_Handling_Stats", "Items.Base_Baton_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Electric", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Baton_Damage_Stats", "Items.Base_Baton_Beta_Stats"
+	];
+}
+
+Preset_Baton_Gamma : Preset_Baton_Alpha
+{
+	displayName = "LocKey#52419";
+	localizedDescription = "LocKey#40182";
+	CName[] visualTags = 
+	[
+		"Baton_Gamma"
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baton_2";
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization", "Items.ItemPlusRandomizer_MaxQuality", "Items.ItemPlusRandomizer_Below_MaxQuality", "Items.WeaponModsWeights_On_Tier2Plus", "Items.WeaponModsWeights_On_Tier3Plus", "Items.WeaponModsWeights_On_Tier4Plus", "Items.WeaponModsWeights_On_Tier5Plus", "Items.WeaponModsWeights_On_Tier5PlusPlus", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Melee_Tech_Stats", "Items.Base_Baton_RPG_Stats", "Items.Base_Baton_Handling_Stats", "Items.Base_Baton_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Electric", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Baton_Damage_Stats", "Items.Base_Baton_Gamma_Stats"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Baton_Alpha : Preset_Baton_Alpha
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baton_grip";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Baton_Alpha : Craftable_Common_Baton_Alpha
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Proficiency_Craftable_Uncommon_Baton_Alpha : Craftable_Uncommon_Baton_Alpha
+{
+}
+
+[ notQueryable ]
+Craftable_Rare_Baton_Alpha : Craftable_Uncommon_Baton_Alpha
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Baton_Alpha : Craftable_Uncommon_Baton_Alpha
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Baton_Alpha : Craftable_Uncommon_Baton_Alpha
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Common_Baton_Beta : Preset_Baton_Beta
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baton_grip";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Baton_Beta : Craftable_Common_Baton_Beta
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Baton_Beta : Craftable_Uncommon_Baton_Beta
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Baton_Beta : Craftable_Uncommon_Baton_Beta
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Baton_Beta : Craftable_Uncommon_Baton_Beta
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Common_Baton_Gamma : Preset_Baton_Gamma
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baton_grip";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Baton_Gamma : Craftable_Common_Baton_Gamma
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Baton_Gamma : Craftable_Uncommon_Baton_Gamma
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Baton_Gamma : Craftable_Uncommon_Baton_Gamma
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Baton_Gamma : Craftable_Uncommon_Baton_Gamma
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Stout_Censored : Preset_Baton_Alpha
+{
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Baton_Murphy : Preset_Baton_Gamma
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "baton_murphy_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Melee_Blueprint";
+	displayName = "LocKey#87365";
+	localizedDescription = "LocKey#87368";
+	CName[] visualTags = 
+	[
+		"Murphy_Baton"
+	];
+	tags += 
+	[
+		"IconicWeapon", "PowerOfThePack", "IllegalItem"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	bool scaleToPlayer = true;
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Baton_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baton_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.BatonMurphyWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Melee_Tech_Stats", "Items.Base_Baton_RPG_Stats", "Items.Base_Baton_Handling_Stats", "Items.Base_Baton_Misc_Stats", "Items.Baton_Murphy_Elemental_Damage_Type_Stats", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Baton_Damage_Stats", "Items.Base_Baton_Gamma_Stats"
+	];
+}
+
+Baton_Murphy_Elemental_Damage_Type_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+

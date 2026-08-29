@@ -1,0 +1,325 @@
+package Character
+using RTDB, BaseStats, ArchetypeData
+
+mq030_jinguji_bodyguard_1 : animals_elite2_ranged3_burya_mba_rare
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\quest\minor_quests\mq030\characters\mq030_jinguji_bodyguard.ent";
+	displayName = "LocKey#33503";
+	fullDisplayName = "LocKey#33504";
+	skipDisplayArchetype = true;
+	baseAttitudeGroup = "friendly";
+	uiNameplate = "UINameplate.QuestSettings";
+	savable = true;
+	archetypeData = "ArchetypeData.GenericRangedT3";
+	contentAssignment = "DeviceContentAssignment.mq030";
+	statModifierGroups += 
+	[
+		"Character.Boss_Poise_Primary_Stat_ModGroup"
+	];
+}
+
+mq030_jinguji_bodyguard_2 : animals_grunt1_melee1_fists_mb
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\quest\minor_quests\mq030\characters\mq030_jinguji_bodyguard.ent";
+	displayName = "LocKey#33505";
+	fullDisplayName = "LocKey#33506";
+	skipDisplayArchetype = true;
+	baseAttitudeGroup = "friendly";
+	uiNameplate = "UINameplate.QuestSettings";
+	savable = true;
+	archetypeData = "ArchetypeData.GenericMeleeT2";
+	contentAssignment = "DeviceContentAssignment.mq030";
+	statModifierGroups += 
+	[
+		"Character.Boss_Poise_Primary_Stat_ModGroup"
+	];
+}
+
+mq030_jinguji_bodyguard_new : animals_elite2_ranged3_burya_mba_rare
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\characters\entities\gang\gang__animals_mba.ent";
+	displayName = "LocKey#33503";
+	fullDisplayName = "LocKey#33504";
+	skipDisplayArchetype = true;
+	baseAttitudeGroup = "friendly";
+	uiNameplate = "UINameplate.QuestSettings";
+	savable = true;
+	archetypeData = "ArchetypeData.GenericRangedT3";
+	contentAssignment = "DeviceContentAssignment.mq030";
+	statModifierGroups += 
+	[
+		"Character.Boss_Poise_Primary_Stat_ModGroup"
+	];
+}
+
+mq030_cyberpsycho : animals_grunt2_melee2_machete_mb
+{
+	tags += 
+	[
+		"Cyberpsycho"
+	];
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\quest\minor_quests\mq030\characters\mq030_cyberpsycho.ent";
+	baseAttitudeGroup = "mq030_cyberpsycho";
+	displayName = "LocKey#33507";
+	fullDisplayName = "LocKey#33508";
+	skipDisplayArchetype = true;
+	uiNameplate = "UINameplate.QuestSettings";
+	savable = true;
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+	archetypeData = "ArchetypeData.GenericMeleeT2";
+	contentAssignment = "DeviceContentAssignment.mq030";
+	rarity = "NPCRarity.Boss";
+	disableDefeatedState = true;
+	bountyDrawTable = 
+	{
+		bountyChoices = 
+		[
+			{
+				bountySetter = "Factions.NCPD";
+				transgressions = 
+				[
+					{
+						localizedDescription = "LocKey#49725";
+					}
+				];
+				reward = "QuestRewards.mq030_cyberpsycho_defeated";
+			}
+		];
+	};
+	abilities += 
+	[
+		"Ability.CanInstaKillNPCs", "Ability.CanForceDismbember"
+	];
+	statModifierGroups += 
+	[
+		"Character.Cyberpsycho_ModGroup", "Character.Cyberpsycho_HitReaction_Resistance"
+	];
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				pool = 
+				[
+					{
+						items = 
+						[
+							{
+								item = "Items.Preset_Psycho_mq030_early";
+								equipSlot = "AttachmentSlots.WeaponRight";
+								equipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+								];
+								unequipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+								];
+							} : NPCEquipmentItem
+						];
+					} : Cyberpsycho_EarlyGame_Weapon, 
+					{
+						items = 
+						[
+							{
+								item = "Items.Preset_Psycho_mq030_mid";
+								equipSlot = "AttachmentSlots.WeaponRight";
+								equipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+								];
+								unequipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+								];
+							} : NPCEquipmentItem
+						];
+					} : Cyberpsycho_MidGame_Weapon, 
+					{
+						items = 
+						[
+							{
+								item = "Items.Preset_Psycho_mq030_late";
+								equipSlot = "AttachmentSlots.WeaponRight";
+								equipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+								];
+								unequipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+								];
+							} : NPCEquipmentItem
+						];
+					} : Cyberpsycho_LateGame_Weapon, 
+					{
+						items = 
+						[
+							{
+								item = "Items.Preset_Psycho_mq030_end";
+								equipSlot = "AttachmentSlots.WeaponRight";
+								equipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+								];
+								unequipCondition = 
+								[
+									"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+								];
+							} : NPCEquipmentItem
+						];
+					} : Cyberpsycho_EndGame_Weapon
+				];
+			} : NPCEquipmentItemPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : AnimalsSecondaryHandgunPool
+		];
+	};
+	dropsWeaponOnDeath = true;
+}
+
+mq030_max_tac_1 : maxtac_rifle_ma_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mq030_max_tac";
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Alpha";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_max_tac_2 : maxtac_shotgun_ma_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mq030_max_tac";
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Alpha";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_max_tac_3 : maxtac_gunner_mb_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mq030_max_tac";
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Alpha";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_max_tac_4 : maxtac_rifle_ma_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mq030_max_tac";
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Alpha";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_max_tac_no_combat : maxtac_melee_ma_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mq030_max_tac";
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Beta";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_melisa : maxtac_melee_ma_elite
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\quest\minor_quests\mq030\characters\mq030_melisa.ent";
+	baseAttitudeGroup = "mq030_max_tac";
+	displayName = "LocKey#33513";
+	fullDisplayName = "LocKey#33514";
+	skipDisplayArchetype = true;
+	uiNameplate = "UINameplate.QuestSettings";
+	tags += 
+	[
+		"Immortal"
+	];
+	savable = true;
+	CName communitySquad = "Squad_Alpha";
+	fk< Affiliation > affiliation = "Factions.NCPD";
+	rarity = "NPCRarity.Boss";
+	contentAssignment = "DeviceContentAssignment.mq030";
+}
+
+mq030_mallrat_crowd : Mallrat
+{
+	reactionPreset = "ReactionPresets.NoReaction";
+	isCrowd = true;
+}
+
+mq030_citizenRichFemale_crowd : CitizenRichFemale
+{
+	reactionPreset = "ReactionPresets.NoReaction";
+	isCrowd = true;
+}
+
+mq030_corpoWoman_crowd : CorpoWoman
+{
+	reactionPreset = "ReactionPresets.NoReaction";
+	isCrowd = true;
+}
+
+mq030_nightlifeMale_crowd : NightlifeMale
+{
+	reactionPreset = "ReactionPresets.NoReaction";
+	isCrowd = true;
+}
+
+mq030_corpoManBig_crowd : CorpoManBig
+{
+	reactionPreset = "ReactionPresets.NoReaction";
+	isCrowd = true;
+}
+

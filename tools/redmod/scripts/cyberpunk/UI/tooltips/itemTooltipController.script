@@ -1,0 +1,3631 @@
+class ItemTooltipCommonController extends AGenericTooltipControllerWithDebug
+{
+	protected editable var m_backgroundContainer : inkWidgetRef;
+	protected editable var m_itemEquippedContainer : inkWidgetRef;
+	protected editable var m_itemRecipeContainer : inkWidgetRef;
+	protected editable var m_itemHeaderContainer : inkWidgetRef;
+	protected editable var m_itemIconContainer : inkWidgetRef;
+	protected editable var m_itemWeaponInfoContainer : inkWidgetRef;
+	protected editable var m_itemClothingInfoContainer : inkWidgetRef;
+	protected editable var m_itemGrenadeInfoContainer : inkWidgetRef;
+	protected editable var m_itemCyberwareContainer : inkWidgetRef;
+	protected editable var m_itemRequirementsContainer : inkWidgetRef;
+	protected editable var m_itemDetailsContainer : inkWidgetRef;
+	protected editable var m_itemRecipeDataContainer : inkWidgetRef;
+	protected editable var m_itemEvolutionContainer : inkWidgetRef;
+	protected editable var m_itemCraftedContainer : inkWidgetRef;
+	protected editable var m_itemActionContainer : inkWidgetRef;
+	protected editable var m_itemBottomContainer : inkWidgetRef;
+	protected editable var m_itemCWUpgradeContainer : inkWidgetRef;
+	protected editable var m_itemCWQuickHackMenuLinkContainer : inkWidgetRef;
+	protected editable var m_contentWrapper : inkWidgetRef;
+	protected editable var m_cornerContainer : inkWidgetRef;
+	protected editable var m_root : inkWidgetRef;
+	protected editable var m_iconicBG : inkWidgetRef;
+	protected editable var m_recipeBG : inkWidgetRef;
+	protected editable var m_illegalBG : inkWidgetRef;
+	protected editable var m_descriptionWrapper : inkWidgetRef;
+	protected editable var m_descriptionText : inkTextRef;
+	protected editable var m_cyberwareUpgradeModuleName : CName;
+	default m_cyberwareUpgradeModuleName = 'itemCyberwareUpgrade';
+	protected editable var m_cyberwareQuickHackMenuLinkName : CName;
+	default m_cyberwareQuickHackMenuLinkName = 'itemCyberwareQuickHacKMenuLink';
+	protected editable var m_cyberwareModulesLibraryRes : ResRef;
+	default m_cyberwareModulesLibraryRes = R"base\gameplay\gui\common\tooltip\cyberware_tooltip_modules.inkwidget";
+	protected editable var DEBUG_iconErrorWrapper : inkWidgetRef;
+	protected editable var DEBUG_iconErrorText : inkTextRef;
+	protected var m_spawnedModules : array< weak< ItemTooltipModuleController > >;
+	protected var m_itemEquippedController : weak< ItemTooltipEquippedModule >;
+	protected var m_itemRecipeController : weak< ItemTooltipRepiceModule >;
+	protected var m_itemHeaderController : weak< ItemTooltipHeaderController >;
+	protected var m_itemIconController : weak< ItemTooltipIconModule >;
+	protected var m_itemWeaponInfoController : weak< ItemTooltipWeaponInfoModule >;
+	protected var m_itemClothingInfoController : weak< ItemTooltipClothingInfoModule >;
+	protected var m_itemGrenadeInfoController : weak< ItemTooltipGrenadeInfoModule >;
+	protected var m_itemCyberwareController : weak< ItemTooltipCyberwareWeaponModule >;
+	protected var m_itemRequirementsController : weak< ItemTooltipRequirementsModule >;
+	protected var m_itemDetailsController : weak< ItemTooltipDetailsModule >;
+	protected var m_itemRecipeDataController : weak< ItemTooltipRecipeDataModule >;
+	protected var m_itemEvolutionController : weak< ItemTooltipEvolutionModule >;
+	protected var m_itemCraftedController : weak< ItemTooltipCraftedModule >;
+	protected var m_itemCWUpgradeController : weak< ItemTooltipCyberwareUpgradeController >;
+	protected var m_itemBottomController : weak< ItemTooltipBottomModule >;
+	protected var DEBUG_showAdditionalInfo : Bool;
+	protected var m_data : MinimalItemTooltipData;
+	protected var m_inventoryTooltipData : InventoryTooltipData;
+	protected var m_itemData : UIInventoryItem;
+	protected var m_comparisonData : UIInventoryItemComparisonManager;
+	var m_player : weak< PlayerPuppet >;
+	protected var m_requestedModules : array< CName >;
+	protected var m_pendingModules : array< CName >;
+	protected var m_displayContext : ItemDisplayContextData;
+	protected var m_tooltipDisplayContext : InventoryTooltipDisplayContext;
+	protected var m_itemDisplayContext : ItemDisplayContext;
+	protected var m_priceOverride : Int32;
+	protected var m_settings : UserSettings;
+	protected var m_settingsListener : ItemTooltipSettingsListener;
+	protected var m_groupPath : CName;
+	default m_groupPath = '/accessibility/interface';
+	protected editable var m_minWidth : inkWidgetRef;
+	protected var m_bigFontEnabled : Bool;
+	protected var m_inCrafting : Bool;
+
+	public function SetData( const data : ref< ItemViewData > )
+	{
+		SetData( InventoryTooltipData.FromItemViewData( data ) );
+	}
+
+	public override function SetData( tooltipData : ATooltipData )
+	{
+		var tooltipWrapper : UIInventoryItemTooltipWrapper;
+		if( ( ( InventoryTooltipData )( tooltipData ) ) )
+		{
+			UpdateData( ( ( InventoryTooltipData )( tooltipData ) ) );
+		}
+		else if( ( ( UIInventoryItemTooltipWrapper )( tooltipData ) ) )
+		{
+			tooltipWrapper = ( ( UIInventoryItemTooltipWrapper )( tooltipData ) );
+			m_itemData = tooltipWrapper.m_data;
+			m_comparisonData = tooltipWrapper.m_comparisonData;
+			m_displayContext = tooltipWrapper.m_displayContext;
+			m_player = tooltipWrapper.m_displayContext.GetPlayerAsPuppet();
+			m_itemDisplayContext = tooltipWrapper.m_displayContext.GetDisplayContext();
+			m_tooltipDisplayContext = tooltipWrapper.m_displayContext.GetTooltipDisplayContext();
+			m_inCrafting = m_tooltipDisplayContext == InventoryTooltipDisplayContext.Crafting || m_tooltipDisplayContext == InventoryTooltipDisplayContext.Upgrading;
+			m_priceOverride = tooltipWrapper.m_overridePrice;
+			InvalidateSpawnedModules();
+			RegisterUserSettingsListener();
+			UpdateTooltipSize();
+			NEW_UpdateLayout();
+		}
+		else
+		{
+			m_data = ( ( MinimalItemTooltipData )( tooltipData ) );
+			m_displayContext = m_data.displayContextData;
+			m_inCrafting = m_data.displayContext == InventoryTooltipDisplayContext.Crafting || m_data.displayContext == InventoryTooltipDisplayContext.Upgrading;
+			RegisterUserSettingsListener();
+			UpdateTooltipSize();
+			UpdateLayout();
+		}
+		DEBUG_UpdateDebugInfo();
+	}
+
+	public function UpdateData( tooltipData : InventoryTooltipData )
+	{
+		m_inventoryTooltipData = tooltipData;
+		m_data = MinimalItemTooltipData.FromInventoryTooltipData( tooltipData );
+		m_inCrafting = m_data.displayContext == InventoryTooltipDisplayContext.Crafting || m_data.displayContext == InventoryTooltipDisplayContext.Upgrading;
+		if( m_data )
+		{
+			RegisterUserSettingsListener();
+			UpdateTooltipSize();
+			UpdateLayout();
+		}
+	}
+
+	public function ForceNoEquipped()
+	{
+		m_data.isEquipped = false;
+		UpdateLayout();
+	}
+
+	public override function PrespawnLazyModules()
+	{
+		RequestModule( m_itemEquippedContainer, 'itemEquipped', 'OnNEW_EquippedModuleSpawned' );
+		RequestModule( m_itemRecipeContainer, 'itemRecipe', 'OnNEW_RecipeModuleSpawned' );
+		RequestModule( m_itemHeaderContainer, 'itemHeader', 'OnNEW_HeaderModuleSpawned' );
+		RequestModule( m_itemIconContainer, 'itemIcon', 'OnNEW_IconModuleSpawned' );
+		RequestModule( m_itemWeaponInfoContainer, 'itemWeaponInfo', 'OnNEW_WeaponInfoModuleSpawned' );
+		RequestModule( m_itemClothingInfoContainer, 'itemClothingInfo', 'OnNEW_ClothingInfoModuleSpawned' );
+		RequestModule( m_itemCyberwareContainer, 'itemWeaponBars', 'OnNEW_UpdateStatBarsModuleSpawned' );
+		RequestModule( m_itemGrenadeInfoContainer, 'itemGrenadeInfo', 'OnNEW_GrenadeInfoModuleSpawned' );
+		RequestModule( m_itemRequirementsContainer, 'itemRequirements', 'OnNEW_RequirementsModuleSpawned' );
+		RequestModule( m_itemDetailsContainer, 'itemDetails', 'OnNEW_DetailsModuleSpawned' );
+		RequestModule( m_itemRecipeDataContainer, 'itemRecipeData', 'OnNEW_RecipeDataModuleSpawned' );
+		RequestModule( m_itemEvolutionContainer, 'itemEvolution', 'OnNEW_EvolutionModuleSpawned' );
+		RequestModule( m_itemCraftedContainer, 'itemCrafted', 'OnNEW_CraftedModuleSpawned' );
+		RequestModule( m_itemBottomContainer, 'itemBottom', 'OnNEW_BottomModuleSpawned' );
+	}
+
+	protected function RequestModule( container : inkWidgetRef, moduleName : CName, callback : CName, optional data : ItemTooltipModuleSpawnedCallbackData ) : Bool
+	{
+		var spawnedCallbackData : ItemTooltipModuleSpawnedCallbackData;
+		if( m_requestedModules.Contains( moduleName ) )
+		{
+			return false;
+		}
+		if( data )
+		{
+			spawnedCallbackData = data;
+		}
+		else
+		{
+			spawnedCallbackData = new ItemTooltipModuleSpawnedCallbackData;
+			spawnedCallbackData.moduleName = moduleName;
+		}
+		m_requestedModules.PushBack( moduleName );
+		m_pendingModules.PushBack( moduleName );
+		AsyncSpawnFromLocal( inkWidgetRef.Get( container ), moduleName, this, callback, spawnedCallbackData );
+		return true;
+	}
+
+	protected function RequestExternalModule( container : inkWidgetRef, moduleName : CName, modulesLibraryRes : ResRef, callback : CName, optional data : ItemTooltipModuleSpawnedCallbackData ) : Bool
+	{
+		if( m_requestedModules.Contains( moduleName ) )
+		{
+			return false;
+		}
+		m_requestedModules.PushBack( moduleName );
+		AsyncSpawnFromExternal( inkWidgetRef.Get( container ), modulesLibraryRes, moduleName, this, callback, data );
+		return true;
+	}
+
+	protected function HandleModuleSpawned( widget : weak< inkWidget >, data : ItemTooltipModuleSpawnedCallbackData )
+	{
+		var controller : weak< ItemTooltipModuleController >;
+		m_pendingModules.Remove( data.moduleName );
+		widget.SetVAlign( inkEVerticalAlign.Top );
+		controller = ( ( weak< weak< ItemTooltipModuleController > > )( widget.GetController() ) );
+		m_spawnedModules.PushBack( controller );
+		controller.SetDisplayContext( m_itemDisplayContext, m_tooltipDisplayContext, m_displayContext );
+	}
+
+	protected function InvalidateSpawnedModules()
+	{
+		var i, limit : Int32;
+		for( i = 0, limit = m_spawnedModules.Size(); i < limit; i += 1 )
+		{
+			m_spawnedModules[ i ].SetDisplayContext( m_itemDisplayContext, m_tooltipDisplayContext, m_displayContext );
+		}
+	}
+
+	private function ShouldHideDescription( itemType : gamedataItemType ) : Bool
+	{
+		return ( ( ( ( ( ( ( ( ( ( ( m_data.itemTweakID == T"Items.money" ) || m_data.displayContext == InventoryTooltipDisplayContext.Crafting ) || m_data.displayContext == InventoryTooltipDisplayContext.Upgrading ) || m_tooltipDisplayContext == InventoryTooltipDisplayContext.Crafting ) || m_tooltipDisplayContext == InventoryTooltipDisplayContext.Upgrading ) || m_itemDisplayContext == ItemDisplayContext.Crafting ) || itemType == gamedataItemType.Gad_Grenade ) || itemType == gamedataItemType.Con_Inhaler ) || itemType == gamedataItemType.Con_Injector ) || UIInventoryItemsManager.IsItemTypeCyberware( itemType ) ) || itemType == gamedataItemType.Gen_CraftingMaterial ) || itemType == gamedataItemType.Con_Skillbook;
+	}
+
+	protected virtual function UpdateLayout()
+	{
+		var shouldHideBottomModule : Bool;
+		var margin : inkMargin;
+		UpdateEquippedModule();
+		UpdateRecipeModule();
+		UpdateHeaderModule();
+		UpdateIconModule();
+		UpdateWeaponInfoModule();
+		UpdateClothingInfoModule();
+		UpdateGrenadeInfoModule();
+		UpdateStatBarsModule();
+		UpdateRequirementsModule();
+		UpdateDetailsModule();
+		UpdateEvolutionModule();
+		UpdateTransmogModule();
+		UpdateBottomModule();
+		UpdateIconicBG();
+		UpdateRecipeBG();
+		UpdateIllegalBG();
+		UpdateCyberwareUpgradeModule();
+		UpdateCyberwareQuickHackMenuLinkModule();
+		if( m_data.itemData.HasTag( 'Recipe' ) || ShouldHideDescription( m_data.itemType ) )
+		{
+			inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+		}
+		else
+		{
+			if( IsStringValid( m_data.description ) )
+			{
+				shouldHideBottomModule = ItemTooltipBottomModule.ShouldHideBottomModule( m_data, m_tooltipDisplayContext, m_itemDisplayContext );
+				inkTextRef.SetText( m_descriptionText, GetLocalizedText( m_data.description ) );
+				inkWidgetRef.SetVisible( m_descriptionWrapper, true );
+				margin = inkTextRef.GetMargin( m_descriptionText );
+				margin.bottom = AbsF( margin.bottom ) * ( ( ( shouldHideBottomModule || m_displayContext.HasTag( 'Wardrobe' ) ) ) ? ( 1.0 ) : ( -1.0 ) );
+				inkTextRef.SetMargin( m_descriptionText, margin );
+			}
+			else
+			{
+				inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+			}
+		}
+		inkWidgetRef.SetVisible( m_backgroundContainer, m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+		if( m_data.requirements.isAnyStatRequirementNotMet )
+		{
+			inkWidgetRef.SetState( m_contentWrapper, 'ReqNotMet' );
+		}
+		else
+		{
+			inkWidgetRef.SetState( m_contentWrapper, 'Default' );
+		}
+	}
+
+	protected virtual function UpdateIconicBG()
+	{
+		if( m_data.isIconic == true )
+		{
+			inkWidgetRef.SetVisible( m_iconicBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_iconicBG, false );
+		}
+	}
+
+	protected virtual function UpdateRecipeBG()
+	{
+		if( m_data.itemData.HasTag( 'Recipe' ) == true )
+		{
+			inkWidgetRef.SetVisible( m_recipeBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_recipeBG, false );
+		}
+	}
+
+	protected virtual function UpdateIllegalBG()
+	{
+		if( m_data.itemData.HasTag( 'IllegalItem' ) == true )
+		{
+			inkWidgetRef.SetVisible( m_illegalBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_illegalBG, false );
+		}
+	}
+
+	protected virtual function UpdateEquippedModule()
+	{
+		if( m_data.isEquipped && ( m_data.displayContext != InventoryTooltipDisplayContext.Crafting && m_data.displayContext != InventoryTooltipDisplayContext.Upgrading ) )
+		{
+			if( !( m_itemEquippedController ) )
+			{
+				RequestModule( m_itemEquippedContainer, 'itemEquipped', 'OnEquippedModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemEquippedContainer, true );
+			inkWidgetRef.SetVisible( m_cornerContainer, true );
+			inkWidgetRef.SetState( m_root, 'Equipped' );
+			m_itemEquippedController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemEquippedContainer, false );
+			inkWidgetRef.SetVisible( m_cornerContainer, false );
+			inkWidgetRef.SetState( m_root, 'Default' );
+		}
+	}
+
+	protected event OnEquippedModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemEquippedController = ( ( ItemTooltipEquippedModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateEquippedModule();
+	}
+
+	protected virtual function UpdateRecipeModule()
+	{
+		if( m_data.itemData.HasTag( 'Recipe' ) == true && ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_tooltipDisplayContext != InventoryTooltipDisplayContext.Upgrading ) )
+		{
+			if( !( m_itemRecipeController ) )
+			{
+				RequestModule( m_itemRecipeContainer, 'itemRecipe', 'OnRecipeModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRecipeContainer, true );
+			m_itemRecipeController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRecipeContainer, false );
+		}
+	}
+
+	protected event OnRecipeModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRecipeController = ( ( ItemTooltipRepiceModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateRecipeModule();
+	}
+
+	protected virtual function UpdateHeaderModule()
+	{
+		if( !( m_itemHeaderController ) )
+		{
+			RequestModule( m_itemHeaderContainer, 'itemHeader', 'OnHeaderModuleSpawned' );
+			return;
+		}
+		m_itemHeaderController.Update( m_data );
+		if( !( m_inCrafting ) )
+		{
+			m_itemHeaderController.UpdateWrapping( m_bigFontEnabled );
+		}
+	}
+
+	protected event OnHeaderModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemHeaderController = ( ( ItemTooltipHeaderController )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateHeaderModule();
+	}
+
+	protected virtual function UpdateIconModule()
+	{
+		if( m_data.displayContext == InventoryTooltipDisplayContext.HUD && UIInventoryItemsManager.IsItemTypeCloting( m_data.itemType ) )
+		{
+			if( !( m_itemIconController ) )
+			{
+				RequestModule( m_itemIconContainer, 'itemIcon', 'OnIconModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemIconContainer, true );
+			m_itemIconController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemIconContainer, false );
+		}
+	}
+
+	protected event OnIconModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemIconController = ( ( ItemTooltipIconModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateIconModule();
+	}
+
+	protected event OnHideIconModuleEvent( evt : HideIconModuleEvent )
+	{
+		inkWidgetRef.SetVisible( m_itemIconContainer, false );
+	}
+
+	protected virtual function UpdateWeaponInfoModule()
+	{
+		if( m_data.equipmentArea == gamedataEquipmentArea.Weapon || m_data.equipmentArea == gamedataEquipmentArea.WeaponHeavy )
+		{
+			if( !( m_itemWeaponInfoController ) )
+			{
+				RequestModule( m_itemWeaponInfoContainer, 'itemWeaponInfo', 'OnWeaponInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemWeaponInfoContainer, true );
+			m_itemWeaponInfoController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemWeaponInfoContainer, false );
+		}
+	}
+
+	protected event OnWeaponInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemWeaponInfoController = ( ( ItemTooltipWeaponInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateWeaponInfoModule();
+	}
+
+	protected virtual function UpdateClothingInfoModule()
+	{
+		var isCyberware : Bool;
+		if( ( ( ( ( ( ( m_data.itemType == gamedataItemType.Cyberware || m_data.itemType == gamedataItemType.Cyb_Ability ) || m_data.itemType == gamedataItemType.Cyb_HealingAbility ) || m_data.itemType == gamedataItemType.Cyb_Launcher ) || m_data.itemType == gamedataItemType.Cyb_MantisBlades ) || m_data.itemType == gamedataItemType.Cyb_NanoWires ) || m_data.itemType == gamedataItemType.Cyb_StrongArms ) || m_data.itemCategory == gamedataItemCategory.Cyberware )
+		{
+			isCyberware = true;
+		}
+		if( isCyberware || ( ( m_data.itemCategory == gamedataItemCategory.Weapon && m_data.equipmentArea == gamedataEquipmentArea.ArmsCW ) && ( m_data.armorValue >= 0.0 ) ) )
+		{
+			if( !( m_itemClothingInfoController ) )
+			{
+				RequestModule( m_itemClothingInfoContainer, 'itemClothingInfo', 'OnClothingInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemClothingInfoContainer, true );
+			m_itemClothingInfoController.Update( m_data );
+		}
+		else if( m_data.itemCategory == gamedataItemCategory.Clothing && ( m_data.armorValue >= 0.0 ) )
+		{
+			inkWidgetRef.SetVisible( m_itemClothingInfoContainer, false );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemClothingInfoContainer, false );
+		}
+	}
+
+	protected event OnClothingInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemClothingInfoController = ( ( ItemTooltipClothingInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateClothingInfoModule();
+	}
+
+	protected virtual function UpdateStatBarsModule()
+	{
+		var isCyberware : Bool;
+		var isHealingItem : Bool;
+		if( ( ( m_data.itemType == gamedataItemType.Cyb_Launcher || m_data.itemType == gamedataItemType.Cyb_MantisBlades ) || m_data.itemType == gamedataItemType.Cyb_NanoWires ) || m_data.itemType == gamedataItemType.Cyb_StrongArms )
+		{
+			isCyberware = true;
+		}
+		if( m_data.itemType == gamedataItemType.Con_Inhaler || m_data.itemType == gamedataItemType.Con_Injector )
+		{
+			isHealingItem = true;
+		}
+		if( ( isCyberware || isHealingItem ) || ( m_data.itemCategory == gamedataItemCategory.Weapon && m_data.equipmentArea == gamedataEquipmentArea.ArmsCW ) )
+		{
+			if( !( m_itemCyberwareController ) )
+			{
+				RequestModule( m_itemCyberwareContainer, 'itemWeaponBars', 'OnUpdateStatBarsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemCyberwareContainer, true );
+			m_itemCyberwareController.Update( m_data );
+			if( !( m_inCrafting ) )
+			{
+				m_itemCyberwareController.NEW_UpdateWrapping( m_bigFontEnabled );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCyberwareContainer, false );
+		}
+	}
+
+	protected event OnUpdateStatBarsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCyberwareController = ( ( ItemTooltipCyberwareWeaponModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateStatBarsModule();
+	}
+
+	protected virtual function UpdateGrenadeInfoModule()
+	{
+		if( m_data.itemType == gamedataItemType.Gad_Grenade )
+		{
+			if( !( m_itemGrenadeInfoController ) )
+			{
+				RequestModule( m_itemGrenadeInfoContainer, 'itemGrenadeInfo', 'OnGrenadeInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemGrenadeInfoContainer, true );
+			m_itemGrenadeInfoController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemGrenadeInfoContainer, false );
+		}
+	}
+
+	protected event OnGrenadeInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemGrenadeInfoController = ( ( ItemTooltipGrenadeInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateGrenadeInfoModule();
+	}
+
+	protected virtual function UpdateRequirementsModule()
+	{
+		var anyRequirementNotMet : Bool;
+		anyRequirementNotMet = ( ( ( ( ( m_data.requirements.isLevelRequirementNotMet || m_data.requirements.isSmartlinkRequirementNotMet ) || m_data.requirements.isStrengthRequirementNotMet ) || m_data.requirements.isReflexRequirementNotMet ) || m_data.requirements.isAnyStatRequirementNotMet ) || m_data.requirements.isPerkRequirementNotMet ) || m_data.requirements.isRarityRequirementNotMet;
+		if( anyRequirementNotMet || ( m_data.attributeAllocationStats.Size() > 0 ) )
+		{
+			if( !( m_itemRequirementsController ) )
+			{
+				RequestModule( m_itemRequirementsContainer, 'itemRequirements', 'OnRequirementsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRequirementsContainer, true );
+			m_itemRequirementsController.Update( m_data );
+			if( !( m_inCrafting ) )
+			{
+				m_itemRequirementsController.UpdateWrapping( m_bigFontEnabled );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRequirementsContainer, false );
+		}
+	}
+
+	protected event OnRequirementsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRequirementsController = ( ( ItemTooltipRequirementsModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateRequirementsModule();
+	}
+
+	protected virtual function UpdateDetailsModule()
+	{
+		var hasStats, hasDedicatedMods, hasMods : Bool;
+		var isWeaponInCrafting, isWeaponOnHud, showInCrafting, showOutsideCraftingAndHud, showInHud : Bool;
+		hasStats = m_data.stats.Size() > 0;
+		hasDedicatedMods = m_data.dedicatedMods.Size() > 0;
+		hasMods = m_data.mods.Size() > 0;
+		isWeaponOnHud = m_data.displayContext == InventoryTooltipDisplayContext.HUD && m_data.equipmentArea == gamedataEquipmentArea.Weapon;
+		isWeaponInCrafting = m_data.displayContext == InventoryTooltipDisplayContext.Crafting && m_data.equipmentArea == gamedataEquipmentArea.Weapon;
+		showInCrafting = isWeaponInCrafting && ( hasDedicatedMods || hasMods );
+		showOutsideCraftingAndHud = ( !( isWeaponInCrafting ) && !( isWeaponOnHud ) ) && ( ( hasStats || hasDedicatedMods ) || hasMods );
+		showInHud = isWeaponOnHud && ( hasDedicatedMods || hasMods );
+		if( ( showOutsideCraftingAndHud || showInCrafting ) || showInHud )
+		{
+			if( !( m_itemDetailsController ) )
+			{
+				RequestModule( m_itemDetailsContainer, 'itemDetails', 'OnDetailsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemDetailsContainer, true );
+			m_itemDetailsController.GetContext( m_inCrafting );
+			m_itemDetailsController.Update( m_data, hasStats, hasDedicatedMods, hasMods );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemDetailsContainer, false );
+		}
+	}
+
+	protected event OnDetailsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemDetailsController = ( ( ItemTooltipDetailsModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateDetailsModule();
+	}
+
+	protected virtual function UpdateRecipeDataModule()
+	{
+		if( m_data.recipeData != NULL )
+		{
+			if( !( m_itemRecipeDataController ) )
+			{
+				RequestModule( m_itemRecipeDataContainer, 'itemRecipeData', 'OnRecipeDataModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRecipeDataContainer, true );
+			m_itemRecipeDataController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRecipeDataContainer, false );
+		}
+	}
+
+	protected event OnRecipeDataModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRecipeDataController = ( ( ItemTooltipRecipeDataModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateRecipeDataModule();
+	}
+
+	protected virtual function UpdateEvolutionModule()
+	{
+		if( m_data.itemEvolution != gamedataWeaponEvolution.Invalid )
+		{
+			if( !( m_itemEvolutionController ) )
+			{
+				RequestModule( m_itemEvolutionContainer, 'itemEvolution', 'OnEvolutionModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemEvolutionContainer, true );
+			m_itemEvolutionController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemEvolutionContainer, false );
+		}
+	}
+
+	protected event OnEvolutionModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemEvolutionController = ( ( ItemTooltipEvolutionModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateEvolutionModule();
+	}
+
+	protected virtual function UpdateCraftedModule()
+	{
+		if( m_data.displayContext != InventoryTooltipDisplayContext.Crafting && m_data.isCrafted )
+		{
+			if( !( m_itemCraftedController ) )
+			{
+				RequestModule( m_itemCraftedContainer, 'itemCrafted', 'OnCraftedModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemCraftedContainer, true );
+			m_itemCraftedController.Update( m_data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCraftedContainer, false );
+		}
+	}
+
+	protected event OnCraftedModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCraftedController = ( ( ItemTooltipCraftedModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateCraftedModule();
+	}
+
+	protected virtual function UpdateTransmogModule()
+	{
+		inkWidgetRef.SetVisible( m_itemActionContainer, false );
+	}
+
+	private function UpdateCyberwareUpgradeModule()
+	{
+		if( ( UIInventoryItemsManager.IsItemTypeCyberware( m_data.itemType ) && m_data.cyberwareUpgradeData ) && m_data.cyberwareUpgradeData.IsValid() )
+		{
+			if( !( m_itemCWUpgradeController ) )
+			{
+				RequestExternalModule( m_itemCWUpgradeContainer, m_cyberwareUpgradeModuleName, m_cyberwareModulesLibraryRes, 'OnCyberwareUpgradeModuleSpawned' );
+				return;
+			}
+			m_itemCWUpgradeController.Update( m_data );
+			inkWidgetRef.SetVisible( m_itemCWUpgradeContainer, m_itemCWUpgradeController.IsVisible() );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCWUpgradeContainer, false );
+		}
+	}
+
+	private function UpdateCyberwareQuickHackMenuLinkModule()
+	{
+		if( m_data.itemType == gamedataItemType.Cyb_NanoWires && m_data.isEquipped )
+		{
+			if( InventoryItemData.GetAttachmentsSize( m_inventoryTooltipData.inventoryItemData ) )
+			{
+				RequestExternalModule( m_itemCWQuickHackMenuLinkContainer, m_cyberwareQuickHackMenuLinkName, m_cyberwareModulesLibraryRes, 'OnCyberwareQuickHackMenuLinkModuleSpawned' );
+				inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, true );
+			}
+			else
+			{
+				inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, false );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, false );
+		}
+	}
+
+	protected event OnCyberwareUpgradeModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCWUpgradeController = ( ( ItemTooltipCyberwareUpgradeController )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateCyberwareUpgradeModule();
+	}
+
+	protected virtual function UpdateBottomModule()
+	{
+		var shouldHideBottom : Bool;
+		shouldHideBottom = ItemTooltipBottomModule.ShouldHideBottomModule( m_data, m_tooltipDisplayContext, m_itemDisplayContext );
+		if( m_displayContext.HasTag( 'Wardrobe' ) || shouldHideBottom )
+		{
+			inkWidgetRef.SetVisible( m_itemBottomContainer, false );
+		}
+		else
+		{
+			if( !( m_itemBottomController ) )
+			{
+				RequestModule( m_itemBottomContainer, 'itemBottom', 'OnBottomModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemBottomContainer, true );
+			m_itemBottomController.Update( m_data );
+		}
+	}
+
+	protected event OnBottomModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemBottomController = ( ( ItemTooltipBottomModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		UpdateBottomModule();
+	}
+
+	private function NEW_UpdateLayout()
+	{
+		var shouldHideBottomModule : Bool;
+		var margin : inkMargin;
+		NEW_UpdateEquippedModule();
+		NEW_UpdateRecipeModule();
+		NEW_UpdateHeaderModule();
+		NEW_UpdateIconModule();
+		NEW_UpdateWeaponInfoModule();
+		NEW_UpdateClothingInfoModule();
+		NEW_UpdateStatBarsModule();
+		NEW_UpdateGrenadeInfoModule();
+		NEW_UpdateRequirementsModule();
+		NEW_UpdateDetailsModule();
+		NEW_UpdateEvolutionModule();
+		NEW_UpdateTransmogModule();
+		NEW_UpdateCyberwareUpgradeModule();
+		NEW_UpdateCyberwareQuickHackMenuLinkModule();
+		NEW_UpdateBottomModule();
+		NEW_UpdateIconicBG();
+		NEW_UpdateRecipeBG();
+		NEW_UpdateIllegalBG();
+		if( ShouldHideDescription( m_itemData.GetItemType() ) )
+		{
+			inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+		}
+		else
+		{
+			if( IsStringValid( m_itemData.GetDescription() ) )
+			{
+				shouldHideBottomModule = ItemTooltipBottomModule.ShouldHideBottomModule( m_tooltipDisplayContext, m_itemData );
+				inkWidgetRef.SetVisible( m_descriptionWrapper, true );
+				inkTextRef.SetText( m_descriptionText, m_itemData.GetDescription() );
+				margin = inkTextRef.GetMargin( m_descriptionText );
+				margin.bottom = AbsF( margin.bottom ) * ( ( ( shouldHideBottomModule || m_displayContext.HasTag( 'Wardrobe' ) ) ) ? ( 1.0 ) : ( -1.0 ) );
+				inkTextRef.SetMargin( m_descriptionText, margin );
+			}
+			else
+			{
+				inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+			}
+		}
+		inkWidgetRef.SetVisible( m_backgroundContainer, m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting );
+	}
+
+	protected virtual function NEW_UpdateIconicBG()
+	{
+		if( m_itemData.IsIconic() == true )
+		{
+			inkWidgetRef.SetVisible( m_iconicBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_iconicBG, false );
+		}
+	}
+
+	protected virtual function NEW_UpdateRecipeBG()
+	{
+		if( m_itemData.IsRecipe() )
+		{
+			inkWidgetRef.SetVisible( m_recipeBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_recipeBG, false );
+		}
+	}
+
+	protected virtual function NEW_UpdateIllegalBG()
+	{
+		if( m_itemData.IsIllegal() )
+		{
+			inkWidgetRef.SetVisible( m_illegalBG, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_illegalBG, false );
+		}
+	}
+
+	protected virtual function NEW_UpdateEquippedModule()
+	{
+		var shouldDisplay : Bool;
+		shouldDisplay = m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_tooltipDisplayContext != InventoryTooltipDisplayContext.Upgrading;
+		if( m_displayContext )
+		{
+			shouldDisplay = shouldDisplay && !( m_displayContext.HasTag( 'CyberwareUpgrade' ) );
+		}
+		if( m_itemData.IsEquipped() && shouldDisplay )
+		{
+			if( !( m_itemEquippedController ) )
+			{
+				RequestModule( m_itemEquippedContainer, 'itemEquipped', 'OnNEW_EquippedModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemEquippedContainer, true );
+			inkWidgetRef.SetVisible( m_cornerContainer, true );
+			inkWidgetRef.SetState( m_root, 'Equipped' );
+			m_itemEquippedController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemEquippedContainer, false );
+			inkWidgetRef.SetVisible( m_cornerContainer, false );
+			inkWidgetRef.SetState( m_root, 'Default' );
+		}
+	}
+
+	protected event OnNEW_EquippedModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemEquippedController = ( ( ItemTooltipEquippedModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateEquippedModule();
+	}
+
+	protected virtual function NEW_UpdateRecipeModule()
+	{
+		if( m_itemData.IsRecipe() && ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_tooltipDisplayContext != InventoryTooltipDisplayContext.Upgrading ) )
+		{
+			if( !( m_itemRecipeController ) )
+			{
+				RequestModule( m_itemRecipeContainer, 'itemRecipe', 'OnNEW_RecipeModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRecipeContainer, true );
+			m_itemRecipeController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRecipeContainer, false );
+		}
+	}
+
+	protected event OnNEW_RecipeModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRecipeController = ( ( ItemTooltipRepiceModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateRecipeModule();
+	}
+
+	protected virtual function NEW_UpdateHeaderModule()
+	{
+		if( !( m_itemHeaderController ) )
+		{
+			RequestModule( m_itemHeaderContainer, 'itemHeader', 'OnNEW_HeaderModuleSpawned' );
+			return;
+		}
+		m_itemHeaderController.NEW_Update( m_itemData );
+		if( !( m_inCrafting ) )
+		{
+			m_itemHeaderController.UpdateWrapping( m_bigFontEnabled );
+		}
+	}
+
+	protected event OnNEW_HeaderModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemHeaderController = ( ( ItemTooltipHeaderController )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateHeaderModule();
+	}
+
+	protected virtual function NEW_UpdateIconModule()
+	{
+		var isInMatchingContext : Bool;
+		isInMatchingContext = m_tooltipDisplayContext == InventoryTooltipDisplayContext.HUD || m_displayContext.HasTag( 'Looting' );
+		if( isInMatchingContext && m_itemData.IsClothing() )
+		{
+			if( !( m_itemIconController ) )
+			{
+				RequestModule( m_itemIconContainer, 'itemIcon', 'OnNEW_IconModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemIconContainer, true );
+			m_itemIconController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemIconContainer, false );
+		}
+	}
+
+	protected event OnNEW_IconModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemIconController = ( ( ItemTooltipIconModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateIconModule();
+	}
+
+	protected event OnNEW_HideIconModuleEvent( evt : HideIconModuleEvent )
+	{
+		inkWidgetRef.SetVisible( m_itemIconContainer, false );
+	}
+
+	protected virtual function NEW_UpdateWeaponInfoModule()
+	{
+		if( m_itemData.IsWeapon() )
+		{
+			if( !( m_itemWeaponInfoController ) )
+			{
+				RequestModule( m_itemWeaponInfoContainer, 'itemWeaponInfo', 'OnNEW_WeaponInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemWeaponInfoContainer, true );
+			m_itemWeaponInfoController.NEW_Update( m_itemData, m_comparisonData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemWeaponInfoContainer, false );
+		}
+	}
+
+	protected event OnNEW_WeaponInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemWeaponInfoController = ( ( ItemTooltipWeaponInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateWeaponInfoModule();
+	}
+
+	protected virtual function NEW_UpdateClothingInfoModule()
+	{
+		if( ( m_itemData.IsCyberware() || m_itemData.IsCyberwareWeapon() ) && !( m_itemData.IsRecipe() ) )
+		{
+			if( !( m_itemClothingInfoController ) )
+			{
+				RequestModule( m_itemClothingInfoContainer, 'itemClothingInfo', 'OnNEW_ClothingInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemClothingInfoContainer, true );
+			m_itemClothingInfoController.NEW_Update( m_itemData, m_player );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemClothingInfoContainer, false );
+		}
+	}
+
+	protected event OnNEW_ClothingInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemClothingInfoController = ( ( ItemTooltipClothingInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateClothingInfoModule();
+	}
+
+	protected virtual function NEW_UpdateStatBarsModule()
+	{
+		if( m_itemData.IsUsingBars() )
+		{
+			if( !( m_itemCyberwareController ) )
+			{
+				RequestModule( m_itemCyberwareContainer, 'itemWeaponBars', 'OnNEW_UpdateStatBarsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemCyberwareContainer, true );
+			m_itemCyberwareController.NEW_Update( m_itemData, m_comparisonData );
+			if( !( m_inCrafting ) )
+			{
+				m_itemCyberwareController.NEW_UpdateWrapping( m_bigFontEnabled );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCyberwareContainer, false );
+		}
+	}
+
+	protected event OnNEW_UpdateStatBarsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCyberwareController = ( ( ItemTooltipCyberwareWeaponModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateStatBarsModule();
+	}
+
+	protected virtual function NEW_UpdateGrenadeInfoModule()
+	{
+		if( m_itemData.GetItemType() == gamedataItemType.Gad_Grenade )
+		{
+			if( !( m_itemGrenadeInfoController ) )
+			{
+				RequestModule( m_itemGrenadeInfoContainer, 'itemGrenadeInfo', 'OnNEW_GrenadeInfoModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemGrenadeInfoContainer, true );
+			m_itemGrenadeInfoController.NEW_Update( m_player, m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemGrenadeInfoContainer, false );
+		}
+	}
+
+	protected event OnNEW_GrenadeInfoModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemGrenadeInfoController = ( ( ItemTooltipGrenadeInfoModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateGrenadeInfoModule();
+	}
+
+	protected virtual function NEW_UpdateRequirementsModule()
+	{
+		if( m_itemData.GetRequirementsManager( m_player ).IsAnyRequirementNotMet() )
+		{
+			if( !( m_itemRequirementsController ) )
+			{
+				RequestModule( m_itemRequirementsContainer, 'itemRequirements', 'OnNEW_RequirementsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRequirementsContainer, true );
+			m_itemRequirementsController.NEW_Update( m_itemData, m_player );
+			if( !( m_inCrafting ) )
+			{
+				m_itemRequirementsController.UpdateWrapping( m_bigFontEnabled );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRequirementsContainer, false );
+		}
+	}
+
+	protected event OnNEW_RequirementsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRequirementsController = ( ( ItemTooltipRequirementsModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateRequirementsModule();
+	}
+
+	protected virtual function NEW_UpdateDetailsModule()
+	{
+		var modsManager : weak< UIInventoryItemModsManager >;
+		var isWeapon, hasStats, hasDedicatedMods, hasMods : Bool;
+		var isWeaponInCrafting, isWeaponOnHud, showInCrafting, showOutsideCraftingAndHud, showInHud : Bool;
+		var modsSize : Int32;
+		modsManager = m_itemData.GetModsManager();
+		hasStats = m_itemData.GetStatsManager().Size();
+		hasDedicatedMods = modsManager.GetDedicatedMod() != NULL;
+		modsSize = modsManager.GetModsSize();
+		if( m_displayContext.HasTag( 'CyberwareUpgrade' ) )
+		{
+			modsSize -= modsManager.GetAttachmentsSize();
+		}
+		hasMods = modsSize > 0;
+		isWeapon = m_itemData.IsWeapon();
+		isWeaponOnHud = m_tooltipDisplayContext == InventoryTooltipDisplayContext.HUD && isWeapon;
+		isWeaponInCrafting = m_tooltipDisplayContext == InventoryTooltipDisplayContext.Crafting && isWeapon;
+		showInCrafting = isWeaponInCrafting && ( hasDedicatedMods || hasMods );
+		showOutsideCraftingAndHud = ( !( isWeaponInCrafting ) && !( isWeaponOnHud ) ) && ( ( hasStats || hasDedicatedMods ) || hasMods );
+		showInHud = isWeaponOnHud && ( hasDedicatedMods || hasMods );
+		if( ( showOutsideCraftingAndHud || showInCrafting ) || showInHud )
+		{
+			if( !( m_itemDetailsController ) )
+			{
+				RequestModule( m_itemDetailsContainer, 'itemDetails', 'OnNEW_DetailsModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemDetailsContainer, true );
+			m_itemDetailsController.GetContext( m_inCrafting );
+			m_itemDetailsController.NEW_Update( m_itemData, m_comparisonData, hasStats, hasDedicatedMods, hasMods );
+			return;
+		}
+		inkWidgetRef.SetVisible( m_itemDetailsContainer, false );
+	}
+
+	protected event OnNEW_DetailsModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemDetailsController = ( ( ItemTooltipDetailsModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateDetailsModule();
+	}
+
+	protected virtual function NEW_UpdateRecipeDataModule()
+	{
+		if( false )
+		{
+			if( !( m_itemRecipeDataController ) )
+			{
+				RequestModule( m_itemRecipeDataContainer, 'itemRecipeData', 'OnNEW_RecipeDataModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemRecipeDataContainer, true );
+			m_itemRecipeDataController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemRecipeDataContainer, false );
+		}
+	}
+
+	protected event OnNEW_RecipeDataModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemRecipeDataController = ( ( ItemTooltipRecipeDataModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateRecipeDataModule();
+	}
+
+	protected virtual function NEW_UpdateEvolutionModule()
+	{
+		if( m_itemData.GetWeaponEvolution() != gamedataWeaponEvolution.Invalid )
+		{
+			if( !( m_itemEvolutionController ) )
+			{
+				RequestModule( m_itemEvolutionContainer, 'itemEvolution', 'OnNEW_EvolutionModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemEvolutionContainer, true );
+			m_itemEvolutionController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemEvolutionContainer, false );
+		}
+	}
+
+	protected event OnNEW_EvolutionModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemEvolutionController = ( ( ItemTooltipEvolutionModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateEvolutionModule();
+	}
+
+	protected virtual function NEW_UpdateCraftedModule()
+	{
+		if( ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_itemData.IsCrafted() ) && !( m_itemData.IsRecipe() ) )
+		{
+			if( !( m_itemCraftedController ) )
+			{
+				RequestModule( m_itemCraftedContainer, 'itemCrafted', 'OnNEW_CraftedModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemCraftedContainer, true );
+			m_itemCraftedController.NEW_Update( m_itemData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCraftedContainer, false );
+		}
+	}
+
+	protected event OnNEW_CraftedModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCraftedController = ( ( ItemTooltipCraftedModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateCraftedModule();
+	}
+
+	protected virtual function NEW_UpdateTransmogModule()
+	{
+		inkWidgetRef.SetVisible( m_itemActionContainer, false );
+	}
+
+	protected event OnNEW_TransmogModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+	}
+
+	private function NEW_UpdateCyberwareUpgradeModule()
+	{
+		if( ( !( m_displayContext.HasTag( 'CyberwareUpgrade' ) ) && m_itemData.IsEquipped() ) && m_itemData.GetCyberwareUpgradeData( m_player ).IsValid() )
+		{
+			if( !( m_itemCWUpgradeController ) )
+			{
+				RequestExternalModule( m_itemCWUpgradeContainer, m_cyberwareUpgradeModuleName, m_cyberwareModulesLibraryRes, 'OnNEW_CyberwareUpgradeModuleSpawned' );
+				return;
+			}
+			m_itemCWUpgradeController.NEW_Update( m_itemData, m_player );
+			inkWidgetRef.SetVisible( m_itemCWUpgradeContainer, m_itemCWUpgradeController.IsVisible() );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCWUpgradeContainer, false );
+		}
+	}
+
+	protected event OnNEW_CyberwareUpgradeModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemCWUpgradeController = ( ( ItemTooltipCyberwareUpgradeController )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateCyberwareUpgradeModule();
+	}
+
+	private function NEW_UpdateCyberwareQuickHackMenuLinkModule()
+	{
+		if( ( ( m_itemData.GetItemType() == gamedataItemType.Cyb_NanoWires && m_itemData.IsEquipped() ) && !( m_displayContext.HasTag( 'CyberwareUpgrade' ) ) ) && m_displayContext.HasTag( 'AllowProgramLink' ) )
+		{
+			if( m_itemData.GetModsManager().GetAllSlotsSize() > 0 )
+			{
+				RequestExternalModule( m_itemCWQuickHackMenuLinkContainer, m_cyberwareQuickHackMenuLinkName, m_cyberwareModulesLibraryRes, 'OnCyberwareQuickHackMenuLinkModuleSpawned' );
+				inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, true );
+			}
+			else
+			{
+				inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, false );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_itemCWQuickHackMenuLinkContainer, false );
+		}
+	}
+
+	protected virtual function NEW_UpdateBottomModule()
+	{
+		var shouldHideBottom, isVendor : Bool;
+		if( ItemTooltipBottomModule.ShouldHideBottomModule( m_tooltipDisplayContext, m_itemData ) )
+		{
+			shouldHideBottom = true;
+		}
+		if( m_tooltipDisplayContext == InventoryTooltipDisplayContext.Vendor || m_itemDisplayContext == ItemDisplayContext.Vendor )
+		{
+			isVendor = true;
+		}
+		if( shouldHideBottom && !( isVendor ) )
+		{
+			inkWidgetRef.SetVisible( m_itemBottomContainer, false );
+		}
+		else
+		{
+			if( !( m_itemBottomController ) )
+			{
+				RequestModule( m_itemBottomContainer, 'itemBottom', 'OnNEW_BottomModuleSpawned' );
+				return;
+			}
+			inkWidgetRef.SetVisible( m_itemBottomContainer, true );
+			m_itemBottomController.NEW_Update( m_itemData, m_player, m_priceOverride );
+		}
+	}
+
+	protected event OnNEW_BottomModuleSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		m_itemBottomController = ( ( ItemTooltipBottomModule )( widget.GetController() ) );
+		HandleModuleSpawned( widget, ( ( ItemTooltipModuleSpawnedCallbackData )( userData ) ) );
+		NEW_UpdateBottomModule();
+	}
+
+	protected override function DEBUG_UpdateDebugInfo()
+	{
+		var craftableItems : array< weak< Item_Record > >;
+		var recipeRecord : RecipeItem_Record;
+		var resultText : String;
+		var errorData : DEBUG_IconErrorInfo;
+		var iconsNameResolver : IconsNameResolver;
+		if( m_itemData != NULL )
+		{
+			DEBUG_NewUpdateIconErrorInfo();
+			return;
+		}
+		iconsNameResolver = IconsNameResolver.GetIconsNameResolver();
+		if( !( iconsNameResolver.IsInDebugMode() ) )
+		{
+			inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, false );
+			return;
+		}
+		errorData = m_data.DEBUG_iconErrorInfo;
+		inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, ( errorData != NULL ) || DEBUG_showDebug );
+		if( DEBUG_showDebug )
+		{
+			resultText += " - itemID:\n";
+			resultText += TDBID.ToStringDEBUG( m_data.itemTweakID );
+			OpenTweakDBRecordInVSCodeIfRequested( m_data.itemTweakID );
+			if( m_data.itemData.HasTag( 'Recipe' ) )
+			{
+				recipeRecord = TweakDBInterface.GetRecipeItemRecord( m_data.itemTweakID );
+				if( recipeRecord )
+				{
+					recipeRecord.CraftableItems( craftableItems );
+					if( craftableItems.Size() > 0 )
+					{
+						resultText += "\n - inner itemID:\n";
+						resultText += TDBID.ToStringDEBUG( craftableItems[ 0 ].GetID() );
+					}
+				}
+			}
+			inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+		}
+		else
+		{
+			if( errorData != NULL )
+			{
+				resultText += ( ( "   ErrorType: " + EnumValueToString( "inkIconResult", ( ( Int32 )( errorData.errorType ) ) ) ) + "\n\n" );
+				resultText += " - itemID:\n";
+				resultText += errorData.itemName;
+				if( IsStringValid( errorData.innerItemName ) )
+				{
+					resultText += "\n - inner itemID:\n";
+					resultText += errorData.innerItemName;
+				}
+				if( errorData.isManuallySet )
+				{
+					resultText += "\n - resolved icon name (manually set):\n";
+				}
+				else
+				{
+					resultText += "\n - resolved icon name (auto generated):\n";
+				}
+				resultText += errorData.resolvedIconName;
+				resultText += "\n - error message:\n";
+				resultText += errorData.errorMessage;
+				inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+			}
+		}
+	}
+
+	private function DEBUG_NewUpdateIconErrorInfo()
+	{
+		var craftableItems : array< weak< Item_Record > >;
+		var recipeRecord : RecipeItem_Record;
+		var resultText : String;
+		var errorData : DEBUG_IconErrorInfo;
+		var iconsNameResolver : IconsNameResolver;
+		iconsNameResolver = IconsNameResolver.GetIconsNameResolver();
+		if( !( iconsNameResolver.IsInDebugMode() ) )
+		{
+			inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, false );
+			return;
+		}
+		errorData = m_itemData.DEBUG_iconErrorInfo;
+		inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, ( errorData != NULL ) || DEBUG_showDebug );
+		if( DEBUG_showDebug )
+		{
+			resultText += " - itemID:\n";
+			resultText += TDBID.ToStringDEBUG( m_itemData.GetRealTweakDBID() );
+			OpenTweakDBRecordInVSCodeIfRequested( m_itemData.GetRealTweakDBID() );
+			if( m_itemData.IsRecipe() )
+			{
+				recipeRecord = TweakDBInterface.GetRecipeItemRecord( m_itemData.GetRealTweakDBID() );
+				if( recipeRecord )
+				{
+					recipeRecord.CraftableItems( craftableItems );
+					if( craftableItems.Size() > 0 )
+					{
+						resultText += "\n - inner itemID:\n";
+						resultText += TDBID.ToStringDEBUG( craftableItems[ 0 ].GetID() );
+					}
+				}
+			}
+			inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+		}
+		else
+		{
+			if( errorData != NULL )
+			{
+				resultText += ( ( "   ErrorType: " + EnumValueToString( "inkIconResult", ( ( Int32 )( errorData.errorType ) ) ) ) + "\n\n" );
+				resultText += " - itemID:\n";
+				resultText += errorData.itemName;
+				if( IsStringValid( errorData.innerItemName ) )
+				{
+					resultText += "\n - inner itemID:\n";
+					resultText += errorData.innerItemName;
+				}
+				if( errorData.isManuallySet )
+				{
+					resultText += "\n - resolved icon name (manually set):\n";
+				}
+				else
+				{
+					resultText += "\n - resolved icon name (auto generated):\n";
+				}
+				resultText += errorData.resolvedIconName;
+				resultText += "\n - error message:\n";
+				resultText += errorData.errorMessage;
+				inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+			}
+		}
+	}
+
+	public function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		switch( varName )
+		{
+			case 'BigFont':
+				UpdateTooltipSize();
+			break;
+			default:
+				break;
+		}
+	}
+
+	private function UpdateTooltipSize()
+	{
+		var configVar : ConfigVarBool;
+		configVar = ( ( ConfigVarBool )( m_settings.GetVar( m_groupPath, 'BigFont' ) ) );
+		SetTooltipSize( configVar.GetValue() );
+	}
+
+	protected virtual function SetTooltipSize( value : Bool )
+	{
+		if( value == true && !( m_inCrafting ) )
+		{
+			inkWidgetRef.SetSize( m_minWidth, 810.0, 0.0 );
+			m_bigFontEnabled = true;
+		}
+		else
+		{
+			inkWidgetRef.SetSize( m_minWidth, 710.0, 0.0 );
+			m_bigFontEnabled = false;
+		}
+	}
+
+	private function RegisterUserSettingsListener()
+	{
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+	}
+
+}
+
+class ItemTooltipModuleController extends inkLogicController
+{
+	protected editable var m_lineWidget : inkWidgetRef;
+	protected var m_displayContext : ItemDisplayContextData;
+	protected var m_tooltipDisplayContext : InventoryTooltipDisplayContext;
+	protected var m_itemDisplayContext : ItemDisplayContext;
+
+	public virtual function Update( data : MinimalItemTooltipData ) {}
+
+	public virtual function NEW_Update( data : weak< UIInventoryItem > ) {}
+
+	public function SetDisplayContext( itemDisplayContext : ItemDisplayContext, tooltipDisplayContext : InventoryTooltipDisplayContext, displayContext : ItemDisplayContextData )
+	{
+		m_displayContext = displayContext;
+		m_itemDisplayContext = itemDisplayContext;
+		m_tooltipDisplayContext = tooltipDisplayContext;
+	}
+
+	protected function UseCraftingLayout() : Bool
+	{
+		return m_tooltipDisplayContext == InventoryTooltipDisplayContext.Crafting || m_tooltipDisplayContext == InventoryTooltipDisplayContext.Upgrading;
+	}
+
+	protected function UseCraftingLayout( data : MinimalItemTooltipData ) : Bool
+	{
+		return data.displayContext == InventoryTooltipDisplayContext.Crafting || data.displayContext == InventoryTooltipDisplayContext.Upgrading;
+	}
+
+	protected function GetArrowWrapperState( diffValue : Float ) : CName
+	{
+		if( diffValue < 0.0 )
+		{
+			return 'Worse';
+		}
+		else if( diffValue > 0.0 )
+		{
+			return 'Better';
+		}
+		return 'Default';
+	}
+
+}
+
+class ItemTooltipModuleSpawnedCallbackData
+{
+	var moduleName : CName;
+}
+
+class ItemTooltipEquippedModule extends ItemTooltipModuleController
+{
+}
+
+class ItemTooltipRepiceModule extends ItemTooltipModuleController
+{
+	private editable var m_itemNameText : inkTextRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		if( UseCraftingLayout( data ) )
+		{
+			inkTextRef.SetVisible( m_itemNameText, false );
+		}
+		else
+		{
+			UpdateName( data );
+		}
+	}
+
+	private function UpdateName( data : MinimalItemTooltipData )
+	{
+		var finalItemName : String;
+		inkTextRef.SetVisible( m_itemNameText, true );
+		finalItemName = UIItemsHelper.GetTooltipItemName( data.itemTweakID, data.itemData, data.itemName );
+		if( data.quantity > 1 )
+		{
+			finalItemName += ( ( " [" + IntToString( data.quantity ) ) + "]" );
+		}
+		inkTextRef.SetText( m_itemNameText, finalItemName );
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > )
+	{
+		if( UseCraftingLayout() )
+		{
+			inkTextRef.SetVisible( m_itemNameText, false );
+		}
+		else
+		{
+			NEW_UpdateName( data.GetName(), data.GetQuantity() );
+		}
+	}
+
+	private function NEW_UpdateName( itemName : String, quantity : Int32 )
+	{
+		inkTextRef.SetVisible( m_itemNameText, true );
+		if( quantity > 1 )
+		{
+			itemName += ( ( " [" + IntToString( quantity ) ) + "]" );
+		}
+		inkTextRef.SetText( m_itemNameText, itemName );
+	}
+
+}
+
+class ItemTooltipHeaderController extends ItemTooltipModuleController
+{
+	private editable var m_itemNameText : inkTextRef;
+	private editable var m_itemRarityText : inkTextRef;
+	private editable var m_itemTypeText : inkTextRef;
+	private editable var m_itemEvolutionIcon : inkImageRef;
+	private var m_localizedIconicText : String;
+
+	protected event OnInitialize()
+	{
+		m_localizedIconicText = GetLocalizedText( UIItemsHelper.QualityToDefaultString( gamedataQuality.Iconic ) );
+	}
+
+	public function UpdateWrapping( bigFontEnabled : Bool )
+	{
+		if( bigFontEnabled == true )
+		{
+			inkTextRef.SetWrappingAtPosition( m_itemNameText, 750.0 );
+			inkTextRef.SetWrappingAtPosition( m_itemRarityText, 750.0 );
+			inkTextRef.SetWrappingAtPosition( m_itemTypeText, 685.0 );
+		}
+		else
+		{
+			inkTextRef.SetWrappingAtPosition( m_itemNameText, 650.0 );
+			inkTextRef.SetWrappingAtPosition( m_itemRarityText, 650.0 );
+			inkTextRef.SetWrappingAtPosition( m_itemTypeText, 585.0 );
+		}
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		UpdateItemType( m_itemTypeText, data );
+		if( UseCraftingLayout( data ) || ( data.itemData.HasTag( 'Recipe' ) == true && ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_tooltipDisplayContext != InventoryTooltipDisplayContext.Upgrading ) ) )
+		{
+			inkTextRef.SetVisible( m_itemNameText, false );
+			inkTextRef.SetVisible( m_itemRarityText, false );
+		}
+		else
+		{
+			UpdateName( data );
+			if( UIItemsHelper.ShouldDisplayTier( data.itemType ) )
+			{
+				UpdateRarity( data );
+			}
+			else
+			{
+				inkTextRef.SetVisible( m_itemRarityText, false );
+			}
+		}
+	}
+
+	private function UpdateItemType( itemTypeText : inkTextRef, data : MinimalItemTooltipData )
+	{
+		var itemData : weak< gameItemData >;
+		var isRecipe : Bool;
+		var equipmentArea : gamedataEquipmentArea;
+		var tweakID : TweakDBID;
+		var itemType : gamedataItemType;
+		var itemEvolution : gamedataWeaponEvolution;
+		var itemTypeKey : String;
+		var newItemTypeKey : String;
+		itemData = data.itemData;
+		isRecipe = itemData.HasTag( 'Recipe' );
+		equipmentArea = data.equipmentArea;
+		tweakID = data.itemTweakID;
+		itemType = data.itemType;
+		itemEvolution = data.itemEvolution;
+		itemTypeKey = UIItemsHelper.GetItemTypeKey( itemData, equipmentArea, tweakID, itemType, itemEvolution );
+		if( itemTypeKey != "" && !( isRecipe ) )
+		{
+			if( ( itemType == gamedataItemType.Cyb_Launcher || itemType == gamedataItemType.Cyb_MantisBlades ) || itemType == gamedataItemType.Cyb_NanoWires )
+			{
+				newItemTypeKey = ( GetLocalizedText( itemTypeKey ) + " - " ) + GetLocalizedText( UIItemsHelper.GetMellewareSecondaryTypeText( itemType ) );
+				inkTextRef.SetText( itemTypeText, newItemTypeKey );
+			}
+			else if( itemType == gamedataItemType.Cyb_StrongArms )
+			{
+				newItemTypeKey = ( ( ( GetLocalizedText( itemTypeKey ) + " - " ) + GetLocalizedText( UIItemsHelper.GetMellewareSecondaryTypeText( itemType ) ) ) + " - " ) + GetLocalizedText( "LocKey#77968" );
+				inkTextRef.SetText( itemTypeText, newItemTypeKey );
+			}
+			else
+			{
+				inkTextRef.SetText( itemTypeText, itemTypeKey );
+			}
+			inkTextRef.SetVisible( itemTypeText, true );
+		}
+		else
+		{
+			inkTextRef.SetVisible( itemTypeText, false );
+		}
+		if( ( ( itemType == gamedataItemType.Cyb_Launcher || itemType == gamedataItemType.Cyb_MantisBlades ) || itemType == gamedataItemType.Cyb_NanoWires ) || itemType == gamedataItemType.Cyb_StrongArms )
+		{
+			inkImageRef.SetTexturePart( m_itemEvolutionIcon, UIItemsHelper.GetMellewareEvolutionTexturePartByType( itemType ) );
+			inkImageRef.SetVisible( m_itemEvolutionIcon, true );
+		}
+		else
+		{
+			inkImageRef.SetVisible( m_itemEvolutionIcon, false );
+		}
+	}
+
+	private function UpdateName( data : MinimalItemTooltipData )
+	{
+		var finalItemName : String;
+		inkTextRef.SetVisible( m_itemNameText, true );
+		finalItemName = UIItemsHelper.GetTooltipItemName( data.itemTweakID, data.itemData, data.itemName );
+		if( data.quantity > 1 )
+		{
+			finalItemName += ( ( " [" + IntToString( data.quantity ) ) + "]" );
+		}
+		inkTextRef.SetText( m_itemNameText, finalItemName );
+	}
+
+	private function UpdateRarity( data : MinimalItemTooltipData )
+	{
+		var qualityName : CName;
+		var rarityLabel, iconicLabel, plusLabel : String;
+		var isChimera : Bool;
+		var itemRecord : weak< Item_Record >;
+		if( !( data.hasRarity ) )
+		{
+			inkTextRef.SetVisible( m_itemRarityText, data.hasRarity );
+			return;
+		}
+		inkTextRef.SetVisible( m_itemRarityText, true );
+		iconicLabel = GetLocalizedText( UIItemsHelper.QualityToDefaultString( gamedataQuality.Iconic ) );
+		isChimera = data.itemData.HasTag( 'ChimeraMod' );
+		if( !( isChimera ) )
+		{
+			itemRecord = TweakDBInterface.GetItemRecord( data.itemTweakID );
+			if( ( itemRecord != NULL ) && itemRecord.TagsContains( 'ChimeraMod' ) )
+			{
+				isChimera = true;
+			}
+		}
+		if( isChimera )
+		{
+			qualityName = UIItemsHelper.QualityEnumToName( gamedataQuality.Iconic );
+			rarityLabel = iconicLabel;
+		}
+		else
+		{
+			qualityName = UIItemsHelper.QualityEnumToName( data.quality );
+			rarityLabel = GetLocalizedText( UIItemsHelper.QualityToDefaultString( data.quality ) );
+		}
+		plusLabel = rarityLabel;
+		if( !( isChimera ) )
+		{
+			if( data.isPlus >= 2.0 )
+			{
+				plusLabel += "++";
+			}
+			else if( data.isPlus >= 1.0 )
+			{
+				plusLabel += "+";
+			}
+			if( data.isIconic )
+			{
+				plusLabel += ( " / " + iconicLabel );
+			}
+		}
+		inkTextRef.SetState( m_itemNameText, qualityName );
+		inkTextRef.SetState( m_itemRarityText, qualityName );
+		inkTextRef.SetText( m_itemRarityText, plusLabel );
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > )
+	{
+		var itemType : gamedataItemType;
+		var newItemTypeKey : String;
+		var itemTypeKey : String;
+		itemType = data.GetItemType();
+		itemTypeKey = UIItemsHelper.GetItemTypeKey( data.GetItemData(), data.GetEquipmentArea(), data.GetTweakDBID(), data.GetItemType(), data.GetWeaponEvolution() );
+		if( ( itemType == gamedataItemType.Cyb_Launcher || itemType == gamedataItemType.Cyb_MantisBlades ) || itemType == gamedataItemType.Cyb_NanoWires )
+		{
+			newItemTypeKey = ( GetLocalizedText( itemTypeKey ) + " - " ) + GetLocalizedText( UIItemsHelper.GetMellewareSecondaryTypeText( itemType ) );
+			inkTextRef.SetText( m_itemTypeText, newItemTypeKey );
+		}
+		else if( itemType == gamedataItemType.Cyb_StrongArms )
+		{
+			newItemTypeKey = ( ( ( GetLocalizedText( itemTypeKey ) + " - " ) + GetLocalizedText( UIItemsHelper.GetMellewareSecondaryTypeText( itemType ) ) ) + " - " ) + GetLocalizedText( "LocKey#77968" );
+			inkTextRef.SetText( m_itemTypeText, newItemTypeKey );
+		}
+		else if( ( itemType == gamedataItemType.Gen_Readable && data.GetOwner() ) && UIItemsHelper.IsShardRead( data.GetTweakDBID(), data.GetOwner().GetGame() ) )
+		{
+			newItemTypeKey = ( ( GetLocalizedText( itemTypeKey ) + " (" ) + GetLocalizedText( "LocKey#96017" ) ) + ")";
+			inkTextRef.SetText( m_itemTypeText, newItemTypeKey );
+		}
+		else
+		{
+			inkTextRef.SetText( m_itemTypeText, itemTypeKey );
+		}
+		if( UseCraftingLayout() || ( data.IsRecipe() && ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting && m_tooltipDisplayContext != InventoryTooltipDisplayContext.Upgrading ) ) )
+		{
+			inkTextRef.SetVisible( m_itemNameText, false );
+			inkTextRef.SetVisible( m_itemRarityText, false );
+		}
+		else
+		{
+			if( ( ( data.GetItemType() == gamedataItemType.Con_Inhaler || data.GetItemType() == gamedataItemType.Con_Injector ) || data.GetItemType() == gamedataItemType.Gad_Grenade ) || data.GetItemType() == gamedataItemType.Cyb_Ability )
+			{
+				NEW_UpdateName( data.GetName(), 0 );
+			}
+			else
+			{
+				NEW_UpdateName( data.GetName(), data.GetQuantity() );
+			}
+			if( UIItemsHelper.ShouldDisplayTier( data.GetItemType() ) )
+			{
+				NEW_UpdateRarity( data );
+			}
+			else
+			{
+				inkTextRef.SetVisible( m_itemRarityText, false );
+			}
+		}
+		if( ( ( itemType == gamedataItemType.Cyb_Launcher || itemType == gamedataItemType.Cyb_MantisBlades ) || itemType == gamedataItemType.Cyb_NanoWires ) || itemType == gamedataItemType.Cyb_StrongArms )
+		{
+			inkImageRef.SetTexturePart( m_itemEvolutionIcon, UIItemsHelper.GetMellewareEvolutionTexturePartByType( itemType ) );
+			inkImageRef.SetVisible( m_itemEvolutionIcon, true );
+		}
+		else
+		{
+			inkImageRef.SetVisible( m_itemEvolutionIcon, false );
+		}
+	}
+
+	private function NEW_UpdateName( itemName : String, quantity : Int32 )
+	{
+		inkTextRef.SetVisible( m_itemNameText, true );
+		if( quantity > 1 )
+		{
+			itemName += ( ( " [" + IntToString( quantity ) ) + "]" );
+		}
+		inkTextRef.SetText( m_itemNameText, itemName );
+	}
+
+	private function NEW_UpdateRarity( data : weak< UIInventoryItem > )
+	{
+		var qualityName : CName;
+		inkTextRef.SetVisible( m_itemRarityText, true );
+		if( data.GetItemData().HasTag( 'ChimeraMod' ) )
+		{
+			qualityName = UIItemsHelper.QualityEnumToName( gamedataQuality.Iconic );
+		}
+		else
+		{
+			qualityName = UIItemsHelper.QualityEnumToName( data.GetQuality() );
+		}
+		inkTextRef.SetState( m_itemNameText, qualityName );
+		inkTextRef.SetState( m_itemRarityText, qualityName );
+		inkTextRef.SetText( m_itemRarityText, data.GetQualityText() );
+	}
+
+}
+
+class ItemTooltipIconModule extends ItemTooltipModuleController
+{
+	private editable var m_container : inkImageRef;
+	private editable var m_icon : inkImageRef;
+	private editable var m_iconicLines : inkImageRef;
+	private editable var m_transmogged : inkImageRef;
+	private var iconsNameResolver : IconsNameResolver;
+
+	protected event OnInitialize()
+	{
+		iconsNameResolver = IconsNameResolver.GetIconsNameResolver();
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var recipeRecord : weak< ItemRecipe_Record >;
+		var craftingResult : weak< CraftingResult_Record >;
+		var itemRecord : weak< Item_Record >;
+		inkImageRef.SetVisible( m_iconicLines, data.isIconic );
+		if( data.itemData && data.itemData.HasTag( 'Recipe' ) )
+		{
+			recipeRecord = TweakDBInterface.GetItemRecipeRecord( data.itemTweakID );
+			craftingResult = recipeRecord.CraftingResult();
+			if( craftingResult )
+			{
+				itemRecord = craftingResult.Item();
+			}
+		}
+		inkImageRef.SetScale( m_icon, GetIconScale( data, itemRecord.EquipArea().Type() ) );
+		inkImageRef.SetOpacity( m_icon, 0.0 );
+		InkImageUtils.RequestSetImage( this, m_icon, GetIconPath( data, itemRecord ), 'OnIconCallback' );
+		if( inkImageRef.IsValid( m_transmogged ) )
+		{
+			inkImageRef.SetVisible( m_transmogged, ItemID.IsValid( data.transmogItem ) );
+		}
+	}
+
+	protected event OnIconCallback( e : iconAtlasCallbackData )
+	{
+		if( e.loadResult == inkIconResult.Success )
+		{
+			inkImageRef.SetOpacity( m_icon, 1.0 );
+		}
+		else
+		{
+			QueueEvent( new HideIconModuleEvent );
+		}
+	}
+
+	private function GetIconPath( data : MinimalItemTooltipData, optional itemRecord : weak< Item_Record > ) : CName
+	{
+		var resolvedIcon : CName;
+		var craftingIconName : String;
+		if( itemRecord )
+		{
+			craftingIconName = itemRecord.IconPath();
+			if( IsStringValid( craftingIconName ) )
+			{
+				return StringToName( "UIIcon." + craftingIconName );
+			}
+			resolvedIcon = iconsNameResolver.TranslateItemToIconName( itemRecord.GetID(), data.useMaleIcon );
+		}
+		else
+		{
+			if( data && IsStringValid( data.iconPath ) )
+			{
+				return StringToName( "UIIcon." + data.iconPath );
+			}
+			if( ItemID.IsValid( data.transmogItem ) )
+			{
+				resolvedIcon = iconsNameResolver.TranslateItemToIconName( ItemID.GetTDBID( data.transmogItem ), data.useMaleIcon );
+			}
+			else
+			{
+				resolvedIcon = iconsNameResolver.TranslateItemToIconName( data.itemTweakID, data.useMaleIcon );
+			}
+		}
+		if( IsNameValid( resolvedIcon ) )
+		{
+			return StringToName( "UIIcon." + NameToString( resolvedIcon ) );
+		}
+		return UIItemsHelper.GetSlotShadowIcon( TDBID.None(), data.itemType, data.equipmentArea );
+	}
+
+	private function GetIconScale( data : MinimalItemTooltipData, equipmentArea : gamedataEquipmentArea ) : Vector2
+	{
+		var areaToCheck : gamedataEquipmentArea;
+		areaToCheck = ( ( equipmentArea == gamedataEquipmentArea.AbilityCW ) ? ( data.equipmentArea ) : ( equipmentArea ) );
+		return ( ( areaToCheck == gamedataEquipmentArea.Outfit ) ? ( Vector2( 0.5, 0.5 ) ) : ( Vector2( 1.0, 1.0 ) ) );
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > )
+	{
+		inkImageRef.SetVisible( m_iconicLines, data.IsIconic() );
+		inkImageRef.SetScale( m_icon, NEW_GetIconScale( data.GetEquipmentArea() ) );
+		inkImageRef.SetOpacity( m_icon, 0.0 );
+		InkImageUtils.RequestSetImage( this, m_icon, data.GetIconPath(), 'OnNEW_IconCallback' );
+		inkImageRef.SetVisible( m_transmogged, false );
+	}
+
+	protected event OnNEW_IconCallback( e : iconAtlasCallbackData )
+	{
+		if( e.loadResult == inkIconResult.Success )
+		{
+			inkImageRef.SetOpacity( m_icon, 1.0 );
+		}
+		else
+		{
+			QueueEvent( new HideIconModuleEvent );
+		}
+	}
+
+	private function NEW_GetIconScale( equipmentArea : gamedataEquipmentArea ) : Vector2
+	{
+		return ( ( equipmentArea == gamedataEquipmentArea.Outfit ) ? ( Vector2( 0.5, 0.5 ) ) : ( Vector2( 1.0, 1.0 ) ) );
+	}
+
+}
+
+class ItemTooltipWeaponInfoModule extends ItemTooltipModuleController
+{
+	private editable var m_wrapper : inkWidgetRef;
+	private editable var m_arrow : inkImageRef;
+	private editable var m_dpsText : inkTextRef;
+	private editable var m_perHitText : inkTextRef;
+	private editable var m_attacksPerSecondText : inkTextRef;
+	private editable var m_nonLethal : inkTextRef;
+	private editable var m_scopeIndicator : inkWidgetRef;
+	private editable var m_silencerIndicator : inkWidgetRef;
+	private editable var m_ammoText : inkTextRef;
+	private editable var m_ammoWrapper : inkWidgetRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var dpsParams, attackPerSecondParams, damageParams : inkTextParams;
+		var projectilesPerShot, attacksPerSecond : Float;
+		var damagePerHit, damagePerHitMin, damagePerHitMax : Float;
+		var divideAttacksByPellets : Bool;
+		var qualityDiff : Float;
+		dpsParams = new inkTextParams;
+		attackPerSecondParams = new inkTextParams;
+		damageParams = new inkTextParams;
+		qualityDiff = data.qualityF - data.comparisonQualityF;
+		inkWidgetRef.SetState( m_wrapper, GetArrowWrapperState( qualityDiff ) );
+		inkWidgetRef.SetVisible( m_wrapper, qualityDiff >= 0.0 );
+		inkImageRef.SetVisible( m_arrow, ( data.comparisonQualityF >= 0.0 ) || !( FloatIsEqual( data.qualityF, data.comparisonQualityF ) ) );
+		inkTextRef.SetVisible( m_nonLethal, data.itemEvolution == gamedataWeaponEvolution.Blunt );
+		if( !( data.itemData.HasTag( WeaponObject.GetMeleeWeaponTag() ) ) )
+		{
+			inkWidgetRef.SetVisible( m_ammoWrapper, true );
+			inkTextRef.SetText( m_ammoText, IntToString( data.ammoCount ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_ammoWrapper, false );
+		}
+		if( data.hasScope )
+		{
+			inkWidgetRef.SetVisible( m_scopeIndicator, true );
+			inkWidgetRef.SetState( m_scopeIndicator, ( ( data.isScopeInstalled ) ? ( 'Default' ) : ( 'Empty' ) ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_scopeIndicator, false );
+		}
+		if( data.hasSilencer )
+		{
+			inkWidgetRef.SetVisible( m_silencerIndicator, true );
+			inkWidgetRef.SetState( m_silencerIndicator, ( ( data.isSilencerInstalled ) ? ( 'Default' ) : ( 'Empty' ) ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_silencerIndicator, false );
+		}
+		if( qualityDiff > 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.NoMirror );
+		}
+		else if( qualityDiff < 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.Vertical );
+		}
+		dpsParams.AddNumber( "value", FloorF( data.dpsValue ) );
+		dpsParams.AddNumber( "valueDecimalPart", RoundF( ( data.dpsValue - ( ( Float )( RoundF( data.dpsValue ) ) ) ) * 10.0 ) % 10 );
+		if( data.displayContext == InventoryTooltipDisplayContext.Upgrading )
+		{
+			projectilesPerShot = data.projectilesPerShot;
+			attacksPerSecond = data.attackSpeed;
+		}
+		else
+		{
+			projectilesPerShot = data.itemData.GetStatValueByType( gamedataStatType.ProjectilesPerShot );
+			attacksPerSecond = data.itemData.GetStatValueByType( gamedataStatType.AttacksPerSecond );
+		}
+		divideAttacksByPellets = TweakDBInterface.GetBool( data.itemTweakID + T".divideAttacksByPelletsOnUI", false ) && ( projectilesPerShot > 0.0 );
+		attackPerSecondParams.AddString( "value", FloatToStringPrec( ( ( divideAttacksByPellets ) ? ( attacksPerSecond / projectilesPerShot ) : ( attacksPerSecond ) ), 2 ) );
+		inkTextRef.SetLocalizedTextScript( m_attacksPerSecondText, "UI-Tooltips-AttacksPerSecond", attackPerSecondParams );
+		inkTextRef.SetTextParameters( m_dpsText, dpsParams );
+		if( data.itemData.HasTag( 'Melee' ) )
+		{
+			damagePerHit = data.itemData.GetStatValueByType( gamedataStatType.EffectiveDamagePerHit );
+			inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitMeleeTemplate" );
+			damageParams.AddString( "value", IntToString( RoundF( damagePerHit ) ) );
+			inkTextRef.SetTextParameters( m_perHitText, damageParams );
+		}
+		else
+		{
+			if( data.displayContext == InventoryTooltipDisplayContext.Upgrading )
+			{
+				damagePerHitMin = ( data.dpsValue / data.attackSpeed ) * 0.89999998;
+				damagePerHitMax = ( data.dpsValue / data.attackSpeed ) * 1.10000002;
+			}
+			else
+			{
+				damagePerHitMin = data.itemData.GetStatValueByType( gamedataStatType.EffectiveDamagePerHitMin );
+				damagePerHitMax = data.itemData.GetStatValueByType( gamedataStatType.EffectiveDamagePerHitMax );
+			}
+			damageParams.AddString( "value", IntToString( RoundF( damagePerHitMin ) ) );
+			damageParams.AddString( "valueMax", IntToString( RoundF( damagePerHitMax ) ) );
+			if( ( data.itemType == gamedataItemType.Wea_Shotgun || data.itemType == gamedataItemType.Wea_ShotgunDual ) && ( projectilesPerShot > 0.0 ) )
+			{
+				inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitWithMultiplierTemplate" );
+				damageParams.AddString( "multiplier", IntToString( RoundF( projectilesPerShot ) ) );
+			}
+			else
+			{
+				inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitTemplate" );
+			}
+			inkTextRef.SetTextParameters( m_perHitText, damageParams );
+		}
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, comparisonData : weak< UIInventoryItemComparisonManager > )
+	{
+		var dpsParams, attackPerSecondParams, damageParams : inkTextParams;
+		var projectilesPerShot : Int32;
+		var dpsValue : Float;
+		var qualityDiff : Float;
+		qualityDiff = 0.0;
+		dpsParams = new inkTextParams;
+		attackPerSecondParams = new inkTextParams;
+		damageParams = new inkTextParams;
+		qualityDiff = data.GetComparisonQualityF() - comparisonData.GetComparisonQualityF();
+		dpsValue = data.GetPrimaryStat().Value;
+		inkWidgetRef.SetState( m_wrapper, GetArrowWrapperState( qualityDiff ) );
+		inkWidgetRef.SetVisible( m_wrapper, dpsValue >= 0.0 );
+		inkImageRef.SetVisible( m_arrow, ( data.GetComparisonQualityF() >= 0.0 ) || !( FloatIsEqual( data.GetComparisonQualityF(), comparisonData.GetComparisonQualityF() ) ) );
+		inkTextRef.SetVisible( m_nonLethal, data.GetWeaponEvolution() == gamedataWeaponEvolution.Blunt );
+		if( data.GetWeaponType() == WeaponType.Ranged )
+		{
+			inkWidgetRef.SetVisible( m_ammoWrapper, true );
+			inkTextRef.SetText( m_ammoText, IntToString( data.GetAmmo() ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_ammoWrapper, false );
+		}
+		if( data.HasScopeSlot() )
+		{
+			inkWidgetRef.SetVisible( m_scopeIndicator, true );
+			inkWidgetRef.SetState( m_scopeIndicator, ( ( data.HasScopeInstalled() ) ? ( 'Default' ) : ( 'Empty' ) ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_scopeIndicator, false );
+		}
+		if( data.HasSilencerSlot() )
+		{
+			inkWidgetRef.SetVisible( m_silencerIndicator, true );
+			inkWidgetRef.SetState( m_silencerIndicator, ( ( data.HasSilencerInstalled() ) ? ( 'Default' ) : ( 'Empty' ) ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_silencerIndicator, false );
+		}
+		if( qualityDiff > 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.NoMirror );
+		}
+		else if( qualityDiff < 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.Vertical );
+		}
+		dpsParams.AddNumber( "value", FloorF( dpsValue ) );
+		dpsParams.AddNumber( "valueDecimalPart", RoundF( ( dpsValue - ( ( Float )( RoundF( dpsValue ) ) ) ) * 10.0 ) % 10 );
+		projectilesPerShot = data.GetNumberOfPellets();
+		attackPerSecondParams.AddString( "value", FloatToStringPrec( data.GetAttackSpeed(), 2 ) );
+		inkTextRef.SetLocalizedTextScript( m_attacksPerSecondText, "UI-Tooltips-AttacksPerSecond", attackPerSecondParams );
+		inkTextRef.SetTextParameters( m_dpsText, dpsParams );
+		if( data.GetWeaponType() == WeaponType.Melee )
+		{
+			inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitMeleeTemplate" );
+			damageParams.AddString( "value", IntToString( RoundF( data.GetDamageMin() ) ) );
+			inkTextRef.SetTextParameters( m_perHitText, damageParams );
+		}
+		else
+		{
+			damageParams.AddString( "value", IntToString( RoundF( data.GetDamageMin() ) ) );
+			damageParams.AddString( "valueMax", IntToString( RoundF( data.GetDamageMax() ) ) );
+			if( ( data.GetItemType() == gamedataItemType.Wea_Shotgun || data.GetItemType() == gamedataItemType.Wea_ShotgunDual ) && ( projectilesPerShot > 0 ) )
+			{
+				inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitWithMultiplierTemplate" );
+				damageParams.AddString( "multiplier", IntToString( projectilesPerShot ) );
+			}
+			else
+			{
+				inkTextRef.SetText( m_perHitText, "UI-Tooltips-DamagePerHitTemplate" );
+			}
+			inkTextRef.SetTextParameters( m_perHitText, damageParams );
+		}
+	}
+
+}
+
+class ItemTooltipClothingInfoModule extends ItemTooltipModuleController
+{
+	private editable var m_allocationCostsWrapper : inkCompoundRef;
+	private editable var m_armorContainer : inkWidgetRef;
+	private editable var m_value : inkTextRef;
+	private editable var m_arrow : inkImageRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		inkCompoundRef.SetVisible( m_allocationCostsWrapper, false );
+		if( data.armorDiff > 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.NoMirror );
+		}
+		else if( data.armorDiff < 0.0 )
+		{
+			inkImageRef.SetBrushMirrorType( m_arrow, inkBrushMirrorType.Vertical );
+		}
+		inkImageRef.SetState( m_arrow, GetArrowWrapperState( data.armorDiff ) );
+		inkImageRef.SetVisible( m_arrow, data.armorDiff != 0.0 );
+		inkTextRef.SetText( m_value, IntToString( ( ( Int32 )( data.armorValue ) ) ) );
+		inkWidgetRef.SetVisible( m_armorContainer, data.armorValue != 0.0 );
+		UpdateAttributeAllocationStats( data );
+	}
+
+	private function UpdateAttributeAllocationStats( data : MinimalItemTooltipData )
+	{
+		var i, allocationCostsSize : Int32;
+		var controller : ItemTooltipStatController;
+		var itemTooltipStatData : MinimalItemTooltipStatData;
+		var isHumanityStatRequirementNotMet : Bool;
+		var isCW : Bool;
+		isHumanityStatRequirementNotMet = false;
+		isHumanityStatRequirementNotMet = data.requirements.isHumanityStatRequirementNotMet;
+		if( isHumanityStatRequirementNotMet && !( m_displayContext.HasTag( 'Looting' ) ) )
+		{
+			inkCompoundRef.SetState( m_allocationCostsWrapper, 'lowCapacity' );
+		}
+		else
+		{
+			inkCompoundRef.SetState( m_allocationCostsWrapper, 'Default' );
+		}
+		inkCompoundRef.SetVisible( m_allocationCostsWrapper, true );
+		allocationCostsSize = data.attributeAllocationStats.Size();
+		while( inkCompoundRef.GetNumChildren( m_allocationCostsWrapper ) > allocationCostsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_allocationCostsWrapper, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_allocationCostsWrapper ) < allocationCostsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+		}
+		for( i = 0; i < allocationCostsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+			controller.SetData( data.attributeAllocationStats[ i ] );
+		}
+		isCW = ( ( ( ( ( data.itemType == gamedataItemType.Cyb_Ability || data.itemType == gamedataItemType.Cyb_HealingAbility ) || data.itemType == gamedataItemType.Cyb_Launcher ) || data.itemType == gamedataItemType.Cyb_MantisBlades ) || data.itemType == gamedataItemType.Cyb_NanoWires ) || data.itemType == gamedataItemType.Cyb_StrongArms ) || data.itemCategory == gamedataItemCategory.Cyberware;
+		if( allocationCostsSize == 0 )
+		{
+			if( ( ( allocationCostsSize == 0 ) && data.itemCategory == gamedataItemCategory.Cyberware ) && isCW )
+			{
+				if( ( ( Bool )data.itemData.GetStatValueByType( gamedataStatType.HumanityAllocated ) ) )
+				{
+					SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+					controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+					itemTooltipStatData = new MinimalItemTooltipStatData;
+					itemTooltipStatData.value = data.itemData.GetStatValueByType( gamedataStatType.HumanityAllocated );
+					itemTooltipStatData.statName = UILocalizationHelper.GetStatNameLockey( RPGManager.GetStatRecord( gamedataStatType.HumanityAllocated ) );
+					itemTooltipStatData.type = gamedataStatType.HumanityAllocated;
+					controller.SetData( itemTooltipStatData );
+				}
+				else
+				{
+					SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+					controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+					controller.SetZeroData();
+				}
+			}
+			else
+			{
+				SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+				controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+				controller.SetZeroData();
+			}
+		}
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, player : weak< PlayerPuppet > )
+	{
+		var armorValue : Float;
+		armorValue = data.GetPrimaryStat().Value;
+		inkCompoundRef.SetVisible( m_allocationCostsWrapper, false );
+		inkImageRef.SetVisible( m_arrow, false );
+		inkTextRef.SetText( m_value, IntToString( ( ( Int32 )( armorValue ) ) ) );
+		inkWidgetRef.SetVisible( m_armorContainer, armorValue != 0.0 );
+		NEW_UpdateAttributeAllocationStats( data, player );
+	}
+
+	private function NEW_UpdateAttributeAllocationStats( data : weak< UIInventoryItem >, player : weak< PlayerPuppet > )
+	{
+		var i, allocationCostsSize : Int32;
+		var controller : ItemTooltipStatController;
+		var requirementsManager : weak< UIInventoryItemRequirementsManager >;
+		var statsManger : weak< UIInventoryItemStatsManager >;
+		requirementsManager = data.GetRequirementsManager( player );
+		statsManger = data.GetStatsManager();
+		if( !( requirementsManager.IsHumanityRequirementMet() ) && !( m_displayContext.HasTag( 'Looting' ) ) )
+		{
+			inkCompoundRef.SetState( m_allocationCostsWrapper, 'lowCapacity' );
+		}
+		else
+		{
+			inkCompoundRef.SetState( m_allocationCostsWrapper, 'Default' );
+		}
+		inkCompoundRef.SetVisible( m_allocationCostsWrapper, true );
+		allocationCostsSize = statsManger.SizeAttributeAllocationStats();
+		while( inkCompoundRef.GetNumChildren( m_allocationCostsWrapper ) > allocationCostsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_allocationCostsWrapper, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_allocationCostsWrapper ) < allocationCostsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+		}
+		for( i = 0; i < allocationCostsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+			controller.SetData( statsManger.GetAttributeAllocationStats( i ) );
+		}
+		if( allocationCostsSize == 0 )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_allocationCostsWrapper ), 'itemCapacityStat' );
+			controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_allocationCostsWrapper, i ).GetController() ) );
+			controller.SetZeroData();
+		}
+	}
+
+}
+
+class ItemTooltipGrenadeInfoModule extends ItemTooltipModuleController
+{
+	private editable var m_headerText : inkTextRef;
+	private editable var m_totalDamageText : inkTextRef;
+	private editable var m_lineDamage : inkWidgetRef;
+	private editable var m_damageWrapper : inkWidgetRef;
+	private editable var m_damageTypeText : inkTextRef;
+	private editable var m_damageValue : inkTextRef;
+	private editable var m_damageSec : inkWidgetRef;
+	private editable var m_durationText : inkTextRef;
+	private editable var m_rangeText : inkTextRef;
+	private editable var m_deliveryIcon : inkImageRef;
+	private editable var m_deliveryText : inkTextRef;
+
+	public function SetDamageTypeColor( damage : gamedataStatType ) : CName
+	{
+		if( damage == gamedataStatType.PhysicalDamage )
+		{
+			return 'Physical';
+		}
+		if( damage == gamedataStatType.ElectricDamage )
+		{
+			return 'EMP';
+		}
+		if( damage == gamedataStatType.ChemicalDamage )
+		{
+			return 'Chemical';
+		}
+		if( damage == gamedataStatType.ThermalDamage )
+		{
+			return 'Thermal';
+		}
+		return 'Default';
+	}
+
+	public function GetDamageByGrenadeType( grenageType : EGrenadeType ) : gamedataStatType
+	{
+		if( grenageType == EGrenadeType.Frag )
+		{
+			return gamedataStatType.PhysicalDamage;
+		}
+		if( grenageType == EGrenadeType.EMP )
+		{
+			return gamedataStatType.ElectricDamage;
+		}
+		if( grenageType == EGrenadeType.Biohazard )
+		{
+			return gamedataStatType.ChemicalDamage;
+		}
+		if( grenageType == EGrenadeType.Incendiary )
+		{
+			return gamedataStatType.ThermalDamage;
+		}
+		if( grenageType == EGrenadeType.Cutting )
+		{
+			return gamedataStatType.ThermalDamage;
+		}
+		return gamedataStatType.Invalid;
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var dpsValue : Int32;
+		var totalDamageValue : Float;
+		var measurementUnit : EMeasurementUnit;
+		var rangeParams : inkTextParams;
+		var durationParams : inkTextParams;
+		var hasDamage : Bool;
+		var localizedSeconds, localizedMeters : String;
+		var grenageType : EGrenadeType;
+		var damageByGrenadeType : gamedataStatType;
+		var damageTypeRecord : Stat_Record;
+		var damageTypeLocKey : String;
+		grenageType = data.grenadeData.grenadeType;
+		damageByGrenadeType = GetDamageByGrenadeType( grenageType );
+		hasDamage = data.grenadeData.totalDamage > 0.0001;
+		inkTextRef.SetVisible( m_headerText, false );
+		inkTextRef.SetVisible( m_totalDamageText, false );
+		damageTypeRecord = RPGManager.GetStatRecord( damageByGrenadeType );
+		damageTypeLocKey = UILocalizationHelper.GetStatNameLockey( damageTypeRecord );
+		inkTextRef.SetText( m_damageTypeText, damageTypeLocKey );
+		inkTextRef.SetState( m_damageTypeText, SetDamageTypeColor( damageByGrenadeType ) );
+		if( hasDamage )
+		{
+			dpsValue = RoundMath( data.grenadeData.damagePerTick * ( 1.0 / data.grenadeData.delay ) );
+			totalDamageValue = data.grenadeData.totalDamage;
+			if( grenageType == EGrenadeType.Frag || grenageType == EGrenadeType.EMP )
+			{
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+				inkWidgetRef.SetVisible( m_lineDamage, true );
+				inkTextRef.SetVisible( m_damageTypeText, true );
+				inkTextRef.SetVisible( m_damageValue, true );
+				inkTextRef.SetText( m_damageValue, IntToString( ( ( Int32 )( totalDamageValue ) ) ) );
+				inkWidgetRef.SetVisible( m_damageSec, false );
+			}
+			if( ( grenageType == EGrenadeType.Incendiary || grenageType == EGrenadeType.Biohazard ) || grenageType == EGrenadeType.Cutting )
+			{
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+				inkWidgetRef.SetVisible( m_lineDamage, true );
+				inkTextRef.SetVisible( m_damageTypeText, true );
+				inkTextRef.SetVisible( m_damageValue, true );
+				inkTextRef.SetText( m_damageValue, IntToString( dpsValue ) );
+				inkWidgetRef.SetVisible( m_damageSec, true );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_damageWrapper, false );
+			inkWidgetRef.SetVisible( m_lineDamage, false );
+			inkTextRef.SetVisible( m_damageTypeText, false );
+			inkTextRef.SetVisible( m_damageValue, false );
+			inkWidgetRef.SetVisible( m_damageSec, false );
+		}
+		durationParams = new inkTextParams;
+		localizedSeconds = GetLocalizedText( "UI-Quickhacks-Seconds" );
+		localizedMeters = GetLocalizedText( "UI-Labels-Units-Meters" );
+		if( data.grenadeData.duration > 0.0 )
+		{
+			durationParams.AddString( "value", FloatToStringPrec( data.grenadeData.duration, 2 ) );
+			durationParams.AddString( "unit", localizedSeconds );
+			inkTextRef.SetTextParameters( m_durationText, durationParams );
+			inkTextRef.SetVisible( m_durationText, true );
+		}
+		else
+		{
+			inkTextRef.SetVisible( m_durationText, false );
+		}
+		rangeParams = new inkTextParams;
+		measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		rangeParams.AddNumber( "value", RoundTo( MeasurementUtils.ValueUnitToUnit( data.grenadeData.range, EMeasurementUnit.Meter, measurementUnit ), 1 ) );
+		rangeParams.AddString( "unit", localizedMeters );
+		inkTextRef.SetTextParameters( m_rangeText, rangeParams );
+	}
+
+	public function NEW_Update( player : weak< PlayerPuppet >, data : weak< UIInventoryItem > )
+	{
+		var grenadeData : weak< UIInventoryItemGrenadeData >;
+		var dpsValue : Int32;
+		var totalDamageValue : Float;
+		var measurementUnit : EMeasurementUnit;
+		var rangeParams : inkTextParams;
+		var durationParams : inkTextParams;
+		var hasDamage : Bool;
+		var localizedSeconds, localizedMeters : String;
+		var grenageType : EGrenadeType;
+		var damageByGrenadeType : gamedataStatType;
+		var damageTypeRecord : Stat_Record;
+		var damageTypeLocKey : String;
+		grenadeData = data.GetGrenadeData( player, true );
+		grenageType = grenadeData.GrenadeType;
+		damageByGrenadeType = GetDamageByGrenadeType( grenageType );
+		hasDamage = grenadeData.TotalDamage > 0.0001;
+		inkTextRef.SetVisible( m_headerText, false );
+		inkTextRef.SetVisible( m_totalDamageText, false );
+		damageTypeRecord = RPGManager.GetStatRecord( damageByGrenadeType );
+		damageTypeLocKey = UILocalizationHelper.GetStatNameLockey( damageTypeRecord );
+		inkTextRef.SetText( m_damageTypeText, damageTypeLocKey );
+		inkTextRef.SetState( m_damageTypeText, SetDamageTypeColor( damageByGrenadeType ) );
+		if( hasDamage )
+		{
+			dpsValue = RoundMath( grenadeData.DamagePerTick * ( 1.0 / grenadeData.Delay ) );
+			totalDamageValue = grenadeData.TotalDamage;
+			if( grenageType == EGrenadeType.Frag || grenageType == EGrenadeType.EMP )
+			{
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+				inkWidgetRef.SetVisible( m_lineDamage, true );
+				inkTextRef.SetVisible( m_damageTypeText, true );
+				inkTextRef.SetVisible( m_damageValue, true );
+				inkTextRef.SetText( m_damageValue, IntToString( ( ( Int32 )( totalDamageValue ) ) ) );
+				inkWidgetRef.SetVisible( m_damageSec, false );
+			}
+			if( ( grenageType == EGrenadeType.Incendiary || grenageType == EGrenadeType.Biohazard ) || grenageType == EGrenadeType.Cutting )
+			{
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+				inkWidgetRef.SetVisible( m_lineDamage, true );
+				inkTextRef.SetVisible( m_damageTypeText, true );
+				inkTextRef.SetVisible( m_damageValue, true );
+				inkTextRef.SetText( m_damageValue, IntToString( dpsValue ) );
+				inkWidgetRef.SetVisible( m_damageSec, true );
+			}
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_damageWrapper, false );
+			inkWidgetRef.SetVisible( m_lineDamage, false );
+			inkTextRef.SetVisible( m_damageTypeText, false );
+			inkTextRef.SetVisible( m_damageValue, false );
+			inkWidgetRef.SetVisible( m_damageSec, false );
+		}
+		durationParams = new inkTextParams;
+		localizedSeconds = GetLocalizedText( "UI-Quickhacks-Seconds" );
+		localizedMeters = GetLocalizedText( "UI-Labels-Units-Meters" );
+		if( grenadeData.Duration > 0.0 )
+		{
+			durationParams.AddString( "value", FloatToStringPrec( grenadeData.Duration, 2 ) );
+			durationParams.AddString( "unit", localizedSeconds );
+			inkTextRef.SetTextParameters( m_durationText, durationParams );
+			inkTextRef.SetVisible( m_durationText, true );
+		}
+		else
+		{
+			inkTextRef.SetVisible( m_durationText, false );
+		}
+		rangeParams = new inkTextParams;
+		measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		rangeParams.AddNumber( "value", FloorF( MeasurementUtils.ValueUnitToUnit( grenadeData.Range, EMeasurementUnit.Meter, measurementUnit ) ) );
+		rangeParams.AddString( "unit", localizedMeters );
+		inkTextRef.SetTextParameters( m_rangeText, rangeParams );
+	}
+
+	private function UpdateGrenadeDeliveryMethod( deliveryMethod : gamedataGrenadeDeliveryMethodType )
+	{
+		switch( deliveryMethod )
+		{
+			case gamedataGrenadeDeliveryMethodType.Regular:
+				inkTextRef.SetText( m_deliveryText, GetLocalizedText( "Gameplay-Items-Stats-Delivery-Regular" ) );
+			break;
+			case gamedataGrenadeDeliveryMethodType.Sticky:
+				inkTextRef.SetText( m_deliveryText, GetLocalizedText( "Gameplay-Items-Stats-Delivery-Sticky" ) );
+			break;
+			case gamedataGrenadeDeliveryMethodType.Homing:
+				inkTextRef.SetText( m_deliveryText, GetLocalizedText( "Gameplay-Items-Stats-Delivery-Homing" ) );
+			break;
+		}
+	}
+
+}
+
+class ItemTooltipCyberwareWeaponModule extends ItemTooltipModuleController
+{
+	editable var m_wrapper : inkWidgetRef;
+	const editable var m_bars : array< inkWidgetRef >;
+	const editable var m_diffBars : array< inkWidgetRef >;
+	editable var m_betterColorDummyHolder : inkWidgetRef;
+	editable var m_worseColorDummyHolder : inkWidgetRef;
+	private var m_statsToDisplay : array< WeaponBarType >;
+	private var m_disableSeparators : Bool;
+
+	protected event OnInitialize()
+	{
+		var i, limit : Int32;
+		var betterColor, worseColor : HDRColor;
+		betterColor = inkWidgetRef.GetTintColor( m_betterColorDummyHolder );
+		worseColor = inkWidgetRef.GetTintColor( m_worseColorDummyHolder );
+		for( i = 0, limit = m_bars.Size(); i < limit; i += 1 )
+		{
+			( ( weak< weak< NewItemTooltipStatBarController > > )( inkWidgetRef.GetController( m_bars[ i ] ) ) ).SetupColors( betterColor, worseColor );
+		}
+	}
+
+	public function NEW_UpdateWrapping( bigFontEnabled : Bool )
+	{
+		if( bigFontEnabled )
+		{
+			inkWidgetRef.SetMargin( m_wrapper, 60.0, 0.0, 0.0, 0.0 );
+		}
+		else
+		{
+			inkWidgetRef.SetMargin( m_wrapper, 0.0, 0.0, 0.0, 0.0 );
+		}
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var statsManager : weak< UIInventoryItemStatsManager >;
+		var weaponBars : weak< UIInventoryItemWeaponBars >;
+		var itemType : gamedataItemType;
+		statsManager = data.GetStatsManager();
+		weaponBars = statsManager.GetWeaponBars();
+		itemType = data.itemType;
+		m_disableSeparators = !( statsManager.IsSeparatorBarsEnabled() );
+		if( data.isEquipped )
+		{
+			CommonUpdate( itemType, weaponBars );
+		}
+		else
+		{
+			CommonUpdate( itemType, weaponBars, true );
+		}
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, comparisonData : weak< UIInventoryItemComparisonManager > )
+	{
+		m_disableSeparators = !( data.GetStatsManager().IsSeparatorBarsEnabled() );
+		if( data.IsEquipped() )
+		{
+			CommonUpdate( data.GetItemType(), data.GetStatsManager().GetWeaponBars() );
+		}
+		else
+		{
+			CommonUpdate( data.GetItemType(), data.GetStatsManager().GetWeaponBars(), true );
+		}
+	}
+
+	public function CommonUpdate( itemType : gamedataItemType, bars : weak< UIInventoryItemWeaponBars >, optional shouldCompare : Bool )
+	{
+		var i, limit, statsToDisplaySize : Int32;
+		var controller : weak< NewItemTooltipStatBarController >;
+		var comparedBars : weak< UIInventoryItemWeaponBars >;
+		m_statsToDisplay = UIInventoryItemWeaponBars.GetDisplayedStats( bars.GetType() );
+		statsToDisplaySize = m_statsToDisplay.Size();
+		if( shouldCompare )
+		{
+			comparedBars = bars.GetComparedBars();
+		}
+		for( i = 0, limit = m_bars.Size(); i < limit; i += 1 )
+		{
+			controller = ( ( weak< weak< NewItemTooltipStatBarController > > )( inkWidgetRef.GetController( m_bars[ i ] ) ) );
+			controller.SetSeparatorsVisibility( !( m_disableSeparators ) );
+			if( i < statsToDisplaySize )
+			{
+				inkWidgetRef.SetVisible( m_bars[ i ], true );
+				controller.Setup( itemType, bars.Values[ i ], comparedBars.GetComparableBar( bars.Values[ i ].Type ) );
+			}
+			else
+			{
+				inkWidgetRef.SetVisible( m_bars[ i ], false );
+				controller.ResetPercentage();
+			}
+		}
+	}
+
+}
+
+class ItemTooltipRequirementsModule extends ItemTooltipModuleController
+{
+	private editable var m_levelRequirementsWrapper : inkWidgetRef;
+	private editable var m_strenghtOrReflexWrapper : inkWidgetRef;
+	private editable var m_smartlinkGunWrapper : inkWidgetRef;
+	private editable var m_anyAttributeWrapper : inkCompoundRef;
+	private editable var m_line : inkWidgetRef;
+	private editable var m_levelRequirementsText : inkTextRef;
+	private editable var m_strenghtOrReflexText : inkTextRef;
+	private editable var m_perkText : inkTextRef;
+	private editable var m_perkDot : inkImageRef;
+
+	public function UpdateWrapping( bigFontEnabled : Bool )
+	{
+		if( bigFontEnabled == true )
+		{
+			inkTextRef.SetWrappingAtPosition( m_levelRequirementsText, 711.0 );
+			inkTextRef.SetWrappingAtPosition( m_strenghtOrReflexText, 711.0 );
+			inkTextRef.SetWrappingAtPosition( m_perkText, 711.0 );
+		}
+		else
+		{
+			inkTextRef.SetWrappingAtPosition( m_levelRequirementsText, 611.0 );
+			inkTextRef.SetWrappingAtPosition( m_strenghtOrReflexText, 611.0 );
+			inkTextRef.SetWrappingAtPosition( m_perkText, 611.0 );
+		}
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var textParams : inkTextParams;
+		inkWidgetRef.SetVisible( m_levelRequirementsWrapper, false );
+		inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, false );
+		inkWidgetRef.SetVisible( m_smartlinkGunWrapper, false );
+		inkCompoundRef.SetVisible( m_anyAttributeWrapper, false );
+		inkWidgetRef.SetVisible( m_line, false );
+		if( data.requirements.isSmartlinkRequirementNotMet )
+		{
+			inkWidgetRef.SetVisible( m_smartlinkGunWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+		}
+		if( data.requirements.isLevelRequirementNotMet )
+		{
+			inkWidgetRef.SetVisible( m_levelRequirementsWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetText( m_levelRequirementsText, IntToString( data.requirements.requiredLevel ) );
+		}
+		if( data.requirements.isStrengthRequirementNotMet || data.requirements.isReflexRequirementNotMet )
+		{
+			inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			textParams = new inkTextParams;
+			textParams.AddString( "statName", GetLocalizedText( data.requirements.strengthOrReflexStatName ) );
+			textParams.AddNumber( "statValue", data.requirements.strengthOrReflexValue );
+			inkTextRef.SetText( m_strenghtOrReflexText, GetLocalizedText( "LocKey#78420" ) );
+			inkTextRef.SetTextParameters( m_strenghtOrReflexText, textParams );
+		}
+		else if( data.requirements.isRarityRequirementNotMet )
+		{
+			inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, true );
+			inkTextRef.SetVisible( m_strenghtOrReflexText, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetLocalizedText( m_strenghtOrReflexText, 'UI-Tooltips-ModQualityRestriction' );
+		}
+		if( data.requirements.isAnyStatRequirementNotMet )
+		{
+			UpdateStatRequirements( data.requirements.anyStatRequirements );
+			inkWidgetRef.SetVisible( m_line, true );
+		}
+		else if( data.attributeAllocationStats.Size() > 0 )
+		{
+		}
+		if( data.requirements.isPerkRequirementNotMet )
+		{
+			textParams = new inkTextParams;
+			textParams.AddLocalizedString( "perkName", data.requirements.perkLocKey );
+			inkTextRef.SetVisible( m_perkText, true );
+			inkImageRef.SetVisible( m_perkDot, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetLocalizedTextScript( m_perkText, "LocKey#42796", textParams );
+		}
+		else
+		{
+			inkTextRef.SetVisible( m_perkText, false );
+			inkImageRef.SetVisible( m_perkDot, false );
+		}
+	}
+
+	private function UpdateStatRequirements( const statRequirements : ref< array< MinimalItemTooltipDataStatRequirement > > )
+	{
+		var i, requirementsSize : Int32;
+		var controller : ItemTooltipAttributeRequirement;
+		inkCompoundRef.SetVisible( m_anyAttributeWrapper, true );
+		requirementsSize = statRequirements.Size();
+		while( inkCompoundRef.GetNumChildren( m_anyAttributeWrapper ) > requirementsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_anyAttributeWrapper, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_anyAttributeWrapper ) < requirementsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_anyAttributeWrapper ), 'itemAttrbuteRequirement' );
+		}
+		for( i = 0; i < requirementsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipAttributeRequirement )( inkCompoundRef.GetWidgetByIndex( m_anyAttributeWrapper, i ).GetController() ) );
+			controller.SetData( statRequirements[ i ] );
+		}
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, player : weak< PlayerPuppet > )
+	{
+		var textParams : inkTextParams;
+		var statName : String;
+		var requiremenetsManager : weak< UIInventoryItemRequirementsManager >;
+		inkWidgetRef.SetVisible( m_levelRequirementsWrapper, false );
+		inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, false );
+		inkWidgetRef.SetVisible( m_smartlinkGunWrapper, false );
+		inkCompoundRef.SetVisible( m_anyAttributeWrapper, false );
+		inkWidgetRef.SetVisible( m_line, false );
+		requiremenetsManager = data.GetRequirementsManager( ( ( weak< weak< GameObject > > )( player ) ) );
+		if( !( requiremenetsManager.IsSmartlinkRequirementMet() ) )
+		{
+			inkWidgetRef.SetVisible( m_smartlinkGunWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+		}
+		if( !( requiremenetsManager.IsLevelRequirementMet() ) )
+		{
+			inkWidgetRef.SetVisible( m_levelRequirementsWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetText( m_levelRequirementsText, IntToString( requiremenetsManager.GetLevelRequirementValue() ) );
+		}
+		if( !( requiremenetsManager.IsStrengthRequirementMet() ) )
+		{
+			inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			textParams = new inkTextParams;
+			statName = UILocalizationHelper.GetStatNameLockey( RPGManager.GetStatRecord( gamedataStatType.Strength ) );
+			textParams.AddString( "statName", GetLocalizedText( statName ) );
+			textParams.AddNumber( "statValue", requiremenetsManager.GetStrengthRequirementValue() );
+			inkTextRef.SetText( m_strenghtOrReflexText, GetLocalizedText( "LocKey#78420" ) );
+			inkTextRef.SetTextParameters( m_strenghtOrReflexText, textParams );
+		}
+		else if( !( requiremenetsManager.IsReflexRequirementMet() ) )
+		{
+			inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			textParams = new inkTextParams;
+			statName = UILocalizationHelper.GetStatNameLockey( RPGManager.GetStatRecord( gamedataStatType.Reflexes ) );
+			textParams.AddString( "statName", GetLocalizedText( statName ) );
+			textParams.AddNumber( "statValue", requiremenetsManager.GetReflexRequirementValue() );
+			inkTextRef.SetText( m_strenghtOrReflexText, GetLocalizedText( "LocKey#78420" ) );
+			inkTextRef.SetTextParameters( m_strenghtOrReflexText, textParams );
+		}
+		else if( !( requiremenetsManager.IsRarityRequirementMet( NULL ) ) )
+		{
+			inkWidgetRef.SetVisible( m_strenghtOrReflexWrapper, true );
+			inkTextRef.SetVisible( m_strenghtOrReflexText, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetLocalizedText( m_strenghtOrReflexText, 'UI-Tooltips-ModQualityRestriction' );
+		}
+		if( !( requiremenetsManager.IsPerkRequirementMet() ) )
+		{
+			textParams = new inkTextParams;
+			textParams.AddLocalizedString( "perkName", requiremenetsManager.GetPerkRequirementValue() );
+			inkTextRef.SetVisible( m_perkText, true );
+			inkImageRef.SetVisible( m_perkDot, true );
+			inkWidgetRef.SetVisible( m_line, true );
+			inkTextRef.SetLocalizedTextScript( m_perkText, "LocKey#42796", textParams );
+		}
+		else
+		{
+			inkTextRef.SetVisible( m_perkText, false );
+			inkImageRef.SetVisible( m_perkDot, false );
+		}
+	}
+
+}
+
+class ItemTooltipDetailsModule extends ItemTooltipModuleController
+{
+	private editable var m_statsLine : inkWidgetRef;
+	private editable var m_statsWrapper : inkWidgetRef;
+	private editable var m_statsContainer : inkCompoundRef;
+	private editable var m_dedicatedModsLine : inkWidgetRef;
+	private editable var m_dedicatedModsWrapper : inkWidgetRef;
+	private editable var m_dedicatedModsContainer : inkCompoundRef;
+	private editable var m_modsLine : inkWidgetRef;
+	private editable var m_modsWrapper : inkWidgetRef;
+	private editable var m_modsContainer : inkCompoundRef;
+	private editable var m_modifierPowerLine : inkWidgetRef;
+	private editable var m_modifierPowerLabel : inkTextRef;
+	private editable var m_modifierPowerWrapper : inkCompoundRef;
+	private editable var m_isCrafting : Bool;
+
+	public function Update( data : MinimalItemTooltipData, hasStats : Bool, hasDedicatedMods : Bool, hasMods : Bool )
+	{
+		if( hasStats && ( data.displayContext != InventoryTooltipDisplayContext.Crafting || data.isIconic ) )
+		{
+			inkWidgetRef.SetVisible( m_statsLine, true );
+			inkWidgetRef.SetVisible( m_statsWrapper, true );
+			UpdateStats( data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_statsLine, false );
+			inkWidgetRef.SetVisible( m_statsWrapper, false );
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, false );
+		}
+		if( hasDedicatedMods )
+		{
+			inkWidgetRef.SetVisible( m_dedicatedModsLine, true );
+			inkWidgetRef.SetVisible( m_dedicatedModsWrapper, true );
+			UpdateDedicatedMods( data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_dedicatedModsLine, false );
+			inkWidgetRef.SetVisible( m_dedicatedModsWrapper, false );
+		}
+		if( hasMods )
+		{
+			inkWidgetRef.SetVisible( m_modsLine, true );
+			inkWidgetRef.SetVisible( m_modsWrapper, true );
+			UpdateMods( data );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_modsLine, false );
+			inkWidgetRef.SetVisible( m_modsWrapper, false );
+		}
+	}
+
+	private function UpdateStats( data : MinimalItemTooltipData )
+	{
+		var i : Int32;
+		var widget : weak< inkWidget >;
+		var controller : ItemTooltipStatController;
+		var modifierPower : Float;
+		inkCompoundRef.RemoveAllChildren( m_statsContainer );
+		modifierPower = 0.0;
+		for( i = 0; i < data.stats.Size(); i += 1 )
+		{
+			if( data.stats[ i ].type == gamedataStatType.ModifierPower )
+			{
+				modifierPower = data.stats[ i ].value;
+			}
+			else
+			{
+				widget = SpawnFromLocal( inkCompoundRef.Get( m_statsContainer ), 'itemDetailsStat' );
+				controller = ( ( ItemTooltipStatController )( widget.GetController() ) );
+				controller.SetData( data.stats[ i ] );
+			}
+		}
+		UpdateModifierPower( modifierPower );
+	}
+
+	private function UpdateModifierPower( modifierPower : Float )
+	{
+		var modifierPowerParams : inkTextParams;
+		if( modifierPower > 0.0 )
+		{
+			modifierPowerParams = new inkTextParams;
+			modifierPowerParams.AddNumber( "value", FloorF( modifierPower ) );
+			modifierPowerParams.AddNumber( "valueDecimalPart", RoundF( ( modifierPower - ( ( Float )( FloorF( modifierPower ) ) ) ) * 10.0 ) % 10 );
+			inkTextRef.SetTextParameters( m_modifierPowerLabel, modifierPowerParams );
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, true );
+		}
+		else
+		{
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, false );
+		}
+	}
+
+	private function UpdateMods( data : MinimalItemTooltipData )
+	{
+		var i, modsSize : Int32;
+		var controller : ItemTooltipModController;
+		modsSize = data.mods.Size();
+		while( inkCompoundRef.GetNumChildren( m_modsContainer ) > modsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_modsContainer, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_modsContainer ) < modsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_modsContainer ), 'itemTooltipMod' );
+		}
+		for( i = 0; i < modsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_modsContainer, i ).GetController() ) );
+			controller.GetContext( m_isCrafting );
+			controller.SetData( data.mods[ i ] );
+		}
+	}
+
+	private function UpdateDedicatedMods( data : MinimalItemTooltipData )
+	{
+		var i, dedicatedModsSize : Int32;
+		var controller : ItemTooltipModController;
+		dedicatedModsSize = data.dedicatedMods.Size();
+		while( inkCompoundRef.GetNumChildren( m_dedicatedModsContainer ) > dedicatedModsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_dedicatedModsContainer, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_dedicatedModsContainer ) < dedicatedModsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_dedicatedModsContainer ), 'itemTooltipMod' );
+		}
+		for( i = 0; i < dedicatedModsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_dedicatedModsContainer, i ).GetController() ) );
+			controller.GetContext( m_isCrafting );
+			controller.SetData( data.dedicatedMods[ i ] );
+			controller.HideDotIndicator();
+		}
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, m_comparisonData : weak< UIInventoryItemComparisonManager >, hasStats : Bool, hasDedicatedMods : Bool, hasMods : Bool )
+	{
+		var modsManager : weak< UIInventoryItemModsManager >;
+		modsManager = data.GetModsManager();
+		if( hasStats && ( m_tooltipDisplayContext != InventoryTooltipDisplayContext.Crafting || data.IsIconic() ) )
+		{
+			inkWidgetRef.SetVisible( m_statsLine, true );
+			inkWidgetRef.SetVisible( m_statsWrapper, true );
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, false );
+			NEW_UpdateStats( data, m_comparisonData );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_statsLine, false );
+			inkWidgetRef.SetVisible( m_statsWrapper, false );
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, false );
+		}
+		if( hasDedicatedMods )
+		{
+			inkWidgetRef.SetVisible( m_dedicatedModsLine, true );
+			inkWidgetRef.SetVisible( m_dedicatedModsWrapper, true );
+			NEW_UpdateDedicatedMods( modsManager );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_dedicatedModsLine, false );
+			inkWidgetRef.SetVisible( m_dedicatedModsWrapper, false );
+		}
+		if( hasMods )
+		{
+			inkWidgetRef.SetVisible( m_modsLine, true );
+			inkWidgetRef.SetVisible( m_modsWrapper, true );
+			NEW_UpdateMods( data, modsManager );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_modsLine, false );
+			inkWidgetRef.SetVisible( m_modsWrapper, false );
+		}
+	}
+
+	private function NEW_UpdateStats( data : weak< UIInventoryItem >, m_comparisonData : weak< UIInventoryItemComparisonManager > )
+	{
+		var i, limit : Int32;
+		var widget : weak< inkWidget >;
+		var controller : ItemTooltipStatController;
+		var statsManager : weak< UIInventoryItemStatsManager >;
+		var stat : weak< UIInventoryItemStat >;
+		var modifierPower : Float;
+		inkCompoundRef.RemoveAllChildren( m_statsContainer );
+		statsManager = data.GetStatsManager();
+		for( i = 0, limit = statsManager.Size(); i < limit; i += 1 )
+		{
+			stat = statsManager.Get( i );
+			if( stat.Type == gamedataStatType.ModifierPower )
+			{
+				modifierPower = stat.Value;
+				continue;
+			}
+			widget = SpawnFromLocal( inkCompoundRef.Get( m_statsContainer ), 'itemDetailsStat' );
+			controller = ( ( ItemTooltipStatController )( widget.GetController() ) );
+			controller.SetData( stat, m_comparisonData.GetByType( stat.Type ) );
+		}
+		NEW_UpdateModifierPower( modifierPower );
+	}
+
+	private function NEW_UpdateModifierPower( modifierPower : Float )
+	{
+		var modifierPowerParams : inkTextParams;
+		if( modifierPower > 0.0 )
+		{
+			modifierPowerParams = new inkTextParams;
+			modifierPowerParams.AddNumber( "value", FloorF( modifierPower ) );
+			modifierPowerParams.AddNumber( "valueDecimalPart", RoundF( ( modifierPower - ( ( Float )( FloorF( modifierPower ) ) ) ) * 10.0 ) % 10 );
+			inkTextRef.SetTextParameters( m_modifierPowerLabel, modifierPowerParams );
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, true );
+		}
+		else
+		{
+			inkCompoundRef.SetVisible( m_modifierPowerWrapper, false );
+		}
+	}
+
+	private function NEW_UpdateMods( data : weak< UIInventoryItem >, modsManager : weak< UIInventoryItemModsManager > )
+	{
+		var i, attachmentsCounter, modsSize, allModsSize : Int32;
+		var mod : UIInventoryItemMod;
+		var skipAttachments : Bool;
+		var controller : ItemTooltipModController;
+		allModsSize = modsManager.GetModsSize();
+		modsSize = allModsSize;
+		skipAttachments = m_displayContext.HasTag( 'CyberwareUpgrade' );
+		if( skipAttachments )
+		{
+			modsSize -= modsManager.GetAttachmentsSize();
+		}
+		while( inkCompoundRef.GetNumChildren( m_modsContainer ) > modsSize )
+		{
+			inkCompoundRef.RemoveChildByIndex( m_modsContainer, 0 );
+		}
+		while( inkCompoundRef.GetNumChildren( m_modsContainer ) < modsSize )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_modsContainer ), 'itemTooltipMod' );
+		}
+		for( i = 0; i < allModsSize; i += 1 )
+		{
+			controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_modsContainer, i - attachmentsCounter ).GetController() ) );
+			mod = modsManager.GetMod( i );
+			if( skipAttachments && ( ( ( UIInventoryItemModAttachment )( mod ) ) != NULL ) )
+			{
+				attachmentsCounter += 1;
+				continue;
+			}
+			controller.GetContext( m_isCrafting );
+			controller.SetData( mod );
+		}
+	}
+
+	private function NEW_UpdateDedicatedMods( modsManager : weak< UIInventoryItemModsManager > )
+	{
+		var controller : ItemTooltipModController;
+		if( inkCompoundRef.GetNumChildren( m_dedicatedModsContainer ) == 0 )
+		{
+			SpawnFromLocal( inkCompoundRef.Get( m_dedicatedModsContainer ), 'itemTooltipMod' );
+		}
+		controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_dedicatedModsContainer, 0 ).GetController() ) );
+		controller.GetContext( m_isCrafting );
+		controller.SetData( modsManager.GetDedicatedMod() );
+		controller.HideDotIndicator();
+	}
+
+	public function GetContext( isCrafting : Bool )
+	{
+		m_isCrafting = isCrafting;
+	}
+
+}
+
+class ItemTooltipRecipeDataModule extends ItemTooltipModuleController
+{
+	private editable var m_randomQualityLabel : inkTextRef;
+	private editable var m_randomQualityWrapper : inkWidgetRef;
+	private editable var m_statsLabel : inkTextRef;
+	private editable var m_statsWrapper : inkWidgetRef;
+	private editable var m_statsContainer : inkCompoundRef;
+	private editable var m_damageTypesLabel : inkTextRef;
+	private editable var m_damageTypesWrapper : inkWidgetRef;
+	private editable var m_damageTypesContainer : inkCompoundRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		UpdateRandomQuality( data );
+		UpdatemRecipeDamageTypes( data );
+		UpdatemRecipeProperties( data );
+	}
+
+	private function UpdateRandomQuality( data : MinimalItemTooltipData )
+	{
+		var itemRecord : Item_Record;
+		var nextCraftingLevel : Int32;
+		var nextQuality : gamedataQuality;
+		var qualityParams : inkTextParams;
+		itemRecord = TweakDBInterface.GetItemRecord( data.itemTweakID );
+		if( itemRecord.Quality().Type() == gamedataQuality.Random && data.quality != gamedataQuality.Legendary )
+		{
+			qualityParams = new inkTextParams;
+			nextQuality = RPGManager.GetNextItemQuality( data.itemData );
+			nextCraftingLevel = RPGManager.GetPlayerNextLevelBasedOnRandomQuality( nextQuality );
+			qualityParams.AddString( "quality", GetLocalizedText( UIItemsHelper.QualityToDefaultString( nextQuality ) ) );
+			qualityParams.AddNumber( "level", nextCraftingLevel );
+			inkTextRef.SetLocalizedText( m_randomQualityLabel, 'UI-Tooltips-RandomQualityDesc', qualityParams );
+			inkWidgetRef.SetVisible( m_randomQualityWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_randomQualityWrapper, false );
+		}
+	}
+
+	private function UpdatemRecipeDamageTypes( data : MinimalItemTooltipData )
+	{
+		var i, damagesTypesSize : Int32;
+		var stat : InventoryTooltipData_StatData;
+		var controller : ItemTooltipStatController;
+		damagesTypesSize = data.recipeData.damageTypes.Size();
+		if( damagesTypesSize > 0 )
+		{
+			while( inkCompoundRef.GetNumChildren( m_damageTypesContainer ) > damagesTypesSize )
+			{
+				inkCompoundRef.RemoveChildByIndex( m_damageTypesContainer, 0 );
+			}
+			while( inkCompoundRef.GetNumChildren( m_damageTypesContainer ) < damagesTypesSize )
+			{
+				SpawnFromLocal( inkCompoundRef.Get( m_damageTypesContainer ), 'itemDetailsStat' );
+			}
+			for( i = 0; i < damagesTypesSize; i += 1 )
+			{
+				stat = data.recipeData.damageTypes[ i ];
+				controller = ( ( ItemTooltipStatController )( inkCompoundRef.GetWidgetByIndex( m_damageTypesContainer, i ).GetController() ) );
+				controller.SetData( stat );
+			}
+			inkWidgetRef.SetVisible( m_damageTypesWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_damageTypesWrapper, false );
+		}
+	}
+
+	private function UpdatemRecipeProperties( data : MinimalItemTooltipData )
+	{
+		var controller : ItemRandomizedStatsController;
+		var widget : weak< inkWidget >;
+		var statsQuantityParams : inkTextParams;
+		if( data.recipeData.recipeStats.Size() > 0 )
+		{
+			statsQuantityParams = new inkTextParams;
+			statsQuantityParams.AddString( "value", IntToString( data.recipeData.statsNumber ) );
+			inkTextRef.SetLocalizedText( m_statsLabel, 'UI-Tooltips-RandomStatsNumber', statsQuantityParams );
+			if( inkCompoundRef.GetNumChildren( m_statsContainer ) == 0 )
+			{
+				widget = SpawnFromLocal( inkCompoundRef.Get( m_statsContainer ), 'itemTooltipRecipeStat' );
+			}
+			else
+			{
+				widget = inkCompoundRef.GetWidgetByIndex( m_statsContainer, 0 );
+			}
+			controller = ( ( ItemRandomizedStatsController )( widget.GetController() ) );
+			controller.SetData( data.recipeData.recipeStats );
+			inkWidgetRef.SetVisible( m_statsWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_statsWrapper, false );
+		}
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > ) {}
+}
+
+class ItemTooltipEvolutionModule extends ItemTooltipModuleController
+{
+	private editable var m_weaponEvolutionIcon : inkImageRef;
+	private editable var m_weaponEvolutionName : inkTextRef;
+	private editable var m_weaponEvolutionDescription : inkTextRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		switch( data.itemEvolution )
+		{
+			case gamedataWeaponEvolution.Power:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_power' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54118" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54117" );
+			break;
+			case gamedataWeaponEvolution.Smart:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_smart' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54119" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54120" );
+			break;
+			case gamedataWeaponEvolution.Tech:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_tech' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54121" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54122" );
+			break;
+			case gamedataWeaponEvolution.Blunt:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blunt' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#77968" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#77969 " );
+			break;
+			case gamedataWeaponEvolution.Blade:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blades' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#77957" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#77960" );
+			break;
+			case gamedataWeaponEvolution.Throwable:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blades' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#91802" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#91803" );
+			break;
+		}
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > )
+	{
+		switch( data.GetWeaponEvolution() )
+		{
+			case gamedataWeaponEvolution.Power:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_power' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54118" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54117" );
+			break;
+			case gamedataWeaponEvolution.Smart:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_smart' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54119" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54120" );
+			break;
+			case gamedataWeaponEvolution.Tech:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_tech' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#54121" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#54122" );
+			break;
+			case gamedataWeaponEvolution.Blunt:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blunt' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#77968" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#77969 " );
+			break;
+			case gamedataWeaponEvolution.Blade:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blades' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#77957" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#77960" );
+			break;
+			case gamedataWeaponEvolution.Throwable:
+				inkImageRef.SetTexturePart( m_weaponEvolutionIcon, 'ico_blades' );
+			inkTextRef.SetText( m_weaponEvolutionName, "LocKey#91802" );
+			inkTextRef.SetText( m_weaponEvolutionDescription, "LocKey#91803" );
+			break;
+		}
+	}
+
+}
+
+class ItemTooltipCraftedModule extends ItemTooltipModuleController
+{
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		GetRootWidget().SetState( UIItemsHelper.QualityEnumToName( data.quality ) );
+	}
+
+	public override function NEW_Update( data : weak< UIInventoryItem > )
+	{
+		GetRootWidget().SetState( UIItemsHelper.QualityEnumToName( data.GetQuality() ) );
+	}
+
+}
+
+class ItemTooltipCyberwareUpgradeController extends ItemTooltipModuleController
+{
+	[ category = "Cost" ]
+	private editable var m_componentsContainer : inkCompoundRef;
+	[ category = "Cost" ]
+	private editable var m_moneyContainer : inkCompoundRef;
+	[ category = "Cost" ]
+	private editable var m_moneyCostLabel : inkTextRef;
+	[ category = "ProgressBar" ]
+	private editable var m_upgradeProgressBarRef : inkWidgetRef;
+	[ category = "ProgressBar" ]
+	private editable var m_upgradeCWInputName : CName;
+	default m_upgradeCWInputName = 'upgrade_cyberware';
+	[ category = "ProgressBar" ]
+	private editable var m_progressEffectName : CName;
+	default m_progressEffectName = 'progress';
+	[ category = "ProgressBar" ]
+	private editable var m_progressBarAnimName : CName;
+	default m_progressBarAnimName = 'upgradeLoop';
+	[ category = "Content" ]
+	private editable var m_ripperdocContainer : inkCompoundRef;
+	[ category = "Content" ]
+	private editable var m_inventoryContainer : inkCompoundRef;
+	[ category = "Content" ]
+	private editable var m_inputHint : inkWidgetRef;
+	[ category = "Content" ]
+	private editable var m_rarityLabel : inkTextRef;
+	[ category = "Content" ]
+	private editable var m_upgradeIconAnimName : CName;
+	[ category = "Content" ]
+	private editable var m_reqNotMetAnimName : CName;
+	default m_reqNotMetAnimName = 'reqNotMet';
+	private var m_root : weak< inkWidget >;
+	private var m_componentsController : weak< CrafringMaterialItemController >;
+	private var m_craftingMaterial : CachedCraftingMaterial;
+	private var m_isUpgradable : Bool;
+	private var m_isUpgradeScreen : Bool;
+	private var m_isRipperdoc : Bool;
+	private var m_upgradeIconAnimProxy : inkAnimProxy;
+	private var m_upgradeIconAnimOptions : inkAnimOptions;
+	private var m_upgradeProgressBar : weak< inkWidget >;
+	private var m_progressStarted : Bool;
+	private var m_progressBarAnimProxy : inkAnimProxy;
+
+	protected event OnInitialize()
+	{
+		m_root = GetRootWidget();
+		m_upgradeIconAnimOptions.loopType = inkanimLoopType.Cycle;
+		m_upgradeIconAnimOptions.loopInfinite = true;
+		m_upgradeProgressBar = inkWidgetRef.Get( m_upgradeProgressBarRef );
+		RegisterToGlobalInputCallback( 'OnPostOnPress', this, 'OnUpgradePress' );
+		RegisterToGlobalInputCallback( 'OnPostOnHold', this, 'OnUpgradeHold' );
+		RegisterToGlobalInputCallback( 'OnPostOnRelease', this, 'OnUpgradeRelease' );
+	}
+
+	protected event OnUninitialize()
+	{
+		UnregisterFromGlobalInputCallback( 'OnPostOnPress', this, 'OnUpgradePress' );
+		UnregisterFromGlobalInputCallback( 'OnPostOnHold', this, 'OnUpgradeHold' );
+		UnregisterFromGlobalInputCallback( 'OnPostOnRelease', this, 'OnUpgradeRelease' );
+	}
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		UpdateData( data.cyberwareUpgradeData );
+	}
+
+	public function Update( data : InventoryTooltipData )
+	{
+		UpdateData( data.cyberwareUpgradeData );
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, player : weak< PlayerPuppet > )
+	{
+		var upgradeData : InventoryTooltiData_CyberwareUpgradeData;
+		upgradeData = data.GetCyberwareUpgradeData( player, true );
+		upgradeData.isRipperdoc = m_displayContext.HasTag( 'Ripperdoc' );
+		upgradeData.isUpgradeScreen = upgradeData.isUpgradeScreen;
+		UpdateData( upgradeData );
+	}
+
+	public function UpdateData( data : InventoryTooltiData_CyberwareUpgradeData )
+	{
+		if( m_upgradeIconAnimProxy )
+		{
+			m_upgradeIconAnimProxy.GotoStartAndStop();
+		}
+		m_isUpgradable = data.isUpgradable;
+		m_isUpgradeScreen = data.isUpgradeScreen;
+		m_isRipperdoc = data.isRipperdoc;
+		if( data.isRipperdoc )
+		{
+			inkCompoundRef.SetVisible( m_ripperdocContainer, true );
+			inkCompoundRef.SetVisible( m_inventoryContainer, false );
+			ResetProgress();
+			if( m_isUpgradable )
+			{
+				m_root.SetState( 'Default' );
+				inkWidgetRef.SetVisible( m_inputHint, true );
+				m_upgradeIconAnimProxy = PlayLibraryAnimation( m_upgradeIconAnimName, m_upgradeIconAnimOptions );
+			}
+			else
+			{
+				m_root.SetState( 'Locked' );
+				inkWidgetRef.SetVisible( m_inputHint, false );
+			}
+			m_craftingMaterial = CachedCraftingMaterial.Make( data.upgradeCost.materialRecordID );
+			m_componentsController = ( ( CrafringMaterialItemController )( inkCompoundRef.Get( m_componentsContainer ).GetController() ) );
+			m_componentsController.SetUseSimpleFromat( true );
+			m_craftingMaterial.UpdateQuantity( data.playerComponents );
+			m_componentsController.Setup( m_craftingMaterial );
+			m_componentsController.SetHighlighted( CrafringMaterialItemHighlight.Remove, data.upgradeCost.materialCount, m_isUpgradable );
+			inkCompoundRef.SetVisible( m_moneyContainer, data.upgradeCost.moneyRequired > 0 );
+			inkTextRef.SetText( m_moneyCostLabel, "-" + IntToString( data.upgradeCost.moneyRequired ) );
+			inkTextRef.SetText( m_rarityLabel, GetUpdateLevelString( data.upgradeQuality ) );
+		}
+		else
+		{
+			if( m_isUpgradable )
+			{
+				m_root.SetVisible( true );
+				inkCompoundRef.SetVisible( m_ripperdocContainer, false );
+				inkCompoundRef.SetVisible( m_inventoryContainer, true );
+				m_root.SetState( 'Locked' );
+			}
+			else
+			{
+				m_root.SetVisible( false );
+			}
+		}
+	}
+
+	public function IsVisible() : Bool
+	{
+		return m_root.IsVisible();
+	}
+
+	public function ReplaceLabelText( text : String )
+	{
+		inkTextRef.SetText( m_rarityLabel, text );
+	}
+
+	protected event OnUpgradePress( evt : inkPointerEvent )
+	{
+		if( evt.IsAction( m_upgradeCWInputName ) || ( evt.IsAction( 'click_hold' ) && m_isUpgradeScreen ) )
+		{
+			if( m_isUpgradable && m_isRipperdoc )
+			{
+				if( m_upgradeProgressBar )
+				{
+					inkWidgetRef.SetVisible( m_upgradeProgressBarRef, true );
+					m_upgradeProgressBar.SetEffectEnabled( inkEffectType.LinearWipe, m_progressEffectName, true );
+				}
+				if( m_progressBarAnimProxy )
+				{
+					m_progressBarAnimProxy.GotoStartAndStop();
+				}
+				m_progressBarAnimProxy = PlayLibraryAnimation( m_progressBarAnimName );
+				m_progressStarted = true;
+			}
+			else
+			{
+				PlayLibraryAnimation( m_reqNotMetAnimName );
+			}
+		}
+	}
+
+	protected event OnUpgradeHold( evt : inkPointerEvent )
+	{
+		var progress : Float;
+		if( ( ( ( evt.IsAction( m_upgradeCWInputName ) || evt.IsAction( 'click_hold' ) ) && m_progressStarted ) && m_isUpgradable ) && m_isUpgradeScreen )
+		{
+			progress = MinF( evt.GetHoldProgress(), 1.0 );
+			if( m_upgradeProgressBar )
+			{
+				m_upgradeProgressBar.SetEffectParamValue( inkEffectType.LinearWipe, m_progressEffectName, 'transition', AbsF( progress ) );
+			}
+			if( progress >= 1.0 )
+			{
+				ResetProgress();
+			}
+		}
+	}
+
+	protected event OnUpgradeRelease( evt : inkPointerEvent )
+	{
+		if( ( evt.IsAction( m_upgradeCWInputName ) || evt.IsAction( 'click_hold' ) ) && m_isUpgradeScreen )
+		{
+			ResetProgress();
+		}
+	}
+
+	public function ResetProgress()
+	{
+		m_progressStarted = false;
+		if( m_upgradeProgressBar && m_isUpgradeScreen )
+		{
+			m_upgradeProgressBar.SetEffectParamValue( inkEffectType.LinearWipe, m_progressEffectName, 'transition', 0.0 );
+			m_upgradeProgressBar.SetEffectEnabled( inkEffectType.LinearWipe, m_progressEffectName, false );
+			inkWidgetRef.SetVisible( m_upgradeProgressBarRef, false );
+		}
+		if( m_progressBarAnimProxy )
+		{
+			m_progressBarAnimProxy.GotoStartAndStop();
+		}
+	}
+
+	private function GetUpdateLevelString( quality : gamedataQuality ) : String
+	{
+		switch( quality )
+		{
+			case gamedataQuality.Common:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier1";
+			case gamedataQuality.CommonPlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier1plus";
+			case gamedataQuality.Uncommon:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier2";
+			case gamedataQuality.UncommonPlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier2plus";
+			case gamedataQuality.Rare:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier3";
+			case gamedataQuality.RarePlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier3plus";
+			case gamedataQuality.Epic:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier4";
+			case gamedataQuality.EpicPlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier4plus";
+			case gamedataQuality.Legendary:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier5";
+			case gamedataQuality.LegendaryPlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier5plus";
+			case gamedataQuality.LegendaryPlusPlus:
+				return "UI-Ripperdoc-CyberwareUpgrade-Tier5plusplus";
+		}
+		return "UI-ResourceExports-Upgrade";
+	}
+
+}
+
+class ItemTooltipBottomModule extends ItemTooltipModuleController
+{
+	private editable var m_weightWrapper : inkWidgetRef;
+	private editable var m_priceWrapper : inkWidgetRef;
+	private editable var m_weightText : inkTextRef;
+	private editable var m_priceText : inkTextRef;
+
+	public override function Update( data : MinimalItemTooltipData )
+	{
+		var price : Int32;
+		var isSellable : Bool;
+		isSellable = UIInventoryItemsManager.IsSellableStatic( data.itemData );
+		inkTextRef.SetText( m_weightText, FloatToStringPrec( data.weight, 1 ) );
+		inkWidgetRef.SetVisible( m_weightWrapper, data.weight != 0.0 );
+		if( !( ItemTooltipBottomModule.ShouldDisplayPrice( data.displayContext, isSellable, data.itemData, data.itemType, data.lootItemType ) ) )
+		{
+			inkWidgetRef.SetVisible( m_priceWrapper, false );
+			return;
+		}
+		price = RoundF( data.price );
+		if( data.itemData.HasTag( 'ShowStackPrice' ) )
+		{
+			price *= data.itemData.GetQuantity();
+		}
+		inkTextRef.SetText( m_priceText, IntToString( price ) );
+		inkWidgetRef.SetVisible( m_priceWrapper, data.price > 0.0 );
+	}
+
+	public static function ShouldHideBottomModule( data : MinimalItemTooltipData, tooltipDisplayContext : InventoryTooltipDisplayContext, itemDisplayContext : ItemDisplayContext ) : Bool
+	{
+		var shouldHideBottom : Bool;
+		if( tooltipDisplayContext == InventoryTooltipDisplayContext.Vendor || itemDisplayContext == ItemDisplayContext.Vendor )
+		{
+			return false;
+		}
+		if( ( ( ( ( ( data.itemTweakID == T"Items.money" ) || data.itemData.HasTag( 'Recipe' ) ) || data.itemType == gamedataItemType.Con_Inhaler ) || data.itemType == gamedataItemType.Con_Injector ) || data.itemType == gamedataItemType.Gad_Grenade ) || data.itemType == gamedataItemType.Gen_CraftingMaterial )
+		{
+			return true;
+		}
+		if( !( shouldHideBottom ) && ( data.weight == 0.0 ) )
+		{
+			return !( ItemTooltipBottomModule.ShouldDisplayPrice( data.displayContext, UIInventoryItemsManager.IsSellableStatic( data.itemData ), data.itemData, data.itemType, data.lootItemType ) );
+		}
+		return false;
+	}
+
+	public static function ShouldHideBottomModule( displayContext : InventoryTooltipDisplayContext, itemData : weak< UIInventoryItem > ) : Bool
+	{
+		if( ( ( ( ( itemData.GetTweakDBID() == T"Items.money" ) || itemData.GetItemType() == gamedataItemType.Gad_Grenade ) || itemData.GetItemType() == gamedataItemType.Con_Inhaler ) || itemData.GetItemType() == gamedataItemType.Con_Injector ) || ( itemData.IsRecipe() && !( itemData.IsWeapon() ) ) )
+		{
+			return true;
+		}
+		if( itemData.GetWeight() <= 0.0 )
+		{
+			return !( ItemTooltipBottomModule.ShouldDisplayPrice( displayContext, itemData.IsSellable(), itemData.GetItemData(), itemData.GetItemType() ) );
+		}
+		return false;
+	}
+
+	public function NEW_Update( data : weak< UIInventoryItem >, player : weak< PlayerPuppet >, overridePrice : Int32 )
+	{
+		UpdatePriceVisibility( data, overridePrice );
+		UpdateWeightVisibility( data );
+	}
+
+	private function UpdatePriceVisibility( data : weak< UIInventoryItem >, overridePrice : Int32 )
+	{
+		var price : Float;
+		var roundPrice : Int32;
+		if( !( ItemTooltipBottomModule.ShouldDisplayPrice( m_tooltipDisplayContext, data.IsSellable(), data.GetItemData(), data.GetItemType() ) ) )
+		{
+			inkWidgetRef.SetVisible( m_priceWrapper, false );
+			return;
+		}
+		if( overridePrice >= 0 )
+		{
+			roundPrice = overridePrice;
+		}
+		else
+		{
+			price = ( ( m_itemDisplayContext == ItemDisplayContext.Vendor ) ? ( data.GetBuyPrice() ) : ( data.GetSellPrice() ) );
+			if( data.GetItemData().HasTag( 'ShowStackPrice' ) )
+			{
+				price *= ( ( Float )( data.GetQuantity() ) );
+			}
+			roundPrice = RoundF( price );
+		}
+		inkTextRef.SetText( m_priceText, IntToString( roundPrice ) );
+		inkWidgetRef.SetVisible( m_priceWrapper, roundPrice > 0 );
+	}
+
+	private function UpdateWeightVisibility( data : weak< UIInventoryItem > )
+	{
+		var weight : Float;
+		var weightString : String;
+		weight = data.GetWeight();
+		weightString = FloatToStringPrec( weight, 1 );
+		inkTextRef.SetText( m_weightText, weightString );
+		inkWidgetRef.SetVisible( m_weightWrapper, data.GetWeight() != 0.0 );
+	}
+
+	public static function ShouldDisplayPrice( displayContext : InventoryTooltipDisplayContext, isSellable : Bool, itemData : gameItemData, itemType : gamedataItemType, optional lootItemType : LootItemType ) : Bool
+	{
+		if( displayContext != InventoryTooltipDisplayContext.Vendor )
+		{
+			if( ( ( ( ( !( isSellable ) || itemType == gamedataItemType.Con_Ammo ) || itemType == gamedataItemType.Wea_Fists ) || itemData.HasTag( 'Shard' ) ) || itemData.HasTag( 'Recipe' ) ) || lootItemType == LootItemType.Quest )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+}
+
+class ItemTooltipAttributeRequirement extends inkLogicController
+{
+	private editable var m_labelRef : inkTextRef;
+
+	public function SetData( data : MinimalItemTooltipDataStatRequirement )
+	{
+		var textParams : inkTextParams;
+		textParams = new inkTextParams;
+		textParams.AddNumber( "value", data.statValue );
+		textParams.AddString( "statName", data.statName );
+		textParams.AddString( "statColor", data.statColor );
+		inkTextRef.SetLocalizedTextScript( m_labelRef, data.statLocKey, textParams );
+	}
+
+}
+
+class ItemTooltipSettingsListener extends ConfigVarListener
+{
+	private var m_ctrl : weak< ItemTooltipCommonController >;
+
+	public function RegisterController( ctrl : ItemTooltipCommonController )
+	{
+		m_ctrl = ctrl;
+	}
+
+	public export override function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		m_ctrl.OnVarModified( groupPath, varName, varType, reason );
+	}
+
+}
+
+class HideIconModuleEvent extends Event
+{
+}
+

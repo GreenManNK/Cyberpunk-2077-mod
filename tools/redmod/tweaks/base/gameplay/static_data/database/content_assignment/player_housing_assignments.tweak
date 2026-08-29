@@ -1,0 +1,43 @@
+package EconomicAssignment
+using RTDB
+
+vs_apartment_upgrade_black : ValueAssignment
+{
+	overrideValue = 20000;
+}
+
+vs_apartment_upgrade_white : ValueAssignment
+{
+	overrideValue = 20000;
+}
+
+vs_apartment_upgrade_yellow_blue : ValueAssignment
+{
+	overrideValue = 10000;
+}
+
+vs_apartment_upgrade_pink_teal : ValueAssignment
+{
+	overrideValue = 10000;
+}
+
+vs_apartment_dlc6_apart_cct_dtn : ValueAssignment
+{
+	overrideValue = 110000;
+}
+
+vs_apartment_dlc6_apart_hey_gle : ValueAssignment
+{
+	overrideValue = 80000;
+}
+
+vs_apartment_dlc6_apart_wat_nid : ValueAssignment
+{
+	overrideValue = 10000;
+}
+
+vs_apartment_dlc6_apart_wbr_jpn : ValueAssignment
+{
+	overrideValue = 30000;
+}
+

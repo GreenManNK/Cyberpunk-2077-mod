@@ -1,0 +1,550 @@
+package Attacks
+using RTDB, AttackModifier
+
+QuickMelee : Attack_Melee
+{
+	attackName = "QuickMelee";
+	userDataPath = "attack.slash";
+	attackType = "AttackType.QuickMelee";
+	effectName = "quickmelee";
+	effectTag = "impact";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 24;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier
+	];
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	float attackGameEffectDelay = 0.1;
+	float attackGameEffectDuration = 0.1;
+	float attackRange = 2.0;
+	bool shouldAdjust = true;
+	float adjustmentRange = 3.0;
+	float adjustmentDuration = 0.1;
+	float adjustmentRadius = 1.45;
+	CName adjustmentCurve = "";
+	string[] hitFlags = 
+	[
+		"Nonlethal", "ForceNoCrit"
+	];
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			value = 25.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.FistsStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	bool forcePlayerToStand = true;
+	float cooldown = 0.3;
+	float duration = 0.8;
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+StunQuickMelee : QuickMelee
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.Stun";
+			resistPool = "BaseStatPools.StunTrigger";
+			applyImmediately = true;
+		}
+	];
+}
+
+Slash : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.Melee";
+	effectName = "melee";
+	effectTag = "swing";
+	audioTag = "slash";
+	fk< AttackDirection > attackDirection = "";
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+}
+
+StrongSlash : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.StrongMelee";
+	fk< AttackDirection > attackDirection = "";
+	effectName = "strongmelee";
+	effectTag = "swing";
+	audioTag = "slash";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier
+	];
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 2;
+}
+
+Impact : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.Melee";
+	fk< AttackDirection > attackDirection = "";
+	effectName = "melee";
+	effectTag = "impact";
+	audioTag = "normal";
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+StrongImpact : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.StrongMelee";
+	fk< AttackDirection > attackDirection = "";
+	effectName = "melee";
+	effectTag = "impact";
+	audioTag = "normal";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier
+	];
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 3;
+}
+
+Lash : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.Melee";
+	fk< AttackDirection > attackDirection = "";
+	effectName = "monowire";
+	effectTag = "lash";
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+}
+
+StrongLash : Lash
+{
+	attackType = "AttackType.StrongMelee";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier
+	];
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+Grapple : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.StrongMelee";
+	fk< AttackDirection > attackDirection = "";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 0.1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 0.1;
+		} : ConstantStatModifier
+	];
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.MonowireGrapple";
+			resistPool = "BaseStatPools.StunTrigger";
+			applyImmediately = true;
+		}
+	];
+	effectName = "monowire";
+	effectTag = "grapple";
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+}
+
+Piercing : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.StrongMelee";
+	fk< AttackDirection > attackDirection = "";
+	effectName = "strongmelee";
+	effectTag = "impact";
+	audioTag = "slash";
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	CName impactFxSlot = "Impact";
+}
+
+ThrownPiercing : Attack_Melee
+{
+	attackType = "AttackType.Thrown";
+}
+
+FireBlast : Attack_Melee
+{
+	attackName = "FireBlast";
+	attackType = "AttackType.QuickMelee";
+	effectName = "quickmelee";
+	effectTag = "fireBlast";
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.Burning";
+			resistPool = "BaseStatPools.BurningTrigger";
+			applyImmediately = true;
+		}
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 24;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier
+	];
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			value = 25.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.FistsStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< AttackDirection > attackDirection = "";
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	float attackGameEffectDelay = 0.1;
+	float attackGameEffectDuration = 0.1;
+	float attackRange = 4.0;
+	bool shouldAdjust = false;
+	CName vfxName = "igni";
+	bool forcePlayerToStand = false;
+	float cooldown = 0.3;
+	float duration = 0.8;
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+ShockBlast : Attack_Melee
+{
+	attackName = "QuickMelee";
+	attackType = "AttackType.QuickMelee";
+	effectName = "quickmelee";
+	effectTag = "impact";
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.Electrocuted";
+			resistPool = "BaseStatPools.ElectrocutedTrigger";
+			applyImmediately = true;
+		}
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 24;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier
+	];
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			value = 25.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.FistsStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	bool hasDeflectAnim = true;
+	bool hasHitAnim = true;
+	float attackGameEffectDelay = 0.1;
+	float attackGameEffectDuration = 0.1;
+	float attackRange = 2.0;
+	bool shouldAdjust = true;
+	float adjustmentRange = 3.0;
+	float adjustmentDuration = 0.1;
+	float adjustmentRadius = 1.45;
+	CName adjustmentCurve = "";
+	string[] hitFlags = 
+	[
+		"Nonlethal", "ForceNoCrit"
+	];
+	bool forcePlayerToStand = false;
+	float cooldown = 0.3;
+	float duration = 0.8;
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+BodySlamAttackAbstract : Attack_Melee
+{
+	attackType = "AttackType.StrongMelee";
+	attackSubtype = "AttackType.BodySlamAttack";
+	effectName = "strongmelee";
+	effectTag = "bodyslam";
+	className = "Attack_GameEffect";
+	audioTag = "normal";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 15;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier
+	];
+	string[] hitFlags = 
+	[
+		"Nonlethal", "ForceNoCrit", "BodyPerksMeleeAttack"
+	];
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	attackWindowOpen = 0.f;
+	attackWindowClosed = 0.3f;
+	activeDuration = 0.3f;
+	bool shouldAdjust = false;
+	float attackEffectDuration = 0.4f;
+	float attackGameEffectDelay = 0;
+	float attackGameEffectDuration = 0.4f;
+	float attackRange = 1.0;
+	float cooldown = 0.3;
+	float duration = 0.3;
+}
+
+BodySlamAttackLevel1 : BodySlamAttackAbstract
+{
+	attackName = "MeleeBodySlamAttack0";
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+BodySlamAttackLevel2 : BodySlamAttackAbstract
+{
+	attackName = "MeleeBodySlamAttack1";
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 2;
+}
+
+BodySlamAttackLevel3 : BodySlamAttackAbstract
+{
+	attackName = "MeleeBodySlamAttack2";
+	hitReactionSeverityMin = 3;
+	hitReactionSeverityMax = 3;
+}
+
+GroundSlamAttack : Attack_Melee
+{
+	userDataPath = "attack.slash";
+	attackType = "AttackType.StrongMelee";
+	attackName = "MeleeGroundSlamAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.UpToDown";
+	effectName = "strongmelee";
+	effectTag = "impact";
+	audioTag = "normal";
+	float attackWindowOpen = 0.0f;
+	float attackWindowClosed = 0.1f;
+	float cameraSpaceImpulse = 3.0f;
+	float impulseDelay = 0.0f;
+	float attackEffectDelay = 0.0f;
+	float attackEffectDuration = 0.06f;
+	float startupDuration = 0.0f;
+	float activeDuration = 0.1f;
+	float trailStartDelay = 0.0f;
+	float trailStopDelay = 0.1f;
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	CName impactFxSlot = "Impact";
+	hitReactionSeverityMin = 3;
+	hitReactionSeverityMax = 3;
+}
+

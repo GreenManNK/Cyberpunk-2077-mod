@@ -1,0 +1,23 @@
+Character.GR_kangtao_rare_ranged3_sidewinder:
+    $base: Character.kangtao_soldier2_shotgun2_zhuo_mah_rare
+    primaryEquipment: Character.GR_kangtao_rare_ranged3_sidewinder_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT3
+    rarity: NPCRarity.Rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_rare_ranged3_sidewinder_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_rare_ranged3_sidewinder_primary_item
+
+Character.GR_kangtao_rare_ranged3_sidewinder_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Sidewinder_Military
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

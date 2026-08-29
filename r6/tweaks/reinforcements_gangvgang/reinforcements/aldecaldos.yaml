@@ -1,0 +1,270 @@
+# vehicles:
+# bike:
+# Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+# 2:
+# Vehicle.GR_aldecado_thorton_galena_heat_1
+# Vehicle.GR_v_sport2_quadra_type66_nomad
+# Vehicle.GR_v_sport2_mizutani_shion_nomad
+# Vehicle.GR_aldecado_archer_quartz_heat_3
+# Vehicle.GR_aldecado_thorton_colby_heat_3
+# 4:
+# Vehicle.GR_aldecado_thorton_galena_heat_2
+# Vehicle.GR_v_standard3_thorton_mackinaw_nomad
+
+# vanilla base characters (internal identities are mis-spelled "adelcaldos" in-game; kept as-is):
+# Character.adelcaldos_grunt1_ranged1_nova_ma - nova
+# Character.adelcaldos_grunt1_ranged1_nova_wa - nova
+# Character.adelcaldos_grunt1_ranged1_pulsar_ma - pulsar
+# Character.adelcaldos_grunt1_ranged1_pulsar_wa - pulsar
+# Character.adelcaldos_grunt2_ranged2_copperhead_ma - copperhead
+# Character.adelcaldos_driver_shotgun2_tactician_ma - tactician (driver)
+# Character.adelcaldos_grunt2_ranged2_sidewinder_ma - sidewinder (smart - used sparingly)
+
+# custom (Power/Tech Default presets, see tweak_data_references/weapontypes):
+# Character.GR_adelcaldos_grad_sniper_wa - grad (power sniper) - rare
+# Character.GR_adelcaldos_satara_shotgunner_ma - satara (tech shotgun) - rare
+# Character.GR_adelcaldos_burya_skirmisher_wa - burya (tech revolver) - rare
+# Character.GR_adelcaldos_quasar_skirmisher_ma - quasar (tech revolver) - rare
+# Character.GR_adelcaldos_defender_gunner_ma - defender (power LMG) - elite
+# Character.GR_adelcaldos_kolac_marksman_ma - kolac (power heavy precision rifle) - elite
+
+#reinforcements
+
+# weak:
+DynamicSpawnSystem.GRAldecaldosWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosWeakBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_galena_heat_1
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosWeakSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_archer_quartz_heat_3
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_wa
+          weight: 1.0
+
+# normal:
+DynamicSpawnSystem.GRAldecaldosNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_galena_heat_2
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_driver_shotgun2_tactician_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_wa
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_galena_heat_2
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_sidewinder_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_wa
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_galena_heat_2
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_driver_shotgun2_tactician_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_sidewinder_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_ma
+          weight: 0.2
+
+# normal / rare:
+DynamicSpawnSystem.GRAldecaldosRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_archer_quartz_heat_3
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grad_sniper_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_driver_shotgun2_tactician_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_burya_skirmisher_wa
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_colby_heat_3
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_satara_shotgunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_driver_shotgun2_tactician_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_quasar_skirmisher_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_archer_quartz_heat_3
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_burya_skirmisher_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_quasar_skirmisher_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_nova_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_sidewinder_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_aldecado_thorton_colby_heat_3
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grad_sniper_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_satara_shotgunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt1_ranged1_pulsar_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma
+          weight: 0.2
+
+# elite:
+DynamicSpawnSystem.GRAldecaldosEliteVan1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_kolac_marksman_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_defender_gunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grad_sniper_wa
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_satara_shotgunner_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosEliteVan2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_defender_gunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_burya_skirmisher_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_quasar_skirmisher_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_driver_shotgun2_tactician_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRAldecaldosEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_kolac_marksman_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_grad_sniper_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_defender_gunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_burya_skirmisher_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_mizutani_shion_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_kolac_marksman_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_satara_shotgunner_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRAldecaldosEliteSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_mizutani_shion_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_defender_gunner_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_adelcaldos_quasar_skirmisher_ma
+          weight: 1.0

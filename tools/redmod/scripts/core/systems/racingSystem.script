@@ -1,0 +1,10 @@
+importonly abstract class IRacingSystem extends IGameSystem
+{
+}
+
+import class RacingSystem extends IRacingSystem
+{
+	public import function IsRaceInProgress() : Bool;
+	public import function IsAIVehicleRegistered( vehicle : weak< GameObject > ) : Bool;
+}
+

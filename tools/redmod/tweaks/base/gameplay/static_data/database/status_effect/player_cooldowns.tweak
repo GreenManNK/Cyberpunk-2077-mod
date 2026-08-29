@@ -1,0 +1,1515 @@
+package BaseStatusEffect
+using RTDB, Effectors, Prereqs, Perks
+
+PlayerCooldown : DebuffStatusEffect
+{
+	statusEffectType = "BaseStatusEffectTypes.PlayerCooldown";
+}
+
+QuickHackCooldownDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.QuickhacksCooldownReduction";
+			refObject = "Instigator";
+			opSymbol = "*";
+			value = -1;
+		} : CombinedStatModifier
+	];
+}
+
+QuickHackCooldown : PlayerCooldown
+{
+	isAffectedByTimeDilationPlayer = true;
+	gameplayTags += 
+	[
+		"Debuff", "QuickHackCooldown"
+	];
+}
+
+RemoveAllQuickHackCooldownsEffector : Effector
+{
+	CName effectorClassName = "RemoveStatusEffectsEffector";
+	string[] statusEffects = 
+	[
+		"BaseStatusEffect.OverloadCooldown", "BaseStatusEffect.BrainMeltCooldown", "BaseStatusEffect.OverheatCooldown", "BaseStatusEffect.SuicideCooldown", "BaseStatusEffect.GrenadeCooldown", "BaseStatusEffect.MadnessCooldown", "BaseStatusEffect.SystemCollapseCooldown", "BaseStatusEffect.CommsNoiseCooldown", "BaseStatusEffect.CallInCooldown", "BaseStatusEffect.WhistleCooldown", "BaseStatusEffect.MemoryWipeCooldown", "BaseStatusEffect.ContagionCooldown", "BaseStatusEffect.RemoteBreachCooldown", "BaseStatusEffect.RebootOpticsBossCooldown", "BaseStatusEffect.RebootOpticsCooldown"
+	];
+}
+
+OverloadCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40979";
+		string iconPath = "OverLoad";
+	};
+}
+
+BrainMeltCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54070";
+		string iconPath = "BrainMelt";
+	};
+}
+
+OverheatCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54075";
+		string iconPath = "Overheat";
+	};
+}
+
+SuicideCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40974";
+		string iconPath = "SuicideAttempt";
+	};
+}
+
+ChimeraSuicideCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 180.f;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40974";
+		string iconPath = "SuicideAttempt";
+	};
+}
+
+GrenadeCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40975";
+		string iconPath = "MassSuicideAttempt";
+	};
+}
+
+MadnessCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54078";
+		string iconPath = "Cyberpsychosis";
+	};
+}
+
+ChimeraMadnessCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 280;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54078";
+		string iconPath = "Cyberpsychosis";
+	};
+}
+
+SystemCollapseCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40972";
+		string iconPath = "SystemCollapse";
+	};
+}
+
+ChimeraSystemCollapseCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 60.f;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40972";
+		string iconPath = "SystemCollapse";
+	};
+}
+
+HighPitchNoiseCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+}
+
+CommsNoiseCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54082";
+		string iconPath = "CommunicationNoise";
+	};
+}
+
+CallInCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40982";
+		string iconPath = "CommunicationCallIn";
+	};
+}
+
+WhistleCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#51291";
+		string iconPath = "CommunicationCallOut";
+	};
+}
+
+MemoryWipeCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54079";
+		string iconPath = "MemoryWipe";
+	};
+}
+
+ContagionCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54080";
+		string iconPath = "Contagion";
+	};
+}
+
+RemoteBreachCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#54081";
+		string iconPath = "BreachProtocol";
+	};
+}
+
+RebootOpticsCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		displayName = "LocKey#40941";
+		iconPath = "OpticsMalfunction";
+	};
+}
+
+RebootOpticsBossCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		displayName = "LocKey#40941";
+		iconPath = "OpticsMalfunction";
+	};
+}
+
+BlackwallCooldown : QuickHackCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.0001;
+			} : ConstantStatModifier
+		];
+	} : QuickHackCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#86796";
+		string iconPath = "Contagion";
+	};
+}
+
+CyberwareCooldownDuration : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.MaxDuration";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CyberwareCooldownReduction";
+			refObject = "Self";
+			opSymbol = "*";
+			value = -1;
+		} : CombinedStatModifier
+	];
+}
+
+PlayerCyberwareCooldown : PlayerCooldown
+{
+	gameplayTags += 
+	[
+		"PlayerCyberwareCooldown"
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#76950";
+		string iconPath = "cyberware_disabled_icon";
+		description = "LocKey#53709";
+	};
+}
+
+IconicCyberwareCooldown : PlayerCyberwareCooldown
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					vfxName = "iconic_cyberware_ready";
+					startOnUninitialize = true;
+				} : Effectors.PlayVFXEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#78208";
+	};
+}
+
+ProjectileLauncherCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"ProjectileLauncherCooldown"
+	];
+	bool isAffectedByTimeDilationPlayer = true;
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.ProjectileLauncherCooldownNotification";
+					inverted = true;
+				} : ApplyStatusEffectEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#3722";
+		string iconPath = "cyberware_disabled_icon";
+	};
+}
+
+KerenzikovCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.KerenzikovCooldownDuration";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+	uiData = 
+	{
+		displayName = "LocKey#40843";
+		iconPath = "kerenzikov_buff";
+		description = "LocKey#53709";
+	};
+}
+
+SandevistanCooldown : IconicCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"SandevistanCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.TimeDilationSandevistanCooldownBase";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						bool inverted = true;
+					} : Prereqs.HasSandevistanInstalled;
+					string[] statusEffects = 
+					[
+						"BaseStatusEffect.SandevistanCooldown"
+					];
+				} : RemoveStatusEffectsEffector, 
+				{
+					[ EP1 ]
+					string[] statusEffects = 
+					[
+						"BaseStatusEffect.NoCooldownedSandevistanGlitch"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#78209";
+		string iconPath = "sandevistan_buff_icon";
+	};
+}
+
+BerserkCooldown : IconicCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.BerserkCooldownBase";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.BerserkCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						bool inverted = true;
+					} : Prereqs.HasBerserkInstalled;
+					string[] statusEffects = 
+					[
+						"BaseStatusEffect.BerserkCooldown"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#78210";
+		string iconPath = "berserk_buff";
+	};
+}
+
+AutomaticReplenishmentCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 60f;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasAutomaticReplenishment";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#76952";
+		string iconPath = "generic_buff_icon";
+	};
+}
+
+SynapticAcceleratorCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 60;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.TimeDilationWhenEnteringCombatDuration";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.SynapticAcceleratorCooldownNotification";
+					inverted = true;
+				} : ApplyStatusEffectEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#40846";
+		string iconPath = "synaptic_accelerator";
+		description = "LocKey#53709";
+	};
+}
+
+ReflexRecorderCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 60;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.TimeDilationOnHealthDropCooldownDuration";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.ReflexRecorderCooldownNotification";
+					inverted = true;
+				} : ApplyStatusEffectEffector, 
+				{
+					statusEffects = 
+					[
+						"BaseStatusEffect.ReflexRecorderListener"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#40849";
+		string iconPath = "reflex_recorder";
+		description = "LocKey#53709";
+	};
+}
+
+ReflexRecorderListener : StatusEffect
+{
+	duration = "BaseStats.InfiniteDuration";
+}
+
+SwordWitcherCooldown : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = false;
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+DodgeCooldown : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = false;
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.2;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+DodgeAirCooldown : DodgeCooldown
+{
+	packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+DodgeBuffCooldown : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = false;
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.4;
+			} : ConstantStatModifier
+		];
+	};
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+SecondHeartCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.SecondHeartCooldownDuration";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasSecondHeart";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#3675";
+		string iconPath = "second_heart";
+		description = "LocKey#53709";
+	};
+}
+
+HoverJumpCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	packages += 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasAirHover";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#78221";
+	};
+}
+
+AntiVirusCooldown : PlayerCyberwareCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 75f;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.AntiVirusCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#3643";
+		string iconPath = "antivirus_icon";
+		description = "LocKey#53709";
+	};
+}
+
+JugglerPerkRemoveKnifeCooldownsSE : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = true;
+	gameplayTags += 
+	[
+		"JugglerPerkRemoveKnifeCooldowns"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5f;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+}
+
+IconicPunkKnifeRemoveCooldownsSE : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = true;
+	gameplayTags += 
+	[
+		"IconicPunkKnifeRemoveCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5f;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+}
+
+KurtKnifeRemoveCooldownsSE : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = true;
+	gameplayTags += 
+	[
+		"KurtKnifeRemoveCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5f;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+}
+
+ThrowMod1_RemoveCooldownsSE : PlayerCooldown
+{
+	bool isAffectedByTimeDilationPlayer = true;
+	gameplayTags += 
+	[
+		"ThrowMod1RemoveCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5f;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+}
+
+BloodswellPerkCooldown : PlayerCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 20f;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+}
+
+SecondChancePerkCooldown : PlayerCooldown
+{
+	gameplayTags += 
+	[
+		"SecondChancePerkCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 120;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.TimeDilationWhenEnteringCombatDuration";
+				refObject = "Player";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : StatModifierGroup;
+	uiData = 
+	{
+		string displayName = "LocKey#88047";
+		string iconPath = "perks_sensory_protocol";
+		description = "LocKey#53709";
+		priority = 6.0f;
+	};
+}
+
+LoseControlPerkCooldown : PlayerCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 20;
+			} : ConstantStatModifier
+		];
+	} : StatModifierGroup;
+	uiData = 
+	{
+		string displayName = "Chill out maniac";
+		string iconPath = "SystemCollapse";
+	};
+}
+
+DetectorRushCooldown : PlayerCyberwareCooldown
+{
+	bool isAffectedByTimeDilationPlayer = false;
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 6;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+TroubleFinderCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"TroubleFinderCooldown"
+	];
+	bool isAffectedByTimeDilationPlayer = false;
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 6;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+JenkinsCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"JenkinsCooldown"
+	];
+	bool isAffectedByTimeDilationPlayer = false;
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 10;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+KiroshiCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"KiroshiCooldown"
+	];
+	bool isAffectedByTimeDilationPlayer = false;
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 120;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+CyberwareCooldownNotification : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+OpticalCamoCooldownNotification : CyberwareCooldownNotification
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					effectorClassName = "ShowUIWarningEffector";
+					float duration = 1f;
+					string primaryText = "LocKey#52430";
+					string secondaryText = "LocKey#3702";
+				}
+			];
+		}
+	];
+}
+
+ReflexRecorderCooldownNotification : CyberwareCooldownNotification
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					effectorClassName = "ShowUIWarningEffector";
+					float duration = 1f;
+					string primaryText = "LocKey#52430";
+					string secondaryText = "LocKey#40849";
+				}
+			];
+		}
+	];
+}
+
+SynapticAcceleratorCooldownNotification : CyberwareCooldownNotification
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					effectorClassName = "ShowUIWarningEffector";
+					float duration = 1f;
+					string primaryText = "LocKey#52430";
+					string secondaryText = "LocKey#40846";
+				}
+			];
+		}
+	];
+}
+
+ProjectileLauncherCooldownNotification : CyberwareCooldownNotification
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					effectorClassName = "ShowUIWarningEffector";
+					float duration = 1f;
+					string primaryText = "LocKey#52430";
+					string secondaryText = "LocKey#3722";
+				}
+			];
+		}
+	];
+}
+
+CatchMeIfYouCanCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"CatchMeIfYouCanCooldown"
+	];
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#78212";
+		string iconPath = "cw_skeleton_catchmeifyoucan";
+	};
+}
+
+QuickMeleeBodyPerkStunCooldown : PlayerCooldown
+{
+	gameplayTags += 
+	[
+		"QuickMeleeBodyPerkStunCooldown"
+	];
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SuddenAidCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"SuddenAidCooldown"
+	];
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#85313";
+		string iconPath = "perks_mitigation";
+		description = "LocKey#53709";
+	};
+}
+
+SmartStorageCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"SmartStorageCooldown"
+	];
+	VFX = 
+	[
+		{
+			name = "smart_storage";
+		}
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				value = 10;
+			} : BaseDurationMod
+		];
+	} : CyberwareCooldownDuration;
+}
+
+ChargeSystemCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"SmartStorageCooldown"
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				value = 10;
+			} : BaseDurationMod
+		];
+	} : CyberwareCooldownDuration;
+}
+
+OpticalCamo_Cool_40_Cooldown : PlayerCooldown
+{
+	duration = "BaseStats.InfiniteDuration";
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						isInState = false;
+					} : IsPlayerGrappling;
+					statusEffects = 
+					[
+						"BaseStatusEffect.OpticalCamo_Cool_40_Cooldown"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		}
+	];
+}
+
+ElectroshockMechanismCooldown : PlayerCooldown
+{
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				value = 1f;
+			} : BaseDurationMod
+		];
+	};
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+}
+

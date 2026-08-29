@@ -1,0 +1,33 @@
+package Character
+using RTDB, BaseStats, Factions, ArchetypeType, ArchetypeData
+
+mq058_gangster_01_patrol_range_elite_ma : sixthstreet_patrol2_shotgun3_satara_ma_elite
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+
+mq058_gangster_02_melee_normal_ma : sixthstreet_hooligan_melee1_knife_ma
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+
+mq058_gangster_03_melee_normal_wa : sixthstreet_hooligan_melee1_ironpipe_wa
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+
+mq058_gangster_04_patrol_melee_rare_ma : sixthstreet_officer_officer_overture_ma
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+
+mq058_gangster_05_range_normal_wa : sixthstreet_hooligan_ranged1_saratoga_wa
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+

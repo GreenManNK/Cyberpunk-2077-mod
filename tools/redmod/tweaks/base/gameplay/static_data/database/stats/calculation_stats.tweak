@@ -1,0 +1,129 @@
+package BaseStats
+using RTDB
+
+RandomCurveInput : Stat
+{
+	enumName = "RandomCurveInput";
+	enumComment = "Used to store a uniform random number that can be converted to a different stat using a curve probability distribution";
+	flags = 
+	[
+		"ExcludeRootCombination", "EquipOnNPC"
+	];
+}
+
+NPCWeaponDropRandomizer : Stat
+{
+	enumName = "NPCWeaponDropRandomizer";
+	enumComment = "Driving stat for randomizing quality of weapons dropped by NPCs";
+	flags += 
+	[
+		"ExcludeRootCombination"
+	];
+	min = -1;
+	max = 0;
+}
+
+NPCLootLevelHelper : Stat
+{
+	enumName = "NPCLootLevelHelper";
+	enumComment = "Helper stat for proper logic flow for weapons drops";
+	flags += 
+	[
+		"ExcludeRootCombination"
+	];
+}
+
+NPCWeaponDropHelper : Stat
+{
+	enumName = "NPCWeaponDropHelper";
+	enumComment = "Helper stat for proper logic flow for weapons dropped by NPCs";
+	flags += 
+	[
+		"ExcludeRootCombination"
+	];
+}
+
+ShinyWeaponRoll : Stat
+{
+	enumName = "ShinyWeaponRoll";
+}
+
+IntrinsicZoomLevelBonus : WeaponStat
+{
+	enumName = "IntrinsicZoomLevelBonus";
+	localizedName = "LocKey#79491";
+	displayPlus = true;
+}
+
+IntrinsicReloadTimeBonus : WeaponStat
+{
+	enumName = "IntrinsicReloadTimeBonus";
+	localizedName = "LocKey#79490";
+	displayPercent = true;
+}
+
+IntrinsicQuickHackUploadBonus : Stat
+{
+	enumName = "IntrinsicQuickHackUploadBonus";
+	localizedName = "LocKey#79391";
+	displayPercent = true;
+	displayPlus = true;
+}
+
+DummyModCritDamage : Stat
+{
+	enumName = "DummyModCritDamage";
+	flags = 
+	[
+		"EquipOnPlayer"
+	];
+	displayPercent = true;
+	displayPlus = true;
+	localizedName = "LocKey#36320";
+	improvementRelation = "ImprovementRelation.Direct";
+	decimalPlaces = 1;
+}
+
+StrengthSkillcheckBonus : Stat
+{
+	enumName = "StrengthSkillcheckBonus";
+	localizedName = "LocKey#80461";
+	flags = 
+	[
+		"EquipOnPlayer"
+	];
+}
+
+IntelligenceSkillcheckBonus : Stat
+{
+	enumName = "IntelligenceSkillcheckBonus";
+	localizedName = "LocKey#80462";
+	flags = 
+	[
+		"EquipOnPlayer"
+	];
+}
+
+TechnicalAbilitySkillcheckBonus : Stat
+{
+	enumName = "TechnicalAbilitySkillcheckBonus";
+	localizedName = "LocKey#80463";
+	flags = 
+	[
+		"EquipOnPlayer"
+	];
+}
+
+BonusDamagePerHit : Stat
+{
+	enumName = "BonusDamagePerHit";
+	bool shouldFlipNegativeValue = true;
+}
+
+ScalingBlocked : Stat
+{
+	enumName = "ScalingBlocked";
+	min = 0;
+	max = 1;
+}
+

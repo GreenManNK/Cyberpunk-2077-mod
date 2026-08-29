@@ -14,11 +14,14 @@
 -- • oil_temp      -> stored as deci °C, example 825 = 82.5 °C
 -- • stalled       -> 0/1
 -- • limit_on      -> 0/1
+-- • maintenance_due_m -> absolute odometer meters for the next inspection
 --
 -- Compatibility:
 -- • Keeps the old public API names used by init.lua.
 -- • readKey/writeKey/mintKey/restoreByKey are harmless no-ops now.
 -- ============================================================================
+
+local CONFIG_BACKUP = require("vm_config_backup")
 
 local VM_SAVE = {
   key             = 1,
@@ -35,6 +38,12 @@ local VM_SAVE = {
   _lastSnap       = {},
   _syncAcc        = 0.0,
   _syncInterval   = 2.00,
+  _sessionReady   = false,
+
+  -- Maximum number of old vm_session/*.lua files to keep on disk.
+  -- Files beyond this cap (oldest by numeric key) are deleted at startup.
+  -- Set to 0 to delete ALL legacy session files.
+  MAX_SESSION_FILES = 5,
 }
 
 -- ╔═══════════════════════════════════════════════════════════════════════════╗
@@ -50,15 +59,6 @@ local function readFile(path)
   local s = f:read("*a")
   f:close()
   return s
-end
-
-local function writeFile(path, data)
-  if not IO_OK then return false end
-  local f = io.open(path, "w")
-  if not f then return false end
-  f:write(data or "")
-  f:close()
-  return true
 end
 
 -- ╔═══════════════════════════════════════════════════════════════════════════╗
@@ -314,6 +314,7 @@ local function makeFactKeys(label)
     oil_deci_c    = "vmv_" .. h .. "_o",
     stalled       = "vmv_" .. h .. "_s",
     limit_on      = "vmv_" .. h .. "_l",
+    maintenance_due_m = "vmv_" .. h .. "_d",
   }
 end
 
@@ -325,27 +326,28 @@ end
 
 local function getFactInt(name)
   local qs = Game and Game.GetQuestsSystem and Game.GetQuestsSystem()
-  if not qs then return 0 end
+  if not qs then return 0, false end
 
   -- Preferred for dynamic/custom fact names.
   local okStr, valStr = pcall(function()
-    return qs:GetFactStr(tostring(name))
+    return qs:GetFactStr(name)
   end)
 
   if okStr and valStr ~= nil then
-    return toInt(valStr)
+    return toInt(valStr), true
   end
 
-  -- Fallback for regular CName facts.
+  -- Fallback for runtimes that expose GetFact with a CName.
   local ok, val = pcall(function()
-    return qs:GetFact(cname(name))
+    return qs:GetFact(CName.new(name))
   end)
 
   if ok and type(val) == "number" then
-    return toInt(val)
+    return toInt(val), true
   end
 
-  return 0
+  -- A failed read is not the same as a real fact value of 0.
+  return 0, false
 end
 
 local function setFactInt(name, value)
@@ -409,37 +411,83 @@ end
 function VM_SAVE:_saveConfig(which)
   if which == "bike" then
     local raw = json_encode(self._bikes_map or {}, 2)
-    return writeFile(self.bikes_cfg_path, raw)
+    return CONFIG_BACKUP.write(self.bikes_cfg_path, raw)
   end
 
   local raw = json_encode(self._cars_map or {}, 2)
-  return writeFile(self.cars_cfg_path, raw)
+  return CONFIG_BACKUP.write(self.cars_cfg_path, raw)
 end
 
 function VM_SAVE:_readVehicleFromFacts(id, facts)
-  facts = facts or makeFactKeys(id)
-
-  local initialized = getFactInt(facts.initialized)
-
-  if initialized <= 0 then
-    setFactInt(facts.initialized, 1)
-    setFactInt(facts.meters, 0)
-    setFactInt(facts.fuel_permille, 1000)
-    setFactInt(facts.oil_deci_c, 200)
-    setFactInt(facts.stalled, 0)
-    setFactInt(facts.limit_on, 0)
+  if self._sessionReady ~= true then
+    return nil
   end
 
-  local meters = math.max(0, getFactInt(facts.meters))
-  local fuel   = clamp(getFactInt(facts.fuel_permille), 0, 1000) / 1000.0
-  local oil    = clamp(getFactInt(facts.oil_deci_c), -500, 3000) / 10.0
+  facts = facts or makeFactKeys(id)
+
+  local initialized, initializedOK = getFactInt(facts.initialized)
+
+  -- Never turn a failed or premature quest-fact read into default values.
+  if not initializedOK then
+    return nil
+  end
+
+  local meters
+  local fuelPermille
+  local oilDeciC
+  local stalledInt
+  local limitOnInt
+  local maintenanceDueM
+
+  if initialized <= 0 then
+    meters       = 0
+    fuelPermille = 1000
+    oilDeciC     = 200
+    stalledInt   = 0
+    limitOnInt   = 0
+    maintenanceDueM = 0
+
+    -- Write data first and the initialized marker last. If a write fails,
+    -- initialization can be retried safely on the next valid session start.
+    local writesOK = true
+    writesOK = setFactInt(facts.meters, meters) and writesOK
+    writesOK = setFactInt(facts.fuel_permille, fuelPermille) and writesOK
+    writesOK = setFactInt(facts.oil_deci_c, oilDeciC) and writesOK
+    writesOK = setFactInt(facts.stalled, stalledInt) and writesOK
+    writesOK = setFactInt(facts.limit_on, limitOnInt) and writesOK
+    writesOK = setFactInt(facts.maintenance_due_m, maintenanceDueM) and writesOK
+    writesOK = setFactInt(facts.initialized, 1) and writesOK
+
+    if not writesOK then
+      return nil
+    end
+  else
+    local metersOK
+    local fuelOK
+    local oilOK
+    local stalledOK
+    local limitOnOK
+    local maintenanceDueOK
+
+    meters,       metersOK  = getFactInt(facts.meters)
+    fuelPermille, fuelOK    = getFactInt(facts.fuel_permille)
+    oilDeciC,     oilOK     = getFactInt(facts.oil_deci_c)
+    stalledInt,   stalledOK = getFactInt(facts.stalled)
+    limitOnInt,   limitOnOK = getFactInt(facts.limit_on)
+    maintenanceDueM, maintenanceDueOK = getFactInt(facts.maintenance_due_m)
+
+    if not (metersOK and fuelOK and oilOK and stalledOK and limitOnOK and maintenanceDueOK) then
+      return nil
+    end
+  end
 
   local v = {
-    meters   = meters,
-    fuel_pct = fuel,
-    oil_temp = oil,
-    stalled  = getFactInt(facts.stalled) > 0,
-    limit_on = getFactInt(facts.limit_on) > 0,
+    meters   = math.max(0, meters),
+    fuel_pct = clamp(fuelPermille, 0, 1000) / 1000.0,
+    oil_temp = clamp(oilDeciC, -500, 3000) / 10.0,
+    stalled  = stalledInt > 0,
+    limit_on = limitOnInt > 0,
+    maintenance_due_m = math.max(0, maintenanceDueM),
     last     = os.time(),
 
     -- internal helper fields
@@ -459,6 +507,7 @@ function VM_SAVE:_makeSnap(v)
   local oil    = clamp((tonumber(v.oil_temp) or 20.0) * 10.0, -500, 3000)
   local stalled = v.stalled and 1 or 0
   local limitOn = v.limit_on and 1 or 0
+  local maintenanceDueM = math.max(0, toInt(v.maintenance_due_m or 0))
 
   return table.concat({
     tostring(toInt(meters)),
@@ -466,6 +515,7 @@ function VM_SAVE:_makeSnap(v)
     tostring(toInt(oil)),
     tostring(stalled),
     tostring(limitOn),
+    tostring(maintenanceDueM),
   }, "|")
 end
 
@@ -487,6 +537,7 @@ function VM_SAVE:_writeVehicleFacts(id, v, force)
   local meters = math.max(0, toInt(v.meters or 0))
   local fuel   = clamp((tonumber(v.fuel_pct) or 1.0) * 1000.0, 0, 1000)
   local oil    = clamp((tonumber(v.oil_temp) or 20.0) * 10.0, -500, 3000)
+  local maintenanceDueM = math.max(0, toInt(v.maintenance_due_m or 0))
 
   setFactInt(facts.initialized, 1)
   setFactInt(facts.meters, meters)
@@ -494,9 +545,76 @@ function VM_SAVE:_writeVehicleFacts(id, v, force)
   setFactInt(facts.oil_deci_c, toInt(oil))
   setFactInt(facts.stalled, v.stalled and 1 or 0)
   setFactInt(facts.limit_on, v.limit_on and 1 or 0)
+  setFactInt(facts.maintenance_due_m, maintenanceDueM)
 
   self._lastSnap[id] = snap
   return true
+end
+
+--- Delete old vm_session/*.lua files beyond MAX_SESSION_FILES.
+--- CET's Lua sandbox does not provide io.popen, so we cannot enumerate files
+--- with 'dir'. Instead we probe sequential numeric keys with io.open, then
+--- use _last_key.txt (written by the old save system) to identify which key
+--- is the most recently saved — matching the logic in VM_LegacySessionCandidates.
+function VM_SAVE:pruneSessionFiles()
+  if not IO_OK then return end
+
+  local max   = tonumber(self.MAX_SESSION_FILES) or 5
+  local dir   = "vm_session"
+  local sep   = package and package.config and package.config:sub(1,1) or "\\"
+  local files = {}
+
+  -- Read _last_key.txt to find the most recently written session file.
+  -- (Same source VM_LegacySessionCandidates relies on in init.lua.)
+  local newestKey = nil
+  do
+    local f = io.open(dir .. sep .. "_last_key.txt", "r")
+    if f then
+      local raw = f:read("*a")
+      f:close()
+      newestKey = tonumber(raw)
+    end
+  end
+
+  -- Probe keys 1..200; stop after 10 consecutive misses to avoid wasting time.
+  local misses = 0
+  for key = 1, 200 do
+    local path = dir .. sep .. tostring(key) .. ".lua"
+    local f = io.open(path, "r")
+    if f then
+      f:close()
+      misses = 0
+      files[#files + 1] = { key = key, path = path }
+    else
+      misses = misses + 1
+      if misses >= 10 then break end
+    end
+  end
+
+  if #files == 0 then return end
+
+  -- Sort: the key from _last_key.txt is definitively newest → goes first.
+  -- All other files fall back to key-descending order as a best-effort guess.
+  table.sort(files, function(a, b)
+    if a.key == newestKey then return true  end
+    if b.key == newestKey then return false end
+    return a.key > b.key
+  end)
+
+  local kept, removed = 0, 0
+  for _, f in ipairs(files) do
+    if kept < max then
+      kept = kept + 1
+    else
+      local rok = pcall(os.remove, f.path)
+      if rok then removed = removed + 1 end
+    end
+  end
+
+  if removed > 0 then
+    print(("[VehicleMileage] Pruned %d old session file(s) from %s%s (kept %d)"):format(
+      removed, dir, sep, kept))
+  end
 end
 
 function VM_SAVE:_loadAllConfiguredVehicles()
@@ -528,10 +646,17 @@ function VM_SAVE:_loadAllConfiguredVehicles()
   if changedBikes then self:_saveConfig("bike") end
 end
 
-function VM_SAVE:_reloadConfigMaps()
+function VM_SAVE:_reloadConfigMaps(loadFacts)
   self._cars_map = select(1, readMap(self.cars_cfg_path))
   self._bikes_map = select(1, readMap(self.bikes_cfg_path))
-  self:_loadAllConfiguredVehicles()
+
+  if loadFacts == nil then
+    loadFacts = self._sessionReady == true
+  end
+
+  if loadFacts then
+    self:_loadAllConfiguredVehicles()
+  end
 end
 
 function VM_SAVE:_getOrCreateSpec(id)
@@ -590,18 +715,36 @@ function VM_SAVE.setup(opts)
     VM_SAVE.bikes_cfg_path = opts.bikes_cfg_path
   end
 
-  VM_SAVE.key = 1
-  VM_SAVE.dirty = false
-  VM_SAVE:_reloadConfigMaps()
+  VM_SAVE:resetRuntime()
+
+  -- CET onInit can run before a savegame is active. Load only the JSON maps
+  -- here; vehicle quest facts are loaded after 0-Engine reports PlayerReady.
+  VM_SAVE:_reloadConfigMaps(false)
 end
 
-function VM_SAVE:onPlayerControl()
+function VM_SAVE:onSessionStart()
   self.key = 1
+  self.data = { vehicles = {} }
   self.dirty = false
-  self:_reloadConfigMaps()
+  self._lastSnap = {}
+  self._syncAcc = 0.0
+  self._sessionReady = true
+  self:_reloadConfigMaps(true)
+end
+
+function VM_SAVE:onSessionEnd()
+  self:resetRuntime()
+end
+
+-- Compatibility alias for older callers.
+function VM_SAVE:onPlayerControl()
+  self:onSessionStart()
 end
 
 function VM_SAVE:onUpdate(dt)
+  if self._sessionReady ~= true then
+    return
+  end
   self._syncAcc = (self._syncAcc or 0.0) + (dt or 0.0)
 
   if self._syncAcc < (self._syncInterval or 0.20) then
@@ -617,6 +760,10 @@ function VM_SAVE:onUpdate(dt)
 end
 
 function VM_SAVE:ensureVehicle(id)
+  if self._sessionReady ~= true then
+    return nil
+  end
+
   id = cleanKey(id) or tostring(id or "")
 
   if id == "" then
@@ -644,12 +791,20 @@ function VM_SAVE:ensureVehicle(id)
     if v.meters == nil then
       v.meters = 0
     end
+
+    if v.maintenance_due_m == nil then
+      v.maintenance_due_m = 0
+    end
   end
 
   return v
 end
 
 function VM_SAVE:syncVehicle(id, force)
+  if self._sessionReady ~= true then
+    return false
+  end
+
   id = cleanKey(id) or tostring(id or "")
   if id == "" then return false end
 
@@ -660,6 +815,10 @@ function VM_SAVE:syncVehicle(id, force)
 end
 
 function VM_SAVE:syncAll(force)
+  if self._sessionReady ~= true then
+    return false
+  end
+
   local ok = true
 
   for id, _ in pairs(self.data.vehicles or {}) do
@@ -689,6 +848,7 @@ function VM_SAVE:resetRuntime()
   self.dirty = false
   self._lastSnap = {}
   self._syncAcc = 0.0
+  self._sessionReady = false
 end
 
 -- Old session-key API, kept only so init.lua does not break.
@@ -705,7 +865,7 @@ function VM_SAVE:mintKey()
 end
 
 function VM_SAVE:restoreByKey(_)
-  self:onPlayerControl()
+  self:onSessionStart()
   return true
 end
 

@@ -1,0 +1,355 @@
+package Perks
+using RTDB, Prereqs
+
+EngineeringProficiencyPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "TechnicalAbility";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+EngineeringMasteryPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Engineering";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+Engineering_Area_01 : PerkArea
+{
+	enumName = "Engineering_Area_01";
+	requirement = 
+	{
+		valueToCheck = 0;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_01_Perk_1", "Perks.Engineering_Area_01_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+Engineering_Area_02 : PerkArea
+{
+	enumName = "Engineering_Area_02";
+	requirement = 
+	{
+		valueToCheck = 5;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_02_Perk_1", "Perks.Engineering_Area_02_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Engineering_Area_03 : PerkArea
+{
+	enumName = "Engineering_Area_03";
+	requirement = 
+	{
+		valueToCheck = 7;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_03_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+Engineering_Area_04 : PerkArea
+{
+	enumName = "Engineering_Area_04";
+	requirement = 
+	{
+		valueToCheck = 9;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_04_Perk_1", "Perks.Engineering_Area_04_Perk_2", "Perks.Engineering_Area_04_Perk_3"
+	];
+}
+
+Engineering_Area_05 : PerkArea
+{
+	enumName = "Engineering_Area_05";
+	requirement = 
+	{
+		valueToCheck = 11;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_05_Perk_1"
+	];
+	maxLevel = 5;
+}
+
+Engineering_Area_06 : PerkArea
+{
+	enumName = "Engineering_Area_06";
+	requirement = 
+	{
+		valueToCheck = 12;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_06_Perk_1", "Perks.Engineering_Area_06_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+Engineering_Area_07 : PerkArea
+{
+	enumName = "Engineering_Area_07";
+	requirement = 
+	{
+		valueToCheck = 14;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_07_Perk_1", "Perks.Engineering_Area_07_Perk_2", "Perks.Engineering_Area_07_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Engineering_Area_08 : PerkArea
+{
+	enumName = "Engineering_Area_08";
+	requirement = 
+	{
+		valueToCheck = 16;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_08_Perk_1", "Perks.Engineering_Area_08_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Engineering_Area_09 : PerkArea
+{
+	enumName = "Engineering_Area_09";
+	requirement = 
+	{
+		valueToCheck = 18;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_09_Perk_1"
+	];
+}
+
+Engineering_Area_10 : PerkArea
+{
+	enumName = "Engineering_Area_10";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : EngineeringProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : EngineeringMasteryPrereq;
+	perks = 
+	[
+		"Perks.Engineering_Area_10_Perk_1", "Perks.Engineering_Area_10_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Engineering_Area_01_Perk_1 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_01_Perk_1";
+	perkIcon = "UIIcon.Engineering_Area_01_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_01_Perk_2 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_01_Perk_2";
+	perkIcon = "UIIcon.Engineering_Area_01_Perk_2";
+	levels = [];
+}
+
+Engineering_Area_02_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#80719";
+	string loc_desc_key = "LocKey#80718";
+	perkIcon = "UIIcon.Engineering_Area_02_Perk_1";
+	enumName = "Engineering_Area_02_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_02_Perk_2 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_02_Perk_2";
+	perkIcon = "UIIcon.Engineering_Area_02_Perk_2";
+	levels = [];
+}
+
+Engineering_Area_03_Perk_1 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_03_Perk_1";
+	perkIcon = "UIIcon.Engineering_Area_03_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_04_Perk_1 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_04_Perk_1";
+	perkIcon = "UIIcon.Engineering_Area_04_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_04_Perk_2 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_04_Perk_2";
+	perkIcon = "UIIcon.Engineering_Area_04_Perk_2";
+	string loc_name_key = "LocKey#40667";
+	string loc_desc_key = "LocKey#14930";
+	levels = [];
+}
+
+Engineering_Area_04_Perk_3 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_04_Perk_3";
+	perkIcon = "UIIcon.Engineering_Area_04_Perk_3";
+	levels = [];
+}
+
+Engineering_Area_05_Perk_1 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_05_Perk_1";
+	perkIcon = "UIIcon.Engineering_Area_05_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_05_Perk_2 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_05_Perk_2";
+	perkIcon = "UIIcon.Engineering_Area_05_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_06_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#6624";
+	string loc_desc_key = "LocKey#5926";
+	perkIcon = "UIIcon.Engineering_Area_06_Perk_1";
+	enumName = "Engineering_Area_06_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_06_Perk_2 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#14931";
+	string loc_desc_key = "LocKey#14932";
+	perkIcon = "UIIcon.Engineering_Area_06_Perk_2";
+	enumName = "Engineering_Area_06_Perk_2";
+	levels = [];
+}
+
+Engineering_Area_07_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#6625";
+	string loc_desc_key = "LocKey#5927";
+	perkIcon = "UIIcon.Engineering_Area_07_Perk_1";
+	enumName = "Engineering_Area_07_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_07_Perk_2 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#14933";
+	string loc_desc_key = "LocKey#14934";
+	perkIcon = "UIIcon.Engineering_Area_07_Perk_2";
+	enumName = "Engineering_Area_07_Perk_2";
+	levels = [];
+}
+
+Engineering_Area_07_Perk_3 : EngineeringPerk
+{
+	enumName = "Engineering_Area_07_Perk_3";
+	perkIcon = "UIIcon.Engineering_Area_07_Perk_3";
+	levels = [];
+}
+
+Engineering_Area_08_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#6626";
+	string loc_desc_key = "LocKey#5928";
+	perkIcon = "UIIcon.Engineering_Area_08_Perk_1";
+	enumName = "Engineering_Area_08_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_08_Perk_2 : EngineeringPerk
+{
+	CName enumName = "Engineering_Area_08_Perk_2";
+	perkIcon = "UIIcon.Engineering_Area_08_Perk_2";
+	levels = [];
+}
+
+Engineering_Area_09_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#6627";
+	string loc_desc_key = "LocKey#5929";
+	perkIcon = "UIIcon.Engineering_Area_09_Perk_1";
+	enumName = "Engineering_Area_09_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_10_Perk_1 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#14935";
+	string loc_desc_key = "LocKey#14936";
+	perkIcon = "UIIcon.Engineering_Area_10_Perk_1";
+	enumName = "Engineering_Area_10_Perk_1";
+	levels = [];
+}
+
+Engineering_Area_10_Perk_2 : EngineeringPerk
+{
+	string loc_name_key = "LocKey#40682";
+	string loc_desc_key = "LocKey#40681";
+	perkIcon = "UIIcon.Engineering_Area_10_Perk_2";
+	enumName = "Engineering_Area_10_Perk_2";
+	levels = [];
+}
+

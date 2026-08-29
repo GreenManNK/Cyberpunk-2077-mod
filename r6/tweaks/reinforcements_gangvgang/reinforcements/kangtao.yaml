@@ -1,0 +1,197 @@
+# weak:
+# Character.GR_kangtao_weak1_ranged1_chao - pistol scout
+# Character.GR_kangtao_weak1_ranged1_kappa - pistol scout
+
+# normal:
+# Character.GR_kangtao_normal2_ranged2_dian - smg trooper
+# Character.GR_kangtao_normal2_shotgun2_palica - shotgun trooper (android)
+
+# rare:
+# Character.GR_kangtao_rare_ranged2_dian - smg trooper
+# Character.GR_kangtao_rare_ranged3_sidewinder - assault rifle trooper
+
+# elite:
+# Character.GR_kangtao_elite_shotgun3_zhuo - shotgunner
+# Character.GR_kangtao_elite_sniper3_ashura - sniper (officer)
+
+# vanilla (plain-tagged, see 0_kangtao.yaml):
+# Character.GR_kangtao_ranger1_ranged2_dian_ma - weak, vanilla dian smg
+# Character.GR_kangtao_android_android2_dian_ma - normal, vanilla dian smg (android)
+# Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare - rare, vanilla zhuo shotgun
+# Character.GR_kangtao_soldier2_shotgun3_zhuo_mah_elite - elite, vanilla zhuo shotgun
+# Character.GR_kangtao_officer_grenadier3_mah_elite - elite, vanilla grenadier (officer)
+
+# vehicles:
+# Villefort Columbus (2 seats) - weak tier only
+# Villefort Cortes (4 seats, only 4-seat vehicle) - normal and rare tiers
+# Militech Behemoth (heavy truck) - elite tier only
+
+#reinforcements
+
+DynamicSpawnSystem.GRKangTaoWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_villefort_columbus_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_chao
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_kappa
+          weight: 1.0
+
+DynamicSpawnSystem.GRKangTaoWeakSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_villefort_columbus_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_kappa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_ranger1_ranged2_dian_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRKangTaoWeakSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_villefort_columbus_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_chao
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_ranger1_ranged2_dian_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRKangTaoNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_ranged2_dian
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_shotgun2_palica
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_android_android2_dian_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_chao
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_android_android2_dian_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_kappa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_weak1_ranged1_kappa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_shotgun2_palica
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_shotgun2_palica
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_rare_ranged3_sidewinder
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_android_android2_dian_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_ranged2_dian
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_ranged2_dian
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_rare_ranged2_dian
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_rare_ranged3_sidewinder
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_rare_ranged3_sidewinder
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_normal2_shotgun2_palica
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_android_android2_dian_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_android_android2_dian_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_rare_ranged2_dian
+          weight: 0.5
+
+DynamicSpawnSystem.GRKangTaoEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_utility4_militech_behemoth_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_elite_sniper3_ashura
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_elite_sniper3_ashura
+          weight: 1.0
+
+DynamicSpawnSystem.GRKangTaoEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_utility4_militech_behemoth_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_officer_grenadier3_mah_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_soldier2_shotgun3_zhuo_mah_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRKangTaoEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_utility4_militech_behemoth_kangtao
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_elite_shotgun3_zhuo
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_kangtao_officer_grenadier3_mah_elite
+          weight: 1.0

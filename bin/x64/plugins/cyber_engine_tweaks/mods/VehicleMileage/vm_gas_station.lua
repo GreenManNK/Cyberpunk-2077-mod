@@ -212,6 +212,7 @@ end
 M.opts = {
   points_path          = "vm_gas_locations.json",
   radius               = 5.0,
+  cluster_radius       = 35.0,
   refill_per_sec       = 0.02,
   owner_only           = true,
 
@@ -231,9 +232,183 @@ M.opts = {
 }
 
 M.points      = {}     -- { {x, y, z, radius, r2}, ... }
+M.stations    = {}
+M._stationFuelExact = {}
+M._stationFuelFactValue = {}
 M._wasInRange = false
 M._playing    = false  -- starts sound on rising edge of refueling; stop on falling edge
 M._cost_acc   = 0.0
+M._currentStationEmpty = false
+
+local CAPACITY_PER_LOCATION_L = 30000
+local MAX_STATION_CAPACITY_L = 380000
+
+local function stationFact(idx, suffix)
+  return string.format("vm_gas_station_%03d_%s", idx, suffix)
+end
+
+local function questsSystem()
+  local ok, system = pcall(function()
+    return Game and Game.GetQuestsSystem and Game.GetQuestsSystem()
+  end)
+  return ok and system or nil
+end
+
+local function getFact(name)
+  local qs = questsSystem()
+  if not qs then return 0 end
+  local ok, value = pcall(function() return qs:GetFactStr(name) end)
+  return ok and math.max(0, math.floor(tonumber(value) or 0)) or 0
+end
+
+local function setFact(name, value)
+  local qs = questsSystem()
+  if not qs then return false end
+  value = math.max(0, math.floor(tonumber(value) or 0))
+  return pcall(function() qs:SetFactStr(name, value) end)
+end
+
+-- Keep smooth fractional liters in memory while mirroring whole liters to the
+-- quest fact. The mirror lets us distinguish our own rounded writes from a
+-- manual/external fact edit and import the latter safely.
+local function writeStationFuel(index, station, exactLiters)
+  local capacity = tonumber(station and station.capacity_l) or 0
+  exactLiters = math.max(0, math.min(capacity, tonumber(exactLiters) or 0))
+  local factLiters = math.floor(exactLiters + 1e-6)
+
+  local written = setFact(station.available_fact, factLiters)
+  if written then
+    M._stationFuelExact[index] = exactLiters
+    M._stationFuelFactValue[index] = factLiters
+  end
+  return exactLiters, written
+end
+
+local function syncStationFuelFromFact(index, station)
+  local factLiters = math.min(
+    tonumber(station.capacity_l) or 0,
+    getFact(station.available_fact)
+  )
+
+  if M._stationFuelFactValue[index] == nil
+     or factLiters ~= M._stationFuelFactValue[index] then
+    -- Something outside this module changed the persistent fact.
+    M._stationFuelExact[index] = factLiters
+    M._stationFuelFactValue[index] = factLiters
+  end
+
+  return tonumber(M._stationFuelExact[index]) or factLiters
+end
+
+-- Same algorithm and input order as vm_gas_markers.lua. Raw pump positions
+-- retain their cluster index so proximity is checked at the actual pumps.
+local function clusterPoints(points, radius)
+  radius = tonumber(radius) or 0
+  local used, stations = {}, {}
+  local r2 = radius * radius
+
+  if radius <= 0 then
+    for i, point in ipairs(points) do
+      point.station_idx = i
+      stations[i] = { x = point.x, y = point.y, z = point.z, count = 1 }
+    end
+    return stations
+  end
+
+  for i = 1, #points do
+    if not used[i] then
+      local sx, sy, sz, n = points[i].x, points[i].y, points[i].z or 0, 1
+      local members = { i }
+      used[i] = true
+      local changed = true
+
+      while changed do
+        changed = false
+        local cx, cy = sx / n, sy / n
+        for j = 1, #points do
+          if not used[j] then
+            local dx, dy = points[j].x - cx, points[j].y - cy
+            if (dx * dx + dy * dy) <= r2 then
+              used[j] = true
+              sx, sy, sz, n = sx + points[j].x, sy + points[j].y,
+                sz + (points[j].z or 0), n + 1
+              members[#members + 1] = j
+              changed = true
+            end
+          end
+        end
+      end
+
+      local idx = #stations + 1
+      stations[idx] = { x = sx / n, y = sy / n, z = sz / n, count = n }
+      for _, memberIdx in ipairs(members) do
+        points[memberIdx].station_idx = idx
+      end
+    end
+  end
+
+  return stations
+end
+
+local function initializeStationFacts()
+  M._stationFuelExact = {}
+  M._stationFuelFactValue = {}
+  for idx, station in ipairs(M.stations) do
+    station.capacity_l = math.min(
+      MAX_STATION_CAPACITY_L,
+      CAPACITY_PER_LOCATION_L * math.max(1, station.count or 1)
+    )
+    station.max_fact = stationFact(idx, "max_capacity_l")
+    station.available_fact = stationFact(idx, "available_fuel_l")
+    setFact(station.max_fact, station.capacity_l)
+
+    -- New quest facts default to zero; existing values persist with the save.
+    local available = math.min(station.capacity_l, getFact(station.available_fact))
+    writeStationFuel(idx, station, available)
+  end
+end
+
+function M.addFuelToAllStations(liters)
+  liters = math.max(0, math.floor(tonumber(liters) or 0))
+  if liters <= 0 then return 0 end
+
+  for idx, station in ipairs(M.stations) do
+    -- The quest fact is authoritative here so external/debug fact edits are
+    -- imported instead of being overwritten by an older runtime cache value.
+    local current = getFact(station.available_fact)
+    local available = math.min(station.capacity_l, current + liters)
+    writeStationFuel(idx, station, available)
+  end
+  return #M.stations
+end
+
+function M.setStationFuel(index, liters)
+  index = math.floor(tonumber(index) or 0)
+  local station = M.stations[index]
+  if not station then return false, "unknown station index" end
+
+  liters = math.max(0, math.floor(tonumber(liters) or 0))
+  local available = math.min(station.capacity_l, liters)
+  local _, written = writeStationFuel(index, station, available)
+  if not written then return false, "quest fact write failed" end
+  return true, available, station.capacity_l
+end
+
+function M.getStationStatus()
+  local result = {}
+  for index, station in ipairs(M.stations) do
+    result[#result + 1] = {
+      index = index,
+      locations = station.count or 1,
+      x = station.x or 0,
+      y = station.y or 0,
+      z = station.z or 0,
+      available_l = getFact(station.available_fact),
+      capacity_l = station.capacity_l or 0,
+    }
+  end
+  return result
+end
 
 -- =============================================================================
 -- Money helpers
@@ -348,6 +523,9 @@ function M.setup(opts)
     end
   end
 
+  M.stations = clusterPoints(M.points, M.opts.cluster_radius)
+  initializeStationFacts()
+
   -- Reset runtime flags (do NOT touch _playing so mid-session setup won't retrigger SFX)
   M._wasInRange = false
   -- keep _cost_acc as-is (carryover is fine)
@@ -365,6 +543,8 @@ end
 --
 -- Returns: true if inside any gas-station radius, else false.
 function M.update(dt, helpers)
+  M._currentStationEmpty = false
+
   local player = Game.GetPlayer()
   if not player then
     if M._playing then
@@ -398,10 +578,12 @@ function M.update(dt, helpers)
   local vpos = { x = pos.x, y = pos.y, z = pos.z }
 
   local inRange = false
+  local stationIdx = nil
   for i = 1, #M.points do
     local s = M.points[i]
     if dist2(vpos, s) <= s.r2 then
       inRange = true
+      stationIdx = s.station_idx
       break
     end
   end
@@ -414,6 +596,11 @@ function M.update(dt, helpers)
     M._wasInRange = false
     return false
   end
+
+  local activeStation = stationIdx and M.stations[stationIdx] or nil
+  local activeAvailable = activeStation
+    and syncStationFuelFromFact(stationIdx, activeStation) or 0
+  M._currentStationEmpty = activeStation ~= nil and activeAvailable <= 1e-6
 
   -- Need helpers to refuel
   if not helpers
@@ -466,6 +653,13 @@ function M.update(dt, helpers)
   local df     = math.max(0, rpsec * (dt or 0))
   local willF  = math.min(1.0, f + df)
   local deltaF = willF - f
+
+  local station = activeStation
+  local availableL = activeAvailable
+  local requestedL = deltaF * tankL
+  local suppliedL = math.min(requestedL, math.max(0, availableL))
+  deltaF = tankL > 0 and (suppliedL / tankL) or 0
+  willF = math.min(1.0, f + deltaF)
 
   local moneyOK = true
   if M.opts.enable_cost and M.opts.halt_when_broke then
@@ -534,6 +728,10 @@ function M.update(dt, helpers)
 
   -- Apply refuel
   v.fuel_pct = willF
+  if station and suppliedL > 0 then
+    availableL = math.max(0, availableL - suppliedL)
+    writeStationFuel(stationIdx, station, availableL)
+  end
   if v.fuel_pct > 0 then
     v.stalled  = false
     v.limit_on = false
@@ -547,6 +745,10 @@ function M.update(dt, helpers)
 
   M._wasInRange = true
   return true
+end
+
+function M.isCurrentStationEmpty()
+  return M._currentStationEmpty == true
 end
 
 -- =============================================================================

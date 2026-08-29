@@ -1,0 +1,706 @@
+class ProgramTooltipController extends AGenericTooltipControllerWithDebug
+{
+	protected editable var m_backgroundContainer : inkCompoundRef;
+	protected editable var m_equipedWrapper : inkWidgetRef;
+	protected editable var m_equipedCorner : inkWidgetRef;
+	protected editable var m_recipeWrapper : inkWidgetRef;
+	protected editable var m_recipeBG : inkWidgetRef;
+	protected editable var m_root : inkWidgetRef;
+	private editable var m_nameText : inkTextRef;
+	private editable var m_nameTextContainer : inkWidgetRef;
+	private editable var m_nameForRecipeText : inkTextRef;
+	private editable var m_tierText : inkTextRef;
+	private editable var m_durationWidget : inkWidgetRef;
+	private editable var m_uploadTimeWidget : inkWidgetRef;
+	private editable var m_cooldownWidget : inkWidgetRef;
+	private editable var m_memoryCostValueText : inkTextRef;
+	private editable var m_damageWrapper : inkWidgetRef;
+	private editable var m_damageLabel : inkTextRef;
+	private editable var m_damageValue : inkTextRef;
+	private editable var m_damageContinuous : inkTextRef;
+	private editable var m_healthPercentageLabel : inkTextRef;
+	private editable var m_priceContainer : inkWidgetRef;
+	private editable var m_priceText : inkTextRef;
+	private editable var m_descriptionWrapper : inkWidgetRef;
+	private editable var m_descriptionText : inkTextRef;
+	private editable var m_hackTypeWrapper : inkWidgetRef;
+	private editable var m_hackTypeText : inkTextRef;
+	private editable var m_perkContainer : inkWidgetRef;
+	private editable var m_perkText : inkTextRef;
+	private editable var m_qualityContainer : inkWidgetRef;
+	private editable var m_qualityText : inkTextRef;
+	private editable var m_effectsList : inkCompoundRef;
+	private editable var m_headerSegment : inkWidgetRef;
+	private editable var m_typeSegment : inkWidgetRef;
+	private editable var DEBUG_iconErrorWrapper : inkWidgetRef;
+	private editable var DEBUG_iconErrorText : inkTextRef;
+	private var m_data : InventoryTooltipData;
+	private var m_quickHackData : InventoryTooltipData_QuickhackData;
+	private var m_itemData : weak< UIInventoryItem >;
+	private var m_displayContext : InventoryTooltipDisplayContext;
+	private var m_itemDisplayContext : ItemDisplayContext;
+	private editable var m_isCrafting : Bool;
+
+	public override function SetData( tooltipData : ATooltipData )
+	{
+		var wrappedData : UIInventoryItemTooltipWrapper;
+		if( ( ( UIInventoryItemTooltipWrapper )( tooltipData ) ) )
+		{
+			wrappedData = ( ( UIInventoryItemTooltipWrapper )( tooltipData ) );
+			m_itemData = wrappedData.m_data;
+			m_itemDisplayContext = wrappedData.m_displayContext.GetDisplayContext();
+			m_isCrafting = m_displayContext == InventoryTooltipDisplayContext.Crafting || m_displayContext == InventoryTooltipDisplayContext.Upgrading;
+			NewRefreshUI( m_itemData, wrappedData.m_displayContext.GetPlayerAsPuppet() );
+			return;
+		}
+		m_data = ( ( InventoryTooltipData )( tooltipData ) );
+		m_isCrafting = m_data.displayContext == InventoryTooltipDisplayContext.Crafting || m_data.displayContext == InventoryTooltipDisplayContext.Upgrading;
+		m_quickHackData = m_data.quickhackData;
+		RefreshUI();
+	}
+
+	private function NewRefreshUI( itemData : weak< UIInventoryItem >, player : weak< PlayerPuppet > )
+	{
+		var programData : weak< UIInventoryItemProgramData >;
+		programData = itemData.GetProgramData( player, true );
+		if( itemData.IsRecipe() && m_displayContext != InventoryTooltipDisplayContext.Crafting )
+		{
+			inkTextRef.SetText( m_nameForRecipeText, itemData.GetName() );
+			inkTextRef.SetVisible( m_nameText, false );
+			inkWidgetRef.SetVisible( m_nameTextContainer, false );
+			inkTextRef.SetVisible( m_nameForRecipeText, true );
+		}
+		else
+		{
+			inkTextRef.SetText( m_nameText, itemData.GetName() );
+			inkTextRef.SetVisible( m_nameForRecipeText, false );
+			inkWidgetRef.SetVisible( m_nameTextContainer, true );
+			inkTextRef.SetVisible( m_nameText, true );
+		}
+		inkWidgetRef.Get( m_headerSegment ).SetVisible( m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkWidgetRef.Get( m_typeSegment ).SetVisible( m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkTextRef.SetText( m_memoryCostValueText, IntToString( programData.BaseCost ) );
+		UpdateDetail( itemData, programData.Duration );
+		UpdateUploadDetail( m_uploadTimeWidget, "UI-Quickhacks-DetailsUploadTime", programData.UploadTime, 0.0 );
+		NewUpdateDamage( programData );
+		NewUpdateMods();
+		NewUpdatePrice( player );
+		NewUpdateCategory();
+		NewUpdateRarity( programData );
+		inkWidgetRef.SetVisible( m_equipedWrapper, itemData.IsEquipped() );
+		inkWidgetRef.SetVisible( m_equipedCorner, itemData.IsEquipped() );
+		inkWidgetRef.SetVisible( m_recipeWrapper, itemData.IsRecipe() && m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkWidgetRef.SetVisible( m_recipeBG, itemData.IsRecipe() && m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		if( m_data.isEquipped == true )
+		{
+			inkWidgetRef.SetState( m_root, 'Equipped' );
+		}
+		else
+		{
+			inkWidgetRef.SetState( m_root, 'Default' );
+		}
+		UpdateRequirements();
+	}
+
+	private virtual function UpdateDetail( shwoProgramDuration : Bool, targetWidget : inkWidgetRef, const key : ref< String >, value : Float, diff : Float )
+	{
+		var controller : ProgramTooltipStatController;
+		controller = ( ( ProgramTooltipStatController )( inkWidgetRef.GetController( targetWidget ) ) );
+		if( value != 0.0 )
+		{
+			controller.SetData( GetLocalizedText( key ), value, diff );
+			inkWidgetRef.Get( targetWidget ).SetVisible( shwoProgramDuration );
+		}
+		else
+		{
+			inkWidgetRef.Get( targetWidget ).SetVisible( false );
+		}
+	}
+
+	private virtual function UpdateDetail( item : weak< UIInventoryItem >, value : Float )
+	{
+		var controller : ProgramTooltipStatController;
+		if( value != 0.0 )
+		{
+			controller = ( ( ProgramTooltipStatController )( inkWidgetRef.GetController( m_durationWidget ) ) );
+			controller.SetData( GetLocalizedText( "UI-Quickhacks-DetailsDuration" ), value, 0.0 );
+			inkWidgetRef.SetVisible( m_durationWidget, !( item.GetItemData().HasTag( 'HideProgramDuration' ) ) );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_durationWidget, false );
+		}
+	}
+
+	private virtual function UpdateUploadDetail( targetWidget : inkWidgetRef, const key : ref< String >, value : Float, diff : Float )
+	{
+		var controller : ProgramTooltipStatController;
+		controller = ( ( ProgramTooltipStatController )( inkWidgetRef.GetController( targetWidget ) ) );
+		if( value != 0.0 )
+		{
+			controller.SetData( GetLocalizedText( key ), value, diff );
+			inkWidgetRef.Get( targetWidget ).SetVisible( true );
+		}
+		else
+		{
+			inkWidgetRef.Get( targetWidget ).SetVisible( false );
+		}
+	}
+
+	private virtual function NewUpdateDescription()
+	{
+		var description : String;
+		description = m_itemData.GetDescription();
+		if( IsStringValid( description ) )
+		{
+			inkTextRef.SetText( m_descriptionText, description );
+			inkWidgetRef.SetVisible( m_descriptionWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+		}
+	}
+
+	private virtual function UpdateDescription()
+	{
+		var description : String;
+		description = m_data.description;
+		if( IsStringValid( description ) )
+		{
+			inkTextRef.SetText( m_descriptionText, description );
+			inkWidgetRef.SetVisible( m_descriptionWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_descriptionWrapper, false );
+		}
+	}
+
+	private virtual function NewGetHackCategory() : weak< HackCategory_Record >
+	{
+		var i, limit : Int32;
+		var actions : array< weak< ObjectAction_Record > >;
+		var actionRecord : weak< ObjectAction_Record >;
+		var hackCategory : weak< HackCategory_Record >;
+		m_itemData.GetItemRecord().ObjectActions( actions );
+		for( i = 0, limit = actions.Size(); i < limit; i += 1 )
+		{
+			actionRecord = TweakDBInterface.GetObjectActionRecord( actions[ i ].GetID() );
+			hackCategory = actionRecord.HackCategory();
+			if( hackCategory && hackCategory.Type() != gamedataHackCategory.NotAHack )
+			{
+				return hackCategory;
+			}
+		}
+		return NULL;
+	}
+
+	private virtual function NewUpdateCategory()
+	{
+		var hackCategory : weak< HackCategory_Record >;
+		hackCategory = NewGetHackCategory();
+		if( hackCategory && hackCategory.Type() != gamedataHackCategory.NotAHack )
+		{
+			inkTextRef.SetText( m_hackTypeText, hackCategory.LocalizedDescription() );
+			inkWidgetRef.SetVisible( m_hackTypeWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_hackTypeWrapper, false );
+		}
+	}
+
+	private virtual function GetHackCategory() : weak< HackCategory_Record >
+	{
+		var i : Int32;
+		var tweakRecord : weak< Item_Record >;
+		var actions : array< weak< ObjectAction_Record > >;
+		var actionRecord : weak< ObjectAction_Record >;
+		var hackCategory : weak< HackCategory_Record >;
+		tweakRecord = TDB.GetItemRecord( ItemID.GetTDBID( InventoryItemData.GetID( m_data.inventoryItemData ) ) );
+		tweakRecord.ObjectActions( actions );
+		for( i = 0; i < actions.Size(); i += 1 )
+		{
+			actionRecord = TweakDBInterface.GetObjectActionRecord( actions[ i ].GetID() );
+			hackCategory = actionRecord.HackCategory();
+			if( hackCategory && hackCategory.Type() != gamedataHackCategory.NotAHack )
+			{
+				return hackCategory;
+			}
+		}
+		return NULL;
+	}
+
+	private virtual function UpdateCategory()
+	{
+		var hackCategory : weak< HackCategory_Record >;
+		var locKey : String;
+		var localizedDescription : String;
+		hackCategory = GetHackCategory();
+		if( hackCategory && hackCategory.Type() != gamedataHackCategory.NotAHack )
+		{
+			locKey = hackCategory.LocalizedDescription();
+			localizedDescription = GetLocalizedText( locKey );
+			inkTextRef.SetText( m_hackTypeText, localizedDescription );
+			inkWidgetRef.SetVisible( m_hackTypeWrapper, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_hackTypeWrapper, false );
+		}
+	}
+
+	private function NewUpdateRarity( programData : weak< UIInventoryItemProgramData > )
+	{
+		var qualityName : CName;
+		qualityName = UIItemsHelper.QualityEnumToName( m_itemData.GetQuality() );
+		inkTextRef.SetState( m_tierText, qualityName );
+		inkTextRef.SetState( m_nameText, qualityName );
+		inkTextRef.SetText( m_tierText, m_itemData.GetQualityText( RarityItemType.Program ) );
+	}
+
+	private function UpdateRarity()
+	{
+		var quality : gamedataQuality;
+		var state : CName;
+		var tierKey : String;
+		var isIconic : Bool;
+		var iconicLabel : String;
+		var rarityLabel : String;
+		var inventoryItemData : InventoryItemData;
+		var gameData : gameItemData;
+		iconicLabel = GetLocalizedText( UIItemsHelper.QualityToDefaultString( gamedataQuality.Iconic ) );
+		inventoryItemData = m_data.inventoryItemData;
+		gameData = InventoryItemData.GetGameItemData( inventoryItemData );
+		if( m_data.overrideRarity )
+		{
+			quality = UIItemsHelper.QualityNameToEnum( StringToName( m_data.quality ) );
+		}
+		else
+		{
+			quality = RPGManager.GetItemDataQuality( gameData );
+		}
+		if( quality == gamedataQuality.Invalid )
+		{
+			quality = inventoryItemData.ComparedQuality;
+		}
+		isIconic = inventoryItemData.IsIconic;
+		tierKey = UIItemsHelper.QualityToTierString( quality );
+		state = UIItemsHelper.QualityEnumToName( quality );
+		inkTextRef.SetState( m_tierText, state );
+		inkTextRef.SetState( m_nameText, state );
+		inkTextRef.SetState( m_hackTypeText, state );
+		rarityLabel = GetLocalizedText( tierKey );
+		if( isIconic )
+		{
+			rarityLabel += ( " / " + iconicLabel );
+		}
+		( ( inkText )( inkTextRef.Get( m_tierText ) ) ).SetText( rarityLabel );
+	}
+
+	private virtual function RefreshUI()
+	{
+		var quickHackData : InventoryTooltipData_QuickhackData;
+		var itemID : TweakDBID;
+		var itemRecord : weak< Item_Record >;
+		quickHackData = m_data.quickhackData;
+		itemID = ItemID.GetTDBID( m_data.itemID );
+		inkTextRef.SetText( m_nameText, m_data.itemName );
+		inkWidgetRef.Get( m_headerSegment ).SetVisible( m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkWidgetRef.Get( m_typeSegment ).SetVisible( m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkTextRef.SetText( m_memoryCostValueText, IntToString( m_data.quickhackData.baseCost ) );
+		itemRecord = TweakDBInterface.GetItemRecord( itemID );
+		UpdateDetail( !( itemRecord.TagsContains( 'HideProgramDuration' ) ), m_durationWidget, "UI-Quickhacks-DetailsDuration", quickHackData.duration, quickHackData.durationDiff );
+		UpdateUploadDetail( m_uploadTimeWidget, "UI-Quickhacks-DetailsUploadTime", quickHackData.uploadTime, quickHackData.uploadTimeDiff );
+		UpdateDamage();
+		UpdateMods();
+		UpdatePrice();
+		UpdateCategory();
+		UpdateRarity();
+		UpdateRequirements();
+		DEBUG_UpdateDebugInfo();
+		inkWidgetRef.SetVisible( m_equipedWrapper, m_data.isEquipped );
+		inkWidgetRef.SetVisible( m_equipedCorner, m_data.isEquipped );
+		if( m_data.parentItemData.HasTag( 'Recipe' ) && m_displayContext != InventoryTooltipDisplayContext.Crafting )
+		{
+			inkTextRef.SetText( m_nameForRecipeText, m_data.itemName );
+			inkTextRef.SetVisible( m_nameText, false );
+			inkWidgetRef.SetVisible( m_nameTextContainer, false );
+			inkTextRef.SetVisible( m_nameForRecipeText, true );
+		}
+		else
+		{
+			inkTextRef.SetText( m_nameText, m_data.itemName );
+			inkTextRef.SetVisible( m_nameForRecipeText, false );
+			inkWidgetRef.SetVisible( m_nameTextContainer, true );
+			inkTextRef.SetVisible( m_nameText, true );
+		}
+		inkWidgetRef.SetVisible( m_recipeWrapper, m_data.parentItemData.HasTag( 'Recipe' ) && m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		inkWidgetRef.SetVisible( m_recipeBG, m_data.parentItemData.HasTag( 'Recipe' ) && m_displayContext != InventoryTooltipDisplayContext.Crafting );
+		if( m_data.isEquipped == true )
+		{
+			inkWidgetRef.SetState( m_root, 'Equipped' );
+		}
+		else
+		{
+			inkWidgetRef.SetState( m_root, 'Default' );
+		}
+		inkCompoundRef.SetVisible( m_backgroundContainer, m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+	}
+
+	protected override function DEBUG_UpdateDebugInfo()
+	{
+		var resultText : String;
+		var errorData : DEBUG_IconErrorInfo;
+		var itemRecordID : TweakDBID;
+		var iconsNameResolver : IconsNameResolver;
+		iconsNameResolver = IconsNameResolver.GetIconsNameResolver();
+		if( !( iconsNameResolver.IsInDebugMode() ) )
+		{
+			inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, false );
+			return;
+		}
+		errorData = m_data.DEBUG_iconErrorInfo;
+		inkWidgetRef.SetVisible( DEBUG_iconErrorWrapper, ( errorData != NULL ) || DEBUG_showDebug );
+		if( DEBUG_showDebug )
+		{
+			itemRecordID = ItemID.GetTDBID( InventoryItemData.GetID( m_data.inventoryItemData ) );
+			resultText += " - itemID:\n";
+			resultText += TDBID.ToStringDEBUG( itemRecordID );
+			inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+			OpenTweakDBRecordInVSCodeIfRequested( itemRecordID );
+		}
+		else
+		{
+			if( errorData != NULL )
+			{
+				resultText += ( ( "   ErrorType: " + EnumValueToString( "inkIconResult", ( ( Int32 )( errorData.errorType ) ) ) ) + "\n\n" );
+				resultText += " - itemID:\n";
+				resultText += errorData.itemName;
+				if( errorData.isManuallySet )
+				{
+					resultText += "\n - resolved icon name (manually set):\n";
+				}
+				else
+				{
+					resultText += "\n - resolved icon name (auto generated):\n";
+				}
+				resultText += errorData.resolvedIconName;
+				resultText += "\n - error message:\n";
+				resultText += errorData.errorMessage;
+				inkTextRef.SetText( DEBUG_iconErrorText, resultText );
+			}
+		}
+	}
+
+	private function IsDamageStat( targetStat : gamedataStatType, valueStat : gamedataStatType ) : Bool
+	{
+		if( targetStat == gamedataStatType.Invalid )
+		{
+			switch( valueStat )
+			{
+				case gamedataStatType.BaseDamage:
+				case gamedataStatType.PhysicalDamage:
+				case gamedataStatType.ChemicalDamage:
+				case gamedataStatType.ElectricDamage:
+				case gamedataStatType.ThermalDamage:
+					return true;
+				default:
+					return false;
+			}
+		}
+		else
+		{
+			return targetStat == gamedataStatType.Health;
+		}
+		return false;
+	}
+
+	private function NewUpdateDamage( programData : weak< UIInventoryItemProgramData > )
+	{
+		var i, limit : Int32;
+		var effect : DamageEffectUIEntry;
+		var valueToDisplay : String;
+		var isHealthPercentageStat : Bool;
+		var statType : gamedataStatType;
+		var statRecord : Stat_Record;
+		var statKey : String;
+		inkWidgetRef.SetVisible( m_damageWrapper, false );
+		inkTextRef.SetVisible( m_damageContinuous, false );
+		for( i = 0, limit = programData.AttackEffects.Size(); i < limit; i += 1 )
+		{
+			effect = programData.AttackEffects[ i ];
+			if( !( IsDamageStat( effect.targetStat, effect.valueStat ) ) )
+			{
+				continue;
+			}
+			isHealthPercentageStat = effect.targetStat == gamedataStatType.Health;
+			inkTextRef.SetVisible( m_healthPercentageLabel, isHealthPercentageStat );
+			if( isHealthPercentageStat )
+			{
+				valueToDisplay = "-";
+			}
+			valueToDisplay += IntToString( CeilF( effect.valueToDisplay ) );
+			if( isHealthPercentageStat )
+			{
+				valueToDisplay += "%";
+			}
+			inkTextRef.SetVisible( m_damageContinuous, effect.isContinuous );
+			if( effect.isContinuous )
+			{
+				inkTextRef.SetText( m_damageContinuous, "/" + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+			}
+			inkTextRef.SetText( m_damageValue, valueToDisplay );
+			statType = effect.valueStat;
+			statRecord = RPGManager.GetStatRecord( statType );
+			statKey = UILocalizationHelper.GetStatNameLockey( statRecord );
+			inkTextRef.SetText( m_damageLabel, statKey );
+			inkWidgetRef.SetVisible( m_damageWrapper, true );
+			break;
+		}
+	}
+
+	private function UpdateDamage()
+	{
+		var i : Int32;
+		var effect : DamageEffectUIEntry;
+		var valueToDisplay : String;
+		var isHealthPercentageStat : Bool;
+		var damageType : gamedataDamageType;
+		var damageTypeRecord : Stat_Record;
+		var damageTypeLocKey : String;
+		var attackEffectsSize : Int32;
+		attackEffectsSize = m_data.quickhackData.attackEffects.Size();
+		inkWidgetRef.SetVisible( m_damageWrapper, false );
+		inkTextRef.SetVisible( m_damageValue, false );
+		inkTextRef.SetVisible( m_damageContinuous, false );
+		for( i = 0; i < attackEffectsSize; i += 1 )
+		{
+			effect = m_data.quickhackData.attackEffects[ i ];
+			if( !( IsDamageStat( effect.targetStat, effect.valueStat ) ) )
+			{
+				continue;
+			}
+			isHealthPercentageStat = effect.targetStat == gamedataStatType.Health;
+			inkTextRef.SetVisible( m_healthPercentageLabel, isHealthPercentageStat );
+			if( isHealthPercentageStat )
+			{
+				valueToDisplay = "-";
+			}
+			valueToDisplay += IntToString( CeilF( effect.valueToDisplay ) );
+			if( isHealthPercentageStat )
+			{
+				valueToDisplay += "%";
+			}
+			if( effect.isContinuous )
+			{
+				inkTextRef.SetText( m_damageContinuous, "/" + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+				inkTextRef.SetVisible( m_damageContinuous, true );
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+			}
+			damageType = effect.damageType;
+			if( effect.valueToDisplay > 0.0 )
+			{
+				inkTextRef.SetText( m_damageValue, valueToDisplay );
+				inkTextRef.SetVisible( m_damageValue, true );
+				inkWidgetRef.SetVisible( m_damageWrapper, true );
+			}
+			if( damageType != gamedataDamageType.Invalid )
+			{
+				damageTypeRecord = RPGManager.GetStatRecord( UIItemsHelper.GetStatTypeByDamageType( damageType ) );
+				damageTypeLocKey = UILocalizationHelper.GetStatNameLockey( damageTypeRecord );
+				inkTextRef.SetText( m_damageLabel, damageTypeLocKey );
+				inkTextRef.SetVisible( m_damageLabel, true );
+			}
+			else
+			{
+				inkTextRef.SetVisible( m_damageLabel, false );
+			}
+			break;
+		}
+	}
+
+	private function NewUpdateMods()
+	{
+		var i, limit : Int32;
+		var controller : ItemTooltipModController;
+		var modsManager : weak< UIInventoryItemModsManager >;
+		modsManager = m_itemData.GetModsManager();
+		limit = modsManager.GetModsSize();
+		if( limit > 0 )
+		{
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) > 0 )
+			{
+				inkCompoundRef.RemoveChildByIndex( m_effectsList, 0 );
+			}
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) < limit )
+			{
+				SpawnFromLocal( inkCompoundRef.Get( m_effectsList ), 'programTooltipEffect' );
+			}
+			for( i = 0; i < limit; i += 1 )
+			{
+				controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_effectsList, i ).GetController() ) );
+				controller.GetContext( m_isCrafting );
+				controller.SetData( modsManager.GetMod( i ) );
+			}
+		}
+	}
+
+	private function UpdateMods()
+	{
+		var i : Int32;
+		var attachment : InventoryItemAttachments;
+		var controller : ItemTooltipModController;
+		if( m_data.itemAttachments.Size() > 0 )
+		{
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) > 0 )
+			{
+				inkCompoundRef.RemoveChildByIndex( m_effectsList, 0 );
+			}
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) < m_data.itemAttachments.Size() )
+			{
+				SpawnFromLocal( inkCompoundRef.Get( m_effectsList ), 'programTooltipEffect' );
+			}
+			for( i = 0; i < m_data.itemAttachments.Size(); i += 1 )
+			{
+				attachment = m_data.itemAttachments[ i ];
+				controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_effectsList, i ).GetController() ) );
+				controller.GetContext( m_isCrafting );
+				controller.SetData( attachment );
+			}
+		}
+		else if( ( m_data.itemAttachments.Size() == 0 ) && ( m_data.specialAbilities.Size() > 0 ) )
+		{
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) > 0 )
+			{
+				inkCompoundRef.RemoveChildByIndex( m_effectsList, 0 );
+			}
+			while( inkCompoundRef.GetNumChildren( m_effectsList ) < m_data.specialAbilities.Size() )
+			{
+				SpawnFromLocal( inkCompoundRef.Get( m_effectsList ), 'programTooltipEffect' );
+			}
+			for( i = 0; i < m_data.specialAbilities.Size(); i += 1 )
+			{
+				controller = ( ( ItemTooltipModController )( inkCompoundRef.GetWidgetByIndex( m_effectsList, i ).GetController() ) );
+				controller.GetContext( m_isCrafting );
+				controller.SetData( m_data.specialAbilities[ i ] );
+			}
+		}
+	}
+
+	private function NewUpdatePrice( player : weak< PlayerPuppet > )
+	{
+		if( m_itemDisplayContext == ItemDisplayContext.Vendor )
+		{
+			inkTextRef.SetText( m_priceText, IntToString( RoundF( m_itemData.GetBuyPrice() ) * m_itemData.GetQuantity() ) );
+		}
+		else
+		{
+			inkTextRef.SetText( m_priceText, IntToString( RoundF( m_itemData.GetSellPrice() ) * m_itemData.GetQuantity() ) );
+		}
+		inkWidgetRef.SetVisible( m_priceContainer, m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+	}
+
+	private function UpdatePrice()
+	{
+		if( m_data.isVendorItem )
+		{
+			inkTextRef.SetText( m_priceText, FloatToStringPrec( m_data.buyPrice, 0 ) );
+		}
+		else
+		{
+			inkTextRef.SetText( m_priceText, FloatToStringPrec( m_data.price, 0 ) );
+		}
+		inkWidgetRef.SetVisible( m_priceContainer, m_data.displayContext != InventoryTooltipDisplayContext.Crafting );
+	}
+
+	private function UpdatePerkRequirement()
+	{
+		var textParams : inkTextParams;
+		inkWidgetRef.SetVisible( m_perkContainer, false );
+		if( m_data.isPerkRequired )
+		{
+			textParams = new inkTextParams;
+			textParams.AddLocalizedString( "perkName", m_data.perkRequiredName );
+			inkWidgetRef.SetVisible( m_perkContainer, true );
+			inkTextRef.SetLocalizedTextScript( m_perkText, "LocKey#42796", textParams );
+		}
+	}
+
+	private function UpdateRequirements()
+	{
+		var itemData : InventoryItemData;
+		var islocked : Bool;
+		itemData = m_data.inventoryItemData;
+		islocked = !( InventoryItemData.IsRequirementMet( itemData ) );
+		inkWidgetRef.SetVisible( m_qualityContainer, islocked );
+		if( islocked )
+		{
+			inkTextRef.SetLocalizedText( m_qualityText, 'UI-Tooltips-ModQualityRestriction' );
+		}
+	}
+
+}
+
+class ProgramTooltipEffectController extends ItemTooltipModController
+{
+
+	private override function EntryWidgetToSpawn() : CName
+	{
+		return 'programTooltipEffectEntry';
+	}
+
+}
+
+class ProgramTooltipStatController extends inkLogicController
+{
+	private editable var m_arrow : inkImageRef;
+	private editable var m_value : inkTextRef;
+	private editable var m_name : inkTextRef;
+	private editable var m_diffValue : inkTextRef;
+
+	public function SetData( const localizedKey : ref< String >, value : Float, diff : Float )
+	{
+		if( AbsF( value ) > 0.01 )
+		{
+			GetRootWidget().SetState( 'Default' );
+			if( value > 0.01 )
+			{
+				inkTextRef.SetText( m_name, localizedKey + " " );
+				inkTextRef.SetText( m_value, FloatToStringPrec( value, 1 ) + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+			}
+			else
+			{
+				inkTextRef.SetText( m_name, localizedKey + " " );
+				inkTextRef.SetText( m_value, GetLocalizedText( "UI-Quickhacks-Infinite" ) );
+			}
+		}
+		else
+		{
+			GetRootWidget().SetState( 'Empty' );
+			inkTextRef.SetText( m_value, ( localizedKey + " " ) + GetLocalizedText( "UI-Quickhacks-NotApplicable" ) );
+			inkTextRef.SetVisible( m_name, false );
+		}
+		UpdateComparedValue( diff );
+	}
+
+	private function UpdateComparedValue( diffValue : Float )
+	{
+		var isVisible : Bool;
+		var comaredStatText : String;
+		var statToSet : CName;
+		isVisible = diffValue != 0.0;
+		statToSet = ( ( diffValue > 0.0 ) ? ( 'Better' ) : ( 'Worse' ) );
+		comaredStatText += ( ( ( diffValue > 0.0 ) ) ? ( "+" ) : ( "-" ) );
+		comaredStatText += FloatToStringPrec( AbsF( diffValue ), 2 );
+		inkTextRef.SetText( m_diffValue, comaredStatText );
+		inkImageRef.SetVisible( m_arrow, isVisible );
+		inkTextRef.SetVisible( m_diffValue, isVisible );
+		inkImageRef.SetState( m_arrow, statToSet );
+		inkTextRef.SetState( m_diffValue, statToSet );
+		inkImageRef.SetBrushMirrorType( m_arrow, ( ( diffValue > 0.0 ) ? ( inkBrushMirrorType.NoMirror ) : ( inkBrushMirrorType.Vertical ) ) );
+	}
+
+}
+

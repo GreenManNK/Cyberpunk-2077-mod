@@ -1,0 +1,109 @@
+class IsPlayerReachablePrereqState extends PrereqState
+{
+}
+
+class IsPlayerReachablePrereq extends IScriptablePrereq
+{
+	var m_invert : Bool;
+	var m_checkRMA : Bool;
+	var m_checkOnlyRMA : Bool;
+	var m_minRMADistance : Float;
+	var m_canCheckProxy : Bool;
+	var m_horTolerance : Float;
+	var m_verTolerance : Float;
+
+	protected override function Initialize( recordID : TweakDBID )
+	{
+		m_invert = TweakDBInterface.GetBool( recordID + T".invert", false );
+		m_checkRMA = TweakDBInterface.GetBool( recordID + T".checkForRMA", false );
+		m_checkOnlyRMA = TweakDBInterface.GetBool( recordID + T".checkOnlyRMA", false );
+		m_minRMADistance = TweakDBInterface.GetFloat( recordID + T".minDistanceWithinRMA", 0.0 );
+		m_canCheckProxy = TweakDBInterface.GetBool( recordID + T".canCheckProxy", false );
+		m_horTolerance = TweakDBInterface.GetFloat( recordID + T".horizontalTolerance", 0.0 );
+		m_verTolerance = TweakDBInterface.GetFloat( recordID + T".verticalTolerance", 0.0 );
+	}
+
+	public const override function IsFulfilled( game : GameInstance, context : IScriptable ) : Bool
+	{
+		var owner : weak< ScriptedPuppet >;
+		var player : weak< ScriptedPuppet >;
+		var proxy : weak< GameObject >;
+		var position : Vector4;
+		var toPosition : Vector4;
+		var rmaPosition : Vector4;
+		var navigationSystem : AINavigationSystem;
+		var query : AINavigationSystemQuery;
+		var queryId : Uint32;
+		var worldPosition : WorldPosition;
+		var navResult : AINavigationSystemResult;
+		var unreachableDistance : Vector4;
+		var result : Bool;
+		player = ( ( ScriptedPuppet )( GetPlayer( game ) ) );
+		owner = ( ( ScriptedPuppet )( context ) );
+		if( !( owner ) || !( player ) )
+		{
+			return false;
+		}
+		position = player.GetWorldPosition();
+		if( m_canCheckProxy )
+		{
+			proxy = player.TryGetControlledProxy();
+			if( proxy )
+			{
+				position = proxy.GetWorldPosition();
+			}
+		}
+		if( m_checkRMA )
+		{
+			if( m_minRMADistance <= 0.0 )
+			{
+				rmaPosition = position;
+			}
+			else
+			{
+				toPosition = position - owner.GetWorldPosition();
+				toPosition.Z = 0.0;
+				toPosition = Vector4.Normalize( toPosition );
+				rmaPosition = owner.GetWorldPosition() + ( toPosition * m_minRMADistance );
+			}
+			if( !( AIActionHelper.IsPointInRestrictedMovementArea( owner, rmaPosition ) ) )
+			{
+				return GetFinalResult( false );
+			}
+			if( m_checkOnlyRMA )
+			{
+				return GetFinalResult( true );
+			}
+		}
+		if( ( m_horTolerance <= 0.0 ) && ( m_verTolerance <= 0.0 ) )
+		{
+			result = AINavigationSystem.HasPathFromAtoB( owner, game, owner.GetWorldPosition(), position );
+			return GetFinalResult( result );
+		}
+		navigationSystem = GameInstance.GetAINavigationSystem( owner.GetGame() );
+		AIPositionSpec.SetEntity( query.source, owner );
+		WorldPosition.SetVector4( worldPosition, position );
+		AIPositionSpec.SetWorldPosition( query.target, worldPosition );
+		queryId = navigationSystem.StartPathfinding( query );
+		navigationSystem.GetResult( queryId, navResult );
+		navigationSystem.StopPathfinding( queryId );
+		if( !( navResult.hasClosestReachablePoint ) )
+		{
+			return GetFinalResult( false );
+		}
+		unreachableDistance = position - WorldPosition.ToVector4( navResult.closestReachablePoint );
+		result = ( unreachableDistance.Z <= m_verTolerance ) && ( ( ( unreachableDistance.X * unreachableDistance.X ) + ( unreachableDistance.Y * unreachableDistance.Y ) ) <= ( m_horTolerance * m_horTolerance ) );
+		return GetFinalResult( result );
+	}
+
+	private const function GetFinalResult( result : Bool ) : Bool
+	{
+		if( m_invert )
+		{
+			return !( result );
+		}
+		return result;
+	}
+
+}
+

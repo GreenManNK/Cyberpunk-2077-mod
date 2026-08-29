@@ -1,5 +1,5 @@
 HolographicValueDisplay = {
-    version = '1.0.3',
+    version = '1.0.2',
     digits = {}
 }
 
@@ -90,7 +90,8 @@ local function digitWorldPositionV4(numberLength, digitTensPlace)
     local xOffset = digitOffset * DIGIT_SPACING * math.cos(angle)
     local yOffset = digitOffset * DIGIT_SPACING * math.sin(angle)
     if holoCenter == nil then
-        DualPrint('ERROR: holoCenter is nil')
+        --shouldn't ever trigger
+        holoCenter = Vector4.new(-1040.733, 1340.121, 6.085, 1)
     end
     local digitPosition = Vector4.new(
         holoCenter.x + xOffset,
@@ -173,32 +174,20 @@ end
 
 ---Spawns the initial display of the player's chips. (zero)
 ---@param locationVector4 Vector4 world position of display stand
----@param facingDirectionQuaternion Quaternion quaternion rotation of display stand's facing direction.
-function HolographicValueDisplay.startDisplay(locationVector4, facingDirectionQuaternion)
+---@param facingDirectionAngle number 360 degree angle(yaw) of display stand's facing direction.
+function HolographicValueDisplay.startDisplay(locationVector4, facingDirectionAngle)
     holoActive = true
     currentValue = 0
     digitCount = 1
     holoCenter = locationVector4
-    
-    -- Convert quaternion to EulerAngles to extract yaw angle (for backward compatibility with existing code)
-    local eulerAngles = facingDirectionQuaternion:ToEulerAngles()
-    holoFacingAngle = eulerAngles.yaw
+    holoFacingAngle = facingDirectionAngle
     frameCounter = 0
-    
-    -- Apply 180 degree rotation offset to the quaternion
-    -- Convert to EulerAngles, add 180 to yaw, then convert back to quaternion
-    local adjustedEuler = EulerAngles.new(
-        eulerAngles.roll,
-        eulerAngles.pitch,
-        eulerAngles.yaw + 180
-    )
-    local adjustedQuaternion = adjustedEuler:ToQuat()
 
     local spec = StaticEntitySpec.new()
     spec.templatePath = chipsStackHoloProjector
     spec.appearanceName = 'default'
     spec.position = locationVector4
-    spec.orientation = adjustedQuaternion
+    spec.orientation = EulerAngles.ToQuat(EulerAngles.new(0,0,holoFacingAngle+180))
     spec.tags = {"HolographicDisplay","ProjectorStand"}
     holoEntityID = Game.GetStaticEntitySystem():SpawnEntity(spec) --spawn holodisplay chip stand
 
@@ -206,7 +195,7 @@ function HolographicValueDisplay.startDisplay(locationVector4, facingDirectionQu
     spec2.templatePath = holographicDigit
     spec2.appearanceName = 'chips'
     spec2.position = Vector4.new(holoCenter.x,holoCenter.y,holoCenter.z + (DIGIT_BOTTOM_MARGIN*1.5),holoCenter.w)
-    spec2.orientation = adjustedQuaternion
+    spec2.orientation = EulerAngles.ToQuat(EulerAngles.new(0,0,holoFacingAngle+180))
     spec2.tags = {"HolographicDisplay","chips"}
     holoChipsEntityID = Game.GetStaticEntitySystem():SpawnEntity(spec2) --spawn holodisplay chips sign
 

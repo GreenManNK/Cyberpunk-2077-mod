@@ -1,0 +1,307 @@
+package Character
+using RTDB, BaseStats, Factions, ArchetypeData, ArchetypeType
+
+mq059_merc_1 : generic_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : TygerClawsPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : TygerClawsSecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	visualTags += 
+	[
+		"Netrunner"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.NetrunnerT2;
+	} : ArchetypeData.NetrunnerT2;
+}
+
+mq059_merc_2 : generic_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : MaelstromAssaultRiflePool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : TygerClawsSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Grunt"
+	];
+	rarity = "NPCRarity.Weak";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+}
+
+mq059_merc_3 : generic_street_base_mb
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_HMG_Military";
+				equipSlot = "AttachmentSlots.WeaponRight";
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ArasakaSecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	visualTags += 
+	[
+		"Enforcer"
+	];
+	rarity = "NPCRarity.Elite";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.HeavyRangedT3;
+	} : ArchetypeData.HeavyRangedT3;
+}
+
+merc_mq059_4 : generic_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : AnimalsShotgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ArasakaSecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	visualTags += 
+	[
+		"Shotgun"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.FastShotgunnerT2;
+	} : ArchetypeData.FastShotgunnerT2;
+}
+
+merc_mq059_5 : generic_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Nekomata_Default";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				onBodySlot = "AttachmentSlots.ItemSlotGenericRanged";
+				equipCondition = 
+				[
+					"WeaponConditions.SniperPrimaryWeaponSniperEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.SniperPrimaryWeaponSniperUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ArasakaSecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	sensePreset = "Senses.SniperRelaxed50m";
+	relaxedSensesPreset = "SniperRelaxed50m";
+	alertedSensesPreset = "SniperAlerted50m";
+	combatSensesPreset = "SniperCombat50m";
+	rarity = "NPCRarity.Elite";
+	visualTags += 
+	[
+		"Sniper"
+	];
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.SniperT2;
+	} : ArchetypeData.SniperT2;
+}
+
+merc_mq059_6 : generic_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Machete_Default";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : TygerClawsSecondaryHandgunPool
+		];
+	};
+	visualTags += 
+	[
+		"Lvl2", "Fast"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#97100";
+		} : ArchetypeType.FastMeleeT2;
+	} : ArchetypeData.FastMeleeT2;
+}
+
+mq059_engineer : CorpoWoman
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	CName baseAttitudeGroup = "hostile";
+	displayName = "LocKey#96591";
+}
+
+mq059_6th_street_gun : sixth_street_base_ma
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : SecurityPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : SecuritySecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	visualTags += 
+	[
+		"Hooligan", "Lvl2"
+	];
+	rarity = "NPCRarity.Rare";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#22450";
+		} : ArchetypeType.GenericRangedT2;
+	} : ArchetypeData.GenericRangedT2;
+	lootDrop = "Loot.SixthStreetGenericRangedHooliganT1_nova";
+}
+
+mq059_6th_street_grenadier : sixth_street_base_wa
+{
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : SecurityPrimaryHandgunPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : SecuritySecondaryHandgunPool
+		];
+	};
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	archetypeData = 
+	{
+		type = 
+		{
+			localizedName = "LocKey#42672";
+		} : ArchetypeType.TechieT3;
+	} : ArchetypeData.TechieT3;
+	rarity = "NPCRarity.Elite";
+	visualTags += 
+	[
+		"Lvl3", "Techie"
+	];
+}
+

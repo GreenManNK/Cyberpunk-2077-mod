@@ -1,0 +1,67 @@
+package Character
+using RTDB, BaseStats
+
+mq057_driver_01 : maelstrom_fast_fmelee3_mantis_wa_elite
+{
+	tags += 
+	[
+		"Cyberpsycho"
+	];
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	rarity = "NPCRarity.Boss";
+	displayName = "LocKey#96435";
+	fullDisplayName = "LocKey#96436";
+	entityTemplatePath = "base\characters\entities\gang\gang__maelstrom_wa.ent";
+	reactionPreset = "ReactionPresets.NoReaction";
+	skipDisplayArchetype = true;
+	savable = true;
+	fk< LootTable > lootDrop = "LootTables.mq057_driver_loot";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ScavengerPrimaryHandgunPool
+		];
+	};
+	statModifierGroups += 
+	[
+		"Character.Cyberpsycho_ModGroup", "Character.Cyberpsycho_HitReaction_Resistance"
+	];
+}
+
+mq057_driver_02 : maelstrom_strong_gunner2_defender_mb_rare
+{
+	quest = "NPCQuestAffiliation.MinorQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	fk< NPCRarity > rarity = "NPCRarity.Boss";
+	displayName = "LocKey#96437";
+	fullDisplayName = "LocKey#96438";
+	entityTemplatePath = "base\characters\entities\gang\gang__maelstrom_mb.ent";
+	reactionPreset = "ReactionPresets.NoReaction";
+	skipDisplayArchetype = true;
+	savable = true;
+	fk< LootTable > lootDrop = "LootTables.mq057_driver2_loot";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+	archetypeData = "ArchetypeData.HeavyRangedT3";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			modifierType = "Multiplier";
+			value = 0.01;
+		} : KnockdownDamageThresholdModifier, 
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			value = 1000;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+}
+

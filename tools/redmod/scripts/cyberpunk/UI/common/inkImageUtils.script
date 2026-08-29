@@ -1,0 +1,120 @@
+class InkImageUtils
+{
+
+	public static function RequestSetImage( controller : inkIGameController, target : inkImageRef, iconID : CName, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), NameToString( iconID ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkIGameController, target : inkImageRef, const iconID : ref< String >, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), iconID, callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkIGameController, target : inkImageRef, iconID : TweakDBID, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), iconID, callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkIGameController, target : weak< inkImage >, iconID : CName, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, target, TDBID.Create( NameToString( iconID ) ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkIGameController, target : weak< inkImage >, const iconID : ref< String >, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, target, TDBID.Create( iconID ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkIGameController, target : weak< inkImage >, iconID : TweakDBID, optional callbackFunction : CName )
+	{
+		var iconRef : UIIconReference;
+		if( target )
+		{
+			iconRef = new UIIconReference;
+			iconRef.iconID = iconID;
+			if( controller && IsNameValid( callbackFunction ) )
+			{
+				target.RequestSetImage( iconRef, ( ( weak< weak< IScriptable > > )( controller ) ), callbackFunction );
+			}
+			else
+			{
+				target.RequestSetImage( iconRef );
+			}
+		}
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : inkImageRef, const iconID : ref< String >, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), iconID, callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : inkImageRef, iconID : CName, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), NameToString( iconID ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : inkImageRef, iconID : TweakDBID, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, ( ( weak< weak< inkImage > > )( inkImageRef.Get( target ) ) ), iconID, callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : weak< inkImage >, const iconID : ref< String >, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, target, TDBID.Create( iconID ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : weak< inkImage >, iconID : CName, optional callbackFunction : CName )
+	{
+		RequestSetImage( controller, target, TDBID.Create( NameToString( iconID ) ), callbackFunction );
+	}
+
+	public static function RequestSetImage( controller : inkLogicController, target : weak< inkImage >, iconID : TweakDBID, optional callbackFunction : CName )
+	{
+		var iconRef : UIIconReference;
+		if( target )
+		{
+			iconRef = new UIIconReference;
+			iconRef.iconID = iconID;
+			if( controller && IsNameValid( callbackFunction ) )
+			{
+				target.RequestSetImage( iconRef, ( ( weak< weak< IScriptable > > )( controller ) ), callbackFunction );
+			}
+			else
+			{
+				target.RequestSetImage( iconRef );
+			}
+		}
+	}
+
+	public static function RequestAvatarOrUnknown( controller : inkIGameController, target : inkImageRef, iconID : TweakDBID )
+	{
+		if( TDBID.IsValid( iconID ) )
+		{
+			RequestSetImage( controller, target, iconID );
+		}
+		else
+		{
+			RequestSetImage( controller, target, T"PhoneAvatars.Avatar_Unknown" );
+		}
+	}
+
+	public static function RequestAvatarOrUnknown( controller : inkLogicController, target : inkImageRef, iconID : TweakDBID )
+	{
+		if( TDBID.IsValid( iconID ) )
+		{
+			RequestSetImage( controller, target, iconID );
+		}
+		else
+		{
+			RequestSetImage( controller, target, T"PhoneAvatars.Avatar_Unknown" );
+		}
+	}
+
+}
+
+import class gameuiDynamicIconLogicController extends inkLogicController
+{
+	public import function SetIcon( icon : TweakDBID );
+}
+

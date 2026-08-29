@@ -1,0 +1,370 @@
+package Query
+using RTDB
+
+JunkQuery : ItemQuery
+{
+	recordType = "Items.Junk";
+}
+
+JunkTokenQuery : ItemQuery
+{
+	recordType = "Items.Junk";
+	tagsToExclude = 
+	[
+		"NoVisuals"
+	];
+}
+
+SmallJunkQuery : JunkQuery
+{
+	recordType = "Items.JunkSmallSize";
+}
+
+MediumJunkQuery : JunkQuery
+{
+	recordType = "Items.JunkMediumSize";
+}
+
+LargeJunkQuery : JunkQuery
+{
+	recordType = "Items.JunkLargeSize";
+}
+
+SmallJunkTokenQuery : JunkTokenQuery
+{
+	recordType = "Items.JunkSmallSize";
+}
+
+MediumJunkTokenQuery : JunkTokenQuery
+{
+	recordType = "Items.JunkMediumSize";
+}
+
+LargeJunkTokenQuery : JunkTokenQuery
+{
+	recordType = "Items.JunkLargeSize";
+}
+
+NoFactionJunkQuery : JunkQuery
+{
+	tagsToExclude = 
+	[
+		"FactionItem"
+	];
+}
+
+CorporationJunkQuery : JunkQuery
+{
+	tags = 
+	[
+		"Corporation"
+	];
+}
+
+TygerClawsJunk : JunkQuery
+{
+	tags = 
+	[
+		"TygerClaws"
+	];
+}
+
+AnimalsJunk : JunkQuery
+{
+	tags = 
+	[
+		"Animals"
+	];
+}
+
+MaelstromJunk : JunkQuery
+{
+	tags = 
+	[
+		"Maelstrom"
+	];
+}
+
+ValentinosJunk : JunkQuery
+{
+	tags = 
+	[
+		"Valentinos"
+	];
+}
+
+VoodooBoysJunk : JunkQuery
+{
+	tags = 
+	[
+		"VoodooBoys"
+	];
+}
+
+WraithsJunk : JunkQuery
+{
+	tags = 
+	[
+		"Wraiths"
+	];
+}
+
+MoxiesJunk : JunkQuery
+{
+	tags = 
+	[
+		"Moxies"
+	];
+}
+
+ScavengersJunk : JunkQuery
+{
+	tags = 
+	[
+		"Scavengers"
+	];
+}
+
+SixthStreetJunk : JunkQuery
+{
+	tags = 
+	[
+		"SixthStreet"
+	];
+}
+
+LotsOfJunk : ItemArrayQuery
+{
+	recordType = "Items.Junk";
+	minItems = 3;
+	maxItems = 8;
+}
+
+CreepyFollower_JunkQuery : JunkQuery
+{
+	tags = 
+	[
+		"CreepyFollower"
+	];
+}
+
+Jewellery : ItemQuery
+{
+	recordType = "Items.Jewellery";
+}
+
+LowQualityJewellery : ItemQuery
+{
+	recordType = "Items.LowQualityJewellery";
+}
+
+MediumQualityJewellery : ItemQuery
+{
+	recordType = "Items.MediumQualityJewellery";
+}
+
+HighQualityJewellery : ItemQuery
+{
+	recordType = "Items.HighQualityJewellery";
+}
+
+ValentinosJewellery : ItemQuery
+{
+	recordType = "Items.ValentinosJewellery";
+}
+
+TygerClawsJewellery : ItemQuery
+{
+	recordType = "Items.TygerClawsJewellery";
+}
+
+AnimalsJewellery : ItemQuery
+{
+	recordType = "Items.AnimalsJewellery";
+}
+
+CyberwarePlusArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 1;
+	recordType = "Items.Cyberware";
+	levelBasedQuality = true;
+	qualityLevelModifier = 1;
+	tagsToExclude += 
+	[
+		"Iconic_OS_CW"
+	];
+}
+
+CyberwareNextTierArrayQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 1;
+	recordType = "Items.Cyberware";
+	levelBasedQuality = true;
+	qualityLevelModifier = 1;
+	tagsToExclude += 
+	[
+		"Iconic_OS_CW"
+	];
+}
+
+TreasureCyberwareQuery : ItemArrayQuery
+{
+	minItems = 1;
+	maxItems = 1;
+	recordType = "Items.Cyberware";
+	levelBasedQuality = true;
+	qualityLevelModifier = 1;
+	tagsToExclude += 
+	[
+		"Iconic_OS_CW"
+	];
+}
+
+Tier1_TreasureCyberwareQuery : TreasureCyberwareQuery
+{
+	qualityLevelModifier = 0;
+}
+
+Tier2_TreasureCyberwareQuery : Tier1_TreasureCyberwareQuery
+{
+	qualityLevelModifier = 2;
+}
+
+Tier3_TreasureCyberwareQuery : Tier1_TreasureCyberwareQuery
+{
+	qualityLevelModifier = 4;
+}
+
+Tier4_TreasureCyberwareQuery : Tier1_TreasureCyberwareQuery
+{
+	qualityLevelModifier = 6;
+}
+
+Tier5_TreasureCyberwareQuery : Tier1_TreasureCyberwareQuery
+{
+	qualityLevelModifier = 8;
+}
+
+Treasure_Iconic_OS_CW_Query : ItemQuery
+{
+	recordType = "Items.Cyberware";
+	tags += 
+	[
+		"Iconic_OS_CW"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Apogee_Owned : Treasure_Iconic_OS_CW_Query
+{
+	tagsToExclude += 
+	[
+		"Iconic_Apogee_Sandevistan"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Falcon_Owned : Treasure_Iconic_OS_CW_Query
+{
+	tagsToExclude += 
+	[
+		"Iconic_Falcon_Sandevistan"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Berserk_Owned : Treasure_Iconic_OS_CW_Query
+{
+	tagsToExclude += 
+	[
+		"Iconic_Militech_Berserk"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Netdriver_Owned : Treasure_Iconic_OS_CW_Query
+{
+	tagsToExclude += 
+	[
+		"Iconic_Netdriver_Cyberdeck"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Apogee_And_Falcon_Owned : Treasure_Iconic_OS_CW_Query_Apogee_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Falcon_Sandevistan"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Apogee_And_Berserk_Owned : Treasure_Iconic_OS_CW_Query_Apogee_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Militech_Berserk"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Apogee_And_Netdriver_Owned : Treasure_Iconic_OS_CW_Query_Apogee_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Netdriver_Cyberdeck"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Falcon_And_Berserk_Owned : Treasure_Iconic_OS_CW_Query_Falcon_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Militech_Berserk"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Falcon_And_Netdriver_Owned : Treasure_Iconic_OS_CW_Query_Falcon_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Netdriver_Cyberdeck"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Berserk_And_Netdriver_Owned : Treasure_Iconic_OS_CW_Query_Berserk_Owned
+{
+	tagsToExclude += 
+	[
+		"Iconic_Netdriver_Cyberdeck"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Apogee_Missing : Treasure_Iconic_OS_CW_Query
+{
+	tags += 
+	[
+		"Iconic_Apogee_Sandevistan"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Falcon_Missing : Treasure_Iconic_OS_CW_Query
+{
+	tags += 
+	[
+		"Iconic_Falcon_Sandevistan"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Berserk_Missing : Treasure_Iconic_OS_CW_Query
+{
+	tags += 
+	[
+		"Iconic_Militech_Berserk"
+	];
+}
+
+Treasure_Iconic_OS_CW_Query_Netdriver_Missing : Treasure_Iconic_OS_CW_Query
+{
+	tags += 
+	[
+		"Iconic_Netdriver_Cyberdeck"
+	];
+}
+

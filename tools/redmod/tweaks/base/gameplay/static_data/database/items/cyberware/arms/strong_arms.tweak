@@ -1,0 +1,615 @@
+package Items
+using RTDB, BaseStats, BaseStatPools, WeaponFxPackage, FistsAttacks, StrongArmsAttacks, Prereqs, Effectors, Perks
+
+[ notQueryable ]
+StrongArms : Base_Fists
+{
+	string friendlyName = "w_strong_arms";
+	isCustomizable = true;
+	isSingleInstance = false;
+	itemSecondaryAction = "";
+	buyPrice = 
+	[
+		"Price.BaseWeaponPrice", "Price.ItemQualityMultiplier", "Price.PlusTierMultiplier", "Price.CyberwareMultiplier", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = 
+	[
+		"Price.BaseWeaponPrice", "Price.ItemQualityMultiplier", "Price.PlusTierMultiplier", "Price.CyberwareMultiplier", "Price.CyberwareSellMultiplier"
+	];
+	displayName = "LocKey#3718";
+	localizedDescription = "LocKey#3719";
+	iconPath = "cw_arms_strongarms";
+	crosshair = "Crosshairs.Melee_Strong_Arms";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.CWStrongarms";
+	blueprint = "Items.StrongArmsBlueprint";
+	int specialAttackNumber = 8;
+	float onePunchAttackDelay = 0.3;
+	float impulseOfOnePunch = 20.;
+	float upwardsVectorStrength = 0.7;
+	float vfxDelay = 0.;
+	float slowMoAmount = 0.3;
+	float slowDuration = 0.7;
+	float slowMoDelay = 0.;
+	float colliderBoxWidth = 3.0;
+	float colliderBoxHeight = 2.0;
+	slotPartList = 
+	[
+		{
+			slot = "AttachmentSlots.CyberwareRoot";
+			itemPartList = 
+			[
+				{
+					item = "Items.StrongArmsRoot";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.StrongArmsKnuckles";
+			itemPartList = 
+			[
+				{
+					item = "Items.PhysicalDamageKnuckles";
+				}, 
+				{
+					item = "Items.ThermalDamageKnuckles";
+				}, 
+				{
+					item = "Items.ChemicalDamageKnuckles";
+				}, 
+				{
+					item = "Items.ElectricDamageKnuckles";
+				}, 
+				{
+					item = "Items.AnimalsStrongArmsKnuckles1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.StrongArmsBattery";
+			itemPartList = 
+			[
+				{
+					item = "Items.LowChargedBattery";
+				}, 
+				{
+					item = "Items.MediumChargedBattery";
+				}, 
+				{
+					item = "Items.HighChargedBattery";
+				}, 
+				{
+					item = "Items.AnimalsStrongArmsBattery1";
+				}, 
+				{
+					item = "Items.TygerClawsStrongArmsBattery1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+			itemPartList = 
+			[
+				{
+					item = "Items.ArmsCyberwareSharedFragment1";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment2";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment3";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment4";
+				}
+			];
+		}
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.CyberwareRoot";
+			itemPartPreset = "Items.StrongArmsRoot";
+		}, 
+		{
+			slot = "AttachmentSlots.StrongArmsKnuckles";
+			itemPartPreset = "Items.PhysicalDamageKnuckles";
+		}, 
+		{
+			slot = "AttachmentSlots.StrongArmsBattery";
+			itemPartPreset = "";
+		}, 
+		{
+			slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+			itemPartPreset = "";
+		}
+	];
+	[ EP1 ]
+	entityName = "a0_005__strongarms_ent_ep1";
+	tags = 
+	[
+		"MeleeWeapon", "Core", "BluntWeapon", "Melee", "Cyberware", "TakedownWeapon", "Meleeware", "PSM", "WeaponQuickSlots", "UnequipHolsteredArms", "StrongArms", "HideInBackpackUI", "FinisherFront", "FinisherBack", "DoNotRegenerateOnPartChange"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft", "AttachmentSlots.RightArm"
+	];
+	parentAttachmentType = "ParentAttachmentType.Animated";
+	visualTags = [];
+	fxPackage = "WeaponFxPackage.StrongArmsFxPackage";
+	audioWeaponConfiguration = "audio_melee_metadata_fists_strong";
+	equipArea = "EquipmentArea.ArmsCW";
+	itemType = "ItemType.Cyb_StrongArms";
+	triggerEffectName = "te_wea_melee_swing_mid";
+	quality = "Quality.Rare";
+	holsteredItem = "Items.StrongHolsteredFists";
+	effectiveRangeFalloffCurve = "StrongArmsFalloff";
+	statModifierGroups = 
+	[
+		"Items.Base_Melee_Status_Effect_Application_Stats", "Items.Strong_Arms_RPG_Stats", "Items.Strong_Arms_Handling_Stats", "Items.Base_Fists_Misc_Stats", "Proficiencies.Weapon_StrengthSkill_Passives", "Items.StrongArmsInstallBonus", "Items.Strong_Arms_Damage_Stats"
+	];
+	statModifiers += 
+	[
+		"Items.ItemArmorToArmor"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+		];
+	} : Base_Fists_NPC_Data;
+	attacks = 
+	[
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsComboAttack1, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsComboAttack2, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsComboAttack3, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsComboAttack4, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack1, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack2, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack3, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack4, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack5, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsFinalAttack6, 
+		"StrongArmsAttacks.StrongArmsStrongAttack1", "StrongArmsAttacks.StrongArmsStrongAttack2", "StrongArmsAttacks.StrongArmsStrongAttack3", {
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsBlockAttack, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsJumpAttack, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsSprintAttack, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsCrouchAttack, 
+		{
+			string[] hitFlags = 
+			[
+				"Nonlethal"
+			];
+		} : StrongArmsAttacks.FistsDeflectAttack, 
+		"NPCAttacks.GrabAttack", "NPCAttacks.SpecialGrabAttackNetwatcher", {
+			string[] hitFlags = [];
+		} : StrongArmsAttacks.OnePunchSpecialAttack, 
+		{
+			string[] hitFlags = [];
+		} : StrongArmsAttacks.OnePunchAttackTargetDamage, 
+		"StrongArmsAttacks.FistsBodySlamLevel1Attack", "StrongArmsAttacks.FistsBodySlamLevel2Attack", "StrongArmsAttacks.FistsBodySlamLevel3Attack", "StrongArmsAttacks.FistsGroundSlamAttack"
+	];
+	statPools = 
+	[
+		"BaseStatPools.StrongArmsCharge"
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#80460";
+				stats = 
+				[
+					"BaseStats.StrengthSkillcheckBonus"
+				];
+			};
+			animationWrapperOverrides = 
+			[
+				"StrongArms"
+			];
+		}
+	];
+	CName cyberwareType = "StrongArms";
+	counterpart = "Items.AdvancedStrongArmsUncommon";
+}
+
+[ notQueryable ]
+StrongArmsBlueprint : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.CyberwareRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.StrongArmsBattery";
+				prereqID = 
+				{
+					valueToCheck = 4;
+				} : ItemQualityPrereq;
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.StrongArmsKnuckles";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+				prereqID = 
+				{
+					valueToCheck = 3;
+				} : ItemQualityPrereq;
+			}, 
+			{
+				slot = "AttachmentSlots.StatsShardSlot";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+Strong_Arms_RPG_Stats : ArmsCyberwareStatGroupBase
+{
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.BlockFactor";
+			modifierType = "Additive";
+			value = 10.f;
+		} : ConstantStatModifier, 
+		{
+			value = 0.25;
+		} : ChargeMultiplierModifier, 
+		{
+			statType = "BaseStats.ChargeFullMultiplier";
+			modifierType = "Additive";
+			refStat = "BaseStats.ChargeMultiplier";
+			opSymbol = "*";
+			value = 1.0f;
+		} : CombinedStatModifier, 
+		{
+			value = 100.f;
+		} : ChargeModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow", {
+			statType = "BaseStats.VehicleMinHealthPercentWhenDamaged";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Strong_Arms_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 70f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Strong_Arms_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 67f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Strong_Arms_Handling_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttacksNumber";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BlockFactor";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackDuration";
+			modifierType = "Additive";
+			value = 0.4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackComboDuration";
+			modifierType = "Additive";
+			value = 0.467f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BaseMeleeAttackStaminaCost";
+			modifierType = "Additive";
+			value = 12f;
+		} : ConstantStatModifier, 
+		{
+			float value = 30.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 10.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 30.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : PhysicalImpulseModifier
+	];
+}
+
+[ notQueryable ]
+NPC_Strong_Arms : Base_Fists
+{
+	displayName = "LocKey#3718";
+	localizedDescription = "LocKey#3719";
+	iconPath = "icon_strongarms";
+	crosshair = "Crosshairs.Melee_Strong_Arms";
+	blueprint = "Items.StrongArmsBlueprint";
+	entityName = "arms_cyberware_root";
+	tags += 
+	[
+		"Preload", "MeleeWeapon", "Cyberware", "Core", "TakedownWeapon", "Meleeware", "PSM", "WeaponQuickSlots", "UnequipHolsteredArms", "StrongArms", "FinisherFront", "FinisherBack", "NPCMeleeware", "HideInUI", "HideAtVendor"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft", "AttachmentSlots.RightArm"
+	];
+	visualTags = 
+	[
+		"default"
+	];
+	fxPackage = "WeaponFxPackage.StrongArmsFxPackage";
+	audioWeaponConfiguration = "audio_melee_metadata_fists_strong";
+	equipArea = "EquipmentArea.ArmsCW";
+	itemType = "ItemType.Cyb_StrongArms";
+	quality = "Quality.Random";
+	statModifierGroups = 
+	[
+		"Items.Strong_Arms_RPG_Stats", "Items.Strong_Arms_Handling_Stats", "Items.Base_Fists_Misc_Stats", "Items.Strong_Arms_Damage_Stats"
+	];
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+	fk< StatPool >[] statPools = 
+	[
+		"BaseStatPools.StrongArmsCharge"
+	];
+	enableNpcRPGData = true;
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Strong_Arms_NPC_Data;
+}
+
+[ notQueryable ]
+Base_Strong_Arms_NPC_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaCostToBlock";
+			modifierType = "Additive";
+			value = 30.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Additive";
+			value = 2.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			float value = 30.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 30.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 10.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 15.f;
+		} : PhysicalImpulseModifier, 
+		{
+			value = 0.0f;
+		} : EquipItemTime_GangModifier, 
+		{
+			value = 1.667f;
+		} : EquipAnimationDuration_GangModifier, 
+		{
+			value = 1.967f;
+		} : EquipActionDuration_GangModifier, 
+		{
+			value = 0.0f;
+		} : UnequipItemTime_GangModifier, 
+		{
+			value = 0.467f;
+		} : UnequipAnimationDuration_GangModifier, 
+		{
+			value = 1.033f;
+		} : UnequipDuration_GangModifier, 
+		{
+			value = 0.0f;
+		} : EquipItemTime_CorpoModifier, 
+		{
+			value = 1.667f;
+		} : EquipAnimationDuration_CorpoModifier, 
+		{
+			value = 1.967f;
+		} : EquipActionDuration_CorpoModifier, 
+		{
+			value = 0.0f;
+		} : UnequipItemTime_CorpoModifier, 
+		{
+			value = 0.467f;
+		} : UnequipAnimationDuration_CorpoModifier, 
+		{
+			value = 1.033f;
+		} : UnequipDuration_CorpoModifier
+	];
+}
+
+[ notQueryable ]
+Base_Strong_Arms_NPC_Data : Base_NPC_RPG_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Strong_Arms_NPC_Stats", "Items.Strong_Arms_NPC_Damage_Stats"
+	];
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+}
+
+[ notQueryable ]
+StrongArmsEpic : StrongArms
+{
+	quality = "Quality.Epic";
+	counterpart = "Items.AdvancedStrongArmsUncommon";
+}
+
+[ notQueryable ]
+StrongArmsLegendary : StrongArms
+{
+	quality = "Quality.Legendary";
+	counterpart = "Items.AdvancedStrongArmsUncommon";
+}
+
+[ EP1 ]
+[ notQueryable ]
+NPC_Strong_Arms_Bennett : NPC_Strong_Arms
+{
+	quality = "Quality.Common";
+}
+
+[ notQueryable ]
+StrongArmsInstallBonus : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.StrengthSkillcheckBonus";
+			modifierType = "Additive";
+			id = "item_meleeware_RPG_stats";
+			column = "quality_to_strong_arm_skillcheck_bonus";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.CanUseStrongArms";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+

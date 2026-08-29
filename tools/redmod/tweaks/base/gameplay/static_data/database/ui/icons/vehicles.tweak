@@ -1,0 +1,627 @@
+package UIIcon
+using RTDB
+
+arch_nemesis_basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_basic_player_01";
+}
+
+archer_hella__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "archer_hella__basic_player_01";
+}
+
+archer_quartz__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "archer_quartz__basic_player_01";
+}
+
+brennan_apollo_basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "brennan_apollo_basic_player_01";
+}
+
+chevalier_emperor__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "chevalier_emperor__basic_player_01";
+}
+
+chevalier_legatus_aquila : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "chevalier_legatus_aquila_player";
+}
+
+chevalier_thrax__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "chevalier_thrax__basic_player_01";
+}
+
+herrera_outlaw__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "herrera_outlaw__basic_player_01";
+}
+
+mahir_supron__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mahir_supron__basic_player_01";
+}
+
+makigai_maimai__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "makigai_maimai__basic_player_01";
+}
+
+mizutani_shion__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion__basic_player_01";
+}
+
+mizutani_shion_nomad_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion_nomad_player_01";
+}
+
+mizutani_shion_nomad_player_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion_nomad_player_02";
+}
+
+quadra_turbo_basic_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_turbo_basic_player";
+}
+
+quadra_turbo_basic_player_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_turbo_basic_player_02";
+}
+
+quadra_type66__basic_jen_rowley : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66__basic_jen_rowley";
+}
+
+quadra_type66__basic_sampson : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66__basic_sampson";
+}
+
+quadra_type66_nomad_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66_nomad_player_01";
+}
+
+quadra_type66_vtech_noralee : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66_vtech_noralee";
+}
+
+rayfield_aerondight__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "rayfield_aerondight__basic_player_01";
+}
+
+rayfield_caliburn__basic_ma_bls_ina_se1_40 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "rayfield_caliburn__basic_ma_bls_ina_se1_40";
+}
+
+rayfield_caliburn__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "rayfield_caliburn__basic_player_01";
+}
+
+rayfield_caliburn__basic_mordred : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "rayfield_caliburn__basic_mordred";
+}
+
+thorton_colby__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby__basic_player_01";
+}
+
+thorton_colby_pickup_ma_bls_ina_se1_44 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby_pickup_ma_bls_ina_se1_44";
+}
+
+thorton_colby_pickup_nomad_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby_pickup_nomad_player_01";
+}
+
+thorton_colby_pickup_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby_pickup_player_01";
+}
+
+thorton_galena__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_galena__basic_player_01";
+}
+
+thorton_galena__basic_q000_galena_bobas : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_galena__basic_q000_galena_bobas";
+}
+
+thorton_galena_nomad_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_galena_nomad_player_01";
+}
+
+thorton_mackinaw__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_mackinaw__basic_player_01";
+}
+
+villefort_alvarado__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_alvarado__basic_player_01";
+}
+
+villefort_columbus__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_columbus__basic_player_01";
+}
+
+villefort_cortes__basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_cortes__basic_player_01";
+}
+
+yaiba_kusanagi_basic_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_kusanagi_basic_player_01";
+}
+
+porsche_911turbo__basic_johnny : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "porsche_911turbo__basic_johnny";
+}
+
+arch_nemesis_basic_jackie : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_basic_jackie";
+}
+
+arch_nemesis_basic_jackie_tuned_up : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_basic_jackie_tuned_up";
+}
+
+thorton_mackinaw_nomad_deathrace_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_mackinaw_nomad_deathrace_01";
+}
+
+villefort_cortes__basic_delamain : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_cortes__basic_delamain";
+}
+
+villefort_alvarado__basic_valentinos_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_alvarado__basic_valentinos_02";
+}
+
+arch_nemesis_basic_tygerclaws_boss_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_basic_tygerclaws_boss_01";
+}
+
+brennan_apollo_basic_scorpion : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "brennan_apollo_basic_scorpion";
+}
+
+archer_quartz_bandit : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "archer_quartz_bandit";
+}
+
+thorton_mackinaw_nomad_saguaro : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_mackinaw_nomad_saguaro";
+}
+
+quadra_type66__bulleat : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66__bulleat";
+}
+
+makigai_tanishi_player_mr_hands : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "makigai_tanishi_player_mr_hands";
+}
+
+herrera_outlaw_heist_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "herrera_outlaw_heist_player";
+}
+
+mizutani_shion_nomad_player_missiles : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion_nomad_player_missiles";
+}
+
+makigai_tanishi_player_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "makigai_tanishi_player_01";
+}
+
+herrera_outlaw_heist_weaponized : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "herrera_outlaw_heist_weaponized";
+}
+
+militech_hellhound : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "militech_hellhound";
+}
+
+mizutani_hozuki : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_hozuki";
+}
+
+villefort_deleon : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_deleon";
+}
+
+quadra_sport_r7_mrhands : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_sport_r7_mrhands";
+}
+
+quadra_sport_r7_netrunner : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_sport_r7_netrunner";
+}
+
+quadra_sport_r7_vigilante : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_sport_r7_vigilante";
+}
+
+villefort_alvarado_hearse : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_alvarado_hearse";
+}
+
+herrera_riptide : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "herrera_riptide";
+}
+
+thorton_merrimac_playere : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_merrimac_player";
+}
+
+v_standard3_mahir_supron_kurtz_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_standard3_mahir_supron_kurtz_player";
+}
+
+v_standard2_archer_quartz_nomad_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_standard2_archer_quartz_nomad_player";
+}
+
+v_utility4_thorton_mackinaw_bmf_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_utility4_thorton_mackinaw_bmf_player";
+}
+
+v_sport2_quadra_type66_nomad_tribute : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_sport2_quadra_type66_nomad_tribute";
+}
+
+v_sport2_quadra_type66_nomad_player_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_sport2_quadra_type66_nomad_player_03";
+}
+
+v_standard25_thorton_colby_pickup_kurtz_player : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_standard25_thorton_colby_pickup_kurtz_player";
+}
+
+quadra_sport_r7_chiaroscuro : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_sport_r7_chiaroscuro";
+}
+
+arch_nemesis_linamalina : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_linamalina";
+}
+
+v_standard2_archer_quartz_nomad_player02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "v_standard2_archer_quartz_nomad_player02";
+}
+
+brennan_apollo_basic_player_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "brennan_apollo_basic_player_02";
+}
+
+yaiba_player_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_player_02";
+}
+
+yaiba_player_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_player_03";
+}
+
+yaiba_muramasa_naked : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked";
+}
+
+yaiba_muramasa_naked_as : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_as";
+}
+
+yaiba_muramasa_naked_as_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_as_nr";
+}
+
+yaiba_muramasa_naked_as_ns : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_as_ns";
+}
+
+yaiba_muramasa_naked_as_ns_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_as_ns_nr";
+}
+
+yaiba_muramasa_naked_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_nr";
+}
+
+yaiba_muramasa_naked_ns : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_ns";
+}
+
+yaiba_muramasa_naked_ns_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_naked_ns_nr";
+}
+
+yaiba_muramasa_regular : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular";
+}
+
+yaiba_muramasa_regular_as : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_as";
+}
+
+yaiba_muramasa_regular_as_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_as_nr";
+}
+
+yaiba_muramasa_regular_as_ns : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_as_ns";
+}
+
+yaiba_muramasa_regular_as_ns_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_as_ns_nr";
+}
+
+yaiba_muramasa_regular_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_nr";
+}
+
+yaiba_muramasa_regular_ns : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_ns";
+}
+
+yaiba_muramasa_regular_ns_nr : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_muramasa_regular_ns_nr";
+}
+
+thorton_galena_nomad_player_missiles : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_galena_nomad_player_missiles";
+}
+
+thorton_colby_pickup_nomad_player_01_missiles : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby_pickup_nomad_player_01_missiles";
+}
+
+arch_nemesis_player_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_player_02";
+}
+
+arch_nemesis_player_03 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "arch_nemesis_player_03";
+}
+
+porsche_911turbo__basic_alt : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "porsche_911turbo__basic_alt";
+}
+
+mizutani_shion_mz1 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion_mz1";
+}
+
+mizutani_shion_targa : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mizutani_shion_targa";
+}
+
+thorton_galena_gt_GA32t : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_galena_gt_GA32t";
+}
+
+thorton_colby_gt_CST40 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "thorton_colby_gt_CST40";
+}
+
+archer_quartz_EC_L_R275 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "archer_quartz_EC_L_R275";
+}
+
+quadra_type66_640TS : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66_640TS";
+}
+
+quadra_type66_gt_640TS : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "quadra_type66_gt_640TS";
+}
+
+muzitani_hozuki_gt_MH2 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "muzitani_hozuki_gt_MH2";
+}
+
+villefort_deleon_sport_V410Coupe : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "villefort_deleon_sport_V410Coupe";
+}
+
+mahir_supron_gt_FS3T : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "mahir_supron_gt_FS3T";
+}
+
+yaiba_semimaru : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\vehicles_icons.inkatlas";
+	CName atlasPartName = "yaiba_semimaru";
+}
+

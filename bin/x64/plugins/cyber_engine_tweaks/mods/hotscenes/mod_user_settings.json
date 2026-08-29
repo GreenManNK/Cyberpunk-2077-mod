@@ -1,7 +1,6 @@
 {
 	"defaultTimeout": 90,
 	"enableHotscenesAddon": true,
-	"enableHotscenesButtonInHubMenu": true,
 	"enableNCDelightsDynamicMappins": true,
 	"enableNCDelightsFeature": true,
 	"enableNativeSettingsIntegration": true,
@@ -13,43 +12,30 @@
 	"extendHotscenes": true,
 	"female": {
 		"Glen": {
-			"enableFastTrackPlayback": true,
-			"lastSelectedCustomLocation": "default",
-			"lastSelectedPerformer": "Judy_no_tatts_v2"
+
 		},
 		"Japantown": {
-			"enableFastTrackPlayback": false,
-			"lastSelectedCustomLocation": "default",
-			"lastSelectedPerformer": "Japantown"
+
 		}
 	},
 	"filename": "mod_user_settings.json",
 	"hideNpcFishnetTights": false,
 	"hideNpcSpecs": false,
-	"hideNpcSpikedChokers": true,
+	"hideNpcSpikedChokers": false,
 	"invertMouseVertically": false,
 	"isGenderSwitchFeatureEnabled": false,
 	"isPlayerPerformerDiscovered": false,
 	"keepShowingPerformerPreview": false,
 	"lastKnownSaveMetadata": {
-		"gameVersion": "2.31",
-		"lifePath": "inkLifePath : Nomad (1)",
-		"locationName": "LocKey#10963",
-		"playTime": "738896.4107204",
-		"playthroughTime": "762557.9064833",
-		"trackedQuest": "LocKey#9860"
+
 	},
 	"lastLanguageSelected": "en-us",
 	"male": {
 		"Glen": {
-			"enableFastTrackPlayback": false,
-			"lastSelectedCustomLocation": "default",
-			"lastSelectedPerformer": "Glen"
+
 		},
 		"Japantown": {
-			"enableFastTrackPlayback": false,
-			"lastSelectedCustomLocation": "default",
-			"lastSelectedPerformer": "Japantown"
+
 		}
 	},
 	"mq055_integration_prefer_vanilla_appearances": false,

@@ -1,0 +1,23 @@
+Character.GR_kangtao_elite_shotgun3_zhuo:
+    $base: Character.kangtao_soldier2_shotgun3_zhuo_mah_elite
+    primaryEquipment: Character.GR_kangtao_elite_shotgun3_zhuo_primary_equipment
+    archetypeData: ArchetypeData.FastShotgunnerT3
+    rarity: NPCRarity.Elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_elite_shotgun3_zhuo_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_elite_shotgun3_zhuo_primary_item
+
+Character.GR_kangtao_elite_shotgun3_zhuo_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Zhuo_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings>
+	<acceptedEvents action="run_benchmark" >
+		<event name="BUTTON_PRESSED" />
+		<event name="BUTTON_RELEASED" />
+		<event name="BUTTON_HOLD_PROGRESS" />
+		<event name="BUTTON_HOLD_COMPLETE" />
+	</acceptedEvents>
+	<hold action="run_benchmark"					timeout="0.3" />
+  <hold action="call"                   timeout="0.3" />
+</bindings>

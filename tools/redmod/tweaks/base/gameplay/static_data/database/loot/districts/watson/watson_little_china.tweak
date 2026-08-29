@@ -1,0 +1,314 @@
+package Loot
+using RTDB, Prereqs
+
+WatsonLittleChina : Watson
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+}
+
+WatsonLittleChinaAll : WatsonLittleChina
+{
+	lootTableInclusions = 
+	[
+		"Loot.WatsonLittleChinaClothing", "Loot.WatsonLittleChinaWeapons", "Loot.WatsonLittleChinaConsumables", "Loot.WatsonLittleChinaEdibles", "Loot.WatsonLittleChinaGadgets", "Loot.WatsonLittleChinaJunk", "Loot.WatsonLittleChinaWeaponMods", "Loot.WatsonLittleChinaFragments"
+	];
+}
+
+WatsonLittleChinaClothing : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.SimpleClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.StreetwearClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WatsonLittleChinaWeapons : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.KatanaQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.KnifeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBladeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.LightmachinegunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WatsonLittleChinaAmmo : WatsonLittleChina
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+WatsonLittleChinaConsumables : WatsonLittleChina
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+WatsonLittleChinaEdibles : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+}
+
+WatsonLittleChinaGadgets : WatsonLittleChina
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+WatsonLittleChinaJunk : WatsonLittleChina
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem4";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem5";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem4";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem5";
+		}
+	];
+}
+
+WatsonLittleChinaWeaponMods : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.03;
+			query = "Query.CommonWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.03;
+			query = "Query.UncommonWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.03;
+			query = "Query.RareWeaponModsQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Silencers_LootTable", "LootTables.AllScopes_LootTable"
+	];
+}
+
+WatsonLittleChinaFragments : WatsonLittleChinaJunk
+{
+}
+
+WatsonLittleChinaJewellery : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityJewellery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.HighQualityJewellery";
+		}
+	];
+}
+
+WatsonLittleChinaMisc : WatsonLittleChina
+{
+	queries = 
+	[
+		{
+			dropChance = 0.03;
+			query = "Query.LowQualityJewellery";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityJewellery";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.JunkQuery";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.LowQualityFood";
+		}
+	];
+}
+
+WatsonLittleChinaCraftingMaterials : WatsonLittleChina
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

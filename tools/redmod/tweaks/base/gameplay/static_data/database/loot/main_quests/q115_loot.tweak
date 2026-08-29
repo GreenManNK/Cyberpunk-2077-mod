@@ -1,0 +1,229 @@
+package LootTables
+using RTDB
+
+Q115_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q115_roof_LCS_suitcase : Q115_Loot
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Grad_Default";
+		}, 
+		{
+			dropChance = 0.1;
+			dropCountMin = 14;
+			dropCountMax = 30;
+			itemID = "Ammo.SniperRifleAmmo";
+		}
+	];
+}
+
+Q115_roof_LCS_crate : Q115_Loot
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q115_atrium_HCM_equipment : Q115_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.7;
+			query = "Query.ArasakaClothing";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.CorpoClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.FormalClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.9;
+			query = "Query.SkillbookQuery";
+		}
+	];
+}
+
+Q115_atrium_HCM_locker : Q115_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.7;
+			query = "Query.ArasakaClothing";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.CorpoClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.FormalClothingNoFaction";
+		}
+	];
+}
+
+Q115_atrium_HCM_toolbox : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q115_atrium_HCS_ammo : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q115_atrium_HCS_consumables : Q115_Loot
+{
+	lootItems = [];
+}
+
+Q115_atrium_HCS_crate : Q115_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem1";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem3";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem4";
+		}
+	];
+}
+
+Q115_atrium_HCS_first_aid : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q115_atrium_HCS_gadgets : Q115_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable", "LootTables.TechJunkieItemsTable"
+	];
+}
+
+Q115_atrium_HCS_weapon : Q115_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+		}
+	];
+}
+
+Q115_jungle_HCM_toolbox : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q115_jungle_HCS_ammo : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q115_jungle_HCS_crate : Q115_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem1";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem3";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem4";
+		}
+	];
+}
+
+Q115_jungle_HCS_first_aid : Q115_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q115_jungle_HCS_weapon : Q115_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+		}
+	];
+}
+

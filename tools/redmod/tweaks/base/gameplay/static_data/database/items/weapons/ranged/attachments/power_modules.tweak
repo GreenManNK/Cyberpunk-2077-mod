@@ -1,0 +1,1113 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Perks, Prereqs, Effectors
+
+[ notQueryable ]
+SilencerBase : WeaponMuzzleBase
+{
+	localizedDescription = "LocKey#1346";
+	fk< ItemType > itemType = "ItemType.Prt_Muzzle";
+	string friendlyName = "w_silencer_01";
+	tags += 
+	[
+		"Silenced", "AirDropReward"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			value = -10;
+		} : WeaponNoiseModifier, 
+		{
+			statType = "BaseStats.CanSilentKill";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetCount";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier
+	];
+}
+
+w_silencer_01 : SilencerBase
+{
+	displayName = "LocKey#1344";
+	CName appearanceResourceName = "w_att__power_01";
+	iconPath = "silencer_2";
+	tags += 
+	[
+		"Tier1-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.StealthHitDamageMultiplier";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.AdditionalStealthDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	buyPrice += 
+	[
+		"Price.LowManufactureQuality"
+	];
+	sellPrice += 
+	[
+		"Price.LowManufactureQuality"
+	];
+}
+
+[ notQueryable ]
+w_silencer_01_Craftable : w_silencer_01
+{
+	quality = "Quality.Common";
+	CraftingData = "Items.Craftable_Attachment";
+}
+
+w_silencer_02 : SilencerBase
+{
+	displayName = "LocKey#48674";
+	CName appearanceResourceName = "w_att__power_02";
+	iconPath = "silencer_1";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.StealthHitDamageMultiplier";
+			modifierType = "Additive";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			value = -0.4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.AdditionalStealthDamage";
+			modifierType = "Additive";
+			value = 1.5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			value = 40f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -10f;
+		} : CombinedStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+	buyPrice += 
+	[
+		"Price.MediumManufactureQuality"
+	];
+	sellPrice += 
+	[
+		"Price.MediumManufactureQuality"
+	];
+}
+
+w_silencer_03 : SilencerBase
+{
+	displayName = "LocKey#48675";
+	quality = "Quality.Epic";
+	CName appearanceResourceName = "w_att__power_03";
+	iconPath = "silencer_3";
+	tags += 
+	[
+		"Tier4"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.StealthHitDamageMultiplier";
+			modifierType = "Additive";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AdditionalStealthDamage";
+			modifierType = "Additive";
+			value = 1.5;
+		} : ConstantStatModifier
+	];
+}
+
+w_silencer_03_legendary : SilencerBase
+{
+	displayName = "LocKey#48675";
+	localizedDescription = "LocKey#92421";
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	quality = "Quality.Legendary";
+	visualTags = 
+	[
+		"Default"
+	];
+	CName appearanceResourceName = "w_att__power_03";
+	iconPath = "silencer_3";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.StealthHitDamageMultiplier";
+			modifierType = "Additive";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			value = -0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AdditionalStealthDamage";
+			modifierType = "Additive";
+			value = 1.5;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								hitFlag = "StealthHit";
+							} : HitFlagHitPrereqCondition, 
+							{
+								bodyPart = "Head";
+							} : BodyPartHitPrereqCondition, 
+							{
+								weaponType = "Ranged";
+							} : WeaponTypeHitPrereqCondition, 
+							{
+								attackType = "Ranged";
+							} : AttackTypeHitPrereqCondition
+						];
+					} : IsHitTargetAliveAllowProjection;
+					critChance = 
+					[
+						{
+							statType = "BaseStats.CritChance";
+							modifierType = "Additive";
+							value = 1.0f;
+						} : ConstantStatModifier
+					];
+				} : ModifyAttackCritChanceEffector
+			];
+		}
+	];
+}
+
+w_silencer_04 : SilencerBase
+{
+	displayName = "LocKey#84846";
+	CName appearanceResourceName = "w_att__power_04";
+	iconPath = "silencer_4";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.StealthHitDamageMultiplier";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			value = -0.4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			value = 40f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -10f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.AdditionalStealthDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+}
+
+[ notQueryable ]
+MuzzleBrakeBase : WeaponMuzzleBase
+{
+	localizedDescription = "LocKey#78496";
+	string friendlyName = "";
+	tags += 
+	[
+		"Muzzle_Brake", "CourierReward"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.HasMuzzleBrake";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Rifle_SMG_MuzzleBrakeBase : MuzzleBrakeBase
+{
+	fk< ItemType > itemType = "ItemType.Prt_RifleMuzzle";
+}
+
+w_muzzle_brake_01 : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78486";
+	CName appearanceResourceName = "w_att__power_05";
+	iconPath = "w_att__power_05";
+	tags += 
+	[
+		"Tier1-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickReduction";
+			modifierType = "Additive";
+			value = 7.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+w_muzzle_brake_01_Craftable : w_muzzle_brake_01
+{
+	quality = "Quality.Common";
+	CraftingData = "Items.Craftable_Attachment";
+}
+
+w_muzzle_brake_01_legendary : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78486";
+	quality = "Quality.Legendary";
+	visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	CName appearanceResourceName = "w_att__power_05";
+	iconPath = "w_att__power_05";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultY";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxY";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultY";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxY";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickReduction";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadPenalty";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_02 : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78487";
+	CName appearanceResourceName = "w_att__power_06";
+	iconPath = "w_att__power_06";
+	tags += 
+	[
+		"Tier1-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			value = 7.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+}
+
+w_muzzle_brake_03 : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78488";
+	CName appearanceResourceName = "w_att__power_07";
+	iconPath = "w_att__power_07";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RicochetChance";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetTargetSearchAngle";
+			modifierType = "Additive";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetTargetSearchAngle";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetAngle";
+			modifierType = "Additive";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetAngle";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+}
+
+w_muzzle_brake_03_legendary : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78488";
+	quality = "Quality.Legendary";
+	visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	CName appearanceResourceName = "w_att__power_07";
+	iconPath = "w_att__power_07";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RicochetChance";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetTargetSearchAngle";
+			modifierType = "Additive";
+			value = 15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetAngle";
+			modifierType = "Additive";
+			value = 15f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_05 : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78490";
+	quality = "Quality.Epic";
+	CName appearanceResourceName = "w_att__power_09";
+	iconPath = "w_att_power_09";
+	tags += 
+	[
+		"Tier4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilDir";
+			modifierType = "AdditiveMultiplier";
+			value = -0.35f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			value = -0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDirReduction";
+			modifierType = "Additive";
+			value = 35f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_06 : Rifle_SMG_MuzzleBrakeBase
+{
+	displayName = "LocKey#78492";
+	CName appearanceResourceName = "w_att__power_10";
+	iconPath = "w_att_power_10";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultY";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxY";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultY";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxY";
+			modifierType = "AdditiveMultiplier";
+			value = -0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Spread";
+			modifierType = "Additive";
+			value = -0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Spread";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -5f;
+		} : CombinedStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+}
+
+[ notQueryable ]
+Handgun_MuzzleBrakeBase : MuzzleBrakeBase
+{
+	fk< ItemType > itemType = "ItemType.Prt_HandgunMuzzle";
+}
+
+w_muzzle_brake_07 : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78491";
+	CName appearanceResourceName = "w_att__power_11";
+	iconPath = "w_att_power_11";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			value = 7.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+}
+
+w_muzzle_brake_08 : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78493";
+	CName appearanceResourceName = "w_att__power_12";
+	iconPath = "w_att_power_12";
+	tags += 
+	[
+		"Tier3-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = -0.075f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickReduction";
+			modifierType = "Additive";
+			value = 7.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Attachments_Rare_to_Epic"
+	];
+}
+
+w_muzzle_brake_09 : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78494";
+	CName appearanceResourceName = "w_att__power_13";
+	iconPath = "w_att_power_13";
+	tags += 
+	[
+		"Tier1-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilDir";
+			modifierType = "AdditiveMultiplier";
+			value = -0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDir";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDirReduction";
+			modifierType = "Additive";
+			value = 25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDirReduction";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+w_muzzle_brake_09_Craftable : w_muzzle_brake_09
+{
+	quality = "Quality.Common";
+	CraftingData = "Items.Craftable_Attachment";
+}
+
+w_muzzle_brake_09_legendary : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78494";
+	quality = "Quality.Legendary";
+	visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	CName appearanceResourceName = "w_att__power_13";
+	iconPath = "w_att_power_13";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilDir";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDirReduction";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_10 : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78495";
+	visualTags = 
+	[
+		"Default"
+	];
+	CName appearanceResourceName = "w_att__power_14";
+	iconPath = "w_att_power_14";
+	tags += 
+	[
+		"Tier1-4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RicochetChance";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetDamage";
+			modifierType = "Additive";
+			value = 5.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5.0f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_10_legendary : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78495";
+	quality = "Quality.Legendary";
+	visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"LegendaryAttachment"
+	];
+	CName appearanceResourceName = "w_att__power_14";
+	iconPath = "w_att_power_14";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RicochetChance";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetDamage";
+			modifierType = "Additive";
+			value = 20.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetCritChance";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+}
+
+w_muzzle_brake_11 : Handgun_MuzzleBrakeBase
+{
+	displayName = "LocKey#78503";
+	quality = "Quality.Epic";
+	CName appearanceResourceName = "w_att__power_15";
+	iconPath = "w_att_power_15";
+	tags += 
+	[
+		"Tier4"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.RecoilDir";
+			modifierType = "AdditiveMultiplier";
+			value = -0.35f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngle";
+			modifierType = "AdditiveMultiplier";
+			value = -0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = -3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDirReduction";
+			modifierType = "Additive";
+			value = 35f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilAngleReduction";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+

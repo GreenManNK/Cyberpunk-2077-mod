@@ -1,0 +1,42 @@
+Character.GR_the_mox_melee1_baton_wa:
+    $base: Character.the_mox_base_wa
+    primaryEquipment: Character.GR_the_mox_melee1_baton_wa_primary_equipment
+    secondaryEquipment: Character.GR_the_mox_melee1_baton_wa_secondary_equipment
+    archetypeData: ArchetypeData.GenericMeleeT1
+    rarity: NPCRarity.Normal
+    abilities:
+        - !append-once Ability.CanUseEMPGrenades
+        - !append-once Ability.DealsElectricDamage
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_the_mox_melee1_baton_wa_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_the_mox_melee1_baton_wa_primary_item
+
+Character.GR_the_mox_melee1_baton_wa_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Baton_Beta
+    onBodySlot: AttachmentSlots.ItemSlotGenericMelee
+    equipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponMeleeEquipCondition
+    unequipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponMeleeUnequipCondition
+
+Character.GR_the_mox_melee1_baton_wa_secondary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_the_mox_melee1_baton_wa_secondary_item
+
+Character.GR_the_mox_melee1_baton_wa_secondary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Kappa_Neon
+    onBodySlot: AttachmentSlots.ItemSlotHandgunRight
+    equipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponRangedEquipCondition
+    unequipCondition:
+        - WeaponConditions.MeleeHybridPrimaryWeaponRangedUnequipCondition

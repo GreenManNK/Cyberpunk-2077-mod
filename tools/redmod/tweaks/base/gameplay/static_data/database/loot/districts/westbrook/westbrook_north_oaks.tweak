@@ -1,0 +1,256 @@
+package Loot
+using RTDB
+
+WestbrookNorthOaks : Westbrook
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+}
+
+WestbrookNorthOaksAll : WestbrookNorthOaks
+{
+	lootTableInclusions = 
+	[
+		"Loot.WestbrookNorthOaksClothing", "Loot.WestbrookNorthOaksWeapons", "Loot.WestbrookNorthOaksConsumables", "Loot.WestbrookNorthOaksEdibles", "Loot.WestbrookNorthOaksGadgets", "Loot.WestbrookNorthOaksJunk", "Loot.WestbrookNorthOaksFragments", "Loot.WestbrookNorthOaksPrograms"
+	];
+}
+
+WestbrookNorthOaksClothing : WestbrookNorthOaks
+{
+	queries = 
+	[
+		{
+			dropChance = 0.3;
+			query = "Query.RichClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.3;
+			query = "Query.CorpoClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.3;
+			query = "Query.MilitechClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WestbrookNorthOaksWeapons : WestbrookNorthOaks
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.KatanaQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.PrecisionRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WestbrookNorthOaksConsumables : WestbrookNorthOaks
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.GoodQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.TopQualityAlcohol";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+WestbrookNorthOaksEdibles : WestbrookNorthOaks
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.GoodQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.TopQualityAlcohol";
+		}
+	];
+}
+
+WestbrookNorthOaksGadgets : WestbrookNorthOaks
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+WestbrookNorthOaksJunk : WestbrookNorthOaks
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem1";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem3";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem5";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericCorporationJunkItem1";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericCorporationJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericCorporationJunkItem3";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericCorporationJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericCorporationJunkItem5";
+		}
+	];
+}
+
+WestbrookNorthOaksFragments : WestbrookNorthOaksJunk
+{
+}
+
+WestbrookNorthOaksPrograms : WestbrookNorthOaks
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15f;
+			query = "Query.LowQualityShard";
+		}
+	];
+}
+
+WestbrookNorthOaksJewellery : WestbrookNorthOaks
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HighQualityJewellery";
+		}
+	];
+}
+
+WestbrookNorthOaksCraftingMaterials : WestbrookNorthOaks
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

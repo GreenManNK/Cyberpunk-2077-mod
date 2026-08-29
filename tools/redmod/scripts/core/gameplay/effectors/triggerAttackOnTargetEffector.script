@@ -1,0 +1,88 @@
+class TriggerAttackOnTargetEffect extends HitEventEffector
+{
+	var m_owner : weak< GameObject >;
+	var m_attack : Attack_GameEffect;
+	var m_attackTDBID : TweakDBID;
+	var m_target : weak< GameObject >;
+	var m_attackPositionSlotName : CName;
+	var m_playerAsInstigator : Bool;
+	var m_triggerHitReaction : Bool;
+	var m_isRandom : Bool;
+	var m_applicationChance : Float;
+
+	protected override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		var effectorRecord : TriggerAttackEffector_Record;
+		effectorRecord = TweakDBInterface.GetTriggerAttackEffectorRecord( record );
+		m_attackTDBID = effectorRecord.AttackRecord().GetID();
+		m_attackPositionSlotName = TweakDBInterface.GetCName( record + T".attackPositionSlotName", 'Chest' );
+		m_playerAsInstigator = TweakDBInterface.GetBool( record + T".playerAsInstigator", false );
+		m_triggerHitReaction = TweakDBInterface.GetBool( record + T".triggerHitReaction", false );
+		m_isRandom = TweakDBInterface.GetBool( record + T".isRandom", false );
+		m_applicationChance = TweakDBInterface.GetFloat( record + T".applicationChance", 0.0 );
+	}
+
+	protected override function ActionOn( owner : GameObject )
+	{
+		var i : Int32;
+		var tempArr : array< String >;
+		var flag : SHitFlag;
+		var hitFlags : array< SHitFlag >;
+		var instigator : weak< GameObject >;
+		tempArr = TweakDBInterface.GetAttackRecord( m_attackTDBID ).HitFlags();
+		for( i = 0; i < tempArr.Size(); i += 1 )
+		{
+			flag.flag = ( ( hitFlag )( ( ( Int32 )( EnumValueFromString( "hitFlag", tempArr[ i ] ) ) ) ) );
+			flag.source = 'Attack';
+			hitFlags.PushBack( flag );
+		}
+		m_target = GetHitEvent().target;
+		if( !( m_target ) )
+		{
+			return;
+		}
+		if( m_playerAsInstigator )
+		{
+			instigator = GetPlayer( owner.GetGame() );
+		}
+		else
+		{
+			instigator = owner;
+		}
+		m_attack = RPGManager.PrepareGameEffectAttack( owner.GetGame(), instigator, instigator, m_attackTDBID, GetAttackPosition( m_target ), hitFlags );
+		Uninitialize( owner.GetGame() );
+	}
+
+	protected override function RepeatedAction( owner : GameObject )
+	{
+		var triggered : Bool;
+		triggered = false;
+		ActionOn( owner );
+		if( !( m_isRandom ) || ( RandF() <= m_applicationChance ) )
+		{
+			m_attack.StartAttack();
+			triggered = true;
+		}
+		if( triggered && m_triggerHitReaction )
+		{
+			AISubActionForceHitReaction_Record_Implementation.SendForcedHitDataToAIBehavior( m_target, 4, 0, 3, 2, 0, 0, 0 );
+		}
+	}
+
+	private function GetAttackPosition( obj : weak< GameObject > ) : Vector4
+	{
+		var targetPuppet : ScriptedPuppet;
+		var slotTransform : WorldTransform;
+		targetPuppet = ( ( ScriptedPuppet )( obj ) );
+		if( targetPuppet.GetSlotComponent() )
+		{
+			if( targetPuppet.GetSlotComponent().GetSlotTransform( m_attackPositionSlotName, slotTransform ) )
+			{
+				return WorldPosition.ToVector4( WorldTransform.GetWorldPosition( slotTransform ) );
+			}
+		}
+		return obj.GetWorldPosition();
+	}
+
+}
+

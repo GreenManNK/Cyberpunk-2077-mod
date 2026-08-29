@@ -1,0 +1,1318 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_standard3_chevalier_emperor : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard3_chevalier_emperor_01__basic_01.ent";
+	visualTags = 
+	[
+		"Standard"
+	];
+	manufacturer = "Vehicle.Chevillon";
+	randomPassengers = 
+	[
+		"Passengers.CorporatDriverEntry", "Passengers.CorporatPassengerFrontEntry", "Passengers.CorporatPassengerBackEntry"
+	];
+	fxWheelsDecals = "Vehicle.FxWheels_Touring_L";
+	model = "Vehicle.Emperor";
+	displayName = "LocKey#1625";
+	vehicleUIData = "Vehicle.VehicleChevillonEmperorUIData";
+	twintoneModelName = "chevalier.emperor";
+	appearancesToColorTemplate = "Vehicle.VehicleChevalierEmperorAppearancesToColorTemplate";
+	fk< UIIcon > icon = "UIIcon.chevalier_emperor__basic_player_01";
+	headlightColor = 
+	[
+		210, 210, 255, 255
+	];
+	string hijackDifficulty = "MEDIUM";
+	string crackLockDifficulty = "MEDIUM";
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/chevillon/chevillon_stylesheet_regular.inkstyle";
+	destroyedAppearance = "chevalier_emperor__basic_burnt";
+	vehDataPackage = "Vehicle.VehicleDataPackageStandard3";
+	player_audio_resource = "v_car_chevalier_emperor";
+	traffic_audio_resource = "v_car_chevalier_emperor_traffic";
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Durable"
+	];
+	enableDestruction = true;
+	destruction = "Vehicle.VehicleDestructionParamsEmperor";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.485f;
+			rimRadius = 0.355f;
+			tireWidth = 0.35f;
+			wheelOffset = -0.02f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.485f;
+			rimRadius = 0.355f;
+			tireWidth = 0.35f;
+			wheelOffset = -0.02f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Emperor";
+	vehEngineData = "Vehicle.VehicleEngineData_4_Truck";
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_Truck_Preset_High_Close", "Camera.VehicleTPP_4w_Truck_Preset_High_Medium", "Camera.VehicleTPP_4w_Truck_Preset_High_Far", "Camera.VehicleTPP_4w_Truck_Preset_High_DriverCombatClose", "Camera.VehicleTPP_4w_Truck_Preset_High_DriverCombatMedium", "Camera.VehicleTPP_4w_Truck_Preset_High_DriverCombatFar", "Camera.VehicleTPP_4w_Truck_Preset_Low_Close", "Camera.VehicleTPP_4w_Truck_Preset_Low_Medium", "Camera.VehicleTPP_4w_Truck_Preset_Low_Far", "Camera.VehicleTPP_4w_Truck_Preset_Low_DriverCombatClose", "Camera.VehicleTPP_4w_Truck_Preset_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_Truck_Preset_Low_DriverCombatFar"
+	];
+	vehDriver_FPPCameraParams = 
+	{
+		rear_view_offset = ( 0.0, -2.5789, 1.6040 );
+		enable_rear_view = true;
+	} : VehicleDriverFPPCameraParamsDefault;
+	crowdMemberSettings = "Crowds.SUV_DrivingPackage";
+	trafficSuspension = "Vehicle.TrafficSuspension_Standard";
+	weaponSafeModeBounds = 
+	{
+		enableSafeModeBounds = true;
+		backBound = 
+		{
+			yawMin = -136.0f;
+			yawMax = 180.f;
+		};
+	} : WeaponSafeModeBounds;
+}
+
+VehicleWheelDrivingPreset_Emperor_Front : VehicleWheelPreset_Truck_Front
+{
+	frictionMulLongitudinal = 0.89f;
+	frictionMulLateral = 0.87f;
+	tireLateralSlipEffectsMul = 1.07f;
+	maxBrakingTorque = 460.0f;
+	swaybarStiffness = 37.0f;
+	swaybarLengthScalar = 3.3f;
+	swaybarDisplacementLimit = 0.16f;
+	springStiffness = 48.0f;
+	springDamping = 3900.0f;
+	springReboundDamping = 3700.0f;
+	springBoundDampingLowRate = 3000.0f;
+	springReboundDampingLowRate = 2800.0f;
+	extremeCompressionEventScalor = 0.96f;
+	logicalSuspensionCompressionLength = 0.63f;
+	visualSuspensionDroop = 0.12f;
+	visualSuspensionCompressionLength = 0.10f;
+	wheelsVerticalOffset = 0.01f;
+}
+
+VehicleWheelDrivingPreset_Emperor_Rear : VehicleWheelPreset_Truck_Rear
+{
+	frictionMulLongitudinal = 0.91f;
+	frictionMulLateral = 0.97f;
+	tireLateralSlipEffectsMul = 1.01f;
+	maxBrakingTorque = 420.0f;
+	swaybarStiffness = 26.0f;
+	swaybarLengthScalar = 3.2f;
+	swaybarDisplacementLimit = 0.16f;
+	springStiffness = 46.0f;
+	springDamping = 3700.0f;
+	springReboundDamping = 3500.0f;
+	springBoundDampingLowRate = 3000.0f;
+	springReboundDampingLowRate = 2800.0f;
+	extremeCompressionEventScalor = 0.87f;
+	logicalSuspensionCompressionLength = 0.64f;
+	visualSuspensionDroop = 0.11f;
+	wheelsVerticalOffset = 0.02f;
+}
+
+VehicleDriveModelData_Emperor : VehicleDriveModelData_Truck_RWDorAWD
+{
+	chassis_mass = 2860.0f;
+	total_mass = 2860.0f;
+	center_of_mass_offset = ( 0.0f, 0.06f, 0.52f );
+	momentOfInertia = ( 7200.0f, 2000.0f, 8000.0f );
+	airResistanceFactor = 3.5f;
+	wheelTurnMaxAddPerSecond = 70.f;
+	wheelTurnMaxSubPerSecond = 90.f;
+	turnUpdateMaxSpeedThreshold = 32.f;
+	turnUpdateMaxSpeedTurnMul = 0.23f;
+	turnUpdateMidSpeedThreshold = 18.f;
+	turnUpdateMidSpeedTurnMul = 0.53;
+	turnUpdateMidSpeedTurnChangeMul = 1.55f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Emperor_Front;
+		backPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Emperor_Rear;
+	} : VehicleWheelDrivingSetup_4_AWD;
+	burnOut = 
+	{
+		lateralForceMaxAcceleration = 0.34f;
+		lateralForceMaxSpeed = 5.5f;
+		burnOutGripBonus = 2.0f;
+	} : VehicleBurnOut_4w_Truck;
+	flatTireSim = "Vehicle.VehicleFlatTireSimulation_AWD_4w";
+}
+
+v_standard3_chevalier_emperor_quest : v_standard3_chevalier_emperor
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = 
+	{
+		horsepower = 669.0f;
+		mass = 2881.0f;
+	} : VehicleChevillonEmperorUIData;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_EmperorPolice";
+	vehEngineData = "Vehicle.VehicleEngineData_EmperorPolice";
+}
+
+v_standard3_chevalier_emperor_sport : v_standard3_chevalier_emperor
+{
+	visualTags = 
+	[
+		"Sport"
+	];
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	randomPassengers = 
+	[
+		"Passengers.CorpoArasakaDriverEntry", "Passengers.CorpoArasakaPassengerFrontEntry", "Passengers.CorpoArasakaPassengerBackEntry"
+	];
+}
+
+v_standard3_chevalier_emperor_ncu : v_standard3_chevalier_emperor
+{
+	visualTags = 
+	[
+		"NCU"
+	];
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	displayName = "LocKey#22757";
+}
+
+v_standard3_chevalier_emperor_militech : v_standard3_chevalier_emperor
+{
+	visualTags = 
+	[
+		"Militech"
+	];
+	colorProfilesRestricted = true;
+	headlightColor = 
+	[
+		175, 200, 255, 255
+	];
+	savable = true;
+	vehDataPackage = 
+	{
+		useAuxiliary = true;
+	} : VehicleDataPackageStandard3;
+}
+
+VehicleDriveModelData_EmperorPolice : VehicleDriveModelData_Emperor
+{
+	chassis_mass = 2960.0f;
+	total_mass = 2960.0f;
+	wheelTurnMaxAddPerSecond = 75.f;
+	turnUpdateMaxSpeedThreshold = 38.f;
+	turnUpdateMaxSpeedTurnMul = 0.18f;
+	turnUpdateMaxSpeedTurnChangeMul = 2.6f;
+	turnUpdateMidSpeedThreshold = 20.f;
+	turnUpdateMidSpeedTurnMul = 0.6;
+	turnUpdateMidSpeedTurnChangeMul = 1.08f;
+	antiSwaybarDampingScalor = 0.75f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+			tireLateralSlipEffectsMul = 1.04f;
+			maxBrakingTorque = 560.0f;
+			swaybarStiffness = 40.0f;
+			swaybarLengthScalar = 3.5f;
+			springReboundDamping = 3850.0f;
+			springReboundDampingLowRate = 2950.0f;
+			extremeCompressionEventScalor = 0.9f;
+			wheelsVerticalOffset = 0.03f;
+		} : VehicleWheelDrivingPreset_Emperor_Front;
+		backPreset = 
+		{
+			frictionMulLateral = 0.98f;
+			maxBrakingTorque = 460.0f;
+			swaybarStiffness = 28.0f;
+			springReboundDamping = 3650.0f;
+			springReboundDampingLowRate = 2950.0f;
+			wheelsVerticalOffset = 0.03f;
+		} : VehicleWheelDrivingPreset_Emperor_Rear;
+	} : VehicleWheelDrivingSetup_4_AWD;
+	burnOut = 
+	{
+		maxSpeedToInitiateBurnOut = 20.f;
+		lateralForceMaxAcceleration = 0.34f;
+		lateralForceMaxSpeed = 5.9f;
+		lateralAccelForwardSpeedMaxDecimation = 0.35f;
+		maxLongFrictionSlipRatioMultipler = 0.67f;
+		maxLateralAccelSlipRatioMultipler = 0.69f;
+		minLongFrictionCoeff = 0.45f;
+		burnOutGripBonus = 3.0f;
+		maxBrakeForceModifier = 0.9f;
+	} : VehicleBurnOut_4w_Truck;
+}
+
+VehicleEngineData_EmperorPolice : VehicleEngineData_4_Truck
+{
+	gearCurvesPath = "base\gameplay\vehicles\curves\engine_torque\large_balanced_sc.curveset";
+	engineMaxTorque = 600.f;
+	resistanceTorque = 100.f;
+	gearChangeTime = 0.25f;
+	minRPM = 900.f;
+	maxRPM = 6300.f;
+	wheelsResistanceRatio = 25.f;
+	fk< VehicleGear >[] gears = 
+	[
+		{
+			minSpeed = 0.f;
+			maxSpeed = 9.f;
+			minEngineRPM = 900.f;
+			maxEngineRPM = 4800.f;
+			torqueMultiplier = 1.0f;
+		}, 
+		{
+			minSpeed = 0.f;
+			maxSpeed = 10.f;
+			minEngineRPM = 900.f;
+			maxEngineRPM = 5400.f;
+			torqueMultiplier = 1.f;
+		}, 
+		{
+			minSpeed = 7.f;
+			maxSpeed = 15.f;
+			minEngineRPM = 2300.f;
+			maxEngineRPM = 5400.f;
+			torqueMultiplier = 0.7f;
+		}, 
+		{
+			minSpeed = 13.f;
+			maxSpeed = 20.f;
+			minEngineRPM = 2400.f;
+			maxEngineRPM = 5500.f;
+			torqueMultiplier = 0.53f;
+		}, 
+		{
+			minSpeed = 18.f;
+			maxSpeed = 25.f;
+			minEngineRPM = 2500.f;
+			maxEngineRPM = 5600.f;
+			torqueMultiplier = 0.4f;
+		}, 
+		{
+			minSpeed = 24.f;
+			maxSpeed = 30.f;
+			minEngineRPM = 2600.f;
+			maxEngineRPM = 5700.f;
+			torqueMultiplier = 0.32f;
+		}, 
+		{
+			minSpeed = 29.f;
+			maxSpeed = 35.f;
+			minEngineRPM = 2700.f;
+			maxEngineRPM = 5800.f;
+			torqueMultiplier = 0.27f;
+		}, 
+		{
+			minSpeed = 34.f;
+			maxSpeed = 38.f;
+			minEngineRPM = 2800.f;
+			maxEngineRPM = 6300.f;
+			torqueMultiplier = 0.23f;
+		}
+	];
+}
+
+v_standard3_chevalier_emperor_police : v_standard3_chevalier_emperor
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard3_chevalier_emperor_01__police_01.ent";
+	visualTags = 
+	[
+		"NCPD"
+	];
+	colorProfilesRestricted = true;
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Prevention"
+	];
+	affiliation = "Factions.NCPD";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	vehDataPackage = 
+	{
+		useAuxiliary = true;
+	} : VehicleDataPackageStandard3;
+	player_audio_resource = "v_car_chevalier_emperor_police";
+	traffic_audio_resource = "v_car_chevalier_emperor_police_traffic";
+	displayName = "LocKey#22764";
+	vehicleUIData = 
+	{
+		horsepower = 669.0f;
+		mass = 2881.0f;
+		info = "LocKey#53570";
+	} : VehicleChevillonEmperorUIData;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_EmperorPolice";
+	vehEngineData = "Vehicle.VehicleEngineData_EmperorPolice";
+}
+
+v_standard3_chevalier_emperor_police_siren : v_standard3_chevalier_emperor_police
+{
+	vehDefaultState = 
+	{
+		SirenLight = true;
+		SirenSounds = false;
+		LockAll = true;
+	};
+}
+
+v_012_corpo_suv : v_standard3_chevalier_emperor
+{
+}
+
+VehicleDestructionParamsEmperor : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.9f, 4.8f, 0.3f );
+	gridLocalOffset = ( 0.0f, 0.0f, 1.1f );
+	chargePortCenter = ( -0.501241684f, -2.82232857f, 0.599477649f );
+	glass = 
+	[
+		{
+			component = "window_f";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_fr";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl";
+			effect = "damage_glass_bl";
+			gridCells = 
+			[
+				2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br";
+			effect = "damage_glass_br";
+			gridCells = 
+			[
+				3, 11
+			];
+			threshold = 0.1;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "license_plate_f";
+			gridCells = 
+			[
+				6, 14
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate_01"
+			];
+		}, 
+		{
+			name = "TrunkLeft";
+			gridCells = 
+			[
+				0, 8
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow", "trunk_b", "trunk_b_shadow"
+			];
+		}, 
+		{
+			name = "TrunkRight";
+			gridCells = 
+			[
+				1, 9
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"trunk_c", "trunk_c_shadow", "trunk_d", "trunk_d_shadow"
+			];
+		}, 
+		{
+			name = "SearchLight";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.4;
+			components = 
+			[
+				"light_device_medium_03"
+			];
+		}, 
+		{
+			name = "PoliceLight";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1;
+			components = 
+			[
+				"light_device_medium_02"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7, 14, 15
+			];
+			threshold = 0.9;
+			components = 
+			[
+				"hood_a", "hood_a_shadow"
+			];
+		}, 
+		{
+			name = "HoodLeft";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.9;
+			components = 
+			[
+				"hood_c", "hood_c_shadow"
+			];
+		}, 
+		{
+			name = "HoodRight";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.9;
+			components = 
+			[
+				"hood_b", "hood_b_shadow"
+			];
+		}, 
+		{
+			name = "MirrorLeft_01";
+			gridCells = 
+			[
+				4, 6
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_standard3_chevalier_emperor__ext01_light_f_01"
+			];
+		}, 
+		{
+			name = "MirrorRight_01";
+			gridCells = 
+			[
+				5, 7
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_standard3_chevalier_emperor__ext01_light_f_02"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7, 14, 15
+			];
+			threshold = 0.6;
+			components = 
+			[
+				"bumper_a_01_a", "bumper_f_01_a_shadow"
+			];
+		}, 
+		{
+			name = "BumperFrontLeft";
+			gridCells = 
+			[
+				6, 14
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_f_01_c", "bumper_f_01_c_shadow"
+			];
+		}, 
+		{
+			name = "BumperFrontRight";
+			gridCells = 
+			[
+				7, 15
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_f_01_d", "bumper_f_01_d_shadow"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_b_01_a", "bumper_b_a_shadow"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.65;
+			components = 
+			[
+				"door_fl_a", "door_fl_shadow", "window_fl"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.65;
+			components = 
+			[
+				"door_fr_a", "door_fr_shadow", "window_fr"
+			];
+		}, 
+		{
+			name = "DoorBackLeft";
+			gridCells = 
+			[
+				2
+			];
+			threshold = 0.65;
+			components = 
+			[
+				"door_bl_a", "door_bl_shadow", "window_bl"
+			];
+		}, 
+		{
+			name = "DoorBackRight";
+			gridCells = 
+			[
+				3
+			];
+			threshold = 0.65;
+			components = 
+			[
+				"door_br_a", "door_br_shadow", "window_br"
+			];
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			flat = "tire_flat_01_fl_a";
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			flat = "tire_flat_01_fr_a";
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			flat = "tire_flat_01_br_a";
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			flat = "tire_flat_01_bl_a";
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_left";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "front_blinker_left";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "front_blinker_right";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "back_blinker_left";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "back_blinker_right";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "police_head_light_left_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "hood_b";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "hood_c";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_b";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_c";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_d";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_b_01_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_f_01_d";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_a_01_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7, 14, 15
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_f_01_c";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						6, 7, 14, 15
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						21, 22, 23, 24, 25
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+}
+
+VehicleChevillonEmperorUIData : VehicleDefaultUIData
+{
+	productionYear = "2072-2077";
+	driveLayout = "LocKey#45372";
+	horsepower = 529.0f;
+	mass = 2776.0f;
+	info = "LocKey#53569";
+}
+
+vcc_paintjob_chevalier_emperor__basic_deathrace_01 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_deathrace_01"
+	];
+	matchingColorVariant = 
+	[
+		"deathrace_01"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_deathrace_01";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "bumper_b_01_a", "bumper_f_01_b", "bumper_f_01_c", "bumper_f_01_d", "door_fl_a", "door_fr_a", "fuel_cap", "hood_b", "hood_c", "trunk_a", "trunk_b", "trunk_c", "trunk_d", "windshield_cover"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\steel_step_pattern.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"bumper_b_01", "bumper_b_01_a", "bumper_f_01_b", "bumper_f_01_c", "bumper_f_01_d", "door_fl_a", "door_fr_a", "fuel_cap", "hood_b", "hood_c", "trunk_a", "trunk_b", "trunk_c", "trunk_d"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\deathrace_ext_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"windshield_cover"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\suburban_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_suburban_1_2 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_suburban_1_2"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_2"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_suburban_1_2";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\suburban_02.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_suburban_1_4 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_suburban_1_4"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_4"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_suburban_1_4";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\suburban_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_suburban_1_5 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_suburban_1_5"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_5"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_suburban_1_5";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\suburban_05.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_suburban_1_6 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_suburban_1_6"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_6"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_suburban_1_6";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\suburban_06.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_urban_1 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_urban_1"
+	];
+	matchingColorVariant = 
+	[
+		"urban_1"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_urban_1";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\urban_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_urban_1_3 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_urban_1_3"
+	];
+	matchingColorVariant = 
+	[
+		"urban_1_3"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_urban_1_3";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\urban_03.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_urban_1_4 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_urban_1_4"
+	];
+	matchingColorVariant = 
+	[
+		"urban_1_4"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_urban_1_4";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\urban_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_urban_1_5 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_urban_1_5"
+	];
+	matchingColorVariant = 
+	[
+		"urban_1_5"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_urban_1_5";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\urban_05.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_chevalier_emperor__basic_urban_1_6 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"chevalier_emperor__basic_urban_1_6"
+	];
+	matchingColorVariant = 
+	[
+		"urban_1_6"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_chevalier_emperor__basic_urban_1_6";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\urban_06.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard3_chevalier_emperor\entities\meshes\textures\emperor_ext_01.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 3.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+VehicleChevalierEmperorAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"chevalier_emperor__basic_suburban_1"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_1"
+			];
+			mainColor = 
+			[
+				180, 34, 35
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"chevalier_emperor__basic_suburban_1_3"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_1_3"
+			];
+			mainColor = 
+			[
+				217, 152, 29
+			];
+			secondaryColor = 
+			[
+				50, 50, 50
+			];
+		} : VehicleColorTemplate, 
+		"Vehicle.vcc_paintjob_chevalier_emperor__basic_deathrace_01", "Vehicle.vcc_paintjob_chevalier_emperor__basic_suburban_1_2", "Vehicle.vcc_paintjob_chevalier_emperor__basic_suburban_1_4", "Vehicle.vcc_paintjob_chevalier_emperor__basic_suburban_1_5", "Vehicle.vcc_paintjob_chevalier_emperor__basic_suburban_1_6", "Vehicle.vcc_paintjob_chevalier_emperor__basic_urban_1", "Vehicle.vcc_paintjob_chevalier_emperor__basic_urban_1_3", "Vehicle.vcc_paintjob_chevalier_emperor__basic_urban_1_4", "Vehicle.vcc_paintjob_chevalier_emperor__basic_urban_1_5", "Vehicle.vcc_paintjob_chevalier_emperor__basic_urban_1_6"
+	];
+}
+

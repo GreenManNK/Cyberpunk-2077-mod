@@ -1,0 +1,72 @@
+class DismembermentTriggeredPrereqState extends PrereqState
+{
+	var m_owner : weak< GameObject >;
+	var m_listenerInfo : CallbackHandle;
+	protected var m_dismembermentInfo : DismembermentInstigatedInfo;
+
+	protected event OnStateUpdate( value : Variant )
+	{
+		var checkPassed : Bool;
+		const var prereq : DismembermentTriggeredPrereq;
+		var dismembermentInfo : DismembermentInstigatedInfo;
+		prereq = ( ( DismembermentTriggeredPrereq )( GetPrereq() ) );
+		dismembermentInfo = ( ( DismembermentInstigatedInfo )value );
+		checkPassed = prereq.Evaluate( dismembermentInfo.value );
+		if( checkPassed )
+		{
+			m_dismembermentInfo = dismembermentInfo;
+			OnChangedRepeated( false );
+		}
+	}
+
+	public function GetDismembermentInfo() : DismembermentInstigatedInfo
+	{
+		return m_dismembermentInfo;
+	}
+
+}
+
+class DismembermentTriggeredPrereq extends IScriptablePrereq
+{
+	var m_currValue : Uint32;
+	default m_currValue = 0;
+
+	public const function Evaluate( value : Uint32 ) : Bool
+	{
+		var checkPassed : Bool;
+		checkPassed = value != m_currValue;
+		return checkPassed;
+	}
+
+	protected const override function OnRegister( state : PrereqState, game : GameInstance, context : IScriptable ) : Bool
+	{
+		var bb : IBlackboard;
+		var castedState : DismembermentTriggeredPrereqState;
+		var player : PlayerPuppet;
+		castedState = ( ( DismembermentTriggeredPrereqState )( state ) );
+		castedState.m_owner = ( ( GameObject )( context ) );
+		player = ( ( PlayerPuppet )( context ) );
+		if( player )
+		{
+			bb = GameInstance.GetBlackboardSystem( player.GetGame() ).Get( GetAllBlackboardDefs().PlayerPerkData );
+			castedState.m_listenerInfo = bb.RegisterListenerVariant( GetAllBlackboardDefs().PlayerPerkData.DismembermentInstigated, castedState, 'OnStateUpdate' );
+		}
+		return false;
+	}
+
+	protected const override function OnUnregister( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var bb : IBlackboard;
+		var castedState : DismembermentTriggeredPrereqState;
+		var player : weak< PlayerPuppet >;
+		player = ( ( PlayerPuppet )( context ) );
+		if( player )
+		{
+			bb = GameInstance.GetBlackboardSystem( player.GetGame() ).Get( GetAllBlackboardDefs().PlayerPerkData );
+			castedState = ( ( DismembermentTriggeredPrereqState )( state ) );
+			bb.UnregisterListenerVariant( GetAllBlackboardDefs().PlayerPerkData.DismembermentInstigated, castedState.m_listenerInfo );
+		}
+	}
+
+}
+

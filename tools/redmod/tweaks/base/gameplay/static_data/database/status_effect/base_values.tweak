@@ -1,0 +1,55 @@
+package BaseStatusEffect
+using RTDB
+
+MaxtacFightStartHelperStatus : StatusEffect
+{
+	gameplayTags += 
+	[
+		"MaxtacFightStartHelperStatus"
+	];
+}
+
+BuffStatusEffect : StatusEffect
+{
+	gameplayTags += 
+	[
+		"Buff"
+	];
+}
+
+DebuffStatusEffect : StatusEffect
+{
+	gameplayTags += 
+	[
+		"Debuff"
+	];
+}
+
+DoTStatusEffect : DebuffStatusEffect
+{
+	gameplayTags += 
+	[
+		"DoT"
+	];
+}
+
+ForceKill : StatusEffect
+{
+	fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+	gameplayTags += 
+	[
+		"Kill"
+	];
+	statusEffectType = "BaseStatusEffectTypes.Kill";
+}
+
+ForceKillFromRagdoll : ForceKill
+{
+}
+
+SoftKill : StatusEffect
+{
+	statusEffectType = "BaseStatusEffectTypes.SoftKill";
+	savable = false;
+}
+

@@ -1,5 +1,5 @@
 HandCountDisplay = {
-    version = '1.0.3',
+    version = '1.0.2',
     displayEnabled = false,
     displays = {},
     playerActiveHands = 0,
@@ -22,46 +22,17 @@ local blinkingTimer = 12 --use even number
 ---@param isDealer boolean true/false
 ---@param handIndex number? hand number to display count for
 ---@return Vector4 origin world location for first digit of display
----@return Quaternion orientation world orientation for the display
 local function calculateDisplayOrigin(isDealer, handIndex)
-    local activeTableID = TableManager.GetActiveTable()
-    if not activeTableID then
-        DualPrint("Warning: No active table when calculating hand count display origin")
-        return Vector4.new(0, 0, 0, 1), Quaternion.new(0, 0, 0, 1)
-    end
-    
-    local basePosition, baseOrientation
-    
+    local justBelowFirstHand = Vector4.new(-1041.175, 1340.821, 6.085, 1)
     if isDealer then
-        -- Dealer offset is relative to player base position, not table directly
-        -- First get the player base position
-        local playerBasePos, playerBaseOri = RelativeCoordinateCalulator.calculateRelativeCoordinate(activeTableID, 'hand_count_display_base_player')
-        -- Then apply dealer offset relative to player base (using table orientation for direction)
-        basePosition, baseOrientation = RelativeCoordinateCalulator.calculateFromPositionWithTable(
-            playerBasePos,
-            activeTableID,
-            'hand_count_display_base_dealer'
-        )
-    elseif handIndex then
-        -- Use player base offset
-        basePosition, baseOrientation = RelativeCoordinateCalulator.calculateRelativeCoordinate(activeTableID, 'hand_count_display_base_player')
-        
-        -- For hands beyond the first, apply spacing offsets
-        if handIndex > 1 then
-            for i = 2, handIndex do
-                basePosition, baseOrientation = RelativeCoordinateCalulator.calculateFromPositionWithTable(
-                    basePosition,
-                    activeTableID,
-                    'hand_count_display_spacing_players'
-                )
-            end
-        end
-    else
-        -- Default to player base offset for hand 1
-        basePosition, baseOrientation = RelativeCoordinateCalulator.calculateRelativeCoordinate(activeTableID, 'hand_count_display_base_player')
+        local newVector = Vector4.new(justBelowFirstHand.x-0.060, justBelowFirstHand.y-0.511, justBelowFirstHand.z, 1)
+        return newVector
     end
-    
-    return basePosition, baseOrientation
+    if handIndex then
+        local newVector = Vector4.new(justBelowFirstHand.x+(0.18*(handIndex-1)), justBelowFirstHand.y, justBelowFirstHand.z, 1)
+        return newVector
+    end
+    return justBelowFirstHand
 end
 
 ---Spawns digit entity in world. Sets HandCountDisplay.displays[id].entID
@@ -76,7 +47,7 @@ local function spawnDigit(digit1or2, displayID, appName, worldPosition, orientat
     spec.appearanceName = appName
     spec.position = worldPosition
     spec.orientation = orientation
-    spec.tags = {"HandCountDisplay",tostring(id)}--marked to avoid conflicts with other scripts
+    spec.tags = {"HandCountDisplay",tostring(id)}
 
     local entityID = Game.GetStaticEntitySystem():SpawnEntity(spec)
     if digit1or2 == 1 then
@@ -92,36 +63,19 @@ end
 local function displayStartup(isDealer, handIndex)
     local digit1pos
     local digit2pos
-    local digit1orientation
-    local digit2orientation
     local digit1app = "0"
     local digit2app = "0"
     local value
+    local orientation = EulerAngles.new(0,60,0):ToQuat()
 
-    local activeTableID = TableManager.GetActiveTable()
-    if not activeTableID then
-        DualPrint("Warning: No active table when starting hand count display")
-        return
-    end
-    
     if isDealer then
-        digit1pos, digit1orientation = calculateDisplayOrigin(true)
-        -- Calculate digit2 position relative to digit1 using the spacing offset
-        digit2pos, digit2orientation = RelativeCoordinateCalulator.calculateFromPositionWithTable(
-            digit1pos,
-            activeTableID,
-            'hand_count_display_digit2_spacing'
-        )
+        digit1pos = calculateDisplayOrigin(true)
+        digit2pos = Vector4.new(digit1pos.x-0.04, digit1pos.y, digit1pos.z, 1)
         HandCountDisplay.displays['dealerHand'].enabled = true
         value = SingleRoundLogic.dealerCardsValue
     elseif handIndex then
-        digit1pos, digit1orientation = calculateDisplayOrigin(false, handIndex)
-        -- Calculate digit2 position relative to digit1 using the spacing offset
-        digit2pos, digit2orientation = RelativeCoordinateCalulator.calculateFromPositionWithTable(
-            digit1pos,
-            activeTableID,
-            'hand_count_display_digit2_spacing'
-        )
+        digit1pos = calculateDisplayOrigin(false, handIndex)
+        digit2pos = Vector4.new(digit1pos.x-0.04, digit1pos.y, digit1pos.z+0.005, 1)
         HandCountDisplay.displays['playerHand'..tostring(handIndex)].enabled = true
         value = SingleRoundLogic.playerCardsValue[handIndex]
     end
@@ -134,12 +88,12 @@ local function displayStartup(isDealer, handIndex)
     end
 
     if isDealer then
-        spawnDigit(1, "dealerHand", digit1app, digit1pos, digit1orientation)
-        spawnDigit(2, "dealerHand", digit2app, digit2pos, digit2orientation)
+        spawnDigit(1, "dealerHand", digit1app, digit1pos, orientation)
+        spawnDigit(2, "dealerHand", digit2app, digit2pos, orientation)
         HandCountDisplay.displays['dealerHand'].appValue = value
     elseif handIndex then
-        spawnDigit(1, "playerHand"..tostring(handIndex), digit1app, digit1pos, digit1orientation)
-        spawnDigit(2, "playerHand"..tostring(handIndex), digit2app, digit2pos, digit2orientation)
+        spawnDigit(1, "playerHand"..tostring(handIndex), digit1app, digit1pos, orientation)
+        spawnDigit(2, "playerHand"..tostring(handIndex), digit2app, digit2pos, orientation)
         HandCountDisplay.displays['playerHand'..tostring(handIndex)].appValue = value
     end
 end
@@ -154,20 +108,8 @@ local function displayShutdown(isDealer, handIndex)
         DualPrint('HCD | Incorrect displayShutdown() call. Error #4027')
         return
     end
-    
-    if not display then
-        DualPrint('HCD | Display not found in displayShutdown()')
-        return
-    end
-    
-    if display.ent1ID then
-        Game.GetStaticEntitySystem():DespawnEntity(display.ent1ID)
-        display.ent1ID = nil
-    end
-    if display.ent2ID then
-        Game.GetStaticEntitySystem():DespawnEntity(display.ent2ID)
-        display.ent2ID = nil
-    end
+    Game.GetStaticEntitySystem():DespawnEntity(display.ent1ID)
+    Game.GetStaticEntitySystem():DespawnEntity(display.ent2ID)
     display.enabled = false
 end
 
@@ -187,7 +129,7 @@ local function updateEachDisplay()
                     digit1Entity:ScheduleAppearanceChange(tostring(tens))
                     digit2Entity:ScheduleAppearanceChange(tostring(ones))
                 end
-                Cron.After(1.0, callback)
+                Cron.After(0.1, callback)
             end
         end
     end
@@ -212,7 +154,7 @@ local function updateEachDisplay()
                         digit1Entity:ScheduleAppearanceChange(tostring(tens))
                         digit2Entity:ScheduleAppearanceChange(tostring(ones))
                     end
-                    Cron.After(1.0, callback)
+                    Cron.After(0.1, callback)
                 end
             elseif SingleRoundLogic.currentlySplit then
                 if i == SingleRoundLogic.activePlayerHandIndex then
@@ -224,7 +166,7 @@ local function updateEachDisplay()
                                 digit1Entity:ScheduleAppearanceChange(tostring(tens))
                                 digit2Entity:ScheduleAppearanceChange(tostring(ones))
                             end
-                            Cron.After(1.0, callback)
+                            Cron.After(0.1, callback)
                         end
                         HandCountDisplay.displays['playerHand'..tostring(i)].currentlyBlinkingBlue = false
                     end
@@ -234,7 +176,7 @@ local function updateEachDisplay()
                                 digit1Entity:ScheduleAppearanceChange(tostring(tens).."b")
                                 digit2Entity:ScheduleAppearanceChange(tostring(ones).."b")
                             end
-                            Cron.After(1.0, callback)
+                            Cron.After(0.1, callback)
                         end
                         HandCountDisplay.displays['playerHand'..tostring(i)].currentlyBlinkingBlue = true
                     end
@@ -244,7 +186,7 @@ local function updateEachDisplay()
                             digit1Entity:ScheduleAppearanceChange(tostring(tens))
                             digit2Entity:ScheduleAppearanceChange(tostring(ones))
                         end
-                        Cron.After(1.0, callback)
+                        Cron.After(0.1, callback)
                     end
                     HandCountDisplay.displays['playerHand'..tostring(i)].currentlyBlinkingBlue = false
                 end

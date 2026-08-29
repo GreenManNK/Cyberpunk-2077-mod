@@ -1,0 +1,65 @@
+package Attribute
+using RTDB
+
+AttributePassives : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			column = "body_to_health";
+		} : BodyPassive, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			column = "reflexes_to_crit_chance";
+		} : ReflexesPassive, 
+		{
+			statType = "BaseStats.CritDamage";
+			modifierType = "Additive";
+			column = "cool_to_crit_damage";
+		} : CoolPassive, 
+		{
+			statType = "BaseStats.Armor";
+			modifierType = "Additive";
+			column = "tech_ability_to_armor";
+		} : TechAbilityPassive, 
+		{
+			statType = "BaseStats.Memory";
+			modifierType = "Additive";
+			column = "intelligence_to_memory";
+		} : IntelligencePassive
+	];
+}
+
+BodyPassive : CurveStatModifier
+{
+	id = "body_passives";
+	refStat = "BaseStats.Strength";
+}
+
+ReflexesPassive : CurveStatModifier
+{
+	id = "reflexes_passives";
+	refStat = "BaseStats.Reflexes";
+}
+
+CoolPassive : CurveStatModifier
+{
+	id = "cool_passives";
+	refStat = "BaseStats.Cool";
+}
+
+TechAbilityPassive : CurveStatModifier
+{
+	id = "tech_ability_passives";
+	refStat = "BaseStats.TechnicalAbility";
+}
+
+IntelligencePassive : CurveStatModifier
+{
+	id = "intelligence_passives";
+	refStat = "BaseStats.Intelligence";
+}
+

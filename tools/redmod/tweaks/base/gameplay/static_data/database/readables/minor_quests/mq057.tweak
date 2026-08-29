@@ -1,0 +1,30 @@
+package Items
+using RTDB, ItemAction
+
+mq057_car_logs : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq057/shards/mq057_shards_carlogs";
+	} : ItemAction.Read;
+}
+
+mq057_conversation_cops : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq057/shards/mq057_cobversation_cops";
+	} : ItemAction.Read;
+}
+
+mq057_conversation_thieves : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq057/shards/mq057_conversation_thieves";
+	} : ItemAction.Read;
+}
+

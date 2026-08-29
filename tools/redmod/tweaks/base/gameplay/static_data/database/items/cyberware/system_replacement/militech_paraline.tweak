@@ -1,0 +1,469 @@
+package Items
+using RTDB, BaseStats
+
+[ notQueryable ]
+BaseDeck : SystemReplacementModule
+{
+	string friendlyName = "";
+	displayName = "LocKey#842";
+	localizedDescription = "LocKey#843";
+	iconPath = "militech_paraline";
+	fk< ItemBlueprint > blueprint = "Items.CyberdeckBlueprint2Slots";
+	fk< SlotItemPartListElement >[] slotPartList = 
+	[
+		"Items.GenericRootSlotItem"
+	];
+	tags += 
+	[
+		"Cyberdeck"
+	];
+	fk< Quality > quality = "Quality.Common";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasCyberdeck";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				iconPath = "ability_silenced";
+				localizedDescription = "LocKey#49703";
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					effectorClassName = "UnlockMinigameProgramEffector";
+					string networkAction = "MinigameAction.NetworkLowerICEMinorFirst";
+				} : Effector, 
+				{
+				} : RemoveCooldownStatusEffectsEffector
+			];
+		} : GameplayLogicPackage
+	];
+	objectActions = 
+	[
+		"DeviceAction.DataExtractionClassHack", "DeviceAction.MalfunctionClassHack", "DeviceAction.ToggleStateClassHack", "DeviceAction.TurretToggleStateClassHack", "DeviceAction.TakeControlCameraClassHack", "DeviceAction.VehicleForceBrakesClassHack", "DeviceAction.OverloadClassHack"
+	];
+	CName cyberwareType = "Cyberdeck";
+	buyPrice += 
+	[
+		{
+			statType = "BaseStats.Price";
+			modifierType = "Multiplier";
+			id = "cyberware_curves";
+			column = "veryhigh_humanity_to_price_mult";
+			refStat = "BaseStats.Quality";
+			refObject = "Item";
+		} : CurveStatModifier
+	];
+	sellPrice += 
+	[
+		{
+			statType = "BaseStats.Price";
+			modifierType = "Multiplier";
+			id = "cyberware_curves";
+			column = "veryhigh_humanity_to_price_mult";
+			refStat = "BaseStats.Quality";
+			refObject = "Item";
+		} : CurveStatModifier
+	];
+}
+
+[ notQueryable ]
+CyberdeckBlueprint2Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint3Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint4Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint5Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram5";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint6Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram5";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram6";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint7Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram5";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram6";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram7";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+CyberdeckBlueprint8Slots : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram5";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram6";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram7";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram8";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BeginnerCyberdeck : MilitechParaline
+{
+	fk< ItemBlueprint > blueprint = "Items.BeginnerCyberdeckBlueprint";
+}
+
+[ notQueryable ]
+TutorialCyberdeck_Course3Stage01 : MilitechParaline
+{
+	fk< ItemBlueprint > blueprint = "Items.CyberdeckBlueprint2Slots";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasCyberdeck";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Memory";
+					modifierType = "Additive";
+					value = 4;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.MemoryRegenRate";
+					modifierType = "Multiplier";
+					value = 0.0;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+	objectActions = 
+	[
+		"DeviceAction.MalfunctionClassHack"
+	];
+	slotPartList = [];
+}
+
+[ notQueryable ]
+TutorialCyberdeck_Course3Stage02 : MilitechParaline
+{
+	fk< ItemBlueprint > blueprint = "Items.CyberdeckBlueprint2Slots";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasCyberdeck";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Memory";
+					modifierType = "Additive";
+					value = 30;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				iconPath = "ability_silenced";
+				localizedDescription = "LocKey#50363";
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					effectorClassName = "UnlockMinigameProgramEffector";
+					string networkAction = "MinigameAction.NetworkDataMineLootAll";
+				} : Effector, 
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					effectorClassName = "UnlockMinigameProgramEffector";
+					string networkAction = "MinigameAction.NetworkLowerICETutorial";
+				} : Effector
+			];
+		} : GameplayLogicPackage
+	];
+	objectActions = 
+	[
+		"DeviceAction.TakeControlCameraClassHack", "QuickHack.GrenadeTutorialHack"
+	];
+	slotPartList = [];
+}
+
+[ notQueryable ]
+TutorialCyberdeck_Course4Stage04 : MilitechParaline
+{
+	fk< ItemBlueprint > blueprint = "Items.CyberdeckBlueprint2Slots";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasCyberdeck";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Memory";
+					modifierType = "Additive";
+					value = 10;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				iconPath = "ability_silenced";
+				localizedDescription = "LocKey#50363";
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					effectorClassName = "UnlockMinigameProgramEffector";
+					string networkAction = "MinigameAction.NetworkLowerICEMinorFirst";
+				} : Effector
+			];
+		} : GameplayLogicPackage
+	];
+	objectActions = 
+	[
+		"QuickHack.OverloadHack", "QuickHack.OverheatHack", "QuickHack.WeaponMalfunctionHack", "QuickHack.BlindHack"
+	];
+	slotPartList = [];
+}
+
+[ notQueryable ]
+BeginnerCyberdeckBlueprint : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram4";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram5";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram6";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram7";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram8";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+SmasherCyberdeckBlueprint : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram1";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram2";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.CyberdeckProgram3";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+RemoveCooldownStatusEffectsEffector : Effector
+{
+	fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+	CName effectorClassName = "RemoveStatusEffectsEffector";
+	string[] statusEffects = 
+	[
+		"BaseStatusEffect.RemoteBreachCooldown", "BaseStatusEffect.RebootOpticsCooldown", "BaseStatusEffect.SuicideCooldown", "BaseStatusEffect.SystemCollapseCooldown", "BaseStatusEffect.GrenadeCooldown", "BaseStatusEffect.MadnessCooldown", "BaseStatusEffect.OverloadCooldown", "BaseStatusEffect.BrainMeltCooldown", "BaseStatusEffect.OverheatCooldown", "BaseStatusEffect.CommsNoiseCooldown", "BaseStatusEffect.CallInCooldown", "BaseStatusEffect.WhistleCooldown", "BaseStatusEffect.MemoryWipeCooldown", "BaseStatusEffect.ContagionCooldown"
+	];
+}
+

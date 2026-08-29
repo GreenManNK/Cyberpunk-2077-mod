@@ -1,0 +1,593 @@
+package Items
+using RTDB, BaseStats, Prereqs, BaseStatPools, Effectors, Perks
+
+[ notQueryable ]
+MantisBlades : MeleeWeapon
+{
+	isSingleInstance = false;
+	isCustomizable = true;
+	displayName = "LocKey#3717";
+	localizedDescription = "LocKey#3715";
+	iconPath = "cw_arms_mantisblades";
+	crosshair = "Crosshairs.Cyberware_Mantis_Blades";
+	buyPrice = 
+	[
+		"Price.BaseWeaponPrice", "Price.ItemQualityMultiplier", "Price.PlusTierMultiplier", "Price.CyberwareMultiplier", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = 
+	[
+		"Price.BaseWeaponPrice", "Price.ItemQualityMultiplier", "Price.PlusTierMultiplier", "Price.CyberwareMultiplier", "Price.CyberwareSellMultiplier"
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.CWMantisblades";
+	itemSecondaryAction = "";
+	friendlyName = "mantis_blade";
+	blueprint = "Items.MantisBladesBlueprint";
+	int specialAttackNumber = 7;
+	float specialAttackCost = -100.;
+	float colliderBoxWidth = 2.0;
+	float colliderBoxHeight = 1.5;
+	float grandFinaleAttackDelay = 0.3;
+	float targetMaxDistanceCheck = 2.0;
+	fk< WeaponEvolution > evolution = "WeaponEvolution.Blade";
+	slotPartList = 
+	[
+		{
+			slot = "AttachmentSlots.CyberwareRoot";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.MantisBladesRoot";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.MantisBladesEdge";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.PhysicalDamageEdge";
+				}, 
+				{
+					item = "Items.ThermalDamageEdge";
+				}, 
+				{
+					item = "Items.ChemicalDamageEdge";
+				}, 
+				{
+					item = "Items.ElectricDamageEdge";
+				}, 
+				{
+					item = "Items.MaxTacEdge";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.MantisBladesRotor";
+			itemPartList = 
+			[
+				{
+					item = "Items.SlowRotor";
+				}, 
+				{
+					item = "Items.FastRotor";
+				}, 
+				{
+					item = "Items.TygerClawsMantisBladesRotor1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+			itemPartList = 
+			[
+				{
+					item = "Items.ArmsCyberwareSharedFragment1";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment2";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment3";
+				}, 
+				{
+					item = "Items.ArmsCyberwareSharedFragment4";
+				}
+			];
+		}
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.CyberwareRoot";
+			itemPartPreset = "Items.MantisBladesRoot";
+		}, 
+		{
+			slot = "AttachmentSlots.MantisBladesEdge";
+			itemPartPreset = "Items.PhysicalDamageEdge";
+		}, 
+		{
+			slot = "AttachmentSlots.MantisBladesRotor";
+			itemPartPreset = "";
+		}, 
+		{
+			slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+			itemPartPreset = "";
+		}
+	];
+	[ EP1 ]
+	entityName = "a0_003__mantisblades_ep1";
+	tags = 
+	[
+		"MeleeWeapon", "BladeWeapon", "Core", "Melee", "Cyberware", "ForceDismember", "TakedownWeapon", "Meleeware", "PSM", "WeaponQuickSlots", "FinisherBack", "FinisherFront", "UnequipHolsteredArms", "HideInBackpackUI", "MantisBlades", "DoNotRegenerateOnPartChange"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft", "AttachmentSlots.RightArm"
+	];
+	parentAttachmentType = "ParentAttachmentType.Animated";
+	stateMachineName = "Melee";
+	dropObject = "";
+	audioName = "w_cyb_mantis";
+	triggerModes = 
+	[
+		"TriggerMode.SemiAuto"
+	];
+	visualTags = [];
+	fxPackage = "WeaponFxPackage.KatanaFxPackage";
+	audioWeaponConfiguration = "audio_melee_metadata_mantis";
+	equipArea = "EquipmentArea.ArmsCW";
+	itemType = "ItemType.Cyb_MantisBlades";
+	triggerEffectName = "te_wea_melee_swing_light";
+	quality = "Quality.Rare";
+	holsteredItem = "Items.MantisBladeHolsteredFists";
+	statModifierGroups = 
+	[
+		"Items.Base_Melee_Status_Effect_Application_Stats", "Items.MantisBladesRPGStats", "Items.MantisBladesHandlingStats", "Items.MantisBladesMiscStats", "Items.MantisBlades_Damage_Stats"
+	];
+	statModifiers += 
+	[
+		"Items.ItemArmorToArmor"
+	];
+	fk< StatPool >[] statPools = 
+	[
+		"BaseStatPools.MantisBladesCharge"
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					statGroup = "Items.MantisBladesMiscStatsOnEquip";
+				} : ApplyStatGroupOnWeapon
+			];
+		}
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#54008";
+			};
+		}
+	];
+	attacks = 
+	[
+		"MantisBladesAttacks.MantisBladesComboAttack1", "MantisBladesAttacks.MantisBladesComboAttack2", "MantisBladesAttacks.MantisBladesComboAttack3", "MantisBladesAttacks.MantisBladesComboAttack4", "MantisBladesAttacks.MantisBladesComboAttack5", "MantisBladesAttacks.MantisBladesComboAttack6", "MantisBladesAttacks.MantisBladesComboAttack7", "MantisBladesAttacks.MantisBladesComboAttack8", "MantisBladesAttacks.MantisBladesComboAttack9", "MantisBladesAttacks.MantisBladesComboAttack10", "MantisBladesAttacks.MantisBladesStrongAttack1", "MantisBladesAttacks.MantisBladesStrongAttack2", "MantisBladesAttacks.MantisBladesJumpAttack", "MantisBladesAttacks.MantisBladesBlockAttack", "MantisBladesAttacks.MantisBladesCrouchAttack", "MantisBladesAttacks.MantisBladesDeflectAttack", "MantisBladesAttacks.MantisBladesGrandFinaleSpecialAttack", "MantisBladesAttacks.GrandFinaleAttackTargetDamage"
+	];
+	CName cyberwareType = "MantisBlades";
+	counterpart = "Items.AdvancedMantisBladesUncommon";
+}
+
+[ notQueryable ]
+MantisBladesBlueprint : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.CyberwareRoot";
+		fk< ItemBlueprintElement >[] childElements = 
+		[
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.MantisBladesEdge";
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.MantisBladesRotor";
+				prereqID = 
+				{
+					valueToCheck = 4;
+				} : ItemQualityPrereq;
+			}, 
+			{
+				fk< AttachmentSlot > slot = "AttachmentSlots.ArmsCyberwareGeneralSlot";
+				prereqID = 
+				{
+					valueToCheck = 3;
+				} : ItemQualityPrereq;
+			}, 
+			{
+				slot = "AttachmentSlots.StatsShardSlot";
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+MantisBladesRPGStats : ArmsCyberwareStatGroupBase
+{
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "Multiplier";
+			value = 0.977f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BlockFactor";
+			modifierType = "Additive";
+			value = 7f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChargeFullMultiplier";
+			modifierType = "Additive";
+			refStat = "BaseStats.ChargeMultiplier";
+			opSymbol = "*";
+			value = 1.0f;
+		} : CombinedStatModifier, 
+		{
+			value = 0.25;
+		} : ChargeMultiplierModifier, 
+		{
+			value = 100.f;
+		} : ChargeModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow"
+	];
+}
+
+[ notQueryable ]
+MantisBlades_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 70f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+MantisBlades_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 67f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+MantisBladesHandlingStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttacksNumber";
+			modifierType = "Additive";
+			value = 9;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 5.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttackSpeed";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackDuration";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackComboDuration";
+			modifierType = "Additive";
+			value = 0.41f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BaseMeleeAttackStaminaCost";
+			modifierType = "Additive";
+			value = 7f;
+		} : ConstantStatModifier, 
+		{
+			float value = 15.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 8.f;
+		} : PhysicalImpulseModifier
+	];
+}
+
+[ notQueryable ]
+MantisBladesMiscStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		"BaseStats.EquipDurationModifier", "BaseStats.UnequipDurationModifier", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EquipDuration_First";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+MantisBladesMiscStatsOnEquip : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.CanWeaponInfinitlyCombo";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanMeleeInfinitelyCombo";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanMeleeLeap";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanMeleeLeapTakedown";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+NPC_Mantis_Blades : MeleeWeapon
+{
+	CName entityName = "psycho_mantis_blade";
+	displayName = "";
+	CName dropObject = "";
+	canDrop = false;
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 2;
+	} : ConstantStatModifier;
+	fk< ParentAttachmentType > parentAttachmentType = "ParentAttachmentType.Animated";
+	fk< ItemType > itemType = "ItemType.Cyb_MantisBlades";
+	string friendlyName = "mantis_blade";
+	iconPath = "temp_katana";
+	tags += 
+	[
+		"MeleeWeapon", "NPCMeleeware", "HideInUI", "HideAtVendor"
+	];
+	fk< WeaponFxPackage > fxPackage = "WeaponFxPackage.KatanaFxPackage";
+	fk< StatModifierGroup >[] statModifierGroups = 
+	[
+		"Items.MantisBladesRPGStats", "Items.MantisBladesHandlingStats", "Items.MantisBladesMiscStats"
+	];
+	fk< Attack >[] attacks += 
+	[
+		"NPCAttacks.StrongAttackStagger", "NPCAttacks.StrongAttackStompKnockdown", "NPCAttacks.StrongAttackStompStun", "NPCAttacks.StrongAttackSmokeBomb"
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_mantis";
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+	enableNpcRPGData = true;
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Mantis_Blades_NPC_Data;
+}
+
+[ notQueryable ]
+Base_Mantis_Blades_NPC_Data : Base_NPC_RPG_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Mantis_Blades_NPC_Stats", "Items.MantisBlades_NPC_Damage_Stats"
+	];
+	statModifiers += 
+	[
+		"Quality.BrokenItem"
+	];
+}
+
+[ notQueryable ]
+Base_Mantis_Blades_NPC_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanGuardBreak";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanBlock";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.WoundLArmDamageThreshold";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.WoundRArmDamageThreshold";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaCostToBlock";
+			modifierType = "Additive";
+			value = 20.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 5.f;
+		} : ConstantStatModifier, 
+		{
+			float value = 15.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 8.f;
+		} : PhysicalImpulseModifier, 
+		{
+			value = 0.0f;
+		} : EquipItemTime_GangModifier, 
+		{
+			value = 0.0f;
+		} : EquipAnimationDuration_GangModifier, 
+		{
+			value = 1.667f;
+		} : EquipActionDuration_GangModifier, 
+		{
+			value = 0.0f;
+		} : UnequipItemTime_GangModifier, 
+		{
+			value = 0.0f;
+		} : UnequipAnimationDuration_GangModifier, 
+		{
+			value = 2.167f;
+		} : UnequipDuration_GangModifier, 
+		{
+			value = 0.0f;
+		} : EquipItemTime_CorpoModifier, 
+		{
+			value = 0.0f;
+		} : EquipAnimationDuration_CorpoModifier, 
+		{
+			value = 1.367f;
+		} : EquipActionDuration_CorpoModifier, 
+		{
+			value = 0.0f;
+		} : UnequipItemTime_CorpoModifier, 
+		{
+			value = 0.0f;
+		} : UnequipAnimationDuration_CorpoModifier, 
+		{
+			value = 2.167f;
+		} : UnequipDuration_CorpoModifier
+	];
+}
+
+[ notQueryable ]
+Oda_Mantis_Blades : NPC_Mantis_Blades
+{
+	CName entityName = "oda_mantis_blade";
+	fk< AttachmentSlot >[] placementSlots = 
+	[
+		"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		"AttackModifier.WeaponArmorPenetrationMedium"
+	];
+	fk< Attack >[] attacks += 
+	[
+		"NPCAttacks.OdaStrongAttack", "NPCAttacks.OdaDashAttack", "NPCAttacks.OdaLeapAttack", "NPCAttacks.OdaStompAttack", "NPCAttacks.OdaStompAttack", "NPCAttacks.StrongAttackSmokeBomb", "NPCAttacks.StompAttackStagger", "NPCAttacks.StompAttack", "NPCAttacks.StrongAttackStagger", "OneHandBladeAttacks.NPCQuickAttack", "Attacks.Slash"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.RandomCurveInput";
+				modifierType = "Additive";
+				id = "quality_curves";
+				column = "rci_to_cyberpsycho_boss_level";
+				refStat = "BaseStats.NPCLootLevelHelper";
+			} : CurveStatModifier
+		];
+	} : Base_Mantis_Blades_NPC_Data;
+}
+
+[ notQueryable ]
+Troy_Mantis_Blades : Oda_Mantis_Blades
+{
+	CName entityName = "troy_mantis_blade";
+}
+
+[ notQueryable ]
+MaxTac_2nd_wave_Mantis_Blades : NPC_Mantis_Blades
+{
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"AttackModifier.WeaponArmorPenetrationFull", {
+				statType = "BaseStats.StaminaCostToBlock";
+				modifierType = "Multiplier";
+				value = 3f;
+			} : ConstantStatModifier
+		];
+	} : Base_Mantis_Blades_NPC_Data;
+}
+
+[ notQueryable ]
+MantisBladesEpic : MantisBlades
+{
+	quality = "Quality.Epic";
+	counterpart = "Items.AdvancedMantisBladesUncommon";
+}
+
+[ notQueryable ]
+MantisBladesLegendary : MantisBlades
+{
+	quality = "Quality.Legendary";
+	counterpart = "Items.AdvancedMantisBladesUncommon";
+}
+

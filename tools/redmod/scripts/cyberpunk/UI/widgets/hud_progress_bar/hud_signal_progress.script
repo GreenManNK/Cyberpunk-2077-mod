@@ -1,0 +1,280 @@
+import enum ProximityProgressBarOrientation
+{
+	Undefined,
+	InRange,
+	OutOfRange,
+}
+
+import enum ProximityProgressBarState
+{
+	None,
+	Active,
+	Inactive,
+	Complete,
+}
+
+class HUDSignalProgressBarController extends inkHUDGameController
+{
+	private editable var m_bar : inkWidgetRef;
+	private editable var m_signalBar : inkWidgetRef;
+	private editable var m_completed : inkWidgetRef;
+	private editable var m_signalLost : inkWidgetRef;
+	private editable var m_percent : inkTextRef;
+	private editable var m_signalPercent : inkTextRef;
+	private editable var m_signalLabel : inkWidgetRef;
+	private editable var m_signalWrapper : inkWidgetRef;
+	private editable var m_appearance : CName;
+	private editable var m_SignalLostAnimationName : CName;
+	default m_SignalLostAnimationName = 'warning';
+	private editable var m_IntroAnimationName : CName;
+	default m_IntroAnimationName = 'intro';
+	private editable var m_OutroAnimationName : CName;
+	default m_OutroAnimationName = 'outro';
+	private editable var m_InRangeAnimationName : CName;
+	private editable var m_OutOfRangeAnimationName : CName;
+	private editable var m_addPercentSign : Bool;
+	default m_addPercentSign = true;
+	private editable var m_handleOnComplete : Bool;
+	default m_handleOnComplete = false;
+	private var m_rootWidget : weak< inkWidget >;
+	private var m_progressBarBB : weak< IBlackboard >;
+	private var m_progressBarDef : UI_HUDSignalProgressBarDef;
+	private var m_stateBBID : CallbackHandle;
+	private var m_progressBBID : CallbackHandle;
+	private var m_signalStrengthBBID : CallbackHandle;
+	private var m_orientationBBID : CallbackHandle;
+	private var m_appearanceBBID : CallbackHandle;
+	private var m_data : HUDProgressBarData;
+	private var m_OutroAnimation : inkAnimProxy;
+	private var m_SignalLostAnimation : inkAnimProxy;
+	private var m_IntroAnimation : inkAnimProxy;
+	private var m_OrientationAnimation : inkAnimProxy;
+	private var m_alpha_fadein : inkAnimDef;
+	private var m_AnimProxy : inkAnimProxy;
+	private var m_AnimOptions : inkAnimOptions;
+	private var alphaInterpolator : inkAnimTransparency;
+	private var tick : Float;
+	private var m_isAppearanceMatch : Bool;
+	private var m_barSize : Vector2;
+	private var m_signalBarSize : Vector2;
+
+	protected event OnInitialize()
+	{
+		m_rootWidget = GetRootWidget();
+		m_rootWidget.SetVisible( false );
+		SetupBB();
+		m_barSize = inkWidgetRef.GetSize( m_bar );
+		m_signalBarSize = inkWidgetRef.GetSize( m_signalBar );
+	}
+
+	protected event OnUnInitialize()
+	{
+		UnregisterFromBB();
+	}
+
+	private function SetupBB()
+	{
+		m_progressBarDef = GetAllBlackboardDefs().UI_HUDSignalProgressBar;
+		m_progressBarBB = GetBlackboardSystem().Get( m_progressBarDef );
+		if( m_progressBarBB )
+		{
+			m_stateBBID = m_progressBarBB.RegisterDelayedListenerUint( m_progressBarDef.State, this, 'OnStateChanged' );
+			m_progressBBID = m_progressBarBB.RegisterDelayedListenerFloat( m_progressBarDef.Progress, this, 'OnProgressChanged' );
+			m_signalStrengthBBID = m_progressBarBB.RegisterDelayedListenerFloat( m_progressBarDef.SignalStrength, this, 'OnSignalStrengthChanged' );
+			m_orientationBBID = m_progressBarBB.RegisterDelayedListenerUint( m_progressBarDef.Orientation, this, 'OnOrientationChanged' );
+			m_appearanceBBID = m_progressBarBB.RegisterListenerName( m_progressBarDef.Appearance, this, 'OnAppearanceChanged' );
+		}
+	}
+
+	private function UnregisterFromBB()
+	{
+		m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.State, m_stateBBID );
+		m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.Progress, m_progressBBID );
+		m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.SignalStrength, m_signalStrengthBBID );
+		m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.Orientation, m_orientationBBID );
+		m_progressBarBB.UnregisterListenerName( m_progressBarDef.Appearance, m_appearanceBBID );
+	}
+
+	protected event OnAppearanceChanged( appearance : CName )
+	{
+		m_isAppearanceMatch = appearance == m_appearance;
+	}
+
+	protected event OnStateChanged( state : Uint32 )
+	{
+		var enumState : ProximityProgressBarState;
+		if( m_isAppearanceMatch )
+		{
+			enumState = ( ( ProximityProgressBarState )( state ) );
+			if( enumState == ProximityProgressBarState.Active )
+			{
+				Show();
+			}
+			else if( enumState == ProximityProgressBarState.Complete )
+			{
+				if( m_handleOnComplete )
+				{
+					Completed();
+				}
+				else
+				{
+					inkWidgetRef.SetVisible( m_signalLabel, false );
+					inkWidgetRef.SetVisible( m_signalWrapper, false );
+				}
+			}
+			else if( enumState == ProximityProgressBarState.Inactive )
+			{
+				Hide();
+			}
+		}
+	}
+
+	protected event OnProgressChanged( progress : Float )
+	{
+		if( m_isAppearanceMatch )
+		{
+			UpdateTimerProgress( progress );
+		}
+	}
+
+	protected event OnSignalStrengthChanged( signalStrength : Float )
+	{
+		if( m_isAppearanceMatch )
+		{
+			UpdateSignalProgress( signalStrength );
+		}
+	}
+
+	protected event OnOrientationChanged( orientation : Uint32 )
+	{
+		var enumOrientation : ProximityProgressBarOrientation;
+		if( m_isAppearanceMatch )
+		{
+			enumOrientation = ( ( ProximityProgressBarOrientation )( orientation ) );
+			if( enumOrientation == ProximityProgressBarOrientation.InRange )
+			{
+				InRange();
+			}
+			else if( enumOrientation == ProximityProgressBarOrientation.OutOfRange )
+			{
+				OutOfRange();
+			}
+		}
+	}
+
+	public function UpdateTimerProgress( value : Float )
+	{
+		var str : String;
+		inkWidgetRef.SetSize( m_bar, Vector2( value * m_barSize.X, m_barSize.Y ) );
+		str = FloatToStringPrec( value * 100.0, 0 );
+		if( m_addPercentSign )
+		{
+			str = str + "%";
+		}
+		inkTextRef.SetText( m_percent, str );
+	}
+
+	public function UpdateSignalProgress( value : Float )
+	{
+		var str : String;
+		inkWidgetRef.SetSize( m_signalBar, Vector2( value * m_signalBarSize.X, m_signalBarSize.Y ) );
+		str = FloatToStringPrec( value * 100.0, 0 );
+		if( m_addPercentSign )
+		{
+			str = str + "%";
+		}
+		inkTextRef.SetText( m_signalPercent, str );
+	}
+
+	private function SignalLost( val : Bool )
+	{
+		if( val )
+		{
+			if( !( m_SignalLostAnimation.IsPlaying() ) && m_SignalLostAnimationName != '' )
+			{
+				m_SignalLostAnimation = PlayLibraryAnimation( m_SignalLostAnimationName );
+			}
+		}
+		else
+		{
+			if( m_SignalLostAnimation.IsPlaying() )
+			{
+				m_SignalLostAnimation.Stop();
+			}
+		}
+	}
+
+	private function InRange()
+	{
+		if( m_OrientationAnimation )
+		{
+			m_OrientationAnimation.Stop();
+		}
+		if( m_InRangeAnimationName != '' )
+		{
+			m_OrientationAnimation = PlayLibraryAnimation( m_InRangeAnimationName );
+		}
+	}
+
+	private function OutOfRange()
+	{
+		if( m_OrientationAnimation )
+		{
+			m_OrientationAnimation.Stop();
+		}
+		if( m_OutOfRangeAnimationName != '' )
+		{
+			m_OrientationAnimation = PlayLibraryAnimation( m_OutOfRangeAnimationName );
+		}
+	}
+
+	private function Show()
+	{
+		m_rootWidget.SetVisible( true );
+		inkWidgetRef.SetVisible( m_signalLabel, true );
+		inkWidgetRef.SetVisible( m_signalWrapper, true );
+		if( m_IntroAnimation )
+		{
+			m_IntroAnimation.Stop();
+		}
+		if( m_OutroAnimation )
+		{
+			m_OutroAnimation.Stop();
+		}
+		if( m_IntroAnimationName != '' )
+		{
+			m_IntroAnimation = PlayLibraryAnimation( m_IntroAnimationName );
+		}
+	}
+
+	private function Completed()
+	{
+		m_rootWidget.SetVisible( true );
+		if( m_IntroAnimation )
+		{
+			m_IntroAnimation.Stop();
+		}
+		if( m_OutroAnimation )
+		{
+			m_OutroAnimation.Stop();
+		}
+		if( m_OutroAnimationName != '' )
+		{
+			m_OutroAnimation = PlayLibraryAnimation( m_OutroAnimationName );
+			m_OutroAnimation.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnHide' );
+		}
+	}
+
+	protected event OnHide( proxy : inkAnimProxy )
+	{
+		m_rootWidget.SetVisible( false );
+		proxy.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnHide' );
+	}
+
+	private function Hide()
+	{
+		m_rootWidget.SetVisible( false );
+	}
+
+}
+

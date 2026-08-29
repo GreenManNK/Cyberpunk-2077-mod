@@ -1,0 +1,749 @@
+package KnifeAttacks
+using RTDB, Attacks, AttackDirections, AttackModifier
+
+KnifeComboAttackAbstract : Slash
+{
+	attackSubtype = "AttackType.ComboAttack";
+	float attackWindowOpen = 0.2f;
+	float attackWindowClosed = 0.3f;
+	float idleTransitionTime = 1.0f;
+	float blockTransitionTime = 0.3f;
+	float attackEffectDelay = 0.13f;
+	float attackEffectDuration = 0.06f;
+	float cameraSpaceImpulse = -1.f;
+	float impulseDelay = 0.f;
+	float startupDuration = 0.1f;
+	float activeDuration = 0.333f;
+	float recoverDuration = 0.367f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	audioTag = "slash";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+	bool incrementsCombo = true;
+}
+
+KnifeComboAttack1 : KnifeComboAttackAbstract
+{
+	attackName = "MeleeComboAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.LeftToRight";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeComboAttack2 : KnifeComboAttackAbstract
+{
+	attackName = "MeleeComboAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.RightToLeft";
+	audioAttackIndex = 1.0f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier
+	];
+}
+
+KnifeComboAttack3 : KnifeComboAttackAbstract
+{
+	attackName = "MeleeComboAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.LeftDownToRightUp";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeComboAttack4 : KnifeComboAttackAbstract
+{
+	attackName = "MeleeComboAttack3";
+	fk< AttackDirection > attackDirection = "AttackDirections.RightDownToLeftUp";
+	audioAttackIndex = 3.0f;
+}
+
+KnifeMountedComboAttackAbstract : KnifeComboAttackAbstract
+{
+	float attackEffectDelay = 0.125f;
+	float attackEffectDuration = 0.2f;
+	float idleTransitionTime = 0.75f;
+	float startupDuration = -1.f;
+	float activeDuration = -1.f;
+	float recoverDuration = -1.f;
+	float trailStartDelay = 0.125f;
+	float trailStopDelay = 0.325f;
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 3;
+}
+
+KnifeMountedComboAttack1 : KnifeMountedComboAttackAbstract
+{
+	attackName = "MeleeMountedComboAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeMountedComboAttack2 : KnifeMountedComboAttackAbstract
+{
+	attackName = "MeleeMountedComboAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 1.0f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.1f;
+		} : ConstantStatModifier
+	];
+}
+
+KnifeMountedComboAttack3 : KnifeMountedComboAttackAbstract
+{
+	attackName = "MeleeMountedComboAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeMountedComboAttack4 : KnifeMountedComboAttackAbstract
+{
+	attackName = "MeleeMountedComboAttack3";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 3.0f;
+}
+
+KnifeFinalAttackAbstract : Slash
+{
+	attackSubtype = "AttackType.FinalAttack";
+	float attackWindowOpen = 0.37f;
+	float attackWindowClosed = 0.6f;
+	float idleTransitionTime = 0.8f;
+	float blockTransitionTime = 0.6f;
+	float attackEffectDelay = 0.1f;
+	float attackEffectDuration = 0.06f;
+	float cameraSpaceImpulse = 4.f;
+	float impulseDelay = 0.f;
+	float startupDuration = 0.1f;
+	float activeDuration = 0.333f;
+	float recoverDuration = 0.367f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 1.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Multiplier";
+			value = 1.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 1.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.25f;
+		} : ConstantStatModifier
+	];
+	audioTag = "slash";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+	bool incrementsCombo = true;
+}
+
+KnifeFinalAttack1 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeFinalAttack2 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 1.0f;
+}
+
+KnifeFinalAttack3 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeFinalAttack4 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack3";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 3.0f;
+}
+
+KnifeFinalAttack5 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack4";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 4.0f;
+}
+
+KnifeFinalAttack6 : KnifeFinalAttackAbstract
+{
+	attackName = "MeleeFinalAttack5";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 5.0f;
+}
+
+KnifeMountedFinalAttackAbstract : KnifeFinalAttackAbstract
+{
+	float idleTransitionTime = 0.6f;
+	float attackEffectDelay = 0.1f;
+	float attackEffectDuration = 0.175f;
+	float startupDuration = -1.f;
+	float activeDuration = -1.f;
+	float recoverDuration = -1.f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.275f;
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 3;
+}
+
+KnifeMountedFinalAttack1 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeMountedFinalAttack2 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 1.0f;
+}
+
+KnifeMountedFinalAttack3 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeMountedFinalAttack4 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack3";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 3.0f;
+}
+
+KnifeMountedFinalAttack5 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack4";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 4.0f;
+}
+
+KnifeMountedFinalAttack6 : KnifeMountedFinalAttackAbstract
+{
+	attackName = "MeleeMountedFinalAttack5";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 5.0f;
+}
+
+KnifeStrongAttackAbstract : StrongSlash
+{
+	float attackWindowOpen = 0.37f;
+	float attackWindowClosed = 0.7f;
+	float idleTransitionTime = 1.2f;
+	float cameraSpaceImpulse = 4.f;
+	float impulseDelay = 0.0f;
+	float startupDuration = 0.100f;
+	float activeDuration = 0.400f;
+	float recoverDuration = 0.967f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 2f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	float attackEffectDelay = 0.08f;
+	float attackEffectDuration = 0.06f;
+	audioTag = "stab";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+	bool incrementsCombo = true;
+}
+
+KnifeStrongAttack1 : KnifeStrongAttackAbstract
+{
+	attackName = "MeleeStrongAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeStrongAttack2 : KnifeStrongAttackAbstract
+{
+	attackName = "MeleeStrongAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 1.0f;
+}
+
+KnifeStrongAttack3 : KnifeStrongAttackAbstract
+{
+	attackName = "MeleeStrongAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeMountedStrongAttackAbstract : KnifeStrongAttackAbstract
+{
+	float idleTransitionTime = 0.6f;
+	float attackEffectDelay = 0.1f;
+	float attackEffectDuration = 0.15f;
+	float startupDuration = -1.f;
+	float activeDuration = -1.f;
+	float recoverDuration = -1.f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.25f;
+	bool enableAdjustingPlayerPositionToTarget = false;
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 3;
+}
+
+KnifeMountedStrongAttack1 : KnifeMountedStrongAttackAbstract
+{
+	attackName = "MeleeMountedStrongAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeMountedStrongAttack2 : KnifeMountedStrongAttackAbstract
+{
+	attackName = "MeleeMountedStrongAttack1";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedLeftToRightWide";
+	audioAttackIndex = 1.0f;
+}
+
+KnifeMountedStrongAttack3 : KnifeMountedStrongAttackAbstract
+{
+	attackName = "MeleeMountedStrongAttack2";
+	fk< AttackDirection > attackDirection = "AttackDirections.MountedRightToLeftWide";
+	audioAttackIndex = 2.0f;
+}
+
+KnifeSafeAttack : KnifeComboAttackAbstract
+{
+	attackSubtype = "AttackType.SafeAttack";
+	attackName = "MeleeSafeAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.RightToLeft";
+	float startupDuration = 0.1f;
+	float activeDuration = 0.367f;
+	float recoverDuration = 0.333f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	audioAttackIndex = 0.0f;
+	bool incrementsCombo = true;
+}
+
+KnifeSprintAttack : Slash
+{
+	attackSubtype = "AttackType.SprintAttack";
+	attackName = "MeleeSprintAttack0";
+	float attackWindowOpen = 0.37f;
+	float attackWindowClosed = 0.7f;
+	float idleTransitionTime = 1.0f;
+	float cameraSpaceImpulse = 4.f;
+	float impulseDelay = 0.f;
+	float startupDuration = 0.100f;
+	float activeDuration = 0.267f;
+	float recoverDuration = 0.600f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.DashAttackStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< AttackDirection > attackDirection = "AttackDirections.RightToLeft";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+	float attackEffectDelay = 0.1f;
+	float attackEffectDuration = 0.06f;
+	audioTag = "stab";
+	audioAttackIndex = 0.0f;
+	bool incrementsCombo = false;
+}
+
+KnifeJumpAttack : Slash
+{
+	attackSubtype = "AttackType.JumpAttack";
+	attackName = "MeleeJumpAttack0";
+	float attackWindowOpen = 0.37f;
+	float attackWindowClosed = 0.6f;
+	float idleTransitionTime = 1.0f;
+	float cameraSpaceImpulse = -1.f;
+	float impulseDelay = 0.f;
+	float startupDuration = 0.133f;
+	float activeDuration = 0.3f;
+	float recoverDuration = 0.367f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+	float attackEffectDelay = 0.1f;
+	float attackEffectDuration = 0.06f;
+	audioTag = "stab";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeCrouchAttack : Slash
+{
+	attackSubtype = "AttackType.CrouchAttack";
+	attackName = "MeleeCrouchAttack0";
+	float attackWindowOpen = 0.37f;
+	float attackWindowClosed = 0.8f;
+	float idleTransitionTime = 1.0f;
+	float cameraSpaceImpulse = 4.f;
+	float impulseDelay = 0.f;
+	float startupDuration = 0.133f;
+	float activeDuration = 0.233f;
+	float recoverDuration = 0.433f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< AttackDirection > attackDirection = "AttackDirections.RightDownToLeftUp";
+	float attackEffectDelay = 0.14f;
+	float attackEffectDuration = 0.06f;
+	audioTag = "cut";
+	audioAttackIndex = 0.0f;
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	bool incrementsCombo = false;
+}
+
+KnifeBlockAttack : Slash
+{
+	attackSubtype = "AttackType.BlockAttack";
+	attackName = "MeleeBlockAttack0";
+	fk< AttackDirection > attackDirection = "AttackDirections.Center";
+	bool hasDeflectAnim = false;
+	bool hasHitAnim = false;
+	float attackWindowOpen = 0.2f;
+	float attackWindowClosed = 0.9f;
+	float idleTransitionTime = 1.0f;
+	float blockTransitionTime = 0.66f;
+	float attackEffectDelay = 0.15f;
+	float attackEffectDuration = 0.06f;
+	float trailStartDelay = 0.1f;
+	float trailStopDelay = 0.4f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 1.25f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+	float startupDuration = 0.2f;
+	float activeDuration = 0.367f;
+	float recoverDuration = 0.467f;
+	bool useAdjustmentInsteadOfImpulse = false;
+	bool enableAdjustingPlayerPositionToTarget = false;
+}
+
+KnifeThrowAttack : ThrownPiercing
+{
+	attackSubtype = "AttackType.ThrowAttack";
+	attackName = "MeleeThrowAttack0";
+	float attackWindowOpen = 0.67f;
+	float attackWindowClosed = 0.7f;
+	float idleTransitionTime = 0.01f;
+	float attackEffectDelay = 0.4f;
+	float attackEffectDuration = 0.2f;
+	float cameraSpaceImpulse = 0.f;
+	float impulseDelay = 0.f;
+	float standUpDelay = -1f;
+	staminaCost = 
+	[
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.BaseMeleeAttackStaminaCost";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Player";
+			refStat = "BaseStats.KnifeStaminaCostReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			value = 2.4f;
+		} : BaseAlliedDamage, 
+		{
+			value = 2.4f;
+		} : PhysicalAlliedDamage, 
+		{
+			value = 2.4f;
+		} : ElectricAlliedDamage, 
+		{
+			value = 2.4f;
+		} : ThermalAlliedDamage, 
+		{
+			value = 2.4f;
+		} : ChemicalAlliedDamage, 
+		{
+			statType = "BaseStats.HitReactionDamageHealthFactor";
+			modifierType = "AdditiveMultiplier";
+			value = 0.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier
+	];
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 2;
+	audioTag = "throw";
+	audioAttackIndex = 0.0f;
+}
+
+KnifeThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "knife";
+}
+
+TantoThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "tanto";
+}
+
+NeurotoxinKnifeThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "neurotoxin_knife";
+}
+
+PunkKnifeThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "punk_knife";
+}
+
+ChefKnifeThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "chef_knife";
+}
+
+KurtKnifeThrowAttackProjectile : Attack_Projectile
+{
+	projectileTemplateName = "kurt_knife";
+}
+

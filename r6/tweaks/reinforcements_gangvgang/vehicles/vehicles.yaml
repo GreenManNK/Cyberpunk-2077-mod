@@ -1,0 +1,390 @@
+Vehicle.GR_v_standard2_archer_hella_kurtz:
+    $base: Vehicle.v_standard2_archer_hella_kurtz
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_hella_sixth_street:
+    $base: Vehicle.v_standard2_archer_hella_sixth_street
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_quartz_tyger:
+    $base: Vehicle.v_standard2_archer_quartz_tyger
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_chevalier_thrax_maelstrom:
+    $base: Vehicle.v_standard2_chevalier_thrax_maelstrom
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_chevalier_thrax_valentino:
+    $base: Vehicle.v_standard2_chevalier_thrax_valentino
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_mahir_voodoo_boys:
+    $base: Vehicle.v_standard25_mahir_voodoo_boys
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_mizutani_shion_tyger:
+    $base: Vehicle.v_sport2_mizutani_shion_tyger
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_colby_valentinos:
+    $base: Vehicle.v_standard2_thorton_colby_valentinos
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_galena:
+    $base: Vehicle.v_standard2_thorton_galena
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_galena_maelstrom:
+    $base: Vehicle.v_standard2_thorton_galena_maelstrom
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_galena_voodoo_boys:
+    $base: Vehicle.v_standard2_thorton_galena_voodoo_boys
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw:
+    $base: Vehicle.v_standard3_thorton_mackinaw
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw_country:
+    $base: Vehicle.v_standard3_thorton_mackinaw_country
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw_sixth_street:
+    $base: Vehicle.v_standard3_thorton_mackinaw_sixth_street
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw_valentinos:
+    $base: Vehicle.v_standard3_thorton_mackinaw_valentinos
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_villefort_alvarado_valentinos:
+    $base: Vehicle.v_sport2_villefort_alvarado_valentinos
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_kurtz_brennan_apollo_bike:
+    $base: Vehicle.kurtz_brennan_apollo_bike
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_mws_cct_dtn_02_arasaka_car:
+    $base: Vehicle.mws_cct_dtn_02_arasaka_car
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_mws_wbr_06_tyger_car_2:
+    $base: Vehicle.mws_wbr_06_tyger_car_2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_ncpd_archer_hella_heat_3:
+    $base: Vehicle.ncpd_archer_hella_heat_3
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_ncpd_brennan_apollo_bike:
+    $base: Vehicle.ncpd_brennan_apollo_bike
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_ncpd_suv_chevalier_emperor_heat_4:
+    $base: Vehicle.ncpd_suv_chevalier_emperor_heat_4
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_ncpd_thorton_merrimac_police_heat_4:
+    $base: Vehicle.ncpd_thorton_merrimac_police_heat_4
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_ncpd_villefort_cortes_heat_1:
+    $base: Vehicle.ncpd_villefort_cortes_heat_1
+    maxVehiclePassengersCount: 4
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport1_quadra_turbo_tyger_claw:
+    $base: Vehicle.v_sport1_quadra_turbo_tyger_claw
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_mizutani_shion_nomad_wraith:
+    $base: Vehicle.v_sport2_mizutani_shion_nomad_wraith
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_quadra_type66_nomad_wraith:
+    $base: Vehicle.v_sport2_quadra_type66_nomad_wraith
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_villefort_alvarado:
+    $base: Vehicle.v_sport2_villefort_alvarado
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_villefort_alvarado_hearse:
+    $base: Vehicle.v_sport2_villefort_alvarado_hearse
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_villefort_deleon:
+    $base: Vehicle.v_sport2_villefort_deleon
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike1_yaiba_kusanagi:
+    $base: Vehicle.v_sportbike1_yaiba_kusanagi
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal:
+    $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike1_yaiba_kusanagi_tyger:
+    $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike3_brennan_apollo:
+    $base: Vehicle.v_sportbike3_brennan_apollo
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike3_brennan_apollo_kurtz:
+    $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike3_brennan_apollo_nomad:
+    $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike3_brennan_apollo_sport:
+    $base: Vehicle.v_sportbike3_brennan_apollo_sport
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_mahir_supron:
+    $base: Vehicle.v_standard25_mahir_supron
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_thorton_colby_nomad_wraith:
+    $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz:
+    $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_thorton_colby_pickup_poor:
+    $base: Vehicle.v_standard25_thorton_colby_pickup_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_thorton_merrimac:
+    $base: Vehicle.v_standard25_thorton_merrimac
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_villefort_columbus_scavengers:
+    $base: Vehicle.v_standard25_villefort_columbus_scavengers
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_hella_poor:
+    $base: Vehicle.v_standard2_archer_hella_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_hella_scavengers:
+    $base: Vehicle.v_standard2_archer_hella_scavengers
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_quartz_nomad_wraith:
+    $base: Vehicle.v_standard2_archer_quartz_nomad_wraith
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_chevalier_thrax_poor:
+    $base: Vehicle.v_standard2_chevalier_thrax_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_chevalier_thrax_scavengers:
+    $base: Vehicle.v_standard2_chevalier_thrax_scavengers
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_chevalier_thrax_sixth_street:
+    $base: Vehicle.v_standard2_chevalier_thrax_sixth_street
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_mizutani_hozuki:
+    $base: Vehicle.v_standard2_mizutani_hozuki
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_galena_nomad:
+    $base: Vehicle.v_standard2_thorton_galena_nomad
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_thorton_galena_poor:
+    $base: Vehicle.v_standard2_thorton_galena_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_villefort_cortes:
+    $base: Vehicle.v_standard2_villefort_cortes
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_villefort_cortes_arasaka:
+    $base: Vehicle.v_standard2_villefort_cortes_arasaka
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_villefort_cortes_poor:
+    $base: Vehicle.v_standard2_villefort_cortes_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_chevalier_emperor:
+    $base: Vehicle.v_standard3_chevalier_emperor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier:
+    $base: Vehicle.v_standard3_chevalier_emperor_arasaka_courier
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_chevalier_emperor_militech:
+    $base: Vehicle.v_standard3_chevalier_emperor_militech
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_mahir_supron_kurtz:
+    $base: Vehicle.v_standard3_mahir_supron_kurtz
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_makigai_tanishi_poor:
+    $base: Vehicle.v_standard3_makigai_tanishi_poor
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw:
+    $base: Vehicle.v_standard3_thorton_mackinaw
+    tags:
+        - !append-once GRModVehicle
+
+# Mox specific vehicles (include the mizutani hozuki)
+Vehicle.GR_v_standard25_mahir_mox:
+    $base: Vehicle.v_standard25_mahir_mox
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_quartz:
+    $base: Vehicle.v_standard2_archer_quartz
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard2_archer_quartz_mox:
+    $base: Vehicle.v_standard2_archer_quartz_mox
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sportbike1_yaiba_kusanagi_mox:
+    $base: Vehicle.v_sportbike1_yaiba_kusanagi_mox
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_villefort_alvarado_mox:
+    $base: Vehicle.v_sport2_villefort_alvarado_mox
+    tags:
+        - !append-once GRModVehicle
+
+# Aldecaldos vehicles
+Vehicle.GR_aldecado_thorton_galena_heat_1:
+    $base: Vehicle.aldecado_thorton_galena_heat_1
+    maxVehiclePassengersCount: 2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_aldecado_thorton_galena_heat_2:
+    $base: Vehicle.aldecado_thorton_galena_heat_2
+    maxVehiclePassengersCount: 4
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_aldecado_archer_quartz_heat_3:
+    $base: Vehicle.aldecado_archer_quartz_heat_3
+    maxVehiclePassengersCount: 2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_aldecado_thorton_colby_heat_3:
+    $base: Vehicle.aldecado_thorton_colby_heat_3
+    maxVehiclePassengersCount: 2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_quadra_type66_nomad:
+    $base: Vehicle.v_sport2_quadra_type66_nomad
+    maxVehiclePassengersCount: 2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_sport2_mizutani_shion_nomad:
+    $base: Vehicle.v_sport2_mizutani_shion_nomad
+    maxVehiclePassengersCount: 2
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard3_thorton_mackinaw_nomad:
+    $base: Vehicle.v_standard3_thorton_mackinaw_nomad
+    maxVehiclePassengersCount: 4
+    tags:
+        - !append-once GRModVehicle
+
+# Kang Tao vehicles
+Vehicle.GR_v_standard2_villefort_cortes_kangtao:
+    $base: Vehicle.v_standard2_villefort_cortes_kangtao
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_standard25_villefort_columbus_kangtao:
+    $base: Vehicle.v_standard25_villefort_columbus_kangtao
+    tags:
+        - !append-once GRModVehicle
+
+Vehicle.GR_v_utility4_militech_behemoth_kangtao:
+    $base: Vehicle.v_utility4_militech_behemoth_kangtao
+    tags:
+        - !append-once GRModVehicle

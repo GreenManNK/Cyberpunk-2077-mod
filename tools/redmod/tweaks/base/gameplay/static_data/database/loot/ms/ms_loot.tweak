@@ -1,0 +1,2444 @@
+package LootTables
+using RTDB, Items, Loot, LootPrereqs, Prereqs
+
+Base_ms_reward : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Base_ms_cash : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			itemID = "Items.money";
+			quantityModifiers = 
+			[
+				"Price.BaseMiniStory_BaseMoney", "Price.MoneyReward_LevelMultiplier"
+			];
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_17 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Tech";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se5_18 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se5_19 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.WraithsClothing";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se5_20 : Base_ms_reward
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Cap";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_21 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Nomad_01_Set_Mask";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 3;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_22 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Vest_13_rich_04";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se5_23 : Base_ms_reward
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Solo_01_Set_Visor";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_24 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Corporate_01_Set_Glasses";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.FormalClothing";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_25 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se5_26 : Base_ms_reward
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Nomad_01_Set_TShirt";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_27 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Helmet_02_basic_03";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_28 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se5_29 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Helmet_02_basic_03";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.Cap_04_basic_01";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_30 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Nomad_01_Set_Jacket";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se5_31 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Helmet_03_basic_01";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.Mask_02_basic_02";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_32 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash", "LootTables.QuickhackRecipesTable", "LootTables.QuickhackTable_Chance"
+	];
+}
+
+Loot_ma_bls_ina_se5_33 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Netrunner_01_Set_Visor";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.QuickhackMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se5_34 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Mask_02_old_01";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_35 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Nomad_01_Set_Pants";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se5_36 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Boots_10_rich_01";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se5_37 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se1_24 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Boots_05_basic_02";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.MemoryBooster";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.MediumQualityAlcohol6";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_25 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jumpsuit_03_old_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se1_26 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.IntelligenceSkill_Skillbook";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_27 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_Tech";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.GrenadePlusRarityItemsTable", "LootTables.GrenadeItemsRecipesTable"
+	];
+}
+
+Loot_ma_bls_ina_se1_28 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.LooseShirt_01_rich_02";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_29 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Cap_01_old_03";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.CarryCapacityBooster";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_30 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_Cap";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_bls_ina_se1_31 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Glasses_03_basic_03";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.CarryCapacityBooster";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_32 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Nomad_01_Set_Boots";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_33 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Glasses_05_basic_04";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_34 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Solo_01_Set_TShirt";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se1_35 : Base_ms_reward
+{
+	minItemsToLoot = 11;
+	maxItemsToLoot = 11;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Pants_12_basic_03";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 2;
+			itemID = "Items.MediumQualityFood4";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.MediumQualityFood13";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.MediumQualityFood3";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.GoodQualityFood12";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 2;
+			itemID = "Items.HawtDawgClassic";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.HawtDawgCheese";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 1;
+			itemID = "Items.LowQualityDrink10";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_36 : Base_ms_reward
+{
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.MeleeWeaponQuery";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_QueryItem
+	];
+}
+
+Loot_ma_bls_ina_se1_37 : Base_ms_reward
+{
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.ScavengersClothing";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_38 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.GenericCorporationJunkItem1";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.GenericCorporationJunkItem3";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_39 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.HighQualityJewellery4";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.RichClothing";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_40 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_TShirt";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_41 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jacket_13_old_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_bls_ina_se1_42 : Base_ms_reward
+{
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.PoorClothing";
+		}
+	];
+}
+
+Loot_ma_bls_ina_se1_43 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Crusher_Military";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_bls_ina_se1_44 : Base_ms_reward
+{
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.WraithsClothing";
+		}
+	];
+}
+
+Loot_ma_std_arr_101 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Nekomata_Pimp";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_std_arr_102 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.LowQualityAlcohol7";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+Loot_ma_std_arr_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Glasses_03_basic_01";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_std_arr_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jacket_16_old_01";
+		}
+	];
+}
+
+Loot_ma_std_arr_105 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_std_arr_106 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.CasualShoes_07_basic_02";
+		}
+	];
+}
+
+Loot_ma_std_arr_107 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_std_arr_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Fixer_01_Set_Glasses";
+		}
+	];
+}
+
+Loot_ma_std_arr_109 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.CasualShoes_07_old_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_spr_101 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Shirt";
+		}
+	];
+}
+
+Loot_ma_hey_spr_102 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+}
+
+Loot_ma_hey_spr_103 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Solo_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_hey_spr_104 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_spr_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Nova_Default";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_hey_spr_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.CasualShoes_05_basic_03";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+}
+
+Loot_ma_hey_spr_107 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Netrunner_01_Set_Jumpsuit";
+		}
+	];
+}
+
+Loot_ma_hey_spr_108 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_01_rich_01";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+}
+
+Loot_ma_hey_rey_107 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.LowQualityFood11";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.LowQualityFood21";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.LowQualityFood27";
+		}
+	];
+}
+
+Loot_ma_hey_rey_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Coat_01_rich_03";
+		}
+	];
+}
+
+Loot_ma_hey_rey_109 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.CasualShoes_01_basic_05";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_rey_110 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Coat_03_rich_01";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+}
+
+Loot_ma_hey_rey_111 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.SexToyJunkItem1";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+}
+
+Loot_ma_hey_rey_112 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.MemoryBooster";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.CarryCapacityBooster";
+		}
+	];
+}
+
+Loot_ma_hey_rey_113 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_rey_114 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Fixer_01_Set_TShirt";
+		}
+	];
+}
+
+Loot_ma_hey_rey_115 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jacket_13_rich_01";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_gle_101 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Corporate_01_Set_FormalShirt";
+		}
+	];
+}
+
+Loot_ma_hey_gle_102 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Mask_03_old_01";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_gle_103 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Vest_16_rich_01";
+		}
+	];
+}
+
+Loot_ma_hey_gle_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+Loot_ma_hey_gle_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Solo_01_Set_Jacket";
+		}
+	];
+}
+
+Loot_ma_hey_gle_106 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_gle_107 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_hey_gle_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Vest_04_basic_02";
+		}
+	];
+}
+
+Loot_ma_hey_gle_109 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_Vest";
+		}
+	];
+}
+
+Loot_ma_hey_gle_110 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Hammer_Default";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_wbr_jpn_101 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalShirt_01_rich_04";
+		}
+	];
+}
+
+Loot_ma_wbr_jpn_102 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_jpn_103 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootTableInclusions = 
+	[
+		"LootTables.GrenadeItemsRecipesTable", "LootTables.CraftingMaterialsTable", "LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_jpn_104 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jumpsuit_02_old_01";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.CasinoJunkItem1";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.CasinoRichJunkItem3";
+		}
+	];
+}
+
+Loot_ma_wbr_jpn_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Fixer_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_wbr_jpn_106 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_jpn_107 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_jpn_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Vest";
+		}
+	];
+}
+
+Loot_ma_wbr_jpn_109 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Fixer_01_Set_FormalShoes";
+		}
+	];
+}
+
+Loot_ma_wbr_jpn_110 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Coat_01_rich_01";
+		}
+	];
+}
+
+Loot_ma_wat_lch_101 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Mask_03_rich_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_lch_102 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_lch_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.TechnicalAbilitySkill_Skillbook";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_wat_lch_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Cop_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_wat_lch_105 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.CarryCapacityBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_lch_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 1;
+			itemID = "Items.PRSRMod2_Common";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 1;
+			itemID = "Items.PRSRMod2_Uncommon";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 1;
+			itemID = "Items.PRSRMod2_Rare";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_wat_lch_107 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_cvi_101 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_cvi_102 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_cvi_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.GenericPoorJunkItem5";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_cvi_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Vest_13_basic_02";
+		}
+	];
+}
+
+Loot_ma_pac_cvi_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Rockerboy_01_Set_TShirt";
+		}
+	];
+}
+
+Loot_ma_pac_cvi_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.StaminaBooster";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.LowQualityAlcohol7";
+		}
+	];
+}
+
+Loot_ma_pac_cvi_107 : Base_ms_reward
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.LowQualityAlcohol7";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 3;
+			dropCountMax = 6;
+			itemID = "Items.LowQualityAlcohol2";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 3;
+			dropCountMax = 6;
+			itemID = "Items.LowQualityAlcohol1";
+		}
+	];
+}
+
+Loot_ma_wat_kab_101 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_kab_102 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 3;
+			dropCountMax = 6;
+			itemID = "Items.LowQualityFood1";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_kab_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.HealthBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_kab_104 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_kab_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Rockerboy_01_Set_Jacket";
+		}
+	];
+}
+
+Loot_ma_wat_kab_106 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_kab_107 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Helmet_04_old_01";
+		}
+	];
+}
+
+Loot_ma_wat_kab_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Solo_01_Set_Boots";
+		}
+	];
+}
+
+Loot_ma_wat_kab_109 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Pants_10_basic_01";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_dtn_101 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_dtn_102 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Rockerboy_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_cct_dtn_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_01_basic_01";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.HighQualityJewellery1";
+		}
+	];
+}
+
+Loot_ma_cct_dtn_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Tomahawk_Default";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_cct_dtn_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Shingen_Pimp";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_cct_dtn_106 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_dtn_107 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Rockerboy_01_Set_Boots";
+		}
+	];
+}
+
+Loot_ma_cct_dtn_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Quasar_Default";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_cct_dtn_109 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.HealthBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_dtn_110 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_cpz_101 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_Shoes";
+		}
+	];
+}
+
+Loot_ma_cct_cpz_102 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_02_basic_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_cpz_103 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalShoes_02_rich_01";
+		}
+	];
+}
+
+Loot_ma_cct_cpz_104 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_cct_cpz_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalShoes_03_basic_02";
+		}
+	];
+}
+
+Loot_ma_cct_cpz_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_hil_101 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_03_rich_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_hil_102 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_wbr_hil_103 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Crusher_Military";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.Vest_08_basic_01";
+		}
+	];
+}
+
+Loot_ma_wbr_hil_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Corporate_01_Set_FormalShoes";
+		}
+	];
+}
+
+Loot_ma_wbr_hil_105 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_03_basic_03";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_hil_106 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Media_01_Set_Shoes";
+		}
+	];
+}
+
+Loot_ma_wbr_hil_107 : Base_ms_reward
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.StaminaBooster";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.CarryCapacityBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wbr_hil_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Netrunner_01_Set_Shoes";
+		}
+	];
+}
+
+Loot_ma_pac_wwd_101 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.SexToyJunkItem2";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_wwd_102 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Jacket_13_basic_03";
+		}
+	];
+}
+
+Loot_ma_pac_wwd_103 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Loot_ma_pac_wwd_104 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Shorts_02_basic_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_wwd_105 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 4;
+			dropCountMax = 6;
+			itemID = "Items.MediumQualityAlcohol3";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_pac_wwd_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Glasses_02_basic_03";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+}
+
+Loot_ma_wat_nid_31 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Cop_01_Set_Glasses";
+		}
+	];
+}
+
+Loot_ma_wat_nid_32 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Netrunner_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_wat_nid_33 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Shirt_01_basic_02";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_nid_34 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Shirt_03_old_01";
+		}
+	];
+}
+
+Loot_ma_wat_nid_35 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.FormalJacket_03_rich_02";
+		}, 
+		{
+			dropChance = 1;
+			dropCountMin = 1;
+			dropCountMax = 2;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+}
+
+Loot_ma_wat_nid_36 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Corporate_01_Set_FormalJacket";
+		}
+	];
+}
+
+Loot_ma_wat_nid_37 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Corporate_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_wat_nid_38 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_nid_39 : Base_ms_reward
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_wat_nid_40 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 3;
+			itemID = "Items.MemoryBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_std_rcr_101 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Cop_01_Set_Boots";
+		}
+	];
+}
+
+Loot_ma_std_rcr_102 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Tire_Iron_Default";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_std_rcr_103 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Rockerboy_01_Set_Glasses";
+		}
+	];
+}
+
+Loot_ma_std_rcr_104 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Fixer_01_Set_Coat";
+		}
+	];
+}
+
+Loot_ma_std_rcr_105 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Katana_Pimp";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_ma_std_rcr_106 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			dropCountMin = 2;
+			dropCountMax = 2;
+			itemID = "Items.HealthBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+Loot_ma_std_rcr_107 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Techie_01_Set_Pants";
+		}
+	];
+}
+
+Loot_ma_std_rcr_108 : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Cop_01_Set_Jacket";
+		}
+	];
+}
+
+Loot_ma_std_rcr_109 : Base_ms_reward
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 1;
+			query = "Query.SixthStreetClothing";
+			fk< StatModifier >[] statModifiers += 
+			[
+				"Quality.MiniStoryReward"
+			];
+		}
+	];
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Preset_Lexington_Military";
+			statModifiers += 
+			[
+				"Quality.PlusModifierForRewards"
+			];
+		} : RewardWeapon_LootItem
+	];
+}
+
+Loot_mws_se5_06 : Base_ms_reward
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	lootTableInclusions = 
+	[
+		"LootTables.QuickhackTable", "LootTables.QuickhackMaterialsTable"
+	];
+	lootItems = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.Minimum_RareCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceRare";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.RarePlusCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceRarePlus";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.EpicCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceEpic";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.EpicPlusCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceEpicPlus";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_5_Plus_Start_Prereq";
+			dropChance = 1000;
+			itemID = "Items.SmartMod1_Epic";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.LegendaryCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceLegendary";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.LegendaryPlusCWLevelAvailabilityInLoot";
+			dropChance = 1000;
+			itemID = "Items.AdvancedSelfIceLegendaryPlus";
+		}
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 100;
+			query = "Query.CommonSmartWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 100;
+			query = "Query.UncommonSmartWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = 
+			{
+				nestedPrereqs = 
+				[
+					"LootPrereqs.PlayerLevelRareWeaponModsPrereq", {
+						comparisonType = "Less";
+					} : PlayerLevel_Tier_5_Plus_Start_Prereq
+				];
+			} : ANDPrereq;
+			dropChance = 100;
+			query = "Query.RareSmartWeaponModsQuery";
+		}
+	];
+}
+
+Loot_mws_wat_nid_thenerves : Base_ms_reward
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.Endotrisine";
+		}, 
+		{
+			dropChance = 1;
+			itemID = "Items.MediumQualityAlcohol7";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.Base_ms_cash"
+	];
+}
+
+loot_mws_jim : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.MWS_Jim_Shirt_Reward";
+		} : LootItem
+	];
+}
+
+loot_mws_jim_f : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.MWS_Jim_Shirt_Reward_f";
+		} : LootItem
+	];
+}
+

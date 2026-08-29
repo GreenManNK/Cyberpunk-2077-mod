@@ -4,7 +4,7 @@
 
     "modName": "Hotscenes",
     "pluginAuthorName": "anygoodname",
-    "pluginVersion": "1.36.0",
+    "pluginVersion": "1.37.0",
     "femalePerformers": {
         "ryoko_v2_g": {
             "archiveFilesRequired": [
@@ -1195,6 +1195,40 @@
                 },
                 "Japantown": {
                     "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_07_1_v2\\ep1_prostitute_07_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_30_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_30_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Tracey Jean-Baptiste",
+			"sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_30_v2\\hood_hottie_wa_30_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_30_v2\\hood_hottie_wa_30_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "creole_wa_caribbean_08_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_08_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Caryne Ukah",
+			"sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_08_v2\\creole_wa_caribbean_08_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_08_v2\\creole_wa_caribbean_08_v2_wbr_jpn_prostitute_female.ent"
                 }
             }
         }

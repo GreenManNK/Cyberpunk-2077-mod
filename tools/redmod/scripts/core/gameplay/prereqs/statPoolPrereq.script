@@ -1,0 +1,203 @@
+class BaseStatPoolPrereqListener extends CustomValueStatPoolsListener
+{
+
+	public virtual function RegisterState( state : PrereqState ) {}
+}
+
+class StatPoolPrereqListener extends BaseStatPoolPrereqListener
+{
+	protected var m_state : weak< StatPoolPrereqState >;
+
+	protected event OnStatPoolValueReached( oldValue : Float, newValue : Float, percToPoints : Float )
+	{
+		m_state.StatPoolUpdate( oldValue, newValue );
+	}
+
+	public override function RegisterState( state : PrereqState )
+	{
+		m_state = ( ( StatPoolPrereqState )( state ) );
+	}
+
+	public export override function OnStatPoolValueChanged( oldValue : Float, newValue : Float, percToPoints : Float )
+	{
+		if( m_state.m_statpoolWasMissing )
+		{
+			m_state.m_statpoolWasMissing = false;
+			m_state.StatPoolUpdate( oldValue, newValue );
+		}
+	}
+
+}
+
+class StatPoolPrereqState extends PrereqState
+{
+	var m_statPoolListener : BaseStatPoolPrereqListener;
+	var m_statpoolWasMissing : Bool;
+	var m_object : weak< GameObject >;
+	var m_statsObjID : StatsObjectID;
+
+	public virtual function StatPoolUpdate( oldValue : Float, newValue : Float )
+	{
+		var checkPassed : Bool;
+		const var prereq : StatPoolPrereq;
+		var valueToCheck : Float;
+		prereq = ( ( StatPoolPrereq )( GetPrereq() ) );
+		valueToCheck = RPGManager.CalculateStatModifiers( prereq.m_valueToCheck, m_object.GetGame(), m_object, m_statsObjID );
+		checkPassed = ProcessCompare( prereq.m_comparisonType, newValue, valueToCheck );
+		OnChanged( checkPassed );
+	}
+
+	public virtual function RegisterStatPoolListener( game : GameInstance, statPoolType : gamedataStatPoolType, valueToCheck : Float )
+	{
+		if( StatsObjectID.IsDefined( m_statsObjID ) )
+		{
+			m_statPoolListener = new StatPoolPrereqListener;
+			m_statPoolListener.RegisterState( this );
+			m_statPoolListener.SetValue( valueToCheck );
+			GameInstance.GetStatPoolsSystem( game ).RequestRegisteringListener( m_statsObjID, statPoolType, m_statPoolListener );
+		}
+	}
+
+	public virtual function UnregisterStatPoolListener( game : GameInstance, statPoolType : gamedataStatPoolType )
+	{
+		if( m_statPoolListener )
+		{
+			GameInstance.GetStatPoolsSystem( game ).RequestUnregisteringListener( m_statsObjID, statPoolType, m_statPoolListener );
+		}
+		m_statPoolListener = NULL;
+	}
+
+}
+
+enum ObjectToCheck
+{
+	Player = 0,
+	Weapon = 1,
+}
+
+class StatPoolPrereq extends IScriptablePrereq
+{
+	var m_statPoolType : gamedataStatPoolType;
+	var m_valueToCheck : array< weak< StatModifier_Record > >;
+	var m_comparisonType : EComparisonType;
+	var m_skipOnApply : Bool;
+	var m_comparePercentage : Bool;
+	var m_objToCheck : ObjectToCheck;
+
+	protected const function GetStatsObjectID( owner : GameObject ) : StatsObjectID
+	{
+		var weapon : WeaponObject;
+		if( m_objToCheck == ObjectToCheck.Weapon )
+		{
+			weapon = ScriptedPuppet.GetActiveWeapon( owner );
+			if( !( weapon ) )
+			{
+				return StatsObjectID();
+			}
+			return weapon.GetItemData().GetStatsObjectID();
+		}
+		else
+		{
+			return owner.GetEntityID();
+		}
+	}
+
+	protected const function GetObject( owner : GameObject ) : GameObject
+	{
+		if( m_objToCheck == ObjectToCheck.Weapon )
+		{
+			return ScriptedPuppet.GetActiveWeapon( owner );
+		}
+		else
+		{
+			return owner;
+		}
+	}
+
+	protected const function GetValueToCheck( state : StatPoolPrereqState ) : Float
+	{
+		return RPGManager.CalculateStatModifiers( m_valueToCheck, state.m_object.GetGame(), state.m_object, state.m_statsObjID );
+	}
+
+	protected export const override function OnRegister( state : PrereqState, game : GameInstance, context : IScriptable ) : Bool
+	{
+		var owner : GameObject;
+		var castedState : StatPoolPrereqState;
+		owner = ( ( GameObject )( context ) );
+		castedState = ( ( StatPoolPrereqState )( state ) );
+		castedState.m_object = GetObject( owner );
+		castedState.m_statsObjID = GetStatsObjectID( owner );
+		castedState.RegisterStatPoolListener( game, m_statPoolType, GetValueToCheck( castedState ) );
+		return false;
+	}
+
+	protected export const override function OnUnregister( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var castedState : StatPoolPrereqState;
+		castedState = ( ( StatPoolPrereqState )( state ) );
+		castedState.UnregisterStatPoolListener( game, m_statPoolType );
+	}
+
+	protected export override function Initialize( recordID : TweakDBID )
+	{
+		var record : StatPoolPrereq_Record;
+		var objectToCheck : CName;
+		record = TweakDBInterface.GetStatPoolPrereqRecord( recordID );
+		m_statPoolType = ( ( gamedataStatPoolType )( ( ( Int32 )( EnumValueFromName( 'gamedataStatPoolType', record.StatPoolType() ) ) ) ) );
+		record.ValueToCheck( m_valueToCheck );
+		m_comparisonType = ( ( EComparisonType )( ( ( Int32 )( EnumValueFromName( 'EComparisonType', record.ComparisonType() ) ) ) ) );
+		m_skipOnApply = TweakDBInterface.GetBool( recordID + T".skipOnApply", false );
+		m_comparePercentage = TweakDBInterface.GetBool( recordID + T".comparePercentage", true );
+		objectToCheck = record.ObjectToCheck();
+		if( objectToCheck == 'Weapon' )
+		{
+			m_objToCheck = ObjectToCheck.Weapon;
+		}
+		else
+		{
+			m_objToCheck = ObjectToCheck.Player;
+		}
+	}
+
+	public const override function IsFulfilled( game : GameInstance, context : IScriptable ) : Bool
+	{
+		return CompareValues( GetObject( ( ( GameObject )( context ) ) ), GetStatsObjectID( ( ( GameObject )( context ) ) ), context );
+	}
+
+	protected export const override function OnApplied( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var result : Bool;
+		var castedState : StatPoolPrereqState;
+		if( m_skipOnApply )
+		{
+			return;
+		}
+		castedState = ( ( StatPoolPrereqState )( state ) );
+		if( GameInstance.GetStatPoolsSystem( game ).IsStatPoolAdded( castedState.m_statsObjID, m_statPoolType ) )
+		{
+			result = CompareValues( castedState.m_object, castedState.m_statsObjID, context );
+			castedState.OnChanged( result );
+		}
+		else
+		{
+			castedState.m_statpoolWasMissing = true;
+		}
+	}
+
+	protected const function CompareValues( object : weak< GameObject >, statsObjID : StatsObjectID, context : IScriptable ) : Bool
+	{
+		var currentValue : Float;
+		var owner : weak< GameObject >;
+		var valueToCheck : Float;
+		owner = ( ( GameObject )( context ) );
+		if( owner )
+		{
+			currentValue = GameInstance.GetStatPoolsSystem( owner.GetGame() ).GetStatPoolValue( statsObjID, m_statPoolType, m_comparePercentage );
+			valueToCheck = RPGManager.CalculateStatModifiers( m_valueToCheck, owner.GetGame(), object, statsObjID );
+			return ProcessCompare( m_comparisonType, currentValue, valueToCheck );
+		}
+		return false;
+	}
+
+}
+

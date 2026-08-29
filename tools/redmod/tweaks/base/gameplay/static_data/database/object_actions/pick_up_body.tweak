@@ -1,0 +1,101 @@
+package GenericInteraction
+using RTDB, Prereqs
+
+PickUpBody : ObjectAction
+{
+	fk< ObjectActionType > objectActionType = "ObjectActionType.Direct";
+	actionName = "PickUpBody";
+	interactionLayer = "Loot";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "Surface";
+			isInState = false;
+		} : SwimmingPSMPrereq, 
+		{
+			stateName = "Diving";
+			isInState = false;
+		} : SwimmingPSMPrereq, 
+		{
+			stateName = "Default";
+			isInState = true;
+		} : TakedownPSMPrereq, 
+		{
+			stateName = "Default";
+			isInState = true;
+		} : BodyCarryingPSMPrereq, 
+		{
+			stateName = "Default";
+			isInState = true;
+		} : BodyDisposalPSMPrereq, 
+		{
+			stateName = "Default";
+			isInState = true;
+		} : VehiclePSMPrereq, 
+		{
+			statusEffect = "GameplayRestriction.BodyCarryingForceDrop";
+		} : Prereqs.StatusEffectAbsentPrereq, 
+		{
+			statusEffect = "BaseStatusEffect.Berserk";
+			checkType = "CheckType.Type";
+		} : Prereqs.StatusEffectAbsentPrereq, 
+		"GenericInteraction.IsPlayerInAcceptableGroundLocomotionState"
+	];
+	targetPrereqs = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ThrownNPC";
+			invert = true;
+		} : StatusEffectPrereq, 
+		{
+			statusEffect = "BaseStatusEffect.ImpactedThrownNPC";
+			invert = true;
+		} : StatusEffectPrereq, 
+		{
+			nestedPrereqs = 
+			[
+				{
+					rarity = "Boss";
+					invert = true;
+				} : NPCRarityPrereq, 
+				{
+					allowedTags = 
+					[
+						"MaxTac_Prevention"
+					];
+					invert = false;
+				} : GameplayTagsPrereq, 
+				{
+					allowedTags = 
+					[
+						"MaxTac_NotPrevention"
+					];
+					invert = false;
+				} : GameplayTagsPrereq
+			];
+		} : ORPrereq, 
+		{
+			visualTag = "Sumo";
+			hasTag = false;
+		} : NPCRecordHasVisualTag
+	];
+	fk< InteractionBase > objectActionUI = "Interactions.PickUpBody";
+}
+
+IsPlayerInAcceptableGroundLocomotionState : MultiPrereq
+{
+	aggregationType = "OR";
+	nestedPrereqs = 
+	[
+		{
+			stateName = "Stand";
+		} : DetailedLocomotionPSMPrereq, 
+		{
+			stateName = "Sprint";
+		} : DetailedLocomotionPSMPrereq, 
+		{
+			stateName = "Crouch";
+		} : DetailedLocomotionPSMPrereq
+	];
+}
+

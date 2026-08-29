@@ -1,0 +1,75 @@
+function DebugNPCs_NonExec( const gi : GameInstance, optional durationStr : String, optional radiusStr : String, optional moveWithPlayerStr : String )
+{
+	var durationFloat : Float;
+	var gameEffectInstance : EffectInstance;
+	var player : PlayerPuppet;
+	var radius : Float;
+	var infiniteDuration, moveWithPlayer : Bool;
+	durationFloat = StringToFloat( durationStr );
+	radius = StringToFloat( radiusStr );
+	moveWithPlayer = StringToBool( moveWithPlayerStr );
+	player = GetPlayer( gi );
+	if( FloatIsEqual( radius, 0.0 ) )
+	{
+		radius = 20.0;
+	}
+	if( durationFloat < 0.0 )
+	{
+		SetFactValue( gi, 'cheat_vdb_const', 0 );
+		GetPlayer( gi ).DEBUG_Visualizer.ClearPuppetVisualization();
+	}
+	else if( moveWithPlayer )
+	{
+		SetFactValue( gi, 'cheat_vdb_const', 1 );
+		gameEffectInstance = GameInstance.GetGameEffectSystem( gi ).CreateEffectStatic( 'debugStrike', 'vdb_sphere_constant', GetPlayer( gi ) );
+		EffectData.SetBool( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.infiniteDuration, true );
+		EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.position, player.GetWorldPosition() );
+		EffectData.SetFloat( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.radius, radius );
+		gameEffectInstance.Run();
+	}
+	else
+	{
+		infiniteDuration = FloatIsEqual( durationFloat, 0.0 );
+		gameEffectInstance = GameInstance.GetGameEffectSystem( gi ).CreateEffectStatic( 'debugStrike', 'vdb_sphere', GetPlayer( gi ) );
+		EffectData.SetFloat( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.duration, durationFloat );
+		EffectData.SetBool( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.infiniteDuration, infiniteDuration );
+		EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.position, player.GetWorldPosition() );
+		EffectData.SetFloat( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.radius, radius );
+		gameEffectInstance.Run();
+	}
+}
+
+function ModifierTypeToString( type : gameStatModifierType ) : String
+{
+	var modifierType : String;
+	if( ( ( Int32 )( type ) ) == 0 )
+	{
+		modifierType = "Additive";
+	}
+	else if( ( ( Int32 )( type ) ) == 1 )
+	{
+		modifierType = "AdditiveMultiplier";
+	}
+	else if( ( ( Int32 )( type ) ) == 2 )
+	{
+		modifierType = "Multiplier";
+	}
+	else
+	{
+		modifierType = "Invalid";
+	}
+	return modifierType;
+}
+
+function Debug_WeaponSpread_Set( gameInstance : GameInstance, useCircularDistribution : Bool, useEvenDistribution : Bool, rowCount : Int32, projectilesPerShot : Int32 )
+{
+	var bbSystem : BlackboardSystem;
+	var debugBB : IBlackboard;
+	bbSystem = GameInstance.GetBlackboardSystem( gameInstance );
+	debugBB = bbSystem.Get( GetAllBlackboardDefs().DebugData );
+	debugBB.SetBool( GetAllBlackboardDefs().DebugData.WeaponSpread_UseEvenDistribution, useEvenDistribution );
+	debugBB.SetBool( GetAllBlackboardDefs().DebugData.WeaponSpread_UseCircularSpread, useCircularDistribution );
+	debugBB.SetInt( GetAllBlackboardDefs().DebugData.WeaponSpread_EvenDistributionRowCount, rowCount );
+	debugBB.SetInt( GetAllBlackboardDefs().DebugData.WeaponSpread_ProjectilesPerShot, projectilesPerShot );
+}
+

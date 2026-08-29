@@ -1,0 +1,42 @@
+enum inputContextType
+{
+	Action = 0,
+	RPG = 1,
+}
+
+class InputContextSystem extends ScriptableSystem
+{
+	private var activeContext : inputContextType;
+
+	private export function OnPlayerAttach( request : PlayerAttachRequest )
+	{
+		activeContext = inputContextType.RPG;
+	}
+
+	public const function GetActiveContext() : inputContextType
+	{
+		return activeContext;
+	}
+
+	public const function IsActiveContextAction() : Bool
+	{
+		return activeContext == inputContextType.Action;
+	}
+
+	public const function IsActiveContextRPG() : Bool
+	{
+		return activeContext == inputContextType.RPG;
+	}
+
+	private function OnChangeActiveContextRequest( request : ChangeActiveContextRequest )
+	{
+		activeContext = request.newContext;
+	}
+
+}
+
+class ChangeActiveContextRequest extends PlayerScriptableSystemRequest
+{
+	var newContext : inputContextType;
+}
+

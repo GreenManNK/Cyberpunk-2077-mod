@@ -1,0 +1,66 @@
+package Prereqs
+using RTDB
+
+TierPrereq : IPrereq
+{
+	prereqClassName = "gameTierPrereq";
+	CName comparisonType = "";
+	int tier = 1;
+}
+
+VisionModePrereq : IPrereq
+{
+	prereqClassName = "gameVisionModePrereq";
+	CName visionModeType = "Default";
+}
+
+PlayerControlsDevicePrereq : IPrereq
+{
+	prereqClassName = "PlayerControlsDevicePrereq";
+	bool invert = false;
+}
+
+IgnoreBarbedWirePrereq : IPrereq
+{
+	prereqClassName = "IgnoreBarbedWirePrereq";
+	float minStateTime = 0.0;
+	bool invert = false;
+}
+
+ReloadFromEmptyPrereq : IPrereq
+{
+	prereqClassName = "ReloadFromEmptyPrereq";
+	int minAmountOfAmmoReloaded = 0;
+}
+
+PlayerDoesntHaveRecipePrereq : IPrereq
+{
+	prereqClassName = "PlayerDoesntHaveRecipePrereq";
+	string recipe = "";
+	bool invert = false;
+}
+
+PlayerHasRecipePrereq : PlayerDoesntHaveRecipePrereq
+{
+	bool invert = true;
+}
+
+PlayerDoesntHaveQuickhackPrereq : IPrereq
+{
+	prereqClassName = "PlayerDoesntHaveQuickhackPrereq";
+	string quickhack = "";
+}
+
+RarityOfEquippedConsumableItemPrereq : IPrereq
+{
+	prereqClassName = "RarityOfEquippedConsumableItemPrereq";
+	CName consumableItemTag = "";
+	CName qualityLessThan = "CommonPlus";
+}
+
+RarityOfEquippedCyberdeckPrereq : IPrereq
+{
+	prereqClassName = "RarityOfEquippedCyberdeckPrereq";
+	int minimumQuality = 0;
+}
+

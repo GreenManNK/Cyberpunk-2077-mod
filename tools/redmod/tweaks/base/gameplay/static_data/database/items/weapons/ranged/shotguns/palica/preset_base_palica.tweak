@@ -1,0 +1,127 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks
+
+Preset_Palica_Default : Base_Palica
+{
+	CName appearanceResourceName = "Preset_Palica_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__mag_stdr";
+		}, 
+		"Items.ShotgunScopesPartList", {
+			slot = "AttachmentSlots.Smart_Shotgun_WeaponMod1";
+		} : Smart_Shotgun_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Smart_Shotgun_WeaponMod2";
+		} : Smart_Shotgun_ModList_Slot2
+	];
+}
+
+Preset_Palica_Pimp : Preset_Palica_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Palica_Neon : Preset_Palica_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Palica_Military : Preset_Palica_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Palica : Preset_Palica_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun_dual__rostovic_palica__mag_stdr";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Palica : Craftable_Common_Palica
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Palica : Craftable_Uncommon_Palica
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Palica : Craftable_Uncommon_Palica
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Palica : Craftable_Uncommon_Palica
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+

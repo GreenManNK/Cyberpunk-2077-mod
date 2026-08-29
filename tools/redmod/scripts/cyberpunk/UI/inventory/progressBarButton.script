@@ -1,0 +1,179 @@
+class ProgressBarButton extends inkLogicController
+{
+	protected editable var m_craftingFill : inkWidgetRef;
+	protected editable var m_craftingLabel : inkTextRef;
+	protected editable var m_craftingIconGlyph : inkWidgetRef;
+	var ButtonController : weak< inkButtonController >;
+	private var m_progressController : weak< ProgressBarsController >;
+	private var m_available : Bool;
+	private var m_progress : Float;
+	private var m_isLocked : Bool;
+	private var m_justFinished : Bool;
+	private var m_animProxy : inkAnimProxy;
+
+	protected event OnInitialize()
+	{
+		ButtonController = ( ( inkButtonController )( GetControllerByBaseType( 'inkButtonController' ) ) );
+		inkWidgetRef.SetScale( m_craftingFill, Vector2( 0.0, 1.0 ) );
+		if( ButtonController )
+		{
+			ButtonController.RegisterToCallback( 'OnHold', this, 'OnCraftingHoldButton' );
+			ButtonController.RegisterToCallback( 'OnRelease', this, 'OnReleaseButton' );
+			ButtonController.RegisterToCallback( 'OnPress', this, 'OnPressButton' );
+		}
+		m_progress = 0.0;
+	}
+
+	protected event OnCraftingHoldButton( evt : inkPointerEvent )
+	{
+		UpdateCraftProcess( evt );
+	}
+
+	public function UpdateCraftProcess( evt : inkPointerEvent )
+	{
+		var finishedProccess : ProgressBarFinishedProccess;
+		if( m_isLocked || !( m_available ) )
+		{
+			return;
+		}
+		if( evt.IsAction( 'craft_item' ) )
+		{
+			m_progress = evt.GetHoldProgress();
+			m_progressController.SetBarProgress( m_progress );
+			inkWidgetRef.SetScale( m_craftingFill, Vector2( m_progress, 1.0 ) );
+			inkWidgetRef.SetOpacity( m_craftingFill, m_progress / 2.0 );
+			if( m_progress >= 1.0 )
+			{
+				inkWidgetRef.SetScale( m_craftingFill, Vector2( 0.0, 1.0 ) );
+				m_progressController.SetBarProgress( 0.0 );
+				finishedProccess = new ProgressBarFinishedProccess;
+				QueueEvent( finishedProccess );
+				PlaySound( 'Item', 'OnCrafted' );
+				PlayLibraryAnimation( 'craft_complete_feedback' );
+				m_justFinished = true;
+				if( m_animProxy )
+				{
+					m_animProxy.GotoEndAndStop( true );
+					m_animProxy = NULL;
+				}
+			}
+		}
+	}
+
+	public function Reset()
+	{
+		inkWidgetRef.SetScale( m_craftingFill, Vector2( 0.0, 1.0 ) );
+		m_progressController.SetBarProgress( 0.0 );
+		m_progress = 0.0;
+		if( !( m_justFinished ) )
+		{
+			m_animProxy.Pause();
+			m_animProxy = PlayLibraryAnimation( 'crafting_button_rollback' );
+		}
+	}
+
+	public function Start()
+	{
+		if( m_isLocked || !( m_available ) )
+		{
+			return;
+		}
+		if( m_animProxy )
+		{
+			m_animProxy.Stop( true );
+			m_animProxy = NULL;
+		}
+		m_justFinished = false;
+		m_animProxy = PlayLibraryAnimation( 'crafting_button_progress' );
+	}
+
+	protected event OnReleaseButton( evt : inkPointerEvent )
+	{
+		if( evt.IsAction( 'craft_item' ) )
+		{
+			Reset();
+			PlaySound( 'Item', 'OnCraftFailed' );
+		}
+	}
+
+	protected event OnPressButton( evt : inkPointerEvent )
+	{
+		if( evt.IsAction( 'craft_item' ) )
+		{
+			PlaySound( 'Item', 'OnCraftStarted' );
+			Start();
+		}
+	}
+
+	public function SetupProgressButton( const label : ref< String >, progressController : weak< ProgressBarsController > )
+	{
+		m_progressController = progressController;
+		m_progressController.SetBarProgress( 0.0 );
+		inkTextRef.SetText( m_craftingLabel, label );
+	}
+
+	public function SetAvaibility( current : EProgressBarState )
+	{
+		var state : CName;
+		if( current == EProgressBarState.Invisible )
+		{
+			GetRootWidget().SetVisible( false );
+			inkTextRef.SetVisible( m_craftingLabel, false );
+			return;
+		}
+		GetRootWidget().SetVisible( true );
+		inkTextRef.SetVisible( m_craftingLabel, true );
+		if( current == EProgressBarState.Available )
+		{
+			state = 'Default';
+			m_available = true;
+		}
+		else
+		{
+			state = 'Blocked';
+			m_available = false;
+		}
+		GetRootWidget().SetState( state );
+		SetIconGlyph();
+	}
+
+	public function Lock()
+	{
+		m_isLocked = true;
+	}
+
+	public function Unlock()
+	{
+		m_isLocked = false;
+	}
+
+	private function SetIconGlyph()
+	{
+		var glyph : inkWidget;
+		glyph = inkWidgetRef.Get( m_craftingIconGlyph );
+		if( !( glyph ) )
+		{
+			return;
+		}
+		glyph.SetVisible( m_available );
+	}
+
+	protected event OnUnitialize()
+	{
+		ButtonController.UnregisterFromCallback( 'OnHold', this, 'OnCraftingHoldButton' );
+		ButtonController.UnregisterFromCallback( 'OnRelease', this, 'OnReleaseButton' );
+	}
+
+}
+
+enum EProgressBarState
+{
+	Available = 0,
+	Blocked = 1,
+	Invisible = 2,
+}
+
+class ProgressBarFinishedProccess extends Event
+{
+}
+

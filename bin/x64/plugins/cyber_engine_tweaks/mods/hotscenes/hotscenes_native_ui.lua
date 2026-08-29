@@ -1,5 +1,5 @@
--- May 22, 2026 by anygoodname
-modVer='v2.19.3'
+-- Jul 31, 2026 by anygoodname
+modVer='v2.19.4'
 modName='Hotscenes NativeUI'
 modAuthorName='anygoodname'
 
@@ -19,7 +19,7 @@ By modifying the mod code or files, you acknowledge I cannot support the modifie
 You're not allowed to publish your modifications to the mod code or files without my consent.
 You're not allowed to publicly propose unauthorized changes to the mod code or files.
 You're not allowed to use any part of the mod code or files for commercial purposes, advertising or promotion of any kind.
-You can use parts the code or file modifications in your creations only by my consent and on a credit note.
+You may use parts of the code or any original algorithms developed for this mod in your own creations only with my prior consent and proper credit.
 You're not allowed to use parts of the code or files marked as coming from other people without their consent.
 You can create and publish translations of the parts of the mod that are explicitly marked as allowed to translate either in the mod description either in the mod files.
 The translations must follow the Nexusmods translation publishing rules.
@@ -1157,8 +1157,7 @@ function createSelectionList(thisScene, callerId, isPerformerSelectionList, inpu
 						restoreDefaulCursor()
 					end
 				end
-				local payload = function() lastShardPopupNotificationData.useCursor = true end
-				nativeUI.queueTask(payload, false, 0.01)
+				showCursor(_, 0.01)
 			end
 			nativeUI.queueTask(payload, false, 0.01)
 		end
@@ -2540,8 +2539,7 @@ function createMainMenuPanels(parentWidget, isUpdate, isMainModCalling)
 				local player = GetPlayer()
 				if not player:PlayerLastUsedPad() then restoreDefaulCursor() end
 				setCursorOverWidgetWithCursorRestore(_, initialTargetWidget, not player:PlayerLastUsedPad())
-				local payload = function() lastShardPopupNotificationData.useCursor = true end
-				nativeUI.queueTask(payload, false, 0.01)
+				showCursor(_, 0.01)
 			end
 			if lastSliderController:GetProgress() > 0.001 then nativeUI.queueTask(payload, false, 0.05) else payload() end
 		end
@@ -3208,7 +3206,7 @@ function setupObservers()
 			setupNativeSettings(true)
 		end)
 		ObserveAfter('SettingsMainGameController', 'OnUninitialize', function (this)
-			lastSettingsMainGameController = RefWeak(this)
+			lastSettingsMainGameController = nil
 			setupNativeSettings(true)
 		end)
 		local shouldResetSettingsPanel, shouldReloadMenu, shouldRestoreDefaultSettings
@@ -3597,6 +3595,7 @@ function setupObservers()
 		widget:SetMargin(20, 0, 20, 0);
 	end
 
+	local n_popup_goto = n"popup_goto"
 	function togglePerformerPrevievButtonHint(show, force)
 		if not isItMyShard then return end
 		if nativeUI.isModDisabled then return end
@@ -3610,7 +3609,7 @@ function setupObservers()
 			if not nativeUI.isPerformerPreviewShowTime then return end
 			if not isOpenPreviewAllowedBySettings() then return end
 			inkWidgetRef.SetVisible(lastShardNotificationController.buttonHintsSecondaryManagerParentRef, true);
-			addPrevievButtonHint(n"popup_goto", uiStrings.nuiUiStrings.nativeUiSelectionListView.buttonHints.showPreview.title, lastShardNotificationController.buttonHintsSecondaryManagerParentRef);
+			addPrevievButtonHint(n_popup_goto, uiStrings.nuiUiStrings.nativeUiSelectionListView.buttonHints.showPreview.title, lastShardNotificationController.buttonHintsSecondaryManagerParentRef);
 			return
 		end
 		inkWidgetRef.SetVisible(lastShardNotificationController.buttonHintsSecondaryManagerParentRef, false);
@@ -3682,7 +3681,8 @@ function setupObservers()
 			if nativeUI.isNudityCensored then return end
 			if not nativeUI.isPerformerPreviewShowTime then end
 			if not isPerformerPreviewAvailable() then return end
-			lastHudPhoneAvatarController = RefWeak(this)
+			lastHudPhoneAvatarController = this
+			if not this.ContactName.widget then return end
 			this.ContactName.widget.wrappingInfo = textWrappingInfo.new()
 			this.ContactName:SetText(lastKnownPerformerPreviewLabelStr or "Hotscenes Performer")
 		end)
@@ -4429,14 +4429,15 @@ function restoreDefaulCursor()
 	if IsDefined(lastGameCursorController) and lastGameCursorController.cursorType.value ~= 'default' then lastGameCursorController:OnSetCursorType("default") end
 end
 
+local function enableCursor()
+	lastShardPopupNotificationData.useCursor = true
+end
 function showCursor(restoreToDefault, delay)
 	if not IsDefined(lastShardPopupNotificationData) then return end
 	if restoreToDefault then restoreDefaulCursor() end
-	local payload = function() lastShardPopupNotificationData.useCursor = true end
-	if type(delay) ~= 'number' or delay <=0 then payload() return end
-	nativeUI.queueTask(payload, false, delay)
+	if type(delay) ~= 'number' or delay <=0 then enableCursor() return end
+	nativeUI.queueTask(enableCursor, false, delay)
 end
-
 function hideCursor(restoreToDefault)
 	if not IsDefined(lastShardPopupNotificationData) then return end
 	if restoreToDefault then restoreDefaulCursor() end

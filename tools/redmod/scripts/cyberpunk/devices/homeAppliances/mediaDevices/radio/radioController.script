@@ -1,0 +1,276 @@
+class RadioController extends MediaDeviceController
+{
+
+	public const override function GetPS() : RadioControllerPS
+	{
+		return ( ( RadioControllerPS )( GetBasePS() ) );
+	}
+
+}
+
+struct RadioSetup
+{
+	instanceeditable var m_randomizeStartingStation : Bool;
+	instanceeditable var m_startingStation : ERadioStationList;
+	instanceeditable var m_isInteractive : Bool;
+	[ customEditor = "AudioEvent" ]
+	instanceeditable var m_glitchSFX : CName;
+	[ category = "High Pitch Noise Quick Hack" ]
+	instanceeditable var m_enableHighPitchNoiseQuickHack : Bool;
+	[ category = "High Pitch Noise Quick Hack" ][ customEditor = "AudioEvent" ]
+	instanceeditable var m_highPitchNoiseSFX : CName;
+	[ category = "High Pitch Noise Quick Hack" ]
+	instanceeditable var m_hithPitchNoiseVFX : FxResource;
+	[ category = "High Pitch Noise Quick Hack" ]
+	instanceeditable var m_hithPitchNoiseRadius : Float;
+	default m_hithPitchNoiseRadius = 5f;
+	[ category = "Aoe damage Quick Hack" ]
+	instanceeditable var m_enableAoeDamageQuickHack : Bool;
+	[ category = "Aoe damage Quick Hack" ][ customEditor = "AudioEvent" ]
+	instanceeditable var m_AoeDamageSFX : CName;
+	[ category = "Aoe damage Quick Hack" ]
+	instanceeditable var m_AoeDamageVFX : FxResource;
+}
+
+class RadioControllerPS extends MediaDeviceControllerPS
+{
+	default m_deviceName = "LocKey#96";
+	default m_tweakDBRecord = T"Devices.Radio";
+	default m_tweakDBDescriptionRecord = T"device_descriptions.Radio";
+	protected instanceeditable var m_radioSetup : RadioSetup;
+	private persistent var m_wasRadioSetup : Bool;
+
+	protected event OnInstantiated()
+	{
+		super.OnInstantiated();
+		if( !( IsStringValid( m_deviceName ) ) )
+		{
+			m_deviceName = "LocKey#96";
+		}
+	}
+
+	protected override function GameAttached()
+	{
+		var station : ERadioStationList;
+		station = GetActiveRadioStation();
+		m_activeChannelName = RadioStationDataProvider.GetChannelName( station );
+		m_amountOfStations = RadioStationDataProvider.GetStationsCount();
+		TryInitializeInteractiveState();
+	}
+
+	private function TryInitializeInteractiveState()
+	{
+		if( !( m_wasRadioSetup ) )
+		{
+			SetInteractionState( m_radioSetup.m_isInteractive );
+			m_wasRadioSetup = true;
+		}
+	}
+
+	public function SetActiveStation( radioStationType : ERadioStationList )
+	{
+		m_activeStation = ( ( Int32 )( radioStationType ) );
+	}
+
+	protected const override function CanCreateAnyQuickHackActions() : Bool
+	{
+		return true;
+	}
+
+	public function GetGlitchSFX() : CName
+	{
+		return m_radioSetup.m_glitchSFX;
+	}
+
+	public const function GetHighPitchNoiseSFX() : CName
+	{
+		return m_radioSetup.m_highPitchNoiseSFX;
+	}
+
+	public const function GetHighPitchNoiseVFX() : FxResource
+	{
+		return m_radioSetup.m_hithPitchNoiseVFX;
+	}
+
+	public const function GetHighPitchNoiseRadius() : Float
+	{
+		return m_radioSetup.m_hithPitchNoiseRadius;
+	}
+
+	public const function GetAoeDamageSFX() : CName
+	{
+		return m_radioSetup.m_AoeDamageSFX;
+	}
+
+	public const function GetAoeDamageVFX() : FxResource
+	{
+		return m_radioSetup.m_AoeDamageVFX;
+	}
+
+	protected override function GetQuickHackActions( out actions : array< DeviceAction >, const context : ref< GetActionsContext > )
+	{
+		actions.PushBack( ActionQuickHackDistraction() );
+		if( CanAddAoeDamageQuickHack() )
+		{
+			actions.PushBack( ActionQuickHackAoeDamage() );
+		}
+		if( m_radioSetup.m_enableHighPitchNoiseQuickHack )
+		{
+			actions.PushBack( ActionQuickHackHighPitchNoise() );
+		}
+		FinalizeGetQuickHackActions( actions, context );
+	}
+
+	private function CanAddAoeDamageQuickHack() : Bool
+	{
+		return m_radioSetup.m_enableAoeDamageQuickHack && RPGManager.DoesPlayerHaveQuickHack( GetPlayer( GetGameInstance() ), T"DeviceAction.OverloadClassLvl4Hack" );
+	}
+
+	public override function OnNextStation( evt : NextStation ) : EntityNotificationType
+	{
+		var notifier : ActionNotifier;
+		var station : ERadioStationList;
+		notifier = new ActionNotifier;
+		notifier.SetNone();
+		if( ( IsDisabled() || IsUnpowered() ) || !( IsON() ) )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		m_previousStation = m_activeStation;
+		station = RadioStationDataProvider.GetNextStationTo( m_activeStation );
+		m_activeStation = ( ( Int32 )( station ) );
+		m_activeChannelName = RadioStationDataProvider.GetChannelName( station );
+		Notify( notifier, evt );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public override function OnPreviousStation( evt : PreviousStation ) : EntityNotificationType
+	{
+		var notifier : ActionNotifier;
+		var station : ERadioStationList;
+		notifier = new ActionNotifier;
+		notifier.SetNone();
+		if( ( IsDisabled() || IsUnpowered() ) || !( IsON() ) )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		m_previousStation = m_activeStation;
+		station = RadioStationDataProvider.GetPreviousStationTo( m_activeStation );
+		m_activeStation = ( ( Int32 )( station ) );
+		m_activeChannelName = RadioStationDataProvider.GetChannelName( station );
+		Notify( notifier, evt );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public virtual function OnQuestDefaultStation( evt : QuestDefaultStation ) : EntityNotificationType
+	{
+		SetDefaultRadioStation();
+		m_activeChannelName = RadioStationDataProvider.GetChannelName( GetActiveRadioStation() );
+		UseNotifier( evt );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public override function GetActiveStationIndex() : Int32
+	{
+		EnsureRadioStatationPresence();
+		return m_activeStation;
+	}
+
+	public function GetActiveRadioStation() : ERadioStationList
+	{
+		EnsureRadioStatationPresence();
+		return ( ( ERadioStationList )( m_activeStation ) );
+	}
+
+	private function EnsureRadioStatationPresence()
+	{
+		if( !( m_dataInitialized ) )
+		{
+			SetDefaultRadioStation();
+			m_dataInitialized = true;
+		}
+	}
+
+	private function SetDefaultRadioStation()
+	{
+		var station : ERadioStationList;
+		station = GetStartingStation();
+		m_activeStation = ( ( Int32 )( station ) );
+	}
+
+	private function GetStartingStation() : ERadioStationList
+	{
+		return ( ( m_radioSetup.m_randomizeStartingStation ) ? ( RadioStationDataProvider.GetRandomStation() ) : ( m_radioSetup.m_startingStation ) );
+	}
+
+	public constexpr function OnSpiderbotDistraction( evt : SpiderbotDistraction ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function CauseDistraction()
+	{
+		var action : ScriptableDeviceAction;
+		action = ActionQuickHackDistraction();
+		ExecutePSAction( action );
+	}
+
+	protected override function ActionQuickHackDistraction() : QuickHackDistraction
+	{
+		var action : QuickHackDistraction;
+		action = super.ActionQuickHackDistraction();
+		action.SetDurationValue( GetDistractionDuration( action ) );
+		action.SetInactiveWithReason( !( IsDistracting() ), "LocKey#7004" );
+		return action;
+	}
+
+	public override function OnQuickHackDistraction( evt : QuickHackDistraction ) : EntityNotificationType
+	{
+		var type : EntityNotificationType;
+		type = super.OnQuickHackDistraction( evt );
+		if( type == EntityNotificationType.DoNotNotifyEntity )
+		{
+			return type;
+		}
+		if( evt.IsStarted() )
+		{
+			if( IsOFF() )
+			{
+				ExecutePSAction( ActionSetDeviceON() );
+			}
+			ExecutePSAction( ActionNextStation() );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected override function DetermineGameplayViability( const context : ref< GetActionsContext >, hasActiveActions : Bool ) : Bool
+	{
+		return RadioViabilityInterpreter.Evaluate( this, hasActiveActions );
+	}
+
+	public override function GetDeviceIconPath() : String
+	{
+		return "base/gameplay/gui/brushes/devices/icon_radio.widgetbrush";
+	}
+
+	protected override function GetBackgroundTextureTweakDBID() : TweakDBID
+	{
+		return T"DeviceIcons.RadioDeviceBackground";
+	}
+
+	protected override function GetDeviceIconTweakDBID() : TweakDBID
+	{
+		return T"DeviceIcons.RadioDeviceIcon";
+	}
+
+	public override function GetDeviceWidget( const context : ref< GetActionsContext > ) : SDeviceWidgetPackage
+	{
+		var widgetData : SDeviceWidgetPackage;
+		widgetData = super.GetDeviceWidget( context );
+		widgetData.deviceStatus = "LocKey#42211";
+		widgetData.textData = GetDeviceStatusTextData();
+		return widgetData;
+	}
+
+}
+

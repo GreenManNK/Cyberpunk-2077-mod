@@ -1,6 +1,11 @@
 local utils = require("modules/utils/utils")
 local style = require("modules/ui/style")
 local world = require("modules/utils/worldInteraction")
+local ref = require("modules/utils/Ref")
+
+local function getDefaultIconColor()
+    return { Red = 0.15829999744892, Green = 1.3033000230789, Blue = 1.4141999483109, Alpha = 1.0 }
+end
 
 ---@class interactionUI
 ---@field public mod mod?
@@ -44,16 +49,19 @@ end
 function interactionUI.setCameraExternal(state)
     interactionUI.cameraExternal = state
 
+    local camera = Game.GetPlayer():GetFPPCameraComponent()
+    if not camera then return end
+
     if state then
-        Game.GetPlayer():GetFPPCameraComponent():SetLocalPosition(Vector4.new(0, -2, 0, 0))
-        Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(Quaternion.new(0, 0, 0, 1))
-        Game.GetPlayer():GetFPPCameraComponent().pitchMax = 89
-        Game.GetPlayer():GetFPPCameraComponent().pitchMin = -89
-        Game.GetPlayer():GetFPPCameraComponent().yawMaxRight = -360
-        Game.GetPlayer():GetFPPCameraComponent().yawMaxLeft = 360
+        camera:SetLocalPosition(Vector4.new(0, -2, 0, 0))
+        camera:SetLocalOrientation(Quaternion.new(0, 0, 0, 1))
+        camera.pitchMax = 89
+        camera.pitchMin = -89
+        camera.yawMaxRight = -360
+        camera.yawMaxLeft = 360
     else
-        Game.GetPlayer():GetFPPCameraComponent():SetLocalPosition(Vector4.new(0, 0, 0, 0))
-        Game.GetPlayer():GetFPPCameraComponent():SetLocalOrientation(Quaternion.new(0, 0, 0, 1))
+        camera:SetLocalPosition(Vector4.new(0, 0, 0, 0))
+        camera:SetLocalOrientation(Quaternion.new(0, 0, 0, 1))
     end
 end
 
@@ -131,6 +139,7 @@ function interactionUI.drawYaw(yaw, key)
     if style.buttonNoBG(IconGlyphs.AccountArrowLeftOutline) then
         yaw = GetPlayer():GetWorldOrientation():ToEulerAngles().yaw
         changed = true
+        finished = true
     end
     style.tooltip("Set to player rotation")
 
@@ -139,10 +148,61 @@ function interactionUI.drawYaw(yaw, key)
     return yaw, changed, finished
 end
 
+---@param color { Red: number, Green: number, Blue: number, Alpha: number }
+---@param useColor boolean
+function interactionUI.setIconColor(color, useColor)
+    interactionUI.interaction.worldIconColor = color
+    interactionUI.interaction.useWorldIconColor = useColor
+    interactionUI.project:save()
+
+    local worldInteraction = world.interactions[interactionUI.interaction.worldInteractionID]
+    if not worldInteraction then return end
+
+    if useColor then
+        worldInteraction.iconColor = color
+    else
+        worldInteraction.iconColor = nil
+    end
+
+    local controller = worldInteraction.pinController
+    if controller and ref.IsDefined(controller) and controller.iconWidget then
+        if useColor then
+            controller.iconWidget:SetTintColor(HDRColor.new(color))
+        else
+            controller.iconWidget:SetTintColor(HDRColor.new(getDefaultIconColor())) -- Binding does not work if SetTintColor() was already used
+        end
+    else
+        worldInteraction.pinController = nil
+    end
+end
+
+function interactionUI.drawIconColor()
+    style.mutedText("Icon Color:")
+    ImGui.SameLine()
+    ImGui.SetCursorPosX(interactionUI.maxBasePropertyWidth)
+
+    local color = interactionUI.interaction.worldIconColor
+    style.setNextItemWidth(150)
+    local edited, changed = ImGui.ColorEdit3("##worldIconColor", { color.Red, color.Green, color.Blue }, ImGuiColorEditFlags.NoInputs + ImGuiColorEditFlags.HDR + ImGuiColorEditFlags.Float)
+    if changed then
+        interactionUI.setIconColor({ Red = edited[1], Green = edited[2], Blue = edited[3], Alpha = 1.0 }, true)
+    end
+
+    if not interactionUI.interaction.useWorldIconColor then return end
+
+    ImGui.SameLine()
+    if style.buttonNoBG(IconGlyphs.Reload) then
+        interactionUI.setIconColor(getDefaultIconColor(), false)
+    end
+    style.tooltip("Reset to the default icon color")
+end
+
 function interactionUI.drawBaseOptions()
     if not interactionUI.maxBasePropertyWidth then
-        interactionUI.maxBasePropertyWidth = utils.getTextMaxWidth({ "Name", "Icon Position", "Icon Visibility Range", "Interaction Range", "Interaction Angle" }) + 4 * ImGui.GetStyle().ItemSpacing.x
+        interactionUI.maxBasePropertyWidth = utils.getTextMaxWidth({ "Name", "Icon Position", "Icon Visibility Range", "Icon Color", "Interaction Range", "Interaction Angle" }) + 4 * ImGui.GetStyle().ItemSpacing.x
     end
+
+    local changed, finished
 
     style.mutedText("Name:")
     ImGui.SameLine()
@@ -155,9 +215,11 @@ function interactionUI.drawBaseOptions()
     style.mutedText("Icon Position:")
     ImGui.SameLine()
     ImGui.SetCursorPosX(interactionUI.maxBasePropertyWidth)
-    interactionUI.interaction.worldIconPosition, changed, _ = interactionUI.drawPosition(interactionUI.interaction.worldIconPosition, "icon")
+    interactionUI.interaction.worldIconPosition, changed, finished = interactionUI.drawPosition(interactionUI.interaction.worldIconPosition, "icon")
     if changed then
         world.updateInteractionPosition(interactionUI.interaction.worldInteractionID, ToVector4(interactionUI.interaction.worldIconPosition))
+    end
+    if finished then
         interactionUI.project:save()
     end
 
@@ -165,19 +227,29 @@ function interactionUI.drawBaseOptions()
     ImGui.SameLine()
     ImGui.SetCursorPosX(interactionUI.maxBasePropertyWidth)
     style.setNextItemWidth(80)
-    interactionUI.interaction.worldIconRange, changed = ImGui.DragFloat("##worldIconRange", interactionUI.interaction.worldIconRange, 0.01, 0.1, 12, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
+    interactionUI.interaction.worldIconRange, changed = ImGui.DragFloat("##worldIconRange", interactionUI.interaction.worldIconRange, 0.01, 0.1, world.cellSize, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
+    finished = ImGui.IsItemDeactivatedAfterEdit()
     if changed then
+        interactionUI.interaction.worldIconRange = utils.clamp(interactionUI.interaction.worldIconRange, 0.1, world.cellSize)
         world.interactions[interactionUI.interaction.worldInteractionID].iconRange = interactionUI.interaction.worldIconRange ^ 2
+    end
+    if finished then
         interactionUI.project:save()
     end
+
+    interactionUI.drawIconColor()
 
     style.mutedText("Interaction Range:")
     ImGui.SameLine()
     ImGui.SetCursorPosX(interactionUI.maxBasePropertyWidth)
     style.setNextItemWidth(80)
-    interactionUI.interaction.interactionRange, changed = ImGui.DragFloat("##interactionRange", interactionUI.interaction.interactionRange, 0.01, 0.1, 12, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
+    interactionUI.interaction.interactionRange, changed = ImGui.DragFloat("##interactionRange", interactionUI.interaction.interactionRange, 0.01, 0.1, world.cellSize, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
+    finished = ImGui.IsItemDeactivatedAfterEdit()
     if changed then
+        interactionUI.interaction.interactionRange = utils.clamp(interactionUI.interaction.interactionRange, 0.1, world.cellSize)
         world.interactions[interactionUI.interaction.worldInteractionID].interactionRange = interactionUI.interaction.interactionRange ^ 2
+    end
+    if finished then
         interactionUI.project:save()
     end
 
@@ -186,8 +258,11 @@ function interactionUI.drawBaseOptions()
     ImGui.SetCursorPosX(interactionUI.maxBasePropertyWidth)
     style.setNextItemWidth(80)
     interactionUI.interaction.interactionAngle, changed = ImGui.DragFloat("##interactionAngle", interactionUI.interaction.interactionAngle, 0.01, 0.1, 100, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
+    finished = ImGui.IsItemDeactivatedAfterEdit()
     if changed then
         world.interactions[interactionUI.interaction.worldInteractionID].angle = interactionUI.interaction.interactionAngle
+    end
+    if finished then
         interactionUI.project:save()
     end
 end

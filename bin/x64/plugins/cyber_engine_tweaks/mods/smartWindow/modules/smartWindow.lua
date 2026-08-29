@@ -6,7 +6,7 @@ local utils = require("modules/utils/utils")
 
 window = {}
 
-function window:new(windowController, catcher, shutterIDs, radioID, locationName, noBG)
+function window:new(windowController, catcher, shutterIDs, radioID, locationName, noBG, pos, rot)
 	local o = {}
 
     o.windowController = windowController
@@ -17,6 +17,8 @@ function window:new(windowController, catcher, shutterIDs, radioID, locationName
     o.noBG = noBG
 
     o.sizeY = 1920
+    o.pos = pos
+    o.rot = rot
 
     o.bgColor = color.new(0, 75, 75, 50, 255)
     o.yellowColor = color.yellow
@@ -53,10 +55,6 @@ function window:initialize()
     end)
 
     self.updateCron = Cron.Every(5, function()
-        if Vector4.Distance(GetPlayer():GetWorldPosition(), self.windowController:GetOwner():GetWorldPosition()) > 20 then
-            return
-        end
-
         self:update()
         self:updateStockInfo()
 
@@ -68,9 +66,11 @@ function window:initialize()
 
     self.highLevelCron = Cron.Every(0.75, function ()
         if GetPlayer():GetPlayerStateMachineBlackboard():GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel) > 2 then
-            self.windowController:GetOwner():FindComponentByName("terminalui"):Toggle(false)
+            self.windowController:GetMainLayoutController():GetRootWidget():SetVisible(false)
+            Game.GetTeleportationFacility():Teleport(self.windowController:GetOwner(), Vector4.new(self.pos.x, self.pos.y, self.pos.z - 5, 0), EulerAngles.new(self.rot.roll, self.rot.pitch, self.rot.yaw))
         else
-            self.windowController:GetOwner():FindComponentByName("terminalui"):Toggle(true)
+            self.windowController:GetMainLayoutController():GetRootWidget():SetVisible(true)
+            Game.GetTeleportationFacility():Teleport(self.windowController:GetOwner(), Vector4.new(self.pos.x, self.pos.y, self.pos.z, 0), EulerAngles.new(self.rot.roll, self.rot.pitch, self.rot.yaw))
         end
     end)
 end
@@ -264,6 +264,8 @@ function window:setupMessagesButton(root)
     open:initialize()
     open:registerCallbacks(self.catcher)
     open.callback = function()
+        local rot = GetPlayer():GetWorldOrientation():ToEulerAngles()
+        Game.GetTeleportationFacility():Teleport(GetPlayer(), GetPlayer():GetWorldPosition(), EulerAngles.new(rot.roll, rot.pitch, rot.yaw + 15))
         Game.GetScriptableSystemsContainer():Get("PhoneSystem"):QueueRequest(UsePhoneRequest.new())
     end
     open.canvas:Reparent(root, 2)

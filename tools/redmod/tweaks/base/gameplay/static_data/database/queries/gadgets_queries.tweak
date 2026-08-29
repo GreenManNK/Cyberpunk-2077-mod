@@ -1,0 +1,13 @@
+package Query
+using RTDB
+
+ReconGrenadeQuery : ItemQuery
+{
+	recordType = "RTDB.Grenade";
+	tags = 
+	[
+		"ReconGrenade"
+	];
+	levelBasedQuality = true;
+}
+

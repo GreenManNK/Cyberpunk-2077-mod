@@ -1,0 +1,272 @@
+operator==( goTarget : weak< GameObject >, target : Target ) : Bool
+{
+	if( goTarget == target.GetTarget() )
+	{
+		return true;
+	}
+	return false;
+}
+
+operator==( target : Target, goTarget : weak< GameObject > ) : Bool
+{
+	if( goTarget == target.GetTarget() )
+	{
+		return true;
+	}
+	return false;
+}
+
+class SimpleTargetManager extends ScriptableComponent
+{
+
+	public static function AddTarget( targetsList : ref< array< Target > >, goTarget : weak< GameObject >, isInteresting : Bool, isVisible : Bool )
+	{
+		var newTarget : Target;
+		var targetIndex : Int32;
+		targetIndex = IsTargetAlreadyAdded( targetsList, goTarget );
+		if( targetIndex >= 0 )
+		{
+			targetsList[ targetIndex ].SetIsVisible( isVisible );
+			targetsList[ targetIndex ].SetIsInteresting( isInteresting );
+			if( !( IsFinal() ) )
+			{
+			}
+			return;
+		}
+		newTarget = new Target;
+		newTarget.CreateTarget( goTarget, isInteresting, isVisible );
+		if( goTarget.IsPlayer() )
+		{
+			targetsList.Insert( 0, newTarget );
+		}
+		else
+		{
+			targetsList.PushBack( newTarget );
+		}
+	}
+
+	public static function RemoveTarget( targetsList : ref< array< Target > >, targetToRemove : weak< GameObject > ) : Bool
+	{
+		var foundTarget : Target;
+		foundTarget = GetSpecificTarget( targetsList, targetToRemove );
+		if( !( foundTarget ) )
+		{
+			if( !( IsFinal() ) )
+			{
+			}
+			return false;
+		}
+		targetsList.Remove( foundTarget );
+		return true;
+	}
+
+	public static function SetTargetVisible( const targetsList : ref< array< Target > >, targetToRemove : weak< GameObject >, isVisible : Bool ) : Bool
+	{
+		var foundTarget : Target;
+		foundTarget = GetSpecificTarget( targetsList, targetToRemove );
+		if( !( foundTarget ) )
+		{
+			if( !( IsFinal() ) )
+			{
+			}
+			return false;
+		}
+		foundTarget.SetIsVisible( isVisible );
+		return true;
+	}
+
+	public static function RemoveAllTargets( targetsList : ref< array< Target > > )
+	{
+		targetsList.Clear();
+	}
+
+	public static function GetFirstInterestingTargetObject( const targetsList : ref< array< Target > > ) : weak< GameObject >
+	{
+		var target : Target;
+		var goTarget : weak< GameObject >;
+		target = GetFirstInterestingTarget( targetsList );
+		if( target )
+		{
+			goTarget = target.GetTarget();
+			if( goTarget )
+			{
+				return goTarget;
+			}
+			else
+			{
+				if( !( IsFinal() ) )
+				{
+				}
+				return NULL;
+			}
+		}
+		else
+		{
+			if( !( IsFinal() ) )
+			{
+			}
+			return NULL;
+		}
+	}
+
+	public static function GetFirstInterestingTarget( const targetsList : ref< array< Target > > ) : Target
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( targetsList[ i ].IsInteresting() && targetsList[ i ].IsVisible() )
+			{
+				return targetsList[ i ];
+			}
+		}
+		if( !( IsFinal() ) )
+		{
+		}
+		return NULL;
+	}
+
+	public static function GetSpecificTarget( const targetsList : ref< array< Target > >, target : weak< GameObject > ) : Target
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( target == targetsList[ i ] )
+			{
+				return targetsList[ i ];
+			}
+		}
+		if( !( IsFinal() ) )
+		{
+		}
+		return NULL;
+	}
+
+	public static function GetSpecificTarget( const targetsList : ref< array< Target > >, targetID : EntityID ) : Target
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( targetID == targetsList[ i ].GetTarget().GetEntityID() )
+			{
+				return targetsList[ i ];
+			}
+		}
+		if( !( IsFinal() ) )
+		{
+		}
+		return NULL;
+	}
+
+	public static function GetSpecificTarget( const targetsList : ref< array< Target > >, index : Int32 ) : Target
+	{
+		if( targetsList.Size() == 0 )
+		{
+			if( !( IsFinal() ) )
+			{
+			}
+			return NULL;
+		}
+		if( ( index >= 0 ) && ( index < targetsList.Size() ) )
+		{
+			return targetsList[ index ];
+		}
+		if( !( IsFinal() ) )
+		{
+		}
+		return NULL;
+	}
+
+	public static function IsTargetAlreadyAdded( const targets : ref< array< Target > >, targetToCheck : Target ) : Int32
+	{
+		var i : Int32;
+		for( i = 0; i < targets.Size(); i += 1 )
+		{
+			if( targetToCheck == targets[ i ] )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public static function IsTargetAlreadyAdded( const targetsList : ref< array< Target > >, gameObject : weak< GameObject > ) : Int32
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( gameObject == targetsList[ i ].GetTarget() )
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public static function IsTargetVisible( const targetsList : ref< array< Target > >, gameObject : weak< GameObject > ) : Bool
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( gameObject == targetsList[ i ].GetTarget() )
+			{
+				return targetsList[ i ].IsVisible();
+			}
+		}
+		return false;
+	}
+
+	public static function HasInterestingTargets( const targetsList : ref< array< Target > > ) : Bool
+	{
+		var i : Int32;
+		for( i = 0; i < targetsList.Size(); i += 1 )
+		{
+			if( targetsList[ i ].IsInteresting() && targetsList[ i ].IsVisible() )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+}
+
+class Target
+{
+	private var target : weak< GameObject >;
+	private var isInteresting : Bool;
+	private var isVisible : Bool;
+
+	public function CreateTarget( currentTarget : weak< GameObject >, interesting : Bool, visible : Bool )
+	{
+		target = currentTarget;
+		isInteresting = interesting;
+		isVisible = visible;
+	}
+
+	public function GetTarget() : weak< GameObject >
+	{
+		return target;
+	}
+
+	public function IsInteresting() : Bool
+	{
+		return isInteresting;
+	}
+
+	public function IsVisible() : Bool
+	{
+		return isVisible;
+	}
+
+	public function SetIsInteresting( interestingChange : Bool )
+	{
+		isInteresting = interestingChange;
+	}
+
+	public function SetIsVisible( _isVisible : Bool )
+	{
+		isVisible = _isVisible;
+	}
+
+}
+

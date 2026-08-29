@@ -1,0 +1,8 @@
+package Vehicle
+using RTDB
+
+autodrive_settings
+{
+	float healthDeactivationThreshold = 20.f;
+}
+

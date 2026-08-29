@@ -1,0 +1,19 @@
+importonly abstract class IInventoryManager extends IGameSystem
+{
+}
+
+importonly final class InventoryManager extends IInventoryManager
+{
+	public import function AddEquipmentStateFlag( equipmentFlag : gameEEquipmentManagerState );
+	public import function RemoveEquipmentStateFlag( equipmentFlag : gameEEquipmentManagerState );
+	public import function HasEquipmentStateFlag( equipmentFlag : gameEEquipmentManagerState ) : Bool;
+	public import function CreateBasicItemData( itemID : ItemID, owner : weak< GameObject > ) : gameItemData;
+	public import function IncrementCyberwareUpgradeSeed( amount : Uint32 );
+	public import function GetCyberwareUpgradeSeed() : Uint32;
+}
+
+import enum gameEEquipmentManagerState
+{
+	InfiniteAmmo,
+}
+

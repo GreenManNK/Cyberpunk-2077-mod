@@ -1,0 +1,23 @@
+Character.GR_kangtao_weak1_ranged1_chao:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    primaryEquipment: Character.GR_kangtao_weak1_ranged1_chao_primary_equipment
+    archetypeData: ArchetypeData.GenericRangedT1
+    rarity: NPCRarity.Weak
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_weak1_ranged1_chao_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_weak1_ranged1_chao_primary_item
+
+Character.GR_kangtao_weak1_ranged1_chao_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Chao_Military
+    onBodySlot: AttachmentSlots.ItemSlotHandgunRight
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

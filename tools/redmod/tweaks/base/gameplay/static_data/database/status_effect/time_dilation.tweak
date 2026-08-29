@@ -1,0 +1,1409 @@
+package BaseStatusEffect
+using RTDB, Effectors, Prereqs, Perks, Items
+
+TimeDilationStatusEffect : StatusEffect
+{
+	gameplayTags += 
+	[
+		"Buff", "TDEffect"
+	];
+	bool isAffectedByTimeDilationNPC = false;
+	bool isAffectedByTimeDilationPlayer = false;
+}
+
+SynapticAcceleratorPlayerBuffCommon : TimeDilationStatusEffect
+{
+	gameplayTags += 
+	[
+		"SynapticAcceleratorBuff", "CyberwareBuff"
+	];
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40846";
+		string iconPath = "synaptic_accelerator";
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 2;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 2.3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffUncommon : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2.3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffRare : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.875;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffEpic : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.45;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffLegendary : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 3.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.025;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffUncommonPlus : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2.875;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffRarePlus : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 3.45;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffEpicPlus : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 4.025;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffLegendaryPlus : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.6;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+SynapticAcceleratorPlayerBuffLegendaryPlusPlus : SynapticAcceleratorPlayerBuffCommon
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 5.175;
+					affectsPlayer = true;
+				} : BaseStatusEffect.SynapticAcceleratorEffector, 
+				"BaseStatusEffect.SynapticAcceleratorCooldownEffector"
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffBase : TimeDilationStatusEffect
+{
+	gameplayTags += 
+	[
+		"ReflexRecorderBuff", "CyberwareBuff"
+	];
+	uiData = 
+	{
+		string displayName = "LocKey#40849";
+		string iconPath = "reflex_recorder";
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.ReflexRecorderListener";
+					removeWithEffector = false;
+				} : ApplyStatusEffectOnPlayer, 
+				"BaseStatusEffect.ReflexRecorderCooldownEffector"
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffCommon : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2.3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffCommonPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.8;
+					duration = 2.3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffUncommon : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.875;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffUncommonPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.7;
+					duration = 2.875;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffRare : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.45;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffRare : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.45;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffRarePlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.45;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffRarePlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.6;
+					duration = 3.45;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffEpic : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 3.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.025;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffEpic : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 3.5;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.025;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffEpicPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 3.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.025;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffEpicPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 3.5;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.5;
+					duration = 4.025;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffLegendary : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4.6;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffLegendary : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4.6;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderPlayerBuffLegendaryPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4.5;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 5.1;
+					affectsPlayer = true;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+ReflexRecorderIconicPlayerBuffLegendaryPlus : ReflexRecorderPlayerBuffBase
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4.5;
+			} : ConstantStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 4.5;
+				} : BaseStatusEffect.ReflexRecorderEffector, 
+				{
+					prereqRecord = 
+					{
+						statType = "CyberwareDurationBuff";
+						valueToCheck = 0;
+						comparisonType = "Greater";
+					} : StatPrereq;
+					dilation = 0.4;
+					duration = 5.1;
+				} : BaseStatusEffect.ReflexRecorderEffector
+			];
+		}
+	];
+}
+
+SynapticAcceleratorEffector : Effector
+{
+	effectorClassName = "SetTimeDilationEffector";
+	CName reason = "sandevistan";
+	CName easeInCurve = "ReflexRecorderEaseIn";
+	CName easeOutCurve = "ReflexRecorderEaseOut";
+	float dilation = 0.02;
+	float duration = 4;
+	bool affectsPlayer = false;
+}
+
+SynapticAcceleratorCooldownEffector : ApplyStatusEffectEffector
+{
+	statusEffect = "BaseStatusEffect.SynapticAcceleratorCooldown";
+	removeWithEffector = false;
+	inverted = true;
+}
+
+ReflexRecorderEffector : Effector
+{
+	effectorClassName = "SetTimeDilationEffector";
+	CName reason = "sandevistan";
+	CName easeInCurve = "ReflexRecorderEaseIn";
+	CName easeOutCurve = "ReflexRecorderEaseOut";
+	float dilation = 0.02;
+	float duration = 4;
+	bool affectsPlayer = false;
+}
+
+ReflexRecorderCooldownEffector : ApplyStatusEffectEffector
+{
+	statusEffect = "BaseStatusEffect.ReflexRecorderCooldown";
+	removeWithEffector = false;
+	inverted = true;
+}
+
+[ EP1 ]
+SwordWitcherTDBuff : TimeDilationStatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.9;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					float dilation = 0.17;
+					float duration = 0.9;
+				} : BaseStatusEffect.SwordWitcherTDEffector, 
+				"BaseStatusEffect.SwordWitcherCooldownEffector"
+			];
+		}
+	];
+}
+
+[ EP1 ]
+SwordWitcherCooldownEffector : ApplyStatusEffectEffector
+{
+	statusEffect = "BaseStatusEffect.SwordWitcherCooldown";
+	removeWithEffector = false;
+}
+
+[ EP1 ]
+SwordWitcherTDEffector : Effector
+{
+	effectorClassName = "SetTimeDilationEffector";
+	CName reason = "meleeHit";
+	float delay = 0.08;
+	float dilation = 0.17;
+	float duration = 0.9;
+	CName easeInCurve = "MeleeHitEaseIn";
+	CName easeOutCurve = "MeleeHitEaseOut";
+}
+
+[ EP1 ]
+SecondChancePerkTimeDilation : TimeDilationStatusEffect
+{
+	gameplayTags += 
+	[
+		"SecondChancePerkTimeDilation"
+	];
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.0f;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.SecondChancePerkTDBuff";
+				} : SecondChancePerkBuffEffector, 
+				{
+					prereqRecord = 
+					{
+						prereqClassName = "StatusEffectRemovedPrereq";
+						statusEffect = "BaseStatusEffect.SecondChancePerkTDBuff";
+						checkType = "CheckType.Record";
+					} : StatusEffectPrereq;
+				} : BaseStatusEffect.SecondChancePerkCooldownEffector
+			];
+		}
+	];
+}
+
+SecondChancePerkTDBuff : TimeDilationStatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3.0f;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statusEffect = "BaseStatusEffect.SecondChancePerkCooldown";
+						checkType = "CheckType.Record";
+					} : StatusEffectAbsentPrereq;
+				} : BaseStatusEffect.SecondChancePerkEffector
+			];
+		}
+	];
+}
+
+SecondChancePerkEffector : Effector
+{
+	effectorClassName = "SetTimeDilationEffector";
+	CName reason = "sandevistan";
+	CName easeInCurve = "MeleeHitEaseIn";
+	CName easeOutCurve = "MeleeHitEaseOut";
+	float dilation = 0.25;
+	float duration = 3;
+	bool affectsPlayer = false;
+}
+
+SecondChancePerkBuffEffector : ApplyStatusEffectEffector
+{
+	prereqRecord = "Perks.CanEnableSecondChancePerk";
+	effectorClassName = "ApplyStatusEffectEffector";
+	statusEffect = "BaseStatusEffect.SecondChancePerkTDBuff";
+}
+
+SecondChancePerkCooldownEffector : ApplyStatusEffectEffector
+{
+	statusEffect = "BaseStatusEffect.SecondChancePerkCooldown";
+	bool removeWithEffector = false;
+}
+
+BerserkTimeDilationEffector : Effector
+{
+	effectorClassName = "SetTimeDilationEffector";
+	CName reason = "berserk";
+	fk< IPrereq > prereqRecord = 
+	{
+		invert = true;
+		statusEffect = "BaseStatusEffect.PlayerInFinisherWorkspot";
+		checkType = "CheckType.Record";
+	} : StatusEffectPrereq;
+	float dilation = 0.5;
+	float duration = 0.5;
+	CName easeInCurve = "ReflexRecorderEaseIn";
+	CName easeOutCurve = "ReflexRecorderEaseOut";
+}
+

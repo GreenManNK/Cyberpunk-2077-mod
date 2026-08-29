@@ -1,0 +1,222 @@
+package Prereqs
+using RTDB
+
+AttackSubtypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.AttackSubType";
+	string attackSubtype = "";
+}
+
+AttackTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.AttackType";
+	string attackType = "";
+}
+
+AttackTagHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.AttackTag";
+	CName attackTag = "";
+}
+
+DamageTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.DamageType";
+	string damageType = "";
+}
+
+TargetKilledHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetKilled";
+}
+
+TargetCanGetKilledByDamageHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetCanGetKilledByDamage";
+}
+
+TargetBreachCanGetKilledByDamageHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetBreachCanGetKilledByDamage";
+}
+
+SameTargetHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.SameTarget";
+}
+
+BodyPartHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.BodyPart";
+	CName bodyPart = "";
+}
+
+DistanceCoveredHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.DistanceCovered";
+	float distanceRequired = 0f;
+	string comparisonType = "";
+}
+
+SourceTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.SourceType";
+	CName source = "";
+}
+
+InstigatorTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.InstigatorType";
+	CName instigatorType = "";
+}
+
+TargetTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetType";
+	CName targetType = "";
+}
+
+AgentMovingHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.AgentMoving";
+	bool isMoving = false;
+	CName object = "";
+}
+
+TargetNPCRarityHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetNPCRarity";
+	string rarity = "";
+}
+
+TargetNPCTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetNPCType";
+	string npcType = "";
+}
+
+StatPoolComparisonHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.StatPoolComparison";
+	CName comparisonSource = "";
+	CName comparisonTarget = "";
+	string statPoolToCompare = "";
+	string comparisonType = "";
+}
+
+StatPoolHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.StatPool";
+	float valueToCheck = 0f;
+	CName objectToCheck = "";
+	string statPoolToCompare = "";
+	string comparisonType = "";
+}
+
+StatHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.Stat";
+	float valueToCheck = 0f;
+	CName objectToCheck = "";
+	string statToCompare = "";
+	string comparisonType = "";
+}
+
+StatusEffectPresentHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.StatusEffectPresent";
+	CName statusEffect = "";
+	fk< CheckType > checkType = "";
+	CName tagToCheck = "";
+	CName objectToCheck = "Target";
+}
+
+HitFlagHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.HitFlag";
+	string hitFlag = "";
+	bool invertHitFlag = false;
+}
+
+AmmoStateHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.AmmoState";
+	string ammoState = "";
+	float ratioToCompare = 0.0f;
+	string comparisonType = "";
+}
+
+DamageOverTimeTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.DamageOverTimeType";
+	string dotType = "";
+}
+
+WeaponTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.WeaponType";
+	CName weaponType = "";
+}
+
+WeaponEvolutionHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.WeaponEvolution";
+	string weaponEvolution = "";
+}
+
+WeaponItemTypeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.WeaponItemType";
+	string weaponItemType = "";
+}
+
+ReactionPresetHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.ReactionPreset";
+	string reactionPreset = "";
+}
+
+TriggerModeHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TriggerMode";
+	fk< TriggerMode > triggerMode = "";
+}
+
+ConsecutiveHitsPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.ConsecutiveHits";
+	float timeOut = 0f;
+	int consecutiveHitsRequired = 1;
+	bool uniqueTarget = false;
+}
+
+SelfHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.SelfHit";
+	bool invert = false;
+}
+
+HitIsQuickhackPresentInQueuePrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.HitIsQuickhackPresentInQueue";
+	fk< HackCategory > hackCategory = "";
+	bool isTheNextQhInQueue = false;
+	bool invert = false;
+}
+
+EffectNamePresentHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.EffectNamePresent";
+	CName effectName = "";
+}
+
+DismembermentTriggeredCondition : HitPrereqCondition
+{
+	type = "Prereqs.DismembermentTriggered";
+}
+
+TargetIsCrowdHitPrereqCondition : HitPrereqCondition
+{
+	type = "Prereqs.TargetIsCrowd";
+}
+

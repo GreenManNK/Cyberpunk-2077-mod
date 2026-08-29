@@ -1,0 +1,542 @@
+package BaseStats
+using RTDB
+
+SpreadStat : Stat
+{
+	flags = 
+	[
+		"EquipOnPlayer", "EquipOnNPC"
+	];
+}
+
+Spread : SpreadStat
+{
+	localizedName = "LocKey#49873";
+	enumName = "Spread";
+	improvementRelation = "ImprovementRelation.Inverse";
+	displayPercent = true;
+}
+
+SpreadPenalty : Spread
+{
+	enumName = "SpreadPenalty";
+	displayPlus = true;
+}
+
+SpreadModifier : ConstantStatModifier
+{
+	statType = "BaseStats.Spread";
+	modifierType = "Additive";
+}
+
+SpreadAnimation : SpreadStat
+{
+	enumName = "SpreadAnimation";
+	min = 0;
+	max = 1;
+	localizedName = "Spread Animation";
+}
+
+SpreadAnimationModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAnimation";
+	modifierType = "Additive";
+}
+
+SpreadDefaultX : SpreadStat
+{
+	enumName = "SpreadDefaultX";
+	min = 0;
+	max = 100;
+}
+
+SpreadDefaultXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadDefaultX";
+	modifierType = "Additive";
+}
+
+SpreadDefaultY : SpreadStat
+{
+	enumName = "SpreadDefaultY";
+	min = 0;
+	max = 100;
+}
+
+SpreadDefaultYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadDefaultY";
+	modifierType = "Additive";
+}
+
+SpreadMinX : SpreadStat
+{
+	enumName = "SpreadMinX";
+	enumComment = "Value below which the X spread half-size will not be allowed to fall (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadMinXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadMinX";
+	modifierType = "Additive";
+}
+
+SpreadMinY : SpreadStat
+{
+	enumName = "SpreadMinY";
+	enumComment = "Value below which the Y spread half-size will not be allowed to fall (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadMinYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadMinY";
+	modifierType = "Additive";
+}
+
+SpreadMaxX : SpreadStat
+{
+	enumName = "SpreadMaxX";
+	enumComment = "Value above which the X spread half-size will not be allowed to climb (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadMaxXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadMaxX";
+	modifierType = "Additive";
+}
+
+SpreadMaxY : SpreadStat
+{
+	enumName = "SpreadMaxY";
+	enumComment = "Value above which the Y spread half-size will not be allowed to climb (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadMaxYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadMaxY";
+	modifierType = "Additive";
+}
+
+SpreadChargeMult : SpreadStat
+{
+	enumName = "SpreadChargeMult";
+}
+
+SpreadChargeMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadChargeMult";
+	modifierType = "Additive";
+}
+
+SpreadFullChargeMult : SpreadStat
+{
+	enumName = "SpreadFullChargeMult";
+}
+
+SpreadFullChargeMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadFullChargeMult";
+	modifierType = "Additive";
+}
+
+SpreadChangePerShot : SpreadStat
+{
+	enumName = "SpreadChangePerShot";
+}
+
+SpreadChangePerShotModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadChangePerShot";
+	modifierType = "Additive";
+}
+
+SpreadCrouchDefaultMult : SpreadStat
+{
+	enumName = "SpreadCrouchDefaultMult";
+}
+
+SpreadCrouchDefaultMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadCrouchDefaultMult";
+	modifierType = "Additive";
+}
+
+SpreadCrouchMaxMult : SpreadStat
+{
+	enumName = "SpreadCrouchMaxMult";
+}
+
+SpreadCrouchMaxMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadCrouchMaxMult";
+	modifierType = "Additive";
+}
+
+SpreadUseInAds : SpreadStat
+{
+	enumName = "SpreadUseInAds";
+	min = 0;
+	max = 1;
+}
+
+SpreadUseInAdsModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadUseInAds";
+	modifierType = "Additive";
+}
+
+SpreadAdsDefaultX : SpreadStat
+{
+	enumName = "SpreadAdsDefaultX";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsDefaultXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsDefaultX";
+	modifierType = "Additive";
+}
+
+SpreadAdsDefaultY : SpreadStat
+{
+	enumName = "SpreadAdsDefaultY";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsDefaultYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsDefaultY";
+	modifierType = "Additive";
+}
+
+SpreadAdsMinX : SpreadStat
+{
+	enumName = "SpreadAdsMinX";
+	enumComment = "Value below which the X spread half-size will not be allowed to fall in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsMinXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsMinX";
+	modifierType = "Additive";
+}
+
+SpreadAdsMinY : SpreadStat
+{
+	enumName = "SpreadAdsMinY";
+	enumComment = "Value below which the Y spread half-size will not be allowed to fall in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsMinYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsMinY";
+	modifierType = "Additive";
+}
+
+SpreadAdsMaxX : SpreadStat
+{
+	enumName = "SpreadAdsMaxX";
+	enumComment = "Value above which the X spread half-size will not be allowed to climb in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsMaxXModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsMaxX";
+	modifierType = "Additive";
+}
+
+SpreadAdsMaxY : SpreadStat
+{
+	enumName = "SpreadAdsMaxY";
+	enumComment = "Value above which the Y spread half-size will not be allowed to climb in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsMaxYModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsMaxY";
+	modifierType = "Additive";
+}
+
+SpreadAdsChangePerShot : SpreadStat
+{
+	enumName = "SpreadAdsChangePerShot";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsChangePerShotModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsChangePerShot";
+	modifierType = "Additive";
+}
+
+SpreadResetSpeed : SpreadStat
+{
+	enumName = "SpreadResetSpeed";
+	min = 0;
+	max = 100;
+}
+
+SpreadResetSpeedModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadResetSpeed";
+	modifierType = "Additive";
+}
+
+SpreadResetTimeThreshold : SpreadStat
+{
+	enumName = "SpreadResetTimeThreshold";
+	min = 0;
+	max = 100;
+}
+
+SpreadResetTimeThresholdModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadResetTimeThreshold";
+	modifierType = "Additive";
+}
+
+SpreadRandomizeOriginPoint : SpreadStat
+{
+	enumName = "SpreadRandomizeOriginPoint";
+	min = 0;
+	max = 1;
+}
+
+SpreadRandomizeOriginPointModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadRandomizeOriginPoint";
+	modifierType = "Additive";
+}
+
+SpreadUseCircularSpread : SpreadStat
+{
+	enumName = "SpreadUseCircularSpread";
+	min = 0;
+	max = 1;
+}
+
+SpreadUseCircularSpreadModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadUseCircularSpread";
+	modifierType = "Additive";
+}
+
+SpreadUseEvenDistribution : SpreadStat
+{
+	enumName = "SpreadUseEvenDistribution";
+	min = 0;
+	max = 1;
+}
+
+SpreadUseEvenDistributionModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadUseEvenDistribution";
+	modifierType = "Additive";
+}
+
+SpreadZeroOnFirstShot : SpreadStat
+{
+	enumName = "SpreadZeroOnFirstShot";
+	min = 0;
+	max = 1;
+}
+
+SpreadZeroOnFirstShotModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadZeroOnFirstShot";
+	modifierType = "Additive";
+}
+
+SpreadEvenDistributionJitterSize : SpreadStat
+{
+	enumName = "SpreadEvenDistributionJitterSize";
+	min = 0;
+	max = 999;
+}
+
+SpreadEvenDistributionJitterSizeModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadEvenDistributionJitterSize";
+	modifierType = "Additive";
+}
+
+SpreadEvenDistributionRowCount : SpreadStat
+{
+	enumName = "SpreadEvenDistributionRowCount";
+	min = 1;
+}
+
+SpreadEvenDistributionRowCountModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadEvenDistributionRowCount";
+	modifierType = "Additive";
+}
+
+SpreadMaxAI : SpreadStat
+{
+	enumName = "SpreadMaxAI";
+	min = 0;
+}
+
+SpreadMaxAIModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadMaxAI";
+	modifierType = "Additive";
+}
+
+SpreadFastSpeedMin : SpreadStat
+{
+	enumName = "SpreadFastSpeedMin";
+	enumComment = "Speed at which extra speed related spread gradually starts getting added (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadFastSpeedMax : SpreadStat
+{
+	enumName = "SpreadFastSpeedMax";
+	enumComment = "Speed at which extra speed related spread is fully added (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadFastSpeedMaxModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadFastSpeedMax";
+	modifierType = "Additive";
+}
+
+SpreadAdsFastSpeedMin : SpreadStat
+{
+	enumName = "SpreadAdsFastSpeedMin";
+	enumComment = "Speed at which extra speed related spread gradually starts getting added in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsFastSpeedMinModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsFastSpeedMin";
+	modifierType = "Additive";
+}
+
+SpreadAdsFastSpeedMax : SpreadStat
+{
+	enumName = "SpreadAdsFastSpeedMax";
+	enumComment = "Speed at which extra speed related spread is fully added in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsFastSpeedMaxModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsFastSpeedMax";
+	modifierType = "Additive";
+}
+
+SpreadFastSpeedMinAdd : SpreadStat
+{
+	enumName = "SpreadFastSpeedMinAdd";
+	enumComment = "The minimum amount of extra speed related spread added once the configured threshold is reached (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadFastSpeedMinAddModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadFastSpeedMinAdd";
+	modifierType = "Additive";
+}
+
+SpreadFastSpeedMaxAdd : SpreadStat
+{
+	enumName = "SpreadFastSpeedMaxAdd";
+	enumComment = "The maximum amount of extra speed related spread added once the configured threshold is reached or passed (non-ADS)";
+	min = 0;
+	max = 100;
+}
+
+SpreadFastSpeedMaxAddModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadFastSpeedMaxAdd";
+	modifierType = "Additive";
+}
+
+SpreadAdsFastSpeedMinAdd : SpreadStat
+{
+	enumName = "SpreadAdsFastSpeedMinAdd";
+	enumComment = "The minimum amount of extra speed related spread added once the configured threshold is reached in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsFastSpeedMinAddModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsFastSpeedMinAdd";
+	modifierType = "Additive";
+}
+
+SpreadAdsFastSpeedMaxAdd : SpreadStat
+{
+	enumName = "SpreadAdsFastSpeedMaxAdd";
+	enumComment = "The maximum amount of extra speed related spread added once the configured threshold is reached or passed in ADS";
+	min = 0;
+	max = 100;
+}
+
+SpreadAdsFastSpeedMaxAddModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsFastSpeedMaxAdd";
+	modifierType = "Additive";
+}
+
+SpreadAdsChargeMult : SpreadStat
+{
+	enumName = "SpreadAdsChargeMult";
+}
+
+SpreadAdsChargeMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsChargeMult";
+	modifierType = "Additive";
+}
+
+SpreadAdsFullChargeMult : SpreadStat
+{
+	enumName = "SpreadAdsFullChargeMult";
+}
+
+SpreadAdsFullChargeMultModifier : ConstantStatModifier
+{
+	statType = "BaseStats.SpreadAdsFullChargeMult";
+	modifierType = "Additive";
+}
+
+BonusSpreadChange : SpreadStat
+{
+	enumName = "BonusSpreadChange";
+	flags = 
+	[
+		"ExcludeRootCombination"
+	];
+}
+

@@ -1,0 +1,56 @@
+class EngagementScreenGameController extends gameuiMenuGameController
+{
+	private editable var m_backgroundVideo : inkVideoRef;
+	private editable var m_proceedConfirmationContainer : inkCompoundRef;
+	private editable var m_progressBar : inkCompoundRef;
+	private editable var m_pressKeyWidget : inkWidgetRef;
+	private editable var m_breachingWidget : inkWidgetRef;
+	private var m_menuEventDispatcher : weak< inkMenuEventDispatcher >;
+	private var m_requestHandler : weak< inkISystemRequestsHandler >;
+	private var m_progressBarController : weak< LoadingScreenProgressBarController >;
+	private var m_breachingEnabled : Bool;
+	default m_breachingEnabled = false;
+
+	protected event OnInitialize()
+	{
+		inkVideoRef.Play( m_backgroundVideo );
+		m_requestHandler = GetSystemRequestsHandler();
+		m_requestHandler.RegisterToCallback( 'OnAdditionalContentDataReloadProgressCallback', this, 'OnAdditionalContentDataReloadProgress' );
+		m_requestHandler.RegisterToCallback( 'OnToggleBreachingCallback', this, 'OnToggleBreachingCallback' );
+		m_progressBarController = ( ( LoadingScreenProgressBarController )( inkCompoundRef.GetController( m_progressBar ) ) );
+		inkCompoundRef.SetVisible( m_progressBar, false );
+		inkWidgetRef.SetVisible( m_breachingWidget, false );
+	}
+
+	protected event OnUninitialize()
+	{
+		inkVideoRef.Stop( m_backgroundVideo );
+		m_requestHandler.UnregisterFromCallback( 'OnAdditionalContentDataReloadProgressCallback', this, 'OnAdditionalContentDataReloadProgress' );
+		m_requestHandler.UnregisterFromCallback( 'OnToggleBreachingCallback', this, 'OnToggleBreachingCallback' );
+	}
+
+	protected event OnSetMenuEventDispatcher( menuEventDispatcher : weak< inkMenuEventDispatcher > )
+	{
+		m_menuEventDispatcher = menuEventDispatcher;
+	}
+
+	protected event OnAdditionalContentDataReloadProgress( progress : Float )
+	{
+		if( progress >= 0.0 )
+		{
+			inkCompoundRef.SetVisible( m_proceedConfirmationContainer, false );
+			inkCompoundRef.SetVisible( m_progressBar, true );
+			m_progressBarController.SetSpinnerVisibility( true );
+			m_progressBarController.SetProgress( progress );
+		}
+	}
+
+	protected event OnToggleBreachingCallback( enabled : Bool )
+	{
+		m_breachingEnabled = enabled;
+		inkWidgetRef.SetVisible( m_pressKeyWidget, !( m_breachingEnabled ) );
+		inkWidgetRef.SetVisible( m_breachingWidget, m_breachingEnabled );
+	}
+
+}
+

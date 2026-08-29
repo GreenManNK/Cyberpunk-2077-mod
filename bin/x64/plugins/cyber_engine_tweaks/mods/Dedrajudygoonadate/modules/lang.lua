@@ -4359,6 +4359,633 @@ local lang = {
   },
 }
 
+-- Phone reply localization. Each supported language receives 20 accept replies, 20 busy replies, and 15 Judy responses.
+local replyBases = {
+  ["en-us"] = {
+    accept = {
+      "Hey Judy :) Sure, I'll see you there.",
+      "Hey Judy, sounds good. I'll meet you there.",
+      "Sure thing, Judy. I'm on my way :)",
+      "Yeah, I'm free. See you there!",
+      "I'd love to. Send me the spot.",
+      "Count me in, Jude :)",
+      "Okay, I'll come meet you.",
+      "Sounds like a plan. See you soon.",
+      "I'm coming. Don't start without me ;)",
+      "Yeah, Judy. I'll be there.",
+    },
+    busy = {
+      "Hey Judy, I'm a bit busy. Maybe another time?",
+      "Sorry, Judy. I can't make it right now.",
+      "I'm tied up at the moment. Rain check?",
+      "Can't get away right now. Next time?",
+      "I'd love to, but today's bad for me.",
+      "Sorry, Jude. Maybe we can do this later?",
+      "I'm busy right now. Can we try another day?",
+      "I can't come this time. Hope that's okay.",
+      "Got something I need to handle. Maybe next time.",
+      "Not free right now, Judy. Let's plan it again.",
+    },
+    decline = {
+      "Ah, sure. Maybe next time then!",
+      "No problem, V. We'll do it another time.",
+      "All good. Message me when you're free.",
+      "Okay, V. Rain check :)",
+      "Sure. I'll catch you next time.",
+    },
+  },
+  ["fr-fr"] = {
+    accept = {
+      "Salut Judy :) Bien sûr, je te retrouve là-bas.",
+      "Salut Judy, ça marche. Je te rejoins là-bas.",
+      "Bien sûr, Judy. J'arrive :)",
+      "Oui, je suis libre. À tout de suite !",
+      "Avec plaisir. Envoie-moi le lieu.",
+      "Compte sur moi, Jude :)",
+      "D'accord, je viens te rejoindre.",
+      "Ça me va. À très vite.",
+      "J'arrive. Ne commence pas sans moi ;)",
+      "Oui, Judy. Je serai là.",
+    },
+    busy = {
+      "Salut Judy, je suis un peu occupée. Une autre fois ?",
+      "Désolée, Judy. Je ne peux pas venir maintenant.",
+      "Je suis prise pour le moment. On remet ça ?",
+      "Je ne peux pas me libérer. La prochaine fois ?",
+      "J'aimerais bien, mais aujourd'hui ça ne va pas.",
+      "Désolée, Jude. On peut faire ça plus tard ?",
+      "Je suis occupée. On essaie un autre jour ?",
+      "Je ne peux pas venir cette fois. J'espère que ça va.",
+      "J'ai quelque chose à régler. Peut-être la prochaine fois.",
+      "Je ne suis pas libre, Judy. On reprogramme ça.",
+    },
+    decline = {
+      "Ah, bien sûr. Peut-être la prochaine fois alors !",
+      "Pas de problème, V. On fera ça une autre fois.",
+      "Tout va bien. Écris-moi quand tu seras libre.",
+      "D'accord, V. On remet ça :)",
+      "Bien sûr. Je te retrouve la prochaine fois.",
+    },
+  },
+  ["es-es"] = {
+    accept = {
+      "Hola, Judy :) Claro, nos vemos allí.",
+      "Hola, Judy. Suena bien. Te veo allí.",
+      "Claro, Judy. Voy para allá :)",
+      "Sí, estoy libre. ¡Nos vemos allí!",
+      "Me encantaría. Mándame el lugar.",
+      "Cuenta conmigo, Jude :)",
+      "Vale, iré a verte.",
+      "Suena bien. Nos vemos pronto.",
+      "Voy para allá. No empieces sin mí ;)",
+      "Sí, Judy. Allí estaré.",
+    },
+    busy = {
+      "Hola, Judy. Estoy un poco ocupada. ¿Quizá otro día?",
+      "Lo siento, Judy. Ahora mismo no puedo ir.",
+      "Estoy liada ahora. ¿Lo dejamos para otra vez?",
+      "Ahora no puedo escaparme. ¿La próxima vez?",
+      "Me encantaría, pero hoy me viene mal.",
+      "Lo siento, Jude. ¿Podemos hacerlo más tarde?",
+      "Ahora estoy ocupada. ¿Probamos otro día?",
+      "Esta vez no puedo ir. Espero que no pase nada.",
+      "Tengo algo que resolver. Quizá la próxima vez.",
+      "Ahora no estoy libre, Judy. Volvamos a planearlo.",
+    },
+    decline = {
+      "Ah, claro. ¡Quizá la próxima vez entonces!",
+      "No pasa nada, V. Lo haremos otro día.",
+      "Todo bien. Escríbeme cuando estés libre.",
+      "Vale, V. Lo dejamos para otra vez :)",
+      "Claro. Te veo la próxima vez.",
+    },
+  },
+  ["es-mx"] = {
+    accept = {
+      "Hola, Judy :) Claro, nos vemos ahí.",
+      "Hola, Judy. Suena bien. Te veo ahí.",
+      "Claro, Judy. Ya voy para allá :)",
+      "Sí, estoy libre. ¡Nos vemos ahí!",
+      "Me encantaría. Mándame la ubicación.",
+      "Cuenta conmigo, Jude :)",
+      "Va, voy a verte.",
+      "Suena bien. Nos vemos pronto.",
+      "Ya voy. No empieces sin mí ;)",
+      "Sí, Judy. Ahí estaré.",
+    },
+    busy = {
+      "Hola, Judy. Ando un poco ocupada. ¿Tal vez otro día?",
+      "Perdón, Judy. Ahorita no puedo ir.",
+      "Estoy ocupada por el momento. ¿Lo dejamos para después?",
+      "Ahorita no puedo salir. ¿La próxima vez?",
+      "Me encantaría, pero hoy no puedo.",
+      "Perdón, Jude. ¿Podemos hacerlo más tarde?",
+      "Ahorita estoy ocupada. ¿Probamos otro día?",
+      "Esta vez no puedo ir. Espero que esté bien.",
+      "Tengo algo que resolver. Tal vez la próxima vez.",
+      "Ahorita no estoy libre, Judy. Lo planeamos de nuevo.",
+    },
+    decline = {
+      "Ah, claro. ¡Tal vez la próxima vez entonces!",
+      "No hay problema, V. Lo hacemos otro día.",
+      "Todo bien. Escríbeme cuando estés libre.",
+      "Va, V. Lo dejamos para después :)",
+      "Claro. Te veo la próxima vez.",
+    },
+  },
+  ["pt-br"] = {
+    accept = {
+      "Oi, Judy :) Claro, te encontro lá.",
+      "Oi, Judy. Parece ótimo. Te vejo lá.",
+      "Claro, Judy. Já estou indo :)",
+      "Sim, estou livre. Te vejo lá!",
+      "Eu adoraria. Manda o local.",
+      "Pode contar comigo, Jude :)",
+      "Beleza, vou te encontrar.",
+      "Parece um bom plano. Até daqui a pouco.",
+      "Estou indo. Não começa sem mim ;)",
+      "Sim, Judy. Estarei lá.",
+    },
+    busy = {
+      "Oi, Judy. Estou um pouco ocupada. Talvez outra hora?",
+      "Desculpa, Judy. Não consigo ir agora.",
+      "Estou presa com umas coisas. Pode ficar para outra vez?",
+      "Não consigo sair agora. Na próxima?",
+      "Eu adoraria, mas hoje não dá.",
+      "Desculpa, Jude. Podemos fazer isso mais tarde?",
+      "Estou ocupada agora. Tentamos outro dia?",
+      "Desta vez não consigo ir. Espero que esteja tudo bem.",
+      "Tenho algo para resolver. Talvez na próxima.",
+      "Não estou livre agora, Judy. Vamos marcar de novo.",
+    },
+    decline = {
+      "Ah, claro. Talvez na próxima então!",
+      "Sem problema, V. Fazemos isso outra hora.",
+      "Tudo bem. Me chama quando estiver livre.",
+      "Certo, V. Fica para a próxima :)",
+      "Claro. Te encontro na próxima vez.",
+    },
+  },
+  ["de-de"] = {
+    accept = {
+      "Hey Judy :) Klar, ich treffe dich dort.",
+      "Hey Judy, klingt gut. Wir sehen uns dort.",
+      "Klar, Judy. Ich bin unterwegs :)",
+      "Ja, ich habe Zeit. Bis gleich!",
+      "Sehr gern. Schick mir den Ort.",
+      "Bin dabei, Jude :)",
+      "Okay, ich komme zu dir.",
+      "Klingt nach einem Plan. Bis bald.",
+      "Ich komme. Fang nicht ohne mich an ;)",
+      "Ja, Judy. Ich werde da sein.",
+    },
+    busy = {
+      "Hey Judy, ich bin etwas beschäftigt. Vielleicht ein anderes Mal?",
+      "Tut mir leid, Judy. Ich kann gerade nicht kommen.",
+      "Ich stecke gerade fest. Verschieben wir es?",
+      "Ich komme gerade nicht weg. Nächstes Mal?",
+      "Ich würde gern, aber heute passt es nicht.",
+      "Tut mir leid, Jude. Können wir das später machen?",
+      "Ich bin gerade beschäftigt. Versuchen wir es an einem anderen Tag?",
+      "Diesmal kann ich nicht kommen. Hoffentlich ist das okay.",
+      "Ich muss etwas erledigen. Vielleicht nächstes Mal.",
+      "Ich habe gerade keine Zeit, Judy. Planen wir es neu.",
+    },
+    decline = {
+      "Ah, klar. Dann vielleicht nächstes Mal!",
+      "Kein Problem, V. Wir machen es ein anderes Mal.",
+      "Alles gut. Schreib mir, wenn du Zeit hast.",
+      "Okay, V. Verschieben wir es :)",
+      "Klar. Bis zum nächsten Mal.",
+    },
+  },
+  ["it-it"] = {
+    accept = {
+      "Ehi Judy :) Certo, ci vediamo lì.",
+      "Ehi Judy, sembra perfetto. Ti raggiungo lì.",
+      "Certo, Judy. Sto arrivando :)",
+      "Sì, sono libera. Ci vediamo lì!",
+      "Volentieri. Mandami il posto.",
+      "Conta su di me, Jude :)",
+      "Va bene, vengo a raggiungerti.",
+      "Mi sembra un buon piano. A tra poco.",
+      "Sto arrivando. Non iniziare senza di me ;)",
+      "Sì, Judy. Ci sarò.",
+    },
+    busy = {
+      "Ehi Judy, sono un po' occupata. Magari un'altra volta?",
+      "Scusa, Judy. Adesso non riesco a venire.",
+      "Sono presa al momento. Rimandiamo?",
+      "Adesso non riesco a liberarmi. La prossima volta?",
+      "Mi piacerebbe, ma oggi non posso.",
+      "Scusa, Jude. Possiamo farlo più tardi?",
+      "Sono occupata adesso. Proviamo un altro giorno?",
+      "Questa volta non posso venire. Spero vada bene.",
+      "Ho qualcosa da sistemare. Magari la prossima volta.",
+      "Ora non sono libera, Judy. Organizziamoci di nuovo.",
+    },
+    decline = {
+      "Ah, certo. Magari la prossima volta allora!",
+      "Nessun problema, V. Lo faremo un'altra volta.",
+      "Tutto bene. Scrivimi quando sei libera.",
+      "Va bene, V. Rimandiamo :)",
+      "Certo. Ci vediamo la prossima volta.",
+    },
+  },
+  ["pl-pl"] = {
+    accept = {
+      "Hej, Judy :) Jasne, zobaczymy się na miejscu.",
+      "Hej, Judy. Brzmi dobrze. Spotkam się z tobą tam.",
+      "Jasne, Judy. Już jadę :)",
+      "Tak, mam czas. Do zobaczenia!",
+      "Chętnie. Wyślij mi lokalizację.",
+      "Możesz na mnie liczyć, Jude :)",
+      "Dobra, przyjdę do ciebie.",
+      "Brzmi jak plan. Do zobaczenia wkrótce.",
+      "Już idę. Nie zaczynaj beze mnie ;)",
+      "Tak, Judy. Będę tam.",
+    },
+    busy = {
+      "Hej, Judy. Jestem trochę zajęta. Może innym razem?",
+      "Przepraszam, Judy. Nie mogę teraz przyjść.",
+      "Mam teraz sporo na głowie. Przełożymy?",
+      "Nie mogę się teraz wyrwać. Następnym razem?",
+      "Chętnie, ale dzisiaj mi nie pasuje.",
+      "Przepraszam, Jude. Możemy zrobić to później?",
+      "Jestem teraz zajęta. Spróbujemy innego dnia?",
+      "Tym razem nie mogę przyjść. Mam nadzieję, że to w porządku.",
+      "Muszę się czymś zająć. Może następnym razem.",
+      "Nie mam teraz czasu, Judy. Zaplanujmy to ponownie.",
+    },
+    decline = {
+      "Ach, jasne. To może następnym razem!",
+      "Nie ma problemu, V. Zrobimy to innym razem.",
+      "W porządku. Napisz, kiedy będziesz mieć czas.",
+      "Dobra, V. Przełożymy to :)",
+      "Jasne. Do następnego razu.",
+    },
+  },
+  ["ru-ru"] = {
+    accept = {
+      "Привет, Джуди :) Конечно, увидимся там.",
+      "Привет, Джуди. Звучит хорошо. Встретимся там.",
+      "Конечно, Джуди. Я уже в пути :)",
+      "Да, я свободна. Увидимся!",
+      "С радостью. Пришли мне место.",
+      "Я в деле, Джуд :)",
+      "Хорошо, я приеду к тебе.",
+      "Отличный план. Скоро увидимся.",
+      "Я еду. Не начинай без меня ;)",
+      "Да, Джуди. Я буду там.",
+    },
+    busy = {
+      "Привет, Джуди. Я немного занята. Может, в другой раз?",
+      "Прости, Джуди. Сейчас я не смогу приехать.",
+      "Я сейчас занята делами. Перенесём?",
+      "Сейчас не могу вырваться. В следующий раз?",
+      "Я бы с радостью, но сегодня не получится.",
+      "Прости, Джуд. Можем сделать это позже?",
+      "Я сейчас занята. Попробуем в другой день?",
+      "В этот раз я не смогу прийти. Надеюсь, всё нормально.",
+      "Мне нужно кое с чем разобраться. Может, в следующий раз.",
+      "Сейчас я не свободна, Джуди. Давай запланируем снова.",
+    },
+    decline = {
+      "А, конечно. Тогда, может, в следующий раз!",
+      "Без проблем, Ви. Сделаем это в другой раз.",
+      "Всё хорошо. Напиши, когда освободишься.",
+      "Ладно, Ви. Перенесём :)",
+      "Конечно. Увидимся в следующий раз.",
+    },
+  },
+  ["ja-jp"] = {
+    accept = {
+      "やあ、ジュディ :) もちろん。そこで会おう。",
+      "ジュディ、いいね。そこで合流する。",
+      "もちろん、ジュディ。今向かってる :)",
+      "うん、空いてる。そこで会おう！",
+      "喜んで。場所を送って。",
+      "任せて、ジュディ :)",
+      "わかった。会いに行く。",
+      "いい計画だね。すぐ会おう。",
+      "今行く。私抜きで始めないで ;)",
+      "うん、ジュディ。必ず行く。",
+    },
+    busy = {
+      "ジュディ、ちょっと忙しいんだ。また今度でもいい？",
+      "ごめん、ジュディ。今は行けない。",
+      "今ちょっと手が離せない。またにしよう？",
+      "今は抜けられない。次回でもいい？",
+      "行きたいけど、今日は都合が悪い。",
+      "ごめん、ジュディ。後でできる？",
+      "今は忙しい。別の日にしない？",
+      "今回は行けない。大丈夫だといいけど。",
+      "片づけないといけないことがある。また今度。",
+      "今は空いてない、ジュディ。また計画しよう。",
+    },
+    decline = {
+      "ああ、もちろん。じゃあまた今度ね！",
+      "問題ないよ、V。また別の機会にしよう。",
+      "大丈夫。空いたら連絡して。",
+      "わかった、V。また今度ね :)",
+      "もちろん。次に会おう。",
+    },
+  },
+  ["zh-cn"] = {
+    accept = {
+      "嘿，朱迪 :) 当然，我去那里见你。",
+      "嘿，朱迪，听起来不错。我们那里见。",
+      "当然，朱迪。我已经在路上了 :)",
+      "好啊，我有空。那里见！",
+      "我很乐意。把地点发给我。",
+      "算我一个，朱迪 :)",
+      "好，我去找你。",
+      "听起来是个好计划。待会见。",
+      "我来了。别丢下我先开始 ;)",
+      "好，朱迪。我会到的。",
+    },
+    busy = {
+      "嘿，朱迪，我现在有点忙。改天好吗？",
+      "抱歉，朱迪。我现在去不了。",
+      "我这会儿脱不开身。下次再约？",
+      "现在走不开。下次好吗？",
+      "我很想去，但今天不方便。",
+      "抱歉，朱迪。我们晚点再去好吗？",
+      "我现在很忙。改天试试？",
+      "这次我去不了。希望你别介意。",
+      "我有件事得处理。也许下次吧。",
+      "我现在没空，朱迪。我们再安排一次。",
+    },
+    decline = {
+      "啊，当然。那就下次吧！",
+      "没问题，V。我们改天再去。",
+      "没事。你有空时给我发消息。",
+      "好吧，V。下次再约 :)",
+      "当然。下次见。",
+    },
+  },
+  ["zh-tw"] = {
+    accept = {
+      "嘿，茱蒂 :) 當然，我去那裡找妳。",
+      "嘿，茱蒂，聽起來不錯。我們那裡見。",
+      "當然，茱蒂。我已經在路上了 :)",
+      "好啊，我有空。那裡見！",
+      "我很樂意。把地點傳給我。",
+      "算我一個，茱蒂 :)",
+      "好，我去找妳。",
+      "聽起來是個好計畫。待會見。",
+      "我來了。別丟下我先開始 ;)",
+      "好，茱蒂。我會到的。",
+    },
+    busy = {
+      "嘿，茱蒂，我現在有點忙。改天好嗎？",
+      "抱歉，茱蒂。我現在去不了。",
+      "我這會兒走不開。下次再約？",
+      "現在脫不了身。下次好嗎？",
+      "我很想去，但今天不方便。",
+      "抱歉，茱蒂。我們晚點再去好嗎？",
+      "我現在很忙。改天試試？",
+      "這次我去不了。希望妳別介意。",
+      "我有件事得處理。也許下次吧。",
+      "我現在沒空，茱蒂。我們再安排一次。",
+    },
+    decline = {
+      "啊，當然。那就下次吧！",
+      "沒問題，V。我們改天再去。",
+      "沒事。妳有空時傳訊息給我。",
+      "好吧，V。下次再約 :)",
+      "當然。下次見。",
+    },
+  },
+  ["ar-ar"] = {
+    accept = {
+      "مرحباً جودي :) بالتأكيد، سأراك هناك.",
+      "مرحباً جودي، يبدو جيداً. سأقابلك هناك.",
+      "بالتأكيد يا جودي. أنا في طريقي :)",
+      "نعم، أنا متفرغة. أراك هناك!",
+      "يسعدني ذلك. أرسلي لي الموقع.",
+      "اعتبريني معك يا جودي :)",
+      "حسناً، سآتي لمقابلتك.",
+      "تبدو خطة جيدة. أراك قريباً.",
+      "أنا قادمة. لا تبدئي من دوني ;)",
+      "نعم يا جودي. سأكون هناك.",
+    },
+    busy = {
+      "مرحباً جودي، أنا مشغولة قليلاً. ربما في وقت آخر؟",
+      "آسفة يا جودي. لا أستطيع المجيء الآن.",
+      "أنا عالقة ببعض الأمور الآن. نؤجلها؟",
+      "لا أستطيع المغادرة الآن. في المرة القادمة؟",
+      "أود ذلك، لكن اليوم غير مناسب لي.",
+      "آسفة يا جودي. هل يمكننا فعل ذلك لاحقاً؟",
+      "أنا مشغولة الآن. نجرب يوماً آخر؟",
+      "لا أستطيع الحضور هذه المرة. أتمنى أن يكون ذلك مقبولاً.",
+      "لدي أمر يجب أن أتعامل معه. ربما في المرة القادمة.",
+      "لست متفرغة الآن يا جودي. لنخطط لها مجدداً.",
+    },
+    decline = {
+      "آه، بالتأكيد. ربما في المرة القادمة إذن!",
+      "لا مشكلة يا V. سنفعلها في وقت آخر.",
+      "كل شيء بخير. راسليني عندما تتفرغين.",
+      "حسناً يا V. نؤجلها :)",
+      "بالتأكيد. أراك في المرة القادمة.",
+    },
+  },
+  ["cz-cz"] = {
+    accept = {
+      "Ahoj Judy :) Jasně, uvidíme se tam.",
+      "Ahoj Judy, zní to dobře. Sejdeme se tam.",
+      "Jasně, Judy. Už jsem na cestě :)",
+      "Jo, mám čas. Uvidíme se tam!",
+      "Ráda. Pošli mi místo.",
+      "Počítej se mnou, Jude :)",
+      "Dobře, přijdu za tebou.",
+      "To zní jako plán. Brzy se uvidíme.",
+      "Už jdu. Nezačínej beze mě ;)",
+      "Jo, Judy. Budu tam.",
+    },
+    busy = {
+      "Ahoj Judy, mám teď trochu práce. Možná jindy?",
+      "Promiň, Judy. Teď nemůžu přijít.",
+      "Teď mám plné ruce práce. Přesuneme to?",
+      "Teď se nemůžu uvolnit. Příště?",
+      "Ráda bych, ale dnes se mi to nehodí.",
+      "Promiň, Jude. Můžeme to udělat později?",
+      "Teď jsem zaneprázdněná. Zkusíme jiný den?",
+      "Tentokrát nemůžu přijít. Snad je to v pohodě.",
+      "Musím něco vyřešit. Možná příště.",
+      "Teď nemám čas, Judy. Naplánujeme to znovu.",
+    },
+    decline = {
+      "Aha, jasně. Tak možná příště!",
+      "Žádný problém, V. Uděláme to jindy.",
+      "V pohodě. Napiš mi, až budeš mít čas.",
+      "Dobře, V. Přesuneme to :)",
+      "Jasně. Uvidíme se příště.",
+    },
+  },
+  ["hu-hu"] = {
+    accept = {
+      "Szia Judy :) Persze, találkozunk ott.",
+      "Szia Judy, jól hangzik. Ott találkozunk.",
+      "Persze, Judy. Már úton vagyok :)",
+      "Igen, ráérek. Találkozunk ott!",
+      "Szívesen. Küldd el a helyet.",
+      "Számíthatsz rám, Jude :)",
+      "Rendben, odamegyek hozzád.",
+      "Jó tervnek hangzik. Hamarosan találkozunk.",
+      "Megyek. Ne kezdjétek nélkülem ;)",
+      "Igen, Judy. Ott leszek.",
+    },
+    busy = {
+      "Szia Judy, most egy kicsit elfoglalt vagyok. Talán máskor?",
+      "Sajnálom, Judy. Most nem tudok menni.",
+      "Most tele van a kezem. Elhalasztjuk?",
+      "Most nem tudok elszabadulni. Legközelebb?",
+      "Szívesen mennék, de a mai nap nem jó.",
+      "Sajnálom, Jude. Megcsinálhatjuk később?",
+      "Most elfoglalt vagyok. Próbáljuk meg másik nap?",
+      "Ezúttal nem tudok menni. Remélem, nem baj.",
+      "El kell intéznem valamit. Talán legközelebb.",
+      "Most nem érek rá, Judy. Tervezzük meg újra.",
+    },
+    decline = {
+      "Á, persze. Akkor talán legközelebb!",
+      "Semmi baj, V. Megcsináljuk máskor.",
+      "Minden rendben. Írj, amikor ráérsz.",
+      "Rendben, V. Elhalasztjuk :)",
+      "Persze. Találkozunk legközelebb.",
+    },
+  },
+  ["kr-kr"] = {
+    accept = {
+      "안녕, 주디 :) 물론이지. 거기서 보자.",
+      "안녕, 주디. 좋아 보여. 거기서 만날게.",
+      "물론이지, 주디. 지금 가는 중이야 :)",
+      "응, 시간 돼. 거기서 봐!",
+      "좋아. 위치 보내 줘.",
+      "나도 갈게, 주디 :)",
+      "알겠어. 만나러 갈게.",
+      "좋은 계획이네. 곧 보자.",
+      "지금 가. 나 빼고 시작하지 마 ;)",
+      "응, 주디. 꼭 갈게.",
+    },
+    busy = {
+      "주디, 지금 조금 바빠. 다음에 할까?",
+      "미안해, 주디. 지금은 못 가.",
+      "지금 일이 좀 있어. 다음으로 미룰까?",
+      "지금은 빠져나갈 수가 없어. 다음번에?",
+      "가고 싶지만 오늘은 힘들어.",
+      "미안해, 주디. 나중에 할 수 있을까?",
+      "지금 바빠. 다른 날 해 볼까?",
+      "이번에는 못 가. 괜찮았으면 좋겠어.",
+      "처리할 일이 있어. 아마 다음에.",
+      "지금은 시간이 없어, 주디. 다시 계획하자.",
+    },
+    decline = {
+      "아, 그래. 그럼 다음에 하자!",
+      "문제없어, V. 다른 때 하면 돼.",
+      "괜찮아. 시간 날 때 연락해.",
+      "알겠어, V. 다음으로 미루자 :)",
+      "그래. 다음에 보자.",
+    },
+  },
+  ["th-th"] = {
+    accept = {
+      "เฮ้ จูดี้ :) ได้เลย แล้วเจอกันที่นั่น",
+      "เฮ้ จูดี้ ฟังดูดี เดี๋ยวไปเจอที่นั่น",
+      "ได้เลย จูดี้ กำลังไป :)",
+      "ได้ ฉันว่าง แล้วเจอกัน!",
+      "ยินดีเลย ส่งตำแหน่งมาให้ฉัน",
+      "นับฉันด้วย จูดี้ :)",
+      "โอเค ฉันจะไปหาเธอ",
+      "ฟังดูเป็นแผนที่ดี แล้วเจอกันเร็ว ๆ นี้",
+      "กำลังไป อย่าเริ่มโดยไม่มีฉัน ;)",
+      "ได้ จูดี้ ฉันจะไปแน่นอน",
+    },
+    busy = {
+      "เฮ้ จูดี้ ตอนนี้ฉันยุ่งนิดหน่อย ไว้ครั้งหน้าได้ไหม?",
+      "ขอโทษนะ จูดี้ ตอนนี้ฉันไปไม่ได้",
+      "ตอนนี้ติดธุระอยู่ ไว้ค่อยนัดใหม่ไหม?",
+      "ตอนนี้ปลีกตัวไม่ได้ ไว้ครั้งหน้าไหม?",
+      "ฉันอยากไป แต่วันนี้ไม่สะดวก",
+      "ขอโทษนะ จูดี้ เราทำกันทีหลังได้ไหม?",
+      "ตอนนี้ฉันยุ่ง ลองวันอื่นไหม?",
+      "ครั้งนี้ฉันไปไม่ได้ หวังว่าเธอจะเข้าใจ",
+      "ฉันมีเรื่องต้องจัดการ ไว้ครั้งหน้านะ",
+      "ตอนนี้ฉันไม่ว่าง จูดี้ ไว้วางแผนกันใหม่",
+    },
+    decline = {
+      "อ๋อ ได้เลย งั้นไว้ครั้งหน้านะ!",
+      "ไม่มีปัญหา V ไว้ทำกันคราวหน้า",
+      "ไม่เป็นไร ว่างเมื่อไรก็ส่งข้อความมา",
+      "โอเค V ไว้นัดกันใหม่ :)",
+      "ได้เลย แล้วเจอกันครั้งหน้า",
+    },
+  },
+  ["tr-tr"] = {
+    accept = {
+      "Selam Judy :) Tabii, orada görüşürüz.",
+      "Selam Judy, kulağa iyi geliyor. Orada buluşuruz.",
+      "Tabii, Judy. Yoldayım :)",
+      "Evet, müsaitim. Orada görüşürüz!",
+      "Seve seve. Konumu gönder.",
+      "Beni de say, Jude :)",
+      "Tamam, yanına geleceğim.",
+      "İyi bir plan. Yakında görüşürüz.",
+      "Geliyorum. Bensiz başlamayın ;)",
+      "Evet, Judy. Orada olacağım.",
+    },
+    busy = {
+      "Selam Judy, biraz meşgulüm. Belki başka zaman?",
+      "Üzgünüm, Judy. Şu an gelemem.",
+      "Şu an işlerim var. Erteleyelim mi?",
+      "Şu an ayrılamıyorum. Bir dahaki sefere?",
+      "Gelmek isterdim ama bugün uygun değilim.",
+      "Üzgünüm, Jude. Bunu daha sonra yapabilir miyiz?",
+      "Şu an meşgulüm. Başka bir gün deneyelim mi?",
+      "Bu sefer gelemem. Umarım sorun olmaz.",
+      "Halletmem gereken bir şey var. Belki bir dahaki sefere.",
+      "Şu an müsait değilim, Judy. Yeniden planlayalım.",
+    },
+    decline = {
+      "Ah, tabii. O zaman belki bir dahaki sefere!",
+      "Sorun değil, V. Başka zaman yaparız.",
+      "Her şey yolunda. Müsait olunca yaz.",
+      "Tamam, V. Başka zamana bırakalım :)",
+      "Tabii. Bir dahaki sefere görüşürüz.",
+    },
+  },
+}
+
+local function expandReplyPairs(base, suffix)
+  local pool = {}
+  for _, text in ipairs(base or {}) do
+    table.insert(pool, text)
+    table.insert(pool, text .. suffix)
+  end
+  return pool
+end
+
+local function expandJudyReplies(base)
+  local pool = {}
+  for _, text in ipairs(base or {}) do
+    table.insert(pool, text)
+    table.insert(pool, text .. " :)")
+    table.insert(pool, text .. " <3")
+  end
+  return pool
+end
+
+local replyPools = {}
+for locale, groups in pairs(replyBases) do
+  replyPools[locale] = {
+    accept = expandReplyPairs(groups.accept, " <3"),
+    busy = expandReplyPairs(groups.busy, " :(") ,
+    decline = expandJudyReplies(groups.decline)
+  }
+end
+
+
 function lang.getLang()
   local ok, l = pcall(function()
     return Game.GetSettingsSystem():GetVar("/language", "OnScreen"):GetValue().value
@@ -4395,6 +5022,24 @@ function lang.getRandomFromCategory(category)
   end
   if type(pool) ~= "table" or #pool == 0 then return "" end
   return pool[math.random(#pool)]
+end
+
+function lang.getRandomReply(kind)
+  local l = lang.getLang()
+  local localePools = replyPools[l] or replyPools["en-us"]
+  local pool = localePools and localePools[kind]
+  if type(pool) ~= "table" or #pool == 0 then
+    pool = replyPools["en-us"] and replyPools["en-us"][kind]
+  end
+  if type(pool) ~= "table" or #pool == 0 then return "" end
+  return pool[math.random(#pool)]
+end
+
+function lang.getReplyPoolCount(kind, locale)
+  local l = locale or lang.getLang()
+  local localePools = replyPools[l] or replyPools["en-us"]
+  local pool = localePools and localePools[kind]
+  return type(pool) == "table" and #pool or 0
 end
 
 return lang

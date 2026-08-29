@@ -1,0 +1,62 @@
+class BodyPartHitPrereqCondition extends BaseHitPrereqCondition
+{
+	var m_bodyPart : CName;
+	var m_attackSubtype : gamedataAttackSubtype;
+
+	public override function SetData( recordID : TweakDBID )
+	{
+		m_bodyPart = TweakDBInterface.GetCName( recordID + T".bodyPart", '' );
+		super.SetData( recordID );
+	}
+
+	public override function Evaluate( hitEvent : gameHitEvent ) : Bool
+	{
+		var result : Bool;
+		var shape : HitShapeData;
+		var empty : HitShapeData;
+		shape = ( ( HitShapeData )( hitEvent.hitRepresentationResult.hitShapes[ 0 ] ) );
+		if( shape != empty )
+		{
+			switch( m_bodyPart )
+			{
+				case 'Head':
+					result = HitShapeUserDataBase.IsHitReactionZoneHead( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'Torso':
+					result = HitShapeUserDataBase.IsHitReactionZoneTorso( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'Limb':
+					result = HitShapeUserDataBase.IsHitReactionZoneLimb( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'LeftArm':
+					result = HitShapeUserDataBase.IsHitReactionZoneLeftArm( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'RightArm':
+					result = HitShapeUserDataBase.IsHitReactionZoneRightArm( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'Arm':
+					result = HitShapeUserDataBase.IsHitReactionZoneArm( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'LeftLeg':
+					result = HitShapeUserDataBase.IsHitReactionZoneLeftLeg( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'RightLeg':
+					result = HitShapeUserDataBase.IsHitReactionZoneRightLeg( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				case 'Leg':
+					result = HitShapeUserDataBase.IsHitReactionZoneLeg( ( ( HitShapeUserDataBase )( shape.userData ) ) );
+				break;
+				default:
+					return false;
+			}
+			if( result )
+			{
+				result = CheckOnlyOncePerShot( hitEvent );
+			}
+			return ( ( m_invert ) ? ( !( result ) ) : ( result ) );
+		}
+		return false;
+	}
+
+}
+

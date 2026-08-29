@@ -1,0 +1,281 @@
+class VehicleSummonWidgetGameController extends inkHUDGameController
+{
+	private editable var m_vehicleNameLabel : inkTextRef;
+	private editable var m_vehicleTypeIcon : inkImageRef;
+	private editable var m_vehicleManufactorIcon : inkImageRef;
+	private editable var m_distanceLabel : inkTextRef;
+	private editable var m_subText : inkTextRef;
+	private editable var m_radioStationName : inkTextRef;
+	private editable var m_loopCounter : Uint32;
+	default m_loopCounter = 35;
+	private var m_rootWidget : weak< inkWidget >;
+	private var m_player : weak< PlayerPuppet >;
+	private var m_vehicle : weak< VehicleObject >;
+	private var m_vehicleRecord : Vehicle_Record;
+	private var m_gameInstance : GameInstance;
+	private var m_vehicleSummonDataBB : weak< IBlackboard >;
+	private var m_mountCallback : CallbackHandle;
+	private var m_vehicleSummonStateCallback : CallbackHandle;
+	private var m_vehiclePurchaseStateCallback : CallbackHandle;
+	private var m_currentAnimation : CName;
+	private var m_animationProxy : inkAnimProxy;
+	private var m_animationCounterProxy : inkAnimProxy;
+
+	protected event OnInitialize()
+	{
+		m_rootWidget = GetRootWidget();
+		Reset();
+	}
+
+	protected event OnPlayerAttach( player : GameObject )
+	{
+		var blackboardSystem : BlackboardSystem;
+		var mountingInfo : MountingInfo;
+		blackboardSystem = GetBlackboardSystem();
+		m_gameInstance = player.GetGame();
+		m_player = ( ( PlayerPuppet )( player ) );
+		m_mountCallback = blackboardSystem.Get( GetAllBlackboardDefs().UI_ActiveVehicleData ).RegisterListenerBool( GetAllBlackboardDefs().UI_ActiveVehicleData.IsPlayerMounted, this, 'OnVehicleMount' );
+		mountingInfo = GameInstance.GetMountingFacility( m_player.GetGame() ).GetMountingInfoSingleWithObjects( m_player );
+		TryUpdateActiveVehicleData( mountingInfo.parentId );
+		TryShowVehicleRadioNotification();
+		m_vehicleSummonDataBB = blackboardSystem.Get( GetAllBlackboardDefs().VehicleSummonData );
+		m_vehicleSummonStateCallback = m_vehicleSummonDataBB.RegisterListenerUint( GetAllBlackboardDefs().VehicleSummonData.SummonState, this, 'OnVehicleSummonStateChanged' );
+		m_vehiclePurchaseStateCallback = blackboardSystem.Get( GetAllBlackboardDefs().VehiclePurchaseData ).RegisterListenerVariant( GetAllBlackboardDefs().VehiclePurchaseData.PurchasedVehicleRecordID, this, 'OnVehiclePurchased' );
+	}
+
+	protected event OnPlayerDetach( player : GameObject )
+	{
+		var blackboardSystem : BlackboardSystem;
+		blackboardSystem = GetBlackboardSystem();
+		m_vehicleSummonDataBB.UnregisterListenerUint( GetAllBlackboardDefs().VehicleSummonData.SummonState, m_vehicleSummonStateCallback );
+		blackboardSystem.Get( GetAllBlackboardDefs().VehiclePurchaseData ).UnregisterListenerVariant( GetAllBlackboardDefs().VehiclePurchaseData.PurchasedVehicleRecordID, m_vehiclePurchaseStateCallback );
+		blackboardSystem.Get( GetAllBlackboardDefs().UI_ActiveVehicleData ).UnregisterListenerBool( GetAllBlackboardDefs().UI_ActiveVehicleData.IsPlayerMounted, m_mountCallback );
+	}
+
+	protected event OnVehicleSummonStateChanged( value : Uint32 )
+	{
+		if( value == ( ( Uint32 )( vehicleSummonState.EnRoute ) ) )
+		{
+			ShowVehicleSummonNotification();
+		}
+		else if( value == ( ( Uint32 )( vehicleSummonState.AlreadySummoned ) ) )
+		{
+			ShowVehicleWaitingNotification();
+		}
+		else if( value == ( ( Uint32 )( vehicleSummonState.Arrived ) ) )
+		{
+			PlayAnimation( 'arrived', inkAnimOptions(), 'OnTimeOut' );
+		}
+		else
+		{
+			m_rootWidget.SetVisible( false );
+		}
+	}
+
+	protected event OnVehiclePurchased( value : Variant )
+	{
+		m_rootWidget.SetVisible( true );
+		inkTextRef.SetVisible( m_subText, true );
+		UpdateVehicleNotificationData( ( ( TweakDBID )value ) );
+		inkTextRef.SetText( m_subText, "LocKey#43690" );
+		PlayAnimation( 'OnVehiclePurchase', inkAnimOptions(), 'OnTimeOut' );
+	}
+
+	protected event OnVehicleMount( value : Bool )
+	{
+		var mountingInfo : MountingInfo;
+		if( value )
+		{
+			mountingInfo = GameInstance.GetMountingFacility( m_player.GetGame() ).GetMountingInfoSingleWithObjects( m_player );
+			if( TryUpdateActiveVehicleData( mountingInfo.parentId ) )
+			{
+				m_rootWidget.SetVisible( true );
+				PlayAnimation( 'OnVehicleEnter', inkAnimOptions(), 'OnVehicleEnterDone' );
+			}
+		}
+		else
+		{
+			Reset();
+		}
+	}
+
+	protected event OnVehicleEnterDone( anim : inkAnimProxy )
+	{
+		if( !( TryShowVehicleRadioNotification() ) )
+		{
+			Reset();
+		}
+	}
+
+	protected event OnVehicleRadioSongChanged( evt : VehicleRadioSongChanged )
+	{
+		if( m_currentAnimation == 'OnVehicleEnter' )
+		{
+			return true;
+		}
+		TryShowVehicleRadioNotification();
+	}
+
+	protected event OnIntroFinished( anim : inkAnimProxy )
+	{
+		var options : inkAnimOptions;
+		options.loopType = inkanimLoopType.PingPong;
+		options.loopCounter = m_loopCounter;
+		PlayAnimation( 'loop', options, 'OnTimeOut' );
+	}
+
+	protected event OnEndLoop( anim : inkAnimProxy )
+	{
+		UpdateDistanceLabel();
+	}
+
+	protected event OnTimeOut( anim : inkAnimProxy )
+	{
+		Reset();
+	}
+
+	private function Reset()
+	{
+		m_rootWidget.SetVisible( false );
+		inkTextRef.SetVisible( m_radioStationName, false );
+		inkTextRef.SetVisible( m_subText, false );
+		inkTextRef.SetVisible( m_distanceLabel, false );
+		StopAnimation( true );
+	}
+
+	private function ShowVehicleSummonNotification()
+	{
+		var options : inkAnimOptions;
+		if( IsVehicleDataValid( true ) )
+		{
+			m_rootWidget.SetVisible( true );
+			PlayAnimation( 'intro', inkAnimOptions(), 'OnIntroFinished' );
+			UpdateDistanceLabel();
+			options.loopType = inkanimLoopType.Cycle;
+			options.loopCounter = m_loopCounter;
+			m_animationCounterProxy = PlayLibraryAnimation( 'counter', options );
+			m_animationCounterProxy.RegisterToCallback( inkanimEventType.OnEndLoop, this, 'OnEndLoop' );
+			GameInstance.GetAudioSystem( m_gameInstance ).Play( 'ui_jingle_car_call' );
+		}
+	}
+
+	private function ShowVehicleWaitingNotification()
+	{
+		if( IsVehicleDataValid( false ) )
+		{
+			m_rootWidget.SetVisible( true );
+			inkTextRef.SetVisible( m_subText, true );
+			inkTextRef.SetText( m_subText, GetLocalizedText( "LocKey#78044" ) );
+			PlayAnimation( 'waiting', inkAnimOptions(), 'OnTimeOut' );
+		}
+	}
+
+	private function TryShowVehicleRadioNotification() : Bool
+	{
+		var station : String;
+		var song : String;
+		if( m_vehicle && m_vehicle.IsRadioReceiverActive() )
+		{
+			m_rootWidget.SetVisible( true );
+			inkTextRef.SetVisible( m_radioStationName, true );
+			inkTextRef.SetVisible( m_subText, true );
+			station = GetLocalizedTextByKey( m_vehicle.GetRadioReceiverStationName() );
+			song = GetLocalizedTextByKey( m_vehicle.GetRadioReceiverTrackName() );
+			inkTextRef.SetText( m_radioStationName, station );
+			inkTextRef.SetText( m_subText, song );
+			PlayAnimation( 'OnSongChanged', inkAnimOptions(), 'OnTimeOut' );
+			return true;
+		}
+		return false;
+	}
+
+	private function IsVehicleDataValid( optional update : Bool ) : Bool
+	{
+		if( m_vehicle && !( update ) )
+		{
+			return true;
+		}
+		return TryUpdateActiveVehicleData( ( ( EntityID )( m_vehicleSummonDataBB.GetEntityID( GetAllBlackboardDefs().VehicleSummonData.SummonedVehicleEntityID ) ) ) );
+	}
+
+	private function TryUpdateActiveVehicleData( id : EntityID ) : Bool
+	{
+		m_vehicle = ( ( VehicleObject )( GameInstance.FindEntityByID( m_player.GetGame(), id ) ) );
+		if( m_vehicle )
+		{
+			UpdateVehicleNotificationData( m_vehicle.GetRecordID() );
+			return true;
+		}
+		return false;
+	}
+
+	private function UpdateVehicleNotificationData( id : TweakDBID )
+	{
+		var vehicleType : gamedataVehicleType;
+		m_vehicleRecord = TweakDBInterface.GetVehicleRecord( id );
+		if( m_vehicleRecord )
+		{
+			vehicleType = m_vehicleRecord.Type().Type();
+			if( m_vehicleRecord.DisplayOverride() )
+			{
+				inkImageRef.SetTexturePart( m_vehicleTypeIcon, m_vehicleRecord.DisplayOverride().Icon() );
+			}
+			else if( vehicleType == gamedataVehicleType.Bike )
+			{
+				inkImageRef.SetTexturePart( m_vehicleTypeIcon, 'motorcycle' );
+			}
+			else
+			{
+				inkImageRef.SetTexturePart( m_vehicleTypeIcon, 'car' );
+			}
+			inkImageRef.SetTexturePart( m_vehicleManufactorIcon, TweakDBInterface.GetUIIconRecord( TDBID.Create( "UIIcon." + m_vehicleRecord.Manufacturer().EnumName() ) ).AtlasPartName() );
+			inkTextRef.SetLocalizedTextScript( m_vehicleNameLabel, m_vehicleRecord.DisplayName() );
+		}
+	}
+
+	private function UpdateDistanceLabel()
+	{
+		var distance : Int32;
+		var params : inkTextParams;
+		if( m_player && m_vehicle )
+		{
+			distance = RoundF( Vector4.Distance( m_player.GetWorldPosition(), m_vehicle.GetWorldPosition() ) );
+			params = new inkTextParams;
+			params.AddMeasurement( "distance", ( ( Float )( distance ) ), EMeasurementUnit.Meter );
+			params.AddString( "unit", GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( UILocalizationHelper.GetSystemBaseUnit() ) ) ) );
+			inkTextRef.SetText( m_distanceLabel, "{distance}{unit}", params );
+			inkTextRef.SetVisible( m_distanceLabel, true );
+		}
+	}
+
+	private function PlayAnimation( animation : CName, optional options : inkAnimOptions, optional callback : CName )
+	{
+		StopAnimation( animation != 'loop' );
+		m_animationProxy = PlayLibraryAnimation( animation, options );
+		m_currentAnimation = animation;
+		if( callback != '' )
+		{
+			m_animationProxy.RegisterToCallback( inkanimEventType.OnFinish, this, callback );
+		}
+	}
+
+	private function StopAnimation( isStoppingBothAnimations : Bool )
+	{
+		if( m_animationProxy && m_animationProxy.IsValid() )
+		{
+			m_animationProxy.UnregisterFromAllCallbacks( inkanimEventType.OnFinish );
+			m_animationProxy.GotoEndAndStop();
+		}
+		m_currentAnimation = '';
+		if( isStoppingBothAnimations )
+		{
+			if( m_animationCounterProxy && m_animationCounterProxy.IsValid() )
+			{
+				m_animationProxy.UnregisterFromAllCallbacks( inkanimEventType.OnEndLoop );
+				m_animationCounterProxy.Stop();
+			}
+		}
+	}
+
+}
+

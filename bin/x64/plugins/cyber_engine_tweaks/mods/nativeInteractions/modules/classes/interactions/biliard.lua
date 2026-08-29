@@ -1,7 +1,6 @@
 local style = require("modules/ui/style")
 local utils = require("modules/utils/utils")
 local world = require("modules/utils/worldInteraction")
-local resourceHelper = require("modules/utils/resourceHelper")
 local workspot = require("modules/classes/interactions/workspot")
 
 ---Class for biliard interaction
@@ -41,6 +40,7 @@ function biliard:new(mod, project)
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.Billiards
+    o.needsUpdate = true
 
     o.maxNodeRefPropertyWidth = nil
     o.stickRef = ""
@@ -73,6 +73,8 @@ function biliard:load(data)
 end
 
 function biliard:sessionStart()
+    workspot.sessionStart(self)
+
     self:reset()
 end
 
@@ -139,15 +141,17 @@ function biliard:onUpdate(playerPosition)
         world.disableInteraction(self.worldInteractionID, true)
 
         local cueBall = utils.getEntityByRef(self.cueBallRef)
-        if cueBall then
-            local localToWorld = cueBall:FindComponentByName("ball_b_billiard0582"):GetLocalToWorld()
+        local cueBallComponent = cueBall and cueBall:FindComponentByName("ball_b_billiard0582")
+        if cueBallComponent then
+            local localToWorld = cueBallComponent:GetLocalToWorld()
             self.cueBallEndPosition = localToWorld:GetTranslation()
             self.cueBallEndOrientation = localToWorld:GetRotation():ToQuat()
         end
 
         local ball = utils.getEntityByRef(self.ballRef)
-        if ball then
-            local localToWorld = ball:FindComponentByName("ball_b_billiard0582"):GetLocalToWorld()
+        local ballComponent = ball and ball:FindComponentByName("ball_b_billiard0582")
+        if ballComponent then
+            local localToWorld = ballComponent:GetLocalToWorld()
             self.ballEndPosition = localToWorld:GetTranslation()
             self.ballEndOrientation = localToWorld:GetRotation():ToQuat()
         end
@@ -181,8 +185,8 @@ function biliard:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.stickRef, changed = ImGui.InputTextWithHint('##stickRef', '$/mod/#billiard_stick', self.stickRef, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
+        self.project:save()
         self:reset()
     end
     ImGui.SameLine()
@@ -193,8 +197,8 @@ function biliard:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.ballRef, changed = ImGui.InputTextWithHint('##ballRef', '$/mod/#billiard_ball', self.ballRef, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
+        self.project:save()
         self:reset()
     end
     ImGui.SameLine()
@@ -205,8 +209,8 @@ function biliard:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.cueBallRef, changed = ImGui.InputTextWithHint('##cueBallRef', '$/mod/#billiard_cue_ball', self.cueBallRef, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
+        self.project:save()
         self:reset()
     end
     ImGui.SameLine()
@@ -217,7 +221,7 @@ function biliard:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(80)
     self.resetDistance, changed = ImGui.DragFloat("##resetDistance", self.resetDistance, 0.01, 1, 50, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
-    if changed then self.project:save() end
+    if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     style.tooltip("Distance from the interaction icon where the interaction will reset.")
     ImGui.SameLine()
     if ImGui.Button("Reset") then
@@ -233,6 +237,7 @@ function biliard:save()
     data.stickRef = self.stickRef
     data.ballRef = self.ballRef
     data.cueBallRef = self.cueBallRef
+    data.resetDistance = self.resetDistance
 
     return data
 end

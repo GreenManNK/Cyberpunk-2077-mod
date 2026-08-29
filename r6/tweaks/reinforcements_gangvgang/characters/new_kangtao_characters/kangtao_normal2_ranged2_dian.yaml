@@ -1,0 +1,23 @@
+Character.GR_kangtao_normal2_ranged2_dian:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    primaryEquipment: Character.GR_kangtao_normal2_ranged2_dian_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT2
+    rarity: NPCRarity.Normal
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_normal2_ranged2_dian_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_normal2_ranged2_dian_primary_item
+
+Character.GR_kangtao_normal2_ranged2_dian_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Dian_Military
+    onBodySlot: AttachmentSlots.ItemSlotSMG
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

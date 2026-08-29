@@ -1,0 +1,25 @@
+Character.GR_ncpd_elite_kolac:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_kolac_primary_equipment
+    archetypeData: ArchetypeData.HeavyRangedT3
+    rarity: NPCRarity.Elite
+    abilities:
+        - !append-once Ability.CanSeeThroughSmoke
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_kolac_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_kolac_primary_item
+
+Character.GR_ncpd_elite_kolac_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Kolac_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

@@ -26,28 +26,30 @@ function mod:new()
 
         GameUI.OnSessionStart(function()
             self.runtimeData.inGame = true
+            self.logic.sessionStart()
         end)
 
         GameUI.OnSessionEnd(function()
             self.runtimeData.inGame = false
+            self.logic.sessionEnd()
         end)
 
         self.logic.init()
+
         self.runtimeData.inGame = not GameUI.IsDetached() -- Required to check if ingame after reloading all mods
+        if self.runtimeData.inGame then
+            self.logic.sessionStart()
+        end
     end)
 
     registerForEvent("onUpdate", function(dt)
         if not self.runtimeData.inMenu and self.runtimeData.inGame then
             Cron.Update(dt)
         end
+    end)
 
-        -- stupid unitialize controller observer doesnt work anymore
-        for key, value in pairs(self.logic.controllers) do
-            if not Game.FindEntityByID(entEntityID.new({hash = key})) then
-                value:uninit()
-                self.logic.controllers[key] = nil
-            end
-        end
+    registerForEvent("onShutdown", function()
+        self.logic.sessionEnd()
     end)
 
     return self

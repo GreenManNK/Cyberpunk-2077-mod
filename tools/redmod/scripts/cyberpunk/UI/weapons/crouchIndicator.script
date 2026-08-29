@@ -1,0 +1,51 @@
+class CrouchIndicatorGameController extends inkHUDGameController
+{
+	private editable var m_crouchIcon : inkImageRef;
+	private var m_genderName : CName;
+	private var m_psmLocomotionStateChangedCallback : CallbackHandle;
+
+	protected event OnPlayerAttach( player : GameObject )
+	{
+		var psmBlackboard : weak< IBlackboard >;
+		psmBlackboard = GetPSMBlackboard( player );
+		m_genderName = ( ( PlayerPuppet )( player ) ).GetResolvedGenderName();
+		if( player.IsControlledByLocalPeer() )
+		{
+			m_psmLocomotionStateChangedCallback = psmBlackboard.RegisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Locomotion, this, 'OnPSMLocomotionStateChanged' );
+			OnPSMLocomotionStateChanged( psmBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Locomotion ) );
+		}
+	}
+
+	protected event OnPlayerDetach( player : GameObject )
+	{
+		GetPSMBlackboard( player ).UnregisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Locomotion, m_psmLocomotionStateChangedCallback );
+	}
+
+	protected event OnPSMLocomotionStateChanged( value : Int32 )
+	{
+		if( ( ( ( gamePSMLocomotionStates )( value ) ) == gamePSMLocomotionStates.Crouch || ( ( gamePSMLocomotionStates )( value ) ) == gamePSMLocomotionStates.CrouchDodge ) || ( ( gamePSMLocomotionStates )( value ) ) == gamePSMLocomotionStates.Slide )
+		{
+			if( m_genderName == 'Female' )
+			{
+				inkImageRef.SetTexturePart( m_crouchIcon, 'crouch_female' );
+			}
+			else
+			{
+				inkImageRef.SetTexturePart( m_crouchIcon, 'crouch' );
+			}
+		}
+		else
+		{
+			if( m_genderName == 'Female' )
+			{
+				inkImageRef.SetTexturePart( m_crouchIcon, 'stand_female' );
+			}
+			else
+			{
+				inkImageRef.SetTexturePart( m_crouchIcon, 'stand' );
+			}
+		}
+	}
+
+}
+

@@ -1,0 +1,788 @@
+package LootTables
+using RTDB
+
+Base_ce_loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+ce_wat_kab_15_LIM_chemicals : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_wat_kab_15_LIM_equipment : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.02;
+			query = "Query.RecipeSimpleFabricEnhancerQuery";
+		}
+	];
+}
+
+ce_wat_lch_05_LGM_toolbox : Base_ce_loot
+{
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.4;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.4;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.4;
+			query = "Query.RareRangedWeaponModsQuery";
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.ToolWeaponQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+ce_wat_lch_05_LGS_ammo : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+ce_wat_lch_05_LGS_freezer : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityFood";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_wat_lch_05_LGS_suitcase : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.TygerClawsBikerClothing";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.BikerClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Mask";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityAlcohol";
+		}
+	];
+}
+
+ce_wat_lch_05_LGS_consumable : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.LowQualityDrink";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.GrenadePlusRarityItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_wat_lch_05_LGS_first_aid : Base_ce_loot
+{
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+ce_wat_lch_07_LGS_ammo : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+ce_wat_lch_07_LGS_freezer : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_wat_lch_07_LGS_suitcase : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.TygerClawsBikerClothing";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.BikerClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Mask";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Visor";
+		}
+	];
+}
+
+ce_wat_lch_07_LGS_crate : Base_ce_loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJunkItem1";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJunkItem2";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJunkItem3";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJewellery1";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJewellery2";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.TygerClawsJewellery3";
+		}
+	];
+}
+
+ce_wat_lch_12_LGS_ammo : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+ce_wat_lch_12_LGS_suitcase : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.TygerClawsBikerClothing";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.BikerClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Mask";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Visor";
+		}
+	];
+}
+
+ce_wat_lch_12_LGS_crate : Base_ce_loot
+{
+}
+
+ce_wat_lch_12_LGS_equipment : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.Jumpsuit";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Mask";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.Glasses";
+		}, 
+		{
+			dropChance = 0.6f;
+			query = "Query.RichClothing";
+		}
+	];
+}
+
+ce_wat_lch_12_LGS_valuable : Base_ce_loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6f;
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+ce_hey_gle_01_LRS_crate : Base_ce_loot
+{
+	minItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+		}
+	];
+}
+
+ce_hey_gle_02_LGS_chemicals : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_hey_gle_02_LGS_crate : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosJewellery";
+		}
+	];
+}
+
+ce_hey_gle_02_LGS_gadgets : Base_ce_loot
+{
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+ce_hey_gle_02_LGS_toolbox : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+ce_hey_gle_03_LGL_body : Base_ce_loot
+{
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+ce_hey_gle_03_LGM_locker : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6f;
+			query = "Query.ValentinosClothing";
+		}
+	];
+}
+
+ce_hey_gle_03_LGS_crate : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosJewellery";
+		}
+	];
+}
+
+ce_hey_gle_03_LGS_safe : Base_ce_loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.8;
+			dropCountMin = 500;
+			dropCountMax = 800;
+			itemID = "Items.money";
+		}
+	];
+}
+
+ce_hey_gle_03_LGS_weapon : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RevolverQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.OneHandBluntQuery";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.AllScopes_LootTable"
+	];
+}
+
+ce_hey_gle_04_LGS_chemicals : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_hey_gle_04_LGS_crate : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosJewellery";
+		}
+	];
+}
+
+ce_hey_gle_04_LGS_equipment : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosClothing";
+		}
+	];
+}
+
+ce_hey_gle_04_LGS_toolbox : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+ce_hey_gle_05_LRM_toolbox : Base_ce_loot
+{
+	minItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.QuickhackMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+ce_hey_gle_15_LRS_consumables : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			dropChance = 0.1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+ce_hey_gle_15_LRM_consumables : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			dropChance = 0.1;
+			dropCountMin = 2;
+			dropCountMax = 4;
+			itemID = "Items.StaminaBooster";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+ce_hey_gle_17_LGS_crate : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumUncommonQuality"
+			];
+		}
+	];
+}
+
+ce_hey_gle_18_LRM_toolbox : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+ce_hey_gle_19_LGS_chemicals : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_hey_gle_19_LGS_equipment : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosClothing";
+		}
+	];
+}
+
+ce_hey_gle_19_LGS_gadgets : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+ce_hey_gle_19_LGS_toolbox : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+ce_hey_gle_19_LGS_weapon : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RevolverQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.KnifeQuery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.OneHandBluntQuery";
+		}
+	];
+}
+
+ce_hey_gle_20_LGS_suitcase : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosClothing";
+		}
+	];
+}
+
+ce_hey_gle_20_LGS_crate : Base_ce_loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.4;
+			query = "Query.ValentinosJewellery";
+		}
+	];
+}
+
+ce_hey_gle_20_LGS_gadgets : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+ce_hey_gle_22_LGS_chemicals : Base_ce_loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsTable", "LootTables.MedicalJunkItemsTable"
+	];
+}
+
+ce_hey_gle_22_LGS_toolbox : Base_ce_loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

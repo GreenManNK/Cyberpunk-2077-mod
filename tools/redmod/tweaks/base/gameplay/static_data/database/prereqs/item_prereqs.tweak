@@ -1,0 +1,565 @@
+package Prereqs
+using RTDB
+
+ItemInSlotPrereq : IPrereq
+{
+	CName prereqClassName = "ItemInSlotPrereq";
+	fk< CheckType > checkType = "";
+	fk< AttachmentSlot > attachmentSlot = "";
+	fk< ItemType > itemType = "";
+	fk< ItemCategory > itemCategory = "";
+	fk< WeaponEvolution > weaponEvolution = "";
+	bool inverted = false;
+	bool waitForVisuals = false;
+}
+
+WeaponHeldByTypePrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Type";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+}
+
+WeaponHeldByTagPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Tag";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+}
+
+WeaponHeldLeftHandByTagPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Tag";
+	attachmentSlot = "AttachmentSlots.WeaponLeft";
+}
+
+AnyWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Category";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	itemCategory = "ItemCategory.Weapon";
+}
+
+TechWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Tech";
+}
+
+SmartWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Smart";
+}
+
+PowerWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Power";
+}
+
+BluntWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Blunt";
+}
+
+BladeWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Blade";
+}
+
+ThrowableWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Evolution";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+	weaponEvolution = "WeaponEvolution.Throwable";
+}
+
+HandgunHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Handgun";
+}
+
+RevolverHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Revolver";
+}
+
+AssaultRifleHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_AssaultRifle";
+}
+
+LMGHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_LightMachineGun";
+}
+
+NotLMGHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_LightMachineGun";
+	inverted = true;
+}
+
+HMGHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_HeavyMachineGun";
+}
+
+NotHMGHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_HeavyMachineGun";
+	inverted = true;
+}
+
+SniperRifleHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_SniperRifle";
+}
+
+ShotgunDualHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_ShotgunDual";
+}
+
+ShotgunHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Shotgun";
+}
+
+AnyShotgunHeldPrereq : ORPrereq
+{
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		{
+			itemType = "ItemType.Wea_Shotgun";
+		} : WeaponHeldByTypePrereq, 
+		{
+			itemType = "ItemType.Wea_ShotgunDual";
+		} : WeaponHeldByTypePrereq
+	];
+}
+
+PrecisionRifleHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_PrecisionRifle";
+}
+
+RifleHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Rifle";
+}
+
+SMGHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_SubmachineGun";
+}
+
+OneHandedClubHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_OneHandedClub";
+}
+
+FistsHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Fists";
+}
+
+OneHandedBladeHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_LongBlade";
+}
+
+KnifeHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Knife";
+}
+
+AxeHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Axe";
+}
+
+StrongArmsHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Cyb_StrongArms";
+}
+
+MantisBladesHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Cyb_MantisBlades";
+}
+
+NanoWiresHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Cyb_NanoWires";
+}
+
+ProjectileLauncherHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Cyb_Launcher";
+}
+
+CoolPerksGunsHeldPrereq : MultiPrereq
+{
+	CName aggregationType = "OR";
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		"Prereqs.SniperRifleHeldPrereq", "Prereqs.PrecisionRifleHeldPrereq", "Prereqs.RevolverHeldPrereq", "Prereqs.HandgunHeldPrereq"
+	];
+}
+
+TwoHandedHammerHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Hammer";
+}
+
+KatanaHeldPrereq : ORPrereq
+{
+	nestedPrereqs = 
+	[
+		{
+			itemType = "ItemType.Wea_Katana";
+		} : WeaponHeldByTypePrereq, 
+		{
+			itemType = "ItemType.Wea_Sword";
+		} : WeaponHeldByTypePrereq
+	];
+}
+
+TwoHandedBladeHeldPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_LongBlade";
+}
+
+RangedWeaponHeldPrereq : WeaponHeldByTagPrereq
+{
+	CName itemTag = "RangedWeapon";
+}
+
+RangedWeaponHeldLeftHandPrereq : WeaponHeldLeftHandByTagPrereq
+{
+	CName itemTag = "RangedWeapon";
+}
+
+MeleeWeaponHeldPrereq : WeaponHeldByTagPrereq
+{
+	CName itemTag = "MeleeWeapon";
+}
+
+ChimeraRangedWeaponHeldPrereq : ItemInSlotPrereq
+{
+	checkType = "CheckType.Category";
+	attachmentSlot = "AttachmentSlots.MetalstormWeapon";
+	itemCategory = "ItemCategory.Weapon";
+}
+
+RangedWeaponHeldCheckBothHandsPrereq : MultiPrereq
+{
+	CName aggregationType = "OR";
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		"Prereqs.RangedWeaponHeldPrereq", "Prereqs.RangedWeaponHeldLeftHandPrereq", "Prereqs.ChimeraRangedWeaponHeldPrereq", "Prereqs.NPCIsDrone", "Prereqs.NPCIsMech"
+	];
+}
+
+RangedWeaponHeldMinotaurPrereq : MultiPrereq
+{
+	CName aggregationType = "OR";
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		"Prereqs.MinotaurLeftArmNotDestroyedPrereq", "Prereqs.MinotaurRightArmNotDestroyedPrereq"
+	];
+}
+
+MinotaurLeftArmNotDestroyedPrereq : StatusEffectPrereq
+{
+	fk< StatusEffect > statusEffect = "Minotaur.LeftArmDestroyed";
+	invert = true;
+}
+
+MinotaurRightArmNotDestroyedPrereq : StatusEffectPrereq
+{
+	fk< StatusEffect > statusEffect = "Minotaur.RightArmDestroyed";
+	invert = true;
+}
+
+RangedWeaponHeldActionPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.RangedWeaponHeldPrereq"
+	];
+	failureExplanation = "LocKey#27465";
+}
+
+RangedWeaponHeldCheckBothHandsActionPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.RangedWeaponHeldCheckBothHandsPrereq"
+	];
+	failureExplanation = "LocKey#27465";
+}
+
+RangedWeaponHeldMinotaurActionPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.RangedWeaponHeldMinotaurPrereq"
+	];
+	failureExplanation = "LocKey#27465";
+}
+
+TargetNotInCombatPrereq : CurrentHighLevelNPCStatePrereq
+{
+	string stateName = "Combat";
+	bool invert = true;
+}
+
+TargetNotInCombatActionPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.TargetNotInCombatPrereq"
+	];
+	failureExplanation = "LocKey#52104";
+}
+
+TargetInCombatPrereq : CurrentHighLevelNPCStatePrereq
+{
+	string stateName = "Combat";
+}
+
+TargetInCombatActionPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.TargetInCombatPrereq"
+	];
+	failureExplanation = "LocKey#52103";
+}
+
+TargetHasAnyCyberwareAbilityPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.HasAnyCyberwareAbilityPrereq"
+	];
+	failureExplanation = "LocKey#7017";
+}
+
+NearestNavigableSquadmateFoundPrereq : ObjectActionPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.NearestNavigableSquadmate"
+	];
+	failureExplanation = "LocKey#53203";
+}
+
+NearestNavigableSquadmate : ActionTargetPrereq
+{
+	target = "AIActionTarget.NearestNavigableSquadmate";
+}
+
+NearestNavigableSquadmateInCommsCallDistanceFoundPrereq : NearestNavigableSquadmateFoundPrereq
+{
+	failureConditionPrereq = 
+	[
+		"Prereqs.NearestNavigableSquadmateInCommsCallDistance"
+	];
+}
+
+NearestNavigableSquadmateInCommsCallDistance : ActionTargetInDistancePrereq
+{
+	target = "AIActionTarget.NearestNavigableSquadmate";
+	distanceStat = "BaseStats.CommsCallDistance";
+}
+
+HasAnyCyberwareAbilityPrereq : MultiPrereq
+{
+	CName aggregationType = "OR";
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		{
+			statType = "HasCybereye";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasSandevistan";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasSandevistanTier2";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasKerenzikov";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasKerenzikovSlide";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasSuperheroFall";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasAirHover";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasDoubleJump";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasChargeJump";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasThermovision";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasInfravision";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasCyberdeck";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasSpiderBotControl";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "HasSelfHealingSkin";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanQuickhack";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanUseStrongArms";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanUseCoolingSystem";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanUseOpticalCamo";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanUseTerrainCamo";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq, 
+		{
+			statType = "CanUseRetractableShield";
+			valueToCheck = 1;
+			comparisonType = "Equal";
+		} : StatPrereq
+	];
+}
+
+HasSandevistanInstalled : ItemInSlotPrereq
+{
+	attachmentSlot = "AttachmentSlots.SystemReplacementCW";
+	checkType = "CheckType.Tag";
+	CName itemTag = "Sandevistan";
+}
+
+HasBerserkInstalled : ItemInSlotPrereq
+{
+	attachmentSlot = "AttachmentSlots.SystemReplacementCW";
+	checkType = "CheckType.Tag";
+	CName itemTag = "Berserk";
+}
+
+ArmsCWInSlotPrereq : IPrereq
+{
+	CName prereqClassName = "ArmsCWInSlotPrereq";
+	fk< CheckType > checkType = "";
+	fk< ItemType > itemType = "";
+	CName itemTag = "";
+	bool inverted = false;
+}
+
+ItemSlotsFilledPrereq : IPrereq
+{
+	CName prereqClassName = "ItemSlotsFilledPrereq";
+	CName[] equipAreas = [];
+}
+
+CanPerformReflexFinisher : StatPrereq
+{
+	statType = "CanPerformReflexFinisher";
+	valueToCheck = 0;
+	comparisonType = "Greater";
+}
+
+CanPerformCoolFinisher : StatPrereq
+{
+	statType = "CanPerformCoolFinisher";
+	valueToCheck = 0;
+	comparisonType = "Greater";
+}
+
+CanPerformBluntFinisher : StatPrereq
+{
+	statType = "CanPerformBluntFinisher";
+	valueToCheck = 0;
+	comparisonType = "Greater";
+}
+
+CanPerformMonowireFinisher : StatPrereq
+{
+	statType = "CanPerformMonowireFinisher";
+	valueToCheck = 0;
+	comparisonType = "Greater";
+}
+
+MicroGeneratorShotPrereq : HitOrMissTriggeredPrereq
+{
+	conditions = 
+	[
+		{
+			attackType = "Ranged";
+			onlyOncePerShot = true;
+		} : AttackTypeHitPrereqCondition, 
+		{
+			weaponType = "Ranged";
+			onlyOncePerShot = true;
+		} : WeaponTypeHitPrereqCondition
+	];
+	pipelineStage = "PostProcess";
+}
+

@@ -39,7 +39,7 @@ local function createWidget()
 	local sliderHandle = inkRectangle.new()
 	sliderHandle:SetName(StringToName('sliderHandle'))
 	sliderHandle:SetAnchor(inkEAnchor.TopFillHorizontaly)
-	sliderHandle:SetSize(Vector2.new({ X = 12.0, Y = 160.0 }))
+	sliderHandle:SetSize(Vector2.new({ X = 12.0, Y = 40.0 }))
 	sliderHandle:SetTintColor(HDRColor.new({ Red = 0.368627, Green = 0.964706, Blue = 1.0, Alpha = 1.0 }))
 	sliderHandle:Reparent(sliderArea, -1)
 
@@ -47,9 +47,9 @@ local function createWidget()
 	sliderController.slidingAreaRef = inkWidgetRef.new({ widget = sliderArea })
 	sliderController.handleRef = inkWidgetRef.new({ widget = sliderHandle })
 	sliderController.direction = inkESliderDirection.Vertical
-	sliderController.autoSizeHandle = false
-	sliderController.percentHandleSize = 0.8
-	sliderController.minHandleSize = 160.0
+	sliderController.autoSizeHandle = true
+	sliderController.percentHandleSize = 0.4
+	sliderController.minHandleSize = 40.0
 	sliderController:Setup(0, 1, 0, 0)
 
 	scrollArea.logicController = sliderController

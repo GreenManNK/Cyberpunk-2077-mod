@@ -1,0 +1,15 @@
+class TutorialPopupData extends inkGameNotificationData
+{
+	var closeAtInput : Bool;
+	var pauseGame : Bool;
+	var isModal : Bool;
+	var position : PopupPosition;
+	var margin : inkMargin;
+	var imageId : TweakDBID;
+	var title : String;
+	var message : String;
+	var messageOverrideDataList : array< JournalEntryOverrideData >;
+	var videoType : VideoType;
+	var video : ResRef;
+}
+

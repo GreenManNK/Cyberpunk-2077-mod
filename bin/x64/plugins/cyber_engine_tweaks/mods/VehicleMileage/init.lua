@@ -8,6 +8,7 @@
 -- - Per-vehicle specs (L/100km, tank size) with inline editors in the CET window.
 -- - HUD bridge using quest facts (ODO, fuel %, price plate).
 -- - Optional limiter/stall at empty; different caps for cars/bikes.
+-- - Configurable persistent maintenance intervals with overdue fuel-system faults.
 -- - Stolen or quest-like vehicles can be ignored automatically (vm_vehicle_ignore).
 -- - Native Settings tab to tweak price, toggles, HUD position and price plate offsets.
 -- - Safe file IO + tiny JSON helpers (no external deps).
@@ -16,6 +17,7 @@
 --   vm_settings.json            - global UI/settings (price, toggles, HUD/plate pos)
 --   vm_config_cars.json         - user-editable car specs
 --   vm_config_bikes.json        - user-editable bike specs
+--   backup/                     - last 10 config versions per spec file
 --   vm_vehicle_ignore.json      - persistent ignore list
 --   vm_ignore_seeds.json        - seeds merged into ignore list at startup (optional)
 --   vm_session/<key>.lua        - per-save odometer/fuel state (managed by vm_save.lua)
@@ -29,14 +31,88 @@
 --   open CET (Insert) → “Odometer + Fuel” and edit:
 --     Edit spec:  L/100km [input] Save   Tank (L) [input] Save
 -- ============================================================================
-VM_VERSION = "v4.5"
+VM_VERSION = "v4.13-0E"
+
+-- 0-Engine integration
+local Engine = nil
+local Mod = nil
 
 
 local GAS    = require("vm_gas_station")
+VM_GAS_ECONOMY = require("vm_gas_economy")
+VM_CONFIG_BACKUP = require("vm_config_backup")
 local STOLEN = require("vm_stolen_vehicles")
 local IGNORE = require("vm_vehicle_ignore")
 local MARKERS = require("vm_gas_markers")
 local REPAIR = require("vm_repair_stations")
+
+VM_GASCAN = require("vm_gascan")
+VM_MAINTENANCE = require("vm_maintenance")
+
+VM_WEATHER_CONDITION = {
+  temperatureC = nil,
+  status = 0,
+}
+
+function VM_WEATHER_CONDITION.Refresh()
+  local player = Game.GetPlayer()
+  if not player then
+    VM_WEATHER_CONDITION.temperatureC = nil
+    VM_WEATHER_CONDITION.status = 0
+    return nil
+  end
+
+  local statusOK, status = pcall(function()
+    return player:VM_GetWeatherConditionStatus()
+  end)
+  VM_WEATHER_CONDITION.status =
+    statusOK and math.floor(tonumber(status) or 0) or 0
+
+  if VM_WEATHER_CONDITION.status ~= 2 then
+    VM_WEATHER_CONDITION.temperatureC = nil
+    return nil
+  end
+
+  local ok, value = pcall(function()
+    return player:VM_GetWeatherConditionTemperatureC()
+  end)
+
+  value = ok and tonumber(value) or nil
+  VM_WEATHER_CONDITION.temperatureC =
+    value ~= nil and value > -900 and value or nil
+
+  return VM_WEATHER_CONDITION.temperatureC
+end
+
+function VM_WEATHER_CONDITION.GetDebugText()
+  if VM_WEATHER_CONDITION.status <= 0 then
+    return "Weather Condition: not installed"
+  end
+
+  if VM_WEATHER_CONDITION.status == 1 then
+    return "Weather Condition: installed (disabled)"
+  end
+
+  if VM_WEATHER_CONDITION.status == 3 then
+    return "Weather Condition: installed (initializing)"
+  end
+
+  local temperatureC =
+    tonumber(VM_WEATHER_CONDITION.temperatureC)
+  if temperatureC == nil then
+    return "Weather Condition: active | temperature unavailable"
+  end
+
+  local wearMultiplier = 1.0
+  if temperatureC >= 37.0 then
+    wearMultiplier = 2.0
+  elseif temperatureC >= 34.0 then
+    wearMultiplier = 1.5
+  end
+
+  return ("Weather Condition: active | %d C | maintenance wear x%.1f")
+    :format(math.floor(temperatureC + 0.5), wearMultiplier)
+end
 
 if package and package.loaded then package.loaded["vm_3d_controls"] = nil end
 VM3D_CONTROLS = require("vm_3d_controls")
@@ -242,7 +318,12 @@ local STOLEN_STALL_AT_ZERO = true
 local NS_TAB            = "/VehicleMileage"
 local NS_SUB_FUEL       = NS_TAB .. "/Fuel"
 local NS_SUB_REPAIR     = NS_TAB .. "/Repair"
+NS_SUB_MAINTENANCE      = NS_TAB .. "/Maintenance"
 local DEFAULT_PRICE_EPL = 50.0 -- base slider value (€/L)
+VM_MAINT_MIN_KM_DEFAULT = 10
+VM_MAINT_MAX_KM_DEFAULT = 15
+VM_MAINT_KM_SLIDER_MIN  = 1
+VM_MAINT_KM_SLIDER_MAX  = 1000
 local NS_SUB_HUD_POS    = NS_TAB .. "/HUD Position"
 local NS_SUB_PLATE      = NS_TAB .. "/Price Plate"
 local NS_SUB_IGNORE     = NS_TAB .. "/Ignore"
@@ -291,10 +372,10 @@ local lastToastAt   = lastToastAt or 0.0
 local TOAST_COOLDOWN = 0.75   -- seconds between toasts to avoid spam
 
 
-local function _now() return os.clock() end
-local function _canEmit() return (_now() - lastToastAt) >= TOAST_COOLDOWN end -- end function _now
+function _now() return os.clock() end
+function _canEmit() return (_now() - lastToastAt) >= TOAST_COOLDOWN end -- end function _now
 
-local function _showRed(msg)
+function _showRed(msg)
   pcall(function()
     local ply = Game.GetPlayer()
     if ply and ply.SetWarningMessage then
@@ -306,7 +387,7 @@ end)
 end -- end function (anonymous)
 
 -- --- Menu detection shim (keeps your old isInMenu if you had one) ---
-local function _isPaused()
+function _isPaused()
   local ok, paused = pcall(function()
     local srh = Game.GetSystemRequestsHandler()
     return srh and srh:IsGamePaused() or false
@@ -340,7 +421,7 @@ end
 end
 
 -- Map current fuel % (0..1) to a bell-ish refill rate (slow → fast → slow)
-local function refillRateForLevel(pct)
+function refillRateForLevel(pct)
   pct = math.max(0.0, math.min(1.0, tonumber(pct or 0) or 0))
   local a
 	if pct <= VMCONST.REFILL.KNEE then
@@ -357,7 +438,7 @@ end
 -- ║ vm_save loader (require or dofile fallback)                               ║
 -- ╚═══════════════════════════════════════════════════════════════════════════╝
 
-local function tryRequireVmSave()
+function tryRequireVmSave()
   local ok, mod = pcall(function()
     if type(package) == "table" and type(package.path) == "string" then
       if not package.path:find("./?.lua", 1, true) then
@@ -558,12 +639,23 @@ local SETTINGS = {
 price_epl            = DEFAULT_PRICE_EPL,
 price_dyn_enable     = true,
 fuel_enabled         = true,
+maintenance_enabled  = true,
+maintenance_min_km   = VM_MAINT_MIN_KM_DEFAULT,
+maintenance_max_km   = VM_MAINT_MAX_KM_DEFAULT,
+
+-- Floating gas-station icons shown directly in the 3D world.
+-- World-map and minimap pins are not affected.
+gas_pins_show_in_world = true,
 
 -- Repair price modifier:
 -- 0 = normal station price
 -- -50 = 50% cheaper
 -- +50 = 50% more expensive
 repair_price_adjust_pct = nil,
+
+-- Default repair-bay method requires the player to exit manually.
+-- When enabled, the bay waits five seconds, dismounts, respawns, and remounts.
+repair_automatic_enabled = false,
 
 hud_x                = nil,
 hud_y                = nil,  -- normalized 0..1 (bottom→top)
@@ -894,12 +986,42 @@ local v   = tonumber(t.price_epl or t.unit_price_per_liter or t.price)
 if v and v >= 0 then SETTINGS.price_epl = v end
 if type(t.price_dyn_enable) == "boolean" then SETTINGS.price_dyn_enable = t.price_dyn_enable end
 if type(t.fuel_enabled)     == "boolean" then SETTINGS.fuel_enabled     = t.fuel_enabled     end
+if type(t.maintenance_enabled) == "boolean" then
+  SETTINGS.maintenance_enabled = t.maintenance_enabled
+end
+local maintenanceMinKm = tonumber(t.maintenance_min_km)
+if maintenanceMinKm ~= nil then
+  maintenanceMinKm = math.floor(maintenanceMinKm + 0.5)
+  maintenanceMinKm = math.max(
+    VM_MAINT_KM_SLIDER_MIN,
+    math.min(VM_MAINT_KM_SLIDER_MAX, maintenanceMinKm)
+  )
+  SETTINGS.maintenance_min_km = maintenanceMinKm
+end
+local maintenanceMaxKm = tonumber(t.maintenance_max_km)
+if maintenanceMaxKm ~= nil then
+  maintenanceMaxKm = math.floor(maintenanceMaxKm + 0.5)
+  maintenanceMaxKm = math.max(
+    VM_MAINT_KM_SLIDER_MIN,
+    math.min(VM_MAINT_KM_SLIDER_MAX, maintenanceMaxKm)
+  )
+  SETTINGS.maintenance_max_km = maintenanceMaxKm
+end
+if SETTINGS.maintenance_max_km < SETTINGS.maintenance_min_km then
+  SETTINGS.maintenance_max_km = SETTINGS.maintenance_min_km
+end
+if type(t.gas_pins_show_in_world) == "boolean" then
+  SETTINGS.gas_pins_show_in_world = t.gas_pins_show_in_world
+end
 if type(t.stolen_stall_at_zero) == "boolean" then SETTINGS.stolen_stall_at_zero = t.stolen_stall_at_zero end
 
 local rpa = tonumber(t.repair_price_adjust_pct)
 if rpa ~= nil then
   if rpa < -100 then rpa = -100 elseif rpa > 2000 then rpa = 2000 end
   SETTINGS.repair_price_adjust_pct = math.floor(rpa + 0.5)
+end
+if type(t.repair_automatic_enabled) == "boolean" then
+  SETTINGS.repair_automatic_enabled = t.repair_automatic_enabled
 end
 
       -- HUD Auto-Hide
@@ -932,9 +1054,16 @@ local function saveSettings()
     price_dy_px          = SETTINGS.price_dy_px,
     hud_x                = (type(SETTINGS.hud_x) == "number") and SETTINGS.hud_x or nil,
     hud_y                = (type(SETTINGS.hud_y) == "number") and SETTINGS.hud_y or nil,
-    price_dyn_enable     = SETTINGS.price_dyn_enable and true or false,
-    fuel_enabled         = SETTINGS.fuel_enabled and true or false,
-    stolen_stall_at_zero = SETTINGS.stolen_stall_at_zero and true or false,
+    price_dyn_enable       = SETTINGS.price_dyn_enable and true or false,
+    fuel_enabled           = SETTINGS.fuel_enabled and true or false,
+    maintenance_enabled    = SETTINGS.maintenance_enabled ~= false,
+    maintenance_min_km     = tonumber(SETTINGS.maintenance_min_km)
+      or VM_MAINT_MIN_KM_DEFAULT,
+    maintenance_max_km     = tonumber(SETTINGS.maintenance_max_km)
+      or VM_MAINT_MAX_KM_DEFAULT,
+    gas_pins_show_in_world = SETTINGS.gas_pins_show_in_world ~= false,
+    stolen_stall_at_zero   = SETTINGS.stolen_stall_at_zero and true or false,
+    repair_automatic_enabled = SETTINGS.repair_automatic_enabled == true,
 		widget_mode          = SETTINGS.widget_mode or "fuelgauge",
 		fg_theme             = VM_ClampThemeId(SETTINGS.fg_theme),
 		
@@ -980,7 +1109,73 @@ local function saveSettings()
   return ok
 end
 
+-- Apply the saved world-marker visibility without changing the YAML file.
+-- These are global functions to avoid adding more top-level locals to init.lua.
+function VM_ApplyGasPinsShowInWorld(refreshPins)
+  if MARKERS and MARKERS.setShowInWorld then
+    local ok, applied = pcall(function()
+      return MARKERS.setShowInWorld(
+        SETTINGS.gas_pins_show_in_world ~= false,
+        refreshPins ~= false
+      )
+    end)
 
+    if not ok or applied == false then
+      print(
+        "[VehicleMileage] Could not apply gas-station world-marker setting: "
+        .. tostring(applied)
+      )
+      return false
+    end
+
+    return true
+  end
+
+  return false
+end
+
+function VM_SetGasPinsShowInWorld(state)
+  SETTINGS.gas_pins_show_in_world = state and true or false
+  saveSettings()
+  VM_ApplyGasPinsShowInWorld(true)
+end
+
+function VM_SetMaintenanceEnabled(state)
+  SETTINGS.maintenance_enabled = state and true or false
+  saveSettings()
+
+  if VM_MAINTENANCE and VM_MAINTENANCE.setEnabled then
+    VM_MAINTENANCE.setEnabled(SETTINGS.maintenance_enabled)
+  end
+end
+
+function VM_ApplyMaintenanceIntervalSettings()
+  local minKm = math.max(
+    VM_MAINT_KM_SLIDER_MIN,
+    math.min(
+      VM_MAINT_KM_SLIDER_MAX,
+      math.floor(
+        tonumber(SETTINGS.maintenance_min_km) or VM_MAINT_MIN_KM_DEFAULT
+      )
+    )
+  )
+  local maxKm = math.max(
+    minKm,
+    math.min(
+      VM_MAINT_KM_SLIDER_MAX,
+      math.floor(
+        tonumber(SETTINGS.maintenance_max_km) or VM_MAINT_MAX_KM_DEFAULT
+      )
+    )
+  )
+
+  SETTINGS.maintenance_min_km = minKm
+  SETTINGS.maintenance_max_km = maxKm
+
+  if VM_MAINTENANCE and VM_MAINTENANCE.setIntervalRange then
+    VM_MAINTENANCE.setIntervalRange(minKm * 1000, maxKm * 1000)
+  end
+end
 
 local function _gasLocPath()
 if GAS_OPTS_REF and GAS_OPTS_REF.points_path then return GAS_OPTS_REF.points_path end -- end function _gasLocPath
@@ -1684,9 +1879,10 @@ local VMFS_FACT_FIELDS = {
   "oil_deci_c",
   "stalled",
   "limit_on",
+  "maintenance_due_m",
 }
 
-local function VMFS_Hash32(s)
+function VMFS_Hash32(s)
   s = tostring(s or "")
   local h = 5381
 
@@ -1697,7 +1893,7 @@ local function VMFS_Hash32(s)
   return math.floor(h)
 end
 
-local function VMFS_MakeFactKeys(label)
+function VMFS_MakeFactKeys(label)
   local h = string.format("%08x", VMFS_Hash32(label))
 
   return {
@@ -1707,10 +1903,11 @@ local function VMFS_MakeFactKeys(label)
     oil_deci_c    = "vmv_" .. h .. "_o",
     stalled       = "vmv_" .. h .. "_s",
     limit_on      = "vmv_" .. h .. "_l",
+    maintenance_due_m = "vmv_" .. h .. "_d",
   }
 end
 
-local function VMFS_SanitizeFactKeys(src)
+function VMFS_SanitizeFactKeys(src)
   if type(src) ~= "table" then
     return nil
   end
@@ -1730,7 +1927,7 @@ local function VMFS_SanitizeFactKeys(src)
   return any and out or nil
 end
 
-local function VMFS_EnsureFactKeys(label, rec)
+function VMFS_EnsureFactKeys(label, rec)
   if type(rec) ~= "table" then
     return false
   end
@@ -1802,15 +1999,18 @@ local t = json_decode(raw)
 if type(t) ~= "table" then return {} end
 local pruned, changed = pruneSpecMap(t)
 if changed then
-  writeFile(path, json_encode(pruned, 2))
-  print("[VehicleOdometer] Cleaned invalid entries from " .. path)
+  if VM_CONFIG_BACKUP.write(path, json_encode(pruned, 2)) then
+    print("[VehicleOdometer] Cleaned invalid entries from " .. path)
+  else
+    print("[VehicleOdometer] ERROR: could not safely clean " .. tostring(path))
+  end
 end
 return pruned
 end
 
 local function saveSpecMap(path, map)
   local pruned = select(1, pruneSpecMap(map))
-  local ok = writeFile(path, json_encode(pruned, 2))
+  local ok = VM_CONFIG_BACKUP.write(path, json_encode(pruned, 2))
 if not ok then print("[VehicleOdometer] ERROR writing " .. tostring(path)) end -- end function saveSpecMap
 return ok
 end
@@ -1855,9 +2055,12 @@ if isBike then
 			oil_opt_max = DEFAULTS_BIKE.oil_opt_max,
 			vm_facts = VMFS_MakeFactKeys(key),
 		}
-    saveSpecMap(BIKE_SPECS_PATH, BIKE_SPECS)
-    print(("[VehicleOdometer] Added bike spec '%s' {l100km=%s, tank_l=%s}")
-    :format(key, tostring(DEFAULTS_BIKE.l100km), tostring(DEFAULTS_BIKE.tank_l)))
+    if saveSpecMap(BIKE_SPECS_PATH, BIKE_SPECS) then
+      print(("[VehicleOdometer] Added bike spec '%s' {l100km=%s, tank_l=%s}")
+      :format(key, tostring(DEFAULTS_BIKE.l100km), tostring(DEFAULTS_BIKE.tank_l)))
+    else
+      BIKE_SPECS[key] = nil
+    end
   end
 else
   if not CAR_SPECS[key] then
@@ -1870,9 +2073,12 @@ else
 			oil_opt_max = def.oil_opt_max,
 			vm_facts = VMFS_MakeFactKeys(key),
 		}
-    saveSpecMap(CAR_SPECS_PATH, CAR_SPECS)
-    print(("[VehicleOdometer] Added %s spec '%s' {l100km=%s, tank_l=%s}")
-      :format(looksLikeAV(label) and "av" or "car", key, tostring(def.l100km), tostring(def.tank_l)))
+    if saveSpecMap(CAR_SPECS_PATH, CAR_SPECS) then
+      print(("[VehicleOdometer] Added %s spec '%s' {l100km=%s, tank_l=%s}")
+        :format(looksLikeAV(label) and "av" or "car", key, tostring(def.l100km), tostring(def.tank_l)))
+    else
+      CAR_SPECS[key] = nil
+    end
   end
 end
 end
@@ -2241,6 +2447,7 @@ end
 local lastPos   = nil
 local lastVehId = nil
 local cfgAcc    = 0.0
+local lastHourSeen = -1
 
 -- HUD delay tracking
 local wasOwned = false
@@ -2262,6 +2469,24 @@ local LIVE = { kmh = 0.0, factor = 1.0, inst_l100 = 0.0, idle_lph = 0.0, mode = 
 local _wm_reassert_left   = 0.0  -- seconds left to keep reasserting
 local _wm_reassert_period = 0.25 -- how often to reassert
 local _wm_reassert_acc    = 0.0
+
+-- ── Mount state + per-vehicle frame cache ──────────────────────────────────
+-- vm.isMounted: true between VehicleMount and VehicleUnmount events.
+-- Allows onUpdate to exit immediately when the player is on foot,
+-- eliminating GetPlayer()/GetMountedVehicle() raw-API cost every frame.
+local vm = { isMounted = false }
+local vmMountFallbackWarned = false
+
+local lastIsBike       = nil   -- bool, invalidated on vehicle change
+local lastSpec         = nil   -- table, invalidated on vehicle change
+local lastVehData      = nil   -- table, invalidated on vehicle change
+local isIgnoredCache   = nil   -- bool, invalidated on vehicle change
+local lastAutoIgnoreId = nil   -- vehicle id we already ran the quest heuristic on
+local lastSpeedPushed  = -1    -- int km/h: avoids redundant speed fact writes
+
+-- Forward declaration: assigned in onInit once Mod is available.
+-- Called from onVehicleUnmount to start the self-stopping oil cooldown interval.
+local _startOilCooldown = nil
 
 
 -- Price + refuel rate management
@@ -2822,31 +3047,51 @@ end -- end function nextDynamicPrice
 local function applyFuelPrice(newPrice, opts)
   opts = opts or {}
   local persistBase = opts.persist_base == true
-  newPrice = tonumber(newPrice) or currentPrice or DEFAULT_PRICE_EPL
-if newPrice < 0 then newPrice = 0 end -- end function applyFuelPrice
+  local requestedPrice = tonumber(newPrice) or currentPrice or DEFAULT_PRICE_EPL
+  if requestedPrice < 0 then requestedPrice = 0 end
 
-if not currentPrice or math.abs(newPrice - currentPrice) >= 0.0005 then
-  currentPrice = newPrice
-  -- after printing the updated price and saving settings (where currentPrice changed)
-pcall(function() if MARKERS and MARKERS.refresh then MARKERS.refresh(true) end end)
-setFactInt(FACT_HUD_PRICE_CENTS, math.floor((currentPrice * 100) + 0.5))
-
-if type(GAS.setUnitPricePerLiter) == "function" then
-  pcall(GAS.setUnitPricePerLiter, currentPrice)
-elseif GAS_OPTS_REF then
-    GAS_OPTS_REF.unit_price_per_liter = currentPrice
-    pcall(GAS.setup, GAS_OPTS_REF)
+  local economyMultiplier = 1.0
+  if VM_GAS_ECONOMY and VM_GAS_ECONOMY.getPriceMultiplier then
+    economyMultiplier = VM_GAS_ECONOMY.getPriceMultiplier()
   end
-pushPriceFact(true)
+  if VM_GAS_ECONOMY and VM_GAS_ECONOMY.setMarketPrice then
+    VM_GAS_ECONOMY.setMarketPrice(requestedPrice)
+  end
 
-if persistBase then
-  SETTINGS.price_epl = currentPrice
-  saveSettings()
-  print(("[VehicleOdometer] Base price updated by user: %.2f Eddies/L"):format(currentPrice))
-else
-  print(("[VehicleOdometer] Runtime price: %.2f Eddies/L"):format(currentPrice))
-end
-end
+  -- The economy can at most double the configured base price. This remains a
+  -- strict +100% ceiling even when the optional hourly market fluctuation is on.
+  local configuredBase = persistBase and requestedPrice
+    or tonumber(SETTINGS.price_epl) or requestedPrice
+  newPrice = math.min(
+    requestedPrice * math.max(1.0, math.min(2.0, economyMultiplier)),
+    math.max(0, configuredBase * 2.0)
+  )
+
+  if not currentPrice or math.abs(newPrice - currentPrice) >= 0.0005 then
+    currentPrice = newPrice
+    setFactInt(FACT_HUD_PRICE_CENTS, math.floor((currentPrice * 100) + 0.5))
+
+    if type(GAS.setUnitPricePerLiter) == "function" then
+      pcall(GAS.setUnitPricePerLiter, currentPrice)
+    elseif GAS_OPTS_REF then
+      GAS_OPTS_REF.unit_price_per_liter = currentPrice
+      pcall(GAS.setup, GAS_OPTS_REF)
+    end
+    pushPriceFact(true)
+
+    if not persistBase then
+      print(("[VehicleOdometer] Runtime price: %.2f Eddies/L"):format(currentPrice))
+    end
+  end
+
+  -- Persist the user's unmodified base price even when the resulting runtime
+  -- price happens to be unchanged after the economy multiplier is applied.
+  if persistBase then
+    SETTINGS.price_epl = requestedPrice
+    saveSettings()
+    print(("[VehicleOdometer] Base price updated by user: %.2f Eddies/L")
+      :format(requestedPrice))
+  end
 end
 
 -- Ignore helpers (NS actions)
@@ -3346,8 +3591,8 @@ function VM3D_ApplyConfigToFacts(cfg)
 		c.hide_odo_alt == true
 	)
 
-	setFactInt("vm_3d_odo_hide_frame", c.hide_odo_frame and 1 or 0)
-	setFactInt("vm_3d_odo_alt_hide_frame", c.hide_odo_alt_frame and 1 or 0)
+  setFactInt("vm_3d_odo_hide_frame", c.hide_odo_frame and 1 or 0)
+  setFactInt("vm_3d_odo_alt_hide_frame", c.hide_odo_alt_frame and 1 or 0)
 
   if VM3D_CONTROLS and VM3D_CONTROLS.reloadFromFacts then
     pcall(VM3D_CONTROLS.reloadFromFacts)
@@ -3446,11 +3691,16 @@ function VM3D_LoadForMountedVehicle(force)
   if not ctx then
     VM3D_LAST_LOADED_ID = nil
 
-    -- Safety: no owned vehicle = hide 3D widgets.
-		VM3D_SetHiddenFacts(true, true, true, true)
+    -- Safety: no owned vehicle = disable/hide 3D widgets.
+    VM_SetFactIntCached("vm_3d_enabled", 0)
+    VM3D_SetHiddenFacts(true, true, true, true)
 
     return false, reason
   end
+
+  -- We are mounted in a valid owned vehicle and 3D mode is active.
+  -- Re-enable the 3D widget before applying saved vehicle config.
+  VM_SetFactIntCached("vm_3d_enabled", 1)
 
   if not force and VM3D_LAST_LOADED_ID == ctx.id then
     return true
@@ -4158,6 +4408,36 @@ end -- end selectorcompat
 
 
 ns.addTab(NS_TAB, "Odometer + Fuel")
+
+-- Gas-station floating world markers.
+-- World-map and minimap pins remain enabled.
+ns.addSubcategory(NS_TAB .. "/Map Markers", "Map Markers")
+
+do
+  local okA = pcall(function()
+    ns.addSwitch(
+      NS_TAB .. "/Map Markers",
+      "Show Gas Station World Markers",
+      "Show floating gas-station icons in the 3D game world. World-map pins remain available.",
+      SETTINGS.gas_pins_show_in_world ~= false,
+      true,
+      VM_SetGasPinsShowInWorld
+    )
+  end)
+
+  if not okA then
+    pcall(function()
+      ns.addSwitch(
+        NS_TAB .. "/Map Markers",
+        "Show Gas Station World Markers",
+        "Show floating gas-station icons in the 3D game world. World-map pins remain available.",
+        SETTINGS.gas_pins_show_in_world ~= false,
+        VM_SetGasPinsShowInWorld
+      )
+    end)
+  end
+end
+
 ns.addSubcategory(NS_SUB_FUEL, "Fuel & Costs")
 
 -- Base price (€/L) — snapped to 0.5 increments
@@ -4250,9 +4530,55 @@ if not okA then
 end
 end
 
--- Repair price modifier
+-- Repair settings
 ns.addSubcategory(NS_SUB_REPAIR, "Repair")
 
+local repairAutomaticId = nil
+
+do
+  local function onRepairAutomaticToggle(state)
+    SETTINGS.repair_automatic_enabled = state and true or false
+    saveSettings()
+
+    print("[VehicleMileage][Repair] Automatic repair process "
+      .. (SETTINGS.repair_automatic_enabled and "enabled" or "disabled"))
+  end
+
+  local okA, idA = pcall(function()
+    return ns.addSwitch(
+      NS_SUB_REPAIR,
+      "Automatic Repair Process",
+      "Off (default): exit the vehicle manually, then wait 3 seconds.\n"
+        .. "On: remain seated; after 5 seconds the bay dismounts, repairs, and remounts you.\n"
+        .. "Changes apply on the next repair-bay entry.",
+      SETTINGS.repair_automatic_enabled == true,
+      false,
+      onRepairAutomaticToggle
+    )
+  end)
+  if okA and idA then
+    repairAutomaticId = idA
+  end
+
+  if not okA then
+    local okB, idB = pcall(function()
+      return ns.addSwitch(
+        NS_SUB_REPAIR,
+        "Automatic Repair Process",
+        "Off (default): exit the vehicle manually, then wait 3 seconds.\n"
+          .. "On: remain seated; after 5 seconds the bay dismounts, repairs, and remounts you.\n"
+          .. "Changes apply on the next repair-bay entry.",
+        SETTINGS.repair_automatic_enabled == true,
+        onRepairAutomaticToggle
+      )
+    end)
+    if okB and idB then
+      repairAutomaticId = idB
+    end
+  end
+end
+
+-- Repair price modifier
 local repairAdjustId = nil
 
 local function getRepairAdjustPct()
@@ -4276,6 +4602,105 @@ repairAdjustId = addRangeIntCompat(
 
     print(("[VehicleMileage][Repair] Repair price modifier set to %+d%%")
       :format(SETTINGS.repair_price_adjust_pct))
+  end
+)
+
+-- Persistent per-vehicle maintenance
+ns.addSubcategory(NS_SUB_MAINTENANCE, "Vehicle Maintenance")
+
+local maintenanceMinKmId = nil
+local maintenanceMaxKmId = nil
+
+do
+  local okA = pcall(function()
+    ns.addSwitch(
+      NS_SUB_MAINTENANCE,
+      "Vehicle maintenance enabled",
+      "Require each owned vehicle to visit a repair bay using the distance range below. Overdue vehicles leak fuel.",
+      SETTINGS.maintenance_enabled ~= false,
+      true,
+      VM_SetMaintenanceEnabled
+    )
+  end)
+
+  if not okA then
+    pcall(function()
+      ns.addSwitch(
+        NS_SUB_MAINTENANCE,
+        "Vehicle maintenance enabled",
+        "Require each owned vehicle to visit a repair bay using the distance range below. Overdue vehicles leak fuel.",
+        SETTINGS.maintenance_enabled ~= false,
+        VM_SetMaintenanceEnabled
+      )
+    end)
+  end
+end
+
+local function maintenanceSliderKm(value, fallback)
+  value = math.floor(tonumber(value) or fallback)
+  return math.max(
+    VM_MAINT_KM_SLIDER_MIN,
+    math.min(VM_MAINT_KM_SLIDER_MAX, value)
+  )
+end
+
+maintenanceMinKmId = addRangeIntCompat(
+  NS_SUB_MAINTENANCE,
+  "Minimum maintenance distance (km)",
+  "Minimum distance before the next maintenance is due. Existing vehicle deadlines are preserved.",
+  VM_MAINT_KM_SLIDER_MIN, VM_MAINT_KM_SLIDER_MAX, 1,
+  maintenanceSliderKm(
+    SETTINGS.maintenance_min_km,
+    VM_MAINT_MIN_KM_DEFAULT
+  ),
+  VM_MAINT_MIN_KM_DEFAULT,
+  function(value)
+    local minKm = maintenanceSliderKm(value, VM_MAINT_MIN_KM_DEFAULT)
+    SETTINGS.maintenance_min_km = minKm
+
+    local maxKm = maintenanceSliderKm(
+      SETTINGS.maintenance_max_km,
+      VM_MAINT_MAX_KM_DEFAULT
+    )
+    if maxKm < minKm then
+      SETTINGS.maintenance_max_km = minKm
+      if type(ns.setOption) == "function" and maintenanceMaxKmId then
+        pcall(ns.setOption, maintenanceMaxKmId, minKm)
+      end
+    end
+
+    VM_ApplyMaintenanceIntervalSettings()
+    saveSettings()
+  end
+)
+
+maintenanceMaxKmId = addRangeIntCompat(
+  NS_SUB_MAINTENANCE,
+  "Maximum maintenance distance (km)",
+  "Maximum distance before the next maintenance is due. Existing vehicle deadlines are preserved.",
+  VM_MAINT_KM_SLIDER_MIN, VM_MAINT_KM_SLIDER_MAX, 1,
+  maintenanceSliderKm(
+    SETTINGS.maintenance_max_km,
+    VM_MAINT_MAX_KM_DEFAULT
+  ),
+  VM_MAINT_MAX_KM_DEFAULT,
+  function(value)
+    local maxKm = maintenanceSliderKm(value, VM_MAINT_MAX_KM_DEFAULT)
+    SETTINGS.maintenance_max_km = maxKm
+
+    local minKm = maintenanceSliderKm(
+      SETTINGS.maintenance_min_km,
+      VM_MAINT_MIN_KM_DEFAULT
+    )
+    if minKm > maxKm then
+      SETTINGS.maintenance_min_km = maxKm
+      if type(ns.setOption) == "function" and maintenanceMinKmId then
+        pcall(ns.setOption, maintenanceMinKmId, maxKm)
+      end
+    end
+
+    VM_ApplyMaintenanceIntervalSettings()
+    saveSettings()
   end
 )
 
@@ -4612,6 +5037,29 @@ if ns.registerRestoreDefaultsCallback then
   ns.registerRestoreDefaultsCallback(NS_TAB, false, function()
     local ui = Game.GetUISystem()
 
+    -- Maintenance defaults.
+    SETTINGS.maintenance_enabled = true
+    SETTINGS.maintenance_min_km = VM_MAINT_MIN_KM_DEFAULT
+    SETTINGS.maintenance_max_km = VM_MAINT_MAX_KM_DEFAULT
+    if VM_MAINTENANCE and VM_MAINTENANCE.setEnabled then
+      VM_MAINTENANCE.setEnabled(true)
+    end
+    VM_ApplyMaintenanceIntervalSettings()
+    if type(ns.setOption) == "function" then
+      if maintenanceMinKmId then
+        pcall(ns.setOption, maintenanceMinKmId, VM_MAINT_MIN_KM_DEFAULT)
+      end
+      if maintenanceMaxKmId then
+        pcall(ns.setOption, maintenanceMaxKmId, VM_MAINT_MAX_KM_DEFAULT)
+      end
+    end
+
+    -- Repair method default: manual exit.
+    SETTINGS.repair_automatic_enabled = false
+    if type(ns.setOption) == "function" and repairAutomaticId then
+      pcall(ns.setOption, repairAutomaticId, false)
+    end
+
     -- Legacy VMHUD position
     SETTINGS.hud_x, SETTINGS.hud_y = defX, defY
     saveSettings()
@@ -4678,6 +5126,11 @@ if ns.registerRestoreDefaultsCallback then
     SETTINGS.auto_hide_enabled  = nil
     SETTINGS.auto_hide_seconds  = nil
     SETTINGS.auto_hide_fuel_pct = nil
+
+    -- Gas-station world markers default to visible.
+    SETTINGS.gas_pins_show_in_world = true
+    VM_ApplyGasPinsShowInWorld(true)
+
     saveSettings()
     autoHideTimer = 0.0
   end)
@@ -4695,19 +5148,133 @@ unignoreCurrentVehicle)
 end -- end function (anonymous)
 
 -- ╔═══════════════════════════════════════════════════════════════════════════╗
+-- ║ 0-Engine mount / unmount handlers                                         ║
+-- ╚═══════════════════════════════════════════════════════════════════════════╝
+
+-- Called by 0-Engine when the player mounts a vehicle.
+-- Resets all per-vehicle caches so onUpdate can use the fast cached paths
+-- from the very first frame, and ensures a fresh HUD state for the new vehicle.
+local function onVehicleMount(veh)
+  if not veh then return end
+  vm.isMounted = true
+  VM_WEATHER_CONDITION.Refresh()
+  -- Fresh mount must never reuse previous position/id.
+  lastPos = nil
+  lastVehId = nil
+
+  local id, label = vehKeyAndLabel(veh)
+
+  -- Reset HUD fact caches for the new vehicle
+  lastHUDVisible, lastMetersPushed, lastFuelPermillePushed = -1, -1, -1
+  lastSpeedPushed  = -1
+  factAcc          = 0.0
+  hudAcc           = 0.0
+  autoHideTimer    = 0.0
+  autoHideLatched  = false
+
+  -- Invalidate per-vehicle frame caches
+  lastIsBike       = nil
+  lastSpec         = nil
+  lastVehData      = nil
+  isIgnoredCache   = nil
+  lastAutoIgnoreId = nil
+
+  -- Force 3D config reload on this mount.
+  -- Important when user changed 3D setup without pressing Save.
+  VM3D_LAST_LOADED_ID = nil
+
+  -- If 3D Widget mode is active, re-enable the 3D widget after being on foot.
+  if VM3D_IsActiveMode and VM3D_IsActiveMode() then
+    VM_SetFactIntCached("vm_3d_enabled", 1)
+  end
+
+  -- Ensure spec entry exists (noop if already present)
+  local isBike = looksLikeBike(label)
+  ensureSpecForLabel(label, isBike)
+end
+
+-- Called by 0-Engine when the player unmounts (or session ends / vehicle destroyed).
+-- Clears the isMounted flag so subsequent onUpdate frames exit early,
+-- and resets all HUD facts to their hidden/default state.
+local function onVehicleUnmount()
+  vm.isMounted = false
+  VM_WEATHER_CONDITION.temperatureC = nil
+	vmMountFallbackWarned = false
+
+  -- Force-stop any active refueling session
+  _forceStopRefuel()
+
+  if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+    VM_MAINTENANCE.resetMounted()
+  end
+
+  -- 3D widget is vehicle-bound.
+  -- Disable it while on foot for performance / clean state.
+  VM3D_LAST_LOADED_ID = nil
+  VM_SetFactIntCached("vm_3d_enabled", 0)
+  VM3D_SetHiddenFacts(true, true, true, true)
+
+  -- Clear HUD facts
+  setFactInt(FACT_HUD_VISIBLE, 0)
+  setFactInt(FACT_FG_TEMP_VISIBLE, 0)
+  lastHUDVisible  = 0
+  lastTempVisible = 0
+
+  if lastVehCondPctPushed ~= -1 then
+    setFactInt(FACT_HUD_VEH_COND_PCT, -1)
+    lastVehCondPctPushed = -1
+  end
+
+  lastPos, lastVehId  = nil, nil
+  isIgnoredCache      = nil
+  lastIsBike          = nil
+  lastSpec            = nil
+  lastVehData         = nil
+  wasOwned, hudAcc    = false, 0.0
+  autoHideTimer       = 0.0
+  autoHideLatched     = false
+  LIVE.kmh, LIVE.factor, LIVE.inst_l100, LIVE.idle_lph, LIVE.mode = 0, 1, 0, 0, "stop"
+  -- Restart the self-stopping oil cooldown interval
+  if _startOilCooldown then _startOilCooldown() end
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════════════╗
 -- ║ Init + observers                                                          ║
 -- ╚═══════════════════════════════════════════════════════════════════════════╝
 
 registerForEvent("onInit", function()
+  -- 0-Engine integration (safe: nil-guarded so mod still works without額 ㄓㄒˋ it)
+  Engine = GetMod("0-Engine")
+  if Engine then
+    Mod = Engine.Register("VehicleMileage")
+  else
+    print("[VehicleMileage] WARNING: 0-Engine not found — running without event optimizations")
+  end
+
+  if Mod then
+    -- Subscribe to 0-Engine vehicle + session events
+    Mod.Subscribe("VehicleMount",   onVehicleMount)
+    Mod.Subscribe("VehicleUnmount", onVehicleUnmount)
+
+    -- MenuClose: process a consumed gascan and flush its queued toast.
+    Mod.Subscribe("MenuClose", function()
+        VM_GASCAN.OnMenuClose()
+
+        if PENDING_TOAST and PENDING_TOAST ~= "" and _canEmit() then
+            _showRed(PENDING_TOAST)
+            lastToastAt = os.clock()
+            PENDING_TOAST = nil
+        end
+    end)
+  end
   VM_FACT_CACHE = {}
-
-	setFactInt(FACT_HUD_VISIBLE, 0)
-	setFactInt(FACT_HUD_METERS, 0)
-	setFactInt(FACT_HUD_FUEL_PERMILLE, 0)
-	setFactInt(FACT_HUD_SPEED_KMH, 0)
-	setFactInt(FACT_HUD_OIL_TEMP_C, -1)
-
-	math.randomseed(os.time())
+  
+  setFactInt(FACT_HUD_VISIBLE, 0)
+		setFactInt(FACT_HUD_METERS, 0)
+		setFactInt(FACT_HUD_FUEL_PERMILLE, 0)
+		setFactInt(FACT_HUD_SPEED_KMH, 0)
+		setFactInt(FACT_HUD_OIL_TEMP_C, -1)
+  math.randomseed(os.time())
 
   -- reset HUD fact caches
   lastHUDVisible, lastMetersPushed, lastFuelPermillePushed = -1, -1, -1
@@ -4795,12 +5362,60 @@ SAVE.setup({
 })
 
 
+VM_GASCAN.setup({
+  pending_fact           = "elm_chooh2_gascan_pending",
+  item_id                = "Items.chooh2_gascan",
+  liters_per_item        = 10.0,
+  sound_event            = "gascan_refuel",
+  save                   = SAVE,
+  queueToast             = queueToast,
+  vehKeyAndLabel         = vehKeyAndLabel,
+  getSpecs               = specsFor,
+  isOwnedViaUnlockedList = isOwnedViaUnlockedList,
+  isIgnored              = ignoreIs,
+  setFactInt             = setFactInt,
+  hud_fuel_fact          = FACT_HUD_FUEL_PERMILLE,
+})
+
+VM_MAINTENANCE.setup({
+  enabled              = SETTINGS.maintenance_enabled ~= false,
+  min_interval_m       = (
+    tonumber(SETTINGS.maintenance_min_km) or VM_MAINT_MIN_KM_DEFAULT
+  ) * 1000,
+  max_interval_m       = (
+    tonumber(SETTINGS.maintenance_max_km) or VM_MAINT_MAX_KM_DEFAULT
+  ) * 1000,
+  reward_chance        = 0.25,
+  reward_count         = 1,
+  reward_item_id       = "Items.chooh2_gascan",
+  critical_condition_pct = 20.0,
+  heat_warm_c          = 34.0,
+  heat_extreme_c       = 37.0,
+  heat_warm_multiplier = 1.5,
+  heat_extreme_multiplier = 2.0,
+  decompression_fact   = "vm_maintenance_decompression_event",
+  force_due_fact       = "vm_maintenance_force_due_cmd",
+  fx_mode_fact         = "vm_maintenance_fx_mode",
+  save                 = SAVE,
+  queueToast           = queueToast,
+  setHudFuelPermille   = function(permille)
+    setFactInt(FACT_HUD_FUEL_PERMILLE, permille)
+    lastFuelPermillePushed = permille
+  end,
+  debug                = false,
+})
+
+-- Clean up old vm_session/*.lua files left over from pre-v4 save model
+SAVE:pruneSessionFiles()
+
+
 reloadSpecFiles()
 
 -- gas module
 local GAS_OPTS = {
 points_path          = "vm_gas_locations.json",
 radius               = 5.0,
+cluster_radius       = 35.0,
 refill_per_sec       = VMCONST.REFILL.RATE_FAST,
 sound_event          = "refuel",
 sound_stop_event     = nil,
@@ -4814,6 +5429,7 @@ debug                = false,
 }
 GAS_OPTS_REF = GAS_OPTS
 GAS.setup(GAS_OPTS)
+VM_GAS_ECONOMY.setup({ gas = GAS })
 
 -- repair station module
 local REPAIR_OPTS = {
@@ -4821,12 +5437,23 @@ local REPAIR_OPTS = {
   radius        = 5.0,
   debug         = false,
   wait_seconds  = 3.0,
+  automatic_wait_seconds = 5.0,
 
   -- Used only for old repair-zone records without "price"
   default_repair_price = 500,
 
+  isAutomaticRepairEnabled = function()
+    return SETTINGS.repair_automatic_enabled == true
+  end,
+
   getRepairPriceAdjustPct = function()
     return tonumber(SETTINGS.repair_price_adjust_pct) or 0
+  end,
+
+  onRepairCompleted = function(vehicleID, vehicleLabel, conditionPct)
+    if VM_MAINTENANCE and VM_MAINTENANCE.completeService then
+      VM_MAINTENANCE.completeService(vehicleID, vehicleLabel, conditionPct)
+    end
   end,
 
   -- Read condition while still mounted.
@@ -4877,14 +5504,13 @@ else
     cluster_radius      = 35.0,
     clampToGround       = true,
     visibleThroughWalls = true,
+    showInWorld         = SETTINGS.gas_pins_show_in_world ~= false,
     trace               = false,
 
     -- tooltip text (title, desc) per pin:
     caption = function(pos, idx)
-      local title = ("CHOOH2 PUMP #%d"):format(idx)    -- or just "CHOOH2 PUMP"
-      local line1 = "Pay & Refuel"
-      local line2 = ("€%.2f/L"):format(tonumber(currentPrice) or 0)
-      return title, (line1 .. "\n" .. line2)
+      local title = ("CHOOH2 PUMP #%d"):format(idx)
+      return title, "Pay & Refuel"
     end,
   })
 end
@@ -4915,64 +5541,276 @@ if type(Observe) == "function" then
   Observe('gameuiInGameMenuGameController', 'OnSavingComplete', function(_, success)
     SAVE:onSavingComplete(success)
   end) -- end function (anonymous)
+end
 
-Observe('PlayerPuppet', 'OnTakeControl', function(self)
-if self and self.IsReplacer and self:IsReplacer() then return end -- end function (anonymous)
+-- 0-Engine already owns the game-session lifecycle. Use its public PlayerReady /
+-- PlayerInvalidated API instead of loading a second private GameUI.lua copy.
+local vmSessionActive = false
 
-VM_FACT_CACHE = {}
+local function VM_OnSessionStart(player)
+  if vmSessionActive then
+    return
+  end
 
-lastHUDVisible, lastMetersPushed, lastFuelPermillePushed = -1, -1, -1
-factAcc = 0.0
-factPushInterval = FACT_PUSH_INTERVAL_BASE
+  player = player or (Mod and Mod.GetPlayer and Mod.GetPlayer()) or Game.GetPlayer()
+  if not player then
+    return
+  end
 
-lastPos, lastVehId = nil, nil
-wasOwned, hudAcc   = false, 0.0
-autoHideTimer      = 0.0
-autoHideLatched    = false
-pcall(function() if MARKERS and MARKERS.refresh then MARKERS.refresh(true) end end)
-setFactInt(FACT_HUD_PRICE_VISIBLE, 0)
-priceVisibleLast = false
+  if player.IsReplacer and player:IsReplacer() then
+    return
+  end
 
-SAVE:onPlayerControl()
--- Give ourselves a few seconds to re-attach if timing is weird on some rigs.
-_vm_attachWatchLeft = 8.0     -- try for up to 8s after taking control
-_vm_attachCooldown  = 0.0     -- first attempt can happen immediately
-loadSettings()
-applyThemeRuntime(SETTINGS.fg_theme)
+  vmSessionActive = true
+  VM_WEATHER_CONDITION.Refresh()
+  VM_FACT_CACHE = {}
 
-forceAllWidgetsOff()
-  applyWidgetModeRuntime(SETTINGS.widget_mode)   -- one immediate apply
-	-- Fuel Gauge transforms (use defaults if unset; no JSON writes)
-	applyFuelGaugeTransforms(SETTINGS.fg_dx_px, SETTINGS.fg_dy_px, SETTINGS.fg_scale)
+  lastHUDVisible, lastMetersPushed, lastFuelPermillePushed = -1, -1, -1
+  factAcc = 0.0
+  factPushInterval = FACT_PUSH_INTERVAL_BASE
 
-	
-	-- Re-apply Leaderboard on player control, like the other widgets
-	_callUI("VM_LB_SetEnabled", (SETTINGS.lb_enabled ~= false))
-	_callUI("VM_LB_SetOffset", tonumber(SETTINGS.lb_dx_px) or LB_DEF_DX,
-																tonumber(SETTINGS.lb_dy_px) or LB_DEF_DY)
-	_callUI("VM_LB_SetScale",  tonumber(SETTINGS.lb_scale)  or LB_DEF_SCALE)
-	-- Re-apply global 3D World config on player control.
-	VMWorld_ResetDraftFromSettings()
-	VMWorld_ApplyAll()
+  lastPos, lastVehId = nil, nil
+  wasOwned, hudAcc   = false, 0.0
+  autoHideTimer      = 0.0
+  autoHideLatched    = false
 
+  -- Invalidate 0-Engine per-vehicle caches from the previous session.
+  vm.isMounted       = false
+  vmMountFallbackWarned = false
+  lastIsBike         = nil
+  lastSpec           = nil
+  lastVehData        = nil
+  isIgnoredCache     = nil
+  lastAutoIgnoreId   = nil
+  lastSpeedPushed    = -1
 
-  -- choose ONE window; 1–2s if your UI initializes fast, 6–8s if slow rigs
-  _wm_reassert_left   = 8.0     -- or 1.0
+  pcall(function() if MARKERS and MARKERS.refresh then MARKERS.refresh(true) end end)
+  setFactInt(FACT_HUD_PRICE_VISIBLE, 0)
+  priceVisibleLast = false
+
+		-- This is the first point where vehicle save facts may be read or initialized.
+		SAVE:onSessionStart()
+		VM_GASCAN.OnSessionStart()
+
+		-- Give ourselves a few seconds to re-attach if timing is weird on some rigs.
+  _vm_attachWatchLeft = 8.0
+  _vm_attachCooldown  = 0.0
+  loadSettings()
+  VM_ApplyMaintenanceIntervalSettings()
+  if VM_MAINTENANCE and VM_MAINTENANCE.onSessionStart then
+    VM_MAINTENANCE.onSessionStart(SETTINGS.maintenance_enabled ~= false)
+  end
+  VM_ApplyGasPinsShowInWorld(true)
+  applyThemeRuntime(SETTINGS.fg_theme)
+
+  forceAllWidgetsOff()
+  applyWidgetModeRuntime(SETTINGS.widget_mode)
+  applyFuelGaugeTransforms(SETTINGS.fg_dx_px, SETTINGS.fg_dy_px, SETTINGS.fg_scale)
+
+  -- Re-apply Leaderboard at session start, like the other widgets.
+  _callUI("VM_LB_SetEnabled", (SETTINGS.lb_enabled ~= false))
+  _callUI("VM_LB_SetOffset", tonumber(SETTINGS.lb_dx_px) or LB_DEF_DX,
+                                tonumber(SETTINGS.lb_dy_px) or LB_DEF_DY)
+  _callUI("VM_LB_SetScale",  tonumber(SETTINGS.lb_scale)  or LB_DEF_SCALE)
+
+  -- Re-apply global 3D World config at session start.
+  VMWorld_ResetDraftFromSettings()
+  VMWorld_ApplyAll()
+
+  _wm_reassert_left   = 8.0
   _wm_reassert_acc    = 0.0
   _wm_reassert_period = 0.25
 
-STOLEN_STALL_AT_ZERO = (SETTINGS.stolen_stall_at_zero ~= false)
+  STOLEN_STALL_AT_ZERO = (SETTINGS.stolen_stall_at_zero ~= false)
 
-local base = SETTINGS.price_epl or DEFAULT_PRICE_EPL
-applyFuelPrice(base, { persist_base = false })
-if SETTINGS.price_dyn_enable then
-  applyFuelPrice(nextDynamicPrice(base, base), { persist_base = false })
+  if VM_GAS_ECONOMY and VM_GAS_ECONOMY.start then
+    VM_GAS_ECONOMY.start()
+  end
+
+  local base = SETTINGS.price_epl or DEFAULT_PRICE_EPL
+  applyFuelPrice(base, { persist_base = false })
+  if SETTINGS.price_dyn_enable then
+    applyFuelPrice(nextDynamicPrice(base, base), { persist_base = false })
+  end
+  pushPriceFact(true)
+  priceReassertTimer = 1.0
 end
-pushPriceFact(true)
-priceReassertTimer = 1.0
-end) -- end OnTakeControl -- end function (anonymous)
-end -- end If observe
 
+local function VM_OnSessionEnd()
+  if not vmSessionActive then
+    return
+  end
+
+  vmSessionActive = false
+  VM_FACT_CACHE = {}
+
+  vm.isMounted = false
+  vmMountFallbackWarned = false
+  lastPos, lastVehId = nil, nil
+  lastIsBike = nil
+  lastSpec = nil
+  lastVehData = nil
+  isIgnoredCache = nil
+  lastAutoIgnoreId = nil
+  lastSpeedPushed = -1
+  wasOwned, hudAcc = false, 0.0
+  autoHideTimer = 0.0
+  autoHideLatched = false
+
+  if VM_MAINTENANCE and VM_MAINTENANCE.onSessionEnd then
+    VM_MAINTENANCE.onSessionEnd()
+  end
+
+  if SAVE and SAVE.onSessionEnd then
+    SAVE:onSessionEnd()
+  elseif SAVE and SAVE.resetRuntime then
+    SAVE:resetRuntime()
+  end
+
+  if VM_GAS_ECONOMY and VM_GAS_ECONOMY.stop then
+    VM_GAS_ECONOMY.stop()
+  end
+
+  setFactInt(FACT_HUD_VISIBLE, 0)
+  setFactInt(FACT_HUD_PRICE_VISIBLE, 0)
+  priceVisibleLast = false
+end
+
+if Mod then
+  -- WhenReady waits for a stable player after the savegame is loaded. It also
+  -- handles CET "Reload all mods" and player recreation without OnTakeControl.
+  Mod.WhenReady(function(player)
+    VM_OnSessionStart(player)
+  end, 3)
+
+  Mod.Subscribe("PlayerInvalidated", function()
+    VM_OnSessionEnd()
+  end)
+else
+  print("[VehicleMileage] ERROR: 0-Engine lifecycle unavailable; save facts will not initialize.")
+end
+
+  -- ────────────────────────────────────────────────────────────────────────
+  -- 0-Engine intervals (replaces per-frame polling in onUpdate)
+  -- Only registered when Mod handle is available (0-Engine loaded).
+  -- ────────────────────────────────────────────────────────────────────────
+  if Mod then
+
+  -- Optional Weather Condition bridge: every 5 seconds while mounted.
+  -- Maintenance and the CET overlay only read the cached result.
+  Mod.SetInterval(5.0, function()
+    if vmSessionActive and vm.isMounted then
+      VM_WEATHER_CONDITION.Refresh()
+    end
+  end)
+
+  -- Save sync: every 2 seconds (SAVE internally batched at same rate)
+  Mod.SetInterval(2.0, function()
+    if SAVE and SAVE.dirty then
+      SAVE:syncAll(false)
+      SAVE.dirty = false
+    end
+  end)
+
+  -- Widget reassert: every 0.25s, self-stops when UI is ready (max 12s)
+  do
+    local reassertHandle
+    reassertHandle = Mod.SetInterval(0.25, function()
+      if _wm_reassert_left <= 0.0 then
+        if reassertHandle and reassertHandle.Cancel then reassertHandle:Cancel()
+        elseif Mod.ClearTimer then Mod.ClearTimer(reassertHandle) end
+        return
+      end
+      _wm_reassert_left = math.max(0.0, _wm_reassert_left - 0.25)
+      local haveToggles = uiTogglesReady()
+      local haveTfms    = (SETTINGS.widget_mode ~= "fuelgauge") or uiTransformsReady()
+      applyWidgetModeRuntime(SETTINGS.widget_mode)
+      if not (haveToggles and haveTfms) then
+        _wm_reassert_left = math.min(12.0, _wm_reassert_left + 0.5)
+      end
+    end)
+  end
+
+  -- Stolen vehicle GC: every 5 seconds
+  Mod.SetInterval(5.0, function()
+    if STOLEN and STOLEN.tick then STOLEN.tick(5.0) end
+  end)
+
+  -- Gas economy + price tick: every 30 real seconds (checks in-game hour).
+  Mod.SetInterval(30.0, function()
+    if not vmSessionActive then return end
+
+    local economyChanged = false
+    if VM_GAS_ECONOMY and VM_GAS_ECONOMY.update then
+      local economyStatus = VM_GAS_ECONOMY.getStatus()
+      if economyStatus.running then
+        economyChanged = select(1, VM_GAS_ECONOMY.update()) == true
+      else
+        economyChanged = VM_GAS_ECONOMY.start() == true
+      end
+    end
+
+    local h = getInGameHour()
+    if h == nil then return end
+    if lastHourSeen < 0 then
+      lastHourSeen = h
+    elseif h ~= lastHourSeen or economyChanged then
+      lastHourSeen = h
+      local base = SETTINGS.price_epl or DEFAULT_PRICE_EPL
+      local previousMarket = VM_GAS_ECONOMY.getMarketPrice(base)
+      local np = SETTINGS.price_dyn_enable
+        and nextDynamicPrice(base, previousMarket) or base
+      applyFuelPrice(np, { persist_base = false })
+      pushPriceFact(true)
+      priceReassertTimer = 1.0
+    end
+  end)
+
+  -- Config reload: every 25 seconds (dev convenience)
+  Mod.SetInterval(VMCONST.MISC.CONFIG_RELOAD_SEC, function()
+    if DEV_OVERLAY_RELOAD_ONLY and not isOverlayVisible then return end
+    reloadSpecFiles()
+    pushPriceFact(false)
+  end)
+
+  -- 3D World leaderboard refresh: every 5 seconds
+  -- Reads persistent per-vehicle meters facts from vm_config_cars/bikes.
+  Mod.SetInterval(VM_WORLD_LB_INTERVAL or 5.0, function()
+    if VM_WorldLB_PushTop10FromFactConfigs then
+      VM_WorldLB_PushTop10FromFactConfigs()
+    end
+  end)
+
+  -- Oil cooldown for unmounted vehicles.
+  -- Uses vm.isMounted (set by VehicleMount/VehicleUnmount events) instead of
+  -- polling GetPlayer()/GetMountedVehicle() every 2 seconds.
+  -- Self-stops when all vehicles cool to ambient; restarts on next unmount.
+  local _oilCoolHandle = nil
+  _startOilCooldown = function()
+    if _oilCoolHandle then return end  -- already running
+    _oilCoolHandle = Mod.SetInterval(2.0, function()
+      if vm.isMounted then return end  -- mounted = onUpdate handles oil
+      local vs = (SAVE and SAVE.data and SAVE.data.vehicles) or {}
+      local anyWarm = false
+      for vid, rec in pairs(vs) do
+        if rec and rec.oil_temp and rec.oil_temp > 30 then
+          anyWarm = true
+          tickOilTemp(rec, 0.0, 2.0, false, nil, tostring(vid), vid, false)
+        end
+      end
+      -- All vehicles at ambient — pause the timer until next unmount
+      if not anyWarm and _oilCoolHandle then
+        if _oilCoolHandle.Cancel then
+          _oilCoolHandle:Cancel()
+        elseif Mod.ClearTimer then
+          Mod.ClearTimer(_oilCoolHandle)
+        end
+        _oilCoolHandle = nil
+      end
+    end)
+  end
+
+  end -- end if Mod
 
 
 end) -- end OnInit -- end function (anonymous)
@@ -5281,7 +6119,7 @@ end -- end function parseNumber
 --  ImGui.PushID(keyStr)
 
 if owned and hasSpec then
-  --[[
+--[[
   ImGui.Separator()
   ImGui.Text("Temporary migration tools")
   ImGui.TextDisabled("These controls are only for migrating old vm_session data.")
@@ -5321,7 +6159,6 @@ if owned and hasSpec then
     VM_OverwriteCurrentVehicleMeters(meters)
   end
   ]]
-
   ImGui.Separator()
   ImGui.Text("Edit spec:")
   ImGui.SameLine()
@@ -5344,7 +6181,7 @@ ImGui.SameLine()
 if ImGui.Button("Save##l100_inline") then
   local vnum = tonumber((s.l100_str or ""):gsub(",", "."):match("^%s*(.-)%s*$"))
   if vnum then
-    vnum = math.max(0.0, math.min(60.0, vnum))
+    vnum = math.max(0.0, math.min(10000.0, vnum))
     map[keyStr].l100km = vnum
     local ok = saveSpecMap(path, map)
     if ok then
@@ -5380,7 +6217,7 @@ ImGui.SameLine()
 if ImGui.Button("Save##tank_inline") then
   local vnum = tonumber((s.tank_str or ""):gsub(",", "."):match("^%s*(.-)%s*$"))
   if vnum then
-    vnum = math.max(1.0, math.min(500.0, vnum))
+    vnum = math.max(1.0, math.min(100000.0, vnum))
     map[keyStr].tank_l = vnum
     local ok = saveSpecMap(path, map)
     if ok then
@@ -5462,6 +6299,7 @@ elseif LIVE.mode == "idle" then
   else
     ImGui.Text("Instant Usage: 0.0 L/100km (stopped)")
   end
+  ImGui.Text(VM_WEATHER_CONDITION.GetDebugText())
 else
   ImGui.Separator()
   ImGui.Text("Not in a vehicle.")
@@ -5679,113 +6517,73 @@ end)
 -- ║ Main update (price dynamics, refuel, HUD, odo/fuel)                       ║
 -- ╚═══════════════════════════════════════════════════════════════════════════╝
 
-local lastHourSeen = -1
-
 registerForEvent("onUpdate", function(dt)
-  -- vm_save deferred restore
-	if SAVE and SAVE.onUpdate then SAVE:onUpdate(dt) end -- end function (anonymous)
+  -- [0-Engine] SAVE sync, widget reassert, STOLEN GC, dynamic price,
+  -- config reload all moved to Mod.SetInterval in onInit.
+  -- SAVE:onUpdate(dt) intentionally NOT called here; sync handled by
+  -- Mod.SetInterval(2.0) in onInit (0E design — avoids per-frame dirty check).
 
-  -- Standalone world leaderboard refresh.
-  -- Reads persistent per-vehicle meters facts from vm_config_cars/bikes.
-  VM_WORLD_LB_ACC = (VM_WORLD_LB_ACC or 0.0) + (dt or 0.0)
+  -- ── Compute pause state once per frame (avoids 4× raw-API calls) ─────────
+  -- [0-Engine] VM_WORLD leaderboard refresh moved to Mod.SetInterval(5.0) in onInit.
+  local paused = (isInMenu and isInMenu()) or false
 
-  if VM_WORLD_LB_ACC >= (VM_WORLD_LB_INTERVAL or 5.0) then
-    VM_WORLD_LB_ACC = 0.0
-
-    if VM_WorldLB_PushTop10FromFactConfigs then
-      VM_WorldLB_PushTop10FromFactConfigs()
-    end
+  -- Price reassert runs regardless of mount state (needed right after load)
+  if priceReassertTimer > 0.0 then
+    priceReassertTimer = priceReassertTimer - (dt or 0)
+    pushPriceFact(true)
   end
 
-	-- Global pause flag for this frame (includes loading screens / menus)
-	local paused = (isInMenu and isInMenu()) or false
-
- 
--- Reassert the chosen widget (and transforms) until UI endpoints exist
-if _wm_reassert_left > 0.0 then
-  _wm_reassert_acc = _wm_reassert_acc + (dt or 0)
-  if _wm_reassert_acc >= _wm_reassert_period then
-    _wm_reassert_acc = 0.0
-    _wm_reassert_left = math.max(0.0, _wm_reassert_left - _wm_reassert_period)
-
-    local haveToggles = uiTogglesReady()
-    local haveTfms    = (SETTINGS.widget_mode ~= "fuelgauge") or uiTransformsReady()
-
-    -- Always drive the desired state; this is safe & idempotent
-    applyWidgetModeRuntime(SETTINGS.widget_mode)
-
-    -- Stretch the window while UI endpoints are missing (cap at 12s)
-    if not (haveToggles and haveTfms) then
-      _wm_reassert_left = math.min(12.0, _wm_reassert_left + 0.5)
+  -- Toast flush on menu-close edge.
+  -- Mod.Subscribe("MenuClose") is the primary path; wasInMenu is a fallback.
+  if wasInMenu and not paused then
+    if PENDING_TOAST and PENDING_TOAST ~= "" and _canEmit() then
+      _showRed(PENDING_TOAST)
+      lastToastAt = os.clock()
+      PENDING_TOAST = nil
     end
   end
-end
-
-
--- show queued toast after exiting any menu layer
-do
-  local inMenu = (isInMenu and isInMenu()) or false
-
-  if wasInMenu and not inMenu then
-    -- NEW: rebuild pins when leaving any menu
-  pcall(function() if MARKERS and MARKERS.refresh then MARKERS.refresh(true) end end)
-
-  if PENDING_TOAST and PENDING_TOAST ~= "" and _canEmit() then
+  if not paused and PENDING_TOAST and PENDING_TOAST ~= "" and _canEmit() then
     _showRed(PENDING_TOAST)
     lastToastAt = os.clock()
     PENDING_TOAST = nil
   end
-end -- end function (anonymous)
+  wasInMenu = paused
 
-if not inMenu and PENDING_TOAST and PENDING_TOAST ~= "" and _canEmit() then
-  _showRed(PENDING_TOAST)
-  lastToastAt = os.clock()
-  PENDING_TOAST = nil
-end
+  if not vm.isMounted then
+    -- Safety fallback:
+    -- 0-Engine can miss mount state after reload / already-seated save.
+    -- We do one cheap recovery check only while the mod thinks we are on foot.
+    local p = Game.GetPlayer()
+    local mountedVeh = p and p:GetMountedVehicle() or nil
 
-wasInMenu = inMenu
-end
+		if mountedVeh then
+			if not vmMountFallbackWarned then
+				print("[VehicleMileage] Mount fallback recovered mounted vehicle. 0-Engine VehicleMount was probably missed.")
+				vmMountFallbackWarned = true
+			end
 
-if STOLEN and STOLEN.tick then STOLEN.tick(dt) end
-
--- brief reassert of price fact after load
-if priceReassertTimer > 0.0 then
-  priceReassertTimer = priceReassertTimer - (dt or 0)
-  pushPriceFact(true)
-end
-
--- dynamic price tick (in-game hour)
-if SETTINGS.price_dyn_enable then
-  local h = getInGameHour()
-  if h ~= nil then
-    if lastHourSeen < 0 then
-      lastHourSeen = h
-    elseif h ~= lastHourSeen then
-        lastHourSeen = h
-        local np = nextDynamicPrice(SETTINGS.price_epl or DEFAULT_PRICE_EPL, currentPrice)
-        applyFuelPrice(np, { persist_base = false })
-        pushPriceFact(true)
-        priceReassertTimer = 1.0
+			onVehicleMount(mountedVeh)
+		else
+      if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+        VM_MAINTENANCE.resetMounted()
       end
-  end
-end
 
--- hot-reload specs in overlay (dev convenience)
-if not DEV_OVERLAY_RELOAD_ONLY or isOverlayVisible then
-  cfgAcc = cfgAcc + (dt or 0)
-  if cfgAcc >= VMCONST.MISC.CONFIG_RELOAD_SEC then
-    cfgAcc = 0.0
-    reloadSpecFiles()
-    pushPriceFact(false)
+      if REPAIR and REPAIR.update then
+        REPAIR.update(dt)
+      end
+
+      return
+    end
   end
-else
-  cfgAcc = 0.0
-end
 
 -- Start if not player
 
 local player = Game.GetPlayer()
 if not player then
+  if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+    VM_MAINTENANCE.resetMounted()
+  end
+
   if lastHUDVisible ~= 0 then
     setFactInt(FACT_HUD_VISIBLE, 0)
 		setFactInt(FACT_FG_TEMP_VISIBLE, 0)
@@ -5812,57 +6610,60 @@ end
 
 local veh = player:GetMountedVehicle()
 if not veh then
-  -- Repair timer runs here after player leaves the vehicle.
-  if REPAIR and REPAIR.update then REPAIR.update(dt) end
-
-  -- Hide vehicle-bound 3D widgets while unmounted.
-  -- This prevents old visible facts from carrying over to the next vehicle.
-	VM3D_SetHiddenFacts(true, true, true, true)
-  VM3D_LAST_LOADED_ID = nil
-
-  if lastHUDVisible ~= 0 then
-    setFactInt(FACT_HUD_VISIBLE, 0)
-		setFactInt(FACT_FG_TEMP_VISIBLE, 0)
-    lastHUDVisible = 0
+  if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+    VM_MAINTENANCE.resetMounted()
   end
-	if lastTempVisible ~= 0 then lastTempVisible = 0 end  -- NEW
-		factAcc = 0.0
-		factPushInterval = FACT_PUSH_INTERVAL_BASE
-		if priceVisibleLast or refuelingPrev then
-			_forceStopRefuel()
-		end
-		lastPos, lastVehId = nil, nil
-		wasOwned, hudAcc   = false, 0.0
-		LIVE.kmh, LIVE.factor, LIVE.inst_l100, LIVE.idle_lph, LIVE.mode = 0, 1, 0, 0, "stop"
 
-		if lastVehCondPctPushed ~= -1 then
-			setFactInt(FACT_HUD_VEH_COND_PCT, -1)
-			lastVehCondPctPushed = -1
-		end
-	autoHideTimer = 0.0
-	autoHideLatched = false
-	-- NEW: gently cool all known vehicles while unmounted
-	do
-		local vs = (SAVE and SAVE.data and SAVE.data.vehicles) or {}
-		for vid, rec in pairs(vs) do
-			tickOilTemp(rec, 0.0, dt or 0.016, false, nil, tostring(vid), vid, false)
-		end
-	end
-
-	if SAVE and SAVE.syncAll then
-		SAVE:syncAll(false)
-	end
-
-	return
+  -- Fallback: VehicleUnmount event was missed (vehicle destroyed mid-frame).
+  -- onVehicleUnmount() already handles the clean path; here we do a compact
+  -- reset so that vm.isMounted becomes false and subsequent frames exit early.
+  if vm.isMounted then
+    vm.isMounted = false
+    if priceVisibleLast or refuelingPrev then _forceStopRefuel() end
+    if lastHUDVisible ~= 0 then
+      setFactInt(FACT_HUD_VISIBLE, 0)
+      setFactInt(FACT_FG_TEMP_VISIBLE, 0)
+      lastHUDVisible = 0
+    end
+    if lastTempVisible ~= 0 then lastTempVisible = 0 end
+    VM3D_LAST_LOADED_ID = nil
+    VM_SetFactIntCached("vm_3d_enabled", 0)
+    VM3D_SetHiddenFacts(true, true, true, true)
+    if lastVehCondPctPushed ~= -1 then
+      setFactInt(FACT_HUD_VEH_COND_PCT, -1)
+      lastVehCondPctPushed = -1
+    end
+    factAcc = 0.0; factPushInterval = FACT_PUSH_INTERVAL_BASE
+    lastPos, lastVehId  = nil, nil
+    wasOwned, hudAcc    = false, 0.0
+    autoHideTimer       = 0.0
+    autoHideLatched     = false
+    isIgnoredCache      = nil
+    lastIsBike          = nil
+    lastSpec            = nil
+    lastVehData         = nil
+    LIVE.kmh, LIVE.factor, LIVE.inst_l100, LIVE.idle_lph, LIVE.mode = 0, 1, 0, 0, "stop"
+  end
+  -- Repair cooldown still ticks while the player stands outside
+  if REPAIR and REPAIR.update then REPAIR.update(dt) end
+  return
 end
 
--- Ignore: auto-add quest-ish labels, then enforce ignore
+-- Ignore: auto-add quest-ish labels (once per mount), then enforce ignore
 do
   local id, label = vehKeyAndLabel(veh)
-  autoIgnoreQuestMaybe(label)
+  -- Run quest heuristic only when the vehicle changes — avoids pattern-matching every frame
+  if id ~= lastAutoIgnoreId then
+    autoIgnoreQuestMaybe(label)
+    lastAutoIgnoreId = id
+    isIgnoredCache   = ignoreIs(label)
+  end
 
-	if ignoreIs(label) then
+	if isIgnoredCache then
 		if REPAIR and REPAIR.reset then REPAIR.reset() end
+    if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+      VM_MAINTENANCE.resetMounted()
+    end
 
 		-- Ignored / quest-like vehicles must never show 3D widgets.
 		VM3D_SetHiddenFacts(true, true, true, true)
@@ -5888,17 +6689,7 @@ do
 			lastVehCondPctPushed = -1
 		end
 
-		-- NEW: global cooldown toward ambient for all known vehicles
-		do
-			local vs = (SAVE and SAVE.data and SAVE.data.vehicles) or {}
-			for vid, rec in pairs(vs) do
-				tickOilTemp(rec, 0.0, dt or 0.016, false, nil, tostring(vid), vid, false)
-			end
-		end
-		
-		if SAVE and SAVE.syncAll then
-			SAVE:syncAll(false)
-		end
+		-- [0-Engine] oil cooldown + save sync handled by intervals
 		
 		autoHideTimer = 0.0
 		autoHideLatched = false
@@ -5927,6 +6718,9 @@ if VMCONST.TRACK.OWNER_ONLY then
 end
 if not ownedOK then
 	if REPAIR and REPAIR.reset then REPAIR.reset() end
+  if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+    VM_MAINTENANCE.resetMounted()
+  end
 
   -- Stolen / non-owned vehicles must never show 3D widgets.
   -- Important: do NOT call VM3D_ForceHidden() here, because it disables vm_3d_enabled.
@@ -6076,16 +6870,7 @@ kmh, 1.0, e.l100km or 0, 0.0, (kmh < 1.0 and "stop" or "move")
 
 lastPos   = cur
 lastVehId = id
--- NEW: cool all saved vehicles while player is unmounted
-do
-  local vehicles = (SAVE and SAVE.data and SAVE.data.vehicles) or {}
-  for id, rec in pairs(vehicles) do
-    if rec and rec.oil_temp then
-      -- vehLabel: try to use the canonical label if you have a helper, else id
-      tickOilTemp(rec, 0.0, dt or 0.016, false, nil, id, id, false)
-    end
-  end
-end
+-- [0-Engine] oil cooldown handled by interval
 
 return
 end
@@ -6109,13 +6894,23 @@ do
   end
 end
 
--- Owned vehicles: ensure spec entry exists
+-- Owned vehicles: cached id / spec / vehicle data
 local id, name = vehKeyAndLabel(veh)
 
--- NEW: trip latch reset when switching vehicles
+-- Trip latch reset when switching vehicles
 if lastVehId ~= id then OIL_TRIP_WARMED[id] = false end
-local isBike   = looksLikeBike(name) and true or false
-ensureSpecForLabel(name, isBike)
+
+-- isBike and spec: cached per vehicle to avoid repeated string/table ops every frame
+local isBike = (id == lastVehId and lastIsBike ~= nil) and lastIsBike or (looksLikeBike(name) and true or false)
+lastIsBike = isBike
+local spec = (id == lastVehId and lastSpec ~= nil) and lastSpec or specsFor(name)
+lastSpec = spec
+
+-- ensureSpecForLabel only when the vehicle changes (onVehicleMount is the primary path;
+-- this is a safety fallback for mounts that bypass the event)
+if id ~= lastVehId then
+  ensureSpecForLabel(name, isBike)
+end
 
 -- Load vehicle-specific 3D setup only when 3D Widget mode is active.
 -- Otherwise keep the 3D widget hard-hidden.
@@ -6125,12 +6920,41 @@ else
   VM3D_ForceHidden()
 end
 
+-- Ensure vehicle entry exists (cached per vehicle — avoids repeated fact lookups)
+-- Must be declared before GAS.update so the ensureVehicle closure can return v.
+local v = (id == lastVehId and lastVehData ~= nil) and lastVehData or SAVE:ensureVehicle(id)
+lastVehData = v
+if not v then
+  if VM_MAINTENANCE and VM_MAINTENANCE.resetMounted then
+    VM_MAINTENANCE.resetMounted()
+  end
+  return
+end
+
+if VM_MAINTENANCE and VM_MAINTENANCE.update then
+  VM_MAINTENANCE.update(dt, {
+    id = id,
+    label = name,
+    vehicle = veh,
+    state = v,
+    condition_pct = vehicleCondPct(veh),
+    temperature_c = VM_WEATHER_CONDITION.temperatureC,
+  })
+end
+
 -- Gas module update (refuel + money + audio)
+-- Pass cached id, name, v, spec so GAS.update never calls SAVE:ensureVehicle
+-- or specsFor() itself — both are already resolved above.
 local refuelingNow = GAS.update(dt, {
-ensureVehicle  = function(vid) return SAVE:ensureVehicle(vid) end,
-vehKeyAndLabel = vehKeyAndLabel,
-getSpecs       = function(label) return specsFor(label) end, -- end function (anonymous)
+  ensureVehicle  = function(_) return v end,
+  vehKeyAndLabel = function(_) return id, name end,
+  getSpecs       = function(_) return spec end,
 })
+
+VM_SetFactIntCached(
+  "vm_hud_station_empty",
+  GAS.isCurrentStationEmpty() and 1 or 0
+)
 
 -- HUD fact cadence: faster while refueling
 do
@@ -6144,9 +6968,7 @@ end
 -- Dynamic refuel speed (with one-shot start)
 if refuelingNow and not refuelingPrev then
 	vmPrintTop10Odo()  -- NEW: print Top 10 ODO once when refueling starts
-  local v = SAVE:ensureVehicle(id)
   if v and v.fuel_pct then
-    local scale = tankScaleForLabel(name)
     local scale = tankScaleForLabel(name)
 		applyRefillRateLps(refillRateForLevel(v.fuel_pct) * scale * REFILL_GLOBAL_SPEED, { in_refuel = true })
     rateCooldown = VMCONST.REFILL.RATE_UPDATE_COOLDOWN
@@ -6156,7 +6978,6 @@ end
 if refuelingNow then
   rateCooldown = rateCooldown - (dt or 0)
   if rateCooldown <= 0.0 then
-    local v = SAVE:ensureVehicle(id)
     if v and v.fuel_pct then
       local scale = tankScaleForLabel(name)
       applyRefillRateLps(refillRateForLevel(v.fuel_pct) * scale * REFILL_GLOBAL_SPEED, { in_refuel = true })
@@ -6214,9 +7035,6 @@ wasOwned = true
 
 local pos = veh:GetWorldPosition(); if not pos then return end
 local cur = { x = pos.x, y = pos.y, z = pos.z }
-
--- Ensure vehicle entry exists
-local v = SAVE:ensureVehicle(id); if not v then return end
 
 -- ── HUD Auto-Hide (optional) ────────────────────────────────────────────────
 do
@@ -6363,11 +7181,14 @@ if metersInt ~= lastMetersPushed then
   lastMetersPushed = metersInt
 end
 
--- Push speed (same cadence)
+-- Push speed (same cadence, only when value changes)
 do
   local kmh_now = getSpeedKmh(veh, dt, lastPos, cur)
   local spInt = math.max(0, math.min(400, math.floor((kmh_now or 0) + 0.5)))
-  setFactInt(FACT_HUD_SPEED_KMH, spInt)
+  if spInt ~= lastSpeedPushed then
+    setFactInt(FACT_HUD_SPEED_KMH, spInt)
+    lastSpeedPushed = spInt
+  end
 end
 
 local permille = math.max(0, math.min(1000, math.floor(((v.fuel_pct or 0) * 1000) + 0.5)))
@@ -6526,6 +7347,7 @@ end)
 registerForEvent("onShutdown", function()
   setFactInt(FACT_HUD_VISIBLE, 0)
 	if REPAIR and REPAIR.reset then REPAIR.reset() end
+  if VM_GAS_ECONOMY and VM_GAS_ECONOMY.stop then VM_GAS_ECONOMY.stop() end
   MARKERS.shutdown()
   if SAVE and SAVE.resetRuntime then SAVE:resetRuntime() end
   if priceVisibleLast then
@@ -6533,3 +7355,129 @@ registerForEvent("onShutdown", function()
     priceVisibleLast = false
   end
 end) -- end function (anonymous)
+
+-- Public CET API. A table literal avoids another top-level local in this file,
+-- which is already at Lua's 200-local limit.
+return {
+  AddFuelToAllStations = function(liters)
+    local amount = math.max(0, math.floor(tonumber(liters) or 10000))
+    local count = GAS.addFuelToAllStations(amount)
+    print(("[VehicleOdometer] Added %d L to each of %d gas stations.")
+      :format(amount, count))
+    return count
+  end,
+
+  SetStationFuel = function(index, liters)
+    local ok, available, capacity = GAS.setStationFuel(index, liters)
+    if not ok then
+      print(("[VehicleOdometer] Cannot set station %s: %s")
+        :format(tostring(index), tostring(available)))
+      return false
+    end
+
+    print(("[VehicleOdometer] Station %03d set to %d / %d L.")
+      :format(math.floor(tonumber(index)), available, capacity))
+    return true
+  end,
+
+  PrintGasStations = function()
+    local stations = GAS.getStationStatus()
+
+    print("+-----+-----------+----------------+----------------+")
+    print("| IDX | LOCATIONS | AVAILABLE (L)  | CAPACITY (L)   |")
+    print("+-----+-----------+----------------+----------------+")
+
+    for _, station in ipairs(stations) do
+      print(("| %03d | %9d | %14d | %14d |"):format(
+        station.index,
+        station.locations,
+        station.available_l,
+        station.capacity_l
+      ))
+    end
+
+    print("+-----+-----------+----------------+----------------+")
+    print(("Total stations: %d"):format(#stations))
+    return #stations
+  end,
+
+  PrintGasEconomy = function(detailed)
+    local status = VM_GAS_ECONOMY.getStatus()
+    local severity = status.shortage_severity == 2 and "SEVERE"
+      or (status.shortage_severity == 1 and "MINOR" or "NORMAL")
+    local counts = { city_center = 0, outer_district = 0, offsite = 0 }
+
+    for _, profile in ipairs(status.profiles or {}) do
+      counts[profile.profile] = (counts[profile.profile] or 0) + 1
+    end
+
+    local supplyText = ("%s (%d h remaining)"):format(
+      severity, status.shortage_hours_remaining or 0
+    )
+    local profileText = ("city=%d / outer=%d / offsite=%d"):format(
+      counts.city_center or 0,
+      counts.outer_district or 0,
+      counts.offsite or 0
+    )
+
+    print("+------------------------+-------------------------------+")
+    print(("| %-22s | %-29s |"):format("GAS ECONOMY", "VALUE"))
+    print("+------------------------+-------------------------------+")
+    print(("| %-22s | %-29s |"):format(
+      "Network fill", ("%.1f%%"):format((status.fill_ratio or 0) * 100)
+    ))
+    print(("| %-22s | %-29s |"):format(
+      "Fuel-pressure premium",
+      ("%+.1f%%"):format(((status.price_multiplier or 1) - 1) * 100)
+    ))
+    print(("| %-22s | %-29s |"):format("Supply state", supplyText))
+    print(("| %-22s | %-29s |"):format("Station profiles", profileText))
+    print("+------------------------+-------------------------------+")
+
+    if detailed then
+      print("+-----+----------------+--------+--------+---------+")
+      print("| IDX | PROFILE        | URBAN% | TARGET | DELIV.  |")
+      print("+-----+----------------+--------+--------+---------+")
+      for _, profile in ipairs(status.profiles or {}) do
+        print(("| %03d | %-14s | %5.0f%% | %5.0f%% | %5d h |"):format(
+          profile.index,
+          profile.profile,
+          profile.urbanity * 100,
+          profile.target_fill * 100,
+          profile.delivery_interval
+        ))
+      end
+      print("+-----+----------------+--------+--------+---------+")
+    end
+
+    return status
+  end,
+
+  TriggerGasShortage = function(severity, hours)
+    local ok, level, untilHour = VM_GAS_ECONOMY.triggerShortage(severity, hours)
+    if not ok then
+      print("[VehicleOdometer] Could not persist the gas supply state.")
+      return false
+    end
+    local label = level == 2 and "SEVERE" or (level == 1 and "MINOR" or "NORMAL")
+    print(("[VehicleOdometer] Gas supply state: %s; until economy hour %d.")
+      :format(label, untilHour))
+    return level
+  end,
+
+  SimulateGasEconomyHours = function(hours)
+    local processed = VM_GAS_ECONOMY.simulateHours(hours)
+    if processed <= 0 then
+      print("[VehicleOdometer] No gas-economy hours were simulated.")
+      return 0
+    end
+    local base = SETTINGS.price_epl or DEFAULT_PRICE_EPL
+    local previousMarket = VM_GAS_ECONOMY.getMarketPrice(base)
+    local market = SETTINGS.price_dyn_enable
+      and nextDynamicPrice(base, previousMarket) or base
+    applyFuelPrice(market, { persist_base = false })
+    pushPriceFact(true)
+    print(("[VehicleOdometer] Simulated %d gas-economy hours."):format(processed))
+    return processed
+  end
+}

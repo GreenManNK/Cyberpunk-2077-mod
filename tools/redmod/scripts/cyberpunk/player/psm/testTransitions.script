@@ -1,0 +1,75 @@
+class DefaultTest extends StateFunctor
+{
+
+	protected const function EnterCondition( const stateContext : StateContext, const scriptInterface : StateGameScriptInterface ) : Bool
+	{
+		return scriptInterface.IsActionJustPressed( 'Jump' );
+	}
+
+}
+
+class BeginOne extends DefaultTest
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+}
+
+class MiddleOne extends DefaultTest
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+}
+
+class EndOne extends DefaultTest
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+}
+
+class BeginTwo extends DefaultTest
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+}
+
+class EndTwo extends DefaultTest
+{
+
+	protected virtual function OnEnter( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+	protected virtual function OnExit( stateContext : StateContext, scriptInterface : StateGameScriptInterface )
+	{
+	}
+
+}
+

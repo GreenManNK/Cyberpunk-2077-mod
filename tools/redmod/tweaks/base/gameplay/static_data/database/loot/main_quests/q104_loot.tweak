@@ -1,0 +1,377 @@
+package LootTables
+using RTDB
+
+Q104_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q104_crash_MCM_toolbox : Q104_Loot
+{
+	minItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q104_crash_MCS_ammo : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q104_crash_MCS_RiffleAmmo : Q104_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6;
+			dropCountMin = 45;
+			dropCountMax = 90;
+			itemID = "Ammo.RifleAmmo";
+		} : LootItem
+	];
+}
+
+Q104_crash_MCS_SniperAmmo : Q104_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6;
+			dropCountMin = 16;
+			dropCountMax = 70;
+			itemID = "Ammo.SniperRifleAmmo";
+		} : LootItem
+	];
+}
+
+Q104_crash_MCS_consumables : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q104_crash_MCS_gadgets : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q104_crash_MCS_toolbox : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q104_crash_kang_tao_body : Q104_Loot
+{
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.2;
+			dropCountMin = 50;
+			dropCountMax = 150;
+			itemID = "Items.money";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.KangTaoClothing";
+		}
+	];
+}
+
+Q104_station_MCM_chemicals : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsRecipes"
+	];
+}
+
+Q104_station_MCM_lockers : Q104_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.KangTaoClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+Q104_station_MCM_safe : Q104_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 1000;
+			dropCountMax = 1500;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q104_station_MCM_toolbox : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q104_station_MCS_ammo : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q104_station_MCS_consumables : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q104_station_MCS_crate : Q104_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericGangJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericGangJunkItem5";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem14";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem23";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem24";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem28";
+		}
+	];
+}
+
+Q104_station_MCS_equipment : Q104_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6;
+			query = "Query.StreetwearClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RecipePowerfulFabricEnhancerQuery";
+		}
+	];
+}
+
+Q104_station_MCS_first_aid : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q104_station_MCS_gadgets : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q104_station_MCS_valuable : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q104_station_MCS_weapon : Q104_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.KnifeQuery";
+		}
+	];
+}
+
+Q104_powerplant_LIS_crate : Q104_Loot
+{
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropChance = 0.45;
+			dropCountMin = 200;
+			dropCountMax = 300;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q104_powerplant_LIS_toolbox : Q104_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q104_airstrip_LCL_body : Q104_Loot
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootItems = 
+	[
+		{
+			dropCountMin = 200;
+			dropCountMax = 300;
+			itemID = "Items.money";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q104_airstrip_LCM_toolbox : Q104_Loot
+{
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.2;
+			query = "Query.CommonWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.2;
+			query = "Query.UncommonWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.2;
+			query = "Query.RareWeaponModsQuery";
+		}
+	];
+}
+
+Q104_airstrip_LCS_consumables : Q104_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable", "LootTables.FirstAidKits"
+	];
+}
+

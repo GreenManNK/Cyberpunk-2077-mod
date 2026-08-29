@@ -1,0 +1,552 @@
+# Bike:
+# Vehicle.GR_v_sportbike3_brennan_apollo
+# 2man:
+# Vehicle.GR_v_sport2_villefort_alvarado
+# Vehicle.GR_v_sport2_villefort_deleon
+# Vehicle.GR_v_sport2_villefort_alvarado_hearse
+# 4man:
+# Vehicle.GR_v_standard3_thorton_mackinaw
+# Vehicle.GR_v_standard25_mahir_voodoo_boys
+# Vehicle.GR_v_standard2_thorton_galena_voodoo_boys
+# Vehicle.GR_v_standard25_thorton_merrimac
+# Vehicle.GR_v_standard2_villefort_cortes
+
+# Voodoo:
+# weak:
+# normal:
+# Character.voodooboys_grunt1_ranged2_saratoga_ma - malfini
+# Character.voodooboys_grunt1_ranged2_saratoga_wa - malfini
+# Character.voodooboys_grunt1_ranged2_sidewinder_ma - malfini
+# Character.voodooboys_grunt1_ranged2_sidewinder_wa - malfini
+# Character.voodooboys_grunt1coat_shotgun2_palica_ma - snakecharmer
+# Character.voodooboys_grunt2coat_shotgun2_palica_wa - snakecharmer
+# rare:
+# Character.voodooboys_grunt1_fmelee2rare_baseball_ma_rare - spirit
+# Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare - netrunner
+# Character.voodooboys_netrunner2_netrunner2_lexington_wa_rare - netrunner
+# elite:
+# Character.voodooboys_grunt3coat_shotgun3_zhuo_ma_elite - punisher
+# Character.voodooboys_netrunner3_netrunner3_quasar_wa_elite - mananbo
+
+# Mercs:
+# weak:
+# Character.vdgeneric_merc_ranged2_ajax_ma - blazer
+# Character.vdgeneric_merc_ranged2_ajax_wa - hardened triggerman
+# Character.vdgeneric_merc_ranged2_copperhead_ma - blazer
+# Character.vdgeneric_merc_ranged2_copperhead_wa - hardened triggerman
+# normal:
+# Character.vdafterlife_netrunner_netrunner2_yukimura_ma_rare - Netrunner
+# Character.vdgeneric_grunt_melee1_knife_ma - merc
+# Character.vdgeneric_grunt_ranged1_pulsar_ma - merc
+# Character.vdgeneric_grunt_ranged1_pulsar_wa - merc
+# Character.vdgeneric_grunt_ranged1_slaughtomatic_ma - merc
+# Character.vdgeneric_grunt_ranged1_slaughtomatic_wa - trigger man
+# Character.vdgeneric_shotgun_fshotgun2_palica_ma - street scrapper
+
+# rare:
+# Character.vdgeneric_fast_fmelee2_knife_wa_rare - merc
+# Character.vdgeneric_fast_fmelee2_machete_ma_rare - merc
+
+# Character.vdgeneric_netrunner_netrunner_chao_ma_rare - netrunner
+# Character.vdgeneric_netrunner_netrunner_chao_wa_rare - netrunner
+
+# Character.vdgeneric_sniper_sniper2_grad_ma_rare - sniper
+# Character.vdafterlife_rare_franged2_ajax_ma_rare - Merc
+# Character.vdafterlife_rare_franged2_ajax_wa_rare - Merc
+# Character.vdafterlife_rare_franged2_overture_wa_rare - Merc
+# Character.vdafterlife_rare_franged2_saratoga_ma_rare - Merc
+# Character.vdafterlife_rare_franged2_saratoga_wa_rare - Merc
+# elite:
+# Character.vdafterlife_rare_fmelee3_katana_ma_elite - Merc
+# Character.vdafterlife_rare_fmelee3_katana_wa_elite - Merc
+# Character.vdafterlife_rare_fmelee3_mantis_ma_elite - Merc
+# Character.vdafterlife_rare_fmelee3_mantis_wa_elite - Merc
+# Character.vdafterlife_rare_fshotgun3_zhuo_mb_elite - Merc
+# Character.vdafterlife_rare_gunner3_hmg_mb_elite - Merc
+# Character.vdafterlife_rare_sniper3_ashura_ma_elite - Merc
+# Character.vdgeneric_gunner_gunner3_hmg_mb_elite - support
+# Character.vdgeneric_shotgun_shotgun3_carnage_mb_elite - edge runner
+
+#reinforcements
+
+# weak:
+DynamicSpawnSystem.GRVoodooWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_ajax_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooWeakBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_ajax_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooWeakBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooWeakBike4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_wa
+          weight: 1.0
+
+# normal:
+DynamicSpawnSystem.GRVoodooNormalBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_saratoga_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_saratoga_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_sidewinder_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalBike4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_sidewinder_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalBike5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1coat_shotgun2_palica_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalBike6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt2coat_shotgun2_palica_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_melee1_knife_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooWeakSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_merrimac
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_melee1_knife_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_pulsar_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_wa
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooWeakSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_ajax_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_merc_ranged2_copperhead_ma
+          weight: 0.2
+
+# Rare:
+DynamicSpawnSystem.GRVoodooRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_saratoga_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_sidewinder_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_deleon
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1coat_shotgun2_palica_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_deleon
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_saratoga_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado_hearse
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_sidewinder_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado_hearse
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt2coat_shotgun2_palica_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooRareBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_wa_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_pulsar_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_wa_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_saratoga_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_melee1_knife_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_netrunner_netrunner2_yukimura_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_fast_fmelee2_machete_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_fast_fmelee2_knife_wa_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_fast_fmelee2_machete_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_sniper_sniper2_grad_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooNormalSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_pulsar_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_sniper_sniper2_grad_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooNormalSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_merrimac
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_overture_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_melee1_knife_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooNormalSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_merrimac
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_pulsar_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_netrunner_netrunner_chao_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_saratoga_wa_rare
+          weight: 0.2
+
+# elite:
+DynamicSpawnSystem.GRVoodooEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt3coat_shotgun3_zhuo_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_saratoga_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_deleon
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt3coat_shotgun3_zhuo_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1coat_shotgun2_palica_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_deleon
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner3_netrunner3_quasar_wa_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_ranged2_sidewinder_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooEliteSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_villefort_alvarado_hearse
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner3_netrunner3_quasar_wa_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt2coat_shotgun2_palica_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRVoodooEliteSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_sniper_sniper2_grad_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_fmelee3_katana_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_netrunner_netrunner2_yukimura_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_saratoga_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_fmelee3_mantis_wa_elite
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_overture_wa_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_merrimac
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_netrunner_netrunner_chao_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_fshotgun3_zhuo_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_grunt_ranged1_slaughtomatic_wa
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_fast_fmelee2_machete_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad8:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_gunner_gunner3_hmg_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_fshotgun2_palica_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_ajax_wa_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad9:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_fast_fmelee2_knife_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_rare_franged2_overture_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.vdgeneric_shotgun_shotgun3_carnage_mb_elite
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.vdafterlife_netrunner_netrunner2_yukimura_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad10:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_mahir_voodoo_boys
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt3coat_shotgun3_zhuo_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner3_netrunner3_quasar_wa_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt1_fmelee2rare_baseball_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRVoodooEliteSquad11:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_voodoo_boys
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_netrunner2_netrunner2_lexington_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt3coat_shotgun3_zhuo_ma_elite
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_voodooboys_grunt3coat_shotgun3_zhuo_ma_elite
+          weight: 0.2

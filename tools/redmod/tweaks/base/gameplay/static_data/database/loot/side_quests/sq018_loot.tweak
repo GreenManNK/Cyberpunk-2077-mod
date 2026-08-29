@@ -1,0 +1,56 @@
+package LootTables
+using RTDB
+
+SQ018_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+SQ018_storage_LRM_toolbox : SQ018_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+SQ018_storage_LRS_ammo : SQ018_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+SQ018_storage_LRS_valuable : SQ018_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.8;
+			dropCountMin = 200;
+			dropCountMax = 300;
+			itemID = "Items.money";
+		}
+	];
+}
+

@@ -1,0 +1,1756 @@
+package VehicleActions
+using RTDB, ItemHandling, LookatPreset, GenericArchetype, FollowerActions, AIActionTarget
+
+Success : AIAction
+{
+}
+
+CombatTarget : AIActionTarget.CombatTarget
+{
+	trackingMode = "TargetTracking.RealPosition";
+}
+
+VehicleStateDecorator : AIAction
+{
+	loop = 
+	{
+		changeNPCState = 
+		{
+			hitReactionMode = "Unstoppable";
+		};
+	};
+}
+
+EnterVehicleSelector : AIActionSmartComposite
+{
+	nodes = 
+	[
+		"VehicleActions.GunnerEquipRifle", "VehicleActions.EnterVehicleWithAnim"
+	];
+}
+
+EnterVehicleWithAnim : AIAction
+{
+	loop = 
+	{
+		duration = 2.1f;
+	};
+	subActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+		} : AISubActionForceUnequip
+	];
+}
+
+CombatExitVehicleWithAnim : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotInMaxTacAV", "Condition.InStatesVehicleWindow"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.5f;
+	};
+	subActions = 
+	[
+		{
+			delay = -1;
+			name = "InstantUnmount";
+		} : AISubActionQueueAIEvent
+	];
+}
+
+ExitVehicleWithAnim : AIAction
+{
+	loop = 
+	{
+		duration = -1.f;
+	};
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND;
+	};
+	subActions = 
+	[
+		{
+			delay = -1;
+			name = "InstantUnmount";
+		} : AISubActionQueueAIEvent
+	];
+}
+
+InstantUnmount : AIAction
+{
+	loop = 
+	{
+		duration = 0.1f;
+	};
+	subActions = 
+	[
+		{
+			name = "InstantUnmount";
+		} : AISubActionQueueAIEvent
+	];
+	animData = 
+	{
+		animFeature = "GetOffWindow";
+	};
+}
+
+FollowerMovingToVehicle : AIAction
+{
+	disableAction = true;
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.FollowerInVehicle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 2.f;
+	};
+}
+
+HasAnyWeaponEquipped : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			OR = 
+			[
+				"Condition.HasAnyWeapon", "Condition.HasAnyItemSpawning"
+			];
+		} : AIActionOR;
+	};
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotHasAnyWeapon", "Condition.NotHasAnyItemSpawning"
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+IdleInVehicleComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"VehicleActions.HasAnyWeaponEquipped", "VehicleActions.GunnerEquipRifle", "VehicleActions.Success"
+	];
+}
+
+AlertedInVehicleComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"VehicleActions.DoNothingIfFastReaction", "VehicleActions.UnmountVehicleInAlerted", "VehicleActions.Success"
+	];
+}
+
+FollowerInVehicleComposite : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"FollowerActions.ExitVehicle", "VehicleActions.Success"
+	];
+}
+
+GetOffWindow : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.InStatesVehicleWindow", "Condition.NotAbilityIsAVMaxTac"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.f;
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			animationTime = 0.6f;
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			animationTime = 0.6f;
+		} : AISubActionForceUnequip
+	];
+	animData = 
+	{
+		animFeature = "GetOffWindow";
+	};
+}
+
+CanFightInVehicle : AIAction
+{
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.NotInMaxTacAV", "Condition.IsNotBlockedFromShooting", {
+							OR = 
+							[
+								"Condition.TargetInVehicle", "Condition.AbilityIsAggressive", "Condition.AbilityIsReckless", "VehicleActions.UnmountVehicleInCombatCondition"
+							];
+						} : AIActionOR
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+CanDriverFightInVehicle : AIAction
+{
+	loop = 
+	{
+		toNextPhaseConditionCheckInterval = 0.5f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					AND = 
+					[
+						"Condition.IsNotBlockedFromShooting", {
+							OR = 
+							[
+								"Condition.InMaxTacAV", "Condition.TargetInVehicle", "Condition.TargetStandingOnTopOfMovingVehicle", "Condition.AbilityIsAggressive", "Condition.AbilityIsReckless", "VehicleActions.UnmountVehicleInCombatCondition"
+							];
+						} : AIActionOR
+					];
+				} : AIActionAND;
+			}
+		];
+	};
+}
+
+UnequipWeaponOnExit : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyItem", "Condition.NotAbilityIsAVMaxTac"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 0.6f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			animationTime = 0.6f;
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			animationTime = 0.6f;
+		} : AISubActionForceUnequip
+	];
+}
+
+PassengerEquipWeapon : AIActionSmartComposite
+{
+	nodes = 
+	[
+		"VehicleActions.PassengerSportEquipAnyHandgun", "VehicleActions.PassengerSportFailSafeEquipHandgun", "VehicleActions.GunnerEquipRifle", "VehicleActions.EquipAnyRifleFromInventory", "VehicleActions.FailSafeEquipRifle", "VehicleActions.Success"
+	];
+}
+
+EquipAbstract : AIAction
+{
+	startup = 
+	{
+		duration = 0.1f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	startupSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+		} : AISubActionForceUnequip, 
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+		} : AISubActionForceUnequip
+	];
+}
+
+EquipAnyRifleFromInventory : EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasRifle", {
+					OR = 
+					[
+						"Condition.HasPrimaryEquipmentRifleInInventory", "Condition.HasRifleInInventory"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemType = "ItemType.Wea_Rifle";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+FailSafeEquipRifle : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasRifle", "Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemID = "Items.Preset_Base_Copperhead";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+GunnerEquipRifle : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsFromPreventionSystem", "Condition.NotHasRifle", "Condition.NotDriver", "Condition.VehicleHasTagsFastReaction", "Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 0.001f;
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemID = "Items.Preset_Base_Copperhead";
+			delay = -1.f;
+		} : AISubActionForceEquip
+	];
+}
+
+DriverEquipWeapon : AIActionSmartComposite
+{
+	nodes = 
+	[
+		"VehicleActions.MotorcycleDriverEquipAnyHandgun", "VehicleActions.MotorcycleDriverFailSafeEquipHandgun", "VehicleActions.DriverEquipAnyHandgun", "VehicleActions.DriverFailSafeEquipHandgun"
+	];
+}
+
+MotorcycleDriverEquipAnyHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon", "Condition.OnMotorcycle", {
+					OR = 
+					[
+						"Condition.HasPrimaryEquipmentHandgunInInventory", "Condition.HasHandgunInInventory"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemType = "ItemType.Wea_Handgun";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+MotorcycleDriverFailSafeEquipHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon", "Condition.OnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemID = "Items.Preset_Base_Lexington";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+DriverEquipAnyHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon", {
+					OR = 
+					[
+						"Condition.HasPrimaryEquipmentHandgunInInventory", "Condition.HasHandgunInInventory"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			itemType = "ItemType.Wea_Handgun";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+DriverFailSafeEquipHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponLeft";
+			itemID = "Items.Preset_Base_Lexington";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+PassengerSportEquipAnyHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon", "Condition.InSportVehicle", {
+					OR = 
+					[
+						"Condition.HasPrimaryEquipmentHandgunInInventory", "Condition.HasHandgunInInventory"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemType = "ItemType.Wea_Handgun";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+PassengerSportFailSafeEquipHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotHasHandgunWeapon", "Condition.InSportVehicle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemID = "Items.Preset_Base_Lexington";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+UnmountVehicleInCombatCondition : AIActionOR
+{
+	OR = 
+	[
+		{
+			AND = 
+			[
+				"Condition.IsFollower", "Condition.NotFollowerInVehicle", "Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND, 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						{
+							AND = 
+							[
+								{
+									OR = 
+									[
+										"Condition.TargetMovingInCircles", {
+											AND = 
+											[
+												"Condition.NotTargetInVehicle", "Condition.NotTargetStandingOnTopOfMovingVehicle"
+											];
+										} : AIActionAND
+									];
+								} : AIActionOR, 
+								"Condition.AssignedVehicleNotInPanicDriving", "Condition.TargetInUnmountingRange"
+							];
+						} : AIActionAND, 
+						{
+							AND = 
+							[
+								"Condition.AssignedVehicleCannotReachTarget", "Condition.IsNotDynamicSpawnSystem"
+							];
+						} : AIActionAND
+					];
+				} : AIActionOR, 
+				"Condition.NotIsFollower", "Condition.NotInMaxTacAV", "Condition.AssignedVehicleNotInRace"
+			];
+		} : AIActionAND
+	];
+}
+
+MountVehicleCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			{
+				OR = 
+				[
+					"Condition.NCPD", "Condition.IsFromPreventionSystem"
+				];
+			} : AIActionOR, 
+			"Condition.AssignedVehicle", "Condition.NotFollower", "Condition.NotTicketEquip", "Condition.NotAIThrowGrenadeCommand", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand", "Condition.NotAIUseCoverCommand", "Condition.VehicleUnmountCooldown"
+		];
+	} : AIActionAND;
+}
+
+MountVehicleInCombatCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			{
+				OR = 
+				[
+					"Condition.NCPD", "Condition.IsFromPreventionSystem", "Condition.IsFromDynamicSpawnSystem", "Condition.AssignedVehiclePerformedChase"
+				];
+			} : AIActionOR, 
+			"Condition.TargetNotInPreventionFreeArea", "Condition.AssignedVehicle", "Condition.AssignedVehicleNotInInnerAreaSpeedLimiter", {
+				OR = 
+				[
+					"Condition.AssignedVehicleCanReachTarget", "Condition.IsFromDynamicSpawnSystem"
+				];
+			} : AIActionOR, 
+			"Condition.AssignedVehicleAbove15mToTarget", {
+				OR = 
+				[
+					"Condition.TargetInVehicle", "Condition.TargetStandingOnTopOfMovingVehicle"
+				];
+			} : AIActionOR, 
+			"Condition.NotFollower", "Condition.NotTicketEquip", "Condition.NotAIThrowGrenadeCommand", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand", "Condition.NotAIUseCoverCommand", "Condition.VehicleUnmountCooldown"
+		];
+	} : AIActionAND;
+}
+
+UnmountVehicleIfCannotFight : UnmountVehicleInCombat
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.TargetRealPositionBelow8m", "Condition.NotHasAnyWeapon", "Condition.NotTargetInVehicle", "Condition.NotVehicleMoving", "Condition.NotInMaxTacAV", {
+					OR = 
+					[
+						"Condition.NotFollower", "Condition.NotFollowerInVehicle"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+}
+
+UnmountVehicleInAlerted : UnmountVehicle
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotInMaxTacAV", {
+					OR = 
+					[
+						"Condition.NotVehicleMoving", "Condition.Driver"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+}
+
+UnmountVehicleInPoliceSearch : UnmountVehicle
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotVehicleMoving", "Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND;
+	};
+}
+
+UnmountVehicleInCombat : UnmountVehicle
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"VehicleActions.UnmountVehicleInCombatCondition"
+			];
+		} : AIActionAND;
+	};
+	subActions += 
+	[
+		{
+			delay = 0.f;
+			cooldowns = 
+			[
+				{
+					name = "VehicleUnmount";
+					duration = 5.f;
+				}
+			];
+		} : AISubActionStartCooldown
+	];
+}
+
+UnmountVehicle : AIAction
+{
+	loop = 
+	{
+		repeat = 0;
+		duration = 1.f;
+	};
+	loopSubActions = 
+	[
+		{
+			name = "ExitVehicle";
+		} : AISubActionQueueAIEvent
+	];
+	subActions = 
+	[
+		{
+			delay = 0.f;
+			cooldowns = 
+			[
+				{
+					name = "VehicleUnmount";
+					duration = 5.f;
+				}
+			];
+		} : AISubActionStartCooldown
+	];
+}
+
+MountVehicle : AIAction
+{
+	activationCondition = "VehicleActions.MountVehicleCondition";
+	loop = 
+	{
+	};
+	loopSubActions = 
+	[
+		{
+			mountInstantly = false;
+			slot = "Vehicle.FirstAvailable";
+		} : AISubActionMountVehicle
+	];
+}
+
+MountVehicleInCombat : AIAction
+{
+	activationCondition = "VehicleActions.MountVehicleInCombatCondition";
+	loop = 
+	{
+	};
+	loopSubActions = 
+	[
+		{
+			mountInstantly = false;
+			slot = "Vehicle.FirstAvailable";
+		} : AISubActionMountVehicle
+	];
+}
+
+MountVehicleInMeleeCombat : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.AssignedVehicle", "Condition.NotTicketEquip", "Condition.NotAIThrowGrenadeCommand", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand", "Condition.NotAIUseCoverCommand", "Condition.VehicleUnmountCooldown", "Condition.TargetInVehicle"
+			];
+		} : AIActionAND;
+	};
+}
+
+CombatInVehicleComposite : AIActionSmartComposite
+{
+	nodes = 
+	[
+		"VehicleActions.MotorcycleShootingSelector", "VehicleActions.DriverShootingSelector", "VehicleActions.PassengerShootingSelector", "VehicleActions.ReloadSelector", "GenericArchetype.Success"
+	];
+	gracefulInterruptionConditionCheckInterval = 0.5f;
+	gracefulInterruptionCondition = 
+	[
+		{
+			condition = 
+			{
+				OR = 
+				[
+					"VehicleActions.UnmountVehicleInCombatCondition"
+				];
+			} : AIActionOR;
+		}
+	];
+}
+
+CombatInVehicleDecorator : AIActionSmartComposite
+{
+	repeat = 0;
+	nodes = 
+	[
+		"VehicleActions.CombatLookatAction"
+	];
+}
+
+CombatLookatAction : AIAction
+{
+	loop = 
+	{
+	};
+	lookats = 
+	[
+		"VehicleActions.EyesHeadLookat"
+	];
+}
+
+MotorcycleShootingSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CanShootInCarChase", "Condition.OnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"VehicleActions.MotorcycleDriverShootLeft", "VehicleActions.MotorcycleDriverShootRight"
+	];
+}
+
+FailSafeEquipHandgun : VehicleActions.EquipAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyWeaponLeft"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.2f;
+		changeNPCState = 
+		{
+			upperBodyState = "Equip";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			attachmentSlot = "AttachmentSlots.WeaponRight";
+			itemID = "Items.Preset_Base_Lexington";
+			animationTime = 1.2f;
+			delay = 0.3f;
+		} : AISubActionForceEquip
+	];
+}
+
+DriverShootingSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CanShootInCarChase", "Condition.Driver", "Condition.NotOnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"VehicleActions.DriverShoot"
+	];
+}
+
+PassengerShootingSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CanShootInCarChase", "Condition.NotDriver", "Condition.NotOnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"VehicleActions.ShootFromVehicleToVehicle", "VehicleActions.ShootFromVehicleToTargetOnFoot"
+	];
+}
+
+ShouldUnequipWeaponOnExitCondtion : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotInMaxTacAV"
+			];
+		} : AIActionAND;
+	};
+}
+
+MotorcycleSideSwitch : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"VehicleActions.SideSwitchCooldown", "Condition.OnMotorcycle", "Condition.TargetRealPositionAbove90deg"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.3f;
+	};
+	animData = 
+	{
+		animFeature = "SideSwitch";
+	};
+}
+
+SideSwitchCooldown : AICooldownCond
+{
+	invert = true;
+	cooldowns = 
+	[
+		{
+			name = "SideSwitch";
+		}
+	];
+}
+
+MotorcycleDriverShoot : ShootFromVehicleAbstract
+{
+	startup = 
+	{
+		duration = 0.1f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			weaponSlots = 
+			[
+				"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft"
+			];
+			target = "VehicleActions.CombatTarget";
+			pauseCondition = 
+			[
+				{
+					condition = 
+					{
+						OR = 
+						[
+							"Condition.FriendlyFire"
+						];
+					} : AIActionOR;
+				}
+			];
+		} : AISubActionShootWithWeapon
+	];
+	subActions = 
+	[
+		{
+			delay = -1.f;
+			cooldowns = 
+			[
+				{
+					name = "SideSwitch";
+					duration = 0.1f;
+				}
+			];
+		} : AISubActionStartCooldown
+	];
+	lookats = 
+	[
+		"VehicleActions.RightHandLookat"
+	];
+}
+
+MotorcycleDriverShootLeft : MotorcycleDriverShoot
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.TargetRealPositionLeft", "Condition.HasRangedWeapon", "Condition.AmmoCountMin1", "Condition.NotTicketEquip"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CannotShootInCarChase", "Condition.AmmoCount0", "Condition.CombatTargetChanged", {
+							AND = 
+							[
+								"Condition.TargetRealPositionBelow315deg", "Condition.TargetRealPositionRight"
+							];
+						} : AIActionAND
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	animData = 
+	{
+		animFeature = "ShootAction";
+		animVariation = 1;
+	};
+}
+
+MotorcycleDriverShootRight : MotorcycleDriverShoot
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.TargetRealPositionRight", "Condition.HasRangedWeapon", "Condition.AmmoCountMin1", "Condition.NotTicketEquip"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CannotShootInCarChase", "Condition.AmmoCount0", "Condition.CombatTargetChanged", {
+							AND = 
+							[
+								"Condition.TargetRealPositionBelow260deg", "Condition.TargetRealPositionLeft"
+							];
+						} : AIActionAND
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	animData = 
+	{
+		animFeature = "ShootAction";
+		animVariation = 2;
+	};
+}
+
+DriverShoot : ShootFromVehicleAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.TargetRealPositionBelow180deg", "Condition.TargetRealPositionLeft"
+					];
+				} : AIActionOR, 
+				{
+					OR = 
+					[
+						"Condition.TargetInVehicle", "Condition.AbilityIsAggressive", "Condition.AbilityIsReckless"
+					];
+				} : AIActionOR, 
+				"Condition.HasAnyWeaponLeft", "Condition.AmmoCountMin1", "Condition.NotTicketEquip"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 0.3f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CannotShootInCarChase", "Condition.AmmoCount0", "Condition.CombatTargetChanged", {
+							AND = 
+							[
+								"Condition.TargetRealPositionAbove180deg", "Condition.TargetRealPositionRight"
+							];
+						} : AIActionAND
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 0.3f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+	};
+}
+
+ShootFromVehicleToVehicle : ShootFromVehicleAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyWeapon", "Condition.AmmoCountMin1", "Condition.TargetInVehicle"
+			];
+		} : AIActionAND;
+	};
+}
+
+ShootFromVehicleToTargetOnFoot : ShootFromVehicleAbstract
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasRangedWeapon", "Condition.AmmoCountMin1", "Condition.MaxVisibilityToTargetRealPositionDistance3m", "Condition.NotTargetInVehicle", "Condition.NotOnMotorcycle", {
+					OR = 
+					[
+						"Condition.AbilityIsAggressive", "Condition.AbilityIsReckless"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions = 
+	[
+		{
+			weaponSlots = 
+			[
+				"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft"
+			];
+			target = 
+			{
+				targetSlot = "Head";
+			} : VehicleActions.CombatTarget;
+			delay = 0.0f;
+			pauseCondition = 
+			[
+				{
+					condition = 
+					{
+						OR = 
+						[
+							"Condition.FriendlyFire", "Condition.NotMaxVisibilityToTargetRealPositionDistance3m"
+						];
+					} : AIActionOR;
+				}
+			];
+		} : AISubActionShootWithWeapon
+	];
+}
+
+ShootFromVehicleAbstract : AIAction
+{
+	startup = 
+	{
+		duration = 0.833f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseConditionCheckInterval = 0.1f;
+		toNextPhaseCondition = 
+		[
+			"VehicleActions.FastReactionCondition"
+		];
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.CannotShootInCarChase", "Condition.AmmoCount0", "Condition.CombatTargetChanged"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.066f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			weaponSlots = 
+			[
+				"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft"
+			];
+			target = 
+			{
+				targetSlot = "Head";
+			} : VehicleActions.CombatTarget;
+			delay = 0.0f;
+			pauseCondition = 
+			[
+				{
+					condition = 
+					{
+						OR = 
+						[
+							"Condition.FriendlyFire"
+						];
+					} : AIActionOR;
+				}
+			];
+		} : AISubActionShootWithWeapon
+	];
+	animData = 
+	{
+		animFeature = "ShootAction";
+	};
+	lookats = 
+	[
+		"VehicleActions.BodyAttachedLookat", "VehicleActions.RightHandRifleLookat", "VehicleActions.RightHandLookat", "VehicleActions.LeftHandLookat"
+	];
+}
+
+ShootFromArmedVehicle : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.InArmedVehicle", "Condition.TargetRealPositionBelow90deg"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 0.833f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseConditionCheckInterval = 0.1f;
+		toNextPhaseCondition = 
+		[
+			"VehicleActions.FastReactionCondition"
+		];
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.CombatTargetChanged"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.066f;
+		changeNPCState = 
+		{
+			upperBodyState = "Shoot";
+			locomotionMode = "Static";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			target = 
+			{
+				targetSlot = "Head";
+			} : VehicleActions.CombatTarget;
+			delay = 0.0f;
+		} : AISubActionShootFromCar
+	];
+}
+
+ReloadSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyWeapon", "Condition.AmmoCountBelowHalf"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"VehicleActions.ReloadMotorcycle", "VehicleActions.ReloadDriver", "VehicleActions.ReloadPassenger"
+	];
+}
+
+ReloadMotorcycle : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.OnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 0.320f;
+	} : VehicleActions.ReloadStartup;
+	loop = 
+	{
+		duration = 0.400f;
+	} : VehicleActions.ReloadLoop;
+	recovery = 
+	{
+		duration = 0.800f;
+	} : VehicleActions.ReloadRecovery;
+	loopSubActions = 
+	[
+		{
+			weaponSlot = "AttachmentSlots.WeaponRight";
+			duration = 0.3f;
+		} : AISubActionReloadWeapon, 
+		{
+			weaponSlot = "AttachmentSlots.WeaponLeft";
+			duration = 0.3f;
+		} : AISubActionReloadWeapon
+	];
+	animData = 
+	{
+		animFeature = "ReloadAction";
+	};
+}
+
+ReloadDriver : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.Driver", "Condition.NotOnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 1.3f;
+	} : VehicleActions.ReloadLoop;
+	loopSubActions = 
+	[
+		{
+			weaponSlot = "AttachmentSlots.WeaponRight";
+			duration = 0.3f;
+		} : AISubActionReloadWeapon, 
+		{
+			weaponSlot = "AttachmentSlots.WeaponLeft";
+			duration = 0.3f;
+		} : AISubActionReloadWeapon
+	];
+	animData = 
+	{
+		animFeature = "ReloadAction";
+	};
+}
+
+ReloadPassenger : AIAction
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.NotDriver", "Condition.NotOnMotorcycle"
+			];
+		} : AIActionAND;
+	};
+	loop = 
+	{
+		duration = 2.0f;
+	} : VehicleActions.ReloadLoop;
+	loopSubActions = 
+	[
+		{
+			weaponSlot = "AttachmentSlots.WeaponRight";
+			duration = 1.f;
+		} : AISubActionReloadWeapon, 
+		{
+			weaponSlot = "AttachmentSlots.WeaponLeft";
+			duration = 1.f;
+		} : AISubActionReloadWeapon
+	];
+	animData = 
+	{
+		animFeature = "ReloadAction";
+	};
+}
+
+ReloadStartup : AIActionPhase
+{
+	duration = 0.32f;
+	changeNPCState = 
+	{
+		upperBodyState = "Reload";
+	};
+}
+
+ReloadLoop : AIActionPhase
+{
+	duration = 0.4f;
+	repeat = 0;
+	changeNPCState = 
+	{
+		upperBodyState = "Reload";
+	};
+	notRepeatPhaseCondition = 
+	[
+		{
+			condition = 
+			{
+				OR = 
+				[
+					"Condition.AmmoCountFull"
+				];
+			} : AIActionOR;
+		}
+	];
+}
+
+ReloadRecovery : AIActionPhase
+{
+	duration = 0.8f;
+	changeNPCState = 
+	{
+		upperBodyState = "Reload";
+	};
+}
+
+EyesHeadLookat : AIActionLookAtData
+{
+	preset = "LookatPreset.VehicleCombatLookAtPreset";
+	target = 
+	{
+		targetSlot = "Head";
+	} : VehicleActions.CombatTarget;
+}
+
+BodyAttachedLookat : AIActionLookAtData
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasRifle"
+			];
+		} : AIActionAND;
+	};
+	preset = 
+	{
+		softLimitDegrees = 360.f;
+		hardLimitDegrees = 360.f;
+	} : LookatPreset.Gang_Rifle_Body_LootAt;
+	target = 
+	{
+		targetSlot = "Head";
+	} : VehicleActions.CombatTarget;
+}
+
+RightHandRifleLookat : AIActionLookAtData
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasRifle"
+			];
+		} : AIActionAND;
+	};
+	preset = 
+	{
+		softLimitDegrees = 360.f;
+		hardLimitDegrees = 360.f;
+	} : LookatPreset.Gang_Rifle_Arms_LootAt;
+	target = 
+	{
+		targetSlot = "Head";
+	} : VehicleActions.CombatTarget;
+}
+
+RightHandLookat : AIActionLookAtData
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasHandgunWeaponRight"
+			];
+		} : AIActionAND;
+	};
+	preset = 
+	{
+		softLimitDegrees = 360.f;
+		hardLimitDegrees = 360.f;
+		followingSpeedFactorOverride = 7200.f;
+		transitionSpeed = 7200.f;
+	} : LookatPreset.RightHand;
+	target = 
+	{
+		targetSlot = "Head";
+	} : VehicleActions.CombatTarget;
+}
+
+LeftHandLookat : AIActionLookAtData
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HasAnyWeaponLeft"
+			];
+		} : AIActionAND;
+	};
+	preset = 
+	{
+		softLimitDegrees = 360.f;
+		hardLimitDegrees = 360.f;
+	} : LookatPreset.LeftHand;
+	target = "VehicleActions.CombatTarget";
+}
+
+DoNothingIfFastReaction : AIAction
+{
+	activationCondition = "VehicleActions.FastReactionCondition";
+	loop = 
+	{
+	};
+}
+
+FastReactionCondition : AIActionCondition
+{
+	condition = 
+	{
+		AND = 
+		[
+			"Condition.VehicleHasTagsFastReaction"
+		];
+	} : AIActionAND;
+}
+

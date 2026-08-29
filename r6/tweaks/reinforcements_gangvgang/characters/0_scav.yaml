@@ -1,0 +1,137 @@
+Character.GR_scavenger_grunt2_ranged2_copperhead_ma:
+    $base: Character.scavenger_grunt2_ranged2_copperhead_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt2_melee2_knife_ma:
+    $base: Character.scavenger_grunt2_melee2_knife_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt2_ranged2_pulsar_wa:
+    $base: Character.scavenger_grunt2_ranged2_pulsar_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt2_ranged2_copperhead_wa:
+    $base: Character.scavenger_grunt2_ranged2_copperhead_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt2_ranged2_pulsar_ma:
+    $base: Character.scavenger_grunt2_ranged2_pulsar_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt2_melee2_knife_wa:
+    $base: Character.scavenger_grunt2_melee2_knife_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_melee1_fists_ma:
+    $base: Character.scavenger_grunt1_melee1_fists_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_melee1_pipewrench_ma:
+    $base: Character.scavenger_grunt1_melee1_pipewrench_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_melee1_tireiron_ma:
+    $base: Character.scavenger_grunt1_melee1_tireiron_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_nova_ma:
+    $base: Character.scavenger_grunt1_ranged1_nova_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_nova_wa:
+    $base: Character.scavenger_grunt1_ranged1_nova_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_pulsar_ma:
+    $base: Character.scavenger_grunt1_ranged1_pulsar_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_pulsar_wa:
+    $base: Character.scavenger_grunt1_ranged1_pulsar_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_slaughtomatic_ma:
+    $base: Character.scavenger_grunt1_ranged1_slaughtomatic_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_grunt1_ranged1_slaughtomatic_wa:
+    $base: Character.scavenger_grunt1_ranged1_slaughtomatic_wa
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_elite2_shotgun_igla_ma:
+    $base: Character.scavenger_elite2_shotgun_igla_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_elite2_shotgun_tactician_ma:
+    $base: Character.scavenger_elite2_shotgun_tactician_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_elite3_sniper2_grad_ma:
+    $base: Character.scavenger_elite3_sniper2_grad_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_fast2_fmelee2rare_knife_ma_rare:
+    $base: Character.scavenger_fast2_fmelee2rare_knife_ma_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_netrunner2_netrunner2_nova_wa_rare:
+    $base: Character.scavenger_netrunner2_netrunner2_nova_wa_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_butcher3_hmelee2_machete_mb_rare:
+    $base: Character.scavenger_butcher3_hmelee2_machete_mb_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_strong3_gunner2_defender_mb_rare:
+    $base: Character.scavenger_strong3_gunner2_defender_mb_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_scavenger_fast3_fmelee3_machete_wa_elite:
+    $base: Character.scavenger_fast3_fmelee3_machete_wa_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat

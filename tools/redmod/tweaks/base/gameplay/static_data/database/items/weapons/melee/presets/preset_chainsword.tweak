@@ -1,0 +1,247 @@
+package Items
+using RTDB, BaseStats, ChainswordAttacks, Prereqs, Perks, Effectors
+
+Preset_Chainsword_Default : Base_Chainsword
+{
+	displayName = "LocKey#80886";
+	localizedDescription = "LocKey#80887";
+	gameplayDescription = "LocKey#92664";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"Chainsword"
+	];
+	CName appearanceResourceName = "Preset_Chainsword_Default";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Chainsword";
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"additives", "w_chainsword_common_grip"
+			];
+		} : GameplayLogicPackage, 
+		"GLP.HoldingChainsword"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_chainsword_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.Blade_WeaponMod1";
+		} : BladeModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Blade_WeaponMod2";
+		} : BladeModList_Slot2
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_cutomatic";
+}
+
+Preset_Chainsword_Neon : Preset_Chainsword_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Chainsword_Military : Preset_Chainsword_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+Preset_Chainsword_Pimp : Preset_Chainsword_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Chainsword_Legendary : Preset_Chainsword_Default
+{
+	displayName = "LocKey#93518";
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "chainsword_legendary_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Collectible_Blade_Blueprint";
+	CName[] visualTags = 
+	[
+		"Legendary"
+	];
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_chainsword_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.CollectibleIconicWeaponMod";
+		}
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Base_Chainsword_NPC_Data;
+	fk< StatModifierGroup >[] statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Base_Melee_Tech_Stats", "Items.Base_Chainsword_RPG_Stats", "Items.Base_Chainsword_Handling_Stats", "Items.Base_Chainsword_Misc_Stats", "Items.Chainsword_Legendary_Elemental_Damage_Type_Stats", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Chainsword_Damage_Stats", "Items.Preset_Chainsword_Legendary_Stat_Modifiers"
+	];
+}
+
+Preset_Chainsword_Legendary_Stat_Modifiers : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChainswordStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChargeTime";
+			modifierType = "Multiplier";
+			value = 0.8333;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BurningApplicationRate";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+Chainsword_Legendary_Elemental_Damage_Type_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.35f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Chainsword : Preset_Chainsword_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_chainsword_common_grip";
+		}
+	];
+	CraftingData = "Items.Small_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Chainsword : Craftable_Common_Chainsword
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Small_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Chainsword : Craftable_Uncommon_Chainsword
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Small_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Chainsword : Craftable_Uncommon_Chainsword
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Small_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Chainsword : Craftable_Uncommon_Chainsword
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Small_Legendary_Crafting_Materials_Weapon";
+}
+

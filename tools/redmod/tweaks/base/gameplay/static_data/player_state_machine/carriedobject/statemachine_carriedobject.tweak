@@ -1,0 +1,131 @@
+package playerStateMachineCarriedObject
+
+pickUp : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	bool hasOnUpdate = true;
+	bool hasOnExit = true;
+	string[] transitionTo = 
+	[
+		"carry", "release", "aim", "forceDropBody", "throw"
+	];
+	string[] transitionCondition = 
+	[
+		"ToCarry", "ToRelease", "ToAim", "ToForceDropBody", "ToThrow"
+	];
+	float toCarryStateDuration = 2.9;
+	float toCarryStateDurationFastMode = 1.0;
+	float toAimStateDuration = 1.3;
+	float toThrowStateDuration = 0.35;
+	float toAimNoCameraControlTime = 0.5;
+	float toAimNoMovementTime = 0.5;
+}
+
+carry : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	bool hasOnExit = true;
+	bool hasOnUpdate = true;
+	string[] transitionTo = 
+	[
+		"drop", "release", "dispose", "forceDropBody", "throw"
+	];
+	string[] transitionCondition = 
+	[
+		"ToDrop", "ToRelease", "ToDispose", "ToForceDropBody", "ToThrow"
+	];
+}
+
+drop : baseCarriedObjectState
+{
+	bool hasExitCondition = true;
+	bool hasOnEnter = true;
+	bool hasOnExit = true;
+	bool hasOnUpdate = true;
+	string[] transitionTo = 
+	[
+		"release"
+	];
+	string[] transitionCondition = 
+	[
+		""
+	];
+	float stateDuration = 1.5;
+	float ragdollActivateTime = 1.5;
+	float ragdollActivateTimeCrouch = 1.0;
+}
+
+dispose : baseCarriedObjectState
+{
+	bool hasExitCondition = true;
+	bool hasOnEnter = true;
+	bool hasOnExit = true;
+	string[] transitionTo = 
+	[
+		"release"
+	];
+	string[] transitionCondition = 
+	[
+		""
+	];
+	float durationTime = 2.0;
+	float ragdollActivateTime = 0.7;
+}
+
+forceDropBody : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	string[] transitionTo = 
+	[
+		"release"
+	];
+	string[] transitionCondition = 
+	[
+		""
+	];
+}
+
+aim : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	bool hasOnUpdate = true;
+	string[] transitionTo = 
+	[
+		"release", "throw", "forceDropBody"
+	];
+	string[] transitionCondition = 
+	[
+		"ToRelease", "ToThrow", "ToForceDropBody"
+	];
+}
+
+throw : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	bool hasOnExit = true;
+	bool hasExitCondition = true;
+	string[] transitionTo = 
+	[
+		"release", "forceDropBody"
+	];
+	string[] transitionCondition = 
+	[
+		"", "ToForceDropBody"
+	];
+	float stateDuration = 0.19;
+	float ragdollMaxImpulse = 220.0;
+	float ragdollMaxImpulsePitch = 5.0;
+	float ragdollMinImpulse = 100.0;
+	float ragdollMinImpulsePitch = 45.0;
+	float maxAutoTargetAngle = 3.0;
+	float minAutoTargetAngle = 10.0;
+	float maxAutoTargetLateralSpeed = 1.0;
+}
+
+release : baseCarriedObjectState
+{
+	bool hasOnEnter = true;
+	string[] transitionTo = [];
+	string[] transitionCondition = [];
+}
+

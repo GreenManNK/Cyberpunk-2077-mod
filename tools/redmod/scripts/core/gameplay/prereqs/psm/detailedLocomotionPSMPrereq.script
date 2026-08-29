@@ -1,0 +1,94 @@
+class DetailedLocomotionPSMPrereqState extends PlayerStateMachinePrereqState
+{
+	private var m_locomotionID : BlackboardID_Int;
+	private var m_playerAttachedCallbackID : Uint32;
+	default m_playerAttachedCallbackID = 0;
+
+	public function RegisterPlayerAttachedCallback( locomotionID : BlackboardID_Int, game : GameInstance )
+	{
+		if( m_playerAttachedCallbackID == ( ( Uint32 )( 0 ) ) )
+		{
+			m_locomotionID = locomotionID;
+			m_playerAttachedCallbackID = GameInstance.GetPlayerSystem( game ).RegisterPlayerPuppetAttachedCallback( this, 'OnPlayerAttachedCallback' );
+		}
+	}
+
+	public function UnregisterPlayerAttachedCallback( game : GameInstance )
+	{
+		if( m_playerAttachedCallbackID > ( ( Uint32 )( 0 ) ) )
+		{
+			GameInstance.GetPlayerSystem( game ).UnregisterPlayerPuppetAttachedCallback( m_playerAttachedCallbackID );
+			m_playerAttachedCallbackID = ( ( Uint32 )( 0 ) );
+		}
+	}
+
+	private export function OnPlayerAttachedCallback( playerPuppet : GameObject )
+	{
+		var bb : IBlackboard;
+		if( !( m_owner ) && !( m_listenerInt ) )
+		{
+			bb = GameInstance.GetBlackboardSystem( playerPuppet.GetGame() ).GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+			if( !( bb ) )
+			{
+				return;
+			}
+			m_owner = ( ( GameObject )( playerPuppet ) );
+			m_listenerInt = bb.RegisterListenerInt( m_locomotionID, this, 'OnStateUpdate' );
+			m_prevValue = bb.GetInt( m_locomotionID );
+		}
+	}
+
+}
+
+class DetailedLocomotionPSMPrereq extends PlayerStateMachinePrereq
+{
+
+	protected export const override function OnRegister( state : PrereqState, game : GameInstance, context : IScriptable ) : Bool
+	{
+		var bb : IBlackboard;
+		var castedState : DetailedLocomotionPSMPrereqState;
+		var locomotionID : BlackboardID_Int;
+		var player : GameObject;
+		bb = GameInstance.GetBlackboardSystem( game ).GetLocalInstanced( ( ( ScriptedPuppet )( context ) ).GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		castedState = ( ( DetailedLocomotionPSMPrereqState )( state ) );
+		locomotionID = GetAllBlackboardDefs().PlayerStateMachine.LocomotionDetailed;
+		if( !( bb ) )
+		{
+			player = GameInstance.GetPlayerSystem( game ).GetLocalPlayerControlledGameObject();
+			if( player && player.IsReplacer() )
+			{
+				castedState.RegisterPlayerAttachedCallback( locomotionID, game );
+			}
+			return false;
+		}
+		castedState.m_owner = ( ( GameObject )( context ) );
+		castedState.m_listenerInt = bb.RegisterListenerInt( locomotionID, castedState, 'OnStateUpdate' );
+		castedState.m_prevValue = bb.GetInt( locomotionID );
+		return false;
+	}
+
+	protected export const override function OnUnregister( state : PrereqState, game : GameInstance, context : IScriptable )
+	{
+		var castedState : DetailedLocomotionPSMPrereqState;
+		var bb : IBlackboard;
+		castedState = ( ( DetailedLocomotionPSMPrereqState )( state ) );
+		bb = GameInstance.GetBlackboardSystem( game ).GetLocalInstanced( ( ( ScriptedPuppet )( context ) ).GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		if( bb )
+		{
+			bb.UnregisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.LocomotionDetailed, castedState.m_listenerInt );
+		}
+		castedState.UnregisterPlayerAttachedCallback( game );
+	}
+
+	protected const override function GetStateMachineEnum() : String
+	{
+		return "gamePSMDetailedLocomotionStates";
+	}
+
+	protected const override function GetCurrentPSMStateIndex( bb : IBlackboard ) : Int32
+	{
+		return bb.GetInt( GetAllBlackboardDefs().PlayerStateMachine.LocomotionDetailed );
+	}
+
+}
+

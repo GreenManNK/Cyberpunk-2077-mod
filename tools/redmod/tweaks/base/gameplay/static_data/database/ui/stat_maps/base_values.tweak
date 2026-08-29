@@ -1,0 +1,90 @@
+package UIMaps
+using RTDB
+
+Player : UIStatsMap
+{
+	fk< Stat >[] primaryStats = 
+	[
+		"BaseStats.Strength", "BaseStats.Reflexes", "BaseStats.Intelligence", "BaseStats.TechnicalAbility", "BaseStats.Cool", "BaseStats.Health", "BaseStats.Evasion", "BaseStats.Armor", "BaseStats.ThermalResistance", "BaseStats.ChemicalResistance", "BaseStats.ElectricResistance", "BaseStats.CarryCapacity"
+	];
+}
+
+Player_Inventory : UIStatsMap
+{
+	fk< Stat >[] primaryStats = 
+	[
+		"BaseStats.Health", "BaseStats.Armor", "BaseStats.ThermalResistance", "BaseStats.ChemicalResistance", "BaseStats.ElectricResistance", "BaseStats.CarryCapacity"
+	];
+}
+
+Player_Stat_Panel_DPS : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.EffectiveDPS", "BaseStats.AttacksPerSecond", "BaseStats.HeadshotDamageMultiplier", "BaseStats.CritChance", "BaseStats.CritDamage", "BaseStats.StealthHitDamageBonus", "BaseStats.ChargeMultiplier", "BaseStats.BonusRicochetDamage", "BaseStats.MeleeDamagePercentBonus", "BaseStats.BonusDamageAgainstElites", "BaseStats.BonusQuickHackDamage"
+	];
+}
+
+Player_Stat_Panel_Armor : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.Armor", "BaseStats.MitigationStrength", "BaseStats.MitigationChance", "BaseStats.ExplosionResistance", "BaseStats.MeleeResistance", "BaseStats.DamageReductionQuickhacks", "BaseStats.DamageReductionDamageOverTime"
+	];
+}
+
+Player_Stat_Panel_Health : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.Health", "BaseStats.HealthGeneralRegenRateMult", "BaseStats.Stamina", "BaseStats.StaminaRegenRate", "BaseStats.StaminaCostReduction"
+	];
+}
+
+Player_Stat_Panel_Other : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.FallDamageReduction", "BaseStats.Oxygen", "BaseStats.CarryCapacity", "BaseStats.MaxSpeed", "BaseStats.Visibility", "BaseStats.Memory", "BaseStats.MemoryRegenRate", "BaseStats.IntrinsicQuickHackUploadBonus"
+	];
+}
+
+Player_Stat_Humanity : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.Humanity", "BaseStats.HumanityAllocated", "BaseStats.HumanityAvailable", "BaseStats.HumanityOverallocated", "BaseStats.HumanityOverallocationPossible", "BaseStats.HumanityTotalMaxValue", "BaseStats.EdgerunnerHealthReduction"
+	];
+}
+
+WeaponGeneral : UIStatsMap
+{
+	primaryStats = 
+	[
+		"BaseStats.CritChance", "BaseStats.CritDamage", "BaseStats.BleedingApplicationRate", "BaseStats.BurningApplicationRate", "BaseStats.PoisonedApplicationRate", "BaseStats.ElectrocutedApplicationRate"
+	];
+}
+
+Power : WeaponGeneral
+{
+	primaryStats += 
+	[
+		"BaseStats.BonusRicochetDamage"
+	];
+}
+
+Smart : WeaponGeneral
+{
+	primaryStats += 
+	[
+	];
+}
+
+Tech : WeaponGeneral
+{
+	primaryStats += 
+	[
+		"BaseStats.ChargeMultiplier", "BaseStats.ChargeTime"
+	];
+}
+

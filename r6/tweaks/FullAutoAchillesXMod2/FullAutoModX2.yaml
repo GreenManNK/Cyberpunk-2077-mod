@@ -1,9 +1,0 @@
-Items.Base_Achilles_Collectible_Technical_Stats_inline2:
-    value: 33
-Items.Base_Achilles_Constant_Collectible_Stats: 
-    statModifiers:
-       - !append
-        $type: ConstantStatModifier
-        statType: BaseStats.FullAutoOnFullCharge
-        modifierType: Additive
-        value: 1

@@ -1,0 +1,44 @@
+function SwitchPlayerImmortalityMode( const gi : GameInstance, cheat : gamecheatsystemFlag )
+{
+	var player : GameObject;
+	var cheatSystem : DebugCheatsSystem;
+	cheatSystem = GameInstance.GetDebugCheatsSystem( gi );
+	player = GetPlayerObject( gi );
+	if( !( cheatSystem ) )
+	{
+		return;
+	}
+	if( cheatSystem.ToggleCheat( player, cheat ) )
+	{
+	}
+	else
+	{
+	}
+}
+
+function Kill_NonExec( const gi : GameInstance, player : PlayerPuppet )
+{
+	var gameEffectInstance : EffectInstance;
+	gameEffectInstance = GameInstance.GetGameEffectSystem( gi ).CreateEffectStatic( 'killAll', 'kill', player );
+	EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.position, player.GetWorldPosition() );
+	EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.forward, player.GetWorldForward() );
+	EffectData.SetFloat( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.range, 50.0 );
+	gameEffectInstance.Run();
+}
+
+function KillAll_NonExec( const gameInstance : GameInstance, player : PlayerPuppet, optional radiusStr : String )
+{
+	var gameEffectInstance : EffectInstance;
+	var radius : Float;
+	radius = StringToFloat( radiusStr );
+	if( FloatIsEqual( radius, 0.0 ) )
+	{
+		radius = 20.0;
+	}
+	gameEffectInstance = GameInstance.GetGameEffectSystem( gameInstance ).CreateEffectStatic( 'killAll', 'killAll', player );
+	EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.position, player.GetWorldPosition() );
+	EffectData.SetVector( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.forward, player.GetWorldForward() );
+	EffectData.SetFloat( gameEffectInstance.GetSharedData(), GetAllBlackboardDefs().EffectSharedData.radius, radius );
+	gameEffectInstance.Run();
+}
+

@@ -1,8 +1,5 @@
 module FilterSaves
 
-import Codeware.UI.TextInput.*
-import Codeware.UI.*
-
 // CUSTOM FUNCS AND TYPES
 
 public func GetLifepathFilterButtonAction() -> CName { return n"world_map_menu_cycle_filter_next"; }
@@ -72,7 +69,7 @@ public func GetSaveTypeFilterText(filter: SaveTypeFilter) -> String {
   return GetLocalizedText("LocKey#22100") + " " + GetLocalizedText("LocKey#15393") + ": " + StrReplace(choice, "-", "");
 }
 
-public enum LifePathFilter {
+enum LifePathFilter {
   All = 0,
   Corpo = 1,
   Nomad = 2,
@@ -80,7 +77,7 @@ public enum LifePathFilter {
   Invalid = 4
 }
 
-public enum SaveTypeFilter {
+enum SaveTypeFilter {
   All = 0,
   ManualSaves = 1,
   QuickSaves = 2,
@@ -94,162 +91,6 @@ public func IsFreshStartInstalled() -> Bool {
   return IsDefined(newStart);
 }
 
-public class FilterSavesInkBorder extends inkBorder {}
-
-public class FilterSavesTextFlow extends TextFlow {
-  protected func CreateWidgets() {
-    let text: ref<inkText> = new inkText();
-    text.SetName(n"text");
-    text.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
-    text.SetFontStyle(n"Regular");
-    text.SetFontSize(50);
-    text.SetStyle(r"base\\gameplay\\gui\\common\\main_colors.inkstyle");
-    text.BindProperty(n"tintColor", n"MainColors.PanelRed");
-    text.SetHorizontalAlignment(textHorizontalAlignment.Left);
-    text.SetVerticalAlignment(textVerticalAlignment.Center);
-    text.SetRenderTransformPivot(Vector2(0.0, 0.0));
-
-    this.m_text = text;
-
-    this.SetRootWidget(text);
-  }
-
-  public static func Create() -> ref<FilterSavesTextFlow> {
-    let self: ref<FilterSavesTextFlow> = new FilterSavesTextFlow();
-    self.CreateInstance();
-
-    return self;
-  }
-}
-
-public class FilterSavesTextInput extends TextInput {
-  protected let frame: wref<FilterSavesInkBorder>;
-  protected let fill: wref<inkRectangle>;
-  protected let interactionFill: wref<inkRectangle>;
-
-  protected func CreateWidgets() {
-    let root = new inkCanvas();
-    root.SetName(n"input");
-    root.SetSize(1000.0, 84.0);
-    root.SetMargin(750, 46, 0, 0);
-    root.SetAnchor(inkEAnchor.CenterLeft);
-    root.SetInteractive(true);
-    root.SetSupportFocus(true);
-    root.SetVAlign(inkEVerticalAlign.Center);
-
-    let frame: ref<FilterSavesInkBorder> = new FilterSavesInkBorder();
-    frame.SetName(n"frame");
-    frame.SetOpacity(0.071);
-    frame.SetSize(1050.0, 80.0);
-    frame.SetMargin(-16.0, 0, 0, 48);
-    frame.SetAnchor(inkEAnchor.CenterLeft);
-    frame.SetStyle(r"base\\gameplay\\gui\\common\\main_colors.inkstyle");
-    frame.BindProperty(n"tintColor", n"MainColors.Red");
-    frame.SetThickness(2.0);
-    frame.Reparent(root);
-    this.frame = frame;
-
-    let fill: ref<inkRectangle> = new inkRectangle();
-    fill.SetName(n"fill");
-    fill.SetSize(1050.0, 80.0);
-    fill.SetMargin(-16.0, 0, 0, 48);
-    fill.SetAnchor(inkEAnchor.CenterLeft);
-    fill.SetStyle(r"base\\gameplay\\gui\\common\\main_colors.inkstyle");
-    fill.BindProperty(n"tintColor", n"MainColors.Fullscreen_PrimaryBackgroundDarkest");
-    fill.SetOpacity(0.610);
-    fill.Reparent(root);
-    this.fill = fill;
-
-    let interactionFill: ref<inkRectangle> = new inkRectangle();
-    interactionFill.SetName(n"fill");
-    interactionFill.SetSize(1050.0, 80.0);
-    interactionFill.SetMargin(-16.0, 0, 0, 48);
-    interactionFill.SetAnchor(inkEAnchor.CenterLeft);
-    interactionFill.SetStyle(r"base\\gameplay\\gui\\common\\main_colors.inkstyle");
-    interactionFill.BindProperty(n"tintColor", n"MainColors.MildBlue");
-    interactionFill.SetOpacity(0.05);
-    interactionFill.Reparent(root);
-    interactionFill.SetVisible(false);
-    this.interactionFill = interactionFill;
-
-    this.m_root = root;
-
-    this.m_measurer = TextMeasurer.Create();
-    this.m_measurer.Reparent(this.m_root);
-
-    this.m_viewport = Viewport.Create();
-    this.m_viewport.Reparent(this.m_root);
-
-    this.m_selection = Selection.Create();
-    this.m_selection.Reparent(this.m_viewport);
-
-    this.m_text = FilterSavesTextFlow.Create();
-    this.m_text.Reparent(this.m_viewport);
-
-    this.m_caret = Caret.Create();
-    this.m_caret.Reparent(this.m_viewport);
-
-    this.m_wrapper = this.m_viewport.GetRootWidget();
-
-    this.SetRootWidget(this.m_root);
-  }
-
-  public static func Create() -> ref<FilterSavesTextInput> {
-    let self: ref<FilterSavesTextInput> = new FilterSavesTextInput();
-    self.CreateInstance();
-
-    return self;
-  }
-
-  public func SetFocusedState(isFocused: Bool) -> Void {
-    super.SetFocusedState(isFocused);
-  }
-
-  public func SetLeftMargin(margin: Float) -> Void {
-    let currentMargin: inkMargin = this.m_root.GetMargin();
-    currentMargin.left = margin;
-    this.m_root.SetMargin(currentMargin);
-  }
-
-  protected func UpdateAppearance() -> Void {
-    if this.IsFocused() {
-      this.frame.SetOpacity(1.0);
-      this.frame.BindProperty(n"tintColor", n"MainColors.Blue");
-      this.interactionFill.SetVisible(true);
-    }
-    else if this.IsHovered() {
-      this.frame.SetOpacity(1.0);
-      this.frame.BindProperty(n"tintColor", n"MainColors.Red");
-      this.interactionFill.SetVisible(false);
-    }
-    else {
-      this.frame.SetOpacity(0.071);
-      this.frame.BindProperty(n"tintColor", n"MainColors.Red");
-      this.interactionFill.SetVisible(false);
-    }
-  }
-
-  protected cb func OnHoverOver(event: ref<inkPointerEvent>) -> Bool {
-    super.OnHoverOver(event);
-    this.UpdateAppearance();
-  }
-
-  protected cb func OnHoverOut(event: ref<inkPointerEvent>) -> Bool {   
-    super.OnHoverOut(event);
-    this.UpdateAppearance();
-  }
-
-  protected cb func OnFocusReceived(event: ref<inkEvent>) {
-    super.OnFocusReceived(event);
-    this.UpdateAppearance();
-  }
-
-  protected cb func OnFocusLost(event: ref<inkEvent>) {
-    super.OnFocusLost(event);
-    this.UpdateAppearance();
-  }
-}
-
 // LOAD MENU
 
 @addField(LoadGameMenuGameController)
@@ -261,12 +102,6 @@ private let m_lifePathFilter: LifePathFilter;
 @addField(LoadGameMenuGameController)
 private let freshStartInstalled: Bool;
 
-@addField(LoadGameMenuGameController)
-private let filterSavesSearchBar: wref<FilterSavesTextInput>;
-
-@addField(LoadGameMenuGameController)
-private let filterSavesSearchText: String;
-
 @wrapMethod(LoadGameMenuGameController)
 protected cb func OnInitialize() -> Bool {
   this.m_lifePathFilter = FilterSavesConfig.RememberLifepath() ? FilterSavesConfig.GetSavedLifepathFilter() : LifePathFilter.All;
@@ -274,68 +109,6 @@ protected cb func OnInitialize() -> Bool {
   this.freshStartInstalled = IsFreshStartInstalled();
 
   wrappedMethod();
-
-  let root = this.GetRootWidget() as inkCompoundWidget;
-  let holder = root.GetWidget(n"holder") as inkCompoundWidget;
-  let parent = holder.GetWidget(n"inkCanvasWidget7") as inkCanvas;
-
-  let input: ref<FilterSavesTextInput> = FilterSavesTextInput.Create();
-  input.SetWidth(1000);
-  input.SetDefaultText(GetLocalizedTextByKey(n"Mod-Filter-Saves-Filter-Tracked-Quest"));
-  input.SetName(n"search_bar");
-  input.SetLeftMargin(this.GetSearchBarLeftMargin());
-  input.Reparent(parent);
-
-  this.filterSavesSearchBar = input;
-
-  input.RegisterToCallback(n"OnInput", this, n"FilterSavesOnSearchInput");
-}
-
-@wrapMethod(LoadGameMenuGameController)
-protected cb func OnUninitialize() -> Bool {
-  wrappedMethod();
-  this.filterSavesSearchBar.UnregisterFromCallback(n"OnInput", this, n"FilterSavesOnSearchInput");
-}
-
-@wrapMethod(LoadGameMenuGameController)
-protected cb func OnButtonRelease(evt: ref<inkPointerEvent>) -> Bool {
-  if evt.IsAction(n"mouse_left") {
-    if !IsDefined(evt.GetTarget()) || !evt.GetTarget().CanSupportFocus() {
-      this.RequestSetFocus(null);
-    }
-  }
-  
-  wrappedMethod(evt);
-}
-
-@addMethod(LoadGameMenuGameController)
-protected cb func FilterSavesOnSearchInput(widget: ref<inkWidget>) {
-  this.filterSavesSearchText = UTF8StrLower(this.StrStrip(this.filterSavesSearchBar.GetText()));
-  this.UpdateListItemVisibilities();
-}
-
-@if(ModuleExists("NamedSaves.UI"))
-@addMethod(LoadGameMenuGameController)
-protected func GetSearchBarLeftMargin() -> Float {
-  return 1400.0;
-}
-
-@if(!ModuleExists("NamedSaves.UI"))
-@addMethod(LoadGameMenuGameController)
-protected func GetSearchBarLeftMargin() -> Float {
-  return 750.0;
-}
-
-@if(ModuleExists("NamedSaves.UI"))
-@addMethod(LoadGameMenuGameController)
-protected func GetNamedSavesSearchQuery() -> String {
-  return UTF8StrLower(this.m_searchInput.GetText());
-}
-
-@if(!ModuleExists("NamedSaves.UI"))
-@addMethod(LoadGameMenuGameController)
-protected func GetNamedSavesSearchQuery() -> String {
-  return "";
 }
 
 @wrapMethod(LoadGameMenuGameController)
@@ -372,11 +145,13 @@ protected cb func OnButtonRelease(evt: ref<inkPointerEvent>) -> Bool {
 
 @addMethod(LoadGameMenuGameController)
 private func UpdateListItemVisibilities() -> Void {
+  let button: wref<inkWidget>;
+  let controller: wref<LoadListItem>;
   let i: Int32 = 0;
   while i < inkCompoundRef.GetNumChildren(this.m_list) {
-    let button: wref<inkWidget> = inkCompoundRef.GetWidgetByIndex(this.m_list, i);
-    let controller: wref<LoadListItem> = button.GetController() as LoadListItem;
-    if controller.UpdateVisibility(this.m_lifePathFilter, this.m_saveTypeFilter, this.filterSavesSearchText, this.GetNamedSavesSearchQuery()) {
+    button = inkCompoundRef.GetWidgetByIndex(this.m_list, i);
+    controller = button.GetController() as LoadListItem;
+    if controller.UpdateVisibility(this.m_lifePathFilter, this.m_saveTypeFilter) {
       this.GetSystemRequestsHandler().RequestSavedGameScreenshot(i, controller.GetPreviewImageWidget());
     }
     i += 1;
@@ -447,7 +222,7 @@ private func UpdateListItemVisibilities() -> Void {
   while i < inkCompoundRef.GetNumChildren(this.m_list) {
     button = inkCompoundRef.GetWidgetByIndex(this.m_list, i);
     controller = button.GetController() as LoadListItem;
-    if controller.UpdateVisibility(this.m_lifePathFilter, SaveTypeFilter.All, "", "") {
+    if controller.UpdateVisibility(this.m_lifePathFilter, SaveTypeFilter.All) {
       this.GetSystemRequestsHandler().RequestSavedGameScreenshot(i, controller.GetPreviewImageWidget());
     }
     i += 1;
@@ -468,9 +243,6 @@ let m_lifePathFilter: LifePathFilter;
 @addField(LoadListItem)
 let m_saveTypeFilter: SaveTypeFilter;
 
-@addField(LoadListItem)
-let questName: String;
-
 @wrapMethod(LoadListItem)
 protected cb func OnInitialize() -> Bool {
   wrappedMethod();
@@ -482,8 +254,6 @@ protected cb func OnInitialize() -> Bool {
 @wrapMethod(LoadListItem)
 public final func SetMetadata(metadata: ref<SaveMetadataInfo>, opt isEp1Enabled: Bool) -> Void {
   wrappedMethod(metadata, isEp1Enabled);
-  
-  this.questName = UTF8StrLower(GetLocalizedText(metadata.trackedQuest));
 
   switch metadata.lifePath {
     case inkLifePath.Corporate:
@@ -524,7 +294,7 @@ public final func SetMetadata(metadata: ref<SaveMetadataInfo>, opt isEp1Enabled:
 }
 
 @addMethod(LoadListItem)
-public func UpdateVisibility(lifePathFilter: LifePathFilter, saveTypeFilter: SaveTypeFilter, searchText: String, namedSavesSearchText: String) -> Bool {
+public func UpdateVisibility(lifePathFilter: LifePathFilter, saveTypeFilter: SaveTypeFilter) -> Bool {
   if this.m_emptySlot {
     return false;
   }
@@ -540,53 +310,9 @@ public func UpdateVisibility(lifePathFilter: LifePathFilter, saveTypeFilter: Sav
     shouldHide = true;
   }
 
-  if !this.DoesSavePassQuestFilter(searchText) {
-    shouldHide = true;
-  }
-
-  if !this.DoesSavePassNamedSavesFilter(namedSavesSearchText) {
-    shouldHide = true;
-  }
-
   // return true if this item is going to be displayed and should have image loaded
   this.m_rootWidget.SetVisible(!shouldHide);
   return !wasVisible && !shouldHide;
-}
-
-@if(ModuleExists("NamedSaves.UI"))
-@addMethod(LoadListItem)
-protected func DoesSavePassNamedSavesFilter(searchText: String) -> Bool {
-  if Equals(searchText, "") {
-    return true;
-  }
-  return StrContains(this.m_customNoteText, searchText);
-}
-
-@if(!ModuleExists("NamedSaves.UI"))
-@addMethod(LoadListItem)
-protected func DoesSavePassNamedSavesFilter(searchText: String) -> Bool {
-  return true;
-}
-
-@addMethod(LoadListItem)
-protected func DoesSavePassQuestFilter(searchText: String) -> Bool {
-  if Equals(searchText, "") {
-    return true;
-  }
-  return StrContains(this.questName, searchText);
-}
-
-@addMethod(LoadGameMenuGameController)
-func StrStrip(text: String) -> String {
-  let stripped: String = text;
-  while StrLen(stripped) > 0 && StrFindFirst(stripped, " ") == 0 {
-    stripped = StrAfterFirst(stripped, " ");
-  }
-  while StrLen(stripped) > 0 && StrFindLast(stripped, " ") == StrLen(stripped) - 1 {
-    stripped = StrBeforeLast(stripped, " ");
-  }
-
-  return stripped;
 }
 
 

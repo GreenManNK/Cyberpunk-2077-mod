@@ -1,0 +1,10 @@
+package Footstep
+using RTDB
+
+Test : Footstep
+{
+	footstepEntityLeft = "odaLeft";
+	footstepEntityRight = "odaRight";
+	timeToFade = 20.0f;
+}
+

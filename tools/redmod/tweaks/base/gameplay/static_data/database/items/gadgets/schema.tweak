@@ -1,0 +1,110 @@
+package RTDB
+
+Gadget : WeaponItem
+{
+	displayName = "Generic gadget";
+	localizedDescription = "Generic gadget description";
+	itemCategory = "ItemCategory.Gadget";
+	placementSlots = 
+	[
+		"AttachmentSlots.WeaponLeft"
+	];
+	equipArea = "EquipmentArea.QuickSlot";
+	tags = 
+	[
+		"Gadget"
+	];
+	objectActions = [];
+	statModifiers = 
+	[
+		"BaseStats.BaseAudioStimRangeMultiplier", "BaseStats.BaseVisualStimRangeMultiplier"
+	];
+	isSingleInstance = true;
+}
+
+Grenade : Gadget
+{
+	fk< ItemStructure > itemStructure = "ItemStructure.BlueprintStackable";
+	fk< Crosshair > crosshair = "Crosshairs.None";
+	buyPrice = 
+	[
+		"Price.ConsumableBasePrice", "Price.ItemQualityMultiplier", "Price.PlusTierMultiplier", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = [];
+	iconPath = "granade_generic";
+	CName[] tags += 
+	[
+		"Grenade", "PreemptivePooled", "ChargedConsumable"
+	];
+	CName animFeatureName = "WeaponData_Grenade";
+	fk< ItemType > itemType = "ItemType.Gad_Grenade";
+	placementSlots += 
+	[
+		"AttachmentSlots.GrenadeLeft", "AttachmentSlots.GrenadeRight"
+	];
+	fk< GrenadeDeliveryMethod > deliveryMethod = "";
+	fk< Attack > attack = "";
+	fk< Attack > shallowWaterAttack = "";
+	fk< Attack > deepWaterAttack = "";
+	fk< Attack > additionalAttack = "";
+	fk< Attack > npcHitReactionAttack = "";
+	fk< Attack > enemyAttack = "";
+	fk< Attack > enhancedPerkAttack = "";
+	float attackRadius = 1.f;
+	float enhancedAttackRadiusFromPerk = 0.f;
+	float attackDuration = 0.f;
+	float enhancedAttackDurationFromPerk = 0.f;
+	bool removeMeshOnDetonation = true;
+	bool releaseOnDetonation = true;
+	float shootCollisionEnableDelay = 0.25f;
+	string detonationSound = "";
+	float detonationStimRadius = -1.f;
+	float underwaterDetonationStimRadius = -1.f;
+	fk< StimType > detonationStimType = "StimTypes.Explosion";
+	string detonationRumbleName = "heavy_slow";
+	string underwaterDetonationRumbleName = "heavy_slow";
+	float[] rotationAxesX = 
+	[
+		1.0f
+	];
+	float[] rotationAxesY = 
+	[
+		0.0f
+	];
+	float[] rotationAxesZ = 
+	[
+		0.0f
+	];
+	float[] rotationAxesSpeeds = 
+	[
+		180.0f
+	];
+	int randomRotationAxes = 2;
+	float rotationSpeedMin = 150.0f;
+	float rotationSpeedMax = 200.0f;
+	bool useSeed = false;
+	int seed = 0;
+	bool spawnFxAtWaterSurface = true;
+	float shallowWaterDepth = -0.05f;
+	float deepWaterDepth = -0.5f;
+	float sinkingDepth = -0.1f;
+	float sinkingDetonationDelay = 1.5f;
+	float waterSurfaceImpactImpulseRadius = 0.f;
+	float waterSurfaceImpactImpulseStrength = 0.f;
+	float waterDetonationImpulseRadiusCoef = 0.f;
+	float waterDetonationImpulseStrength = 0.f;
+	float storyDifficultySelfDamagePerTick = 0.f;
+	float normalDifficultySelfDamagePerTick = 0.f;
+	float hardDifficultySelfDamagePerTick = 0.f;
+	float veryHardDifficultySelfDamagePerTick = 0.f;
+	float npc_storyDifficultySelfDamagePerTick = 0.f;
+	float npc_normalDifficultySelfDamagePerTick = 0.f;
+	float npc_hardDifficultySelfDamagePerTick = 0.f;
+	float npc_veryHardDifficultySelfDamagePerTick = 0.f;
+	replicateWhenNotActive = true;
+	fk< StatModifier >[] statModifiers += 
+	[
+		"Items.GrenadeQuantity"
+	];
+}
+

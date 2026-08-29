@@ -1,0 +1,1008 @@
+package Items
+using RTDB, ItemAction, Perks
+
+[ notQueryable ]
+Skillbook : ConsumableItem
+{
+	displayName = "LocKey#51159";
+	localizedDescription = "LocKey#2693";
+	tags += 
+	[
+		"skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "OnlyOnceInStore"
+	];
+	CName entityName = "base_skillbook_item";
+	itemType = "ItemType.Con_Skillbook";
+	appearanceName = "base_skillbook_item_generic_skillbook";
+	quality = "Quality.Random";
+	itemSecondaryAction = "ItemAction.Learn";
+	buyPrice += 
+	[
+		"Price.Skillbook"
+	];
+	sellPrice += 
+	[
+		"Price.Skillbook"
+	];
+	statModifierGroups = 
+	[
+		"Items.QualityRandomization_Skill_Shards"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 99899;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			refStat = "BaseStats.PowerLevel";
+			refObject = "Player";
+			opSymbol = "*";
+			value = 1.0f;
+		} : CombinedStatModifier
+	];
+}
+
+[ EP1 ]
+[ notQueryable ]
+Espionage_Skillbook : Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						prereqRecord = "Prereqs.AlwaysTruePrereq";
+						effectorClassName = "AddDevelopmentPointEffector";
+						int amountOfPoints = 1;
+						string pointsType = "Espionage";
+					};
+				}
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+PerkPointSkillbook : Skillbook
+{
+	displayName = "LocKey#51160";
+	localizedDescription = "LocKey#2694";
+	iconPath = "perk_point_skillbook";
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"OnlyOnceInStore"
+	];
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						prereqRecord = "Prereqs.AlwaysTruePrereq";
+						effectorClassName = "AddDevelopmentPointEffector";
+						int amountOfPoints = 1;
+						string pointsType = "Primary";
+					};
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#2693";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+AttributePointSkillbook : Skillbook
+{
+	displayName = "LocKey#93844";
+	localizedDescription = "LocKey#93848";
+	iconPath = "perk_point_skillbook";
+	tags += 
+	[
+		"OnlyOnceInStore"
+	];
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						prereqRecord = "Prereqs.AlwaysTruePrereq";
+						effectorClassName = "AddDevelopmentPointEffector";
+						int amountOfPoints = 1;
+						string pointsType = "Attribute";
+					};
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					1
+				];
+				localizedDescription = "LocKey#93845";
+			};
+		}
+	];
+}
+
+BodySkill_Skillbook : Skillbook
+{
+	displayName = "LocKey#93273";
+	localizedDescription = "LocKey#93274";
+	iconPath = "brawling_skillbook";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.StrengthSkill_Training"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93274";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+BodySkill_Skillbook_Reward : BodySkill_Skillbook
+{
+	tags = 
+	[
+		"Preload", "Consumable", "skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "SkillbookReward_Body"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+			id = "quality_curves";
+			column = "reward_skillbook_tier_to_level";
+		} : CurveStatModifier
+	];
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.StrengthSkill_Training_Reward"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+BodySkill_Skillbook_Legendary : BodySkill_Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.StrengthSkill_Training_Legendary"
+			];
+		} : Learn
+	];
+}
+
+ReflexesSkill_Skillbook : Skillbook
+{
+	displayName = "LocKey#93276";
+	localizedDescription = "LocKey#93275";
+	iconPath = "kenjutsu_skillbook";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.ReflexesSkill_Training"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93275";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+ReflexesSkill_Skillbook_Reward : ReflexesSkill_Skillbook
+{
+	tags = 
+	[
+		"Preload", "Consumable", "skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "SkillbookReward_Ref"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+			id = "quality_curves";
+			column = "reward_skillbook_tier_to_level";
+		} : CurveStatModifier
+	];
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.ReflexesSkill_Training_Reward"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+ReflexesSkill_Skillbook_Legendary : ReflexesSkill_Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.ReflexesSkill_Training_Legendary"
+			];
+		} : Learn
+	];
+}
+
+IntelligenceSkill_Skillbook : Skillbook
+{
+	displayName = "LocKey#93277";
+	localizedDescription = "LocKey#93278";
+	iconPath = "hacking_skillbook";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.IntelligenceSkill_Training"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93278";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+IntelligenceSkill_Skillbook_Reward : IntelligenceSkill_Skillbook
+{
+	tags = 
+	[
+		"Preload", "Consumable", "skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "SkillbookReward_Int"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+			id = "quality_curves";
+			column = "reward_skillbook_tier_to_level";
+		} : CurveStatModifier
+	];
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.IntelligenceSkill_Training_Reward"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+IntelligenceSkill_Skillbook_Legendary : IntelligenceSkill_Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.IntelligenceSkill_Training_Legendary"
+			];
+		} : Learn
+	];
+}
+
+TechnicalAbilitySkill_Skillbook : Skillbook
+{
+	displayName = "LocKey#51169";
+	localizedDescription = "LocKey#51170";
+	iconPath = "engineering_skillbook";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.TechnicalAbilitySkill_Training"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#51170";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+TechnicalAbilitySkill_Skillbook_Reward : TechnicalAbilitySkill_Skillbook
+{
+	tags = 
+	[
+		"Preload", "Consumable", "skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "SkillbookReward_Tech"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+			id = "quality_curves";
+			column = "reward_skillbook_tier_to_level";
+		} : CurveStatModifier
+	];
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.TechnicalAbilitySkill_Training_Reward"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+TechnicalAbilitySkill_Skillbook_Legendary : TechnicalAbilitySkill_Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.TechnicalAbilitySkill_Training_Legendary"
+			];
+		} : Learn
+	];
+}
+
+CoolSkill_Skillbook : Skillbook
+{
+	displayName = "LocKey#93279";
+	localizedDescription = "LocKey#93280";
+	iconPath = "stealth_skillbook";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.CoolSkill_Training"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93280";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CoolSkill_Skillbook_Reward : CoolSkill_Skillbook
+{
+	tags = 
+	[
+		"Preload", "Consumable", "skillbook", "SkipActivityLogOnRemove", "DontShowLooted", "SkillbookReward_Cool"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+			id = "quality_curves";
+			column = "reward_skillbook_tier_to_level";
+		} : CurveStatModifier
+	];
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.CoolSkill_Training_Reward"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+CoolSkill_Skillbook_Rare : CoolSkill_Skillbook
+{
+	quality = "Quality.Rare";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.CoolSkill_Training_Rare"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+CoolSkill_Skillbook_Legendary : CoolSkill_Skillbook
+{
+	quality = "Quality.Legendary";
+	objectActions = 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.CoolSkill_Training_Legendary"
+			];
+		} : Learn
+	];
+}
+
+[ notQueryable ]
+LargeSkillbook : Skillbook
+{
+	tags += 
+	[
+		"OnlyOnceInStore", "LargeSkillbook"
+	];
+	quality = "Quality.Epic";
+	buyPrice = 
+	[
+		"Price.LargeSkillbook", "Price.BuyPrice_StreetCred_Discount"
+	];
+}
+
+[ notQueryable ]
+BodySkillbook_Strong : LargeSkillbook
+{
+	displayName = "LocKey#93726";
+	localizedDescription = "LocKey#93454";
+	iconPath = "brawling_skillbook";
+	tags += 
+	[
+		"Body"
+	];
+	objectActions += 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.StrengthTraining_Strong"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93449";
+				floatValues = 
+				[
+					5000
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+ReflexSkillbook_Strong : LargeSkillbook
+{
+	displayName = "LocKey#93730";
+	localizedDescription = "LocKey#93455";
+	iconPath = "kenjutsu_skillbook";
+	tags += 
+	[
+		"Reflex"
+	];
+	objectActions += 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.ReflexesTraining_Strong"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93450";
+				floatValues = 
+				[
+					5000
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+IntelligenceSkillbook_Strong : LargeSkillbook
+{
+	displayName = "LocKey#93729";
+	localizedDescription = "LocKey#93456";
+	iconPath = "hacking_skillbook";
+	tags += 
+	[
+		"Intelligence"
+	];
+	objectActions += 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.IntelligenceTraining_Strong"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93452";
+				floatValues = 
+				[
+					5000
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CoolSkillbook_Strong : LargeSkillbook
+{
+	displayName = "LocKey#93727";
+	localizedDescription = "LocKey#93457";
+	iconPath = "stealth_skillbook";
+	tags += 
+	[
+		"Cool"
+	];
+	objectActions += 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.CoolTraining_Strong"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93451";
+				floatValues = 
+				[
+					5000
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+TechnicalSkillbook_Strong : LargeSkillbook
+{
+	displayName = "LocKey#93728";
+	localizedDescription = "LocKey#93458";
+	iconPath = "engineering_skillbook";
+	tags += 
+	[
+		"Tech"
+	];
+	objectActions += 
+	[
+		{
+			rewards = 
+			[
+				"TrainerReward.TechTraining_Strong"
+			];
+		} : Learn
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93453";
+				floatValues = 
+				[
+					5000
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+IKPerkPointSkillbook : PerkPointSkillbook
+{
+	displayName = "LocKey#93846";
+	localizedDescription = "LocKey#93847";
+	buyPrice = 
+	[
+		"Price.IKPerkPointSkillbook", "Price.BuyPrice_StreetCred_Discount"
+	];
+	tags += 
+	[
+		"PerkSkillbook", "LargeSkillbook"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+AirdropPermaReward : Skillbook
+{
+	displayName = "LocKey#93372";
+	localizedDescription = "LocKey#93373";
+	iconPath = "carry_capacity";
+	quality = "Quality.Epic";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						prereqRecord = "Prereqs.AlwaysTruePrereq";
+						statusEffect = "BaseStatusEffect.CarryCapacityPermaBonus";
+						removeWithEffector = false;
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					2
+				];
+				localizedDescription = "LocKey#93852";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CWCapacityPermaRewardBase : Skillbook
+{
+	displayName = "LocKey#93849";
+	localizedDescription = "LocKey#93850";
+	iconPath = "upgradeshard";
+	tags += 
+	[
+		"CWCapacity_Shard"
+	];
+	float amountOfCapacityGivenForRipperdocUI = 54f;
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_Uncommon : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Uncommon";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_Tier2_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					2
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_Rare : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Rare";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_Tier3_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					3
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_Epic : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Epic";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_Tier4_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					4
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_Legendary : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_Tier5_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					6
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_2_Uncommon : CWCapacityPermaReward_Uncommon
+{
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_2_Rare : CWCapacityPermaReward_Rare
+{
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_2_Epic : CWCapacityPermaReward_Epic
+{
+}
+
+[ notQueryable ]
+CWCapacityPermaReward_2_Legendary : CWCapacityPermaReward_Legendary
+{
+}
+
+[ notQueryable ]
+DEBUG_CWCapacityPermaReward_lvl20 : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_DEBUGbuild_lvl20_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					18
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+DEBUG_CWCapacityPermaReward_lvl30 : CWCapacityPermaRewardBase
+{
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						statusEffect = "BaseStatusEffect.CWCapacity_DEBUGbuild_lvl30_PermaBonus";
+					} : ApplyStatusEffectOnPlayer;
+				}
+			];
+		} : Learn
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					29
+				];
+				localizedDescription = "LocKey#93851";
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+PerkPointsResetter : Skillbook
+{
+	displayName = "LocKey#77683";
+	localizedDescription = "LocKey#77684";
+	iconPath = "perkpoints_remover";
+	buyPrice += 
+	[
+		"Price.PerkPointsResetterSkillbook"
+	];
+	quality = "Quality.Legendary";
+	objectActions += 
+	[
+		{
+			startEffects = 
+			[
+				{
+					effectorToTrigger = 
+					{
+						effectorClassName = "ResetDevelopmentPointsEffector";
+					};
+				}
+			];
+		} : Learn
+	];
+}
+

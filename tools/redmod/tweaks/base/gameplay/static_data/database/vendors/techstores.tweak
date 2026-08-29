@@ -1,0 +1,588 @@
+package Vendors
+using RTDB
+
+wat_kab_techstore_01 : NetrunnerTrainer
+{
+	string localizedName = "LocKey#45181";
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.EMPOverloadLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.DisableCyberwareLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.OverheatLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsNoiseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.WhistleLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SystemCollapseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SuicideLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.PingLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MemoryWipeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.GrenadeExplodeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.LocomotionMalfunctionLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MadnessLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsCallInLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SuicideLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.Recipe_PingLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}
+	];
+}
+
+std_arr_techstore_01 : NetrunnerTrainer
+{
+	string localizedName = "LocKey#45188";
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.EMPOverloadLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.DisableCyberwareLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.OverheatLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsNoiseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.WhistleLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SystemCollapseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SuicideLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.PingLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MemoryWipeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.GrenadeExplodeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.LocomotionMalfunctionLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MadnessLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsCallInLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.BlindLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.Recipe_BlindLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}
+	];
+}
+
+std_rcr_techstore_01 : NetrunnerTrainer
+{
+	string localizedName = "LocKey#45189";
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.EMPOverloadLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.DisableCyberwareLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.BlindLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.OverheatLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsNoiseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.WhistleLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SystemCollapseLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.SuicideLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.PingLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MemoryWipeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.GrenadeExplodeLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.LocomotionMalfunctionLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.MadnessLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsCallInLvl4Program";
+			quantity = 
+			[
+				"Vendors.Rarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.CommsCallInLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}, 
+		{
+			item = "Items.Recipe_MadnessLvl4PlusPlusProgram";
+			quantity = 
+			[
+				"Vendors.VeryRarely_Present"
+			];
+			generationPrereqs = 
+			[
+				"Vendors.LegendaryPlusPlusQuickhackAvailability"
+			];
+		}
+	];
+}
+

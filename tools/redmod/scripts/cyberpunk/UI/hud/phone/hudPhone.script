@@ -1,0 +1,463 @@
+import class SongbirdAudioCallGameController extends inkHUDGameController
+{
+}
+
+class HudPhoneGameController extends SongbirdAudioCallGameController
+{
+	private editable var m_isAudioCall : Bool;
+	private editable var m_AvatarControllerRef : inkWidgetRef;
+	private var m_AvatarController : weak< HudPhoneAvatarController >;
+	private var m_RootWidget : weak< inkWidget >;
+	private editable var m_Holder : inkWidgetRef;
+	private var m_Owner : weak< GameObject >;
+	private var m_CurrentFunction : EHudPhoneFunction;
+	private var m_CurrentCallInformation : PhoneCallInformation;
+	private var m_CurrentPhoneCallContact : weak< JournalContact >;
+	private var m_DelaySystem : weak< DelaySystem >;
+	private var m_PhoneSystem : weak< PhoneSystem >;
+	private var m_JournalMgr : weak< JournalManager >;
+	private var m_gameplayRestrictions : array< CName >;
+	private var m_Blackboard : weak< IBlackboard >;
+	private var m_BlackboardDef : UI_ComDeviceDef;
+	private var m_CallInformationBBID : CallbackHandle;
+	private var m_StatusNameBBID : CallbackHandle;
+	private var m_MinimizedListener : CallbackHandle;
+	private var m_DelayedCallbackId : DelayID;
+	private var m_DelayedTimeoutCallbackId : DelayID;
+	private var m_TimeoutPeroid : Float;
+	default m_TimeoutPeroid = 8.0f;
+	private var m_buttonPressed : Bool;
+
+	private function CreateTriggerCallRequestFromPhoneCallInformation( phoneCallInformation : PhoneCallInformation ) : questTriggerCallRequest
+	{
+		var request : questTriggerCallRequest;
+		request = new questTriggerCallRequest;
+		request.callPhase = phoneCallInformation.callPhase;
+		request.visuals = phoneCallInformation.visuals;
+		request.isRejectable = phoneCallInformation.isRejectable;
+		if( phoneCallInformation.isAudioCall )
+		{
+			request.callMode = questPhoneCallMode.Audio;
+		}
+		else
+		{
+			request.callMode = questPhoneCallMode.Video;
+		}
+		if( phoneCallInformation.isPlayerCalling )
+		{
+			request.caller = 'player';
+			request.addressee = phoneCallInformation.contactName;
+		}
+		else
+		{
+			request.caller = phoneCallInformation.contactName;
+			request.addressee = 'player';
+		}
+		return request;
+	}
+
+	protected event OnInitialize()
+	{
+		var request : questTriggerCallRequest;
+		var lastPhoneCallInformation : PhoneCallInformation;
+		var infoVariant : Variant;
+		m_RootWidget = GetRootWidget();
+		m_AvatarController = ( ( HudPhoneAvatarController )( inkWidgetRef.GetController( m_AvatarControllerRef ) ) );
+		m_Owner = ( ( GameObject )( GetPlayerControlledObject() ) );
+		SetPhoneFunction( EHudPhoneFunction.Inactive );
+		CachePredefinedRestrictions();
+		m_BlackboardDef = GetAllBlackboardDefs().UI_ComDevice;
+		m_Blackboard = GetBlackboardSystem().Get( m_BlackboardDef );
+		infoVariant = m_Blackboard.GetVariant( GetAllBlackboardDefs().UI_ComDevice.PhoneCallInformation );
+		if( infoVariant.IsValid() )
+		{
+			lastPhoneCallInformation = ( ( PhoneCallInformation )infoVariant );
+			if( lastPhoneCallInformation.callPhase == questPhoneCallPhase.IncomingCall || lastPhoneCallInformation.callPhase == questPhoneCallPhase.StartCall )
+			{
+				request = CreateTriggerCallRequestFromPhoneCallInformation( lastPhoneCallInformation );
+				GameInstance.GetScriptableSystemsContainer( m_Owner.GetGame() ).QueueRequest( request );
+			}
+		}
+		if( m_Blackboard )
+		{
+			m_CallInformationBBID = m_Blackboard.RegisterDelayedListenerVariant( m_BlackboardDef.PhoneCallInformation, this, 'OnTriggerCall' );
+			m_StatusNameBBID = m_Blackboard.RegisterDelayedListenerName( m_BlackboardDef.comDeviceSetStatusText, this, 'OnPhoneStatusChanged' );
+			m_MinimizedListener = m_Blackboard.RegisterDelayedListenerBool( m_BlackboardDef.PhoneStyle_Minimized, this, 'OnPhoneMinimize' );
+		}
+		m_JournalMgr = GameInstance.GetJournalManager( m_Owner.GetGame() );
+		m_DelaySystem = GameInstance.GetDelaySystem( m_Owner.GetGame() );
+		m_PhoneSystem = ( ( PhoneSystem )( GameInstance.GetScriptableSystemsContainer( m_Owner.GetGame() ).Get( 'PhoneSystem' ) ) );
+		m_AvatarController.SetJournalManager( m_JournalMgr );
+		m_AvatarController.SetHolder( m_Holder );
+		m_AvatarController.RegisterToCallback( 'OnStateChanged', this, 'OnElementStateChanged' );
+	}
+
+	protected event OnUninitialize()
+	{
+		if( m_Blackboard )
+		{
+			m_Blackboard.UnregisterDelayedListener( m_BlackboardDef.PhoneCallInformation, m_CallInformationBBID );
+			m_Blackboard.UnregisterDelayedListener( m_BlackboardDef.PhoneStyle_Minimized, m_MinimizedListener );
+		}
+		m_AvatarController.UnregisterFromCallback( 'OnStateChanged', this, 'OnElementStateChanged' );
+		m_Blackboard = NULL;
+	}
+
+	protected event OnPlayerAttach( playerPuppet : GameObject )
+	{
+		playerPuppet.RegisterInputListener( this, 'PhoneInteract' );
+		playerPuppet.RegisterInputListener( this, 'PhoneReject' );
+		m_AvatarController.SetOwner( playerPuppet );
+	}
+
+	protected event OnPlayerDetach( playerPuppet : GameObject )
+	{
+		playerPuppet.UnregisterInputListener( this );
+		m_AvatarController.SetOwner( NULL );
+	}
+
+	private function CachePredefinedRestrictions()
+	{
+		PlayerGameplayRestrictions.AcquireHotkeyRestrictionTags( EHotkey.DPAD_DOWN, m_gameplayRestrictions );
+	}
+
+	private function IsUsingPhonePrevented() : Bool
+	{
+		var psmBlackboard : IBlackboard;
+		var playerPuppet : PlayerPuppet;
+		if( m_CurrentCallInformation.callPhase != questPhoneCallPhase.IncomingCall && StatusEffectSystem.ObjectHasStatusEffectWithTags( m_Owner, m_gameplayRestrictions ) )
+		{
+			return true;
+		}
+		playerPuppet = ( ( PlayerPuppet )( m_Owner ) );
+		psmBlackboard = playerPuppet.GetPlayerStateMachineBlackboard();
+		if( ( psmBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.Swimming ) == ( ( Int32 )( gamePSMSwimming.Diving ) ) ) && !( GameInstance.GetStatsSystem( playerPuppet.GetGame() ).GetStatBoolValue( playerPuppet.GetEntityID(), gamedataStatType.CanUsePhoneUnderWater ) ) )
+		{
+			return true;
+		}
+		if( psmBlackboard.GetBool( GetAllBlackboardDefs().PlayerStateMachine.IsControllingDevice ) || psmBlackboard.GetBool( GetAllBlackboardDefs().PlayerStateMachine.IsUIZoomDevice ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	protected event OnAction( action : ListenerAction, consumer : ListenerActionConsumer )
+	{
+		var actionName : CName;
+		var actionType : gameinputActionType;
+		var wheelOpened : Bool;
+		var hacksOpened : Bool;
+		var playerStatsBB : IBlackboard;
+		var uiActionPerformed : DPADActionPerformed;
+		var pickupRequest : PickupPhoneRequest;
+		wheelOpened = GameInstance.GetBlackboardSystem( m_Owner.GetGame() ).Get( GetAllBlackboardDefs().UI_QuickSlotsData ).GetBool( GetAllBlackboardDefs().UI_QuickSlotsData.UIRadialContextRequest );
+		hacksOpened = GameInstance.GetBlackboardSystem( m_Owner.GetGame() ).Get( GetAllBlackboardDefs().UI_QuickSlotsData ).GetBool( GetAllBlackboardDefs().UI_QuickSlotsData.quickhackPanelOpen );
+		actionName = ListenerAction.GetName( action );
+		actionType = ListenerAction.GetType( action );
+		if( actionName == 'PhoneInteract' && !( IsUsingPhonePrevented() ) )
+		{
+			uiActionPerformed = new DPADActionPerformed;
+			uiActionPerformed.action = EHotkey.DPAD_DOWN;
+			if( actionType == gameinputActionType.BUTTON_PRESSED )
+			{
+				if( m_Owner.PlayerLastUsedPad() )
+				{
+					uiActionPerformed.state = EUIActionState.STARTED;
+					uiActionPerformed.successful = true;
+					m_buttonPressed = true;
+					GameInstance.GetUISystem( m_Owner.GetGame() ).QueueEvent( uiActionPerformed );
+				}
+			}
+			else if( actionType == gameinputActionType.BUTTON_RELEASED )
+			{
+				if( m_CurrentCallInformation.callPhase == questPhoneCallPhase.IncomingCall )
+				{
+					pickupRequest = new PickupPhoneRequest;
+					pickupRequest.CallInformation = m_CurrentCallInformation;
+					m_PhoneSystem.QueueRequest( pickupRequest );
+					return true;
+				}
+				else if( m_buttonPressed )
+				{
+					m_buttonPressed = false;
+					uiActionPerformed.state = EUIActionState.ABORTED;
+					uiActionPerformed.successful = false;
+					GameInstance.GetUISystem( m_Owner.GetGame() ).QueueEvent( uiActionPerformed );
+				}
+			}
+			if( actionType == gameinputActionType.BUTTON_HOLD_COMPLETE && m_CurrentCallInformation.callPhase != questPhoneCallPhase.IncomingCall )
+			{
+				if( !( wheelOpened ) && !( hacksOpened ) )
+				{
+					playerStatsBB = GameInstance.GetBlackboardSystem( m_Owner.GetGame() ).Get( GetAllBlackboardDefs().UI_PlayerStats );
+					if( !( playerStatsBB.GetBool( GetAllBlackboardDefs().UI_PlayerStats.isReplacer ) ) )
+					{
+						m_PhoneSystem.QueueRequest( new UsePhoneRequest );
+						uiActionPerformed.successful = true;
+						uiActionPerformed.state = EUIActionState.COMPLETED;
+						m_buttonPressed = false;
+						GameInstance.GetUISystem( m_Owner.GetGame() ).QueueEvent( uiActionPerformed );
+						return true;
+					}
+				}
+				else
+				{
+					GameInstance.GetUISystem( m_Owner.GetGame() ).QueueEvent( uiActionPerformed );
+				}
+			}
+		}
+		else if( actionName == 'PhoneReject' && m_CurrentCallInformation.callPhase == questPhoneCallPhase.IncomingCall )
+		{
+			if( actionType == gameinputActionType.BUTTON_HOLD_COMPLETE )
+			{
+				pickupRequest = new PickupPhoneRequest;
+				pickupRequest.CallInformation = m_CurrentCallInformation;
+				pickupRequest.shouldBeRejected = true;
+				m_PhoneSystem.QueueRequest( pickupRequest );
+			}
+		}
+	}
+
+	protected event OnPhoneMinimize( value : Bool )
+	{
+		m_AvatarController.ChangeMinimized( value );
+	}
+
+	protected event OnPhoneStatusChanged( phoneStatus : CName )
+	{
+		m_AvatarController.SetStatusText( NameToString( phoneStatus ) );
+	}
+
+	protected event OnTriggerCall( data : Variant )
+	{
+		var isSomiCall : Bool;
+		m_CurrentCallInformation = ( ( PhoneCallInformation )data );
+		m_CurrentPhoneCallContact = GetIncomingContact();
+		CancelQuestFailsafe();
+		CancelTimeoutFailsafe();
+		isSomiCall = m_CurrentCallInformation.visuals == questPhoneCallVisuals.Somi && m_CurrentCallInformation.isAudioCall == m_isAudioCall;
+		if( !( isSomiCall ) )
+		{
+			return false;
+		}
+		if( m_CurrentPhoneCallContact )
+		{
+			switch( m_CurrentCallInformation.callPhase )
+			{
+				case questPhoneCallPhase.Undefined:
+				case questPhoneCallPhase.EndCall:
+					SetTalkingTrigger( m_CurrentCallInformation.isPlayerCalling, questPhoneTalkingState.Ended, m_CurrentCallInformation.visuals );
+				SetPhoneFunction( EHudPhoneFunction.Inactive );
+				break;
+				case questPhoneCallPhase.IncomingCall:
+					StartTimeoutFailsafe();
+				SetPhoneFunction( EHudPhoneFunction.IncomingCall );
+				break;
+				case questPhoneCallPhase.StartCall:
+					SetTalkingTrigger( m_CurrentCallInformation.isPlayerCalling, questPhoneTalkingState.Talking, m_CurrentCallInformation.visuals );
+				SetPhoneFunction( ( ( m_CurrentCallInformation.isAudioCall ) ? ( EHudPhoneFunction.Audiocall ) : ( EHudPhoneFunction.Holocall ) ) );
+				break;
+			}
+		}
+	}
+
+	public function CancelQuestFailsafe()
+	{
+		if( m_DelaySystem )
+		{
+			m_DelaySystem.CancelCallback( m_DelayedCallbackId );
+		}
+	}
+
+	public function StartTimeoutFailsafe()
+	{
+		var timeoutRequest : PhoneTimeoutRequest;
+		timeoutRequest = new PhoneTimeoutRequest;
+		if( m_DelaySystem )
+		{
+			m_DelayedTimeoutCallbackId = m_DelaySystem.DelayScriptableSystemRequest( 'PhoneSystem', timeoutRequest, m_TimeoutPeroid );
+		}
+	}
+
+	public function CancelTimeoutFailsafe()
+	{
+		if( m_DelaySystem )
+		{
+			m_DelaySystem.CancelCallback( m_DelayedTimeoutCallbackId );
+		}
+	}
+
+	private function SetTalkingTrigger( isPlayerCalling : Bool, state : questPhoneTalkingState, visuals : questPhoneCallVisuals )
+	{
+		var request : TalkingTriggerRequest;
+		if( m_CurrentPhoneCallContact )
+		{
+			request = new TalkingTriggerRequest;
+			request.isPlayerCalling = isPlayerCalling;
+			request.contact = StringToName( m_CurrentPhoneCallContact.GetId() );
+			request.state = state;
+			request.visuals = visuals;
+			m_PhoneSystem.QueueRequest( request );
+		}
+	}
+
+	private function GetIncomingContact() : weak< JournalContact >
+	{
+		var i, limit : Int32;
+		var currContact : weak< JournalContact >;
+		var contactsList : array< weak< JournalEntry > >;
+		var contactName : CName;
+		var context : JournalRequestContext;
+		if( m_Blackboard )
+		{
+			context.stateFilter.active = true;
+			context.stateFilter.inactive = true;
+			contactName = m_CurrentCallInformation.contactName;
+			m_JournalMgr.GetContacts( context, contactsList );
+			for( i = 0, limit = contactsList.Size(); i < limit; i += 1 )
+			{
+				currContact = ( ( JournalContact )( contactsList[ i ] ) );
+				if( currContact.GetId() == NameToString( contactName ) )
+				{
+					return currContact;
+				}
+			}
+		}
+		return NULL;
+	}
+
+	protected event OnElementStateChanged( widget : weak< inkWidget >, oldState : CName, newState : CName ) {}
+
+	public function SetPhoneFunction( newFunction : EHudPhoneFunction )
+	{
+		var avatarID : TweakDBID;
+		var contactName : String;
+		if( m_CurrentFunction != newFunction )
+		{
+			m_CurrentFunction = newFunction;
+			avatarID = m_CurrentPhoneCallContact.GetAvatarID( m_JournalMgr );
+			contactName = m_CurrentPhoneCallContact.GetLocalizedName( m_JournalMgr );
+			switch( newFunction )
+			{
+				case EHudPhoneFunction.DisplayingMessage:
+					break;
+				case EHudPhoneFunction.IncomingCall:
+					m_AvatarController.ShowIncomingContact( avatarID, contactName );
+				break;
+				case EHudPhoneFunction.Audiocall:
+					m_AvatarController.StartAudiocall( avatarID, contactName, m_CurrentCallInformation.showAvatar );
+				break;
+				case EHudPhoneFunction.Holocall:
+					m_AvatarController.StartHolocall( avatarID, contactName );
+				break;
+			}
+			if( newFunction == EHudPhoneFunction.Inactive )
+			{
+				m_AvatarController.ShowEndCallContact( avatarID, contactName );
+			}
+		}
+	}
+
+}
+
+abstract class HUDPhoneElement extends inkLogicController
+{
+	protected var m_RootWidget : weak< inkWidget >;
+
+	protected event OnInitialize()
+	{
+		m_RootWidget = GetRootWidget();
+		m_RootWidget.RegisterToCallback( 'OnStateChanged', this, 'OnStateChanged' );
+		SetState( EHudPhoneVisibility.Invisible );
+	}
+
+	protected event OnUninitialize()
+	{
+		if( m_RootWidget )
+		{
+			m_RootWidget.UnregisterFromCallback( 'OnStateChanged', this, 'OnStateChanged' );
+		}
+	}
+
+	protected event OnStateChanged( widget : weak< inkWidget >, oldState : CName, newState : CName ) {}
+
+	public function SetState( visibility : EHudPhoneVisibility )
+	{
+		var stateName : CName;
+		switch( visibility )
+		{
+			case EHudPhoneVisibility.Invisible:
+				stateName = 'Invisible';
+			break;
+			case EHudPhoneVisibility.Showing:
+				stateName = 'Showing';
+			break;
+			case EHudPhoneVisibility.Visible:
+				stateName = 'Visible';
+			break;
+			case EHudPhoneVisibility.Hiding:
+				stateName = 'Hiding';
+			break;
+		}
+		m_RootWidget.SetState( stateName );
+	}
+
+	protected function GetStateFromName( stateName : CName ) : EHudPhoneVisibility
+	{
+		switch( stateName )
+		{
+			case 'Invisible':
+				return EHudPhoneVisibility.Invisible;
+			case 'Showing':
+				return EHudPhoneVisibility.Showing;
+			case 'Hiding':
+				return EHudPhoneVisibility.Hiding;
+		}
+		return EHudPhoneVisibility.Visible;
+	}
+
+	public function GetState() : EHudPhoneVisibility
+	{
+		return GetStateFromName( m_RootWidget.GetState() );
+	}
+
+	public function Show()
+	{
+		var state : EHudPhoneVisibility;
+		state = GetState();
+		if( state != EHudPhoneVisibility.Visible && state != EHudPhoneVisibility.Showing )
+		{
+			SetState( EHudPhoneVisibility.Showing );
+		}
+	}
+
+	public function Hide()
+	{
+		var state : EHudPhoneVisibility;
+		state = GetState();
+		if( state != EHudPhoneVisibility.Invisible && state != EHudPhoneVisibility.Hiding )
+		{
+			SetState( EHudPhoneVisibility.Hiding );
+		}
+	}
+
+}
+
+enum EHudPhoneVisibility
+{
+	Invisible = 0,
+	Showing = 1,
+	Visible = 2,
+	Hiding = 3,
+}
+
+enum EHudPhoneFunction
+{
+	Inactive = 0,
+	DisplayingMessage = 1,
+	IncomingCall = 2,
+	Holocall = 3,
+	Audiocall = 4,
+}
+

@@ -1,0 +1,513 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+Preset_Carnage_Default : Base_Carnage
+{
+	CName appearanceResourceName = "Preset_Carnage_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_stdr";
+		}, 
+		"Items.ShotgunScopesPartList", {
+			slot = "AttachmentSlots.Power_Shotgun_WeaponMod1";
+		} : Power_Shotgun_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Power_Shotgun_WeaponMod2";
+		} : Power_Shotgun_ModList_Slot2
+	];
+}
+
+Preset_Carnage_Pimp : Preset_Carnage_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Carnage_Neon : Preset_Carnage_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Carnage_Military : Preset_Carnage_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Carnage : Preset_Carnage_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_stdr";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Carnage : Craftable_Common_Carnage
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Carnage : Craftable_Uncommon_Carnage
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Carnage : Craftable_Uncommon_Carnage
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Carnage : Craftable_Uncommon_Carnage
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Proficiency_Craftable_Legendary_Carnage : Craftable_Legendary_Carnage
+{
+}
+
+[ notQueryable ]
+Preset_Carnage_Mox : Preset_Carnage_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "carnage_mox_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#40579";
+	visualTags = 
+	[
+		"Mox_Carnage"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40580";
+	gameplayDescription = "LocKey#93511";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Carnage_NPC_Data;
+	fk< GameplayLogicPackage >[] OnAttach = 
+	[
+		"EquipmentGLP.MediumStaminaRegen", "EquipmentGLP.VeryHeavyStaminaDelay"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.MoxCarnageWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Carnage_Mox_Technical_Stats", "Items.Base_Carnage_Handling_Stats", "Items.Base_Carnage_Mox_Recoil_Stats", "Items.Base_Carnage_Mox_Spread_Stats", "Items.Base_Carnage_Mox_Constant_Stats", "Items.Base_Carnage_Aim_Stats", "Items.Base_Carnage_Damage_Stats", "Items.Base_Power_Stats", "Items.Base_Power_Shotgun_Mult_Stats", "Items.Base_Power_Shotgun_Stats", "Items.Base_Shotgun_RPG_Stats", "Items.Base_Shotgun_Misc_Stats", "Items.Base_Shotgun_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Shotgun_DeadReckoning_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Electric"
+	];
+}
+
+Base_Carnage_Mox_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 1.25f;
+		} : CycleTimeModifier, 
+		{
+			value = 8.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.0f;
+		} : ReloadAmountModifier, 
+		{
+			value = 6.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Carnage_Mox_Recoil_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.f;
+		} : RecoilDirModifier, 
+		{
+			value = 0.f;
+		} : RecoilAngleModifier, 
+		{
+			value = 0.06f;
+		} : RecoilTimeModifier, 
+		{
+			value = 0.05f;
+		} : RecoilDelayModifier, 
+		{
+			value = 0.7f;
+		} : RecoilRecoveryTimeModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXADSModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYADSModifier
+	];
+}
+
+Base_Carnage_Mox_Spread_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.0f;
+		} : SpreadMinXModifier, 
+		{
+			value = 1.0f;
+		} : SpreadUseInAdsModifier, 
+		{
+			value = 1.0f;
+		} : SpreadAdsMinXModifier, 
+		{
+			value = 1.25f;
+		} : SpreadResetSpeedModifier, 
+		{
+			value = 0.3f;
+		} : SpreadResetTimeThresholdModifier, 
+		{
+			value = 0.f;
+		} : SpreadRandomizeOriginPointModifier, 
+		{
+			value = 0.f;
+		} : SpreadChangePerShotModifier, 
+		{
+			value = 0.f;
+		} : SpreadAdsChangePerShotModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseCircularSpreadModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseEvenDistributionModifier, 
+		{
+			value = 3.f;
+		} : SpreadEvenDistributionRowCountModifier, 
+		{
+			value = 0.1f;
+		} : SpreadEvenDistributionJitterSizeModifier
+	];
+}
+
+Base_Carnage_Mox_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 1.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 1.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 5.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 6.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 1.391f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow"
+	];
+}
+
+[ notQueryable ]
+Preset_Carnage_Edgerunners : Preset_Carnage_Default
+{
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#84177";
+	visualTags = 
+	[
+		"Edgerunners_Carnage"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#84178";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Carnage_NPC_Data;
+	fk< GameplayLogicPackage >[] OnAttach = 
+	[
+		"EquipmentGLP.SlowStaminaRegen", "EquipmentGLP.VeryHeavyStaminaDelay", "EquipmentGLP.EdgerunnersBorgWeaponStagger", {
+			animationWrapperOverrides = 
+			[
+				"w_base_shotgun"
+			];
+		} : GameplayLogicPackage
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_shotgun__budget_carnage_mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.EdgerunnersCarnageWeaponMod";
+		}
+	];
+	bool scaleToPlayer = true;
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Carnage_Edgerunners_Technical_Stats", "Items.Base_Carnage_Handling_Stats", "Items.Base_Carnage_Recoil_Stats", "Items.Base_Carnage_Spread_Stats", "Items.Base_Carnage_Aim_Stats", "Items.Base_Carnage_Edgerunners_Constant_Stats", "Items.Base_Carnage_Damage_Stats", "Items.Base_Power_Shotgun_Mult_Stats", "Items.Base_Power_Shotgun_Stats", "Items.Base_Shotgun_RPG_Stats", "Items.Base_Shotgun_Misc_Stats", "Items.Base_Shotgun_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Shotgun_DeadReckoning_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Physical"
+	];
+}
+
+Base_Carnage_Edgerunners_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 1.25f;
+		} : CycleTimeModifier, 
+		{
+			value = 6.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.0f;
+		} : ReloadAmountModifier, 
+		{
+			value = 20.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Carnage_Edgerunners_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 4.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 2.65f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 4.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 2.65f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 10.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 12.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 1.748f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationHigh"
+	];
+}
+

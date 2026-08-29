@@ -1,0 +1,1591 @@
+package Senses
+using RTDB
+
+StealthShield : SensePreset
+{
+	shapes = 
+	[
+		{
+			position = ( 0.f, 0.f, -0.5f );
+			angle = 50.f;
+			range = 50.f;
+			halfHeight = 3.f;
+		} : AngleRange, 
+		{
+			min = ( 0.f, 0.f, -1.75f );
+			max = ( 3.f, 2.f, 0.75f );
+		} : Box, 
+		{
+			min = ( -3.f, 0.f, -1.75f );
+			max = ( 0.f, 2.f, 0.75f );
+		} : Box
+	];
+	curves = 
+	[
+		{
+			name = "Default_DetectionCurve";
+			states = 
+			[
+				"Default", "Sprint", "Kereznikov", "Sandevistan", "Jump"
+			];
+		} : DetectionCurve, 
+		{
+			name = "Stealth_DetectionCurve";
+			states = 
+			[
+				"Crouch"
+			];
+		} : DetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			name = "Material_Transparent";
+			states = 
+			[
+				"Transparent", "SemiTransparent"
+			];
+		} : DetectionCurve
+	];
+	detectionDropFactor = 20.f;
+	detectionCoolDownTime = 3.f;
+}
+
+DefaultDetectionCurve : DetectionCurve
+{
+	name = "Default_DetectionCurve";
+	states = 
+	[
+		"Default"
+	];
+}
+
+StealthDetectionCurve : DetectionCurve
+{
+	name = "Stealth_DetectionCurve";
+	states = 
+	[
+		"Crouch"
+	];
+}
+
+AttentionDetectionCurve : DetectionCurve
+{
+	name = "Attention_DetectionCurve";
+	states = 
+	[
+		"Sprint", "Jump"
+	];
+}
+
+SniperDefaultDetectionCurve : DetectionCurve
+{
+	name = "Default_DetectionCurve";
+	states = 
+	[
+		"Default"
+	];
+}
+
+SniperStealthDetectionCurve : DetectionCurve
+{
+	name = "Stealth_DetectionCurve";
+	states = 
+	[
+		"Crouch"
+	];
+}
+
+SniperAttentionDetectionCurve : DetectionCurve
+{
+	name = "Attention_DetectionCurve";
+	states = 
+	[
+		"Sprint", "Jump"
+	];
+}
+
+TransparentMaterialDetectionCurve : DetectionCurve
+{
+	name = "Material_Transparent";
+	states = 
+	[
+		"Transparent"
+	];
+}
+
+SemiTransparentMaterialDetectionCurve : DetectionCurve
+{
+	name = "Material_SemiTransparent";
+	states = 
+	[
+		"SemiTransparent"
+	];
+}
+
+VisionFar : Cone
+{
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide : Cone
+{
+	detectionMultiplier = 1.0f;
+}
+
+VisionVeryWide : Cone
+{
+	detectionMultiplier = 1.0f;
+}
+
+VisionWideLower : Cone
+{
+	detectionMultiplier = 0.5f;
+}
+
+Peripheral : AngleRange
+{
+	detectionMultiplier = 0.4f;
+	name = "peripheral";
+}
+
+VisionFar30mStart : VisionFar
+{
+	position1 = ( 0.f, 0.f, 0.f );
+	position2 = ( 0.f, 1.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 1.8f;
+}
+
+VisionFar30mEnd : VisionFar
+{
+	position1 = ( 0.f, 1.5f, 0.f );
+	position2 = ( 0.f, 30.f, 0.f );
+	radius1 = 1.8f;
+	radius2 = 1.8f;
+}
+
+VisionWide30mStart : VisionWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide30mEnd : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.f );
+	position2 = ( 0.f, 30.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 3.6f;
+}
+
+VisionVeryWide30mStart : VisionVeryWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 1.6f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionVeryWide30mEnd : VisionVeryWide
+{
+	position1 = ( 0.f, 1.6f, 0.f );
+	position2 = ( 0.f, 30.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 7.4f;
+}
+
+VisionVeryWideLower30mStart : VisionVeryWide
+{
+	position1 = ( 0.f, 1.6f, -1.f );
+	position2 = ( 0.f, 15.f, -4.f );
+	radius1 = 3.6f;
+	radius2 = 7.4f;
+}
+
+VisionVeryWideLower30mEnd : VisionVeryWide
+{
+	position1 = ( 0.f, 13.f, -4.f );
+	position2 = ( 0.f, 30.f, -4.f );
+	radius1 = 7.4f;
+	radius2 = 7.4f;
+}
+
+VisionWideLower30mStart : VisionWideLower
+{
+	position1 = ( 0.f, 2.5f, -3.5f );
+	position2 = ( 0.f, 5.0f, -3.5f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWideLower30mMiddle : VisionWideLower
+{
+	position1 = ( 0.f, 5.0f, -3.5f );
+	position2 = ( 0.f, 15.0f, -3.5f );
+	radius1 = 3.6f;
+	radius2 = 5.6f;
+}
+
+VisionWideLower30mEnd : VisionWideLower
+{
+	position1 = ( 0.f, 15.0f, -3.5f );
+	position2 = ( 0.f, 30.0f, -3.5f );
+	radius1 = 5.6f;
+	radius2 = 2.8f;
+}
+
+VisionFar50mStart : VisionFar
+{
+	position1 = ( 0.f, 0.f, 0.f );
+	position2 = ( 0.f, 1.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 1.8f;
+}
+
+VisionFar50mEnd : VisionFar
+{
+	position1 = ( 0.f, 1.5f, 0.f );
+	position2 = ( 0.f, 50.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 3.6f;
+}
+
+VisionWide50mStart : VisionWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide50mMiddle : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.f );
+	position2 = ( 0.f, 25.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWide50mEnd : VisionWide
+{
+	position1 = ( 0.f, 25.f, 0.f );
+	position2 = ( 0.f, 50.f, 0.f );
+	radius1 = 11.2f;
+	radius2 = 18.0f;
+}
+
+VisionWide50mStartCarOffset : VisionWide
+{
+	position1 = ( 0.f, 1.f, 0.5f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide50mMiddleCarOffset : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.5f );
+	position2 = ( 0.f, 25.f, 0.5f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWide50mEndCarOffset : VisionWide
+{
+	position1 = ( 0.f, 25.f, 0.5f );
+	position2 = ( 0.f, 50.f, 0.5f );
+	radius1 = 11.2f;
+	radius2 = 11.2f;
+}
+
+VisionWideLower50mStart : VisionWideLower
+{
+	position1 = ( 0.f, 2.5f, -3.5f );
+	position2 = ( 0.f, 5.0f, -3.5f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWideLower50mMiddle : VisionWideLower
+{
+	position1 = ( 0.f, 5.0f, -3.5f );
+	position2 = ( 0.f, 25.0f, -3.5f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWideLower50mEnd : VisionWideLower
+{
+	position1 = ( 0.f, 25.0f, -3.5f );
+	position2 = ( 0.f, 50.0f, -3.5f );
+	radius1 = 11.2f;
+	radius2 = 4.6f;
+}
+
+VisionFar75mStart : VisionFar
+{
+	position1 = ( 0.f, 0.f, 0.f );
+	position2 = ( 0.f, 1.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 1.8f;
+}
+
+VisionFar75mEnd : VisionFar
+{
+	position1 = ( 0.f, 1.5f, 0.f );
+	position2 = ( 0.f, 75.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 3.6f;
+}
+
+VisionFarSlower75mStart : VisionFar75mStart
+{
+	detectionMultiplier = 0.5;
+}
+
+VisionFarSlower75mEnd : VisionFar75mEnd
+{
+	detectionMultiplier = 0.5;
+}
+
+VisionFar100mStart : VisionFar
+{
+	position1 = ( 0.f, 0.f, 0.f );
+	position2 = ( 0.f, 1.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 1.8f;
+}
+
+VisionFar100mEnd : VisionFar
+{
+	position1 = ( 0.f, 1.5f, 0.f );
+	position2 = ( 0.f, 100.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 3.6f;
+}
+
+VisionWide100mStart : VisionWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide100mMiddle : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.f );
+	position2 = ( 0.f, 50.0f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWide100mEnd : VisionWide
+{
+	position1 = ( 0.f, 50.0f, 0.f );
+	position2 = ( 0.f, 100.0f, 0.f );
+	radius1 = 11.2f;
+	radius2 = 18.0f;
+}
+
+VisionWideLower100mStart : VisionWideLower
+{
+	position1 = ( 0.f, 2.5f, -3.5f );
+	position2 = ( 0.f, 5.0f, -3.5f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWideLower100mMiddle : VisionWideLower
+{
+	position1 = ( 0.f, 5.0f, -3.5f );
+	position2 = ( 0.f, 50.0f, -3.5f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWideLower100mEnd : VisionWideLower
+{
+	position1 = ( 0.f, 50.0f, -3.5f );
+	position2 = ( 0.f, 100.0f, -3.5f );
+	radius1 = 11.2f;
+	radius2 = 4.6f;
+}
+
+VisionFar150mStart : VisionFar
+{
+	position1 = ( 0.f, 0.f, 0.f );
+	position2 = ( 0.f, 1.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 1.8f;
+}
+
+VisionFar150mEnd : VisionFar
+{
+	position1 = ( 0.f, 1.5f, 0.f );
+	position2 = ( 0.f, 150.f, 0.f );
+	radius1 = 1.8f;
+	radius2 = 11.2f;
+}
+
+VisionWide150mStart : VisionWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide150mMiddle : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.f );
+	position2 = ( 0.f, 75.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 22.4f;
+}
+
+VisionWide150mEnd : VisionWide
+{
+	position1 = ( 0.f, 75.f, 0.f );
+	position2 = ( 0.f, 150.f, 0.f );
+	radius1 = 22.4f;
+	radius2 = 11.2f;
+}
+
+VisionWide200mStart : VisionWide
+{
+	position1 = ( 0.f, 0.0f, 0.f );
+	position2 = ( 0.f, 2.5f, 0.f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWide200mMiddle1 : VisionWide
+{
+	position1 = ( 0.f, 2.5f, 0.f );
+	position2 = ( 0.f, 75.f, 0.f );
+	radius1 = 3.6f;
+	radius2 = 11.2f;
+}
+
+VisionWide200mMiddle2 : VisionWide
+{
+	position1 = ( 0.f, 75.f, 0.f );
+	position2 = ( 0.f, 150.f, 0.f );
+	radius1 = 11.2f;
+	radius2 = 22.4f;
+}
+
+VisionWide200mEnd : VisionWide
+{
+	position1 = ( 0.f, 150.f, 0.f );
+	position2 = ( 0.f, 200.f, 0.f );
+	radius1 = 22.4f;
+	radius2 = 44.8f;
+}
+
+VisionWideLower150mStart : VisionWideLower
+{
+	position1 = ( 0.f, 2.5f, -5.0f );
+	position2 = ( 0.f, 5.0f, -5.0f );
+	radius1 = 0.1f;
+	radius2 = 3.6f;
+}
+
+VisionWideLower150mMiddle : VisionWideLower
+{
+	position1 = ( 0.f, 5.0f, -5.0f );
+	position2 = ( 0.f, 75.0f, -5.0f );
+	radius1 = 3.6f;
+	radius2 = 22.4f;
+}
+
+VisionWideLower150mEnd : VisionWideLower
+{
+	position1 = ( 0.f, 75.0f, -5.0f );
+	position2 = ( 0.f, 150.0f, -5.0f );
+	radius1 = 22.4f;
+	radius2 = 11.2f;
+}
+
+PeripheralClose : Peripheral
+{
+	position = ( 0.0f, 0.0f, -0.5f );
+	angle = 224.f;
+	range = 2.5f;
+	halfHeight = 0.8f;
+}
+
+PeripheralMedium : Peripheral
+{
+	position = ( 0.0f, -0.75f, -2.0f );
+	angle = 136.f;
+	range = 20.f;
+	halfHeight = 3.5f;
+}
+
+VisionWide30mStartCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -0.6f, 0.4f );
+	position2 = ( 0.f, -10.f, 0.4f );
+	radius1 = 0.1f;
+	radius2 = 10.f;
+}
+
+VisionWide30mMiddleCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -10.f, 0.4f );
+	position2 = ( 0.f, -20.f, 0.4f );
+	radius1 = 10.f;
+	radius2 = 18.f;
+	detectionMultiplier = 0.8f;
+}
+
+VisionWide30mEndCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -20.f, 0.4f );
+	position2 = ( 0.f, -30.f, 0.4f );
+	radius1 = 18.f;
+	radius2 = 25.f;
+	detectionMultiplier = 0.5f;
+}
+
+VisionWide80mStartCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -0.6f, 0.4f );
+	position2 = ( 0.f, -30.f, 0.4f );
+	radius1 = 0.1f;
+	radius2 = 10.f;
+}
+
+VisionWide80mMiddleCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -30.f, 0.4f );
+	position2 = ( 0.f, -60.f, 0.4f );
+	radius1 = 10.f;
+	radius2 = 18.f;
+	detectionMultiplier = 0.8f;
+}
+
+VisionWide80mEndCarBackOffset : VisionWide
+{
+	position1 = ( 0.f, -60.f, 0.4f );
+	position2 = ( 0.f, -80.f, 0.4f );
+	radius1 = 18.f;
+	radius2 = 25.f;
+	detectionMultiplier = 0.5f;
+}
+
+VisionWide50mStartCarLeftOffset : VisionWide
+{
+	position1 = ( -0.2f, 1.f, 0.3f );
+	position2 = ( -15.f, 2.5f, 0.3f );
+	radius1 = 0.1f;
+	radius2 = 5.f;
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide50mMiddleCarLeftOffset : VisionWide
+{
+	position1 = ( -15.f, 1.f, 0.3f );
+	position2 = ( -30.f, 2.5f, 0.3f );
+	radius1 = 5.f;
+	radius2 = 11.2f;
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide50mEndCarLeftOffset : VisionWide
+{
+	position1 = ( -30.f, 1.f, 0.3f );
+	position2 = ( -40.f, 2.5f, 0.3f );
+	radius1 = 11.2f;
+	radius2 = 18.0f;
+	detectionMultiplier = 0.5f;
+}
+
+VisionWide50mStartCarRightOffset : VisionWide
+{
+	position1 = ( 0.2f, 1.f, 0.3f );
+	position2 = ( 15.f, 2.5f, 0.3f );
+	radius1 = 0.1f;
+	radius2 = 5.f;
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide50mMiddleCarRightOffset : VisionWide
+{
+	position1 = ( 15.f, 1.f, 0.3f );
+	position2 = ( 30.f, 2.5f, 0.3f );
+	radius1 = 5.f;
+	radius2 = 11.2f;
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide50mEndCarRightOffset : VisionWide
+{
+	position1 = ( 30.f, 1.f, 0.3f );
+	position2 = ( 40.f, 2.5f, 0.3f );
+	radius1 = 11.2f;
+	radius2 = 18.0f;
+	detectionMultiplier = 0.5f;
+}
+
+VisionWide80mStartCarBackOffset_St2 : VisionWide
+{
+	position1 = ( 0.f, -0.6f, 0.4f );
+	position2 = ( 0.f, -30.f, 0.4f );
+	radius1 = 0.1f;
+	radius2 = 10.0f;
+}
+
+VisionWide80mMiddleCarBackOffset_St2 : VisionWide
+{
+	position1 = ( 0.f, -30.f, 0.4f );
+	position2 = ( 0.f, -60.f, 0.4f );
+	radius1 = 10.f;
+	radius2 = 20.f;
+	detectionMultiplier = 1.0f;
+}
+
+VisionWide80mEndCarBackOffset_St2 : VisionWide
+{
+	position1 = ( 0.f, -60.f, 0.4f );
+	position2 = ( 0.f, -80.f, 0.4f );
+	radius1 = 20.f;
+	radius2 = 28.f;
+	detectionMultiplier = 0.5f;
+}
+
+VisionWide100mStartCarOffset : VisionWide
+{
+	position1 = ( 0.f, 1.f, 0.5f );
+	position2 = ( 0.f, 30.5f, 0.5f );
+	radius1 = 10.f;
+	radius2 = 25.f;
+	detectionMultiplier = 2.f;
+}
+
+VisionWide100mMiddleCarOffset1 : VisionWide
+{
+	position1 = ( 0.f, 30.5f, 0.5f );
+	position2 = ( 0.f, 40.0f, 0.5f );
+	radius1 = 25.0f;
+	radius2 = 28.0f;
+	detectionMultiplier = 1.f;
+}
+
+VisionWide100mMiddleCarOffset2 : VisionWide
+{
+	position1 = ( 0.f, 40.0, 0.5f );
+	position2 = ( 0.f, 80.5f, 0.5f );
+	radius1 = 28.0f;
+	radius2 = 30.0f;
+	detectionMultiplier = 0.1f;
+}
+
+VisionWide100mMiddleCarOffset3 : VisionWide
+{
+	position1 = ( 0.f, 80.0, 0.5f );
+	position2 = ( 0.f, 100.5f, 0.5f );
+	radius1 = 28.0f;
+	radius2 = 30.0f;
+	detectionMultiplier = 0.08f;
+}
+
+VisionWide100mEndCarOffSet : VisionWide
+{
+	position1 = ( 0.f, 100.5f, 0.5f );
+	position2 = ( 0.f, 120.5f, 0.5f );
+	radius1 = 30.0f;
+	radius2 = 36.0f;
+	detectionMultiplier = 0.05f;
+}
+
+VisionWide100mStartCarOffset_St1 : VisionWide
+{
+	position1 = ( 0.f, 1.f, 0.5f );
+	position2 = ( 0.f, 30.5f, 0.5f );
+	radius1 = 10.0f;
+	radius2 = 20.0f;
+	detectionMultiplier = 2.f;
+}
+
+VisionWide100mMiddleCarOffset_St1 : VisionWide
+{
+	position1 = ( 0.f, 30.5f, 0.5f );
+	position2 = ( 0.f, 60.0, 0.5f );
+	radius1 = 20.0f;
+	radius2 = 28.0f;
+	detectionMultiplier = 1.f;
+}
+
+VisionWide100mEndCarOffSet_St1 : VisionWide
+{
+	position1 = ( 0.f, 60.0, 0.5f );
+	position2 = ( 0.f, 100.0f, 0.5f );
+	radius1 = 28.0f;
+	radius2 = 36.0f;
+	detectionMultiplier = 0.5f;
+}
+
+Default : SensePreset
+{
+	detectionFactor = 400.f;
+	detectionDropFactor = 20.f;
+	detectionCoolDownTime = 3.f;
+	shapes = 
+	[
+		"Senses.VisionFar30mStart", "Senses.VisionFar30mEnd", "Senses.VisionWide30mStart", "Senses.VisionWide30mEnd", "Senses.VisionVeryWide30mStart", "Senses.VisionVeryWide30mEnd", "Senses.VisionVeryWideLower30mStart", "Senses.VisionVeryWideLower30mEnd", "Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+	curves = 
+	[
+		"Senses.DefaultDetectionCurve", "Senses.StealthDetectionCurve", "Senses.AttentionDetectionCurve"
+	];
+	materialCurves = 
+	[
+		"Senses.TransparentMaterialDetectionCurve", "Senses.SemiTransparentMaterialDetectionCurve"
+	];
+}
+
+Relaxed : Default
+{
+	detectionCoolDownTime = 0.f;
+	useZCorrection = true;
+}
+
+Alerted : Relaxed
+{
+	detectionCoolDownTime = 0.f;
+	useZCorrection = true;
+}
+
+AlertedSasquatch : Relaxed
+{
+	detectionCoolDownTime = 0.f;
+	useZCorrection = true;
+	detectionFactor = 800.f;
+}
+
+VeryFastDetection : Default
+{
+	detectionCoolDownTime = 0.f;
+	useZCorrection = true;
+	detectionFactor = 4800.f;
+	curves = 
+	[
+		"Senses.DefaultDetectionCurve"
+	];
+	materialCurves = [];
+}
+
+Combat : Default
+{
+	useZCorrection = true;
+	detectionDropFactor = 2.f;
+	detectionCoolDownTime = 3.f;
+	shapes += 
+	[
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 120.f;
+			range = 50.f;
+			halfHeight = 10.f;
+		} : AngleRange, 
+		{
+			name = "intuition";
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 360.f;
+			range = 5.f;
+			halfHeight = 10.f;
+			detectionMultiplier = 0.00001f;
+		} : AngleRange
+	];
+}
+
+PreventionRelaxed : Relaxed
+{
+	detectionFactor = 50.f;
+}
+
+PreventionAlerted : Alerted
+{
+	detectionFactor = 1000.f;
+}
+
+PreventionAlertedInRoadBlockade : PreventionAlerted
+{
+	detectionFactor = 4000.f;
+	shapes += 
+	[
+		"Senses.VisionWide150mStart", "Senses.VisionWide150mMiddle", "Senses.VisionWide150mEnd", "Senses.VisionWide200mStart", "Senses.VisionWide200mMiddle1", "Senses.VisionWide200mMiddle2", "Senses.VisionWide200mEnd"
+	];
+}
+
+PreventionCombat : Combat
+{
+	detectionDropFactor = 1f;
+}
+
+PreventionRelaxedInVehicle : PreventionRelaxed
+{
+}
+
+PreventionAlertedInVehicle : PreventionAlerted
+{
+	detectionFactor = 1000.f;
+	shapes = 
+	[
+		"Senses.VisionWide50mStartCarLeftOffset", "Senses.VisionWide50mMiddleCarLeftOffset", "Senses.VisionWide50mEndCarLeftOffset", "Senses.VisionWide50mStartCarRightOffset", "Senses.VisionWide50mMiddleCarRightOffset", "Senses.VisionWide50mEndCarRightOffset", "Senses.VisionWide100mStartCarOffset", "Senses.VisionWide100mMiddleCarOffset1", "Senses.VisionWide100mMiddleCarOffset2", "Senses.VisionWide100mMiddleCarOffset3", "Senses.VisionWide100mEndCarOffSet", "Senses.VisionWide30mStartCarBackOffset", "Senses.VisionWide30mMiddleCarBackOffset", "Senses.VisionWide30mEndCarBackOffset", "Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			min = ( -8.f, -8.f, -1.f );
+			max = ( 8.f, 8.f, 8.f );
+			detectionMultiplier = 2.f;
+		} : Box
+	];
+}
+
+PreventionAlertedInVehicle_1stSpawningStrategy : PreventionAlerted
+{
+	detectionFactor = 1000.f;
+	shapes = 
+	[
+		"Senses.VisionWide50mStartCarLeftOffset", "Senses.VisionWide50mMiddleCarLeftOffset", "Senses.VisionWide50mEndCarLeftOffset", "Senses.VisionWide50mStartCarRightOffset", "Senses.VisionWide50mMiddleCarRightOffset", "Senses.VisionWide50mEndCarRightOffset", "Senses.VisionWide100mStartCarOffset_St1", "Senses.VisionWide100mMiddleCarOffset_St1", "Senses.VisionWide100mEndCarOffSet_St1", "Senses.VisionWide30mStartCarBackOffset", "Senses.VisionWide30mMiddleCarBackOffset", "Senses.VisionWide30mEndCarBackOffset", "Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			min = ( -8.f, -8.f, -1.f );
+			max = ( 8.f, 8.f, 8.f );
+			detectionMultiplier = 2.f;
+		} : Box
+	];
+}
+
+PreventionAlertedInVehicle_2ndSpawningStrategy : PreventionAlerted
+{
+	detectionFactor = 1000.f;
+	shapes = 
+	[
+		"Senses.VisionWide50mStartCarLeftOffset", "Senses.VisionWide50mMiddleCarLeftOffset", "Senses.VisionWide50mEndCarLeftOffset", "Senses.VisionWide50mStartCarRightOffset", "Senses.VisionWide50mMiddleCarRightOffset", "Senses.VisionWide50mEndCarRightOffset", "Senses.VisionWide100mStartCarOffset", "Senses.VisionWide100mMiddleCarOffset1", "Senses.VisionWide100mMiddleCarOffset2", "Senses.VisionWide100mMiddleCarOffset3", "Senses.VisionWide100mEndCarOffSet", "Senses.VisionWide80mStartCarBackOffset_St2", "Senses.VisionWide80mMiddleCarBackOffset_St2", "Senses.VisionWide80mEndCarBackOffset_St2", "Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			min = ( -8.f, -8.f, -1.f );
+			max = ( 8.f, 8.f, 8.f );
+			detectionMultiplier = 2.f;
+		} : Box
+	];
+}
+
+PreventionCombatInVehicle : PreventionCombat
+{
+}
+
+PreventionInWorkspotAlerted : PreventionAlerted
+{
+	detectionFactor = 70.f;
+}
+
+Scripted_Prevention_Patrol_InVehicle : PreventionAlertedInVehicle
+{
+	shapes = 
+	[
+		"Senses.VisionWide50mStartCarLeftOffset", "Senses.VisionWide50mMiddleCarLeftOffset", "Senses.VisionWide50mEndCarLeftOffset", "Senses.VisionWide50mStartCarRightOffset", "Senses.VisionWide50mMiddleCarRightOffset", "Senses.VisionWide50mEndCarRightOffset", "Senses.VisionWide50mStartCarOffset", "Senses.VisionWide50mMiddleCarOffset", "Senses.VisionWide50mEndCarOffset", "Senses.VisionWide80mStartCarBackOffset", "Senses.VisionWide80mMiddleCarBackOffset", "Senses.VisionWide80mEndCarBackOffset", "Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			min = ( -8.f, -8.f, -1.f );
+			max = ( 8.f, 8.f, 8.f );
+			detectionMultiplier = 2.f;
+		} : Box
+	];
+}
+
+SniperRelaxed50m : Relaxed
+{
+	detectionFactor = 40.f;
+	shapes = 
+	[
+		"Senses.VisionFar50mStart", "Senses.VisionFar50mEnd", "Senses.VisionWide50mStart", "Senses.VisionWide50mMiddle", "Senses.VisionWide50mEnd", "Senses.VisionWideLower50mStart", "Senses.VisionWideLower50mMiddle", "Senses.VisionWideLower50mEnd", "Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+	curves = 
+	[
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 50.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 50.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+SniperAlerted50m : SniperRelaxed50m
+{
+	detectionFactor = 100.f;
+}
+
+SniperCombat50m : Combat
+{
+	shapes = 
+	[
+		"Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			name = "intuition";
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 360.f;
+			range = 5.f;
+			halfHeight = 10.f;
+			detectionMultiplier = 0.00001f;
+		} : AngleRange, 
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 240.f;
+			range = 50.f;
+			halfHeight = 50.f;
+		} : AngleRange
+	];
+	curves = 
+	[
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 50.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 50.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+SniperRelaxed100m : Relaxed
+{
+	detectionFactor = 40.f;
+	shapes = 
+	[
+		"Senses.VisionFar100mStart", "Senses.VisionFar100mEnd", "Senses.VisionWide100mStart", "Senses.VisionWide100mMiddle", "Senses.VisionWide100mEnd", "Senses.VisionWideLower100mStart", "Senses.VisionWideLower100mMiddle", "Senses.VisionWideLower100mEnd", "Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+	curves = 
+	[
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 100.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+SniperAlerted100m : SniperRelaxed50m
+{
+	detectionFactor = 100.f;
+}
+
+SniperCombat100m : Combat
+{
+	shapes = 
+	[
+		"Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			name = "intuition";
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 360.f;
+			range = 5.f;
+			halfHeight = 10.f;
+			detectionMultiplier = 0.00001f;
+		} : AngleRange, 
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 240.f;
+			range = 100.f;
+			halfHeight = 50.f;
+		} : AngleRange
+	];
+	curves = 
+	[
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 200.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 100.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 100.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+SniperRelaxed150m : Relaxed
+{
+	detectionFactor = 40.f;
+	shapes = 
+	[
+		"Senses.VisionFar150mStart", "Senses.VisionFar150mEnd", "Senses.VisionWide150mStart", "Senses.VisionWide150mMiddle", "Senses.VisionWide150mEnd", "Senses.VisionWideLower150mStart", "Senses.VisionWideLower150mMiddle", "Senses.VisionWideLower150mEnd", "Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+	curves = 
+	[
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 150.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 150.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+SniperAlerted150m : SniperRelaxed150m
+{
+	detectionFactor = 100.f;
+}
+
+SniperCombat150m : Combat
+{
+	shapes = 
+	[
+		"Senses.PeripheralClose", "Senses.PeripheralMedium", {
+			name = "intuition";
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 360.f;
+			range = 5.f;
+			halfHeight = 10.f;
+			detectionMultiplier = 0.00001f;
+		} : AngleRange, 
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 240.f;
+			range = 150.f;
+			halfHeight = 50.f;
+		} : AngleRange
+	];
+	curves = 
+	[
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperAttentionDetectionCurve, 
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperDefaultDetectionCurve, 
+		{
+			maxDistance = 300.f;
+		} : Senses.SniperStealthDetectionCurve
+	];
+	materialCurves = 
+	[
+		{
+			maxDistance = 150.f;
+		} : Senses.TransparentMaterialDetectionCurve, 
+		{
+			maxDistance = 150.f;
+		} : Senses.SemiTransparentMaterialDetectionCurve
+	];
+}
+
+Combat_SeeThroughWalls : Default
+{
+	useZCorrection = true;
+	ignorePhysicsTest = true;
+	detectionDropFactor = 2.f;
+	detectionCoolDownTime = 3.f;
+	shapes += 
+	[
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 120.f;
+			range = 50.f;
+			halfHeight = 10.f;
+		} : AngleRange, 
+		{
+			name = "intuition";
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 360.f;
+			range = 5.f;
+			halfHeight = 10.f;
+			detectionMultiplier = 0.00001f;
+		} : AngleRange
+	];
+}
+
+Follower : SensePreset
+{
+	useZCorrection = true;
+	detectionFactor = 100000.f;
+	detectionDropFactor = 10.f;
+	detectionCoolDownTime = 3.0f;
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 40.f, 0.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 3.6f;
+			radius2 = 0.1f;
+		} : Cone, 
+		{
+			position1 = ( 0.f, 20.f, 0.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 11.2f;
+			radius2 = 0.1f;
+		} : Cone, 
+		{
+			min = ( -30.f, -30.f, -11.2f );
+			max = ( 30.f, 30.f, 11.2f );
+		} : Box
+	];
+	curves = [];
+	materialCurves = [];
+}
+
+FollowerCombat : Follower
+{
+}
+
+PlayerCombat : Default
+{
+	detectionFactor = 100000.f;
+	detectionDropFactor = 2.f;
+	detectionCoolDownTime = 3.f;
+	shapes += 
+	[
+		{
+			position = ( 0.0f, 0.0f, 0.0f );
+			angle = 120.f;
+			range = 50.f;
+			halfHeight = 10.f;
+		} : AngleRange
+	];
+}
+
+NetrunnerConnectionShape : AngleRange
+{
+	angle = 360.f;
+	range = 60.f;
+	halfHeight = 11.2f;
+}
+
+RoyceConnectionShape : AngleRange
+{
+	angle = 360.f;
+	range = 100.f;
+	halfHeight = 11.2f;
+}
+
+NetrunnerConnected : Default
+{
+	useZCorrection = true;
+	ignorePhysicsTest = true;
+	shapes = 
+	[
+		"Senses.NetrunnerConnectionShape"
+	];
+}
+
+Huge : Default
+{
+	useZCorrection = true;
+	detectionCoolDownTime = 10.f;
+	shapes = 
+	[
+		{
+			min = ( -50.f, -50.f, -10.f );
+			max = ( 50.f, 50.f, 10.f );
+		} : Box
+	];
+}
+
+MaxTac : Huge
+{
+	useZCorrection = false;
+	ignorePhysicsTest = true;
+	detectionFactor = -1.f;
+}
+
+HugeBoss : Huge
+{
+	useZCorrection = false;
+}
+
+Royce : HugeBoss
+{
+	detectionDropFactor = 99999.f;
+	detectionCoolDownTime = 3.f;
+	detectionFactor = 350.f;
+	shapes = 
+	[
+		{
+			min = ( -100.f, -100.f, -10.f );
+			max = ( 100.f, 100.f, 10.f );
+		} : Box
+	];
+}
+
+SmasherAlerted : SensePreset
+{
+	detectionFactor = 1200.f;
+	detectionDropFactor = 10.f;
+	detectionCoolDownTime = 0.f;
+	shapes = 
+	[
+		"Senses.VisionFar30mStart", "Senses.VisionFar30mEnd", "Senses.VisionWide30mStart", "Senses.VisionWide30mEnd", "Senses.VisionVeryWide30mStart", "Senses.VisionVeryWide30mEnd", "Senses.VisionVeryWideLower30mEnd", "Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+	curves = 
+	[
+		"Senses.DefaultDetectionCurve", "Senses.StealthDetectionCurve", "Senses.AttentionDetectionCurve"
+	];
+	materialCurves = 
+	[
+		"Senses.TransparentMaterialDetectionCurve", "Senses.SemiTransparentMaterialDetectionCurve"
+	];
+}
+
+SmasherCombat : Combat
+{
+}
+
+Absolute : Huge
+{
+	ignorePhysicsTest = true;
+}
+
+AbsoluteDrone : Huge
+{
+	useZCorrection = false;
+	ignorePhysicsTest = true;
+}
+
+AbsoluteTurret : Huge
+{
+	useZCorrection = false;
+	ignorePhysicsTest = true;
+}
+
+AbsoluteBoss : Huge
+{
+	useZCorrection = false;
+	ignorePhysicsTest = false;
+	detectionDropFactor = 99999.f;
+}
+
+AbsoluteBossChimera : Huge
+{
+	detectionCoolDownTime = 9999.f;
+	shapes = 
+	[
+		{
+			min = ( -50.f, -50.f, -50.f );
+			max = ( 50.f, 50.f, 50.f );
+		} : Box
+	];
+	useZCorrection = false;
+	ignorePhysicsTest = false;
+	detectionDropFactor = 0.f;
+}
+
+AbsoluteInstant : Huge
+{
+	ignorePhysicsTest = true;
+	detectionFactor = 9999.0f;
+}
+
+Radar : SensePreset
+{
+	shapes = 
+	[
+		{
+			position = ( 0.f, 0.f, 0.25f );
+			angle = 360.f;
+			range = 9999.f;
+			halfHeight = 10.f;
+		} : AngleRange, 
+		{
+			min = ( 0.f, 0.f, -1.f );
+			max = ( 3.f, 4.f, 1.5f );
+		} : Box, 
+		{
+			min = ( -3.f, 0.f, -1.f );
+			max = ( 0.f, 4.f, 1.5f );
+		} : Box
+	];
+	detectionFactor = 3.0f;
+	detectionDropFactor = 30.f;
+}
+
+NpcSmall : SensePreset
+{
+	shapes = 
+	[
+		{
+			position = ( 0.f, 0.f, -0.5f );
+			angle = 75.f;
+			range = 3.f;
+			halfHeight = 1.25f;
+		} : AngleRange
+	];
+	detectionDropFactor = 30.f;
+	detectionFactor = 100.0f;
+	useZCorrection = true;
+}
+
+Blind : Default
+{
+	shapes = 
+	[
+		{
+		} : Cone
+	];
+	detectionFactor = 0.01;
+}
+
+CerberusRelaxed : Relaxed
+{
+	ignorePhysicsTest = false;
+	shapes += 
+	[
+		{
+			name = "intuition";
+			position = ( 0.0f, -1.0f, 0.0f );
+			angle = 360.f;
+			range = 2.0f;
+			halfHeight = 6.f;
+		} : AngleRange
+	];
+}
+
+DroneDefault : Default
+{
+	curves = 
+	[
+		{
+			name = "DroneDefault_DetectionCurve";
+			states = 
+			[
+				"Default", "Sprint", "Kereznikov", "Sandevistan", "Jump"
+			];
+		} : DetectionCurve, 
+		{
+			name = "DroneStealth_DetectionCurve";
+			states = 
+			[
+				"Crouch"
+			];
+		} : DetectionCurve
+	];
+	shapes += 
+	[
+		"Senses.PeripheralClose", "Senses.PeripheralMedium"
+	];
+}
+
+DroneScan : DroneDefault
+{
+	detectionFactor = 2.5f;
+	shapes = 
+	[
+		{
+			position = ( 0.f, 0.f, 0.f );
+			angle = 30.f;
+			range = 4.f;
+			halfHeight = 0.2f;
+		} : AngleRange
+	];
+}
+
+BasicCamera : Senses.Default
+{
+	detectionFactor = 300.f;
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 0.f );
+			position2 = ( 0.f, 0.f, 20.f );
+			radius1 = 0.1f;
+			radius2 = 13.5f;
+		} : Cone
+	];
+}
+
+DeviceSecuritySystemCombat : Senses.BasicTurret
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 0.f );
+			position2 = ( 0.f, 0.f, 50.f );
+			radius1 = 0.1f;
+			radius2 = 9f;
+		} : Cone
+	];
+}
+
+DeviceSecuritySystemAlerted : Senses.BasicCamera
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 30.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 7.5f;
+			radius2 = 0.1f;
+		} : Cone
+	];
+	curves = [];
+	detectionFactor = 55.f;
+}
+
+AvTurret : Senses.BasicCamera
+{
+	detectionFactor = 35.f;
+	detectionDropFactor = 10.f;
+	detectionCoolDownTime = 3f;
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 75.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 20.f;
+			radius2 = 40.f;
+		} : Cone
+	];
+	curves = [];
+}
+
+NestTurret : Senses.BasicCamera
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 50.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 9.f;
+			radius2 = 0.1f;
+		} : Cone
+	];
+}
+
+Q115_NestTurret_Gate : Senses.BasicCamera
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 7.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 9.f;
+			radius2 = 0.1f;
+		} : Cone
+	];
+}
+
+BasicTurret : Senses.BasicCamera
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 0.f );
+			position2 = ( 0.f, 0.f, 30.f );
+			radius1 = 0.1f;
+			radius2 = 7.5f;
+		} : Cone
+	];
+}
+
+FriendlyTurret : Senses.BasicTurret
+{
+	shapes = 
+	[
+		{
+			min = ( -7.f, -5.f, -10.f );
+			max = ( 7.f, 5.f, 40.f );
+		} : Box
+	];
+	curves = [];
+	detectionFactor = -1.f;
+	detectionDropFactor = 20.f;
+	detectionCoolDownTime = 1.f;
+}
+
+PowerPlantTurret : Senses.BasicTurret
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 50.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 90.f;
+			radius2 = 90.f;
+		} : Cone
+	];
+	detectionDropFactor = 5.f;
+	detectionFactor = -1.f;
+	curves = [];
+}
+
+PreventionTurret : Senses.BasicTurret
+{
+	shapes = 
+	[
+		{
+			position1 = ( 0.f, 0.f, 50.f );
+			position2 = ( 0.f, 0.f, 0.f );
+			radius1 = 90.f;
+			radius2 = 90.f;
+		} : Cone, 
+		{
+			position = ( 0.f, 0.f, 0.0f );
+			angle = 360.f;
+			range = 50.f;
+			halfHeight = 10.f;
+		} : AngleRange
+	];
+	detectionDropFactor = 5.f;
+	detectionFactor = 3200.f;
+}
+
+CEOFloorTurret : Senses.BasicTurret
+{
+	detectionDropFactor = 2.f;
+	detectionFactor = -1.f;
+	curves = [];
+}
+

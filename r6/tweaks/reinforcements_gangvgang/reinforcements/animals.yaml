@@ -1,0 +1,398 @@
+# Vehicles:
+# Bikes:
+# Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+# 2 Car:
+
+# 4 Car:
+# Vehicle.GR_v_standard3_thorton_mackinaw
+# Vehicle.GR_v_standard25_mahir_supron
+# Vehicle.GR_v_standard3_chevalier_emperor
+
+
+# weak:
+
+# Character.animals_bouncer1_ranged1_kenshin_mb - gunner
+# Character.animals_grunt1_ranged1_nova_mb - gunner
+# Character.animals_grunt1_ranged1_pulsar_mb - gunner 
+
+# normal:
+# Character.animals_bouncer2_melee2_fists_mb - mauler
+# Character.animals_grunt2_melee2_hammer_mb - mauler
+# Character.animals_grunt2_melee2_machete_mb - mauler
+# Character.animals_bouncer2_ranged2_burya_mb - raptor
+# Character.animals_bouncer2_ranged2_omaha_mb - raptor
+# Character.animals_bouncer1_ranged1_omaha_mb - raptor
+# Character.animals_grunt2_ranged2_pulsar_mb  - raptor
+# Character.animals_grunt2_ranged2_overture_mb - raptor
+
+# rare:
+# Character.animals_bouncer2_hmelee2_fists_mba_rare - undertaker
+# Character.animals_bouncer2_hmelee2_hammer_mba_rare - undertaker
+# Character.animals_elite2_hmelee2_fists_mba_rare - undertaker 
+# Character.animals_grunt2_hmelee2_fists_wba_rare- undertaker
+# Character.animals_elite2_hmelee2_hammer_mba_rare - undertaker
+# Character.animals_grunt2_hmelee2_hammer_wba_rare - undertaker
+# Character.animals_elite2_ranged3_burya_mba_rare - ogre
+# Character.animals_grunt2_shotgun2_igla_wba_rare - brutaliser
+# Character.animals_grunt3_gunner2_defender_mb_rare - crusher
+
+# elite:
+# Character.animals_bouncer3_hmelee3_fists_mba_elite - Thickskull
+# Character.animals_elite3_hmelee3_fists_mba_elite - thickskull
+# Character.animals_elite2_shotgun3_carnage_wba_elite - jackhammer
+# Character.animals_elite2_shotgun3_testera_wba_elite - jackhammer
+# Character.animals_elite3_shotgun3_carnage_mba_elite - jackhammer
+# Character.animals_elite3_gunner3_hmg_mba_elite - wrecker 
+
+#Reinforcements
+# weak:
+DynamicSpawnSystem.GRAnimalsWeakBike1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer1_ranged1_kenshin_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsWeakBike2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt1_ranged1_nova_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsWeakBike3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt1_ranged1_pulsar_mb
+      weight: 1.0
+
+# normal
+DynamicSpawnSystem.GRAnimalsNormalBike1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_melee2_fists_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_hammer_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_machete_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike4:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_ranged2_burya_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike5:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_ranged2_omaha_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike6:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer1_ranged1_omaha_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike7:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_ranged2_pulsar_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalBike8:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_ranged2_overture_mb
+      weight: 1.0
+
+
+DynamicSpawnSystem.GRAnimalsNormalSquad1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_melee2_fists_mb
+      weight: 1.0
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_ranged2_burya_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalSquad2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard25_mahir_supron
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_hammer_mb
+      weight: 1.0
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_ranged2_overture_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalSquad3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard25_mahir_supron
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_machete_mb
+      weight: 1.0
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_ranged2_omaha_mb
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsNormalSquad4:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_melee2_fists_mb
+      weight: 1.0
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_hammer_mb
+      weight: 1.0
+
+# rare:
+DynamicSpawnSystem.GRAnimalsRareBike1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_fists_mba_rare
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsRareBike2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_hammer_mba_rare
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsRareBike3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_hmelee2_fists_mba_rare
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsRareBike4:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_hmelee2_fists_wba_rare
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsRareBike5:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_fists_mba_rare
+      weight: 1.0
+
+DynamicSpawnSystem.GRAnimalsRareBike6:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_hmelee2_hammer_mba_rare
+      weight: 1.0    
+
+DynamicSpawnSystem.GRAnimalsRareBike7:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_hmelee2_hammer_wba_rare
+      weight: 1.0   
+
+DynamicSpawnSystem.GRAnimalsRareBike8:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_ranged3_burya_mba_rare
+      weight: 1.0     
+
+DynamicSpawnSystem.GRAnimalsRareBike9:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_shotgun2_igla_wba_rare
+      weight: 1.0   
+
+DynamicSpawnSystem.GRAnimalsRareBike10:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt3_gunner2_defender_mb_rare
+      weight: 1.0      
+
+
+DynamicSpawnSystem.GRAnimalsRareSquad1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_melee2_fists_mb
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_ranged2_pulsar_mb
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_hammer_mba_rare
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_shotgun2_igla_wba_rare
+      weight: 0.2    
+
+DynamicSpawnSystem.GRAnimalsRareSquad2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_hammer_mb
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_ranged2_overture_mb
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_fists_mba_rare
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt3_gunner2_defender_mb_rare
+      weight: 0.2    
+
+DynamicSpawnSystem.GRAnimalsRareSquad3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_melee2_machete_mb
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_ranged2_omaha_mb
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_hmelee2_fists_mba_rare
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character:  Character.GR_animals_elite2_ranged3_burya_mba_rare
+      weight: 0.2  
+
+# elite:
+DynamicSpawnSystem.GRAnimalsEliteSquad1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_shotgun2_igla_wba_rare
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer2_hmelee2_hammer_mba_rare
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer3_hmelee3_fists_mba_elite
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character:  Character.GR_animals_elite3_gunner3_hmg_mba_elite
+      weight: 0.2  
+
+DynamicSpawnSystem.GRAnimalsEliteSquad2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt3_gunner2_defender_mb_rare
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_hmelee2_fists_mba_rare
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite3_hmelee3_fists_mba_elite
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character:  Character.GR_animals_elite2_shotgun3_carnage_wba_elite
+      weight: 0.2  
+
+DynamicSpawnSystem.GRAnimalsEliteSquad3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_shotgun3_testera_wba_elite
+      weight: 1.0        
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite3_shotgun3_carnage_mba_elite
+      weight: 1.0      
+    - $type: WeightedCharacter
+      character: Character.GR_animals_grunt2_hmelee2_hammer_wba_rare
+      weight: 0.5      
+    - $type: WeightedCharacter
+      character:  Character.GR_animals_grunt2_hmelee2_fists_wba_rare
+      weight: 0.2  
+
+DynamicSpawnSystem.GRAnimalsEliteBike1:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_bouncer3_hmelee3_fists_mba_elite
+      weight: 1.0  
+
+DynamicSpawnSystem.GRAnimalsEliteBike2:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite3_hmelee3_fists_mba_elite
+      weight: 1.0  
+
+DynamicSpawnSystem.GRAnimalsEliteBike3:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_shotgun3_carnage_wba_elite
+      weight: 1.0  
+
+DynamicSpawnSystem.GRAnimalsEliteBike4:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi_animal
+  unitRecordsPool:
+    - $type: WeightedCharacter
+      character: Character.GR_animals_elite2_shotgun3_testera_wba_elite
+      weight: 1.0  

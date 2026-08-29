@@ -1,0 +1,10 @@
+package Items
+using RTDB
+
+[ notQueryable ]
+KurtTakedownWeapon : Base_Weapon
+{
+	stateMachineName = "Weapon";
+	quality = "Quality.Common";
+}
+

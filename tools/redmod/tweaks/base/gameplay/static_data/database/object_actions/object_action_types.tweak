@@ -1,0 +1,43 @@
+package ObjectActionType
+using RTDB
+
+Direct : ObjectActionType
+{
+	enumName = "Direct";
+}
+
+Remote : ObjectActionType
+{
+	enumName = "Remote";
+}
+
+Item : ObjectActionType
+{
+	enumName = "Item";
+}
+
+DeviceQuickHack : ObjectActionType
+{
+	enumName = "DeviceQuickHack";
+}
+
+PuppetQuickHack : ObjectActionType
+{
+	enumName = "PuppetQuickHack";
+}
+
+VehicleQuickHack : ObjectActionType
+{
+	enumName = "VehicleQuickHack";
+}
+
+MinigameUpload : ObjectActionType
+{
+	enumName = "MinigameUpload";
+}
+
+Payment : ObjectActionType
+{
+	enumName = "Payment";
+}
+

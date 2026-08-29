@@ -1,0 +1,104 @@
+struct HitHistoryItem
+{
+	var instigator : weak< GameObject >;
+	var hitTime : Float;
+	var attackType : gamedataAttackType;
+}
+
+class HitHistory
+{
+	private var m_hitHistory : array< HitHistoryItem >;
+	private var m_maxEntries : Int32;
+	default m_maxEntries = 5;
+
+	public function AddHit( evt : gameHitEvent )
+	{
+		var hitTime : Float;
+		var instigator : weak< GameObject >;
+		var attackType : gamedataAttackType;
+		instigator = NULL;
+		attackType = gamedataAttackType.Invalid;
+		if( evt.attackData )
+		{
+			instigator = evt.attackData.GetInstigator();
+			attackType = evt.attackData.GetAttackType();
+		}
+		if( instigator )
+		{
+			hitTime = EngineTime.ToFloat( GameInstance.GetSimTime( instigator.GetGame() ) );
+			Add( instigator, hitTime, attackType );
+		}
+	}
+
+	public function GetLastDamageTime( object : GameObject, out isMelee : Bool ) : Float
+	{
+		var i : Int32;
+		for( i = 0; i < m_hitHistory.Size(); i += 1 )
+		{
+			if( m_hitHistory[ i ].instigator == object )
+			{
+				isMelee = AttackData.IsMelee( m_hitHistory[ i ].attackType );
+				return m_hitHistory[ i ].hitTime;
+			}
+		}
+		return -1.0;
+	}
+
+	public function GetLastDamageType( instigator : GameObject ) : gamedataAttackType
+	{
+		var i : Int32;
+		for( i = 0; i < m_hitHistory.Size(); i += 1 )
+		{
+			if( m_hitHistory[ i ].instigator == instigator )
+			{
+				return m_hitHistory[ i ].attackType;
+			}
+		}
+		return gamedataAttackType.Invalid;
+	}
+
+	private function Add( instigator : weak< GameObject >, hitTime : Float, attackType : gamedataAttackType )
+	{
+		var hitHistoryItem : HitHistoryItem;
+		var i : Int32;
+		var oldestEntryTime : Float;
+		var oldestEntryNdx : Int32;
+		var entryNdx : Int32;
+		oldestEntryTime = -1.0;
+		oldestEntryNdx = -1;
+		entryNdx = -1;
+		for( i = 0; i < m_hitHistory.Size(); i += 1 )
+		{
+			if( m_hitHistory[ i ].instigator == instigator )
+			{
+				entryNdx = i;
+				break;
+			}
+			if( ( oldestEntryTime == -1.0 ) || ( oldestEntryTime > m_hitHistory[ i ].hitTime ) )
+			{
+				oldestEntryNdx = i;
+				oldestEntryTime = m_hitHistory[ i ].hitTime;
+			}
+		}
+		hitHistoryItem.instigator = instigator;
+		hitHistoryItem.hitTime = hitTime;
+		hitHistoryItem.attackType = attackType;
+		if( entryNdx == -1 )
+		{
+			if( m_hitHistory.Size() < m_maxEntries )
+			{
+				m_hitHistory.PushBack( hitHistoryItem );
+			}
+			else
+			{
+				m_hitHistory[ oldestEntryNdx ] = hitHistoryItem;
+			}
+		}
+		else
+		{
+			m_hitHistory[ entryNdx ] = hitHistoryItem;
+		}
+	}
+
+}
+

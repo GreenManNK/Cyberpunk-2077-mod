@@ -8,6 +8,7 @@ local opts = {
   radius      = 5.0,
   debug       = false,
   wait_seconds = 3.0,
+  automatic_wait_seconds = 5.0,
 
   -- Used only when an old repair-zone record has no "price"
   default_repair_price = 500,
@@ -16,6 +17,10 @@ local opts = {
 	queueToast = nil,
 	vehKeyAndLabel = nil,
 	vehicleTypeForLabel = nil,
+	isAutomaticRepairEnabled = nil,
+
+  -- Called only after the repaired garage vehicle has actually spawned.
+  onRepairCompleted = nil,
 
 	-- optional ownership gate from init.lua
 	-- must return true only for player-owned vehicles
@@ -55,6 +60,12 @@ local droneOrbitCmd = 0
 -- Runs once per near repair bay area, then resets after leaving the near area.
 local lastNearFxResetIdx = nil
 local REPAIR_FX_NEAR_RADIUS = 50.0
+local REPAIR_UNMOUNT_SETTLE_SECONDS = 0.4
+local REPAIR_UNMOUNT_TIMEOUT_SECONDS = 2.0
+local REPAIR_DESPAWN_TIMEOUT_SECONDS = 4.0
+local REPAIR_SPAWN_TIMEOUT_SECONDS = 8.0
+local REPAIR_MOUNT_TIMEOUT_SECONDS = 2.0
+local REPAIR_SETTLE_PASSES = 4
 
 local function cleanVehicleRecordID(s)
   s = tostring(s or "")
@@ -78,6 +89,17 @@ local function toast(msg)
   else
     print("[VehicleMileage][Repair] " .. tostring(msg))
   end
+end
+
+local function automaticRepairEnabled()
+  if type(opts.isAutomaticRepairEnabled) == "function" then
+    local ok, enabled = pcall(opts.isAutomaticRepairEnabled)
+    if ok then
+      return enabled == true
+    end
+  end
+
+  return false
 end
 
 local function readFile(path)
@@ -540,7 +562,122 @@ local function makeGarageVehicleID(recordID)
   return gid
 end
 
-local function startGarageSpawn(recordID, kind, point, rotation, forwardX, forwardY)
+local function getVehicleEntityID(veh)
+  if not veh then return nil end
+
+  local entityID = nil
+  pcall(function()
+    entityID = veh:GetEntityID()
+  end)
+
+  return entityID
+end
+
+local function sameEntityID(a, b)
+  if not a or not b then return false end
+  return tostring(a) == tostring(b)
+end
+
+local function oldVehicleStillPresent(entityID)
+  if not entityID then return false end
+
+  local stillPresent = false
+  pcall(function()
+    stillPresent = Game.FindEntityByID(entityID) ~= nil
+  end)
+
+  return stillPresent
+end
+
+local function unmountPlayer()
+  local player = Game.GetPlayer()
+  local mountingFacility = Game.GetMountingFacility()
+
+  if not player or not mountingFacility then
+    return false
+  end
+
+  local ok, err = pcall(function()
+    local request = gamemountingUnmountingRequest.new()
+    local mountingInfo = gamemountingMountingInfo.new()
+    mountingInfo.childId = player:GetEntityID()
+    request.lowLevelMountingInfo = mountingInfo
+    request.mountData = gameMountEventData.new()
+    request.mountData.isInstant = true
+    request.mountData.removePitchRollRotationOnDismount = true
+    mountingFacility:Unmount(request)
+  end)
+
+  if not ok then
+    print("[VehicleMileage][Repair] Automatic dismount failed: " .. tostring(err))
+  end
+
+  return ok
+end
+
+local function mountPlayer(vehicleEntityID)
+  local player = Game.GetPlayer()
+  local mountingFacility = Game.GetMountingFacility()
+
+  if not player or not mountingFacility or not vehicleEntityID then
+    return false
+  end
+
+  local ok, err = pcall(function()
+    local mountData = NewObject("handle:gameMountEventData")
+    mountData.isInstant = true
+    mountData.slotName = "seat_front_left"
+    mountData.mountParentEntityId = vehicleEntityID
+    mountData.entryAnimName = "forcedTransition"
+
+    local seatSlotID = NewObject("gamemountingMountingSlotId")
+    seatSlotID.id = "seat_front_left"
+
+    local mountingInfo = NewObject("gamemountingMountingInfo")
+    mountingInfo.childId = player:GetEntityID()
+    mountingInfo.parentId = vehicleEntityID
+    mountingInfo.slotId = seatSlotID
+
+    local request = NewObject("handle:gamemountingMountingRequest")
+    request.lowLevelMountingInfo = mountingInfo
+    request.mountData = mountData
+
+    mountingFacility:Mount(request)
+  end)
+
+  if not ok then
+    print("[VehicleMileage][Repair] Automatic remount failed: " .. tostring(err))
+  end
+
+  return ok
+end
+
+local function restoreSummonMode(watch)
+  if not watch or not watch.summonModeActive then return end
+
+  local vs = Game.GetVehicleSystem()
+  if vs then
+    pcall(function()
+      vs:ToggleSummonMode()
+    end)
+  end
+
+  watch.summonModeActive = false
+end
+
+local function startGarageSpawn(
+  recordID,
+  kind,
+  point,
+  rotation,
+  forwardX,
+  forwardY,
+  vehicleID,
+  vehicleConditionPct,
+  oldEntityID,
+  repairCost,
+  autoRemount
+)
   recordID = cleanVehicleRecordID(recordID)
   kind = kind or "Car"
 
@@ -555,40 +692,27 @@ local function startGarageSpawn(recordID, kind, point, rotation, forwardX, forwa
     return false
   end
 
-  local garageId = makeGarageVehicleID(recordID)
 	if opts.debug then
 		print("[VehicleMileage][Repair] Garage repair spawn start: " .. tostring(recordID) .. " kind=" .. tostring(kind))
 	end
-  -- Toggle summon mode -> despawn old active garage vehicle -> spawn same record as player vehicle -> toggle back.
-  pcall(function()
-    vs:ToggleSummonMode()
-  end)
-
-  local okDespawn, errDespawn = pcall(function()
-    vs:DespawnPlayerVehicle(garageId)
-  end)
-	if opts.debug then
-		print("[VehicleMileage][Repair] DespawnPlayerVehicle=" .. tostring(okDespawn) .. " err=" .. tostring(errDespawn))
-	end
-  local okSpawn, errSpawn = pcall(function()
-    vs:SpawnPlayerVehicle(kind, TweakDBID.new(recordID), false)
-  end)
-	if opts.debug then
-		print("[VehicleMileage][Repair] SpawnPlayerVehicle(record)=" .. tostring(okSpawn) .. " err=" .. tostring(errSpawn))
-	end
-  pcall(function()
-    vs:ToggleSummonMode()
-  end)
-
-  if not okSpawn then
-    return false
-  end
 
 	spawnWatch = {
 		recordID = recordID,
+		vehicleID = vehicleID,
+		vehicle_condition_pct = vehicleConditionPct,
 		kind = kind,
+		garageId = makeGarageVehicleID(recordID),
+		oldEntityID = oldEntityID,
+		repairCost = math.max(0, math.floor((tonumber(repairCost) or 0) + 0.5)),
+		autoRemount = autoRemount == true,
+		stage = "despawn",
 		timer = 0.0,
-		timeout = 10.0,
+		stepTimer = 0.0,
+		despawnWaited = 0.0,
+		spawnWaited = 0.0,
+		mountWaited = 0.0,
+		settlePasses = 0,
+		summonModeActive = false,
 
 		-- desired final position after real garage spawn
 		point = point,
@@ -682,77 +806,291 @@ local function triggerDroneOrbitQA()
   toast(randomDroneQAToast())
 end
 
-local function tickSpawnWatch(dt)
-  if not spawnWatch then return false end
+local function failSpawnWatch(reason, refundPayment)
+  local watch = spawnWatch
+  if not watch then return false end
 
-  spawnWatch.timer = (spawnWatch.timer or 0.0) + (tonumber(dt or 0.0) or 0.0)
+  restoreSummonMode(watch)
 
-	if spawnWatch.timer > (spawnWatch.timeout or 10.0) then
-		if opts.debug then
-			print("[VehicleMileage][Repair] Garage spawn watch timed out: " .. tostring(spawnWatch.recordID))
-		end
+  print("[VehicleMileage][Repair] " .. tostring(reason or "Garage respawn failed."))
 
-		if spawnWatch.point then
-			setRepairPointFxAll(spawnWatch.point, false)
-		end
+  if refundPayment and (tonumber(watch.repairCost) or 0) > 0 then
+    if addPlayerMoney(watch.repairCost) then
+      print("[VehicleMileage][Repair] Refunded repair payment after respawn failure.")
+    end
+  end
 
-		activeRepairFxPoint = nil
-		spawnWatch = nil
-		return false
-	end
+  if watch.point then
+    setRepairPointFxAll(watch.point, false)
+  end
 
-  local okBB, vehicleEntId = pcall(function()
+  activeRepairFxPoint = nil
+  spawnWatch = nil
+  toast("Vehicle repair failed")
+  return false
+end
+
+local function findSummonedVehicle(watch)
+  local okBB, vehicleEntityID = pcall(function()
     local def = Game.GetAllBlackboardDefs().VehicleSummonData
     local bb = Game.GetBlackboardSystem():Get(def)
+    if not bb then return nil end
     return bb:GetEntityID(def.SummonedVehicleEntityID)
   end)
 
-  if not okBB or not vehicleEntId then
-    return true
+  if not okBB or not vehicleEntityID then
+    return nil, nil, nil
   end
 
-  local entity = Game.FindEntityByID(vehicleEntId)
+  -- The summon blackboard can briefly retain the vehicle being replaced.
+  if sameEntityID(vehicleEntityID, watch.oldEntityID) then
+    return nil, nil, nil
+  end
+
+  local entity = Game.FindEntityByID(vehicleEntityID)
   if not entity then
-    return true
+    return nil, nil, nil
   end
 
   local info = getVehicleInfo(entity)
   if not info then
+    return nil, nil, nil
+  end
+
+  if cleanVehicleRecordID(info.label) ~= cleanVehicleRecordID(watch.recordID) then
+    return nil, nil, nil
+  end
+
+  return entity, vehicleEntityID, info
+end
+
+local function completeSpawnWatch(watch, remountResult)
+  if not watch then return false end
+
+  local want = cleanVehicleRecordID(watch.recordID)
+  local info = watch.spawnedInfo or {}
+
+  -- Stage 2 FX remains active until the player drives out of the bay.
+  activeRepairFxPoint = watch.point
+  setRepairPointFxComplete(activeRepairFxPoint)
+
+  local completeMessage = randomRepairCompleteToast()
+  if remountResult == false then
+    completeMessage = completeMessage .. " Automatic remount failed."
+  end
+  toast(completeMessage)
+
+  if type(opts.onRepairCompleted) == "function" then
+    local okCallback, callbackErr = pcall(
+      opts.onRepairCompleted,
+      watch.vehicleID or info.id or want,
+      want,
+      watch.vehicle_condition_pct
+    )
+
+    if not okCallback then
+      print("[VehicleMileage][Repair] Completion callback failed: "
+        .. tostring(callbackErr))
+    end
+  end
+
+  -- Wait until the repaired vehicle leaves the bay before starting QA.
+  pendingDroneOrbitAfterRepair = true
+  spawnWatch = nil
+  return true
+end
+
+local function tickSpawnWatch(dt)
+  if not spawnWatch then return false end
+
+  dt = tonumber(dt or 0.0) or 0.0
+  local watch = spawnWatch
+  watch.timer = (watch.timer or 0.0) + dt
+  watch.stepTimer = (watch.stepTimer or 0.0) - dt
+
+  if watch.stage == "wait_despawn" then
+    watch.despawnWaited = (watch.despawnWaited or 0.0) + dt
+  elseif watch.stage == "wait_spawn" then
+    watch.spawnWaited = (watch.spawnWaited or 0.0) + dt
+  elseif watch.stage == "mount" then
+    watch.mountWaited = (watch.mountWaited or 0.0) + dt
+  end
+
+  if watch.stepTimer > 0.0 then
     return true
   end
 
-  local got = cleanVehicleRecordID(info.label)
-  local want = cleanVehicleRecordID(spawnWatch.recordID)
+  if watch.stage == "despawn" then
+    local vs = Game.GetVehicleSystem()
+    if not vs then
+      return failSpawnWatch("Garage respawn failed: VehicleSystem unavailable.", true)
+    end
 
-	if got == want then
-		if opts.debug then
-			print("[VehicleMileage][Repair] Garage repaired vehicle spawned and detected: " .. tostring(want))
-		end
-		-- Move the real garage vehicle to the repair-zone point.
-		tryMoveSpawnedVehicleToRepairPoint(
-			entity,
-			spawnWatch.point,
-			spawnWatch.rotation,
-			spawnWatch.forwardX,
-			spawnWatch.forwardY
-		)
+    local okToggle, toggleErr = pcall(function()
+      vs:ToggleSummonMode()
+    end)
+    if not okToggle then
+      return failSpawnWatch("Garage respawn failed while enabling summon mode: "
+        .. tostring(toggleErr), true)
+    end
+    watch.summonModeActive = true
 
-		-- Stage 2 FX: repair completed.
-		-- Keep this active until the player leaves the repair zone mounted.
-		activeRepairFxPoint = spawnWatch.point
-		setRepairPointFxComplete(activeRepairFxPoint)
+    local okDespawn, despawnErr = pcall(function()
+      vs:DespawnPlayerVehicle(watch.garageId)
+    end)
+    if not okDespawn then
+      return failSpawnWatch("Garage respawn failed while despawning the old vehicle: "
+        .. tostring(despawnErr), true)
+    end
 
-		toast(randomRepairCompleteToast())
+    if opts.debug then
+      print("[VehicleMileage][Repair] Old garage vehicle despawn requested.")
+    end
 
-		-- Do not start the drone yet.
-		-- Wait until the player drives the repaired vehicle out of the repair zone.
-		pendingDroneOrbitAfterRepair = true
+    watch.stage = "wait_despawn"
+    watch.stepTimer = 0.6
+    return true
+  end
 
-		spawnWatch = nil
-		return true
-	end
+  if watch.stage == "wait_despawn" then
+    if oldVehicleStillPresent(watch.oldEntityID) then
+      if watch.despawnWaited >= REPAIR_DESPAWN_TIMEOUT_SECONDS then
+        return failSpawnWatch(
+          "Garage respawn stopped because the old vehicle did not despawn.",
+          true
+        )
+      end
 
-  return true
+      watch.stepTimer = 0.1
+      return true
+    end
+
+    watch.stage = "summon"
+    watch.stepTimer = 0.0
+  end
+
+  if watch.stage == "summon" then
+    local vs = Game.GetVehicleSystem()
+    if not vs then
+      return failSpawnWatch("Garage respawn failed: VehicleSystem unavailable.", true)
+    end
+
+    local okSpawn, spawnErr = pcall(function()
+      vs:SpawnPlayerVehicle(watch.kind, TweakDBID.new(watch.recordID), false)
+    end)
+    restoreSummonMode(watch)
+
+    if not okSpawn then
+      return failSpawnWatch("Garage respawn failed while spawning the repaired vehicle: "
+        .. tostring(spawnErr), true)
+    end
+
+    if opts.debug then
+      print("[VehicleMileage][Repair] Repaired garage vehicle summon requested.")
+    end
+
+    watch.stage = "wait_spawn"
+    watch.stepTimer = 0.4
+    watch.spawnWaited = 0.0
+    return true
+  end
+
+  if watch.stage == "wait_spawn" then
+    local entity, vehicleEntityID, info = findSummonedVehicle(watch)
+
+    if not entity then
+      if watch.spawnWaited >= REPAIR_SPAWN_TIMEOUT_SECONDS then
+        return failSpawnWatch(
+          "Garage respawn timed out while waiting for the repaired vehicle.",
+          false
+        )
+      end
+
+      watch.stepTimer = 0.1
+      return true
+    end
+
+    if opts.debug then
+      print("[VehicleMileage][Repair] Repaired garage vehicle spawned and was detected: "
+        .. tostring(watch.recordID))
+    end
+
+    watch.spawnedEntity = entity
+    watch.spawnedEntityID = vehicleEntityID
+    watch.spawnedInfo = info
+
+    -- Put the replacement in the bay before seating the player.
+    tryMoveSpawnedVehicleToRepairPoint(
+      entity,
+      watch.point,
+      watch.rotation,
+      watch.forwardX,
+      watch.forwardY
+    )
+
+    -- The default/manual method leaves the player outside the repaired vehicle,
+    -- matching the original repair-bay behavior.
+    if not watch.autoRemount then
+      return completeSpawnWatch(watch, nil)
+    end
+
+    mountPlayer(vehicleEntityID)
+    watch.stage = "mount"
+    watch.stepTimer = 0.15
+    watch.mountWaited = 0.0
+    return true
+  end
+
+  if watch.stage == "mount" then
+    local player = Game.GetPlayer()
+    local mountedVehicle = player and player:GetMountedVehicle() or nil
+
+    if mountedVehicle
+      and sameEntityID(getVehicleEntityID(mountedVehicle), watch.spawnedEntityID)
+    then
+      watch.stage = "settle"
+      watch.stepTimer = 0.15
+      watch.settlePasses = 0
+      return true
+    end
+
+    if watch.mountWaited >= REPAIR_MOUNT_TIMEOUT_SECONDS then
+      print("[VehicleMileage][Repair] Repaired vehicle spawned, but automatic remount timed out.")
+      return completeSpawnWatch(watch, false)
+    end
+
+    -- Retry the instant seat request while the spawned entity finishes settling.
+    mountPlayer(watch.spawnedEntityID)
+    watch.stepTimer = 0.25
+    return true
+  end
+
+  if watch.stage == "settle" then
+    local player = Game.GetPlayer()
+
+    if player then
+      -- The summon system can keep moving a fresh entity for several frames.
+      -- Reapplying the transform while seated keeps player and vehicle together.
+      tryMoveSpawnedVehicleToRepairPoint(
+        player,
+        watch.point,
+        watch.rotation,
+        watch.forwardX,
+        watch.forwardY
+      )
+    end
+
+    watch.settlePasses = (watch.settlePasses or 0) + 1
+    if watch.settlePasses < REPAIR_SETTLE_PASSES then
+      watch.stepTimer = 0.15
+      return true
+    end
+
+    return completeSpawnWatch(watch, true)
+  end
+
+  return failSpawnWatch("Garage respawn entered an unknown state: "
+    .. tostring(watch.stage), true)
 end
 
 local function clampVehicleConditionPct(pct)
@@ -963,7 +1301,19 @@ local function respawnVehicle(repair)
     end
 	end
 
-	local ok = startGarageSpawn(recordID, kind, repair.point, zoneRotation, repair.forwardX, repair.forwardY)
+	local ok = startGarageSpawn(
+		recordID,
+		kind,
+		repair.point,
+		zoneRotation,
+		repair.forwardX,
+		repair.forwardY,
+		repair.id,
+		repair.vehicle_condition_pct,
+		repair.oldEntityID,
+		repairCost,
+		repair.automatic == true
+	)
 
 	if not ok then
 		print("[VehicleMileage][Repair] ERROR: real garage vehicle spawn failed.")
@@ -982,40 +1332,38 @@ local function respawnVehicle(repair)
 end
 
 local REPAIR_ENTER_TOASTS = {
-  "Blackwall diagnostics synced. Exit vehicle to begin restoration.",
-  "Unauthorized auto-repair daemon detected. Exit vehicle to proceed.",
-  "Rogue maintenance protocol armed. Leave the vehicle.",
-  "Blackwall repair ritual primed. Step out of the vehicle.",
-  "Vehicle engram scan complete. Exit to start reconstruction.",
-  "Anomalous repair signal locked. Leave the vehicle to continue.",
-  "Old Net restoration protocol active. Exit vehicle.",
-  "Blackwall echo attached to vehicle systems. Leave the vehicle.",
-  "Corrupted service daemon ready. Exit vehicle to authorize.",
-  "Ghost repair protocol waiting. Step out of the vehicle.",
-	"Blackwall anomaly has claimed your vehicle. Step away.",
-  "Unauthorized repair shard injected. Exit vehicle to stabilize.",
-  "Vehicle damage pattern uploaded to the Old Net. Leave the vehicle.",
-  "Rogue auto-doc daemon awake. Exit vehicle for reconstruction.",
-  "Blackwall pulse detected in vehicle frame. Step out.",
-  "Synthetic maintenance ghost linked. Leave the vehicle.",
-  "Illegal repair protocol seeded. Exit vehicle to execute.",
-  "Vehicle soulprint captured. Step away for rebuild.",
-  "Old Net mechanics are listening. Leave the vehicle.",
-  "Corruption-assisted repair ready. Exit vehicle.",
-  "Blackwall handshake complete. Step out before the ritual starts.",
-  "Hidden garage daemon accepted the offering. Leave the vehicle.",
-  "Vehicle systems possessed by repair code. Exit now.",
-  "Anomaly locked onto chassis damage. Step out of the vehicle.",
-  "Ghost tools deployed. Leave the vehicle to begin reconstruction.",
-  "Blackwall service tunnel opened. Exit vehicle.",
-  "Unlicensed repair intelligence active. Step away.",
-  "Vehicle frame marked for spectral restoration. Leave the vehicle.",
-  "Daemon choir online. Exit vehicle to begin the fix.",
-  "Old Net repair contract accepted. Step out of the vehicle.",
+  "Blackwall diagnostics synced.",
+  "Unauthorized auto-repair daemon detected.",
+  "Rogue maintenance protocol armed.",
+  "Blackwall repair ritual primed.",
+  "Vehicle engram scan complete.",
+  "Anomalous repair signal locked.",
+  "Old Net restoration protocol active.",
+  "Blackwall echo attached to vehicle systems.",
+  "Corrupted service daemon ready.",
+  "Ghost repair protocol waiting.",
+	"Blackwall anomaly has claimed your vehicle.",
+  "Unauthorized repair shard injected.",
+  "Vehicle damage pattern uploaded to the Old Net.",
+  "Rogue auto-doc daemon awake.",
+  "Blackwall pulse detected in vehicle frame.",
+  "Synthetic maintenance ghost linked.",
+  "Illegal repair protocol seeded.",
+  "Vehicle soulprint captured.",
+  "Old Net mechanics are listening.",
+  "Corruption-assisted repair ready.",
 }
 
-local function randomRepairEnterToast(price, conditionPct)
+local function randomRepairEnterToast(price, conditionPct, automatic)
   local msg = REPAIR_ENTER_TOASTS[math.random(1, #REPAIR_ENTER_TOASTS)]
+
+  if automatic then
+    local waitSeconds = tonumber(opts.automatic_wait_seconds) or 5.0
+    msg = ("%s Stay in the vehicle; automatic service starts in %.0f seconds.")
+      :format(msg, waitSeconds)
+  else
+    msg = msg .. " Exit the vehicle to begin restoration."
+  end
 
   conditionPct = clampVehicleConditionPct(conditionPct)
 
@@ -1027,6 +1375,55 @@ local function randomRepairEnterToast(price, conditionPct)
   return ("%s Cost: €$%d"):format(msg, tonumber(price) or 0)
 end
 
+local function beginAutomaticRepair()
+  local repair = armedRepair
+  if not repair then return false end
+
+  local repairCost = tonumber(repair.point and repair.point.final_price)
+  if repairCost == nil then
+    repairCost = getFinalRepairPriceFromPoint(
+      repair.point,
+      repair.vehicle_condition_pct or (repair.point and repair.point.vehicle_condition_pct)
+    )
+  end
+  repairCost = math.max(0, math.floor((tonumber(repairCost) or 0) + 0.5))
+
+  -- Check before forcing the player out. respawnVehicle() repeats this check
+  -- immediately before charging in case the wallet changes during dismount.
+  if getPlayerMoney() < repairCost then
+    armedRepair = nil
+    lastInsideIdx = nil
+    respawnVehicle(repair)
+    mustLeaveRepairZone = true
+    mustLeaveToastShown = false
+    return true
+  end
+
+  local player = Game.GetPlayer()
+  local mountedVehicle = player and player:GetMountedVehicle() or nil
+
+  if mountedVehicle and not unmountPlayer() then
+    print("[VehicleMileage][Repair] Automatic repair cancelled because the player could not be dismounted.")
+    setRepairPointFxAll(repair.point, false)
+    activeRepairFxPoint = nil
+    armedRepair = nil
+    lastInsideIdx = nil
+    mustLeaveRepairZone = true
+    mustLeaveToastShown = false
+    toast("Automatic vehicle repair could not start")
+    return false
+  end
+
+  repair.state = "unmounting"
+  repair.timer = 0.0
+
+  if opts.debug then
+    print("[VehicleMileage][Repair] Five-second bay timer complete. Automatic dismount requested.")
+  end
+
+  return true
+end
+
 
 function M.setup(o)
   o = o or {}
@@ -1034,6 +1431,8 @@ function M.setup(o)
     opts[k] = v
   end
 
+	restoreSummonMode(spawnWatch)
+	spawnWatch = nil
 	loadPoints()
 
 	-- Default initial state: all repair-bay FX nodes off.
@@ -1062,6 +1461,8 @@ function M.reset()
 	activeRepairFxPoint = nil
 	lastNearFxResetIdx = nil
 	armedRepair = nil
+	restoreSummonMode(spawnWatch)
+	spawnWatch = nil
   lastInsideIdx = nil
   mustLeaveRepairZone = false
   mustLeaveToastShown = false
@@ -1079,8 +1480,49 @@ function M.update(dt)
 
 	local veh = player:GetMountedVehicle()
 
-	-- Continue watching the real garage spawn after repair.
-	tickSpawnWatch(dt)
+	-- Keep normal bay detection paused while the old vehicle is being replaced.
+	-- This avoids treating the temporary summon position as leaving the bay.
+	if spawnWatch then
+		tickSpawnWatch(dt)
+		return true
+	end
+
+	-- Authentic Shift pattern: allow the instant dismount to settle before
+	-- despawning the vehicle, and never despawn it underneath the player.
+	if armedRepair and armedRepair.state == "unmounting" then
+		armedRepair.timer = (armedRepair.timer or 0.0) + dt
+
+		if armedRepair.timer < REPAIR_UNMOUNT_SETTLE_SECONDS then
+			return true
+		end
+
+		if veh then
+			if armedRepair.timer < REPAIR_UNMOUNT_TIMEOUT_SECONDS then
+				return true
+			end
+
+			print("[VehicleMileage][Repair] Automatic repair cancelled because the dismount did not complete.")
+			setRepairPointFxAll(armedRepair.point, false)
+			activeRepairFxPoint = nil
+			armedRepair = nil
+			lastInsideIdx = nil
+			mustLeaveRepairZone = true
+			mustLeaveToastShown = false
+			toast("Automatic vehicle repair could not dismount the player")
+			return false
+		end
+
+		local finished = armedRepair
+		armedRepair = nil
+		lastInsideIdx = nil
+
+		respawnVehicle(finished)
+
+		-- Require the repaired vehicle to leave before this bay can arm again.
+		mustLeaveRepairZone = true
+		mustLeaveToastShown = false
+		return true
+	end
 
 	-- Player is mounted: only arm repair when vehicle is inside repair zone.
 	if veh then
@@ -1224,8 +1666,13 @@ function M.update(dt)
 				rot_yaw = point.rot_yaw,
 			})
 
+			-- Snapshot the selected method for this visit. Changing Native
+			-- Settings while already in the bay applies on the next entry.
+			local useAutomaticRepair = automaticRepairEnabled()
+
 			armedRepair = {
-				state = "armed",
+				state = useAutomaticRepair and "waiting" or "armed",
+				automatic = useAutomaticRepair,
 				timer = 0.0,
 				id = info.id,
 				label = info.label,
@@ -1235,8 +1682,8 @@ function M.update(dt)
 				-- Used after exit because vm_hud_vehicle_cond_pct becomes -1.
 				vehicle_condition_pct = cleanConditionPct,
 
-				-- Keep reference to the damaged vehicle for best-effort cleanup.
-				oldVeh = veh,
+				-- The despawn is asynchronous; wait for this exact entity to vanish.
+				oldEntityID = getVehicleEntityID(veh),
 
 				-- Keep old vehicle direction for the fresh spawn.
 				forwardX = forwardX,
@@ -1259,7 +1706,11 @@ function M.update(dt)
 			setRepairPointFxEnter(activeRepairFxPoint)
 
 			lastInsideIdx = insideIdx
-			toast(randomRepairEnterToast(finalRepairCost, cleanConditionPct))
+			toast(randomRepairEnterToast(
+				finalRepairCost,
+				cleanConditionPct,
+				useAutomaticRepair
+			))
 
       if opts.debug then
         print(("[VehicleMileage][Repair] Armed repair zone #%d for %s")
@@ -1267,32 +1718,53 @@ function M.update(dt)
       end
     end
 
+		if armedRepair
+			and armedRepair.automatic
+			and armedRepair.state == "waiting"
+		then
+			armedRepair.timer = (armedRepair.timer or 0.0) + dt
+
+			if armedRepair.timer >= (opts.automatic_wait_seconds or 5.0) then
+				beginAutomaticRepair()
+			end
+		end
+
     return true
   end
 
-  -- Player is NOT mounted: if repair was armed, count down.
+  -- Default/manual method: leaving the vehicle starts the original delay.
   if armedRepair and armedRepair.state == "armed" then
     armedRepair.state = "waiting"
     armedRepair.timer = 0.0
 
     if opts.debug then
-      print("[VehicleMileage][Repair] Player left vehicle. Repair timer started.")
+      print("[VehicleMileage][Repair] Player left vehicle. Manual repair timer started.")
     end
   end
 
+  -- An early manual exit in automatic mode is also supported; its five-second
+  -- countdown began at bay entry and continues from the elapsed time.
   if armedRepair and armedRepair.state == "waiting" then
     armedRepair.timer = (armedRepair.timer or 0.0) + dt
 
-		if armedRepair.timer >= (opts.wait_seconds or 5.0) then
-			local finished = armedRepair
-			armedRepair = nil
-			lastInsideIdx = nil
+		local waitSeconds = armedRepair.automatic
+			and (opts.automatic_wait_seconds or 5.0)
+			or (opts.wait_seconds or 3.0)
 
-			respawnVehicle(finished)
+		if armedRepair.timer >= waitSeconds then
+			if armedRepair.automatic then
+				beginAutomaticRepair()
+			else
+				local finished = armedRepair
+				armedRepair = nil
+				lastInsideIdx = nil
 
-			-- Require player to leave the repair zone before another repair can start.
-			mustLeaveRepairZone = true
-			mustLeaveToastShown = false
+				respawnVehicle(finished)
+
+				-- Require player to leave the repair zone before another repair.
+				mustLeaveRepairZone = true
+				mustLeaveToastShown = false
+			end
 
 			return true
 		end

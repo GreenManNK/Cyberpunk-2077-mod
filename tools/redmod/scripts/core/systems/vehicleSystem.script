@@ -1,0 +1,163 @@
+importonly abstract class IVehicleSystem extends IGameSystem
+{
+}
+
+import class VehicleSystem extends IVehicleSystem
+{
+	private var m_restrictionTags : array< CName >;
+
+	public import function SpawnActivePlayerVehicle( optional vehicleType : gamedataVehicleType ) : Bool;
+	public import function SpawnPlayerVehicle( optional vehicleType : gamedataVehicleType, optional vehicleID : TweakDBID, optional spawnOnlyOnValidRoad : Bool ) : Bool;
+	public import function IsActivePlayerVehicleOnCooldown( optional vehicleType : gamedataVehicleType ) : Bool;
+	public import function IsPlayerVehicleOnCooldown( optional vehicleType : gamedataVehicleType, optional vehicleID : TweakDBID ) : Bool;
+	public import function ToggleSummonMode();
+	public import function DespawnPlayerVehicle( vehicleID : GarageVehicleID );
+	public import function UnregisterPlayerVehicle( vehicleID : GarageVehicleID );
+	public import function EnablePlayerVehicle( vehicle : String, enable : Bool, optional despawnIfDisabling : Bool ) : Bool;
+	public import function EnableAllPlayerVehicles();
+	public import function SetRammingAttemptDuration( value : Float );
+	public import function SetRammingUponCollisionDuration( value : Float );
+	public import function SetSuicideSpeedChancePercentage( value : Float );
+	public import function CanDriverShootInCarChase( vehicleID : EntityID ) : Bool;
+	public import function CanPassengersShootInCarChase( vehicleID : EntityID ) : Bool;
+	public import function ResetChaseManager();
+	public import function SetChaseManagerLimit( limit : Int32 );
+	public import function GetPlayerVehicles( out vehicles : array< PlayerVehicle > );
+	public import function GetPlayerUnlockedVehicles( out unlockedVehicles : array< PlayerVehicle > );
+	public import function IsVehiclePlayerUnlocked( recordID : TweakDBID ) : Bool;
+	public import function GetActivePlayerVehicle( optional vehicleType : gamedataVehicleType ) : PlayerVehicle;
+	public import function TogglePlayerActiveVehicle( vehicleID : GarageVehicleID, vehicleType : gamedataVehicleType, enable : Bool );
+	public import function TogglePlayerFavoriteVehicle( vehicleID : GarageVehicleID ) : Bool;
+	public import testonly function EnablePlayerVehicleCollision( enable : Bool );
+
+	public const function GetVehicleRestrictions() : array< CName >
+	{
+		return m_restrictionTags;
+	}
+
+	protected export function OnVehicleSystemAttach()
+	{
+		PlayerGameplayRestrictions.AcquireHotkeyRestrictionTags( EHotkey.DPAD_RIGHT, m_restrictionTags );
+	}
+
+	public static function IsPlayerInVehicle( game : GameInstance ) : Bool
+	{
+		var player : PlayerPuppet;
+		player = GetPlayer( game );
+		return player.GetPlayerStateMachineBlackboard().GetBool( GetAllBlackboardDefs().PlayerStateMachine.MountedToVehicle );
+	}
+
+	public static function IsSummoningVehiclesRestricted( game : GameInstance ) : Bool
+	{
+		var blackboard : IBlackboard;
+		var garageState : Uint32;
+		var garageReady : Bool;
+		var gameplayRestricted : Bool;
+		var unlockedVehicles : array< PlayerVehicle >;
+		var isPlayerInVehicle : Bool;
+		var isUIRadialContextActive : Bool;
+		var restrictions : array< CName >;
+		var player : PlayerPuppet;
+		var questRestricted : Bool;
+		var uiQuickSlotsDataBB : IBlackboard;
+		var remoteControlVehicleID : EntityID;
+		var playerStateMachineBlackboard : IBlackboard;
+		player = GetPlayer( game );
+		if( StatusEffectSystem.ObjectHasStatusEffectWithTag( player, 'CustomVehicleSummon' ) )
+		{
+			return false;
+		}
+		questRestricted = GameInstance.GetQuestsSystem( game ).GetFact( 'unlock_car_hud_dpad' ) == 0;
+		if( questRestricted )
+		{
+			return true;
+		}
+		playerStateMachineBlackboard = GameInstance.GetBlackboardSystem( game ).GetLocalInstanced( player.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		remoteControlVehicleID = playerStateMachineBlackboard.GetEntityID( GetAllBlackboardDefs().PlayerStateMachine.EntityIDVehicleRemoteControlled );
+		if( EntityID.IsDefined( remoteControlVehicleID ) )
+		{
+			return true;
+		}
+		blackboard = GameInstance.GetBlackboardSystem( game ).Get( GetAllBlackboardDefs().VehicleSummonData );
+		garageState = ( ( Uint32 )( blackboard.GetUint( GetAllBlackboardDefs().VehicleSummonData.GarageState ) ) );
+		garageReady = ( ( vehicleGarageState )( garageState ) ) == vehicleGarageState.SummonAvailable;
+		isPlayerInVehicle = player.GetPlayerStateMachineBlackboard().GetBool( GetAllBlackboardDefs().PlayerStateMachine.MountedToVehicle );
+		uiQuickSlotsDataBB = GameInstance.GetBlackboardSystem( game ).Get( GetAllBlackboardDefs().UI_QuickSlotsData );
+		isUIRadialContextActive = uiQuickSlotsDataBB.GetBool( GetAllBlackboardDefs().UI_QuickSlotsData.UIRadialContextRequest );
+		GameInstance.GetVehicleSystem( game ).GetPlayerUnlockedVehicles( unlockedVehicles );
+		if( ( !( garageReady ) || ( unlockedVehicles.Size() == 0 ) ) || ( isPlayerInVehicle && !( isUIRadialContextActive ) ) )
+		{
+			return true;
+		}
+		restrictions = GameInstance.GetVehicleSystem( game ).GetVehicleRestrictions();
+		if( restrictions.Size() > 0 )
+		{
+			gameplayRestricted = StatusEffectSystem.ObjectHasStatusEffectWithTags( player, restrictions );
+		}
+		else
+		{
+			gameplayRestricted = PlayerGameplayRestrictions.IsHotkeyRestricted( game, EHotkey.DPAD_RIGHT );
+		}
+		return gameplayRestricted;
+	}
+
+	protected event OnSummonVehicleFailed()
+	{
+		var warningMsg : SimpleScreenMessage;
+		warningMsg.isShown = true;
+		warningMsg.duration = 1.5;
+		warningMsg.message = GetLocalizedTextByKey( 'Gameplay-Vehicles-DelamainTaxi-CantFindDelamainTaxi' );
+		warningMsg.type = SimpleMessageType.DelamainTaxi;
+		GameInstance.GetBlackboardSystem( GetGameInstance() ).Get( GetAllBlackboardDefs().UI_Notifications ).SetVariant( GetAllBlackboardDefs().UI_Notifications.WarningMessage, warningMsg, true );
+	}
+
+}
+
+import enum vehicleGarageState
+{
+	NoVehiclesAvailable,
+	SummonAvailable,
+	SummonDisabled,
+}
+
+import enum vehicleSummonState
+{
+	Idle,
+	EnRoute,
+	AlreadySummoned,
+	PathfindingFailed,
+	Arrived,
+}
+
+import enum vehicleDisabledReason
+{
+	FrontTire,
+	RearTire,
+	Other,
+}
+
+importonly struct PlayerVehicle
+{
+	import var name : CName;
+	import var recordID : TweakDBID;
+	import var vehicleType : gamedataVehicleType;
+	import var isUnlocked : Bool;
+	import var uiFavoriteIndex : Int32;
+	import var overrideDisplay : Bool;
+	import var icon : CName;
+	import var defaultState : CName;
+	import var activeState : CName;
+	import var forcedFavorite : Bool;
+	import var spawnOnlyOnValidRoad : Bool;
+	import var destructionTimeStamp : EngineTime;
+}
+
+importonly struct GarageVehicleID
+{
+	public import static function Resolve( vehicleID : String ) : GarageVehicleID;
+
+	import var name : CName;
+	import var recordID : TweakDBID;
+}
+
+import implicit cast ( a : TweakDBID ) : GarageVehicleID;

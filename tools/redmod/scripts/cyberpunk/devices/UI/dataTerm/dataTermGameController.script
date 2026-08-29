@@ -1,0 +1,260 @@
+class DataTermInkGameController extends DeviceInkGameControllerBase
+{
+	private var m_fcPointsPanel : weak< inkHorizontalPanel >;
+	private var m_districtText : weak< inkText >;
+	private var m_pointText : weak< inkText >;
+	private var m_point : weak< FastTravelPointData >;
+	private var m_onFastTravelPointUpdateListener : CallbackHandle;
+	private var m_onToggleHologramListener : CallbackHandle;
+
+	protected override function RegisterBlackboardCallbacks( blackboard : IBlackboard )
+	{
+		super.RegisterBlackboardCallbacks( blackboard );
+		if( blackboard )
+		{
+			m_onFastTravelPointUpdateListener = blackboard.RegisterListenerVariant( ( ( DataTermDeviceBlackboardDef )( GetOwner().GetBlackboardDef() ) ).fastTravelPoint, this, 'OnFastTravelPointUpdate' );
+			m_onToggleHologramListener = blackboard.RegisterDelayedListenerBool( ( ( DataTermDeviceBlackboardDef )( GetOwner().GetBlackboardDef() ) ).subwayGateOpen, this, 'OnToggleHologram' );
+		}
+	}
+
+	protected override function UnRegisterBlackboardCallbacks( blackboard : IBlackboard )
+	{
+		super.UnRegisterBlackboardCallbacks( blackboard );
+		if( blackboard )
+		{
+			blackboard.UnregisterListenerVariant( ( ( DataTermDeviceBlackboardDef )( GetOwner().GetBlackboardDef() ) ).fastTravelPoint, m_onFastTravelPointUpdateListener );
+			blackboard.UnregisterListenerBool( ( ( DataTermDeviceBlackboardDef )( GetOwner().GetBlackboardDef() ) ).subwayGateOpen, m_onToggleHologramListener );
+		}
+	}
+
+	protected event OnToggleHologram( subwayGateOpen : Bool )
+	{
+		var deviceState : EDeviceStatus;
+		deviceState = GetDeviceState();
+		ResolveHologramState( subwayGateOpen, deviceState );
+	}
+
+	protected function ResolveHologramState( shouldBeOpen : Bool, deviceState : EDeviceStatus )
+	{
+		if( ( GameInstance.GetQuestsSystem( GetOwner().GetGame() ).GetFact( 'watson_prolog_lock' ) >= 1 ) || GetOwner().IsSubwayGateBroken() )
+		{
+			return;
+		}
+		if( deviceState != EDeviceStatus.ON )
+		{
+			if( shouldBeOpen )
+			{
+				PlayLibraryAnimation( 'gate_open_red' );
+			}
+			else
+			{
+				PlayLibraryAnimation( 'gate_open_red', CreateAnimPlaybackOverrideData() );
+			}
+		}
+		else
+		{
+			if( shouldBeOpen )
+			{
+				PlayLibraryAnimation( 'gate_open_green' );
+			}
+			else
+			{
+				PlayLibraryAnimation( 'gate_open_green', CreateAnimPlaybackOverrideData() );
+			}
+		}
+	}
+
+	protected function UpdateSubwayHologramDefaultState( deviceState : EDeviceStatus )
+	{
+		var ncartLock : Int32;
+		var animSetup : inkAnimOptions;
+		var random : Int32;
+		random = RandRange( 0, 4 );
+		ncartLock = GameInstance.GetQuestsSystem( GetOwner().GetGame() ).GetFact( 'watson_prolog_lock' );
+		if( ncartLock <= 0 )
+		{
+			if( !( GetOwner().IsSubwayGateBroken() ) )
+			{
+				switch( deviceState )
+				{
+					case EDeviceStatus.DISABLED:
+						PlayLibraryAnimation( 'show_red' );
+					break;
+					case EDeviceStatus.UNPOWERED:
+						PlayLibraryAnimation( 'show_red' );
+					break;
+					case EDeviceStatus.ON:
+						PlayLibraryAnimation( 'show_green' );
+					break;
+					case EDeviceStatus.OFF:
+						PlayLibraryAnimation( 'show_red' );
+					break;
+				}
+			}
+			else
+			{
+				animSetup.loopInfinite = true;
+				animSetup.loopType = inkanimLoopType.Cycle;
+				animSetup.dependsOnTimeDilation = true;
+				switch( random )
+				{
+					case 1:
+						PlayLibraryAnimation( 'pacifica1', animSetup );
+					break;
+					case 1:
+						PlayLibraryAnimation( 'pacifica2', animSetup );
+					break;
+					case 1:
+						PlayLibraryAnimation( 'pacifica3', animSetup );
+					break;
+				}
+			}
+		}
+		else
+		{
+			animSetup.loopInfinite = true;
+			animSetup.loopType = inkanimLoopType.Cycle;
+			animSetup.dependsOnTimeDilation = true;
+			PlayLibraryAnimation( 'show_blockade', animSetup );
+		}
+	}
+
+	private function CreateAnimPlaybackOverrideData() : inkAnimOptions
+	{
+		var playbackOptionsOverrideData : inkAnimOptions;
+		playbackOptionsOverrideData.playReversed = true;
+		playbackOptionsOverrideData.loopInfinite = false;
+		playbackOptionsOverrideData.loopType = inkanimLoopType.None;
+		return playbackOptionsOverrideData;
+	}
+
+	protected override function SetupWidgets()
+	{
+		if( !( m_isInitialized ) )
+		{
+			m_fcPointsPanel = ( ( inkHorizontalPanel )( GetWidget( 'safeArea\PointsButtonsPanel' ) ) );
+			m_districtText = ( ( inkText )( GetWidget( 'safeArea\district_name_holder\district_name' ) ) );
+			m_pointText = ( ( inkText )( GetWidget( 'safeArea\point_name_holder\point_name' ) ) );
+		}
+	}
+
+	public override function UpdateActionWidgets( const widgetsData : ref< array< SActionWidgetPackage > > )
+	{
+		var i : Int32;
+		var widget : inkWidget;
+		super.UpdateActionWidgets( widgetsData );
+		for( i = 0; i < widgetsData.Size(); i += 1 )
+		{
+			widget = GetActionWidget( widgetsData[ i ] );
+			if( widget == NULL )
+			{
+				CreateActionWidgetAsync( m_fcPointsPanel, widgetsData[ i ] );
+			}
+			else
+			{
+				InitializeActionWidget( widget, widgetsData[ i ] );
+			}
+		}
+	}
+
+	protected override function GetOwner() : DataTerm
+	{
+		return ( ( DataTerm )( GetOwnerEntity() ) );
+	}
+
+	private function GetIsSubwayGate() : Bool
+	{
+		return GetOwner().GetDevicePS().GetFastravelDeviceType() == EFastTravelDeviceType.SubwayGate;
+	}
+
+	private function GetFastTravelSystem() : FastTravelSystem
+	{
+		return ( ( FastTravelSystem )( GameInstance.GetScriptableSystemsContainer( GetOwner().GetGame() ).Get( 'FastTravelSystem' ) ) );
+	}
+
+	public override function Refresh( state : EDeviceStatus )
+	{
+		SetupWidgets();
+		super.Refresh( state );
+		switch( state )
+		{
+			case EDeviceStatus.ON:
+				TurnOn();
+			break;
+			case EDeviceStatus.OFF:
+				TurnOff();
+			break;
+			case EDeviceStatus.UNPOWERED:
+				TurnOff();
+			break;
+			case EDeviceStatus.DISABLED:
+				TurnOff();
+			break;
+			default:
+				break;
+		}
+		if( GetIsSubwayGate() )
+		{
+			UpdateSubwayHologramDefaultState( state );
+			m_rootWidget.SetVisible( true );
+		}
+	}
+
+	protected function TurnOn()
+	{
+		GetRootWidget().SetVisible( true );
+		RequestActionWidgetsUpdate();
+		if( m_point == NULL )
+		{
+			m_point = ( ( DataTerm )( GetOwner() ) ).GetFastravelPointData();
+		}
+		UpdatePointText();
+	}
+
+	protected function TurnOff()
+	{
+		if( !( GetIsSubwayGate() ) )
+		{
+			GetRootWidget().SetVisible( false );
+		}
+	}
+
+	protected event OnFastTravelPointUpdate( value : Variant )
+	{
+		var point : FastTravelPointData;
+		point = ( ( FastTravelPointData )value );
+		m_point = point;
+		UpdatePointText();
+	}
+
+	private function UpdatePointText()
+	{
+		var pointName : String;
+		var districtName : String;
+		if( !( GetFastTravelSystem().IsFastTravelEnabled() ) )
+		{
+			pointName = "LocKey#20482";
+		}
+		else
+		{
+			if( m_point != NULL )
+			{
+				pointName = m_point.GetPointDisplayName();
+			}
+		}
+		if( m_point != NULL )
+		{
+			districtName = m_point.GetDistrictDisplayName();
+		}
+		m_districtText.SetLocalizedTextScript( districtName );
+		m_pointText.SetLocalizedTextScript( pointName );
+	}
+
+	protected event OnActionWidgetSpawned( widget : inkWidget, userData : IScriptable )
+	{
+		widget.SetInteractive( true );
+		super.OnActionWidgetSpawned( widget, userData );
+	}
+
+}
+

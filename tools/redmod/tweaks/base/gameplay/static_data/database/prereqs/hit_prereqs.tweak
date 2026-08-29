@@ -1,0 +1,76 @@
+package Prereqs
+using RTDB
+
+HitTriggeredPrereq : HitPrereq
+{
+	prereqClassName = "HitTriggeredPrereq";
+	bool isSynchronous = true;
+	string callbackType = "HitTriggered";
+	string pipelineType = "Damage";
+	bool processMiss = false;
+}
+
+PreProcessHitTriggered : HitTriggeredPrereq
+{
+	string pipelineStage = "PreProcess";
+}
+
+ProcessHitTriggered : HitTriggeredPrereq
+{
+	string pipelineStage = "Process";
+}
+
+ProcessHitTriggeredAllowProjection : ProcessHitTriggered
+{
+	string pipelineType = "All";
+}
+
+ProcessHitReactionHitTriggered : HitTriggeredPrereq
+{
+	string pipelineStage = "ProcessHitReaction";
+}
+
+PostProcessHitTriggered : HitTriggeredPrereq
+{
+	string pipelineStage = "PostProcess";
+}
+
+HitOrMissTriggeredPrereq : HitTriggeredPrereq
+{
+	prereqClassName = "HitOrMissTriggeredPrereq";
+	processMiss = true;
+}
+
+HitReceivedPrereq : HitPrereq
+{
+	prereqClassName = "HitReceivedPrereq";
+	bool isSynchronous = true;
+	string callbackType = "HitReceived";
+	string pipelineType = "Damage";
+}
+
+PreProcessHitReceived : HitReceivedPrereq
+{
+	string pipelineStage = "PreProcess";
+}
+
+ProcessHitReceived : HitReceivedPrereq
+{
+	string pipelineStage = "Process";
+}
+
+ProcessHitReceivedAllowProjection : ProcessHitReceived
+{
+	string pipelineType = "All";
+}
+
+ProcessHitReactionHitReceived : HitReceivedPrereq
+{
+	string pipelineStage = "Process";
+}
+
+PostProcessHitReceived : HitReceivedPrereq
+{
+	string pipelineStage = "PostProcess";
+}
+

@@ -1,0 +1,789 @@
+package Items
+using RTDB
+
+FabricEnhancerCurve : CurveStatModifier
+{
+	modifierType = "Additive";
+	id = "fabric_enhancers";
+	refStat = "BaseStats.PowerLevel";
+}
+
+PartArmorToItemArmor : CombinedStatModifier
+{
+	statType = "BaseStats.ItemArmor";
+	modifierType = "Additive";
+	refStat = "BaseStats.PartArmor";
+	opSymbol = "*";
+	value = 1.0f;
+}
+
+ItemArmorToArmor : CombinedStatModifier
+{
+	statType = "BaseStats.Armor";
+	modifierType = "Additive";
+	refStat = "BaseStats.ItemArmor";
+	opSymbol = "*";
+	value = 1.0f;
+}
+
+[ notQueryable ]
+FabricEnhancer : Part
+{
+	buyPrice += 
+	[
+		"Price.FabricEnhancer"
+	];
+	sellPrice += 
+	[
+		"Price.FabricEnhancer"
+	];
+	tags += 
+	[
+		"FabricEnhancer"
+	];
+	displayName = "LocKey#3740";
+	quality = "Quality.Random";
+	qualityRestrictedByParent = true;
+	powerLevelDeterminedByParent = true;
+	fk< StatModifier >[] statModifiers = [];
+	statModifierGroups += 
+	[
+		"Items.QualityRandomization"
+	];
+	fk< CraftingPackage > CraftingData = "Items.RandomFabricEnhancerCraftingData";
+	iconPath = "material_generic";
+}
+
+[ notQueryable ]
+GenericFabricEnhancer : FabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_FabricEnhancer";
+	placementSlots = 
+	[
+		"AttachmentSlots.HeadFabricEnhancer1", "AttachmentSlots.FaceFabricEnhancer1", "AttachmentSlots.InnerChestFabricEnhancer1", "AttachmentSlots.InnerChestFabricEnhancer2", "AttachmentSlots.OuterChestFabricEnhancer1", "AttachmentSlots.OuterChestFabricEnhancer2", "AttachmentSlots.LegsFabricEnhancer1", "AttachmentSlots.LegsFabricEnhancer2", "AttachmentSlots.FootFabricEnhancer1"
+	];
+}
+
+[ notQueryable ]
+InnerAndOuterChestFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_TorsoFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.InnerChestClothing"
+	];
+	sellPrice += 
+	[
+		"Price.InnerChestClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.InnerChestFabricEnhancer1", "AttachmentSlots.InnerChestFabricEnhancer2", "AttachmentSlots.OuterChestFabricEnhancer1", "AttachmentSlots.OuterChestFabricEnhancer2"
+	];
+}
+
+[ notQueryable ]
+HeadFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_HeadFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.FaceClothing"
+	];
+	sellPrice += 
+	[
+		"Price.FaceClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.HeadFabricEnhancer1"
+	];
+}
+
+[ notQueryable ]
+FaceFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_FaceFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.FaceClothing"
+	];
+	sellPrice += 
+	[
+		"Price.FaceClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.FaceFabricEnhancer1"
+	];
+}
+
+[ notQueryable ]
+OuterChestFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_OuterTorsoFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.InnerChestClothing"
+	];
+	sellPrice += 
+	[
+		"Price.InnerChestClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.OuterChestFabricEnhancer1", "AttachmentSlots.OuterChestFabricEnhancer2"
+	];
+}
+
+[ notQueryable ]
+PantsFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_PantsFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.LegClothing"
+	];
+	sellPrice += 
+	[
+		"Price.LegClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.LegsFabricEnhancer1", "AttachmentSlots.LegsFabricEnhancer2"
+	];
+}
+
+[ notQueryable ]
+BootsFabricEnhancer : GenericFabricEnhancer
+{
+	fk< ItemType > itemType = "ItemType.Prt_BootsFabricEnhancer";
+	buyPrice += 
+	[
+		"Price.LegClothing"
+	];
+	sellPrice += 
+	[
+		"Price.LegClothing"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.FootFabricEnhancer1"
+	];
+}
+
+[ notQueryable ]
+DeprecatedFabricEnhancerBase : FabricEnhancer
+{
+	placementSlots = [];
+	tags += 
+	[
+		"DeprecatedFabricEnhancer", "HideInUI", "HideAtVendor", "DummyPart"
+	];
+	canDrop = false;
+}
+
+[ notQueryable ]
+DummyFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyFabricEnhancerBase : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyHeadFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyFaceFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyTorsoFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyPantsFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+DummyBootsFabricEnhancer : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer01 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer02 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer03 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer04 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer05 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer06 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer07 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer09 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer10 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer11 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer12 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer13 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer14 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer01 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer02 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer03 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer04 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer05 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer06 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer07 : DeprecatedFabricEnhancerBase
+{
+}
+
+[ notQueryable ]
+PowerfulFabricEnhancer08 : DeprecatedFabricEnhancerBase
+{
+}
+
+RandomFabricEnhancerCraftingData : CraftingPackage
+{
+	fk< RecipeElement >[] craftingRecipe += 
+	[
+		{
+			ingredient = "Items.CommonMaterial1";
+			amount = 12;
+		}
+	];
+}
+
+EpicFabricEnhancerCraftingData : CraftingPackage
+{
+	fk< RecipeElement >[] craftingRecipe += 
+	[
+		{
+			ingredient = "Items.RareMaterial1";
+			amount = 8;
+		}, 
+		{
+			ingredient = "Items.EpicMaterial1";
+			amount = 4;
+		}
+	];
+}
+
+LegendaryFabricEnhancerCraftingData : CraftingPackage
+{
+	fk< RecipeElement >[] craftingRecipe += 
+	[
+		{
+			ingredient = "Items.EpicMaterial1";
+			amount = 6;
+		}, 
+		{
+			ingredient = "Items.LegendaryMaterial1";
+			amount = 2;
+		}
+	];
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer01Rare : SimpleFabricEnhancer01
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer02Rare : SimpleFabricEnhancer02
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer05Rare : SimpleFabricEnhancer05
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer06Rare : SimpleFabricEnhancer06
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer07Rare : SimpleFabricEnhancer07
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer09Rare : SimpleFabricEnhancer09
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleFabricEnhancer10Rare : SimpleFabricEnhancer10
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancerBase : GenericFabricEnhancer
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"DummyPart", "HideInUI", "HideAtVendor"
+	];
+	buyPrice = 
+	[
+		"Price.IntrinsicFabricEnhancer"
+	];
+	sellPrice = [];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Quality";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			refObject = "Root";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer01 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PartArmor";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PartArmor";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5f;
+		} : CombinedStatModifier, 
+		"Items.PartArmorToItemArmor"
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer02 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalResistance";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalResistance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer03 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricResistance";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricResistance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer04 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MitigationChance";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MitigationChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer05 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			value = -0.03f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer06 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.VendorBuyPriceDiscount";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VendorBuyPriceDiscount";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.VendorSellPriceDiscount";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VendorSellPriceDiscount";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer07a : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.IntrinsicZoomLevelBonus";
+			modifierType = "Additive";
+			value = 0.07f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IntrinsicZoomLevelBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.02f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer08 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.IntrinsicReloadTimeBonus";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IntrinsicReloadTimeBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer09 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.DamageReductionMelee";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReductionMelee";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer10 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.IntrinsicQuickHackUploadBonus";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IntrinsicQuickHackUploadBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 1.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.UploadQuickHackMod";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.IntrinsicQuickHackUploadBonus";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer11 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.DamageReductionQuickhacks";
+			modifierType = "Additive";
+			value = 7f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReductionQuickhacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer12 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ChemicalResistance";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalResistance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer13 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.CarryCapacity";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CarryCapacity";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer14 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HealingItemsChargesRegenRate";
+			modifierType = "Additive";
+			value = 0.0001;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenRate";
+			modifierType = "Additive";
+			id = "item_fabric_enhancers";
+			column = "ife14_quality_to_healing_recharge";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer15 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.GrenadesChargesRegenRate";
+			modifierType = "Additive";
+			value = 0.02;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer16 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.EnemyQuickHackUploadDurationBonus";
+			modifierType = "Additive";
+			id = "item_fabric_enhancers";
+			column = "ife16_quality_to_enemy_hack_upload";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+}
+
+[ notQueryable ]
+IntrinsicFabricEnhancer17 : IntrinsicFabricEnhancerBase
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.DamageReductionExplosion";
+			modifierType = "Additive";
+			value = 0.02f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReductionExplosion";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+}
+

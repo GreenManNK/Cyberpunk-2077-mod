@@ -1,0 +1,916 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+Preset_Kenshin_Default : Base_Kenshin
+{
+	CName appearanceResourceName = "Preset_Kenshin_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}, 
+		"Items.HandgunAndRevolverScopesPartList", {
+			slot = "AttachmentSlots.Tech_Handgun_WeaponMod1";
+		} : Tech_Handgun_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Tech_Handgun_WeaponMod2";
+		} : Tech_Handgun_ModList_Slot2
+	];
+}
+
+Preset_Kenshin_Pimp : Preset_Kenshin_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Kenshin_Neon : Preset_Kenshin_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Kenshin_Military : Preset_Kenshin_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Military_Unbreakable : Preset_Kenshin_Military
+{
+	tags += 
+	[
+		"Unbreakable"
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Default_Left_Hand : Preset_Kenshin_Default
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Left_Hand", "HideInUI", "HideAtVendor", "DiscardOnEmpty", "IgnoreInventory"
+	];
+	statModifiers += 
+	[
+		"Quality.BrokenItem", {
+			statType = "BaseStats.Weight";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.NumShotsToFire";
+			modifierType = "Additive";
+			refStat = "BaseStats.MagazineCapacity";
+			opSymbol = "*";
+			value = 1.0f;
+		} : CombinedStatModifier
+	];
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+			"Items.Base_Kenshin_NPC_Technical_Stats"
+		];
+	} : Broken_Tech_Handgun_NPC_Data;
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				{
+					itemsToAdd = 
+					[
+						{
+							item = "Items.Preset_Kenshin_Default_Retrofix";
+						}
+					];
+				} : AddItemsEffector
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Pimp_Left_Hand : Preset_Kenshin_Default_Left_Hand
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				{
+					itemsToAdd = 
+					[
+						{
+							item = "Items.Preset_Kenshin_Pimp_Retrofix";
+						}
+					];
+				} : AddItemsEffector
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Neon_Left_Hand : Preset_Kenshin_Default_Left_Hand
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				{
+					itemsToAdd = 
+					[
+						{
+							item = "Items.Preset_Kenshin_Neon_Retrofix";
+						}
+					];
+				} : AddItemsEffector
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Military_Left_Hand : Preset_Kenshin_Default_Left_Hand
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				{
+					itemsToAdd = 
+					[
+						{
+							item = "Items.Preset_Kenshin_Military_Retrofix";
+						}
+					];
+				} : AddItemsEffector
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Default_Retrofix : Preset_Kenshin_Default
+{
+	fk< ItemBlueprint > blueprint = "Items.Retrofix_Firearm_NoMuzzle_Blueprint";
+	tags += 
+	[
+		"SkipActivityLog", "Left_Hand_Retrofix"
+	];
+	bool scaleToPlayer = true;
+	bool scaleToPlayerInStash = true;
+	statModifiers += 
+	[
+		"Character.ScaleToPlayerLevel"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Pimp_Retrofix : Preset_Kenshin_Default_Retrofix
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Neon_Retrofix : Preset_Kenshin_Default_Retrofix
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Military_Retrofix : Preset_Kenshin_Default_Retrofix
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Kenshin : Preset_Kenshin_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}
+	];
+	CraftingData = "Items.Small_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Kenshin : Craftable_Common_Kenshin
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Small_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Kenshin : Craftable_Uncommon_Kenshin
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Small_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Kenshin : Craftable_Uncommon_Kenshin
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Small_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Kenshin : Craftable_Uncommon_Kenshin
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Small_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Kenshin_MQ041 : Base_Kenshin
+{
+	CName appearanceResourceName = "Preset_Kenshin_MQ041";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Takemura : Preset_Kenshin_Default
+{
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ReloadTimeBonus";
+			modifierType = "Additive";
+			value = -0.2f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Frank : Preset_Kenshin_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "kenshin_frank_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoMuzzle_Blueprint";
+	displayName = "LocKey#40540";
+	visualTags = 
+	[
+		"Frank_Kenshin"
+	];
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	quality = "Quality.Random";
+	localizedDescription = "LocKey#40543";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Kenshin_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.FrankWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Kenshin_Technical_Stats", "Items.Base_Kenshin_Handling_Stats", "Items.Base_Kenshin_Recoil_Stats", "Items.Base_Kenshin_Spread_Stats", "Items.Base_Kenshin_Aim_Stats", "Items.Base_Kenshin_Constant_Stats", "Items.Base_Kenshin_Damage_Stats", "Items.Base_Tech_Stats", "Items.Base_Tech_Handgun_Mult_Stats", "Items.Base_Handgun_RPG_Stats", "Items.Base_Handgun_Misc_Stats", "Items.Base_Handgun_Sway_Stats", "Items.Base_Handgun_DeadReckoning_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Physical"
+	];
+}
+
+[ notQueryable ]
+Preset_Kenshin_Royce : Preset_Kenshin_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "kenshin_royce_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoMuzzle_Blueprint";
+	displayName = "LocKey#40546";
+	visualTags = 
+	[
+		"Royce_Kenshin"
+	];
+	CName audioName = "wea_set_kenshin_chaos";
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	localizedDescription = "LocKey#40548";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.RoyceWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Kenshin_Technical_Stats", "Items.Base_Kenshin_Handling_Stats", "Items.Base_Kenshin_Recoil_Stats", "Items.Base_Kenshin_Spread_Stats", "Items.Base_Kenshin_Aim_Stats", "Items.Base_Kenshin_Constant_Stats", "Items.Base_Kenshin_Damage_Stats", "Items.Base_Tech_Stats", "Items.Base_Tech_Handgun_Mult_Stats", "Items.Base_Handgun_RPG_Stats", "Items.Base_Handgun_Misc_Stats", "Items.Base_Handgun_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Handgun_DeadReckoning_Stats", "Items.Base_Weapon_Status_Effect_Application_Stats", "Items.Base_Weapon_Damage_Type_Min_Max"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem", {
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 0.7f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Kenshin_NPC_Data;
+}
+
+ChaosThermal : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 0.7f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+}
+
+ChaosElectric : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 0.7f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+}
+
+ChaosChemical : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			refObject = "Self";
+			opSymbol = "*";
+			value = 0.7f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+}
+
+ChaosPhysical : StatModifierGroup
+{
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Kenshin_Spy : Preset_Kenshin_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "kenshin_spy_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoMuzzle_Blueprint";
+	displayName = "LocKey#87362";
+	[ EP1 ]
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Kenshin_Spy";
+	localizedDescription = "LocKey#87374";
+	CName[] visualTags = 
+	[
+		"Spy_Kenshin"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Kenshin_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_handgun__arasaka_kenshin__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.Scope";
+			fk< Item > itemPartPreset = "Items.KenshinSpy_scope";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.KenshinSpyWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Kenshin_Spy_Technical_Stats", "Items.Base_Kenshin_Handling_Stats", "Items.Base_Kenshin_Recoil_Stats", "Items.Base_Kenshin_Spread_Stats", "Items.Base_Kenshin_Aim_Stats", "Items.Base_Kenshin_Spy_Constant_Stats", "Items.Base_Kenshin_Damage_Stats", "Items.Base_Tech_Stats", "Items.Base_Tech_Handgun_Mult_Stats", "Items.Base_Handgun_RPG_Stats", "Items.Base_Handgun_Misc_Stats", "Items.Base_Handgun_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Electric"
+	];
+}
+
+Base_Kenshin_Spy_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.2f;
+		} : CycleTimeModifier, 
+		{
+			value = 0.1f;
+		} : CycleTime_BurstModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstModifier, 
+		{
+			value = 0.1f;
+		} : CycleTime_BurstSecondaryModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstSecondaryModifier, 
+		{
+			value = 20.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier", {
+			value = 0.1f;
+		} : CycleTime_BurstMaxChargeModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstMaxChargeModifier, 
+		{
+			value = 0.0f;
+		} : ChargeMaxTimeInChargedStateModifier, 
+		{
+			value = 0.9f;
+		} : ChargeReadyPercentageModifier, 
+		{
+			value = 1.0f;
+		} : ChargeTimeModifier, 
+		{
+			value = 100.f;
+		} : ChargeModifier, 
+		{
+			statType = "BaseStats.TechPierceEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			value = 0.9f;
+		} : TechPierceChargeLevelModifier
+	];
+}
+
+Base_Kenshin_Spy_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 0.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 0.125f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 2.64f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 0.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 0.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechPierceDamageFactor";
+			modifierType = "Additive";
+			value = -0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechPierceScanAngle";
+			modifierType = "Additive";
+			value = 15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChargeMultiplier";
+			modifierType = "Additive";
+			value = 0.08f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 1.515f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			value = 0.05f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.025f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+KenshinSpy_scope : Base_Short_Scope
+{
+	quality = "Quality.Common";
+	iconPath = "grandstand_default";
+	tags += 
+	[
+		"DummyPart", "HideInUI", "HideAtVendor"
+	];
+	buyPrice += 
+	[
+		"Price.TopManufactureQuality"
+	];
+	sellPrice += 
+	[
+		"Price.TopManufactureQuality"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quality";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			refObject = "Root";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+

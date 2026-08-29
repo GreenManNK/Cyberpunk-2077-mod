@@ -1,0 +1,44 @@
+class MenuScenario_ArcadeMinigame extends MenuScenario_BaseMenu
+{
+
+	protected event OnEnterScenario( prevScenario : CName, userData : IScriptable )
+	{
+		var minigameUserData : ArcadeMinigameUserData;
+		minigameUserData = ( ( ArcadeMinigameUserData )( userData ) );
+		SwitchMenu( minigameUserData.GetMinigameName() );
+	}
+
+	protected event OnBack() {}
+
+	protected event OnCloseHubMenuRequest() {}
+
+	protected event OnArcadeMinigameEnd()
+	{
+		GotoIdleState();
+	}
+
+}
+
+class ArcadeMinigameUserData extends inkUserData
+{
+	var m_minigame : ArcadeMinigame;
+
+	public const function GetMinigameName() : CName
+	{
+		switch( m_minigame )
+		{
+			case ArcadeMinigame.RoachRace:
+				return 'roach_race';
+			case ArcadeMinigame.Shooter:
+				return 'shooter';
+			case ArcadeMinigame.Tank:
+			case ArcadeMinigame.Retros:
+			case ArcadeMinigame.Quadracer:
+			case ArcadeMinigame.INVALID:
+				return '';
+		}
+		return '';
+	}
+
+}
+

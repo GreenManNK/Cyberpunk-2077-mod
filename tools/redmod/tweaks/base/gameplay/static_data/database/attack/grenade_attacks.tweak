@@ -1,0 +1,194 @@
+package Attacks
+using RTDB, AttackModifier
+
+ReconGrenade : BaseExplosion
+{
+	attackType = "AttackType.Effect";
+	effectName = "recon";
+	effectTag = "recon_grenade";
+}
+
+ReconGrenadeXRay : BaseExplosion
+{
+	attackType = "AttackType.Effect";
+	effectName = "recon";
+	effectTag = "recon_grenade_xray";
+}
+
+UncommonReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackUncommon";
+			applyImmediately = true;
+		}
+	];
+}
+
+UncommonPlusReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackUncommonPlus";
+			applyImmediately = true;
+		}
+	];
+}
+
+RareReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackRare";
+			applyImmediately = true;
+		}
+	];
+}
+
+RarePlusReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackRarePlus";
+			applyImmediately = true;
+		}
+	];
+}
+
+EpicReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackEpic";
+			applyImmediately = true;
+		}
+	];
+}
+
+EpicPlusReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackEpicPlus";
+			applyImmediately = true;
+		}
+	];
+}
+
+LegendaryReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackLegendary";
+			applyImmediately = true;
+		}
+	];
+}
+
+LegendaryPlusReconXRay : ReconGrenadeXRay
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.ReconGrenadeAttackLegendaryPlus";
+			applyImmediately = true;
+		}
+	];
+}
+
+ReconGrenadeBeams : BaseExplosion
+{
+	attackType = "AttackType.Effect";
+	effectName = "recon";
+	effectTag = "recon_grenade_beam";
+}
+
+ReconGrenadeHack : ReconGrenade
+{
+	hitFlags += 
+	[
+		"FriendlyFire", "GrenadeQuickhackExplosion"
+	];
+}
+
+CuttingGrenade : BaseExplosion
+{
+	attackType = "AttackType.Direct";
+	effectName = "cutting";
+	effectTag = "cutting_grenade_beam";
+	statModifiers = 
+	[
+		{
+			refObject = "Parent";
+		} : PhysicalAlliedDamage
+	];
+	statusEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.CuttingGrenadeAttack";
+			applyImmediately = true;
+		}
+	];
+}
+
+CuttingGrenadeAdditional : BaseExplosion
+{
+	attackType = "AttackType.Direct";
+	effectTag = "incendiary_explosion";
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 2;
+	statModifiers = 
+	[
+		{
+			refObject = "Parent";
+		} : PhysicalAlliedDamage
+	];
+}
+
+CuttingGrenadeLegendaryPlus : CuttingGrenade
+{
+	statusEffects += 
+	[
+		{
+			statusEffect = "BaseStatusEffect.CuttingGrenadeAttackPlus";
+			applyImmediately = true;
+		}
+	];
+}
+
+CuttingGrenadeHack : CuttingGrenade
+{
+	hitFlags += 
+	[
+		"FriendlyFire", "GrenadeQuickhackExplosion"
+	];
+}
+
+LethalCuttingGrenade : BaseExplosion
+{
+	attackType = "AttackType.Effect";
+	effectName = "cutting";
+	effectTag = "cutting_grenade_beam";
+	float hitCooldown = 0.8f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			refObject = "Parent";
+		} : PhysicalAlliedDamage
+	];
+}
+
+MuteGrenade : BaseExplosion
+{
+	attackType = "AttackType.Effect";
+	effectName = "mute";
+	effectTag = "mute_grenade";
+}
+

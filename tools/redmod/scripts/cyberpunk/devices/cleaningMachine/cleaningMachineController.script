@@ -1,0 +1,25 @@
+class CleaningMachineController extends BasicDistractionDeviceController
+{
+
+	public const override function GetPS() : CleaningMachineControllerPS
+	{
+		return ( ( CleaningMachineControllerPS )( GetBasePS() ) );
+	}
+
+}
+
+class CleaningMachineControllerPS extends BasicDistractionDeviceControllerPS
+{
+	default m_deviceName = "LocKey#2033";
+	default m_tweakDBRecord = T"Devices.CleaningMachine";
+	default m_tweakDBDescriptionRecord = T"device_descriptions.CleaningMachine";
+	protected instanceeditable inlined var m_cleaningMachineSkillChecks : EngDemoContainer;
+
+	protected override function GetSkillCheckContainerForSetup() : BaseSkillCheckContainer
+	{
+		return m_cleaningMachineSkillChecks;
+	}
+
+	protected override function GameAttached() {}
+}
+

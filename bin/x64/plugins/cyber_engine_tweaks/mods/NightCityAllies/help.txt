@@ -1,0 +1,22 @@
+﻿>
+> - Night City Allies CET Commands -
+>      NCA = GetMod("NightCityAllies")
+>
+>    Cheats
+>      NCA:Spawn():Reroll()
+>      NCA:Cheat("UNLOCKALL")
+>      NCA:Cheat("UNLOCK Character.Jackie")
+>      NCA:Cheat("UNLOCK Character.Panam")
+>
+>
+>    Debug
+>      NCA:Persistence():Dump()
+>      NCA:Location():Dump()
+>      NCA:UnlockConversation("convo_name")
+>      NCA:Reset()
+>      NCA:PrintLookAtChar()
+>      NCA:ForceSpawnCharacter("Character.Alt")
+>
+>    Show Help
+>      NCA:Help()
+>

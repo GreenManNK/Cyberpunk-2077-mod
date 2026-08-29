@@ -1,0 +1,81 @@
+package RTDB
+
+Layout
+{
+	CName enumName = "";
+	ResRef libraryPath = "";
+}
+
+ComputerUIStyle
+{
+	CName enumName = "";
+	string enumComment = "";
+}
+
+DeviceScreenType
+{
+	ResRef libraryPath = "";
+	fk< WidgetRatio > ratio = "";
+	fk< WidgetRatio > contentRatio = "";
+}
+
+ComputerScreenType : DeviceScreenType
+{
+}
+
+TerminalScreenType : DeviceScreenType
+{
+}
+
+DeviceUIDefinition
+{
+	fk< ComputerScreenType > computerScreenType = "";
+	fk< TerminalScreenType > terminalScreenType = "";
+}
+
+ComputerStyleUIDefinition
+{
+	fk< WidgetDefinition > fileThumbnailWidget = "";
+	fk< WidgetDefinition > fileWidget = "";
+	fk< WidgetDefinition > mailThumbnailWidget = "";
+	fk< WidgetDefinition > mailWidget = "";
+	fk< WidgetDefinition > bannerWidget = "";
+	fk< WidgetDefinition > menuButtonWidget = "";
+	fk< WidgetDefinition > mainMenuButtonWidget = "";
+	fk< WidgetDefinition > keypadWidget = "";
+}
+
+WidgetDefinition
+{
+	ResRef libraryPath = "";
+	string libraryID = "";
+	bool useContentRatio = false;
+	fk< WidgetStyle >[] styles = [];
+	fk< WidgetRatio >[] ratios = [];
+}
+
+ActionWidgetDefinition : WidgetDefinition
+{
+	useContentRatio = true;
+}
+
+DeviceWidgetDefinition : WidgetDefinition
+{
+	useContentRatio = true;
+}
+
+ThumbnailWidgetDefinition : WidgetDefinition
+{
+	useContentRatio = true;
+}
+
+WidgetStyle
+{
+	string enumName = "";
+}
+
+WidgetRatio
+{
+	string enumName = "";
+}
+

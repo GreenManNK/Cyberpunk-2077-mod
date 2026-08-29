@@ -1,0 +1,335 @@
+package BaseStatusEffect
+using RTDB, Effectors, Prereqs, Perks, Items
+
+Sandevistan : BuffStatusEffect
+{
+	statusEffectType = "BaseStatusEffectTypes.Sandevistan";
+	bool replicated = true;
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 99;
+			} : ConstantStatModifier
+		];
+	};
+	bool isAffectedByTimeDilationPlayer = true;
+	packages = 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"Sandevistan"
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+SandevistanBuff : Sandevistan
+{
+	removeOnStoryTier = true;
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = -1;
+			} : ConstantStatModifier
+		];
+	};
+	VFX = 
+	[
+		{
+			name = "eye_glow_gold";
+		}
+	];
+	AIData = 
+	{
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				"BaseStatusEffect.DeactivateMaskedStatusEffects", {
+					prereqRecord = 
+					{
+					} : Prereqs.AnyTakedownOrKill;
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.SandevistanCharge";
+							statPoolValue = 100;
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+SandevistanBuffHumanoidRanged : Sandevistan
+{
+	removeOnStoryTier = true;
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = -1.f;
+			} : ConstantStatModifier
+		];
+	};
+	VFX = 
+	[
+		{
+			name = "eye_glow_gold";
+		}
+	];
+	AIData = 
+	{
+	};
+}
+
+DeactivateMaskedStatusEffects : Effector
+{
+	prereqRecord = "Prereqs.IncapacitatedPrereq";
+	effectorClassName = "RemoveStatusEffectsEffector";
+	string[] statusEffects = 
+	[
+		"BaseStatusEffect.SandevistanBuff"
+	];
+}
+
+SandevistanPlayerBuff : TimeDilationStatusEffect
+{
+	gameplayTags += 
+	[
+		"CyberwareBuff", "SandevistanPlayerBuff", "PreventFuryVFX"
+	];
+	statusEffectType = "BaseStatusEffectTypes.Sandevistan";
+	isAffectedByTimeDilationNPC = false;
+	isAffectedByTimeDilationPlayer = false;
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refObject = "Player";
+				refStat = "BaseStats.TimeDilationSandevistanDuration";
+				opSymbol = "*";
+				value = 1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareBuffDuration;
+	packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.SandevistanChargesRegenEnabled";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.PlayerSandevistanChargesDecayEnabled";
+					modifierType = "Additive";
+					value = 1;
+				} : ConstantStatModifier
+			];
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								statType = "ReflexesSkill";
+								valueToCheck = 60;
+								comparisonType = "GreaterOrEqual";
+							} : StatPrereq, 
+							"Prereqs.AnyWeaponHeldPrereq"
+						];
+					} : ANDPrereq;
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 40f;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupOnWeapon, 
+				{
+					prereqRecord = 
+					{
+						statType = "ReflexesSkill";
+						valueToCheck = 60;
+						comparisonType = "GreaterOrEqual";
+					} : StatPrereq;
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.DodgeStaminaCostReduction";
+								modifierType = "Additive";
+								value = 2f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.CrouchSprintStaminaCostReduction";
+								modifierType = "Additive";
+								value = 2f;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupOnPlayer, 
+				{
+					prereqRecord = 
+					{
+					} : Prereqs.AnyTakedownOrKill;
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.SandevistanCharge";
+							statModifiers = 
+							[
+								{
+									statType = "BaseStats.SandevistanKillRechargeValue";
+									modifierType = "Additive";
+									refStat = "BaseStats.SandevistanKillRechargeValue";
+									opSymbol = "*";
+									value = 1.f;
+								} : CombinedStatModifier
+							];
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+CooldownedSandevistanPlayerBuff : SandevistanPlayerBuff
+{
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.SandevistanCooldown";
+					inverted = true;
+					removeWithEffector = false;
+				} : ApplyStatusEffectEffector
+			];
+		}
+	];
+}
+
+SandevistanVersusSandevistanDelayBase : StatusEffect
+{
+	gameplayTags = 
+	[
+		"SandevistanVersusSandevistanDelay"
+	];
+	isAffectedByTimeDilationPlayer = false;
+	isAffectedByTimeDilationNPC = false;
+}
+
+SandevistanVersusSandevistanDelayEasy : SandevistanVersusSandevistanDelayBase
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 4.f;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SandevistanVersusSandevistanDelayNormal : SandevistanVersusSandevistanDelayBase
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2.5f;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SandevistanVersusSandevistanDelayHard : SandevistanVersusSandevistanDelayBase
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1.5f;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SandevistanVersusSandevistanDelayVeryHard : SandevistanVersusSandevistanDelayBase
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1.f;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SandevistanVersusSandevistanDelayHelper : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = -1.f;
+			} : ConstantStatModifier
+		];
+	};
+}
+

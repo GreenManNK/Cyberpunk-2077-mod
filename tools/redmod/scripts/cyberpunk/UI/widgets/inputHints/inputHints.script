@@ -1,0 +1,97 @@
+import struct InputHintGroupData
+{
+	import editable var iconReference : TweakDBID;
+	import editable var localizedTitle : String;
+	import editable var localizedDescription : String;
+	import editable var sortingPriority : Int32;
+}
+
+import struct InputHintData
+{
+	import editable var action : CName;
+	import editable var source : CName;
+	import editable var groupId : CName;
+	import editable var localizedLabel : String;
+	import editable var queuePriority : Int32;
+	import editable var sortingPriority : Int32;
+	import editable var tutorialAction : CName;
+	import editable var tutorialActionCount : Int32;
+	import editable var holdIndicationType : inkInputHintHoldIndicationType;
+	import editable var inputHintKeyCombinationType : inkInputHintKeyCombinationType;
+	import editable var enableHoldAnimation : Bool;
+}
+
+import class UpdateInputHintEvent extends Event
+{
+	import editable var data : InputHintData;
+	import editable var show : Bool;
+	import editable var targetHintContainer : CName;
+}
+
+import class UpdateInputHintMultipleEvent extends Event
+{
+	import editable var targetHintContainer : CName;
+
+	public import function AddInputHint( data : InputHintData, show : Bool );
+}
+
+import class RefreshInputHintEvent extends Event
+{
+}
+
+import class LogTutorialHintActionEvent extends Event
+{
+	import editable var actionName : CName;
+}
+
+import class AddInputGroupEvent extends Event
+{
+	import editable var data : InputHintGroupData;
+	import editable var groupId : CName;
+	import editable var targetHintContainer : CName;
+}
+
+import class DeleteInputGroupEvent extends Event
+{
+	import editable var groupId : CName;
+	import editable var targetHintContainer : CName;
+}
+
+import class DeleteInputHintBySourceEvent extends Event
+{
+	import editable var source : CName;
+	import editable var targetHintContainer : CName;
+}
+
+import enum inkInputHintKeyCombinationType
+{
+	Or,
+	And,
+}
+
+import enum gameuiInputHintSortingPriority
+{
+	Top,
+	Bottom,
+	Invalid,
+}
+
+import class InputHintManagerGameController extends inkGameController
+{
+	import editable var hintContainerId : CName;
+}
+
+function SendInputHintData( context : GameInstance, show : Bool, const data : ref< InputHintData >, optional targetHintContainer : CName )
+{
+	var evt : UpdateInputHintEvent;
+	evt = new UpdateInputHintEvent;
+	evt.data = data;
+	evt.show = show;
+	if( IsNameValid( targetHintContainer ) )
+	{
+		evt.targetHintContainer = targetHintContainer;
+	}
+	evt.targetHintContainer = 'GameplayInputHelper';
+	GameInstance.GetUISystem( context ).QueueEvent( evt );
+}
+

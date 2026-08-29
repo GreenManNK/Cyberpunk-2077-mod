@@ -1,0 +1,526 @@
+package BaseStatusEffect
+using RTDB, Effectors, Perks, Prereqs
+
+QuickHackTutorialReset : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.03f;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Memory";
+							statPoolValue = 1000;
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector, 
+				"BaseStatusEffect.RemoveAllQuickHackCooldownsEffector"
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+StaminaResetTutorial : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 0.05f;
+			} : ConstantStatModifier
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Stamina";
+							statPoolValue = 10000;
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+GunslingerProficiencyTutorial : StatusEffect
+{
+	duration = "BaseStats.InfiniteDuration";
+	packages = 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.Recoil";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Spread";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier
+						];
+					} : StatModifierGroup;
+				} : Perks.ApplyStatGroupOnWeapon
+			];
+		}
+	];
+}
+
+HackingTutorialStage01PingUsed : StatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+TargetOfICEBreakerTutorial : StatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+SuccessfullICEBreakerTutorial : StatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+TargetOfGrenadeDetonationTutorial : StatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 5;
+			} : ConstantStatModifier
+		];
+	};
+}
+
+BlockSkillProgressionTutorial : StatusEffect
+{
+	duration = "BaseStats.InfiniteDuration";
+	packages = 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.StreetCred";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Gunslinger";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Assault";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Demolition";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Engineering";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Hacking";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.CombatHacking";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Kenjutsu";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Brawling";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Athletics";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.ColdBlood";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Crafting";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.Stealth";
+								modifierType = "Multiplier";
+								value = 0f;
+							} : ConstantStatModifier
+						];
+					} : StatModifierGroup;
+				} : ModifyStatPoolModifierEffector
+			];
+		}
+	];
+}
+
+CanDeflectTutorial : StatusEffect
+{
+	duration = "BaseStats.InfiniteDuration";
+	packages = 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CanWeaponDeflect";
+								modifierType = "Additive";
+								value = 1f;
+							} : ConstantStatModifier
+						];
+					} : StatModifierGroup;
+				} : Perks.ApplyStatGroupOnWeapon
+			];
+		}
+	];
+}
+
+DieInOneHit : StatusEffect
+{
+	duration = "BaseStats.InfiniteDuration";
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.Health";
+					modifierType = "Multiplier";
+					value = 0.0001f;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+PhoneInterrupted : StatusEffect
+{
+	gameplayTags += 
+	[
+		"NoPhone"
+	];
+}
+
+CyberwareInstallationAnimation : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				value = 4.5f;
+			} : BaseDurationMod
+		];
+	};
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						fact = "ripperdoc_cw_equip_animation_start";
+						value = 1;
+						comparisonType = "Equal";
+					} : FactValuePrereq;
+					statusEffect = "BaseStatusEffect.CyberwareInstallationAnimationFastForwardPossible";
+					removeWithEffector = false;
+				} : ApplyStatusEffectEffector, 
+				{
+					prereqRecord = 
+					{
+						duration = 0.25f;
+					} : Prereqs.DurationPrereq;
+					statusEffect = "BaseStatusEffect.CyberwareInstallationAnimationSFX";
+					removeWithEffector = false;
+				} : ApplyStatusEffectEffector, 
+				{
+					prereqRecord = 
+					{
+						duration = 3.5f;
+					} : Prereqs.DurationPrereq;
+					statusEffect = "BaseStatusEffect.CyberwareInstallationAnimationEnd";
+					removeWithEffector = false;
+				} : ApplyStatusEffectEffector, 
+				{
+					prereqRecord = 
+					{
+						duration = 4.0f;
+					} : Prereqs.DurationPrereq;
+					statusEffects = 
+					[
+						"BaseStatusEffect.CyberwareInstallationAnimationBlackout"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+CyberwareInstallationAnimationFastForwardPossible : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				value = 20.0f;
+			} : BaseDurationMod
+		];
+	};
+	gameplayTags += 
+	[
+		"CustomFastForward"
+	];
+	packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						fact = "ripperdoc_cw_equip_animation_start";
+						value = 0;
+						comparisonType = "Equal";
+					} : FactValuePrereq;
+					statusEffects = 
+					[
+						"BaseStatusEffect.CyberwareInstallationAnimationFastForwardPossible"
+					];
+				} : RemoveStatusEffectsEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+CyberwareInstallationAnimationBlackout : StatusEffect
+{
+	savable = false;
+	duration = "BaseStats.InfiniteDuration";
+	VFX = 
+	[
+		{
+			name = "eyes_closing_instant";
+		}
+	];
+}
+
+CyberwareInstallationAnimationSFX : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				value = 5f;
+			} : BaseDurationMod
+		];
+	};
+	SFX = 
+	[
+		{
+			name = "q_ow_generic_ripperdoc_install_part";
+		}
+	];
+}
+
+CyberwareInstallationAnimationEnd : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				value = 5f;
+			} : BaseDurationMod
+		];
+	};
+	VFX = 
+	[
+		{
+			name = "eyes_opening";
+		}
+	];
+}
+
+CyberwareInstallationAnimationEndFast : StatusEffect
+{
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				value = 2f;
+			} : BaseDurationMod
+		];
+	};
+	VFX = 
+	[
+		{
+			name = "eyes_opening_instant";
+		}
+	];
+}
+
+MyersNoCarCombat : StatusEffect
+{
+	fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+}
+
+MyersNoTeleport : StatusEffect
+{
+	fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+}
+
+mws_se5_03_damage_vfx : StatusEffect
+{
+	packages += 
+	[
+		{
+			effectors += 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					CName vfxName = "mws_se5_03_blood_2";
+				} : PlayVFXEffector
+			];
+		} : GameplayLogicPackage
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				value = 0.5f;
+			} : BaseDurationMod
+		];
+	};
+}
+
+mws_se5_03_katana_vfx : StatusEffect
+{
+	packages += 
+	[
+		{
+			effectors += 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					CName vfxName = "mws_se5_03_katana_attack";
+				} : PlayVFXEffector
+			];
+		} : GameplayLogicPackage
+	];
+	duration = 
+	{
+		statModifiers += 
+		[
+			{
+				value = 2.0f;
+			} : BaseDurationMod
+		];
+	};
+}
+

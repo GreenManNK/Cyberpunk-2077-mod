@@ -8,18 +8,25 @@ import VehicleMileage.Services.VMSettingsService
 // ============================================================================
 public class VM_HUDTick extends DelayCallback {
   private let hud: wref<VM_HUD>;
+  private let generation: Int32;
 
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__tickArmed = false;
       this.hud.Refresh();
       this.hud.ArmNextTick();
     }
   }
 
-  public static func Create(h: ref<VM_HUD>) -> ref<VM_HUDTick> {
+  public static func Create(
+    h: ref<VM_HUD>,
+    generation: Int32
+  ) -> ref<VM_HUDTick> {
     let t = new VM_HUDTick();
     t.hud = h;
+    t.generation = generation;
     return t;
   }
 }
@@ -30,17 +37,24 @@ public class VM_HUDTick extends DelayCallback {
 // ============================================================================
 public class VM_LBAnimTick extends DelayCallback {
   private let hud: wref<VM_HUD>;
+  private let generation: Int32;
 
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__lbAnimArmed = false;
       this.hud.LB_AniStep();
     }
   }
 
-  public static func Create(h: ref<VM_HUD>) -> ref<VM_LBAnimTick> {
+  public static func Create(
+    h: ref<VM_HUD>,
+    generation: Int32
+  ) -> ref<VM_LBAnimTick> {
     let t = new VM_LBAnimTick();
     t.hud = h;
+    t.generation = generation;
     return t;
   }
 }
@@ -50,17 +64,24 @@ public class VM_LBAnimTick extends DelayCallback {
 // ============================================================================
 public class VM_LBLogoTick extends DelayCallback {
   private let hud: wref<VM_HUD>;
+  private let generation: Int32;
 
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__lbLogoArmed = false;
       this.hud.LB_LogoStep();
     }
   }
 
-  public static func Create(h: ref<VM_HUD>) -> ref<VM_LBLogoTick> {
+  public static func Create(
+    h: ref<VM_HUD>,
+    generation: Int32
+  ) -> ref<VM_LBLogoTick> {
     let t = new VM_LBLogoTick();
     t.hud = h;
+    t.generation = generation;
     return t;
   }
 }
@@ -70,17 +91,24 @@ public class VM_LBLogoTick extends DelayCallback {
 // ============================================================================
 public class VM_LBRowTick extends DelayCallback {
   private let hud: wref<VM_HUD>;
+  private let generation: Int32;
 
   public func Call() -> Void {
-    if IsDefined(this.hud) {
+    if IsDefined(this.hud)
+      && this.hud.VM_IsCallbackGeneration(this.generation) {
+
       this.hud.__lbRowArmed = false;
       this.hud.LB_RowStep();
     }
   }
 
-  public static func Create(h: ref<VM_HUD>) -> ref<VM_LBRowTick> {
+  public static func Create(
+    h: ref<VM_HUD>,
+    generation: Int32
+  ) -> ref<VM_LBRowTick> {
     let t = new VM_LBRowTick();
     t.hud = h;
+    t.generation = generation;
     return t;
   }
 }
@@ -97,6 +125,7 @@ public class VM_HUD extends IScriptable {
   private let tick: ref<VM_HUDTick>;
   private let tickPeriod: Float = 0.25; // 4 Hz
   public let __tickArmed: Bool;
+  private let callbackGeneration: Int32;
 
   // --- build & state caches ---
   private let __built: Bool;
@@ -153,6 +182,7 @@ public class VM_HUD extends IScriptable {
   private let priceBuilt: Bool;
   private let lastPriceVisible: Bool;
   private let lastPriceCents: Int32;
+  private let lastStationEmpty: Bool;
 	
 	// Keep priceRoot visible while the LB plays its fade-out
   private let priceHoldVisibleDuringLB: Bool;   // NEW
@@ -335,18 +365,17 @@ public class VM_HUD extends IScriptable {
   // --------------------------------------------------------------------------
   // Reset when the world/save changes
   // --------------------------------------------------------------------------
-	public func OnNewWorld() -> Void {
-		this.__built = false;
-		this.__tickArmed = false;
-		this.modalDepth = 0;
-
-		// Force first Refresh() to rewrite text from facts.
-		// Fixes possible stale ODO text after save/load timing.
-		this.lastMeters = -1;
-		this.lastPermille = -1;
-
-		this.lastWarnState = -1;
-		this.blinkOn = false;
+  public func OnNewWorld() -> Void {
+    this.callbackGeneration += 1;
+    this.__built = false;
+    this.__tickArmed = false;
+    this.modalDepth = 0;
+				// Force first Refresh() to rewrite text from facts.
+				// Fixes possible stale ODO text after save/load timing.
+				this.lastMeters = -1;
+				this.lastPermille = -1;
+    this.lastWarnState = -1;
+    this.blinkOn = false;
 
     // price plate reset
     this.priceRoot = null;
@@ -391,6 +420,10 @@ public class VM_HUD extends IScriptable {
 		this.lbBgStrokeRef = null;
 		ArrayClear(this.lbRowStrokeRefs);
 
+  }
+
+  public func VM_IsCallbackGeneration(generation: Int32) -> Bool {
+    return generation == this.callbackGeneration;
   }
 
   // --------------------------------------------------------------------------
@@ -624,7 +657,8 @@ public class VM_HUD extends IScriptable {
   private func ArmNextTick() -> Void {
     if this.__tickArmed { return; }
     let ds = GameInstance.GetDelaySystem(GetGameInstance());
-    this.tick = VM_HUDTick.Create(this);
+    if !IsDefined(ds) { return; }
+    this.tick = VM_HUDTick.Create(this, this.callbackGeneration);
     this.__tickArmed = true;
     ds.DelayCallback(this.tick, this.tickPeriod, false);
   }
@@ -633,7 +667,8 @@ public class VM_HUD extends IScriptable {
 	private func ArmLBAnimStep() -> Void {
 		if this.__lbAnimArmed { return; }
 		let ds = GameInstance.GetDelaySystem(GetGameInstance());
-		this.lbAnimTick = VM_LBAnimTick.Create(this);
+		if !IsDefined(ds) { return; }
+		this.lbAnimTick = VM_LBAnimTick.Create(this, this.callbackGeneration);
 		this.__lbAnimArmed = true;
 		ds.DelayCallback(this.lbAnimTick, this.lbAnimPeriod, false);
 	}
@@ -688,7 +723,8 @@ public class VM_HUD extends IScriptable {
 	private func ArmLBLogoStep() -> Void {
 		if this.__lbLogoArmed { return; }
 		let ds = GameInstance.GetDelaySystem(GetGameInstance());
-		this.lbLogoTick = VM_LBLogoTick.Create(this);
+		if !IsDefined(ds) { return; }
+		this.lbLogoTick = VM_LBLogoTick.Create(this, this.callbackGeneration);
 		this.__lbLogoArmed = true;
 		ds.DelayCallback(this.lbLogoTick, this.lbLogoPeriod, false);
 	}
@@ -823,7 +859,8 @@ public class VM_HUD extends IScriptable {
 	private func ArmLBRowStep() -> Void {
 		if this.__lbRowArmed { return; }
 		let ds = GameInstance.GetDelaySystem(GetGameInstance());
-		this.lbRowTick = VM_LBRowTick.Create(this);
+		if !IsDefined(ds) { return; }
+		this.lbRowTick = VM_LBRowTick.Create(this, this.callbackGeneration);
 		this.__lbRowArmed = true;
 		ds.DelayCallback(this.lbRowTick, this.lbRowPeriod, false);
 	}
@@ -1562,6 +1599,22 @@ private func __ApplyLBTheme(force: Bool) -> Void {
 
 
     let centsRaw: Int32 = qs.GetFact(n"vm_hud_price_cents");
+    let stationEmpty: Bool = qs.GetFact(n"vm_hud_station_empty") == 1;
+
+    if stationEmpty {
+      if !this.lastStationEmpty && IsDefined(this.priceValue) {
+        this.priceValue.SetText("Pump empty");
+      };
+
+      this.lastStationEmpty = true;
+      return;
+    };
+
+    if this.lastStationEmpty {
+      this.lastStationEmpty = false;
+      this.lastPriceCents = -1;
+    };
+
     if centsRaw != this.lastPriceCents {
       this.lastPriceCents = centsRaw;
       let cents: Int32 = (centsRaw < 0) ? -centsRaw : centsRaw;
@@ -1695,10 +1748,15 @@ public func FG_EnableFuelGauge(enabled: Bool) -> Void {
     qs.SetFact(n"vm_fg_enabled", enabled ? 1 : 0);
   }
 
-  // also directly toggle the root if it already exists
+  // Disabling is immediate. Enabling is handled by the FuelGauge's own
+  // mount/power visibility gate so this bridge cannot reveal a stale root.
   let fgRoot: ref<inkCanvas> = vwin.GetWidgetByPathName(this.VM__FGRootPath()) as inkCanvas;
-  if IsDefined(fgRoot) {
-    fgRoot.SetVisible(enabled);
+  if IsDefined(fgRoot) && !enabled {
+    fgRoot.SetVisible(false);
+  }
+
+  if IsDefined(this.vmFuelGauge) {
+    this.vmFuelGauge.Refresh();
   }
 }
 

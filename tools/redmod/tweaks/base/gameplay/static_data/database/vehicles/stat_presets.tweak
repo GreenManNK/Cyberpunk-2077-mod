@@ -1,0 +1,172 @@
+package VehicleStatPreset
+using RTDB
+
+QuestWeak : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 0.75;
+		} : ConstantStatModifier
+	];
+}
+
+QuestDurable : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 2;
+		} : ConstantStatModifier
+	];
+}
+
+QuestVeryDurable : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 5;
+		} : ConstantStatModifier
+	];
+}
+
+VeryWeak : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 0.737;
+		} : ConstantStatModifier
+	];
+}
+
+Weak : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 0.895;
+		} : ConstantStatModifier
+	];
+}
+
+Strong : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 1.105;
+		} : ConstantStatModifier
+	];
+}
+
+Durable : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 1.382;
+		} : ConstantStatModifier
+	];
+}
+
+VeryDurable : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 1.75;
+		} : ConstantStatModifier
+	];
+}
+
+Indestructible : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 2.763;
+		} : ConstantStatModifier
+	];
+}
+
+Prevention : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 1.25;
+		} : ConstantStatModifier
+	];
+}
+
+BaseCar : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			value = 760;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		"BaseStats.BaseAudioStimRangeMultiplier", "BaseStats.BaseVisualStimRangeMultiplier"
+	];
+}
+
+BaseMotorcycle : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			value = 760;
+		} : ConstantStatModifier, 
+		"BaseStats.BaseAudioStimRangeMultiplier", "BaseStats.BaseVisualStimRangeMultiplier"
+	];
+}
+
+BaseTank : StatModifierGroup
+{
+	statModifiers = 
+	[
+		"Character.q114_base_power_level", {
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			value = 4000;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Multiplier";
+			value = 80.f;
+		} : ConstantStatModifier, 
+		"BaseStats.BaseAudioStimRangeMultiplier", "BaseStats.BaseVisualStimRangeMultiplier"
+	];
+}
+

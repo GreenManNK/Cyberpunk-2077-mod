@@ -1,0 +1,1086 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_sport1_rayfield_caliburn : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport1_rayfield_caliburn__basic_01.ent";
+	visualTags = 
+	[
+		"Premium"
+	];
+	tags += 
+	[
+		"Sport", "CombatDisabled"
+	];
+	manufacturer = "Vehicle.Rayfield";
+	randomPassengers = 
+	[
+		"Passengers.CitizenRichDriverEntry", "Passengers.CitizenRichPassengerFrontEntry"
+	];
+	displayName = "LocKey#22088";
+	twintoneModelName = "rayfield.caliburn";
+	appearancesToColorTemplate = "Vehicle.VehicleRayfieldCaliburnAppearancesToColorTemplate";
+	destroyedAppearance = "rayfield_caliburn__basic_burnt_01";
+	vehicleUIData = "Vehicle.VehicleRayfieldCaliburnUIData";
+	fk< UIIcon > icon = "UIIcon.rayfield_caliburn__basic_player_01";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Sport_M";
+	fxWheelsDecals = "Vehicle.FxWheels_Sport_L";
+	player_audio_resource = "v_car_rayfield_caliburn";
+	traffic_audio_resource = "v_car_rayfield_caliburn_traffic";
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/rayfield/rayfield_regular.inkstyle";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 11;
+		} : ConstantStatModifier
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Durable"
+	];
+	enableDestruction = true;
+	destruction = "Vehicle.VehicleDestructionParamsCaliburn";
+	vehDataPackage = 
+	{
+		vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+		driverCombat = "DriverCombatTypes.Doors";
+		entering = 2.4f;
+		slideDuration = 0.8f;
+		open_close_duration = 1.2f;
+		normal_open = 1.7f;
+		stealing_open = 4.0f;
+		exitDelay = 0.3f;
+		hasSpoiler = true;
+		spoilerSpeedToDeploy = 20.0f;
+		spoilerSpeedToRetract = 15.0f;
+		windowsRollDown = false;
+	} : VehicleDataPackageSport1;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.335f;
+			tireWidth = 0.31f;
+			wheelOffset = 0.11f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.39f;
+			rimRadius = 0.335;
+			tireWidth = 0.4f;
+			wheelOffset = 0.12f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 1750.0f;
+		chassis_mass = 1750.f;
+		center_of_mass_offset = ( 0.0f, -0.13f, 0.08f );
+		momentOfInertia = ( 3050.0f, 900.0f, 3530.0f );
+		airResistanceFactor = 2.4f;
+		handbrakeBrakingTorque = 1600.f;
+		turnUpdateMidSpeedThreshold = 25.f;
+		turnUpdateMaxSpeedThreshold = 45.f;
+		turnUpdateMidSpeedTurnMul = 0.41f;
+		turnUpdateMidSpeedTurnChangeMul = 1.58f;
+		turnUpdateMaxSpeedTurnMul = 0.16f;
+		turnUpdateMaxSpeedTurnChangeMul = 2.15f;
+		turnUpdateInputDiffProgressionPow = 0.7f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				maxBrakingTorque = 720.0f;
+				frictionMulLateral = 0.94f;
+				frictionMulLongitudinal = 0.94f;
+				tireLateralSlipEffectsMul = 1.46f;
+				tireLongitudinalSlipEffectsMul = 1.3f;
+				swaybarStiffness = 29.0f;
+				swaybarLengthScalar = 2.3f;
+				swaybarDisplacementLimit = 0.14f;
+				springStiffness = 21.0f;
+				springDamping = 4100;
+				springReboundDamping = 3900;
+				springBoundDampingLowRate = 2200.0f;
+				springReboundDampingLowRate = 2300.0f;
+				springDampingLowRateCompression = 0.20f;
+				springDampingHighRateCompression = 0.30f;
+				extremeCompressionEventScalor = 0.46f;
+				logicalSuspensionCompressionLength = 0.56f;
+				visualSuspensionDroop = 0.14f;
+				visualSuspensionCompressionLength = 0.04f;
+				wheelsVerticalOffset = 0.02f;
+			} : VehicleWheelDrivingPreset_4_MA_Front;
+			backPreset = 
+			{
+				maxBrakingTorque = 790.0f;
+				frictionMulLateral = 1.0f;
+				frictionMulLongitudinal = 0.96f;
+				tireLateralSlipEffectsMul = 1.3f;
+				swaybarStiffness = 20.0f;
+				swaybarLengthScalar = 1.3f;
+				springStiffness = 26.0f;
+				springDamping = 4500;
+				springReboundDamping = 4200;
+				springBoundDampingLowRate = 2500.0f;
+				springReboundDampingLowRate = 2500.0f;
+				springDampingLowRateCompression = 0.20f;
+				springDampingHighRateCompression = 0.30f;
+				extremeCompressionEventScalor = 0.38f;
+				logicalSuspensionCompressionLength = 0.53f;
+				visualSuspensionDroop = 0.12f;
+				visualSuspensionCompressionLength = 0.05f;
+				wheelsVerticalOffset = 0.03f;
+			} : VehicleWheelDrivingPreset_4_MA_Rear;
+		} : VehicleWheelDrivingSetup_4_AWD;
+		driveHelpers = 
+		[
+			{
+				type = "Vehicle.RotationLimiter_HelperType";
+			} : RotationLimiter_Exotic, 
+			{
+				type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+			} : RearWheelsFrictionModifier_Exotic, 
+			{
+				type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+			} : DriveWheelsAccelerateNoise_Sport, 
+			{
+				type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+			} : HandbrakeFrictionModifier_Exotic, 
+			{
+				type = "Vehicle.UphillDriveHelper_HelperType";
+			} : UphillDriveHelper_Standard, 
+			{
+				type = "Vehicle.DynamicDownforceHelper_HelperType";
+			} : DynamicDownforceHelper_Exotic, 
+			{
+				type = "Vehicle.InAirGravityModifier_HelperType";
+			} : InAirGravityModifier
+		];
+		burnOut = 
+		{
+			maxSpeedToInitiateBurnOut = 27.f;
+			lateralForceMaxSpeed = 6.8f;
+			lateralForceMaxAcceleration = 0.4f;
+			lateralAccelForwardSpeedMaxDecimation = 0.65f;
+			maxLongFrictionSlipRatioMultipler = 0.7f;
+			maxLateralAccelSlipRatioMultipler = 0.64f;
+			minLongFrictionCoeff = 0.66f;
+			burnOutGripBonus = 6.8f;
+			gripBonusMaxLaunchSpeed = 11.0f;
+			minBrakeForceModifier = 0.01f;
+		} : VehicleBurnOut_SuperSport_AWD;
+	} : VehicleDriveModelData_SuperSport_AWD;
+	vehEngineData = "Vehicle.VehicleEngineData_4_SuperSport";
+	crowdMemberSettings = "Crowds.Sport_DrivingPackage";
+	vehDriver_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.0722, 0.8580 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		is_forward_offset = 1.0f;
+		forward_offset_value = 0.06f;
+	} : VehicleDriverCombatFPPCameraParamsDefault;
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_caliburn_High_Close", "Camera.VehicleTPP_4w_caliburn_High_Medium", "Camera.VehicleTPP_4w_caliburn_High_Far", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatClose", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatMedium", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatFar", "Camera.VehicleTPP_4w_caliburn_Low_Close", "Camera.VehicleTPP_4w_caliburn_Low_Medium", "Camera.VehicleTPP_4w_caliburn_Low_Far", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatClose", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatFar"
+	];
+	drivingParamsPanic = "Driving.Panic_Sport";
+	trafficSuspension = "Vehicle.TrafficSuspension_Sport";
+	weaponSafeModeBounds = 
+	{
+		enableSafeModeBounds = true;
+		windshieldBound = 
+		{
+			yawMin = -51.90f;
+			yawMax = 18.85f;
+		};
+		backBound = 
+		{
+			yawMin = -105.7f;
+			yawMax = 180.f;
+		};
+	} : WeaponSafeModeBounds;
+	isArmoredVehicle = true;
+	weapons = 
+	[
+		"Vehicle.Vehicle_Power_Weapon_Left_A", "Vehicle.Vehicle_Power_Weapon_Right_A"
+	];
+}
+
+v_sport1_rayfield_caliburn_quest : v_sport1_rayfield_caliburn
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+}
+
+v_sport1_rayfield_caliburn_murdered : v_sport1_rayfield_caliburn
+{
+	appearanceName = "rayfield_caliburn__basic_ma_bls_ina_se1_40";
+	fk< UIIcon > icon = "UIIcon.rayfield_caliburn__basic_ma_bls_ina_se1_40";
+}
+
+v_sport1_rayfield_caliburn_mordred : v_sport1_rayfield_caliburn
+{
+	appearanceName = "rayfield_caliburn__basic_mordred";
+	isArmoredVehicle = true;
+	savable = true;
+	tags += 
+	[
+		"DisableTireShooting"
+	];
+	vehicleUIData = "Vehicle.VehicleRayfieldCaliburnMordredUIData";
+	vehDataPackage = 
+	{
+		vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+		driverCombat = "DriverCombatTypes.MountedWeapons";
+		entering = 2.4f;
+		slideDuration = 0.8f;
+		open_close_duration = 1.2f;
+		normal_open = 1.7f;
+		stealing_open = 4.0f;
+		exitDelay = 0.3f;
+		hasSpoiler = true;
+		spoilerSpeedToDeploy = 20.0f;
+		spoilerSpeedToRetract = 15.0f;
+		windowsRollDown = false;
+	} : VehicleDataPackageSport1;
+	destruction = 
+	{
+		damageThreshold = 0.6f;
+	} : VehicleDestructionParamsCaliburn;
+}
+
+VehicleRayfieldCaliburnUIData : VehicleDefaultUIData
+{
+	productionYear = "2070";
+	driveLayout = "LocKey#45372";
+	horsepower = 1660.0f;
+	mass = 1670.0f;
+	info = "LocKey#53531";
+}
+
+VehicleRayfieldCaliburnMordredUIData : VehicleDefaultUIData
+{
+	productionYear = "2075";
+	driveLayout = "LocKey#45372";
+	horsepower = 1660.0f;
+	mass = 1670.0f;
+	info = "LocKey#96419";
+}
+
+VehicleDestructionParamsCaliburn : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.8f, 4.0f, 0.12f );
+	gridLocalOffset = ( 0.0f, 0.0f, 0.6f );
+	chargePortCenter = ( -1.05758667f, -0.872381151f, 0.494365036f );
+	glass = 
+	[
+		{
+			component = "window_b";
+			effect = "damage_glass_b";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.15;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow", "window_b"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"hood_a", "hood_b", "hood_a_shadow"
+			];
+		}, 
+		{
+			name = "License_plate";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"bumper_f_01", "bumper_f_shadow"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"bumper_b_01", "bumper_b_shadow"
+			];
+		}, 
+		{
+			name = "MirrorLeft_01";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_sport1_rayfield_caliburn__ext01_door_fl_mirror_01", "mirror_fl_01_shadow"
+			];
+		}, 
+		{
+			name = "MirrorRight_01";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_sport1_rayfield_caliburn__ext01_door_fr_mirror_01", "mirror_fr_01_shadow"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft_A";
+			gridCells = 
+			[
+				2, 4
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"door_fl_a", "door_fl_b", "door_fl_a_shadow", "window_fl_a", "door_fl_lightbar_01"
+			];
+		}, 
+		{
+			name = "DoorFrontRight_A";
+			gridCells = 
+			[
+				3, 5
+			];
+			threshold = 0.75;
+			components = 
+			[
+				"door_fr_a", "door_fr_b", "door_fr_a_shadow", "window_fr_a", "door_fr_lightbar_01"
+			];
+		}, 
+		{
+			name = "Wing_A";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.4;
+			components = 
+			[
+				"wing_a_01", "wing_a_01_shadow"
+			];
+		}, 
+		{
+			name = "Wing_B";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.4;
+			components = 
+			[
+				"wing_b_01", "wing_b_01_shadow"
+			];
+		}, 
+		{
+			name = "Wing_C";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.4;
+			components = 
+			[
+				"wing_c_01", "wing_c_01_shadow"
+			];
+		}, 
+		{
+			name = "Wing_D";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.4;
+			components = 
+			[
+				"wing_c_02", "wing_c_02_shadow"
+			];
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_02";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_01";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_01";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_01";
+			gridCells = 
+			[
+				2, 3, 10, 11
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_02";
+			gridCells = 
+			[
+				2, 3, 0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "utility_light_1";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "utility_light_2";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			flat = "tire_flat_01_fl_a";
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			flat = "tire_flat_01_fr_a";
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			flat = "tire_flat_01_br_a";
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			flat = "tire_flat_01_bl_a";
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_b_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_f_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						6, 7, 14, 15
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						1, 9
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						10, 12
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+	doorDetachRules = 
+	[
+		{
+			componentToQuery = "door_fr_a";
+			doorEnumIndex = 1;
+			partsToDetach = 
+			[
+				"DoorFrontRight_A", "MirrorRight_01"
+			];
+		}, 
+		{
+			componentToQuery = "door_fl_a";
+			doorEnumIndex = 0;
+			partsToDetach = 
+			[
+				"DoorFrontLeft_A", "MirrorLeft_01"
+			];
+		}
+	];
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_00 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 0.1f;
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_02 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_02.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 0.1f;
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_03 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_03.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 21.0f;
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_04 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_04.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 21.0f;
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_05 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_05.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 0.1f;
+}
+
+vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_06 : VehicleCustomMultilayer
+{
+	onlyForPlayerVehicleAppearances = 
+	[
+		"rayfield_caliburn__basic_mordred"
+	];
+	excludedComponents = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_06.mlsetup";
+	customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\rayfield_caliburn\vcc_rayfield_caliburn__basic_mordred__premium_masksset.mlmask";
+	coatLayerMin = -1.0f;
+	coatLayerMax = 0.1f;
+}
+
+VehicleRayfieldCaliburnAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_00"
+			];
+			matchingColorVariant = 
+			[
+				"premium_00"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_00";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_yellow.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_yellow.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_yellow.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_00"
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_02"
+			];
+			matchingColorVariant = 
+			[
+				"premium_02"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_02";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_silver.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_silver.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_silver.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_02.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_02"
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_03"
+			];
+			matchingColorVariant = 
+			[
+				"premium_03"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_03";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_yellow.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_yellow.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_yellow.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_03.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 21.0f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_03"
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_04"
+			];
+			matchingColorVariant = 
+			[
+				"premium_04"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_04";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_purple.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_purple.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_purple.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_04.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 21.0f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_04"
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_05"
+			];
+			matchingColorVariant = 
+			[
+				"premium_05"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_05";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_orange.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_orange.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_orange.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_05.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_05"
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"rayfield_caliburn__basic_premium_06"
+			];
+			matchingColorVariant = 
+			[
+				"premium_06"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_rayfield_caliburn_premium_06";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_bumper_f_numbers_01_red.ent";
+					componentToAttachTo = "bumper_f_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fl_numbers_01_red.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\rayfield_caliburn\vcc_rayfield_caliburn_door_fr_numbers_01_red.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					onlyForPlayerVehicleAppearances = 
+					[
+						"rayfield_caliburn__basic_player_01", "rayfield_caliburn__basic_ma_bls_ina_se1_40"
+					];
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\caliburn_ext_premium_06.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport1_rayfield_caliburn\entities\meshes\textures\ml_v_sport1_rayfield_caliburn__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				"Vehicle.vcc_paintjob_multilayer_00_rayfield_caliburn__basic_premium_06"
+			];
+		} : VehicleColorTemplate
+	];
+}
+

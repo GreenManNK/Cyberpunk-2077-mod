@@ -1,0 +1,25 @@
+package Adverts
+using RTDB
+
+Yaiba_Showroom : Advertisement
+{
+	localizationKey = "LocKey#36047";
+	resource = "base\gameplay\gui\quests\mq060\yaiba_billboards\yaiba_billboards.inkwidget";
+	definitions = 
+	[
+		"Adverts.Yaiba_Showroom_16x9", "Adverts.Yaiba_Showroom_9x16"
+	];
+}
+
+Yaiba_Showroom_16x9 : AdvertisementFormatDef
+{
+	format = "Format_16x9";
+	libraryName = "yaiba_billboard_16x9";
+}
+
+Yaiba_Showroom_9x16 : AdvertisementFormatDef
+{
+	format = "Format_9x16";
+	libraryName = "yaiba_billboard_9x16";
+}
+

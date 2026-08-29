@@ -1,0 +1,781 @@
+package Achievements
+using RTDB
+
+Breathtaking : Achievement
+{
+	displayName = "LocKey#19712";
+	localizedDescription = "LocKey#19719";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "Breathtaking";
+	PS4Key = 0;
+}
+
+TheFool : Achievement
+{
+	displayName = "LocKey#19718";
+	localizedDescription = "LocKey#19719";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheFool";
+	XB1Key = "2";
+	PS4Key = 1;
+}
+
+TheLovers : Achievement
+{
+	displayName = "LocKey#19720";
+	localizedDescription = "LocKey#19721";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheLovers";
+	XB1Key = "3";
+	PS4Key = 2;
+}
+
+TheHermit : Achievement
+{
+	displayName = "LocKey#19722";
+	localizedDescription = "LocKey#19723";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheHermit";
+	XB1Key = "4";
+	PS4Key = 3;
+}
+
+TheWheelOfFortune : Achievement
+{
+	displayName = "LocKey#19724";
+	localizedDescription = "LocKey#19725";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheWheelOfFortune";
+	XB1Key = "5";
+	PS4Key = 4;
+}
+
+TheHightPriestess : Achievement
+{
+	displayName = "LocKey#19726";
+	localizedDescription = "LocKey#19727";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheHightPriestess";
+	XB1Key = "6";
+	PS4Key = 5;
+}
+
+TheWorld : Achievement
+{
+	displayName = "LocKey#19728";
+	localizedDescription = "LocKey#19729";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheWorld";
+	XB1Key = "7";
+	PS4Key = 6;
+}
+
+TheDevil : Achievement
+{
+	displayName = "LocKey#19730";
+	localizedDescription = "LocKey#19731";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheDevil";
+	XB1Key = "8";
+	PS4Key = 7;
+}
+
+TheStar : Achievement
+{
+	displayName = "LocKey#19732";
+	localizedDescription = "LocKey#19733";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheStar";
+	XB1Key = "9";
+	PS4Key = 8;
+}
+
+TheSun : Achievement
+{
+	displayName = "LocKey#19734";
+	localizedDescription = "LocKey#19735";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheSun";
+	XB1Key = "10";
+	PS4Key = 9;
+}
+
+Temperance : Achievement
+{
+	displayName = "LocKey#19736";
+	localizedDescription = "LocKey#19737";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "Temperance";
+	XB1Key = "11";
+	PS4Key = 10;
+}
+
+FollowingTheRiver : Achievement
+{
+	displayName = "LocKey#19738";
+	localizedDescription = "LocKey#19739";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "FollowingTheRiver";
+	XB1Key = "12";
+	PS4Key = 11;
+}
+
+BornToBeWild : Achievement
+{
+	displayName = "LocKey#19740";
+	localizedDescription = "LocKey#19741";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "BornToBeWild";
+	XB1Key = "13";
+	PS4Key = 12;
+}
+
+UnderPressure : Achievement
+{
+	displayName = "LocKey#19742";
+	localizedDescription = "LocKey#19743";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "UnderPressure";
+	XB1Key = "14";
+	PS4Key = 13;
+}
+
+QueenOfTheHighway : Achievement
+{
+	displayName = "LocKey#19744";
+	localizedDescription = "LocKey#19745";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "QueenOfTheHighway";
+	XB1Key = "15";
+	PS4Key = 14;
+}
+
+BushidoAndChill : Achievement
+{
+	displayName = "LocKey#19746";
+	localizedDescription = "LocKey#19747";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "BushidoAndChill";
+	XB1Key = "16";
+	PS4Key = 15;
+}
+
+NeverFadeAway : Achievement
+{
+	displayName = "LocKey#19712";
+	localizedDescription = "LocKey#19749";
+	tags += 
+	[
+		"Equipment"
+	];
+	enumName = "NeverFadeAway";
+	XB1Key = "17";
+	PS4Key = 16;
+}
+
+YipMan : Achievement
+{
+	displayName = "LocKey#19750";
+	localizedDescription = "LocKey#19751";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "YipMan";
+	XB1Key = "18";
+	PS4Key = 17;
+	playthroughSpecific = true;
+}
+
+IAmMaxTac : Achievement
+{
+	displayName = "LocKey#19752";
+	localizedDescription = "LocKey#19753";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "IAmMaxTac";
+	XB1Key = "19";
+	PS4Key = 18;
+}
+
+ThisIsPacifica : Achievement
+{
+	displayName = "LocKey#19754";
+	localizedDescription = "LocKey#19755";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "ThisIsPacifica";
+	XB1Key = "20";
+	PS4Key = 19;
+	playthroughSpecific = true;
+}
+
+NoMansLand : Achievement
+{
+	displayName = "LocKey#19756";
+	localizedDescription = "LocKey#19757";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "NoMansLand";
+	XB1Key = "21";
+	PS4Key = 20;
+	playthroughSpecific = true;
+}
+
+LittleTokyo : Achievement
+{
+	displayName = "LocKey#19758";
+	localizedDescription = "LocKey#19759";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "LittleTokyo";
+	XB1Key = "22";
+	PS4Key = 21;
+	playthroughSpecific = true;
+}
+
+LikeFatherLIkeSon : Achievement
+{
+	displayName = "LocKey#19760";
+	localizedDescription = "LocKey#19761";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "LikeFatherLikeSon";
+	XB1Key = "23";
+	PS4Key = 22;
+	playthroughSpecific = true;
+}
+
+TradeUnion : Achievement
+{
+	displayName = "LocKey#19762";
+	localizedDescription = "LocKey#19763";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "TradeUnion";
+	XB1Key = "24";
+	PS4Key = 23;
+	playthroughSpecific = true;
+}
+
+Bladerunner : Achievement
+{
+	displayName = "LocKey#19764";
+	localizedDescription = "LocKey#19765";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "Bladerunner";
+	XB1Key = "25";
+	PS4Key = 24;
+	playthroughSpecific = true;
+}
+
+Cyberjunkie : Achievement
+{
+	displayName = "LocKey#19766";
+	localizedDescription = "LocKey#19767";
+	tags += 
+	[
+		"Equipment"
+	];
+	enumName = "Cyberjunkie";
+	XB1Key = "26";
+	PS4Key = 25;
+	thresholdValue = 10;
+}
+
+GunKata : Achievement
+{
+	displayName = "LocKey#19768";
+	localizedDescription = "LocKey#19769";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "GunKata";
+	XB1Key = "27";
+	PS4Key = 26;
+}
+
+MasterRunner : Achievement
+{
+	displayName = "LocKey#19770";
+	localizedDescription = "LocKey#19771";
+	tags += 
+	[
+		"Hacking"
+	];
+	enumName = "MasterRunner";
+	XB1Key = "28";
+	PS4Key = 27;
+}
+
+Specialist : Achievement
+{
+	displayName = "LocKey#19772";
+	localizedDescription = "LocKey#19773";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "Specialist";
+	XB1Key = "29";
+	PS4Key = 28;
+	thresholdValue = 60;
+}
+
+Gunslinger : Achievement
+{
+	displayName = "LocKey#19774";
+	localizedDescription = "LocKey#19775";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "Gunslinger";
+	XB1Key = "30";
+	PS4Key = 29;
+}
+
+TwoHeadsOneBullet : Achievement
+{
+	displayName = "LocKey#19776";
+	localizedDescription = "LocKey#19777";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "TwoHeadsOneBullet";
+	XB1Key = "31";
+	PS4Key = 30;
+}
+
+ThatIsSoHardForTheKnees : Achievement
+{
+	displayName = "LocKey#19778";
+	localizedDescription = "LocKey#19779";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "ThatIsSoHardForTheKnees";
+	XB1Key = "32";
+	PS4Key = 31;
+}
+
+Roleplayer : Achievement
+{
+	displayName = "LocKey#19780";
+	localizedDescription = "LocKey#19781";
+	tags += 
+	[
+		"Dialogue"
+	];
+	enumName = "Roleplayer";
+	XB1Key = "33";
+	PS4Key = 32;
+	thresholdValue = 10;
+	playthroughSpecific = true;
+}
+
+Gearhead : Achievement
+{
+	displayName = "LocKey#19782";
+	localizedDescription = "LocKey#19783";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "Gearhead";
+	XB1Key = "34";
+	PS4Key = 33;
+	thresholdValue = 26;
+}
+
+HandyMan : Achievement
+{
+	displayName = "LocKey#19784";
+	localizedDescription = "LocKey#19785";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "HandyMan";
+	XB1Key = "35";
+	PS4Key = 34;
+	thresholdValue = 3;
+	playthroughSpecific = true;
+}
+
+NotTheMobile : Achievement
+{
+	displayName = "LocKey#19786";
+	localizedDescription = "LocKey#19787";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "NotTheMobile";
+	XB1Key = "36";
+	PS4Key = 35;
+}
+
+MaxPain : Achievement
+{
+	displayName = "LocKey#19788";
+	localizedDescription = "LocKey#19789";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "MaxPain";
+	XB1Key = "37";
+	PS4Key = 36;
+	thresholdValue = 50;
+	playthroughSpecific = true;
+}
+
+MustBeTheRats : Achievement
+{
+	displayName = "LocKey#19790";
+	localizedDescription = "LocKey#19791";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "MustBeTheRats";
+	XB1Key = "38";
+	PS4Key = 37;
+	thresholdValue = 30;
+	playthroughSpecific = true;
+}
+
+VForVendetta : Achievement
+{
+	displayName = "LocKey#19792";
+	localizedDescription = "LocKey#19793";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "VForVendetta";
+	XB1Key = "39";
+	PS4Key = 38;
+}
+
+TrueSoldier : Achievement
+{
+	displayName = "LocKey#19794";
+	localizedDescription = "LocKey#19795";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "TrueSoldier";
+	XB1Key = "40";
+	PS4Key = 39;
+	thresholdValue = 300;
+	playthroughSpecific = true;
+}
+
+TrueWarrior : Achievement
+{
+	displayName = "LocKey#19797";
+	localizedDescription = "LocKey#19796";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "TrueWarrior";
+	XB1Key = "41";
+	PS4Key = 40;
+	thresholdValue = 100;
+	playthroughSpecific = true;
+}
+
+Denied : Achievement
+{
+	displayName = "LocKey#19799";
+	localizedDescription = "LocKey#19798";
+	tags += 
+	[
+		"Combat"
+	];
+	enumName = "Denied";
+	XB1Key = "42";
+	PS4Key = 41;
+}
+
+Fortuneteller : Achievement
+{
+	displayName = "LocKey#19800";
+	localizedDescription = "LocKey#19801";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "Fortuneteller";
+	XB1Key = "43";
+	PS4Key = 42;
+}
+
+GetMeThereScottie : Achievement
+{
+	displayName = "LocKey#19802";
+	localizedDescription = "LocKey#19803";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "GetMeThereScottie";
+	XB1Key = "44";
+	PS4Key = 43;
+	int thresholdValue = 157;
+}
+
+YouKnowWhoIAm : Achievement
+{
+	displayName = "LocKey#19804";
+	localizedDescription = "LocKey#19805";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "YouKnowWhoIAm";
+	XB1Key = "45";
+	PS4Key = 44;
+	thresholdValue = 50;
+}
+
+KingOfTheCups : Achievement
+{
+	displayName = "LocKey#91616";
+	localizedDescription = "LocKey#91629";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "KingOfTheCups";
+	XB1Key = "46";
+	PS4Key = 45;
+}
+
+KingOfThePentacles : Achievement
+{
+	displayName = "LocKey#91617";
+	localizedDescription = "LocKey#91630";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "KingOfThePentacles";
+	XB1Key = "47";
+	PS4Key = 46;
+}
+
+KingOfTheWands : Achievement
+{
+	displayName = "LocKey#91618";
+	localizedDescription = "LocKey#91631";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "KingOfTheWands";
+	XB1Key = "48";
+	PS4Key = 47;
+}
+
+KingOfTheSwords : Achievement
+{
+	displayName = "LocKey#91619";
+	localizedDescription = "LocKey#91632";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "KingOfTheSwords";
+	XB1Key = "49";
+	PS4Key = 48;
+}
+
+TheTower : Achievement
+{
+	displayName = "LocKey#91620";
+	localizedDescription = "LocKey#91633";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "TheTower";
+	XB1Key = "50";
+	PS4Key = 49;
+}
+
+Kingmaker : Achievement
+{
+	displayName = "LocKey#91621";
+	localizedDescription = "LocKey#91634";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "Kingmaker";
+	XB1Key = "51";
+	PS4Key = 50;
+}
+
+AllThePresidentsMen : Achievement
+{
+	displayName = "LocKey#91622";
+	localizedDescription = "LocKey#91635";
+	tags += 
+	[
+		"Quest"
+	];
+	enumName = "AllThePresidentsMen";
+	XB1Key = "52";
+	PS4Key = 51;
+}
+
+DirtyWork : Achievement
+{
+	displayName = "LocKey#91623";
+	localizedDescription = "LocKey#91636";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "DirtyWork";
+	XB1Key = "53";
+	PS4Key = 52;
+}
+
+HydraIsDead : Achievement
+{
+	displayName = "LocKey#91624";
+	localizedDescription = "LocKey#91637";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "HydraIsDead";
+	XB1Key = "54";
+	PS4Key = 53;
+}
+
+EasyComeEasyGo : Achievement
+{
+	displayName = "LocKey#91625";
+	localizedDescription = "LocKey#91638";
+	tags += 
+	[
+		"OpenWorld"
+	];
+	enumName = "EasyComeEasyGo";
+	XB1Key = "55";
+	PS4Key = 54;
+}
+
+IHateSpider : Achievement
+{
+	displayName = "LocKey#91626";
+	localizedDescription = "LocKey#91639";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "IHateSpider";
+	XB1Key = "56";
+	PS4Key = 55;
+}
+
+RelicMaster : Achievement
+{
+	displayName = "LocKey#91627";
+	localizedDescription = "LocKey#91640";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "RelicMaster";
+	XB1Key = "57";
+	PS4Key = 56;
+	thresholdValue = 9;
+}
+
+DogtownLaw : Achievement
+{
+	displayName = "LocKey#91628";
+	localizedDescription = "LocKey#91641";
+	tags += 
+	[
+		"Progression"
+	];
+	enumName = "DogtownLaw";
+	XB1Key = "58";
+	PS4Key = 57;
+}
+

@@ -1,0 +1,256 @@
+package Loot
+using RTDB
+
+SantoDomingoRancho : Loot.District
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+}
+
+SantoDomingoRanchoAll : SantoDomingoRancho
+{
+	lootTableInclusions = 
+	[
+		"Loot.SantoDomingoRanchoClothing", "Loot.SantoDomingoRanchoWeapons", "Loot.SantoDomingoRanchoConsumables", "Loot.SantoDomingoRanchoEdibles", "Loot.SantoDomingoRanchoGadgets", "Loot.SantoDomingoRanchoJunk", "Loot.SantoDomingoRanchoFragments", "Loot.SantoDomingoRanchoPrograms", "Loot.SantoDomingoRanchoJewellery"
+	];
+}
+
+SantoDomingoRanchoClothing : SantoDomingoRancho
+{
+	queries = 
+	[
+		{
+			dropChance = 0.35;
+			query = "Query.CowboyClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.SimpleClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.BikerClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+SantoDomingoRanchoWeapons : SantoDomingoRancho
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.TwoHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.PrecisionRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunDualQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+SantoDomingoRanchoConsumables : SantoDomingoRancho
+{
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable", "LootTables.HealingItemsRecipes"
+	];
+}
+
+SantoDomingoRanchoEdibles : SantoDomingoRancho
+{
+	queries = 
+	[
+		{
+			dropChance = 0.3;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.GoodQualityFood";
+		}, 
+		{
+			dropChance = 0.3;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.GoodQualityDrink";
+		}, 
+		{
+			dropChance = 0.3;
+			query = "Query.LowQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.GoodQualityAlcohol";
+		}
+	];
+}
+
+SantoDomingoRanchoGadgets : SantoDomingoRancho
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+SantoDomingoRanchoJunk : SantoDomingoRancho
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem6";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem8";
+		}
+	];
+}
+
+SantoDomingoRanchoFragments : SantoDomingoRanchoJunk
+{
+}
+
+SantoDomingoRanchoPrograms : SantoDomingoRancho
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15f;
+			query = "Query.LowQualityShard";
+		}
+	];
+}
+
+SantoDomingoRanchoJewellery : SantoDomingoRancho
+{
+	queries = 
+	[
+		{
+			dropChance = 0.25;
+			query = "Query.LowQualityJewellery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityJewellery";
+		}, 
+		{
+			dropChance = 0.04;
+			query = "Query.HighQualityJewellery";
+		}
+	];
+}
+
+SantoDomingoRanchoCraftingMaterials : SantoDomingoRancho
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

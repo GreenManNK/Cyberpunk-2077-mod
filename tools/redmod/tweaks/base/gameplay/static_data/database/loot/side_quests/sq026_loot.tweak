@@ -1,0 +1,111 @@
+package LootTables
+using RTDB
+
+SQ026_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 0.8f;
+			dropCountMin = 400;
+			dropCountMax = 800;
+			itemID = "Items.money";
+		}
+	];
+}
+
+SQ026_apartment_HRM_equipment : SQ026_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6;
+			query = "Query.RichClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.07;
+			query = "Query.RecipePowerfulFabricEnhancerQuery";
+		}
+	];
+}
+
+SQ026_apartment_HRM_toolbox : SQ026_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.AllScopes_LootTable"
+	];
+}
+
+SQ026_apartment_HRS_freezer : SQ026_Loot
+{
+	lootItems = [];
+}
+
+SQ026_apartment_HRS_suitcase : SQ026_Loot
+{
+	queries = [];
+}
+
+SQ026_apartment_HRS_crate : SQ026_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem3";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem4";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericRichJunkItem5";
+		}
+	];
+}
+
+SQ026_apartment_HRS_valuable : SQ026_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.8;
+			dropCountMin = 200;
+			dropCountMax = 300;
+			itemID = "Items.money";
+		}
+	];
+}
+
+SQ026_breakfast_sandwich : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.sq026_judy_sandwich";
+		} : LootItem
+	];
+}
+
+SQ026_breakfast_coffee : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.sq026_judy_coffee";
+		} : LootItem
+	];
+}
+

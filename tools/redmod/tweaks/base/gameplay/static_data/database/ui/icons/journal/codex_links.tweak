@@ -1,0 +1,51 @@
+package UIJournalIcons
+using RTDB
+
+Example_mitch_codex_link : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\common\icons\avatars\avatars0.inkatlas";
+	atlasPartName = "claire";
+}
+
+netrunner_pic_muamar : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_watson";
+}
+
+Corpo_pic_muamar : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_city_center";
+}
+
+streetkid_pic_muamar : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_heywood";
+}
+
+streetkid2_pic_muamar : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_westbrook";
+}
+
+renovation_pic_1 : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_renovation_5";
+}
+
+renovation_pic_2 : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_renovation_5";
+}
+
+renovation_pic_3 : JournalIcon
+{
+	atlasResourcePath = "base\gameplay\gui\world\internet\templates\apartments\ezestate_atlas.inkatlas";
+	atlasPartName = "apr_renovation_2";
+}
+

@@ -1,0 +1,202 @@
+package BaseStatusEffect
+using RTDB, Effectors, Perks, Prereqs
+
+PlayerMemoryReplenishmentCooldown : PlayerCyberwareCooldown
+{
+	gameplayTags += 
+	[
+		"PlayerMemoryReplenishmentCooldown"
+	];
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 80;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+	uiData = 
+	{
+		string displayName = "LocKey#40788";
+		string iconPath = "memory_replenishment";
+		description = "LocKey#53709";
+	};
+}
+
+PlayerMemoryReplenishmentIconicEpicCooldown : PlayerMemoryReplenishmentCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 95;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+PlayerMemoryReplenishmentIconicEpicPlusCooldown : PlayerMemoryReplenishmentCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 90;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+PlayerMemoryReplenishmentIconicLegendaryCooldown : PlayerMemoryReplenishmentCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 85;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+PlayerMemoryReplenishmentIconicLegendaryPlusCooldown : PlayerMemoryReplenishmentCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 80;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+PlayerMemoryReplenishmentIconicLegendaryPlusPlusCooldown : PlayerMemoryReplenishmentCooldown
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers += 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 75;
+			} : ConstantStatModifier, 
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				refStat = "BaseStats.RamManagerCooldownReduction";
+				refObject = "Player";
+				opSymbol = "*";
+				value = -1;
+			} : CombinedStatModifier
+		];
+	} : CyberwareCooldownDuration;
+}
+
+HeatUsingBoosterDummyEffect : BuffStatusEffect
+{
+	gameplayTags += 
+	[
+		"CyberwareBuff"
+	];
+	statusEffectType = "BaseStatusEffectTypes.PassiveBuff";
+	uiData = 
+	{
+		string displayName = "holocamo";
+		string iconPath = "increased_stats_icon";
+	};
+}
+
+HoverJumpPlayerBuff : BuffStatusEffect
+{
+	bool isAffectedByTimeDilationNPC = false;
+	bool isAffectedByTimeDilationPlayer = false;
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 3;
+			} : ConstantStatModifier
+		];
+	};
+	packages += 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.HoverJumpCooldown";
+					inverted = true;
+				} : ApplyStatusEffectEffector
+			];
+		}
+	];
+	uiData = "BaseStatusEffect.BaseHoverJumpUI";
+}
+
+BaseHoverJumpUI : StatusEffectUIData
+{
+	displayName = "LocKey#40882";
+	description = "LocKey#77880";
+	iconPath = "ability_utility";
+}
+

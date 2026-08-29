@@ -4,10 +4,48 @@ local Cron = require("modules/utils/Cron")
 local helper = {
     patches = {},
     journalPatches = {},
-    endEvents = {}
+    endEvents = {},
+    sceneQueue = {}
 }
 
+local inputListener
+
+function helper.hook()
+    inputListener = NewProxy({
+        OnJournalLoaded = {
+            args = {"handle:ResourceEvent"},
+            callback = function (event)
+                local resource = event:GetResource()
+                if (resource == nil) then return end
+                if (not resource:IsA("gameJournalResource")) then return end
+
+                local journal = event:GetResource().entry
+
+                for _, patch in pairs(helper.journalPatches) do
+                    if patch.getID() ~= "" then
+                        for _, entry in pairs(journal.entries) do
+                            local patchEntry = patch.patches[entry.id]
+
+                            if patchEntry then
+                                local entries = entry.entries
+                                table.insert(entries, patchEntry.getEntry())
+                                entry.entries = entries
+                            end
+                        end
+                    end
+                end
+            end
+        }
+    })
+
+    Game.GetCallbackSystem():RegisterCallback('Resource/Load', inputListener:Target(), inputListener:Function('OnJournalLoaded'), true)
+        :AddTarget(ResourceTarget.Path("nif\\dummy.journal"))
+end
+
 function helper.init()
+    -- Clear out temporary patches from initial startup, they will be replaced with actual apartment instances backed data
+    helper.journalPatches = {}
+
     Observe('PlayerPuppet', 'OnNIFSceneEvent', function (_, event)
         if helper.endEvents[event.eventAction.value] then
             helper.endEvents[event.eventAction.value](Game.GetQuestsSystem():GetFactStr("nif_scene_active"))
@@ -18,6 +56,7 @@ function helper.init()
 
     Observe('NativeInteractions', 'ProcessScene', function(_, event)
         local path = ResRef.FromHash(event:GetPath():GetHash()):ToString()
+
         if not helper.patches[path] then return end
 
         local scene = event:GetResource()
@@ -29,24 +68,40 @@ function helper.init()
         helper.patchLocalization(scene, path)
         helper.patchRemovals(scene, path)
     end)
+end
 
-    Observe('NativeInteractions', 'ProcessJournal', function(_, event)
-        local journal = event:GetResource().entry
+-- Queue some callback bound to some owner table, of which only one can be executed per frame
+function helper.requestSceneSignal(owner, launch)
+    for _, queued in ipairs(helper.sceneQueue) do
+        if queued.owner == owner then return end
+    end
 
-        for _, patch in pairs(helper.journalPatches) do
-            if patch.getID() ~= "" then
-                for _, entry in pairs(journal.entries) do
-                    local patchEntry = patch.patches[entry.id]
+    table.insert(helper.sceneQueue, { owner = owner, launch = launch })
+end
 
-                    if patchEntry then
-                        local entries = entry.entries
-                        table.insert(entries, patchEntry.getEntry())
-                        entry.entries = entries
-                    end
-                end
-            end
+function helper.cancelSceneSignal(owner)
+    local removed = false
+
+    for index = #helper.sceneQueue, 1, -1 do
+        if helper.sceneQueue[index].owner == owner then
+            table.remove(helper.sceneQueue, index)
+            removed = true
         end
-    end)
+    end
+
+    return removed
+end
+
+-- Only start one scene per frame, as everything goes through shared nif_interaction_id fact
+function helper.onUpdate()
+    helper.nextSceneSignal()
+end
+
+function helper.nextSceneSignal()
+    if #helper.sceneQueue == 0 then return end
+
+    local request = table.remove(helper.sceneQueue, 1)
+    request.launch()
 end
 
 -- Patch nodeIDs of choice hubs
@@ -115,21 +170,23 @@ function helper.patchOffsets(scene, path)
     -- Patch animation offsets
     for _, node in pairs(scene.sceneGraph.graph) do
         if node:IsA("scnSectionNode") then
-            for _, event in pairs(node.events) do
+            for _, event in pairs(node.events or {}) do
                 if event:IsA("scnPlaySkAnimEvent") then
                     local data = event.rootMotionData
-                    -- Some animation events have an offset defined in the scene file, so use that additionally
-                    local pos = utils.addVector(helper.patches[path].animationPosition, helper.patches[path].animationRotation:ToQuat():Transform(data.originOffset:GetPosition()))
-                    local rot = utils.addEuler(helper.patches[path].animationRotation, data.originOffset:GetOrientation():ToEulerAngles())
-                    data.originOffset = Transform.new({ position = pos, orientation = rot:ToQuat() })
-                    event.rootMotionData = data
+                    if data then
+                        -- Some animation events have an offset defined in the scene file, so use that additionally
+                        local pos = utils.addVector(helper.patches[path].animationPosition, helper.patches[path].animationRotation:ToQuat():Transform(data.originOffset:GetPosition()))
+                        local rot = utils.addEuler(helper.patches[path].animationRotation, data.originOffset:GetOrientation():ToEulerAngles())
+                        data.originOffset = Transform.new({ position = pos, orientation = rot:ToQuat() })
+                        event.rootMotionData = data
+                    end
                 end
             end
         end
     end
 
     local workspots = scene.workspotInstances
-    for _, workspot in pairs(workspots) do
+    for _, workspot in pairs(workspots or {}) do
         local pos = utils.addVector(helper.patches[path].animationPosition, helper.patches[path].animationRotation:ToQuat():Transform(workspot.localTransform:GetPosition()))
         local rot = utils.addEuler(helper.patches[path].animationRotation, workspot.localTransform:GetOrientation():ToEulerAngles())
         workspot.localTransform = Transform.new({ position = pos, orientation = rot:ToQuat() })
@@ -169,7 +226,7 @@ function helper.patchNodeRefs(scene, path)
     -- NodeRefs graph
     for _, node in pairs(scene.sceneGraph.graph) do
         if node:IsA("scnSectionNode") then
-            for _, event in pairs(node.events) do
+            for _, event in pairs(node.events or {}) do
                 if event:IsA("scneventsVFXEvent") then
                     local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(event.nodeRef)]
 

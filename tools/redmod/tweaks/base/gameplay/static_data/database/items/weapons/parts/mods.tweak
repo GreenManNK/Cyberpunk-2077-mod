@@ -1,0 +1,8551 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Perks, Prereqs, Effectors, BaseStatusEffect
+
+[ notQueryable ]
+Mod : Part
+{
+	buyPrice = 
+	[
+		"Price.WeaponMod", "Price.ItemQualityMultiplier", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = 
+	[
+		"Price.WeaponMod", "Price.ItemQualitySellMultiplier", "Price.SellMultiplier"
+	];
+	tags += 
+	[
+		"WeaponMod"
+	];
+	powerLevelDeterminedByParent = true;
+	qualityRestrictedByParent = true;
+	bool isSingleInstance = false;
+	quality = "Quality.Common";
+	fk< ItemCategory > itemCategory = "ItemCategory.WeaponMod";
+	fk< ItemType > itemType = "ItemType.Prt_Mod";
+	iconPath = "mod_generic";
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod1", "AttachmentSlots.Power_Handgun_WeaponMod2", "AttachmentSlots.Power_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod1", "AttachmentSlots.Power_Shotgun_WeaponMod2", "AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Tech_Handgun_WeaponMod1", "AttachmentSlots.Tech_Handgun_WeaponMod2", "AttachmentSlots.Tech_Shotgun_WeaponMod1", "AttachmentSlots.Tech_Shotgun_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1", "AttachmentSlots.Smart_Handgun_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Smart_Shotgun_WeaponMod1", "AttachmentSlots.Smart_Shotgun_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible", "AttachmentSlots.Blunt_WeaponMod1", "AttachmentSlots.Blunt_WeaponMod2", "AttachmentSlots.Blunt_WeaponMod1_Collectible", "AttachmentSlots.Blunt_WeaponMod2_Collectible", "AttachmentSlots.Blade_WeaponMod1", "AttachmentSlots.Blade_WeaponMod2", "AttachmentSlots.Blade_WeaponMod1_Collectible", "AttachmentSlots.Blade_WeaponMod2_Collectible", "AttachmentSlots.Throwable_WeaponMod1", "AttachmentSlots.Throwable_WeaponMod2", "AttachmentSlots.Throwable_WeaponMod1_Collectible", "AttachmentSlots.Throwable_WeaponMod2_Collectible"
+	];
+}
+
+[ notQueryable ]
+RangedWeaponMod : Mod
+{
+	fk< ItemType > itemType = "ItemType.Prt_RangedMod";
+	tags += 
+	[
+		"RangedMod"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod1", "AttachmentSlots.Power_Handgun_WeaponMod2", "AttachmentSlots.Power_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod1", "AttachmentSlots.Power_Shotgun_WeaponMod2", "AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Tech_Handgun_WeaponMod1", "AttachmentSlots.Tech_Handgun_WeaponMod2", "AttachmentSlots.Tech_Shotgun_WeaponMod1", "AttachmentSlots.Tech_Shotgun_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1", "AttachmentSlots.Smart_Handgun_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Smart_Shotgun_WeaponMod1", "AttachmentSlots.Smart_Shotgun_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible"
+	];
+	buyPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+}
+
+[ notQueryable ]
+PowerWeaponMod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_PowerMod";
+	tags += 
+	[
+		"Power"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod1", "AttachmentSlots.Power_Handgun_WeaponMod2", "AttachmentSlots.Power_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod1", "AttachmentSlots.Power_Shotgun_WeaponMod2", "AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2"
+	];
+	buyPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.PowerWeapon"
+	];
+}
+
+[ notQueryable ]
+TechWeaponMod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_TechMod";
+	tags += 
+	[
+		"Tech"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Tech_Handgun_WeaponMod1", "AttachmentSlots.Tech_Handgun_WeaponMod2", "AttachmentSlots.Tech_Shotgun_WeaponMod1", "AttachmentSlots.Tech_Shotgun_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible"
+	];
+	buyPrice += 
+	[
+		"Price.TechWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.TechWeapon"
+	];
+}
+
+[ notQueryable ]
+SmartWeaponMod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_SmartMod";
+	tags += 
+	[
+		"Smart"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1", "AttachmentSlots.Smart_Handgun_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Smart_Shotgun_WeaponMod1", "AttachmentSlots.Smart_Shotgun_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible"
+	];
+	buyPrice += 
+	[
+		"Price.SmartWeapon"
+	];
+	sellPrice += 
+	[
+		"Price.SmartWeapon"
+	];
+}
+
+[ notQueryable ]
+AR_SMG_LMG_Mod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_AR_SMG_LMGMod";
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible", "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1", "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2"
+	];
+}
+
+[ notQueryable ]
+Handgun_Mod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_HandgunMod";
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_Handgun_WeaponMod1", "AttachmentSlots.Power_Handgun_WeaponMod2", "AttachmentSlots.Power_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Handgun_WeaponMod2_Collectible", "AttachmentSlots.Tech_Handgun_WeaponMod1", "AttachmentSlots.Tech_Handgun_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1", "AttachmentSlots.Smart_Handgun_WeaponMod2", "AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible", "AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible"
+	];
+}
+
+[ notQueryable ]
+Shotgun_Mod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_ShotgunMod";
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_Shotgun_WeaponMod1", "AttachmentSlots.Power_Shotgun_WeaponMod2", "AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible", "AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible", "AttachmentSlots.Tech_Shotgun_WeaponMod1", "AttachmentSlots.Tech_Shotgun_WeaponMod2", "AttachmentSlots.Smart_Shotgun_WeaponMod1", "AttachmentSlots.Smart_Shotgun_WeaponMod2"
+	];
+}
+
+[ notQueryable ]
+Precision_Sniper_Rifle_Mod : RangedWeaponMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_Precision_Sniper_RifleMod";
+	placementSlots = 
+	[
+		"AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible", "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible"
+	];
+}
+
+[ notQueryable ]
+MeleeMod : Mod
+{
+	fk< ItemType > itemType = "ItemType.Prt_MeleeMod";
+	tags += 
+	[
+		"MeleeMod"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Blunt_WeaponMod1", "AttachmentSlots.Blunt_WeaponMod2", "AttachmentSlots.Blunt_WeaponMod1_Collectible", "AttachmentSlots.Blunt_WeaponMod2_Collectible", "AttachmentSlots.Blade_WeaponMod1", "AttachmentSlots.Blade_WeaponMod2", "AttachmentSlots.Blade_WeaponMod1_Collectible", "AttachmentSlots.Blade_WeaponMod2_Collectible", "AttachmentSlots.Throwable_WeaponMod1", "AttachmentSlots.Throwable_WeaponMod2", "AttachmentSlots.Throwable_WeaponMod1_Collectible", "AttachmentSlots.Throwable_WeaponMod2_Collectible"
+	];
+	buyPrice += 
+	[
+		"Price.MeleeWeaponMod"
+	];
+	sellPrice += 
+	[
+		"Price.MeleeWeaponMod"
+	];
+}
+
+[ notQueryable ]
+Blade_Mod : MeleeMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_BladeMod";
+	tags += 
+	[
+		"BladeMod"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Blade_WeaponMod1", "AttachmentSlots.Blade_WeaponMod2", "AttachmentSlots.Blade_WeaponMod1_Collectible", "AttachmentSlots.Blade_WeaponMod2_Collectible", "AttachmentSlots.Throwable_WeaponMod1", "AttachmentSlots.Throwable_WeaponMod2"
+	];
+}
+
+[ notQueryable ]
+Blunt_Mod : MeleeMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_BluntMod";
+	tags += 
+	[
+		"BluntMod"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Blunt_WeaponMod1", "AttachmentSlots.Blunt_WeaponMod2", "AttachmentSlots.Blunt_WeaponMod1_Collectible", "AttachmentSlots.Blunt_WeaponMod2_Collectible"
+	];
+}
+
+[ notQueryable ]
+Throw_Mod : MeleeMod
+{
+	fk< ItemType > itemType = "ItemType.Prt_ThrowableMod";
+	tags += 
+	[
+		"ThrowMod"
+	];
+	placementSlots = 
+	[
+		"AttachmentSlots.Throwable_WeaponMod1", "AttachmentSlots.Throwable_WeaponMod2", "AttachmentSlots.Throwable_WeaponMod1_Collectible", "AttachmentSlots.Throwable_WeaponMod2_Collectible"
+	];
+}
+
+[ notQueryable ]
+ARSMGLMGMod1_Base : AR_SMG_LMG_Mod
+{
+	displayName = "LocKey#89169";
+	iconPath = "aslt_rifle_smg_lmg_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MagazineCapacityBonus";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MagazineCapacityBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ReloadTimeBonus";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89208";
+				stats = 
+				[
+					"BaseStats.MagazineCapacityBonus", "BaseStats.ReloadTimeBonus"
+				];
+			};
+		}
+	];
+}
+
+ARSMGLMGMod1_Common : ARSMGLMGMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod1_Uncommon : ARSMGLMGMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod1_Rare : ARSMGLMGMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod1_Epic : ARSMGLMGMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod1_Legendary : ARSMGLMGMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+ARSMGLMGMod2_Base : AR_SMG_LMG_Mod
+{
+	displayName = "LocKey#89170";
+	iconPath = "aslt_rifle_smg_lmg_common_03";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ARSMGLMGMod2_RecoilKick";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ARSMGLMGMod2_RecoilKick";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 3f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ARSMGLMGMod2_RecoilKickCover";
+			modifierType = "Additive";
+			value = 7f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ARSMGLMGMod2_RecoilKickCover";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 7f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ARSMGLMGMod2_HorRecoil";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ARSMGLMGMod2_RecoilKick";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ARSMGLMGMod2_RecoilKick";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.UsingCoverPSMPrereq";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.RecoilKickMin";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod2_RecoilKickCover";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.RecoilKickMax";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod2_RecoilKickCover";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.RecoilEnableLinearX";
+								modifierType = "Multiplier";
+								refStat = "BaseStats.ARSMGLMGMod2_HorRecoil";
+								opSymbol = "*";
+								value = 1f;
+							} : CombinedStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+ARSMGLMGMod2_Base_LowTier : ARSMGLMGMod2_Base
+{
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89209";
+				stats = 
+				[
+					"BaseStats.ARSMGLMGMod2_RecoilKick", "BaseStats.ARSMGLMGMod2_RecoilKickCover"
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+ARSMGLMGMod2_Base_HighTier : ARSMGLMGMod2_Base
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ARSMGLMGMod2_HorRecoil";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89210";
+				stats = 
+				[
+					"BaseStats.ARSMGLMGMod2_RecoilKick", "BaseStats.ARSMGLMGMod2_RecoilKickCover"
+				];
+			};
+		}
+	];
+}
+
+ARSMGLMGMod2_Common : ARSMGLMGMod2_Base_LowTier
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod2_Uncommon : ARSMGLMGMod2_Base_LowTier
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod2_Rare : ARSMGLMGMod2_Base_LowTier
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod2_Epic : ARSMGLMGMod2_Base_HighTier
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod2_Legendary : ARSMGLMGMod2_Base_HighTier
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+ARSMGLMGMod3_Base : AR_SMG_LMG_Mod
+{
+	displayName = "LocKey#89171";
+	iconPath = "aslt_rifle_smg_lmg_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			value = -0.3f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Perks.PlayerIsNotAiming";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.SpreadDefaultX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadDefaultY";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadMaxX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadMaxY";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SmartGunHitProbability";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.ARSMGLMGMod3_SpreadPerShot";
+								opSymbol = "*";
+								value = 0.01f;
+							} : CombinedStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89211";
+				stats = 
+				[
+					"BaseStats.ARSMGLMGMod3_SpreadPerShot"
+				];
+				floatValues = 
+				[
+					30
+				];
+			};
+		}
+	];
+}
+
+ARSMGLMGMod3_Common : ARSMGLMGMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod3_Uncommon : ARSMGLMGMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod3_Rare : ARSMGLMGMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod3_Epic : ARSMGLMGMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ARSMGLMGMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ARSMGLMGMod3_Legendary : ARSMGLMGMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ARSMGLMGMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+HGMod1_Base : Handgun_Mod
+{
+	displayName = "LocKey#89172";
+	iconPath = "Mod_Shock_n_Awe";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_ModCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_StackCount";
+			modifierType = "Additive";
+			refStat = "BaseStats.HGMod1_CommonStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_StackCount";
+			modifierType = "Additive";
+			refStat = "BaseStats.HGMod1_UncommonStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_StackCount";
+			modifierType = "Additive";
+			refStat = "BaseStats.HGMod1_RareStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_StackCount";
+			modifierType = "Additive";
+			refStat = "BaseStats.HGMod1_EpicStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_StackCount";
+			modifierType = "Additive";
+			refStat = "BaseStats.HGMod1_LegendaryStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_Accuracy";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_Accuracy";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "HGMod1_ModCount";
+						valueToCheck = 1;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						count = 1f;
+					} : HGMod1_AccuracyEffector;
+				} : ApplyEffectorOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statType = "HGMod1_ModCount";
+						valueToCheck = 2;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						count = 2f;
+					} : HGMod1_AccuracyEffector;
+				} : ApplyEffectorOnPlayer
+			];
+		}
+	];
+}
+
+HGMod1_Common : HGMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_CommonStacks";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					4, 5
+				];
+			} : HGMod1UIData;
+		}
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod1_Uncommon : HGMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_UncommonStacks";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					4.5, 5
+				];
+			} : HGMod1UIData;
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod1_Rare : HGMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_RareStacks";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					5, 5
+				];
+			} : HGMod1UIData;
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod1_Epic : HGMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_EpicStacks";
+			modifierType = "Additive";
+			value = 5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_RareStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					5.5, 5
+				];
+			} : HGMod1UIData;
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod1_Legendary : HGMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod1_LegendaryStacks";
+			modifierType = "Additive";
+			value = 6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_EpicStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_RareStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod1_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					6, 5
+				];
+			} : HGMod1UIData;
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+HGMod1UIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#89212";
+	stats = 
+	[
+		"BaseStats.HGMod1_StackCount"
+	];
+}
+
+[ notQueryable ]
+HGMod2_Base : Handgun_Mod
+{
+	displayName = "LocKey#89192";
+	iconPath = "Mod_Pyro";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.HGMod2_CritChance";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "hgmod2_critchance";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HGMod2_Spread";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "hgmod2_spread";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HGMod2_Swap";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "hgmod2_swap";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.HGMod2_EquipBuff";
+					removeWithEffector = true;
+				} : ApplyStatusEffectOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89213";
+				stats = 
+				[
+					"BaseStats.HGMod2_CritChance", "BaseStats.HGMod2_Spread", "BaseStats.HGMod2_Swap"
+				];
+				floatValues = 
+				[
+					5
+				];
+			};
+		}
+	];
+}
+
+HGMod2_Common : HGMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod2_Uncommon : HGMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod2_Rare : HGMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod2_Epic : HGMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod2_Legendary : HGMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+HGMod3_Base : Handgun_Mod
+{
+	displayName = "LocKey#89201";
+	iconPath = "pistol_revolvers_common_03";
+}
+
+[ notQueryable ]
+HGMod3_Base_LowTier : HGMod3_Base
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.EffectiveRangeBonus";
+			modifierType = "Additive";
+			value = 11f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRangeBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 8f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HGMod3_Sway";
+			modifierType = "Additive";
+			value = 12.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HGMod3_Sway";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 12.5f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Perks.PlayerIsAiming";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.StaminaRegenEnabled";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.EffectiveRange";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.EffectiveRangeBonus";
+								opSymbol = "*";
+								value = 0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SwaySideMaximumAngleDistance";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.HGMod3_Sway";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SwaySideMinimumAngleDistance";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.HGMod3_Sway";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SwayTraversalTime";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.HGMod3_Sway";
+								opSymbol = "*";
+								value = 0.02f;
+							} : CombinedStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89214";
+				stats = 
+				[
+					"BaseStats.EffectiveRangeBonus", "BaseStats.HGMod3_Sway"
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+HGMod3_Base_HighTier : HGMod3_Base
+{
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Perks.PlayerIsAiming";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.StaminaRegenEnabled";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.DamageFalloffDisabled";
+								modifierType = "Additive";
+								value = 1f;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.SwaySideMaximumAngleDistance";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.SwaySideMinimumAngleDistance";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89215";
+			};
+		}
+	];
+}
+
+HGMod3_Common : HGMod3_Base_LowTier
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod3_Uncommon : HGMod3_Base_LowTier
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod3_Rare : HGMod3_Base_LowTier
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod3_Epic : HGMod3_Base_LowTier
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.HGMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+HGMod3_Legendary : HGMod3_Base_HighTier
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.HGMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+ShotgunMod1_Base : Shotgun_Mod
+{
+	displayName = "LocKey#89175";
+	iconPath = "shotgun_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ShotgunMod1_ModCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ShotgunMod1_BuffDuration";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ShotgunMod1_BuffDuration";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ShotgunMod1_DismemberBonus";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ShotgunMod1_DismemberBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 20f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod1_DismemberBonus";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statusEffect = "BaseStatusEffect.ShotgunMod1_Buff";
+					} : StatusEffectAbsentPrereq;
+					effectorToApply = 
+					{
+						prereqRecord = "Prereqs.DismembermentTriggeredPrereq";
+						statusEffect = "BaseStatusEffect.ShotgunMod1_Buff";
+					} : ApplyStatusEffectOnPlayer;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89216";
+				stats = 
+				[
+					"BaseStats.ShotgunMod1_DismemberBonus", "BaseStats.ShotgunMod1_BuffDuration"
+				];
+				floatValues = 
+				[
+					25
+				];
+			};
+		}
+	];
+}
+
+ShotgunMod1_Common : ShotgunMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod1_Uncommon : ShotgunMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod1_Rare : ShotgunMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod1_Epic : ShotgunMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod1_Legendary : ShotgunMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+ShotgunMod2_Base : Shotgun_Mod
+{
+	displayName = "LocKey#89183";
+	iconPath = "shotgun_legendary";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ShotgunMod2_ModCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "LeftLeg";
+							} : BodyPartHitPrereqCondition, 
+							{
+								rarity = "Boss";
+								invert = true;
+							} : TargetNPCRarityHitPrereqCondition, 
+							{
+								rarity = "MaxTac";
+								invert = true;
+							} : TargetNPCRarityHitPrereqCondition
+						];
+					} : IsWeaponRanged;
+					statusEffect = "BaseStatusEffect.ShotgunMod2_LeftLeg";
+					isRandom = false;
+				} : AddStatusEffectToAttackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "RightLeg";
+							} : BodyPartHitPrereqCondition, 
+							{
+								rarity = "Boss";
+								invert = true;
+							} : TargetNPCRarityHitPrereqCondition, 
+							{
+								rarity = "MaxTac";
+								invert = true;
+							} : TargetNPCRarityHitPrereqCondition
+						];
+					} : IsWeaponRanged;
+					statusEffect = "BaseStatusEffect.ShotgunMod2_RightLeg";
+					isRandom = false;
+				} : AddStatusEffectToAttackEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89217";
+				floatValues = 
+				[
+					25
+				];
+			};
+		}
+	];
+}
+
+ShotgunMod2_Legendary : ShotgunMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary", "Exclusive"
+	];
+}
+
+[ notQueryable ]
+ShotgunMod3_Base : Shotgun_Mod
+{
+	displayName = "LocKey#89203";
+	iconPath = "shotgun_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "shotgunmod3_dmg";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.ShotgunMod3_Spread";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "shotgunmod3_spread";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadDefaultY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxY";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ShotgunMod3_Spread";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89218";
+				stats = 
+				[
+					"BaseStats.ShotgunMod3_Spread", "BaseStats.BonusDamagePerHit"
+				];
+			};
+		}
+	];
+}
+
+ShotgunMod3_Common : ShotgunMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod3_Uncommon : ShotgunMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod3_Rare : ShotgunMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod3_Epic : ShotgunMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ShotgunMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ShotgunMod3_Legendary : ShotgunMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ShotgunMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+PRSRMod1_Base : Precision_Sniper_Rifle_Mod
+{
+	displayName = "LocKey#89173";
+	iconPath = "precision_rifles_snipers_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod1_Handling";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "prsrmod1_handling";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "NewPerks.IsPlayerCrouchingOrCrouchSprintingPrereq";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.RecoilKickMin";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.RecoilKickMax";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadChangePerShot";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadAdsChangePerShot";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadDefaultX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadMaxX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadAdsDefaultX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SpreadAdsMaxX";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = -0.01f;
+							} : CombinedStatModifier, 
+							{
+								statType = "BaseStats.SwayTraversalTime";
+								modifierType = "AdditiveMultiplier";
+								refStat = "BaseStats.PRSRMod1_Handling";
+								opSymbol = "*";
+								value = 0.01f;
+							} : CombinedStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89219";
+				stats = 
+				[
+					"BaseStats.PRSRMod1_Handling"
+				];
+			};
+		}
+	];
+}
+
+PRSRMod1_Common : PRSRMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod1_Uncommon : PRSRMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod1_Rare : PRSRMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod1_Epic : PRSRMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod1_Legendary : PRSRMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+PRSRMod2_Base : Precision_Sniper_Rifle_Mod
+{
+	displayName = "LocKey#89174";
+	iconPath = "precision_rifles_snipers_common_03";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_Stacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.PRSRMod2_CommonStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_Stacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.PRSRMod2_UncommonStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_Stacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.PRSRMod2_RareStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_Stacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.PRSRMod2_EpicStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_Stacks";
+			modifierType = "Additive";
+			refStat = "BaseStats.PRSRMod2_LegendaryStacks";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.PRSRMod2_Prereq";
+					statusEffect = "BaseStatusEffect.PRSRMod2_Buff";
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = "Prereqs.PRSRMod2_Prereq";
+					statusEffect = "BaseStatusEffect.PRSRMod2_FactToggler";
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statusEffect = "BaseStatusEffect.PRSRMod2_FactToggler";
+					} : StatusEffectPrereq;
+					fact = "PRSRMod2_Fact";
+				} : ToggleFactEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89220";
+				floatValues = 
+				[
+					8, 15
+				];
+				stats = 
+				[
+					"BaseStats.PRSRMod2_Stacks"
+				];
+			};
+		}
+	];
+}
+
+PRSRMod2_Common : PRSRMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_CommonStacks";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89221";
+				intValues = 
+				[
+					1
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}
+	];
+}
+
+PRSRMod2_Uncommon : PRSRMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_UncommonStacks";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89221";
+				intValues = 
+				[
+					1
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89223";
+				intValues = 
+				[
+					2
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}
+	];
+}
+
+PRSRMod2_Rare : PRSRMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_RareStacks";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_RareCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89221";
+				intValues = 
+				[
+					1
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89223";
+				intValues = 
+				[
+					2
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89225";
+				intValues = 
+				[
+					3
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}
+	];
+}
+
+PRSRMod2_Epic : PRSRMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_EpicStacks";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_EpicCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_RareStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_RareCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89221";
+				intValues = 
+				[
+					1
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89223";
+				intValues = 
+				[
+					2
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89225";
+				intValues = 
+				[
+					3
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89227";
+				intValues = 
+				[
+					4
+				];
+				floatValues = 
+				[
+					25, 25
+				];
+			};
+		}
+	];
+}
+
+PRSRMod2_Legendary : PRSRMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PRSRMod2_LegendaryStacks";
+			modifierType = "Additive";
+			value = 5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_LegendaryCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_EpicStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_EpicCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_RareStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_RareCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_UncommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonStacks";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PRSRMod2_CommonCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89221";
+				intValues = 
+				[
+					1
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89223";
+				intValues = 
+				[
+					2
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89225";
+				intValues = 
+				[
+					3
+				];
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89227";
+				intValues = 
+				[
+					4
+				];
+				floatValues = 
+				[
+					25, 25
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89229";
+				intValues = 
+				[
+					5
+				];
+				floatValues = 
+				[
+					10
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+PRSRMod3_Base : Precision_Sniper_Rifle_Mod
+{
+	displayName = "LocKey#89202";
+	iconPath = "precision_rifles_snipers_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.FirePowerBonus";
+			modifierType = "Additive";
+			value = 15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePowerBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.FirePowerBonus";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.LocomotionPenaltyDisabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "AdditiveMultiplier";
+			id = "weapon_mods";
+			column = "prsrmod3_hitreaction";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.Weight";
+			modifierType = "AdditiveMultiplier";
+			value = -0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Weight";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = -0.025f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ArmorPenetrationBonus";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "prsrmod3_armor_pene_potency";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ArmorPenetrationBonus";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+PRSRMod3_Base_LowTier : PRSRMod3_Base
+{
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89231";
+				stats = 
+				[
+					"BaseStats.FirePowerBonus", "BaseStats.ArmorPenetrationBonus"
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+PRSRMod3_Base_HighTier : PRSRMod3_Base
+{
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89232";
+				stats = 
+				[
+					"BaseStats.FirePowerBonus", "BaseStats.ArmorPenetrationBonus"
+				];
+			};
+		}
+	];
+}
+
+PRSRMod3_Common : PRSRMod3_Base_LowTier
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod3_Uncommon : PRSRMod3_Base_LowTier
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod3_Rare : PRSRMod3_Base_LowTier
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod3_Epic : PRSRMod3_Base_HighTier
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PRSRMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PRSRMod3_Legendary : PRSRMod3_Base_HighTier
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PRSRMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+RangedMod1_Base : RangedWeaponMod
+{
+	displayName = "LocKey#89187";
+	iconPath = "generic_ranged_03_epic";
+	tags += 
+	[
+		"GenericRangedMod"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RangedMod1_CritChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					critChance = 
+					[
+						{
+							statType = "BaseStats.CritChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.RangedMod1_CritChance";
+							opSymbol = "*";
+							value = 0.01f;
+						} : CombinedStatModifier
+					];
+				} : RangedMod1_CritEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89233";
+				stats = 
+				[
+					"BaseStats.RangedMod1_CritChance"
+				];
+			};
+		}
+	];
+}
+
+RangedMod1_Epic : RangedMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic", "Exclusive"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod1_Legendary : RangedMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.RangedMod1_CritChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+RangedMod2_Base : RangedWeaponMod
+{
+	displayName = "LocKey#89188";
+	iconPath = "generic_ranged_01";
+	tags += 
+	[
+		"GenericRangedMod"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MagazineAutoRefill";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MagazineAutoRefill";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.EquipDuration";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.UnequipDuration";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ReloadTimeBonus";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "rangedmod2_reload";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89234";
+				stats = 
+				[
+					"BaseStats.MagazineAutoRefill", "BaseStats.ReloadTimeBonus"
+				];
+				floatValues = 
+				[
+					20
+				];
+			};
+		}
+	];
+}
+
+RangedMod2_Common : RangedMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod2_Uncommon : RangedMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod2_Rare : RangedMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod2_Epic : RangedMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod2_Legendary : RangedMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+RangedMod3_Base : RangedWeaponMod
+{
+	displayName = "LocKey#89189";
+	iconPath = "generic_ranged_02";
+	tags += 
+	[
+		"GenericRangedMod"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BonusDamageAgainstElites";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusDamageAgainstElites";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 4f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#79488";
+				stats = 
+				[
+					"BaseStats.BonusDamageAgainstElites"
+				];
+			};
+		}
+	];
+}
+
+RangedMod3_Common : RangedMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod3_Uncommon : RangedMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod3_Rare : RangedMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod3_Epic : RangedMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.RangedMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+RangedMod3_Legendary : RangedMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.RangedMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+PowerMod1_Base : PowerWeaponMod
+{
+	displayName = "LocKey#40236";
+	iconPath = "power_03_epic";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BurningApplicationRate";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BurningApplicationRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 3f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PowerMod1_DamageConvert";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			refObject = "Root";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PowerMod1_DamageConvert";
+			modifierType = "AdditiveMultiplier";
+			id = "weapon_mods";
+			column = "powermod1_dmg_convert_mult";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.PowerMod1_DamageConvert";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.PowerMod1_DamageConvert";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					15
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1_Common : PowerMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					15
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1_Uncommon : PowerMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					20
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1_Rare : PowerMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					25
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1_Epic : PowerMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					30
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1_Legendary : PowerMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					50
+				];
+			} : PowerMod1UIData;
+		}
+	];
+}
+
+PowerMod1UIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#89237";
+	stats = 
+	[
+		"BaseStats.BurningApplicationRate"
+	];
+}
+
+[ notQueryable ]
+PowerMod2_Base : PowerWeaponMod
+{
+	displayName = "LocKey#89196";
+	iconPath = "power_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "powermod2_armor_pene";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.FirePowerBonus";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "powermod2_stamina_cost";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.FirePowerBonus";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89238";
+				stats = 
+				[
+					"BaseStats.CanWeaponIgnoreArmor", "BaseStats.FirePowerBonus"
+				];
+			};
+		}
+	];
+}
+
+PowerMod2_Uncommon : PowerMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod2_Rare : PowerMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod2_Epic : PowerMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod2_Legendary : PowerMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+PowerMod3_Base : PowerWeaponMod
+{
+	displayName = "LocKey#89197";
+	iconPath = "power_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BonusRicochetCritChance";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetCritChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89239";
+				stats = 
+				[
+					"BaseStats.BonusRicochetCritChance"
+				];
+			};
+		}
+	];
+}
+
+PowerMod3_Common : PowerMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod3_Uncommon_Recipe_1";
+				}
+			];
+		}
+	];
+}
+
+PowerMod3_Uncommon : PowerMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod3_Rare : PowerMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod3_Epic : PowerMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.PowerMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+PowerMod3_Legendary : PowerMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.PowerMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+TechMod1_Base : TechWeaponMod
+{
+	displayName = "LocKey#89177";
+	iconPath = "tech_common_03";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TechMod1_EMPChance";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechMod1_EMPChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 10f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					applicationChance = 
+					[
+						{
+							statType = "BaseStats.ApplicationChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.TechMod1_EMPChance";
+							opSymbol = "*";
+							value = 0.01f;
+						} : CombinedStatModifier
+					];
+				} : TechMod1_EMPEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89240";
+				stats = 
+				[
+					"BaseStats.TechMod1_EMPChance"
+				];
+			};
+		}
+	];
+}
+
+TechMod1_Common : TechMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod1_Uncommon : TechMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod1_Rare : TechMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod1_Epic : TechMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod1_Legendary : TechMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+TechMod2_Base : TechWeaponMod
+{
+	displayName = "LocKey#89198";
+	iconPath = "tech_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TechPierceDamageFactor";
+			modifierType = "AdditiveMultiplier";
+			id = "weapon_mods";
+			column = "techmod2_pierce_dmg";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.TechPierceChargeLevel";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "techmod2_pierce_threshold";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+}
+
+TechMod2_Common : TechMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					15, 15
+				];
+			} : TechMod2UIData;
+		}
+	];
+}
+
+TechMod2_Uncommon : TechMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					20, 15
+				];
+			} : TechMod2UIData;
+		}
+	];
+}
+
+TechMod2_Rare : TechMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					20, 20
+				];
+			} : TechMod2UIData;
+		}
+	];
+}
+
+TechMod2_Epic : TechMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					25, 20
+				];
+			} : TechMod2UIData;
+		}
+	];
+}
+
+TechMod2_Legendary : TechMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					25, 25
+				];
+			} : TechMod2UIData;
+		}
+	];
+}
+
+TechMod2UIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#89241";
+	stats = 
+	[
+		"BaseStats.TechPierceScanAngle"
+	];
+}
+
+[ notQueryable ]
+TechMod3_Base : TechWeaponMod
+{
+	displayName = "LocKey#89200";
+	iconPath = "tech_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TechMod3_ChargeTime";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechMod3_ChargeTime";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ChargeTime";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.TechMod3_ChargeTime";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "Additive";
+			value = -0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePowerBonus";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePowerBonus";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 4f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.FirePowerBonus";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89242";
+				stats = 
+				[
+					"BaseStats.TechMod3_ChargeTime", "BaseStats.FirePowerBonus", "BaseStats.CanWeaponIgnoreArmor"
+				];
+			};
+		}
+	];
+}
+
+TechMod3_Common : TechMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod3_Uncommon : TechMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod3_Rare : TechMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod3_Epic : TechMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.TechMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+TechMod3_Legendary : TechMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.TechMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+SmartMod1_Base : SmartWeaponMod
+{
+	displayName = "LocKey#89181";
+	iconPath = "smart_epic_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.SmartGunTrackMultipleEntitiesInADS";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsMaxLockedTargets";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusSmartGunTimeToLock";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "smartmod1_locktime";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.HeadshotDamageMultiplier";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89243";
+				stats = 
+				[
+					"BaseStats.SmartGunAdsMaxLockedTargets", "BaseStats.BonusSmartGunTimeToLock", "BaseStats.HeadshotDamageMultiplier"
+				];
+			};
+		}
+	];
+}
+
+SmartMod1_Epic : SmartMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic", "Exclusive"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod1_Legendary : SmartMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.SmartGunAdsMaxLockedTargets";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HeadshotDamageMultiplier";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+SmartMod2_Base : SmartWeaponMod
+{
+	displayName = "LocKey#89195";
+	iconPath = "smart_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.SmartGunHitProbability";
+			modifierType = "Additive";
+			value = -0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartMod2_Velocity";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartMod2_Velocity";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 7.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunPlayerProjectileVelocity";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod2_Velocity";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "smartmod2_armor_pene";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89244";
+				stats = 
+				[
+					"BaseStats.SmartMod2_Velocity", "BaseStats.CanWeaponIgnoreArmor"
+				];
+				floatValues = 
+				[
+					20
+				];
+			};
+		}
+	];
+}
+
+SmartMod2_Common : SmartMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod2_Uncommon : SmartMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod2_Rare : SmartMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod2_Epic : SmartMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod2_Legendary : SmartMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+SmartMod3_Base : SmartWeaponMod
+{
+	displayName = "LocKey#89199";
+	iconPath = "smart_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.SmartMod3_Zone";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartMod3_Zone";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipTargetableAngleYaw";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipTargetableAnglePitch";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsTargetableAngleYaw";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsTargetableAnglePitch";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipLockingAngleYaw";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipLockingAnglePitch";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsLockingAngleYaw";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsLockingAnglePitch";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.SmartMod3_Zone";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BonusSmartGunTimeToLock";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "smartmod3_locktime";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipTimeToUnlock";
+			modifierType = "Additive";
+			value = 0.1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartGunHipTimeToUnlock";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsTimeToUnlock";
+			modifierType = "Additive";
+			value = 0.1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SmartGunAdsTimeToUnlock";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89245";
+				stats = 
+				[
+					"BaseStats.SmartMod3_Zone", "BaseStats.BonusSmartGunTimeToLock", "BaseStats.SmartGunHipTimeToUnlock"
+				];
+			};
+		}
+	];
+}
+
+SmartMod3_Common : SmartMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod3_Uncommon : SmartMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod3_Rare : SmartMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod3_Epic : SmartMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.SmartMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+SmartMod3_Legendary : SmartMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.SmartMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+MeleeMod1_Base : MeleeMod
+{
+	displayName = "LocKey#89193";
+	iconPath = "melee_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MeleeMod1_CritChance";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "meleemod1_critchance";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.MeleeMod1_CritDamage";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "meleemod1_critdamage";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							"Perks.IsPlayerInAir", {
+								statusEffect = "BaseStatusEffect.MeleeMod1_SpamStopper";
+							} : StatusEffectAbsentPrereq
+						];
+					} : ANDPrereq;
+					statusEffect = "BaseStatusEffect.MeleeMod1_InAirBuff";
+					removeWithEffector = true;
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								stateName = "Jump";
+							} : DetailedLocomotionPSMPrereq, 
+							{
+								statusEffect = "BaseStatusEffect.MeleeMod1_SpamZone";
+							} : StatusEffectPrereq
+						];
+					} : ANDPrereq;
+					statusEffect = "BaseStatusEffect.MeleeMod1_SpamStopper";
+					removeWithEffector = true;
+				} : ApplyStatusEffectOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89246";
+				stats = 
+				[
+					"BaseStats.MeleeMod1_CritChance", "BaseStats.MeleeMod1_CritDamage"
+				];
+			};
+		}
+	];
+}
+
+MeleeMod1_Common : MeleeMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod1_Uncommon : MeleeMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod1_Rare : MeleeMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod1_Epic : MeleeMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod1_Legendary : MeleeMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+MeleeMod2_Base : MeleeMod
+{
+	displayName = "LocKey#89194";
+	iconPath = "melee_common_03";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MeleeMod2_Duration";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeMod2_Duration";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MeleeMod2_Stacks";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "meleemod2_stacks";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							"Perks.IsPlayerSprinting", "Prereqs.TwoHandedHammerHeldPrereq"
+						];
+					} : ANDPrereq;
+					removeWithEffector = true;
+					statusEffect = "BaseStatusEffect.MeleeMod2_Listener";
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								conditions += 
+								[
+									{
+										attackSubtype = "SprintAttack";
+									} : AttackSubtypeHitPrereqCondition
+								];
+							} : IsHitTargetAlive, 
+							{
+								nestedPrereqs = 
+								[
+									{
+										conditions += 
+										[
+											{
+												attackSubtype = "SprintAttack";
+												invert = true;
+											} : AttackSubtypeHitPrereqCondition
+										];
+									} : IsHitTargetAlive, 
+									{
+										statusEffect = "BaseStatusEffect.MeleeMod2_JustFinishedSprint";
+									} : StatusEffectPrereq
+								];
+							} : ANDPrereq
+						];
+					} : ORPrereq;
+					statusEffect = "BaseStatusEffect.MeleeMod2_InfiniteCombo";
+					removeWithEffector = true;
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statusEffect = "BaseStatusEffect.MeleeMod2_InfiniteCombo";
+					} : StatusEffectPrereq;
+					effectorToApply = 
+					{
+						prereqRecord = 
+						{
+							conditions += 
+							[
+								{
+									attackSubtype = "ComboAttack";
+								} : AttackSubtypeHitPrereqCondition
+							];
+						} : IsHitTargetAlive;
+						statusEffect = "BaseStatusEffect.MeleeMod2_AttackSpeedBuff";
+					} : ApplyStatusEffectOnPlayer;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89247";
+				stats = 
+				[
+					"BaseStats.MeleeMod2_Duration", "BaseStats.MeleeMod2_Stacks"
+				];
+				floatValues = 
+				[
+					5, 2
+				];
+			};
+		}
+	];
+}
+
+MeleeMod2_Common : MeleeMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod2_Uncommon : MeleeMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod2_Rare : MeleeMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod2_Epic : MeleeMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod2_Legendary : MeleeMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+MeleeMod3_Base : MeleeMod
+{
+	displayName = "LocKey#89204";
+	iconPath = "melee_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MeleeMod3_CritChance";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "meleemod3_crit_chance";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								stateName = "InCombat";
+								isInState = false;
+							} : CombatPSMPrereq, 
+							"NewPerks.IsPlayerCrouchingOrCrouchSprintingPrereq"
+						];
+					} : ANDPrereq;
+					removeWithEffector = true;
+					statusEffect = "BaseStatusEffect.MeleeMod3_Listener";
+				} : ApplyStatusEffectOnPlayer
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+MeleeMod3_Base_LowTier : MeleeMod3_Base
+{
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89248";
+				stats = 
+				[
+					"BaseStats.MeleeMod3_CritChance"
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+MeleeMod3_Base_HighTier : MeleeMod3_Base
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MeleeMod3_CritDamage";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "meleemod3_crit_damage";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89249";
+				stats = 
+				[
+					"BaseStats.MeleeMod3_CritChance", "BaseStats.MeleeMod3_CritDamage"
+				];
+			};
+		}
+	];
+}
+
+MeleeMod3_Common : MeleeMod3_Base_LowTier
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod3_Uncommon : MeleeMod3_Base_LowTier
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod3_Rare : MeleeMod3_Base_LowTier
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod3_Epic : MeleeMod3_Base_HighTier
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.MeleeMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+MeleeMod3_Legendary : MeleeMod3_Base_HighTier
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.MeleeMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BladeMod1_Base : Blade_Mod
+{
+	displayName = "LocKey#89179";
+	iconPath = "melee_blade_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BladeMod1_CritChance";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BladeMod1_CritChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 20f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CanBleedingCriticallyHit";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					critChance = 
+					[
+						{
+							statType = "BaseStats.CritChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.BladeMod1_CritChance";
+							opSymbol = "*";
+							value = 0.01f;
+						} : CombinedStatModifier, 
+						{
+							statType = "BaseStats.CritChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.CritChance";
+							opSymbol = "*";
+							value = -0.01f;
+						} : CombinedStatModifier
+					];
+				} : BladeMod1_CritEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89250";
+				stats = 
+				[
+					"BaseStats.BladeMod1_CritChance"
+				];
+			};
+		}
+	];
+}
+
+BladeMod1_Common : BladeMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod1_Uncommon : BladeMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod1_Rare : BladeMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod1_Epic : BladeMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod1_Legendary : BladeMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BladeMod2_Base : Blade_Mod
+{
+	displayName = "LocKey#89184";
+	iconPath = "melee_blade_legendary_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BladeMod2_ModCount";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								conditions += 
+								[
+									{
+										weaponType = "Melee";
+									} : WeaponTypeHitPrereqCondition
+								];
+							} : IsTargetKilled, 
+							{
+								conditions = 
+								[
+									{
+										hitFlag = "FinisherTriggered";
+									} : HitFlagHitPrereqCondition
+								];
+							} : PostProcessHitTriggered
+						];
+					} : ORPrereq;
+					statusEffect = "BaseStatusEffect.BladeMod2_FinisherBuff";
+					removeWithEffector = true;
+				} : ApplyStatusEffectOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89251";
+				floatValues = 
+				[
+					20, 5
+				];
+			};
+		}
+	];
+}
+
+BladeMod2_Legendary : BladeMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary", "Exclusive"
+	];
+}
+
+[ notQueryable ]
+BladeMod3_Base : Blade_Mod
+{
+	displayName = "LocKey#89205";
+	iconPath = "melee_blade_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.DurationBonusBleeding";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusBleeding";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = 5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			value = -20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89252";
+				stats = 
+				[
+					"BaseStats.DurationBonusBleeding", "BaseStats.CritChance", "BaseStats.BonusDamagePerHit"
+				];
+			};
+		}
+	];
+}
+
+BladeMod3_Common : BladeMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod3_Uncommon : BladeMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod3_Rare : BladeMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod3_Epic : BladeMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BladeMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BladeMod3_Legendary : BladeMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BladeMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BluntMod1_Base : Blunt_Mod
+{
+	displayName = "LocKey#89180";
+	iconPath = "melee_blunt_common_02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.OneHandBluntStaminaCostReduction";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod1_stamina_cost";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.TwoHandBluntStaminaCostReduction";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod1_stamina_cost";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.TwoHandHammerStaminaCostReduction";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod1_stamina_cost";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.BatonStaminaCostReduction";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod1_stamina_cost";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.AttackSpeedPercent";
+			modifierType = "Additive";
+			value = 20f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttackSpeed";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.AttackSpeedPercent";
+			opSymbol = "*";
+			value = -0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			value = 25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BluntMod1_KnockbackChance";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod1_knockback";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					applicationChance = 
+					[
+						{
+							statType = "BaseStats.ApplicationChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.BluntMod1_KnockbackChance";
+							opSymbol = "*";
+							value = 0.01f;
+						} : CombinedStatModifier
+					];
+				} : BluntMod1_KnockdownEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89253";
+				stats = 
+				[
+					"BaseStats.OneHandBluntStaminaCostReduction", "BaseStats.BluntMod1_KnockbackChance"
+				];
+				floatValues = 
+				[
+					20, 25
+				];
+			};
+		}
+	];
+}
+
+BluntMod1_Common : BluntMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod1_Uncommon : BluntMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod1_Rare : BluntMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod1_Epic : BluntMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod1_Legendary : BluntMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BluntMod2_Base : Blunt_Mod
+{
+	displayName = "LocKey#89182";
+	iconPath = "melee_blunt_common_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BluntMod2_BleedChance";
+			modifierType = "Additive";
+			value = 60f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BluntMod2_BleedChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 10f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BluntMod2_BleedConverter";
+			modifierType = "Additive";
+			refStat = "BaseStats.StunApplicationRate";
+			refObject = "Root";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BluntMod2_BleedConverter";
+			modifierType = "Multiplier";
+			refStat = "BaseStats.BluntMod2_BleedChance";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BleedingApplicationRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.BluntMod2_BleedConverter";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Perks.IsWeaponMelee";
+					effectorClassName = "RemoveHitFlagFromAttackEffector";
+					string hitFlag = "Nonlethal";
+					CName reason = "PreAttack";
+				} : Effector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89254";
+				stats = 
+				[
+					"BaseStats.BluntMod2_BleedChance"
+				];
+			};
+		}
+	];
+}
+
+BluntMod2_Common : BluntMod2_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod2_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod2_Uncommon : BluntMod2_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod2_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod2_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod2_Rare : BluntMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod2_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod2_Epic : BluntMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod2_Legendary : BluntMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+BluntMod3_Base : Blunt_Mod
+{
+	displayName = "LocKey#40108";
+	iconPath = "melee_blunt_epic_01";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BluntMod3_ModPower";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "bluntmod3_mod_power";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						statType = "BluntMod3_ModPower";
+						valueToCheck = 1;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						value = 1.2f;
+					} : BluntMod3_DamageEffector;
+				} : ApplyEffectorOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statType = "BluntMod3_ModPower";
+						valueToCheck = 2;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						value = 1.4f;
+					} : BluntMod3_DamageEffector;
+				} : ApplyEffectorOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statType = "BluntMod3_ModPower";
+						valueToCheck = 3;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						value = 1.6f;
+					} : BluntMod3_DamageEffector;
+				} : ApplyEffectorOnPlayer, 
+				{
+					prereqRecord = 
+					{
+						statType = "BluntMod3_ModPower";
+						valueToCheck = 4;
+						comparisonType = "Equal";
+					} : StatPrereq;
+					effectorToApply = 
+					{
+						value = 1.8f;
+					} : BluntMod3_DamageEffector;
+				} : ApplyEffectorOnPlayer
+			];
+		}
+	];
+}
+
+BluntMod3_Epic : BluntMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic", "Exclusive"
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : BluntMod3UIData;
+		}
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.BluntMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+BluntMod3_Legendary : BluntMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					40
+				];
+			} : BluntMod3UIData;
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.BluntMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+BluntMod3UIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#89255";
+}
+
+[ notQueryable ]
+ThrowMod1_Base : Throw_Mod
+{
+	displayName = "LocKey#89178";
+	iconPath = "thrownable_02_headshot_returns_knife";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThrowMod1_ReturnChance";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "throwmod1_returnchance";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.ThrowableWeaponHeldPrereq";
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.ThrowMod1_CanReturn";
+								modifierType = "Additive";
+								value = 1f;
+							} : ConstantStatModifier
+						];
+					} : StatModifierGroup;
+				} : ApplyStatGroupOnWeapon, 
+				{
+					fk< StatModifier >[] effectorChance = 
+					[
+						{
+							statType = "BaseStats.EffectorChance";
+							modifierType = "Additive";
+							refStat = "BaseStats.ThrowMod1_ReturnChance";
+							opSymbol = "*";
+							value = 0.01f;
+						} : CombinedStatModifier
+					];
+				} : ThrowMod1_ReturnEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89256";
+				stats = 
+				[
+					"BaseStats.ThrowMod1_ReturnChance"
+				];
+			};
+		}
+	];
+}
+
+ThrowMod1_Common : ThrowMod1_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod1_Uncommon : ThrowMod1_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod1_Rare : ThrowMod1_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod1_Epic : ThrowMod1_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod1_Legendary : ThrowMod1_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+ThrowMod2_Base : Throw_Mod
+{
+	displayName = "LocKey#89185";
+	iconPath = "thrownable_03_legendary_disable_gravity";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MeleeProjectileGravitySimulationMultiplier";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRangeBonus";
+			modifierType = "Additive";
+			id = "weapon_mods";
+			column = "throwmod2_range";
+			refStat = "BaseStats.Quality";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.EffectiveRangeBonus";
+			opSymbol = "*";
+			value = 0.01f;
+		} : CombinedStatModifier
+	];
+}
+
+ThrowMod2_Rare : ThrowMod2_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89257";
+				floatValues = 
+				[
+					10
+				];
+			};
+		}
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod2_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod2_Epic : ThrowMod2_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod2_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89257";
+				floatValues = 
+				[
+					25
+				];
+			};
+		}
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod2_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod2_Legendary : ThrowMod2_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod2_Epic";
+				amount = 2;
+			}
+		];
+	};
+	OnAttach = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89257";
+				floatValues = 
+				[
+					50
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+ThrowMod3_Base : Throw_Mod
+{
+	displayName = "LocKey#89206";
+	iconPath = "thrownable_01_bonus_to_armour_penetration";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			value = -0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThrowMod3_Armor_Pene";
+			modifierType = "Additive";
+			value = 15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ThrowMod3_Armor_Pene";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "Additive";
+			refStat = "BaseStats.ThrowMod3_Armor_Pene";
+			opSymbol = "*";
+			value = 0.01;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						stateName = "ThrowAttack";
+						isInState = true;
+					} : MeleeWeaponPSMPrereq;
+					statusEffect = "BaseStatusEffect.ThrowMod3_ThrowPeneration";
+				} : ApplyStatusEffectOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89258";
+				stats = 
+				[
+					"BaseStats.ThrowMod3_Armor_Pene"
+				];
+				floatValues = 
+				[
+					20
+				];
+			};
+		}
+	];
+}
+
+ThrowMod3_Common : ThrowMod3_Base
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod3_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod3_Uncommon : ThrowMod3_Base
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod3_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod3_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod3_Rare : ThrowMod3_Base
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod3_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod3_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod3_Epic : ThrowMod3_Base
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod3_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.ThrowMod3_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+ThrowMod3_Legendary : ThrowMod3_Base
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.ThrowMod3_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+GenericMod1_Base : Mod
+{
+	displayName = "LocKey#49319";
+	iconPath = "wmod_simple02";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			value = -10f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusDamagePerHit";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 2.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.GenericMod1_Damage";
+			modifierType = "Additive";
+			refStat = "BaseStats.BonusDamagePerHit";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+	OnAttach = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							"Perks.IsWeaponMelee", "Perks.IsWeaponRanged"
+						];
+					} : ORPrereq;
+					effectorClassName = "AddHitFlagToAttackEffector";
+					string hitFlag = "Nonlethal";
+				} : Effector, 
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								stateName = "InCombat";
+								isInState = false;
+							} : CombatPSMPrereq, 
+							"Perks.IsHitTargetAlive"
+						];
+					} : ANDPrereq;
+					value = 1.2f;
+				} : MultiplyDamage
+			];
+		}
+	];
+}
+
+[ notQueryable ]
+GenericMod1_LowTier : GenericMod1_Base
+{
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89259";
+				stats = 
+				[
+					"BaseStats.GenericMod1_Damage"
+				];
+				floatValues = 
+				[
+					20
+				];
+			};
+		}
+	];
+}
+
+[ notQueryable ]
+GenericMod1_HighTier : GenericMod1_Base
+{
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89260";
+				floatValues = 
+				[
+					20
+				];
+			};
+		}
+	];
+}
+
+GenericMod1_Common : GenericMod1_LowTier
+{
+	quality = "Quality.Common";
+	tags += 
+	[
+		"Common"
+	];
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.GenericMod1_Uncommon_Recipe";
+				}
+			];
+		}
+	];
+}
+
+GenericMod1_Uncommon : GenericMod1_LowTier
+{
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"Uncommon"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.GenericMod1_Common";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.GenericMod1_Rare_Recipe";
+				}
+			];
+		}
+	];
+}
+
+GenericMod1_Rare : GenericMod1_LowTier
+{
+	quality = "Quality.Rare";
+	tags += 
+	[
+		"Rare"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.GenericMod1_Uncommon";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.GenericMod1_Epic_Recipe";
+				}
+			];
+		}
+	];
+}
+
+GenericMod1_Epic : GenericMod1_LowTier
+{
+	quality = "Quality.Epic";
+	tags += 
+	[
+		"Epic"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.GenericMod1_Rare";
+				amount = 2;
+			}
+		];
+	};
+	OnLooted = 
+	[
+		{
+			items = 
+			[
+				{
+					item = "Items.GenericMod1_Legendary_Recipe";
+				}
+			];
+		}
+	];
+}
+
+GenericMod1_Legendary : GenericMod1_HighTier
+{
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"Legendary"
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.GenericMod1_Epic";
+				amount = 2;
+			}
+		];
+	};
+}
+
+[ notQueryable ]
+[ EP1 ]
+ChimeraPowerMod : PowerWeaponMod
+{
+	displayName = "LocKey#89186";
+	iconPath = "power_04_chimera";
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"ChimeraMod", "Legendary", "Retrievable"
+	];
+	CName modType = "chimera_mod";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChimeraModInstalled";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PhysicalImpulse";
+			modifierType = "Additive";
+			value = -5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.KnockdownImpulse";
+			modifierType = "Additive";
+			value = -5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BurningApplicationRate";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RicochetCount";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.IsWeaponUsingStandardBullets";
+					attackPackage = "Attacks.ChimeraPowerModExplosiveBulletPackage";
+				} : OverrideRangedAttackPackageEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89261";
+			};
+		}, 
+		"Items.ChimeraModIconicPromo"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				"Effectors.InactiveChimeraCoreEffector"
+			];
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.Q302_Chimera_Core";
+				amount = 1;
+			}
+		];
+	};
+	objectActions = [];
+}
+
+[ notQueryable ]
+[ EP1 ]
+ChimeraTechMod : TechWeaponMod
+{
+	displayName = "LocKey#89191";
+	iconPath = "tech_chimera";
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"ChimeraMod", "Legendary", "Retrievable"
+	];
+	CName modType = "chimera_mod";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChimeraModInstalled";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanFullyChargeWeapon";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanOverchargeWeapon";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChargeTime";
+			modifierType = "Multiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveChargeTime";
+			modifierType = "Multiplier";
+			value = 2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechPierceDamageFactor";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanWeaponIgnoreArmor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#89262";
+				intValues = 
+				[
+					200, 100
+				];
+			};
+		}, 
+		"Items.ChimeraModIconicPromo"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				"Effectors.InactiveChimeraCoreEffector"
+			];
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.Q302_Chimera_Core";
+				amount = 1;
+			}
+		];
+	};
+	objectActions = [];
+}
+
+[ notQueryable ]
+[ EP1 ]
+ChimeraSmartMod : SmartWeaponMod
+{
+	displayName = "LocKey#89176";
+	iconPath = "smart_chimera_01";
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"ChimeraMod", "Legendary", "Retrievable"
+	];
+	CName modType = "chimera_mod";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChimeraModInstalled";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Head";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_RegularEnemy_Prereq;
+					objectAction = "QuickHack.BlindLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Head";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_MainBoss_Prereq;
+					objectAction = "QuickHack.BossBlindLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Head";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_Chimera_Prereq;
+					objectAction = "QuickHack.ChimeraBlindLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Torso";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_RegularEnemy_Prereq;
+					objectAction = "QuickHack.CyberwareMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Torso";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_MainBoss_Prereq;
+					objectAction = "QuickHack.BossCyberwareMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Torso";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_Chimera_Prereq;
+					objectAction = "QuickHack.ChimeraCyberwareMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Arm";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_RegularEnemy_Prereq;
+					objectAction = "QuickHack.WeaponMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Arm";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_MainBoss_Prereq;
+					objectAction = "QuickHack.BossWeaponMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Arm";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_Chimera_Prereq;
+					objectAction = "QuickHack.ChimeraWeaponMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Leg";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_RegularEnemy_Prereq;
+					objectAction = "QuickHack.LocomotionMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Leg";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_MainBoss_Prereq;
+					objectAction = "QuickHack.BossLocomotionMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector, 
+				{
+					prereqRecord = 
+					{
+						conditions += 
+						[
+							{
+								bodyPart = "Leg";
+							} : BodyPartHitPrereqCondition
+						];
+					} : ChimeraSmartMod_Target_Is_Chimera_Prereq;
+					objectAction = "QuickHack.ChimeraLocomotionMalfunctionLvl3Hack";
+				} : ChimeraSmartMods_QuickHackEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89265";
+				floatValues = 
+				[
+					5
+				];
+			};
+		}, 
+		"Items.ChimeraModIconicPromo"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				"Effectors.InactiveChimeraCoreEffector"
+			];
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.Q302_Chimera_Core";
+				amount = 1;
+			}
+		];
+	};
+	objectActions = [];
+}
+
+[ notQueryable ]
+[ EP1 ]
+ChimeraMeleeMod : MeleeMod
+{
+	displayName = "LocKey#89207";
+	iconPath = "melee_chimera";
+	quality = "Quality.Legendary";
+	tags += 
+	[
+		"ChimeraMod", "Legendary", "Retrievable"
+	];
+	CName modType = "chimera_mod";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChimeraModInstalled";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	OnAttach += 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							"Prereqs.BladeWeaponHeldPrereq", "Prereqs.ThrowableWeaponHeldPrereq"
+						];
+					} : ORPrereq;
+					removeWithEffector = true;
+					statusEffect = "BaseStatusEffect.ChimeraMeleeMod_BladeDismembers";
+				} : ApplyStatusEffectOnPlayer, 
+				{
+					prereqRecord = "Prereqs.BluntWeaponHeldPrereq";
+					removeWithEffector = true;
+					statusEffect = "BaseStatusEffect.ChimeraMeleeMod_BluntDismembers";
+				} : ApplyStatusEffectOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#89263";
+				intValues = 
+				[
+					50, 20
+				];
+			};
+		}, 
+		"Items.ChimeraModIconicPromo"
+	];
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				"Effectors.InactiveChimeraCoreEffector"
+			];
+		}
+	];
+	CraftingData = 
+	{
+		craftingRecipe = 
+		[
+			{
+				ingredient = "Items.Q302_Chimera_Core";
+				amount = 1;
+			}
+		];
+	};
+	objectActions = [];
+}
+
+ChimeraModIconicPromo : GameplayLogicPackage
+{
+	UIData = 
+	{
+		localizedDescription = "LocKey#89264";
+	};
+}
+
+[ notQueryable ]
+DummyBlankMod : Mod
+{
+	tags += 
+	[
+		"DummyPart", "HideInUI", "HideAtVendor"
+	];
+	buyPrice = [];
+	sellPrice = [];
+}
+
+[ notQueryable ]
+DummyBlankModVendor : DummyBlankMod
+{
+}
+
+[ notQueryable ]
+DummyBlankMod2 : DummyBlankMod
+{
+}
+
+[ notQueryable ]
+DummyBlankMod3 : DummyBlankMod
+{
+}
+
+[ notQueryable ]
+DummyBlankMod4 : DummyBlankMod
+{
+}
+
+[ notQueryable ]
+DummyBlankMod5 : DummyBlankMod
+{
+}
+
+[ notQueryable ]
+DeprecatedWeaponModBase : Mod
+{
+	placementSlots = [];
+	tags += 
+	[
+		"DeprecatedWeaponMod", "HideInUI", "HideAtVendor"
+	];
+	canDrop = false;
+}
+
+[ notQueryable ]
+DummyWeaponMod : DeprecatedWeaponModBase
+{
+	tags += 
+	[
+		"DummyPart", "DummyWeaponMod"
+	];
+}
+
+[ notQueryable ]
+SimpleWeaponMod01 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod02 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod03 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod04 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod08 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod09 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod10 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod11 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod12 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod13 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod14 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod15 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod16 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod17 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod01 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod02 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod03 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod04 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod05 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod06 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+PowerWeaponMod07 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+TechWeaponMod01 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+TechWeaponMod02 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+TechWeaponMod03 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+TechWeaponMod04 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+TechWeaponMod05 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SmartWeaponMod01 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SmartWeaponMod02 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SmartWeaponMod03 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SmartWeaponMod04 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SmartWeaponMod05 : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+DLCItemsQualityUpgradeMod : DeprecatedWeaponModBase
+{
+}
+
+[ notQueryable ]
+SimpleWeaponMod01Rare : SimpleWeaponMod01
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleWeaponMod02Rare : SimpleWeaponMod02
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+SimpleWeaponMod03Rare : SimpleWeaponMod03
+{
+	quality = "Quality.Rare";
+}
+

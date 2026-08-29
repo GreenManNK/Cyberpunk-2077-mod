@@ -30,6 +30,7 @@ function iguana:new(mod, project)
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.Tortoise
+    o.needsUpdate = true
 
     o.maxNodeRefPropertyWidth = nil
     o.iguanaRef = ""
@@ -59,19 +60,28 @@ function iguana:getPatchData()
 end
 
 function iguana:sessionStart()
+    workspot.sessionStart(self)
+
     self.animationActive = false
+
+    if self.startCron then
+        Cron.Halt(self.startCron)
+        self.startCron = nil
+    end
 end
 
 function iguana:onUpdate(playerPosition)
     local distance = utils.vectorDistance(playerPosition, self.worldIconPosition)
 
-    if distance < self.animationDistance - 1 and utils.getEntityByRef(self.iguanaRef) and not self.animationActive and not resourceHelper.endEvents[self.endEvent] and Game.GetQuestsSystem():GetFactStr("nif_iguana_idle") == 0 then
+    if distance < self.animationDistance - 1 and not self.animationActive and not resourceHelper.endEvents[self.endEvent] and Game.GetQuestsSystem():GetFactStr("nif_iguana_idle") == 0 and utils.getEntityByRef(self.iguanaRef) then
         -- Delay needed for session start
         self.startCron = Cron.After(0.1, function ()
-            Game.GetResourceDepot():RemoveResourceFromCache("nif\\quest\\iguana_idle.scene")
-            resourceHelper.registerPatch("nif\\quest\\iguana_idle.scene", self:getPatchData())
-            Game.GetQuestsSystem():SetFactStr("nif_interaction_id", 21)
-            Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
+            resourceHelper.requestSceneSignal(self, function ()
+                Game.GetResourceDepot():RemoveResourceFromCache("nif\\quest\\iguana_idle.scene")
+                resourceHelper.registerPatch("nif\\quest\\iguana_idle.scene", self:getPatchData())
+                Game.GetQuestsSystem():SetFactStr("nif_interaction_id", 21)
+                Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
+            end)
         end)
 
         self.animationActive = true
@@ -103,7 +113,7 @@ function iguana:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.iguanaRef, changed = ImGui.InputTextWithHint('##iguanaRef', '$/mod/#iguana', self.iguanaRef, 250)
-    if changed then self.project:save() end
+    if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     ImGui.SameLine()
     style.drawNodeRefInfo(self.iguanaRef, true)
 

@@ -65,6 +65,7 @@ function workspot:stop()
     interaction.stop(self)
 end
 
+---Subclasses overriding this must call workspot.sessionStart(self), the preview entity does not survive a session change
 function workspot:sessionStart()
     self.previewEntityID = nil
 end
@@ -81,6 +82,7 @@ end
 function workspot:editEnd()
     if not self.previewEntityID then return end
     Game.GetStaticEntitySystem():DespawnEntity(self.previewEntityID)
+    self.previewEntityID = nil
 end
 
 function workspot:updatePreview()
@@ -109,10 +111,13 @@ function workspot:draw(pendingText)
     self.workspotPosition, changed, finished = self.mod.baseUI.interactionUI.drawPosition(self.workspotPosition, "position")
     if changed then
         self:updatePreview()
-        self.project:save()
     end
-    if finished and self.sceneRunning then
-        self.workspotPositionPending = true
+    if finished then
+        self.project:save()
+
+        if self.sceneRunning then
+            self.workspotPositionPending = true
+        end
     end
     if self.workspotPositionPending then
         ImGui.SameLine()
@@ -126,10 +131,13 @@ function workspot:draw(pendingText)
     self.workspotRotation.yaw, changed, finished = self.mod.baseUI.interactionUI.drawYaw(self.workspotRotation.yaw, "orientation")
     if changed then
         self:updatePreview()
-        self.project:save()
     end
-    if finished and self.sceneRunning then
-        self.workspotRotationPending = true
+    if finished then
+        self.project:save()
+
+        if self.sceneRunning then
+            self.workspotRotationPending = true
+        end
     end
     if self.workspotRotationPending then
         ImGui.SameLine()

@@ -1,0 +1,187 @@
+package Character
+using RTDB, BaseStats
+
+Player_Puppet_Base : Character
+{
+	displayName = "LocKey#48683";
+	alternativeDisplayName = "LocKey#34405";
+	alternativeFullDisplayName = "LocKey#34406";
+	string devNotes = "Puppet Base! All other character records should inherit in a way form this record!";
+	CName communitySquad = "Squad_Player";
+	fk< AttachmentSlot >[] attachmentSlots = 
+	[
+		"AttachmentSlots.WeaponRight", "AttachmentSlots.WeaponLeft", "AttachmentSlots.Head", "AttachmentSlots.TppHead", "AttachmentSlots.Eyes", "AttachmentSlots.Chest", "AttachmentSlots.Torso", "AttachmentSlots.RightArm", "AttachmentSlots.LeftArm", "AttachmentSlots.RightHand", "AttachmentSlots.LeftHand", "AttachmentSlots.Legs", "AttachmentSlots.PersonalLink", "AttachmentSlots.Consumable", "AttachmentSlots.Splinter", "AttachmentSlots.UnderwearTop", "AttachmentSlots.UnderwearBottom", "AttachmentSlots.Feet", "AttachmentSlots.Outfit", "AttachmentSlots.EyesCW", "AttachmentSlots.SystemReplacementCW", "AttachmentSlots.SilverhandArm", "AttachmentSlots.PlayerTattoo"
+	];
+	fk< InventoryItemGroup >[] itemGroups = 
+	[
+		"Character.Player_Items_Base"
+	];
+	fk< StatModifierGroup >[] statModifierGroups = 
+	[
+		"Character.Player_Primary_Stats_Base", "Character.Player_Attributes_Base", "Character.Player_Locomotion_Base", "Character.Player_Stat_Flags", "Character.Player_Skills", "Character.Player_Mastery_Modifier", "Character.Player_Stat_Pools_Modifier", "Character.PlayerCyberwareSystem", "Attribute.AttributePassives", "Proficiencies.Player_StrengthSkill_Passives", "Proficiencies.Player_ReflexesSkill_Passives", "Proficiencies.Player_IntelligenceSkill_Passives", "Proficiencies.Player_TechnicalAbilitySkill_Passives", "Proficiencies.Player_CoolSkill_Passives", "Proficiencies.Player_StreetCred_Passives"
+	];
+	fk< StatPool >[] statPools = 
+	[
+		"BaseStatPools.Player_Health_Base", "BaseStatPools.Player_Stamina_Base", "BaseStatPools.Player_Oxygen_Base", "BaseStatPools.Player_Adrenaline_Base", "BaseStatPools.Player_Memory_Base", "BaseStatPools.Player_AccumulatedDoT_Base", "BaseStatPools.Player_Healing_Charges_Base", "BaseStatPools.Player_Grenades_Charges_Base", "BaseStatPools.Player_VehicleMissileLauncher_Charges_Base", "BaseStatPools.Player_OpticalCamo_Charges_Base", "BaseStatPools.Player_CWMask_Charges_Base", "BaseStatPools.Player_ProjectileLauncher_Charges_Base", "BaseStatPools.Player_Bersek_Charge_Base", "BaseStatPools.Player_Sandevistan_Charge_Base", "BaseStatPools.Player_Cyberdeck_Overclock_Base", "BaseStatPools.Player_Overshield_Base", "BaseStatPools.Player_TimeBank_Base"
+	];
+	bool saveStatPools = true;
+	lootDrop = "";
+	dropsWeaponOnDeath = false;
+	dropsAmmoOnDeathChance = 0.0f;
+	tags = 
+	[
+		"Player"
+	];
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Female";
+			[ EP1 ]
+			entity = "ep1\characters\entities\player\player_wa_fpp_ep1.ent";
+			multiplayerEntities = 
+			[
+				"test\cpo\characters\entieties\player\cpo_player_wa_fpp.ent", "test\cpo\characters\entieties\player\cpo_player_wa_fpp.ent", "test\cpo\characters\entieties\player\cpo_player_wa_tpp.ent"
+			];
+		}, 
+		{
+			gender = "Gender.Male";
+			[ EP1 ]
+			entity = "ep1\characters\entities\player\player_ma_fpp_ep1.ent";
+		}
+	];
+	entityTemplatePath = "base\characters\entities\player\player_wa_fpp.ent";
+	appearanceName = "FPP_Body";
+	persistentName = "#player_current_object";
+	CName voiceTag = "v";
+	fk< EquipmentArea >[] EquipmentAreas = 
+	[
+		"EquipmentArea.Weapon", "EquipmentArea.WeaponHeavy", "EquipmentArea.WeaponWheel", "EquipmentArea.QuickWheel", "EquipmentArea.CyberwareWheel", "EquipmentArea.BaseFists", "EquipmentArea.HeadArmor", "EquipmentArea.FaceArmor", "EquipmentArea.ChestArmor", "EquipmentArea.InnerChest", "EquipmentArea.UnderwearTop", "EquipmentArea.UnderwearBottom", "EquipmentArea.LegArmor", "EquipmentArea.Feet", "EquipmentArea.Consumable", "EquipmentArea.Splinter", "EquipmentArea.PersonalLink", "EquipmentArea.QuickSlot", "EquipmentArea.Gadget", "EquipmentArea.EyesCW", "EquipmentArea.FrontalCortexCW", "EquipmentArea.MusculoskeletalSystemCW", "EquipmentArea.NervousSystemCW", "EquipmentArea.CardiovascularSystemCW", "EquipmentArea.ImmuneSystemCW", "EquipmentArea.IntegumentarySystemCW", "EquipmentArea.HandsCW", "EquipmentArea.ArmsCW", "EquipmentArea.LegsCW", "EquipmentArea.AbilityCW", "EquipmentArea.RightArm", "EquipmentArea.SystemReplacementCW", "EquipmentArea.Outfit", "EquipmentArea.VDefaultHandgun", "EquipmentArea.SilverhandArm", "EquipmentArea.PlayerTattoo"
+	];
+	bool enableSensesOnStart = true;
+	isBumpable = true;
+	sensePreset = "Senses.PlayerCombat";
+	threatTrackingPreset = "TargetTracking.PlayerPreset";
+	effectors = 
+	[
+		"Effectors.EvaluateEncumbranceEffector", "Effectors.TogglePlayerFlashlight", "Effectors.VehicleCombatRangeBoost", "Effectors.IntrinsicModsEffector", "Effectors.StaminaRatioCalculatorEffector", "Effectors.SprintTBHIncrease", "Effectors.DivingTBHIncrease", "Effectors.CrouchTBHIncrease", "Effectors.VehicleTBHIncrease", "Effectors.LowHealthTBHIncrease", "Effectors.CriticalHealthTBHIncrease", "Effectors.SlidingTBHIncrease", "Effectors.VaultingTBHIncrease", "Effectors.DodgingTBHIncrease", "Effectors.HealthtregenEffector", "Effectors.TutorialCyberwarePriceSwitch", "Effectors.PostLexWilsonBuyPriceSwitch", "Effectors.PoisonImmunityEffector", "Effectors.BleedingImmunityEffector", "Effectors.BurningImmunityEffector", "Effectors.StunImmunityEffector", "Effectors.BlindImmunityEffector", "Effectors.KnockdownImmunityEffector", "Effectors.QuickHackImmunityEffector", "Effectors.ElectrocuteImmunityEffector", "Effectors.EMPImmunityEffector", "Effectors.UnconsciousImmunityEffector", "Effectors.SystemCollapseImmunityEffector", "Effectors.UnderwaterExtinguish", "Effectors.ShotgunDamageController", "Effectors.PlayerEnteredCombat", "Effectors.InVehicleDamageReductionEffector", "Effectors.HauntedCyberdeckEquippedEffector", "Effectors.AllIconic_OW_CW_Purchased_TreasureChest_Failsafe_Effector", "Effectors.CritChanceVsElectrocutedEnemiesEffector", "Effectors.RamOnKillEffector", "Effectors.HealOnKillingBleedingTargetEffector", "Effectors.ADSSpeedPercentBonusEffector", "Effectors.RecoilPercentBonusEffector", "Effectors.ReloadSpeedPercentBonusEffector"
+	];
+}
+
+Player_Replacer_Puppet_Base : Player_Puppet_Base
+{
+	appearanceName = "";
+	tags += 
+	[
+		"Replacer"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Armor";
+			modifierType = "Additive";
+			refStat = "BaseStats.PowerLevel";
+			opSymbol = "*";
+			value = 20.0f;
+		} : CombinedStatModifier
+	];
+}
+
+Sample_Player : Player_Puppet_Base
+{
+}
+
+TPP_Player : Player_Puppet_Base
+{
+	appearanceName = "TPP_Body";
+	tags += 
+	[
+		"TPP_Player"
+	];
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Female";
+			entity = "base\characters\entities\player\player_wa_tpp.ent";
+		}, 
+		{
+			gender = "Gender.Male";
+			entity = "base\characters\entities\player\player_ma_tpp.ent";
+		}
+	];
+	fk< InventoryItemGroup >[] itemGroups = [];
+}
+
+TPP_Player_Cutscene_Female : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\player\player_wa_tpp_cutscene.ent";
+	appearanceName = "TPP_Body";
+	priority = "SpawnableObjectPriority.Quest";
+	reactionPreset = "ReactionPresets.NoReaction";
+	quest = "NPCQuestAffiliation.MainQuest";
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Female";
+			entity = "base\characters\entities\player\player_wa_tpp_cutscene.ent";
+		}
+	];
+	fk< InventoryItemGroup >[] itemGroups = [];
+}
+
+TPP_Player_Cutscene_Male : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\player\player_ma_tpp_cutscene.ent";
+	appearanceName = "TPP_Body";
+	priority = "SpawnableObjectPriority.Quest";
+	reactionPreset = "ReactionPresets.NoReaction";
+	quest = "NPCQuestAffiliation.MainQuest";
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Male";
+			entity = "base\characters\entities\player\player_ma_tpp_cutscene.ent";
+		}
+	];
+	fk< InventoryItemGroup >[] itemGroups = [];
+}
+
+TPP_Player_Cutscene_No_Impostor_Male : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\player\player_ma_tpp_cutscene_no_impostor.ent";
+	appearanceName = "TPP_Body";
+	priority = "SpawnableObjectPriority.Quest";
+	reactionPreset = "ReactionPresets.NoReaction";
+	quest = "NPCQuestAffiliation.MainQuest";
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Male";
+			entity = "base\characters\entities\player\player_ma_tpp_cutscene_no_impostor.ent";
+		}
+	];
+	fk< InventoryItemGroup >[] itemGroups = [];
+}
+
+TPP_Player_Cutscene_No_Impostor_Female : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\player\player_wa_tpp_cutscene_no_impostor.ent";
+	appearanceName = "TPP_Body";
+	priority = "SpawnableObjectPriority.Quest";
+	reactionPreset = "ReactionPresets.NoReaction";
+	quest = "NPCQuestAffiliation.MainQuest";
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Female";
+			entity = "base\characters\entities\player\player_wa_tpp_cutscene_no_impostor.ent";
+		}
+	];
+	fk< InventoryItemGroup >[] itemGroups = [];
+}
+

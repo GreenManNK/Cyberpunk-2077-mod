@@ -1,0 +1,9 @@
+package Loot
+using RTDB, LootTables
+
+GenericHealingCosumabless : FirstAidKits
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+}
+

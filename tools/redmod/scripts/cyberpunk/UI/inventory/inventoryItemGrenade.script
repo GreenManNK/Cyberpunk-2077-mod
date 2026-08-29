@@ -1,0 +1,248 @@
+class UIInventoryItemGrenadeData
+{
+	var Type : GrenadeDamageType;
+	var Range : Float;
+	var DeliveryMethod : gamedataGrenadeDeliveryMethodType;
+	var Duration : Float;
+	var Delay : Float;
+	var DetonationTimer : Float;
+	var DamagePerTick : Float;
+	var DamageType : gamedataStatType;
+	var GrenadeType : EGrenadeType;
+	var TotalDamage : Float;
+	var m_Player : weak< PlayerPuppet >;
+
+	private static function GetGrenadeContinousEffector( attackRecord : weak< Attack_Record > ) : weak< ContinuousAttackEffector_Record >
+	{
+		var i, j, k : Int32;
+		var statusEffects : array< weak< StatusEffectAttackData_Record > >;
+		var statusEffectPackages : array< weak< GameplayLogicPackage_Record > >;
+		var statusEffectEffectors : array< weak< Effector_Record > >;
+		var continuousAttackEffector : weak< ContinuousAttackEffector_Record >;
+		attackRecord.StatusEffects( statusEffects );
+		for( i = 0; i < statusEffects.Size(); i += 1 )
+		{
+			statusEffects[ i ].StatusEffect().Packages( statusEffectPackages );
+			for( j = 0; j < statusEffectPackages.Size(); j += 1 )
+			{
+				statusEffectPackages[ j ].Effectors( statusEffectEffectors );
+				for( k = 0; k < statusEffectEffectors.Size(); k += 1 )
+				{
+					if( statusEffectEffectors[ k ].EffectorClassName() == 'TriggerContinuousAttackEffector' )
+					{
+						continuousAttackEffector = ( ( weak< weak< ContinuousAttackEffector_Record > > )( statusEffectEffectors[ k ] ) );
+						if( continuousAttackEffector )
+						{
+							return continuousAttackEffector;
+						}
+					}
+				}
+			}
+		}
+		return NULL;
+	}
+
+	private static function GetGrenadeTotalDamageFromStats( itemData : weak< gameItemData > ) : Float
+	{
+		var i : Int32;
+		var result : Float;
+		var damageData : array< InventoryTooltiData_GrenadeDamageData >;
+		GetGrenadeDamageStats( itemData, damageData );
+		for( i = 0; i < damageData.Size(); i += 1 )
+		{
+			result += damageData[ i ].value;
+		}
+		return result;
+	}
+
+	private static function GetGrenadeDamageStats( itemData : weak< gameItemData >, outputArray : ref< array< InventoryTooltiData_GrenadeDamageData > > )
+	{
+		var value : Float;
+		var damageData : InventoryTooltiData_GrenadeDamageData;
+		value = itemData.GetStatValueByType( gamedataStatType.BaseDamage );
+		if( value > 0.0001 )
+		{
+			damageData = new InventoryTooltiData_GrenadeDamageData;
+			damageData.statType = gamedataStatType.BaseDamage;
+			damageData.value = value;
+			outputArray.PushBack( damageData );
+		}
+		value = itemData.GetStatValueByType( gamedataStatType.PhysicalDamage );
+		if( value > 0.0001 )
+		{
+			damageData = new InventoryTooltiData_GrenadeDamageData;
+			damageData.statType = gamedataStatType.PhysicalDamage;
+			damageData.value = value;
+			outputArray.PushBack( damageData );
+		}
+		value = itemData.GetStatValueByType( gamedataStatType.ChemicalDamage );
+		if( value > 0.0001 )
+		{
+			damageData = new InventoryTooltiData_GrenadeDamageData;
+			damageData.statType = gamedataStatType.ChemicalDamage;
+			damageData.value = value;
+			outputArray.PushBack( damageData );
+		}
+		value = itemData.GetStatValueByType( gamedataStatType.ElectricDamage );
+		if( value > 0.0001 )
+		{
+			damageData = new InventoryTooltiData_GrenadeDamageData;
+			damageData.statType = gamedataStatType.ElectricDamage;
+			damageData.value = value;
+			outputArray.PushBack( damageData );
+		}
+		value = itemData.GetStatValueByType( gamedataStatType.ThermalDamage );
+		if( value > 0.0001 )
+		{
+			damageData = new InventoryTooltiData_GrenadeDamageData;
+			damageData.statType = gamedataStatType.ThermalDamage;
+			damageData.value = value;
+			outputArray.PushBack( damageData );
+		}
+	}
+
+	private static function GetGrenadeDoTTickDamage( player : weak< PlayerPuppet >, continuousAttackEffector : weak< ContinuousAttackEffector_Record > ) : Float
+	{
+		var continuousAttackRecord : weak< Attack_Record >;
+		var continuousAttackStatModifiers : array< weak< StatModifier_Record > >;
+		if( continuousAttackEffector )
+		{
+			continuousAttackRecord = continuousAttackEffector.AttackRecord();
+			continuousAttackRecord.StatModifiers( continuousAttackStatModifiers );
+			return RPGManager.CalculateStatModifiers( continuousAttackStatModifiers, player.GetGame(), player, player.GetEntityID() );
+		}
+		return 0.0;
+	}
+
+	private static function GetGrenadeRange( grenadeRecord : weak< Grenade_Record >, player : weak< PlayerPuppet > ) : Float
+	{
+		var i : Int32;
+		var result : Float;
+		var statModifier : array< weak< StatModifier_Record > >;
+		var rangeStatModifier : array< weak< StatModifier_Record > >;
+		result = grenadeRecord.AttackRadius();
+		grenadeRecord.StatModifiers( statModifier );
+		for( i = statModifier.Size() - 1; i > 0; i -= 1 )
+		{
+			if( statModifier[ i ].StatType().StatType() == gamedataStatType.Range )
+			{
+				if( ( ( CombinedStatModifier_Record )( statModifier[ i ] ) ) || ( ( ConstantStatModifier_Record )( statModifier[ i ] ) ) )
+				{
+					rangeStatModifier.PushBack( statModifier[ i ] );
+				}
+			}
+		}
+		result = RPGManager.CalculateStatModifiers( rangeStatModifier, player.GetGame(), player, player.GetEntityID() );
+		return result;
+	}
+
+	public static function GetGrenadeType( grenadeRecord : weak< Grenade_Record > ) : EGrenadeType
+	{
+		var tags : array< CName >;
+		tags = grenadeRecord.Tags();
+		if( tags.Contains( 'FragGrenade' ) )
+		{
+			return EGrenadeType.Frag;
+		}
+		if( tags.Contains( 'FlashGrenade' ) )
+		{
+			return EGrenadeType.Flash;
+		}
+		if( tags.Contains( 'SmokeGrenade' ) )
+		{
+			return EGrenadeType.Smoke;
+		}
+		if( tags.Contains( 'PiercingGrenade' ) )
+		{
+			return EGrenadeType.Piercing;
+		}
+		if( tags.Contains( 'EMPGrenade' ) )
+		{
+			return EGrenadeType.EMP;
+		}
+		if( tags.Contains( 'BiohazardGrenade' ) )
+		{
+			return EGrenadeType.Biohazard;
+		}
+		if( tags.Contains( 'IncendiaryGrenade' ) )
+		{
+			return EGrenadeType.Incendiary;
+		}
+		if( tags.Contains( 'ReconGrenade' ) )
+		{
+			return EGrenadeType.Recon;
+		}
+		if( tags.Contains( 'CuttingGrenade' ) )
+		{
+			return EGrenadeType.Cutting;
+		}
+		if( tags.Contains( 'SonicGrenade' ) )
+		{
+			return EGrenadeType.Sonic;
+		}
+		return EGrenadeType.Frag;
+	}
+
+	private static function GetGrenadeDuration( player : weak< PlayerPuppet >, attackRecord : weak< Attack_Record > ) : Float
+	{
+		var i : Int32;
+		var statusEffects : array< weak< StatusEffectAttackData_Record > >;
+		var durationModifiersRecord : weak< StatModifierGroup_Record >;
+		var durationStatModifiers : array< weak< StatModifier_Record > >;
+		attackRecord.StatusEffects( statusEffects );
+		for( i = 0; i < statusEffects.Size(); i += 1 )
+		{
+			durationModifiersRecord = statusEffects[ i ].StatusEffect().Duration();
+			if( durationModifiersRecord )
+			{
+				durationModifiersRecord.StatModifiers( durationStatModifiers );
+				return RPGManager.CalculateStatModifiers( durationStatModifiers, player.GetGame(), player, player.GetEntityID() );
+			}
+		}
+		return 0.0;
+	}
+
+	private static function GetGrenadeDelay( continuousAttackEffector : weak< ContinuousAttackEffector_Record > ) : Float
+	{
+		if( continuousAttackEffector )
+		{
+			return continuousAttackEffector.DelayTime();
+		}
+		return 0.0;
+	}
+
+	public static function Make( item : weak< UIInventoryItem >, player : weak< PlayerPuppet > ) : UIInventoryItemGrenadeData
+	{
+		var instance : UIInventoryItemGrenadeData;
+		var grenadeRecord : weak< Grenade_Record >;
+		var continousEffector : weak< ContinuousAttackEffector_Record >;
+		var deliveryRecord : weak< GrenadeDeliveryMethod_Record >;
+		instance = new UIInventoryItemGrenadeData;
+		grenadeRecord = TweakDBInterface.GetGrenadeRecord( item.GetTweakDBID() );
+		if( grenadeRecord )
+		{
+			continousEffector = GetGrenadeContinousEffector( grenadeRecord.Attack() );
+			instance.Range = GetGrenadeRange( grenadeRecord, player );
+			deliveryRecord = grenadeRecord.DeliveryMethod();
+			instance.DeliveryMethod = deliveryRecord.Type().Type();
+			instance.DetonationTimer = deliveryRecord.DetonationTimer();
+			if( continousEffector )
+			{
+				instance.Duration = GetGrenadeDuration( player, grenadeRecord.Attack() );
+				instance.Delay = GetGrenadeDelay( continousEffector );
+				instance.DamagePerTick = GetGrenadeDoTTickDamage( player, continousEffector );
+				instance.Type = GrenadeDamageType.DoT;
+				instance.TotalDamage = instance.DamagePerTick * ( instance.Duration / instance.Delay );
+				instance.GrenadeType = GetGrenadeType( grenadeRecord );
+			}
+			else
+			{
+				instance.Type = GrenadeDamageType.Normal;
+				instance.TotalDamage = GetGrenadeTotalDamageFromStats( item.GetItemData() );
+			}
+		}
+		return instance;
+	}
+
+}
+

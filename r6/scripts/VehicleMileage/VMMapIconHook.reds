@@ -3,6 +3,10 @@ module VehicleMileage
 // ---- shared: detect our mappins via the debugCaption we set in vm_gas_markers.lua ----
 @addMethod(BaseMappinBaseController)
 protected final func __vmIsOurFuelPin() -> Bool {
+  if !IsDefined(this.GetMappin()) {
+    return false;
+  };
+
   let cap: String = this.GetMappin().GetDisplayName();      // "VM_VehicleMileage|...|..."
   let parts: array<String> = StrSplit(cap, "|");
   return ArraySize(parts) > 0 && Equals(parts[0], "VM_VehicleMileage");
@@ -12,6 +16,7 @@ protected final func __vmIsOurFuelPin() -> Bool {
 @addMethod(BaseMappinBaseController)
 protected final func __vmApplyFuelIcon(opt forMinimap: Bool) -> Void {
   if !this.__vmIsOurFuelPin() { return; }
+  if !inkWidgetRef.IsValid(this.iconWidget) { return; }
 
   // Use the same atlas/part you use on the HUD fuel glyph
   let atlasPath: ResRef = r"ep1\\gameplay\\gui\\widgets\\vehicle\\sport\\v_sport2_villefort_deleon\\villefort_deleon.inkatlas";

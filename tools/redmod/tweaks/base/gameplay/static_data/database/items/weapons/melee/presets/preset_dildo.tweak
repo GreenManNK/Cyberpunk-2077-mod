@@ -1,0 +1,198 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+[ notQueryable ]
+Preset_Dildo_Stout : Base_One_Hand_Blunt
+{
+	tags += 
+	[
+		"DildoFinisher", "FinisherFront", "FinisherBack", "MeleeRumblingWeapon", "IconicWeapon"
+	];
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "dildo_stout_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Melee_Blueprint";
+	displayName = "LocKey#40309";
+	visualTags = 
+	[
+		"Stout_Dildo"
+	];
+	appearanceResourceName = "Preset_Dildo_Stout";
+	quality = "Quality.Random";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.DildoStout";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40464";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+		statModifierGroups += 
+		[
+			"Items.Dildo_NPC_Damage_Stats"
+		];
+	} : Items.Base_One_Hand_Blunt_NPC_Data;
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"dildo"
+			];
+		} : GameplayLogicPackage
+	];
+	fk< WeaponFxPackage > fxPackage = "WeaponFxPackage.BluntSoftFxPackage";
+	previewBBoxOverride = 
+	[
+		( -0.0365f, -0.0369f, -0.042f ), ( 0.036f, 0.034f, 0.268f )
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_dildo";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			itemPartPreset = "Items.w_dildo_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.DildoWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Blunts_Stun_Application_Stats", "Items.Base_One_Hand_Blunt_RPG_Stats", "Items.Base_One_Hand_Blunt_Handling_Stats", "Items.Base_One_Hand_Blunt_Misc_Stats", "Items.Dildo_Elemental_Damage_Type_Stats", "Items.Base_Melee_Elemental_Damage_Type_Min_Max", "Items.Dildo_Damage_Stats"
+	];
+}
+
+[ notQueryable ]
+w_melee_dildo : Preset_Dildo_Stout
+{
+}
+
+Dildo_Elemental_Damage_Type_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.15f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.DamagePerHit";
+			opSymbol = "*";
+			value = 0.15f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CanLegendaryCraftedWeaponsBeBoosted2";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.CraftingBonusWeaponDamage2";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+}
+
+Dildo_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 69f;
+		} : ConstantStatModifier
+	];
+}
+
+Dildo_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 69f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Preset_Dildo_SexShop : Preset_Dildo_Stout
+{
+	OnLooted = 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "dildo_shop_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	displayName = "LocKey#95292";
+	localizedDescription = "LocKey#95293";
+	visualTags = 
+	[
+		"SexShop_Dildo"
+	];
+	audioName = "audio_melee_metadata_dildo";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			itemPartPreset = "Items.w_dildo_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.DildoSexShopWeaponMod";
+		}
+	];
+}
+
+[ notQueryable ]
+Preset_Dildo_SexShop_NPC : Preset_Dildo_SexShop
+{
+	audioWeaponConfiguration = "audio_melee_metadata_fists_normal";
+}
+

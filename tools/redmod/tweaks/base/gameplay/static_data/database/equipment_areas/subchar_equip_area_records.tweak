@@ -1,0 +1,43 @@
+package EquipmentArea
+using RTDB
+
+BotMainModule : EquipmentArea
+{
+	enumName = "BotMainModule";
+	enumComment = "Bot main module slot";
+	equipSlots = 
+	[
+		"EquipmentArea.SimpleEquipSlot"
+	];
+}
+
+BotChassisModule : EquipmentArea
+{
+	enumName = "BotChassisModule";
+	enumComment = "Bot chassis slot";
+	equipSlots = 
+	[
+		"EquipmentArea.SimpleEquipSlot"
+	];
+}
+
+BotCPU : EquipmentArea
+{
+	enumName = "BotCPU";
+	enumComment = "Spider bot's CPU area";
+	equipSlots = 
+	[
+		"EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot"
+	];
+}
+
+BotSoftware : EquipmentArea
+{
+	enumName = "BotSoftware";
+	enumComment = "Area for spiderbot's software items";
+	equipSlots = 
+	[
+		"EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot", "EquipmentArea.SimpleEquipSlot"
+	];
+}
+

@@ -1,0 +1,592 @@
+package Perks
+using RTDB, Prereqs, Effectors, Attacks
+
+StealthProficiencyPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Cool";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+StealthMasteryPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Stealth";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+Stealth_Area_01 : PerkArea
+{
+	enumName = "Stealth_Area_01";
+	requirement = 
+	{
+		valueToCheck = 0;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_01_Perk_1", "Perks.Stealth_Area_01_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_02 : PerkArea
+{
+	enumName = "Stealth_Area_02";
+	requirement = 
+	{
+		valueToCheck = 5;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_02_Perk_1", "Perks.Stealth_Area_02_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_03 : PerkArea
+{
+	enumName = "Stealth_Area_03";
+	requirement = 
+	{
+		valueToCheck = 7;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_03_Perk_1", "Perks.Stealth_Area_03_Perk_2", "Perks.Stealth_Area_03_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_04 : PerkArea
+{
+	enumName = "Stealth_Area_04";
+	requirement = 
+	{
+		valueToCheck = 9;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_04_Perk_1", "Perks.Stealth_Area_04_Perk_2"
+	];
+}
+
+Stealth_Area_05 : PerkArea
+{
+	enumName = "Stealth_Area_05";
+	requirement = 
+	{
+		valueToCheck = 11;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_05_Perk_1", "Perks.Stealth_Area_05_Perk_2", "Perks.Stealth_Area_05_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_06 : PerkArea
+{
+	enumName = "Stealth_Area_06";
+	requirement = 
+	{
+		valueToCheck = 12;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_06_Perk_1", "Perks.Stealth_Area_06_Perk_2"
+	];
+}
+
+Stealth_Area_07 : PerkArea
+{
+	enumName = "Stealth_Area_07";
+	requirement = 
+	{
+		valueToCheck = 14;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_07_Perk_1", "Perks.Stealth_Area_07_Perk_2", "Perks.Stealth_Area_07_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_08 : PerkArea
+{
+	enumName = "Stealth_Area_08";
+	requirement = 
+	{
+		valueToCheck = 16;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_08_Perk_1", "Perks.Stealth_Area_08_Perk_2", "Perks.Stealth_Area_08_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_09 : PerkArea
+{
+	enumName = "Stealth_Area_09";
+	requirement = 
+	{
+		valueToCheck = 18;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_09_Perk_1", "Perks.Stealth_Area_09_Perk_2", "Perks.Stealth_Area_09_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_10 : PerkArea
+{
+	enumName = "Stealth_Area_10";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : StealthProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : StealthMasteryPrereq;
+	perks = 
+	[
+		"Perks.Stealth_Area_10_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+Stealth_Area_01_Perk_1 : StealthPerk
+{
+	CName enumName = "Stealth_Area_01_Perk_1";
+	perkIcon = "UIIcon.Stealth_Area_01_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_01_Perk_2 : StealthPerk
+{
+	CName enumName = "Stealth_Area_01_Perk_2";
+	perkIcon = "UIIcon.Stealth_Area_01_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_02_Perk_1 : StealthPerk
+{
+	CName enumName = "Stealth_Area_02_Perk_1";
+	perkIcon = "UIIcon.Stealth_Area_02_Perk_1";
+	binkPath = "base\movies\tutorials\700x394\perkhiddendragon.bk2";
+	utility = "Perks.ActiveUtility";
+	levels = [];
+}
+
+Stealth_Area_02_Perk_2 : StealthPerk
+{
+	CName enumName = "Stealth_Area_02_Perk_2";
+	perkIcon = "UIIcon.Stealth_Area_02_Perk_2";
+	binkPath = "base\movies\tutorials\700x394\perkdaggerdealer.bk2";
+	utility = "Perks.ActiveUtility";
+	levels = [];
+}
+
+Stealth_Area_02_Perk_3 : StealthPerk
+{
+	CName enumName = "Stealth_Area_02_Perk_3";
+	perkIcon = "UIIcon.Stealth_Area_02_Perk_3";
+	utility = "Perks.ActiveUtility";
+	levels = [];
+}
+
+Stealth_Area_03_Perk_1 : StealthPerk
+{
+	CName enumName = "Stealth_Area_03_Perk_1";
+	perkIcon = "UIIcon.Stealth_Area_03_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_03_Perk_2 : StealthPerk
+{
+	CName enumName = "Stealth_Area_03_Perk_2";
+	perkIcon = "UIIcon.Stealth_Area_03_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_03_Perk_3 : StealthPerk
+{
+	CName enumName = "Stealth_Area_03_Perk_3";
+	perkIcon = "UIIcon.Stealth_Area_03_Perk_3";
+	utility = "Perks.TriggeredUtility";
+	levels = [];
+}
+
+Stealth_Area_04_Perk_1 : StealthPerk
+{
+	CName enumName = "Stealth_Area_04_Perk_1";
+	perkIcon = "UIIcon.Stealth_Area_04_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_04_Perk_2 : StealthPerk
+{
+	CName enumName = "Stealth_Area_04_Perk_2";
+	perkIcon = "UIIcon.Stealth_Area_04_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_05_Perk_1 : StealthPerk
+{
+	CName enumName = "Stealth_Area_05_Perk_1";
+	perkIcon = "UIIcon.Stealth_Area_05_Perk_1";
+	utility = "Perks.ActiveUtility";
+	levels = [];
+}
+
+Stealth_Area_05_Perk_2 : StealthPerk
+{
+	CName enumName = "Stealth_Area_05_Perk_2";
+	perkIcon = "UIIcon.Stealth_Area_05_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_05_Perk_3 : StealthPerk
+{
+	CName enumName = "Stealth_Area_05_Perk_3";
+	perkIcon = "UIIcon.Stealth_Area_05_Perk_3";
+	utility = "Perks.TriggeredUtility";
+	levels = [];
+}
+
+Stealth_Area_06_Perk_1 : StealthPerk
+{
+	loc_name_key = "LocKey#15023";
+	loc_desc_key = "LocKey#15022";
+	perkIcon = "UIIcon.Stealth_Area_06_Perk_1";
+	enumName = "Stealth_Area_06_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_06_Perk_2 : StealthPerk
+{
+	loc_name_key = "LocKey#6615";
+	loc_desc_key = "LocKey#5917";
+	perkIcon = "UIIcon.Stealth_Area_06_Perk_2";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Stealth_Area_06_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_07_Perk_1 : StealthPerk
+{
+	loc_name_key = "LocKey#80340";
+	loc_desc_key = "LocKey#80333";
+	perkIcon = "UIIcon.Stealth_Area_07_Perk_1";
+	enumName = "Stealth_Area_07_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_07_Perk_2 : StealthPerk
+{
+	loc_name_key = "LocKey#6616";
+	loc_desc_key = "LocKey#5918";
+	perkIcon = "UIIcon.Stealth_Area_07_Perk_2";
+	enumName = "Stealth_Area_07_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_07_Perk_3 : StealthPerk
+{
+	loc_name_key = "LocKey#15027";
+	loc_desc_key = "LocKey#15025";
+	perkIcon = "UIIcon.Stealth_Area_07_Perk_3";
+	enumName = "Stealth_Area_07_Perk_3";
+	levels = [];
+}
+
+Stealth_Area_08_Perk_1 : StealthPerk
+{
+	perkIcon = "UIIcon.Stealth_Area_08_Perk_1";
+	enumName = "Stealth_Area_08_Perk_1";
+	levels = [];
+}
+
+Stealth_Area_08_Perk_2 : StealthPerk
+{
+	loc_name_key = "LocKey#6617";
+	loc_desc_key = "LocKey#5919";
+	perkIcon = "UIIcon.Stealth_Area_08_Perk_2";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Stealth_Area_08_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_08_Perk_3 : StealthPerk
+{
+	loc_name_key = "LocKey#80341";
+	loc_desc_key = "LocKey#80336";
+	perkIcon = "UIIcon.Stealth_Area_08_Perk_3";
+	enumName = "Stealth_Area_08_Perk_3";
+	levels = [];
+}
+
+Stealth_Area_09_Perk_1 : StealthPerk
+{
+	loc_name_key = "LocKey#80976";
+	loc_desc_key = "LocKey#80977";
+	perkIcon = "UIIcon.Stealth_Area_09_Perk_1";
+	enumName = "Stealth_Area_09_Perk_1";
+	levels = [];
+}
+
+AntidotePerkPrereq : Prereqs.ORPrereq
+{
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		{
+			conditions = 
+			[
+				{
+					statusEffect = "Poisoned";
+					checkType = "CheckType.Type";
+				} : StatusEffectPresentHitPrereqCondition, 
+				{
+					targetType = "Player";
+					invert = true;
+				} : TargetTypeHitPrereqCondition, 
+				{
+					attackType = "Thrown";
+				} : AttackTypeHitPrereqCondition, 
+				{
+					type = "Prereqs.HitFlag";
+					string hitFlag = "DealNoDamage";
+					bool invert = true;
+				}
+			];
+		} : Prereqs.ProcessHitTriggered, 
+		{
+			conditions = 
+			[
+				{
+					statusEffect = "Poisoned";
+					checkType = "CheckType.Type";
+				} : StatusEffectPresentHitPrereqCondition, 
+				{
+					targetType = "Player";
+					invert = true;
+				} : TargetTypeHitPrereqCondition, 
+				{
+					attackType = "StrongMelee";
+				} : AttackTypeHitPrereqCondition, 
+				{
+					type = "Prereqs.HitFlag";
+					string hitFlag = "DealNoDamage";
+					bool invert = true;
+				}
+			];
+		} : Prereqs.ProcessHitTriggered
+	];
+}
+
+Stealth_Area_09_Perk_2 : StealthPerk
+{
+	loc_name_key = "LocKey#15033";
+	loc_desc_key = "LocKey#15034";
+	perkIcon = "UIIcon.Stealth_Area_09_Perk_2";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Stealth_Area_09_Perk_2";
+	levels = [];
+}
+
+Stealth_Area_09_Perk_3 : StealthPerk
+{
+	loc_name_key = "LocKey#80974";
+	loc_desc_key = "LocKey#80975";
+	perkIcon = "UIIcon.Stealth_Area_09_Perk_3";
+	enumName = "Stealth_Area_09_Perk_3";
+	levels = [];
+}
+
+Stealth_Area_10_Perk_1 : StealthPerk
+{
+	loc_name_key = "LocKey#15035";
+	loc_desc_key = "LocKey#15031";
+	perkIcon = "UIIcon.Stealth_Area_10_Perk_1";
+	enumName = "Stealth_Area_10_Perk_1";
+	levels = [];
+}
+
+KnivesReloadPerkPrereqs : ORPrereq
+{
+	nestedPrereqs = 
+	[
+		{
+			conditions += 
+			[
+				{
+					attackType = "Thrown";
+				} : AttackTypeHitPrereqCondition, 
+				{
+					statusEffect = "Defeated";
+					checkType = "CheckType.Type";
+					invert = true;
+				} : StatusEffectPresentHitPrereqCondition, 
+				{
+					hitFlag = "DealNoDamage";
+					invert = true;
+				} : HitFlagHitPrereqCondition, 
+				{
+					npcType = "Any";
+					invert = true;
+				} : TargetNPCTypeHitPrereqCondition
+			];
+		} : IsHitACritical, 
+		{
+			conditions += 
+			[
+				{
+					attackType = "Thrown";
+				} : AttackTypeHitPrereqCondition, 
+				{
+					statusEffect = "Defeated";
+					checkType = "CheckType.Type";
+					invert = true;
+				} : StatusEffectPresentHitPrereqCondition, 
+				{
+					hitFlag = "DealNoDamage";
+					invert = true;
+				} : HitFlagHitPrereqCondition, 
+				{
+					npcType = "Any";
+					invert = true;
+				} : TargetNPCTypeHitPrereqCondition
+			];
+		} : IsTargetKilled, 
+		{
+			conditions += 
+			[
+				{
+					dotType = "Poisoned";
+				} : DamageOverTimeTypeHitPrereqCondition, 
+				{
+					statusEffect = "KnifePoison";
+					checkType = "CheckType.Record";
+				} : StatusEffectPresentHitPrereqCondition, 
+				{
+					npcType = "Any";
+					invert = true;
+				} : TargetNPCTypeHitPrereqCondition
+			];
+		} : IsTargetKilled
+	];
+}
+
+KnifeMeleeDamageIncreasePerkPrereq : ORPrereq
+{
+	nestedPrereqs = 
+	[
+		{
+			conditions = 
+			[
+				"Perks.StealthThrowingMeleeDamageIncreasePresentHitCondition", {
+					attackType = "Melee";
+				} : AttackTypeHitPrereqCondition
+			];
+		} : Prereqs.ProcessHitTriggered, 
+		{
+			conditions = 
+			[
+				"Perks.StealthThrowingMeleeDamageIncreasePresentHitCondition", {
+					attackType = "StrongMelee";
+				} : AttackTypeHitPrereqCondition
+			];
+		} : Prereqs.ProcessHitTriggered, 
+		{
+			conditions = 
+			[
+				"Perks.StealthThrowingMeleeDamageIncreasePresentHitCondition", {
+					attackType = "QuickMelee";
+				} : AttackTypeHitPrereqCondition
+			];
+		} : Prereqs.ProcessHitTriggered
+	];
+}
+
+StealthThrowingMeleeDamageIncreasePresentHitCondition : StatusEffectPresentHitPrereqCondition
+{
+	statusEffect = "StealthThrowingMeleeDamageIncrease";
+	checkType = "CheckType.Record";
+}
+
+StealthAntidoteSePresenttHitCondition : StatusEffectPresentHitPrereqCondition
+{
+	statusEffect = "StealthPerkAntidoteSE";
+	checkType = "CheckType.Record";
+}
+
+SniperPerkWeaponsPrereq : Prereqs.ORPrereq
+{
+	CName aggregationType = "OR";
+	nestedPrereqs = 
+	[
+		"Prereqs.RangedWeaponHeldPrereq", "Prereqs.KnifeHeldPrereq"
+	];
+}
+
+StealthPerkKnifeInstantPoisonAttack : Attack_GameEffect
+{
+	effectName = "directHits";
+	effectTag = "directTarget";
+	attackType = "AttackType.Effect";
+	hitFlags = 
+	[
+		"CanDamageSelf"
+	];
+	damageType = "DamageTypes.Chemical";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+		} : TargetBaseHealth, 
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Multiplier";
+			value = 0.3;
+		} : ConstantStatModifier
+	];
+}
+

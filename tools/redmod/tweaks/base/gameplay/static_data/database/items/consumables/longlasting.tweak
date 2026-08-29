@@ -1,0 +1,632 @@
+package Items
+using RTDB, ItemAction
+
+[ notQueryable ]
+LongLasting : ConsumableItem
+{
+	displayName = "LocKey#51185";
+	localizedDescription = "LocKey#51186";
+	entityName = "";
+	iconPath = "";
+	itemType = "ItemType.Con_LongLasting";
+	consumableType = "";
+	objectActions += 
+	[
+		"ItemAction.ConsumableDisassemble"
+	];
+	tags += 
+	[
+		"LongLasting"
+	];
+	buyPrice += 
+	[
+		"Price.LongLastingConsumable"
+	];
+	sellPrice += 
+	[
+		"Price.LongLastingConsumable"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 51;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+BlackmarketLongLasting : LongLasting
+{
+	quality = "Quality.Epic";
+	buyPrice = 
+	[
+		"Price.BlackmarketLongLastingConsumable", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = 
+	[
+		"Price.BlackmarketLongLastingConsumable"
+	];
+	tags += 
+	[
+		"BlackmarketLongLasting"
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+}
+
+HealthBooster : LongLasting
+{
+	displayName = "LocKey#43539";
+	localizedDescription = "LocKey#43540";
+	iconPath = "health_booster";
+	consumableBaseName = "ConsumableBaseName.HealthBooster";
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.HealthBooster";
+				}
+			];
+		} : Consume
+	];
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 10;
+			}, 
+			{
+				ingredient = "Items.UncommonMaterial1";
+				amount = 5;
+			}, 
+			{
+				ingredient = "Items.RareMaterial1";
+				amount = 2;
+			}
+		];
+	};
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					10
+				];
+			} : HealthBoosterUIDataAbility;
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+	quality = "Quality.Rare";
+}
+
+Blackmarket_HealthBooster : BlackmarketLongLasting
+{
+	displayName = "LocKey#92988";
+	localizedDescription = "LocKey#92992";
+	iconPath = "asskick";
+	consumableBaseName = "ConsumableBaseName.HealthBooster";
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.Blackmarket_HealthBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : HealthBoosterUIDataAbility;
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92974";
+				intValues = 
+				[
+					50
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+StaminaBooster : LongLasting
+{
+	displayName = "LocKey#43542";
+	localizedDescription = "LocKey#43543";
+	iconPath = "stamina_booster";
+	consumableBaseName = "ConsumableBaseName.StaminaBooster";
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 10;
+			}, 
+			{
+				ingredient = "Items.UncommonMaterial1";
+				amount = 5;
+			}
+		];
+	};
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.StaminaBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					20
+				];
+			} : StaminaBoosterUIDataAbility;
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"OnlyBaseQuality"
+	];
+}
+
+Blackmarket_StaminaBooster : BlackmarketLongLasting
+{
+	displayName = "LocKey#92967";
+	localizedDescription = "LocKey#92969";
+	iconPath = "stamina_tube";
+	consumableBaseName = "ConsumableBaseName.StaminaBooster";
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.Blackmarket_StaminaBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				floatValues = 
+				[
+					20
+				];
+			} : StaminaBoosterUIDataAbility;
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92968";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+MemoryBooster : LongLasting
+{
+	displayName = "LocKey#43545";
+	localizedDescription = "LocKey#43546";
+	iconPath = "memory_booster";
+	consumableBaseName = "ConsumableBaseName.MemoryBooster";
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 16;
+			}, 
+			{
+				ingredient = "Items.UncommonMaterial1";
+				amount = 3;
+			}
+		];
+	};
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.MemoryBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					2
+				];
+			} : MemoryBoosterUIDataAbility;
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"OnlyBaseQuality"
+	];
+}
+
+Blackmarket_MemoryBooster : BlackmarketLongLasting
+{
+	displayName = "LocKey#92972";
+	localizedDescription = "LocKey#92973";
+	iconPath = "ram_nugs";
+	consumableBaseName = "ConsumableBaseName.MemoryBooster";
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.Blackmarket_MemoryBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					4
+				];
+			} : MemoryBoosterUIDataAbility;
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92968";
+				intValues = 
+				[
+					20
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+CarryCapacityBooster : LongLasting
+{
+	displayName = "LocKey#43548";
+	localizedDescription = "LocKey#43549";
+	iconPath = "carry_capacity_booster";
+	consumableBaseName = "ConsumableBaseName.CarryCapacityBooster";
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 10;
+			}, 
+			{
+				ingredient = "Items.UncommonMaterial1";
+				amount = 5;
+			}
+		];
+	};
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.CarryCapacityBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					50
+				];
+			} : CarryCapacityBoosterUIDataAbility;
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+	quality = "Quality.Uncommon";
+	tags += 
+	[
+		"OnlyBaseQuality"
+	];
+}
+
+Blackmarket_CarryCapacityBooster : BlackmarketLongLasting
+{
+	displayName = "LocKey#92989";
+	localizedDescription = "LocKey#92990";
+	iconPath = "ol_donkey";
+	consumableBaseName = "ConsumableBaseName.CarryCapacityBooster";
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.Blackmarket_CarryCapacityBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92976";
+				intValues = 
+				[
+					100, 20
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+[ notQueryable ]
+OxyBooster : LongLasting
+{
+	displayName = "LocKey#43551";
+	localizedDescription = "LocKey#43552";
+	iconPath = "oxygen_booster";
+	consumableBaseName = "ConsumableBaseName.OxyBooster";
+	tags += 
+	[
+		"HideInUI", "HideAtVendor", "SkipAcivityLog"
+	];
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 10;
+			}
+		];
+	};
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.OxyBooster";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = "Items.OxyBoosterUIDataAbility";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.LongLastingConsumableDuration"
+	];
+}
+
+[ notQueryable ]
+BlackLaceV0 : LongLasting
+{
+	displayName = "LocKey#49554";
+	localizedDescription = "LocKey#49555";
+	iconPath = "inhaler_1_royce_blacklace";
+	appearanceName = "drug_1";
+	quality = "Quality.Rare";
+	itemType = "ItemType.Con_LongLasting";
+	tags = 
+	[
+		"Consumable", "Drug", "Medical"
+	];
+	objectActions += 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.BlackLaceV0";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : BlackLaceUIDataAbility01;
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#94490";
+				floatValues = 
+				[
+					15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93115";
+				intValues = 
+				[
+					5, 5, 15
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92968";
+				intValues = 
+				[
+					35
+				];
+			};
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.BlackLaceDuration"
+	];
+}
+
+[ notQueryable ]
+BlackLaceV1 : BlackLaceV0
+{
+	displayName = "LocKey#35408";
+	quality = "Quality.Epic";
+	objectActions = 
+	[
+		{
+			completionEffects = 
+			[
+				{
+					statusEffect = "BaseStatusEffect.BlackLaceV1";
+				}
+			];
+		} : Consume
+	];
+	OnEquip = 
+	[
+		{
+			UIData = 
+			{
+				intValues = 
+				[
+					30
+				];
+			} : BlackLaceUIDataAbility01;
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#94490";
+				floatValues = 
+				[
+					25
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93115";
+				intValues = 
+				[
+					15, 15, 25
+				];
+			};
+		}, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92968";
+				intValues = 
+				[
+					50
+				];
+			};
+		}
+	];
+}
+
+HealthBoosterUIDataAbility : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#43538";
+}
+
+StaminaBoosterUIDataAbility : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#94490";
+}
+
+MemoryBoosterUIDataAbility : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#43544";
+}
+
+CarryCapacityBoosterUIDataAbility : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#43547";
+}
+
+OxyBoosterUIDataAbility : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#43550";
+}
+

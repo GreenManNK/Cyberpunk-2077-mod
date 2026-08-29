@@ -1,0 +1,31 @@
+import enum gameDifficulty
+{
+	Easy,
+	Hard,
+	VeryHard,
+	Story,
+}
+
+import struct gameSuggestedDefenseValues
+{
+	import var minArmor : Float;
+	import var maxArmor : Float;
+	import var minProtection : Float;
+	import var maxProtection : Float;
+}
+
+importonly abstract class IStatsDataSystem extends IGameSystem
+{
+}
+
+importonly final class StatsDataSystem extends IStatsDataSystem
+{
+	public import const function GetDifficulty() : gameDifficulty;
+	public import function SetDifficulty( difficulty : gameDifficulty );
+	public import function GetValueFromCurve( curveSetName : CName, argumentValue : Float, optional curveName : CName, optional difficulty : gameDifficulty ) : Float;
+	public import function GetMinValueFromCurve( curveSetName : CName, optional curveName : CName, optional difficulty : gameDifficulty ) : Float;
+	public import function GetMaxValueFromCurve( curveSetName : CName, optional curveName : CName, optional difficulty : gameDifficulty ) : Float;
+	public import function GetArmorEffectivenessValue( optional isPlayer : Bool ) : Float;
+	public import function GetSuggestedDefenseValues( playerLevel : Float ) : gameSuggestedDefenseValues;
+}
+

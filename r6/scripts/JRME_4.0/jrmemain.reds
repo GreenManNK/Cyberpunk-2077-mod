@@ -24,15 +24,15 @@ class JRME extends ScriptableSystem {
   private final func OnPlayerAttach(request: ref<PlayerAttachRequest>) -> Void {
     if GameInstance.GetSystemRequestsHandler().IsPreGame() {
       if this.VersionCheck() {
-        JRMELog.Info(s"Requirements installed:");
-        JRMELog.Info(s"ArchiveXL: " + this.m_axlversion);
-        JRMELog.Info(s"TweakXL: " + this.m_txlversion);
-        JRMELog.Info(s"Codeware: " + this.m_cwversion);
+        FTLog(s"JRME Requirements installed:");
+        FTLog(s"ArchiveXL: " + this.m_axlversion);
+        FTLog(s"TweakXL: " + this.m_txlversion);
+        FTLog(s"Codeware: " + this.m_cwversion);
       }
       return;
     }
 
-    JRMELog.Info(s"Attached to player");
+    FTLog(s"Attached to player");
     let player: ref<PlayerPuppet> = request.owner as PlayerPuppet;
 
     if IsDefined(player) {
@@ -44,19 +44,16 @@ class JRME extends ScriptableSystem {
         .m_questSystem
         .RegisterListener(n"post_mox_msg_fix", this, n"OnPostMoxMsgFixChange");
       this.m_player = player;
-      
     }
   }
 
   public cb final func OnJrmeActivationListenerChange(factVal: Int32) -> Void {
     if factVal == 1 {
-      JRMELog
-        .Info(
+      FTLog(
           "jrme_tutorial_bill = " + this.m_questSystem.GetFactStr("jrme_tutorial_bill")
         );
     } else {
-      JRMELog
-        .Info(
+      FTLog(
           "jrme_tutorial_bill = " + this.m_questSystem.GetFactStr("jrme_tutorial_bill")
         );
     }
@@ -64,13 +61,11 @@ class JRME extends ScriptableSystem {
 
   public cb final func OnPostMoxMsgFixChange(factVal: Int32) -> Void {
     if factVal == 1 {
-      JRMELog
-        .Info(
+      FTLog(
           "post_mox_msg_fix = " + this.m_questSystem.GetFactStr("post_mox_msg_fix")
         );
     } else {
-      JRMELog
-        .Info(
+      FTLog(
           "post_mox_msg_fix = " + this.m_questSystem.GetFactStr("post_mox_msg_fix")
         );
     }

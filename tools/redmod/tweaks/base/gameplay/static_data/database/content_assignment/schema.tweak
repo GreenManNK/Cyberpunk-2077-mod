@@ -1,0 +1,22 @@
+package RTDB
+
+ContentAssignment
+{
+	fk< StatModifier > powerLevelMod = "";
+	fk< NPCQuestAffiliation > questType = "";
+}
+
+ValueAssignment : ContentAssignment
+{
+	int overrideValue = -1;
+}
+
+DeviceContentAssignment : ContentAssignment
+{
+}
+
+StreetCredTier
+{
+	int streetCredRequirement = 1;
+}
+

@@ -1,0 +1,71 @@
+﻿return {
+    name = "NCA Afterlife Generic Mercs",
+    author = "NCA",
+    load = function(NCA)
+        -- 1.2
+        NCA:RegisterCharacter({name = "Afterlife Shotgun", record = "Character.prevention_bountyhunter_shotgun_mb", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Katana", record = "Character.afterlife_rare_fmelee3_katana_wa_elite", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Mercenary", record = "Character.afterlife_merc_strong_short_range_w_medium", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Netrunner", record = "Character.afterlife_merc_netrunner_w_medium", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Smg", record = "Character.prevention_bountyhunter_smg_ma", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Netrunner", record = "Character.afterlife_merc_netrunner_m_medium", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Brawler", record = "Character.afterlife_merc_fast_melee_w_hard", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Ranger", record = "Character.afterlife_merc_generic_medium_range_w_hard", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Rifle", record = "Character.prevention_bountyhunter_rifle_ma", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Saratoga", record = "Character.afterlife_rare_franged2_saratoga_ma_rare", type = "mercenary"})
+        
+        --1.3
+        NCA:RegisterCharacter({name = "Afterlife Ambusher", record = "Character.wst_ep1_09_ambush_leader", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Elite", record = "Character.ma_pac_cvi_13_afterlife_rare_fmelee3_katana_ma_elite", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Merc", record = "Character.afterlife_merc_generic_medium_range_w_medium", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Meelee", record = "Character.afterlife_merc_fast_melee_w_medium", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Netrunner", record = "Character.afterlife_merc_netrunner_w_easy", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Hacker", record = "Character.afterlife_merc_netrunner_m_easy", type = "mercenary"})
+        NCA:RegisterCharacter({name = "Afterlife Frontliner", record = "Character.afterlife_merc_fast_melee_w_easy", type = "mercenary"})
+        
+        
+        --NCA:RegisterCharacter({name = "Alec", record = "Character.ma_wat_lch_06_cyberpsycho", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "Wyvern-Drohne", record = "Character.prevention_unit_wyvern_drone_mercs", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "Weyland", record = "Character.Weyland", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "Tracy", record = "Character.ma_hey_gle_07_afterlife_merc_generic_medium_range_w_hard_Tracy_Phillips", type="geneaverageric", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "Thompson", record = "Character.Thompson", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "DOUBLE O", record = "Character.ma_wbr_nok_05_netrunner", type = "mercenary"})
+        
+        
+        --NCA:RegisterCharacter({name = "Claire", record = "Character.Claire", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.prevention_bountyhunter_netrunner_wa", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_netrunner_m_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "TEST.corpo_lmg", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_franged2_ajax_wa_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_strong_short_range_w_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.ma_pac_cvi_13_afterlife_merc_generic_medium_range_m_medium", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_netrunner_netrunner2_yukimura_ma_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_generic_medium_range_m_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_generic_medium_range_m_easy", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_strong_short_range_m_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_generic_medium_range_w_easy", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_fast_melee_m_medium", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.wst_ep1_09_ambush_mercenary", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_fast_melee_m_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_generic_medium_range_friendly", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.prevention_bountyhunter_smg_wa", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_netrunner_netrunner2_yukimura_wa_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_strong_short_range_w_easy", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_netrunner_w_hard", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_gunner3_hmg_mb_elite", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_strong_short_range_m_easy", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_sniper3_ashura_ma_elite", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_franged2_overture_wa_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_franged2_ajax_ma_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_fmelee3_mantis_wa_elite", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_fshotgun3_zhuo_mb_elite", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_fmelee3_katana_ma_elite", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_fast_melee_m_easy", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_strong_short_range_m_medium", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.prevention_bountyhunter_rifle_wa", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_merc_generic_medium_range_m_medium", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_franged2_saratoga_wa_rare", type = "mercenary"})
+        --NCA:RegisterCharacter({name = "", record = "Character.afterlife_rare_fmelee3_mantis_ma_elite", type = "mercenary"})
+    end
+}
+

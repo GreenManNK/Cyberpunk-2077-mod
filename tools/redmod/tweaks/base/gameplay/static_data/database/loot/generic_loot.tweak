@@ -1,0 +1,49 @@
+package LootTables
+using RTDB, Items
+
+TrashTierMoneyLootElement : LootItem
+{
+	itemID = "Items.money";
+	playerPrereqID = "LootPrereqs.PlayerLevelTrashTierPrereq";
+	dropCountMin = 0;
+	dropCountMax = 100;
+}
+
+WeakTierMoneyLootElement : LootItem
+{
+	itemID = "Items.money";
+	playerPrereqID = "LootPrereqs.PlayerLevelWeakTierPrereq";
+	dropCountMin = 101;
+	dropCountMax = 200;
+}
+
+NormalTierMoneyLootElement : LootItem
+{
+	itemID = "Items.money";
+	playerPrereqID = "LootPrereqs.PlayerLevelNormalTierPrereq";
+	dropCountMin = 201;
+	dropCountMax = 300;
+}
+
+RareTierMoneyLootElement : LootItem
+{
+	itemID = "Items.money";
+	playerPrereqID = "LootPrereqs.PlayerLevelRareTierPrereq";
+	dropCountMin = 301;
+	dropCountMax = 400;
+}
+
+EliteTierMoneyLootElement : LootItem
+{
+	itemID = "Items.money";
+	playerPrereqID = "LootPrereqs.PlayerLevelEliteTierPrereq";
+	dropCountMin = 401;
+	dropCountMax = 500;
+}
+
+Empty : LootTable
+{
+	minItemsToLoot = 0;
+	maxItemsToLoot = 0;
+}
+

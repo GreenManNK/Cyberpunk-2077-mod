@@ -245,10 +245,7 @@ end
 function logic:hideAllWorkspots()
     world.interactions[1].pos = Vector4.new(0, 0, 0, 0)
     self.leanWorkspot.workspot.interactionPosition = Vector4.new(0, 0, 0, 0)
-
-    if world.interactions[1].pinID then
-        Game.GetMappinSystem():SetMappinPosition(world.interactions[1].pinID, Vector4.new(0, 0, 0, 0))
-    end
+    Game.GetMappinSystem():SetMappinPosition(world.interactions[1].pinID, Vector4.new(0, 0, 0, 0))
 end
 
 function logic:protectSpot() -- Dispose close NPCs
@@ -266,9 +263,7 @@ function logic:onUpdate()
     self:protectSpot()
 
     if (not self.isScanning and not self.mod.runtimeData.forceScan) or (not self:isValidEnviroment()) or (not self.interface) or self.leanWorkspot.workspot.inWorkspot then
-        if self.pin then
-            Game.GetMappinSystem():UnregisterMappin(self.pin)
-        end
+        Game.GetMappinSystem():UnregisterMappin(self.pin)
         self.pin = nil
         self:hideAllWorkspots()
 
@@ -298,9 +293,7 @@ function logic:onUpdate()
         self.leanWorkspot.workspot.workspotPosition = workspotPosition
         self.leanWorkspot.workspot.workspotRotation.yaw = forward:ToRotation().yaw
 
-        if world.interactions[1].pinID then
-            Game.GetMappinSystem():SetMappinPosition(world.interactions[1].pinID, position)
-        end
+        Game.GetMappinSystem():SetMappinPosition(world.interactions[1].pinID, position)
     else
         self:hideAllWorkspots()
     end

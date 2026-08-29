@@ -1,0 +1,430 @@
+package Loot
+using RTDB
+
+TygerClawsDrop : LootTable
+{
+	minItemsToLoot = 0;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelTrashTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 10;
+			dropCountMax = 30;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelWeakTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 30;
+			dropCountMax = 50;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelNormalTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 50;
+			dropCountMax = 100;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 100;
+			dropCountMax = 200;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelEliteTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 200;
+			dropCountMax = 400;
+			itemID = "Items.money";
+		}
+	];
+}
+
+TygerClawsGenericRangedBikerT1_nue : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.HandgunModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Handgun_Muzzle_LootTable", "LootTables.ShortScopes_LootTable"
+	];
+}
+
+TygerClawsGenericRangedBikerT1_saratoga : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.RifleModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+}
+
+TygerClawsGenericRangedGangsterT1_nue : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.HandgunModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Handgun_Muzzle_LootTable", "LootTables.ShortScopes_LootTable"
+	];
+}
+
+TygerClawsGenericRangedGangsterT1_copperhead : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.RifleModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+}
+
+TygerClawsGenericRangedBikerT2_shingen : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.RifleModsQuery";
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.SmartModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.IntelligenceSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericRangedBikerT2_copperhead : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.RifleModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericRangedGangsterT2_rifleSmart : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.SmartModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.IntelligenceSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericRangedGangsterT2_riflePower : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.PowerModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericRangedGangsterT3 : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.RifleModsQuery";
+		}
+	];
+	lootTableInclusions += 
+	[
+		"LootTables.Rifle_SMG_Muzzle_LootTable", "LootTables.LongScopes_LootTable"
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericMeleeBikerT1_fist : TygerClawsDrop
+{
+}
+
+TygerClawsGenericMeleeBikerT1 : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.GenericMeleeModsQuery";
+		}
+	];
+}
+
+TygerClawsGenericMeleeGangsterT1_fist : TygerClawsDrop
+{
+}
+
+TygerClawsGenericMeleeGangsterT1_knife : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ThrowableModsQuery";
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.BladeModsQuery";
+		}
+	];
+}
+
+TygerClawsGenericMeleeBikerT2_fist : TygerClawsDrop
+{
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsGenericMeleeBikerT2_baseball : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.BluntModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsShotgunBikerT2 : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ShotgunModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsShotgunBikerT3 : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.ShotgunModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsFastMeleeMartialT2_fists : TygerClawsDrop
+{
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsFastMeleeMartialT2_katana : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.BladeModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsFastMeleeKunoichiT3_fists : TygerClawsDrop
+{
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.TechnicalAbilitySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsFastMeleeKunoichiT3_katana : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.BladeModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.ReflexesSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsHeavyMeleeOzekiT3 : TygerClawsDrop
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.BluntModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.BodySkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsOfficer_nue : TygerClawsDrop
+{
+	lootItems += 
+	[
+		{
+			dropChance = 0.10;
+			itemID = "Items.CoolSkill_Skillbook";
+		}
+	];
+}
+
+TygerClawsNetrunnerGangsterT3 : TygerClawsDrop
+{
+	maxItemsToLoot = 1;
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.HandgunModsQuery";
+		}
+	];
+	lootItems += 
+	[
+		{
+			dropChance = 0.12;
+			itemID = "Items.IntelligenceSkill_Skillbook";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.QuickhackRecipesTable_Chance", "LootTables.QuickhackTable_Guaranteed", "LootTables.QuickhackMaterialsTable", "LootTables.Silencers_LootTable"
+	];
+}
+

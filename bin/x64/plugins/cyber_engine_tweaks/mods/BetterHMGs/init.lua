@@ -31,9 +31,6 @@ HMGattach = {
 registerForEvent("onInit", function()
     TweakDB:SetFlat("Items.Flak_Blueprint_inline0.childElements", {
         "Items.Power_AR_SMG_LMG_WeaponMod1Element",
-        "Items.Power_AR_SMG_LMG_WeaponMod2Element",
-        "Items.Power_AR_SMG_LMG_WeaponMod3Element",
-        "Items.Power_AR_SMG_LMG_WeaponMod4Element",
     })
 
     TweakDB:SetFlat("Items.Base_HMG_Technical_Stats_inline5.value", -1.0)

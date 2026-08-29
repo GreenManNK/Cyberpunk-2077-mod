@@ -1,0 +1,366 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+Preset_Sidewinder_Default : Base_Sidewinder
+{
+	CName appearanceResourceName = "Preset_Sidewinder_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1";
+		} : Smart_AR_SMG_LMG_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2";
+		} : Smart_AR_SMG_LMG_ModList_Slot2
+	];
+}
+
+Preset_Sidewinder_Pimp : Preset_Sidewinder_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Sidewinder_Neon : Preset_Sidewinder_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Sidewinder_Military : Preset_Sidewinder_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Sidewinder : Preset_Sidewinder_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_stdr";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Sidewinder : Craftable_Common_Sidewinder
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Sidewinder : Craftable_Uncommon_Sidewinder
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Sidewinder : Craftable_Uncommon_Sidewinder
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Sidewinder : Craftable_Uncommon_Sidewinder
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Sidewinder_Divided : Preset_Sidewinder_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "sidewinder_divided_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#40632";
+	visualTags = 
+	[
+		"Divided_Sidewinder"
+	];
+	quality = "Quality.Random";
+	localizedDescription = "LocKey#40631";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Sidewinder_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_assault__nokota_sidewinder__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.SidewinderDividedWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Sidewinder_Technical_Stats", "Items.Base_Sidewinder_Handling_Stats", "Items.Base_Sidewinder_Recoil_Stats", "Items.Base_Sidewinder_Divided_SmartGun_Stats", "Items.Base_Sidewinder_Divided_SmartGun_SmartLink_Stats", "Items.Base_Sidewinder_Divided_SmartGun_Projectile_Stats", "Items.Base_Sidewinder_Spread_Stats", "Items.Base_Sidewinder_Flags", "Items.Base_Sidewinder_Aim_Stats", "Items.Base_Sidewinder_Constant_Stats", "Items.Base_Sidewinder_Damage_Stats", "Items.Base_Smart_Stats", "Items.Base_Smart_Assault_Rifle_Mult_Stats", "Items.Base_Smart_Assault_Rifle_No_Sway_Stats", "Items.Base_Assault_Rifle_RPG_Stats", "Items.Base_Assault_Rifle_Misc_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Weapon_Status_Effect_Application_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Chemical"
+	];
+}
+
+Base_Sidewinder_Divided_SmartGun_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : SmartGunUseEvenDistributionTargetingModifier, 
+		{
+			value = 1.f;
+		} : SmartGunTrackMultipleEntitiesInADSModifier, 
+		{
+			value = 0.15f;
+		} : SmartGunEvenDistributionPeriodModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipLockingAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipLockingAngleYawModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsLockingAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsLockingAngleYawModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipTargetableAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunHipTargetableAngleYawModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsTargetableAnglePitchModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunAdsTargetableAngleYawModifier, 
+		{
+			value = 5.f;
+		} : SmartGunHipMaxLockedTargetsModifier, 
+		{
+			value = 5.f;
+		} : SmartGunAdsMaxLockedTargetsModifier, 
+		{
+			value = 1.2f;
+		} : SmartGunHipTimeToLockModifier, 
+		{
+			value = 1.2f;
+		} : SmartGunAdsTimeToLockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunHipTimeToUnlockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunAdsTimeToUnlockModifier, 
+		{
+			value = 0.f;
+		} : SmartGunTimeToRemoveOccludedTargetModifier, 
+		{
+			value = 1.f;
+		} : SmartGunUseTimeBasedAccuracyModifier, 
+		{
+			value = 0.5f;
+		} : SmartGunTimeToMaxAccuracyModifier, 
+		{
+			value = 0.0f;
+		} : SmartGunStartingAccuracyModifier, 
+		{
+			value = 0.1f;
+		} : SmartGunSpreadMultiplierModifier, 
+		{
+			value = 10.f;
+		} : SmartGunPlayerProjectileVelocityModifier, 
+		{
+			value = 0.60f;
+		} : SmartGunHitProbabilityModifier
+	];
+}
+
+Base_Sidewinder_Divided_SmartGun_SmartLink_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunHipLockingAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 14.0f;
+			statType = "BaseStats.SmartGunHipLockingAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunAdsLockingAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 14.0f;
+			statType = "BaseStats.SmartGunAdsLockingAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunHipTargetableAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 14.0f;
+			statType = "BaseStats.SmartGunHipTargetableAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 8.0f;
+			statType = "BaseStats.SmartGunAdsTargetableAnglePitch";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 14.0f;
+			statType = "BaseStats.SmartGunAdsTargetableAngleYaw";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunHipTimeToUnlock";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunAdsTimeToUnlock";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 1.5f;
+			statType = "BaseStats.SmartGunTimeToRemoveOccludedTarget";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 0.15f;
+			statType = "BaseStats.SmartGunHitProbability";
+		} : SmartLinkDependentStatModifier, 
+		{
+			value = 10.f;
+			statType = "BaseStats.SmartGunPlayerProjectileVelocity";
+		} : SmartLinkDependentStatModifier
+	];
+}
+
+Base_Sidewinder_Divided_SmartGun_Projectile_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.0f;
+		} : SmartGunAddSpiralTrajectoryModifier, 
+		{
+			value = 0.10f;
+		} : SmartGunSpiralRadiusModifier, 
+		{
+			value = 0.1f;
+		} : SmartGunSpiralCycleTimeMinModifier, 
+		{
+			value = 0.5f;
+		} : SmartGunSpiralCycleTimeMaxModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunSpiralRampDistanceStartModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunSpiralRampDistanceEndModifier, 
+		{
+			value = 1.0f;
+		} : SmartGunSpiralRandomizeDirectionModifier, 
+		{
+			value = 0.05f;
+		} : SmartGunMissDelayModifier, 
+		{
+			value = 6.5f;
+		} : SmartGunMissRadiusModifier
+	];
+}
+

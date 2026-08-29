@@ -1,0 +1,22 @@
+package RTDB
+
+Query
+{
+	CName recordType = "";
+}
+
+ItemQuery : Query
+{
+	CName[] tags = [];
+	CName[] tagsToExclude = [];
+	bool levelBasedQuality = false;
+	int qualityLevelModifier = 0;
+	bool excludeUnlocked = false;
+}
+
+ItemArrayQuery : ItemQuery
+{
+	int minItems = 1;
+	int maxItems = 1;
+}
+

@@ -51,7 +51,7 @@ function SimpleCasinoChip.spawnChip(chipID, betAmount, position, randomRotation,
     spec.appearanceName = "1_"..chip_color
     spec.position = position
     spec.orientation = EulerAngles.ToQuat(euler)
-    spec.tags = {"SimpleCasinoChip",tostring(id)}--marked to avoid conflicts with other scripts
+    spec.tags = {"SimpleCasinoChip",tostring(id)}
 
     local entityID = Game.GetStaticEntitySystem():SpawnEntity(spec)
     SimpleCasinoChip.chips[chipID] = { chipID = chipID, entID = entityID }

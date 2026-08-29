@@ -1,0 +1,8 @@
+import class inkCallbackConnectorData extends IScriptable
+{
+	public import function RegisterListener( target : IScriptable, functionName : CName );
+	public import function TriggerCallback();
+
+	import var userData : IScriptable;
+}
+

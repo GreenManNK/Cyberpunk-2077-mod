@@ -1,0 +1,159 @@
+package Loot
+using RTDB
+
+BadlandsIdyllwild : Badlands
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+BadlandsIdyllwildClothing : BadlandsIdyllwild
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.WraithsClothing";
+		}, 
+		{
+			dropChance = 0.2;
+			query = "Query.SimpleClothing";
+		}
+	];
+}
+
+BadlandsIdyllwildWeapons : BadlandsIdyllwild
+{
+	queries = 
+	[
+		{
+			dropChance = 0.05;
+			query = "Query.OneHandBluntQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.TwoHandBluntQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.AssaultRifleQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.LightmachinegunQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.ShotgunQuery";
+		}, 
+		{
+			dropChance = 0.05;
+			query = "Query.ShotgunDualQuery";
+		}
+	];
+}
+
+BadlandsIdyllwildConsumables : BadlandsIdyllwild
+{
+	minItemsToLoot = 0;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropChance = 0.50;
+			itemID = "Items.NomadsFood1";
+		}, 
+		{
+			dropChance = 0.50;
+			itemID = "Items.NomadsFood2";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+BadlandsIdyllwildEdibles : BadlandsIdyllwild
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+}
+
+BadlandsIdyllwildGadgets : BadlandsIdyllwild
+{
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+BadlandsIdyllwildJunk : BadlandsIdyllwild
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.WraithsJunkItem1";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.WraithsJunkItem2";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.WraithsJunkItem3";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem6";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericJunkItem8";
+		}
+	];
+}
+
+BadlandsIdyllwildFragments : BadlandsIdyllwildJunk
+{
+}
+

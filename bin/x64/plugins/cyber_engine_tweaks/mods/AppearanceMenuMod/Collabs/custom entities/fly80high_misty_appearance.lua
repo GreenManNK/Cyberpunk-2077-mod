@@ -14,14 +14,8 @@ return {
   -- It has to be the exact name you added
   -- to the entity file
   appearances = {
-	"curvy",
-	"curvy_revealing",
-	"curvy_topless",
-	"curvy_topless_pierced",
-	"curvy_two_years_later",
-	"curvy_naked",
-	"curvy_naked_pierced",
-	"curvy_naked_two_years_later"
+	"clothed",
+	"naked"
   },
 
    attributes = {

@@ -1,4 +1,4 @@
-// ArchiveXL 1.26.8
+// ArchiveXL 1.27.1
 
 public abstract native class ArchiveXL {
     public static native func GetBodyType(puppet: wref<GameObject>) -> CName

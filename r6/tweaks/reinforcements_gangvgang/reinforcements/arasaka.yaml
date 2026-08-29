@@ -1,0 +1,443 @@
+# Vehicles:
+# Vehicle.GR_v_sportbike1_yaiba_kusanagi
+# 2 people:
+# Vehicle.GR_mws_cct_dtn_02_arasaka_car
+# 4 people:
+# Vehicle.GR_v_standard2_villefort_cortes_arasaka
+# Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+# Weak:
+
+# Normal:
+
+# Character.arasaka_ranger1_melee2_knife_ma - ranger
+# Character.arasaka_ranger1_ranged2_masamune_ma - ranger
+# Character.arasaka_ranger1_ranged2_shingen_ma - ranger
+# Character.arasaka_ranger1_ranged2_shingen_wa - ranger
+
+# Character.arasaka_netrunner_netrunner2_yukimura_ma_rare - netrunner
+# Character.arasaka_netrunner_netrunner2_yukimura_wa_rare - netrunner
+
+# rare:
+# Character.arasaka_agent_fmelee2rare_katana_ma_rare - agent
+# Character.arasaka_agent_fmelee2rare_katana_wa_rare - agent
+# Character.arasaka_agent_fmelee2rare_knife_ma_rare - agent
+# Character.arasaka_agent_fmelee2rare_knife_wa_rare - agent
+# Character.arasaka_agent_franged2_yukimura_wa_rare - agent
+# Character.arasaka_agent_fshotgun2_tactician_ma_rare - specialist
+# Character.arasaka_agent_fshotgun2_tactician_wa_rare - specialist
+# Character.arasaka_bodyguard_hmelee2_fists_mb_rare - body guard
+# Character.arasaka_bodyguard_ranged3_kenshin_mb_rare - soldier
+# Character.arasaka_bodyguard_ranged3_masamune_mb_rare - soldier
+# Character.arasaka_sniper_sniper3_ashura_ma_elite - sniper
+# Character.arasaka_sniper_sniper3_nekomata_ma_elite - sniper
+# Character.arasaka_soldier1_ranged3_masamune_mah_rare - soldier
+# Character.arasaka_soldier2_shotgun2_tactician_mah_rare - assault specialist
+# Character.arasaka_tank2_gunner2_defender_mb_rare - Armored Enforcer
+# Elite:
+# Character.arasaka_cyborg_franged3_shingen_ma_elite - executioner
+# Character.arasaka_cyborg_franged3_shingen_wa_elite - executioner
+# Character.arasaka_cyborg_fshotgun3_zhuo_ma_elite - agent
+# Character.arasaka_ninja_fmelee3_katana_ma_elite - special agent
+# Character.arasaka_ninja_fmelee3_katana_wa_elite - Assassin
+# Character.arasaka_ninja_fmelee3_mantis_ma_elite - Special Agent
+# Character.arasaka_ninja_fmelee3_mantis_wa_elite - Assassin
+# Character.arasaka_rare2_gunner3_hmg_mm_elite - juggernaut
+# Character.arasaka_rare2_hmelee3_fists_mm_elite - juggernaut
+# Character.arasaka_terminator_shotgun3_zhuo_mah_elite - Ellite Assault specialist
+
+#reinforcements
+# normal:
+DynamicSpawnSystem.GRArasakaWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_arasaka
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_arasaka
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_shingen_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_villefort_cortes_arasaka
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_shingen_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_shingen_wa
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_shingen_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_masamune_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ranger1_ranged2_shingen_ma
+          weight: 0.5
+
+# Rares:
+
+DynamicSpawnSystem.GRArasakaRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_kenshin_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_kenshin_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fshotgun2_tactician_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_franged2_yukimura_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+
+# standard Squads:
+
+DynamicSpawnSystem.GRArasakaNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier2_shotgun2_tactician_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaNormalSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_wa_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_nekomata_ma_elite
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaNormalSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_kenshin_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fshotgun2_tactician_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaNormalSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_netrunner_netrunner2_yukimura_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaNormalSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_ranged3_masamune_mb_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_ashura_ma_elite
+          weight: 0.5
+
+# sniper squad
+DynamicSpawnSystem.GRArasakaRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_ashura_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_ashura_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_nekomata_ma_elite
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 0.5
+
+# netrunner
+DynamicSpawnSystem.GRArasakaRareSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fshotgun2_tactician_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier1_ranged3_masamune_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_netrunner_netrunner2_yukimura_wa_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaRareSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_netrunner_netrunner2_yukimura_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fshotgun2_tactician_wa_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier2_shotgun2_tactician_mah_rare
+          weight: 0.5
+
+# nowhere to hide
+DynamicSpawnSystem.GRArasakaRareSquad8:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_bodyguard_hmelee2_fists_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_franged2_yukimura_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_ashura_ma_elite
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_netrunner_netrunner2_yukimura_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRArasakaRareSquad9:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_nekomata_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_netrunner_netrunner2_yukimura_wa_rare
+          weight: 0.5
+
+# Heavy Assault
+DynamicSpawnSystem.GRArasakaRareSquad10:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_sniper_sniper3_nekomata_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_tank2_gunner2_defender_mb_rare
+          weight: 0.5
+
+# Close Range
+DynamicSpawnSystem.GRArasakaRareSquad11:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_chevalier_emperor_arasaka_courier
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_soldier2_shotgun2_tactician_mah_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fmelee2rare_katana_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_agent_fshotgun2_tactician_ma_rare
+          weight: 0.5
+
+# elite:
+DynamicSpawnSystem.GRArasakaEliteBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_cyborg_franged3_shingen_ma_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_cyborg_franged3_shingen_wa_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ninja_fmelee3_katana_wa_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteBike4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ninja_fmelee3_mantis_ma_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteBike5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike1_yaiba_kusanagi
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_ninja_fmelee3_mantis_wa_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_cyborg_fshotgun3_zhuo_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_rare2_gunner3_hmg_mm_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_rare2_hmelee3_fists_mm_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_terminator_shotgun3_zhuo_mah_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_rare2_hmelee3_fists_mm_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_rare2_gunner3_hmg_mm_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRArasakaEliteSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_mws_cct_dtn_02_arasaka_car
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_cyborg_fshotgun3_zhuo_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_arasaka_terminator_shotgun3_zhuo_mah_elite
+          weight: 1.0

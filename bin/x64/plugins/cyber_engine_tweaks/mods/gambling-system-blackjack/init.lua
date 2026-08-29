@@ -1,9 +1,9 @@
 GamblingSystemBlackjack = {
-    version = '1.1.4',
+    version = '1.1.2',
     loaded = false,
     ready = false
 }
---init.lua v1.0.10
+--init.lua v1.0.9
 --===================
 --Copyright (c) 2025 Boe6
 --DO NOT DISTRIBUTE
@@ -36,26 +36,16 @@ local HolographicValueDisplay = require('HolographicValueDisplay.lua')
 local SimpleCasinoChip = require('SimpleCasinoChip.lua')
 local HandCountDisplay = require('HandCountDisplay.lua')
 local GameSession = require('External/GameSession.lua') --detects game sessions and saves data to disk
-local RelativeCoordinateCalulator = require('RelativeCoordinateCalulator.lua')
-local BlackjackCoordinates = require('BlackjackCoordinates.lua')
-local TableManager = require('TableManager.lua') 
-local JsonData = require("JsonData.lua")
 
 local inMenu = true --libaries requirement
 local inGame = false
+local dealerEntID = nil
 Global_temp_Counter_ent = nil
+local dealerSpawned = false
 ImmersiveFirstPersonInstalled = false
 DisplayHandValuesOption = {true}
 ForcedCameraOption = {false} -- Default to off (no forced camera)
 local state = { runtime = 0 } --GameSession runtime
-
--- Camera management variables (moved from SpotManager)
-local blackjackCamera = {
-    forcedCam = false,
-    activeCam = nil,
-    appliedCameraControlStatus = false
-}
-
 
 --Functions
 --=========
@@ -67,69 +57,17 @@ function DualPrint(string) --prints to both CET console and local .log file
     spdlog.error('[Gambling System] ' .. string) -- .log
 end
 
----Move player camera to forced position, typically above table (blackjack-specific)
----@param enable boolean to enable, or disable the forced camera perspective
----@param spotObject? table spot's animation object (required when enable is true)
-local function setForcedCamera(enable, spotObject)
-    blackjackCamera.forcedCam = enable
-    if enable and spotObject then
-        local camera = GetPlayer():GetFPPCameraComponent()
-        local quatOri = spotObject.camera_OrientationOffset:ToQuat()
-        -- Only apply NoCameraControl if top-down camera is enabled and ImmersiveFirstPerson is installed
-        if ImmersiveFirstPersonInstalled and ForcedCameraOption[1] then
-            StatusEffectHelper.ApplyStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
-            blackjackCamera.appliedCameraControlStatus = true
-        end
-        camera:SetLocalTransform(spotObject.camera_worldPositionOffset, quatOri) --default settings
-    else--reset to normal camera control
-        local camera = GetPlayer():GetFPPCameraComponent()
-        camera:SetLocalPosition(Vector4.new(0, 0, 0, 1))
-        camera:SetLocalOrientation(EulerAngles.new(0, 0, 0):ToQuat())
-        -- Only remove status effect if we applied it ourselves
-        if blackjackCamera.appliedCameraControlStatus then
-            StatusEffectHelper.RemoveStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
-            blackjackCamera.appliedCameraControlStatus = false
-        end
-    end
-end
-
----Update forced camera to maintain position (blackjack-specific)
-local function updateForcedCamera()
-    if blackjackCamera.forcedCam and blackjackCamera.activeCam ~= nil then --fixes the camera being reset by workspot animation
-        local spot = SpotManager.spots[blackjackCamera.activeCam]
-        if spot and spot.spotObject.camera_useForcedCamInWorkspot then
-            local camera = GetPlayer():GetFPPCameraComponent()
-            local o = camera:GetLocalOrientation():ToEulerAngles()
-            local camRotation = spot.spotObject.camera_OrientationOffset
-            local isCorrectOrientation = math.abs(o.pitch - camRotation.pitch) < 0.0001 and math.abs(o.yaw - camRotation.yaw) < 0.0001
-            if not isCorrectOrientation then
-                setForcedCamera(true, spot.spotObject)
-            end
-        end
-    end
-end
-
----Check if a spot ID is a blackjack table
----@param spotID string spot ID to check
----@return boolean true if it's a blackjack table
-local function isBlackjackSpot(spotID)
-    return RelativeCoordinateCalulator.registeredTables[spotID] ~= nil
-end
-
 --[[    removed due to bugged. future fix.
             NPC ends up breifly T-posing before animation starts.
             My guess is the transitions aren't setup correctly
-                likely the wrong .anims file linked to the .workspot file, i hope. 
-                
----@param tableID string table ID for dealer workspot
-local function attachedDealerToWorkspot(tableID)
-    local workspotPosition, workspotOrientation = RelativeCoordinateCalulator.calculateRelativeCoordinate(tableID, 'dealer_workspot_position')
+                likely the wrong .anims file linked to the .workspot file, i hope.
+local function attachedDealerToWorkspot()
     local dynamicEntitySystem = Game.GetDynamicEntitySystem()
     local foldHandsEntPath = "boe6\\gamblingsystemblackjack\\npc_handsfolded_workspot.ent"
     local spec2 = DynamicEntitySpec.new()
     spec2.templatePath = foldHandsEntPath
-    spec2.position = workspotPosition
-    spec2.orientation = workspotOrientation
+    spec2.position = Vector4.new(-1041.247,1339.675,5.283,1)
+    spec2.orientation = EulerAngles.new(0.0, 0.0, 180.0):ToQuat()
     spec2.tags = {"Blackjack","dealerAnimation"}
     local animEntID = dynamicEntitySystem:CreateEntity(spec2)
     local function callback1()
@@ -142,6 +80,17 @@ local function attachedDealerToWorkspot(tableID)
 end
 ]]--
 
+--- Spawns NPC dealer behind the blackjack table.
+local function spawnNPCdealer()
+    local dynamicEntitySystem = Game.GetDynamicEntitySystem()
+    local spec = DynamicEntitySpec.new()
+    spec.recordID = "Character.sts_wat_kab_07_croupiers"
+    spec.appearanceName = "Random"
+    spec.position = Vector4.new(-1041.247,1339.675,5.283,1)
+    spec.orientation = EulerAngles.new(0.0, 0.0, 0.0):ToQuat()
+    spec.tags = {"Blackjack","dealer"};
+    dealerEntID = dynamicEntitySystem:CreateEntity(spec)
+end
 
 -- Register Events
 --================
@@ -165,31 +114,66 @@ registerForEvent( "onInit", function()
     local currentHandValueSetting = DisplayHandValuesOption[1]
     local currentForcedCameraSetting = ForcedCameraOption[1]
 
-    BlackjackCoordinates.init() --initializes the ALL blackjack coordinates
-    
-    -- Initialize table center points for all registered tables (cached for performance)
-    for tableID, tableData in pairs(RelativeCoordinateCalulator.registeredTables) do
-        -- Try to get center point from offset, fallback to table position
-        local centerPos, _ = RelativeCoordinateCalulator.calculateRelativeCoordinate(tableID, 'spinner_center_point')
-        
-        if centerPos then
-            TableManager.SetTableCenterPoint(tableID, {
-                x = centerPos.x,
-                y = centerPos.y,
-                z = centerPos.z
-            })
-        else
-            -- Fallback: use table's registered position as center
-            TableManager.SetTableCenterPoint(tableID, {
-                x = tableData.position.x,
-                y = tableData.position.y,
-                z = tableData.position.z
-            })
-        end
-    end
-    
-    -- Load all tables and create spots for each
-    TableManager.LoadTables(ForcedCameraOption)
+    -- Define Hooh location (after GameSession.TryLoad() so settings are available)
+     local spotObj = {
+        spot_id = 'hooh',
+        spot_worldPosition = Vector4.new(-1041.2463, 1341.5469, 5.2774734, 1),
+        spot_orientation = EulerAngles.new(0,0,0),
+        spot_entWorkspotPath = "boe6\\gamblingsystemblackjack\\sit_workspot.ent",
+        spot_useWorkSpot = true,
+        spot_showingInteractUI = false,
+        animation_defaultName = "sit_chair_table_lean0__2h_on_table__01",
+        animation_defaultEnterTime = 2,
+        callback_UIwithoutWorkspotTriggered = function()
+            --pass
+        end,
+        callback_OnSpotEnter = function ()
+            if ForcedCameraOption[1] then
+                -- Top-down camera enabled - use original position
+                HolographicValueDisplay.startDisplay(Vector4.new(-1040.733, 1340.121, 6.075, 1), 20)
+            else
+                -- Top-down camera disabled - use adjusted position
+                HolographicValueDisplay.startDisplay(Vector4.new(-1040.790, 1340.785, 6.075, 1), 30)
+            end
+            CardEngine.BuildVisualDeck(Vector4.new(-1041.759, 1340.121, 6.085, 1), { r = 0, p = 180, y = -90 })
+        end,
+        callback_OnSpotEnterAfterAnimationDelayTime = 3.5,        callback_OnSpotEnterAfterAnimation = function ()
+            BlackjackMainMenu.playerChipsMoney = 0        --Reset vars b4 game, safe check
+            BlackjackMainMenu.playerChipsHalfDollar = false
+            BlackjackMainMenu.previousBet = nil
+            BlackjackMainMenu.currentBet = nil
+            BlackjackMainMenu.StartMainMenu()
+        end,
+        callback_OnSpotExitAfterAnimationDelayTime = 2.5, --found via trial and error. Aproximate time to finish animation.
+        callback_OnSpotExit = function()
+            HolographicValueDisplay.stopDisplay()
+        end,
+        callback_OnSpotExitAfterAnimation = function()
+            CardEngine.RemoveVisualDeck()
+        end,
+        exit_orientationCorrection = {r=0,p=0,y=150},-- I *think* this corrects for the 180 turn that the exit animation causes.
+        exit_worldPositionOffset = {x=0.5,y=0,z=0},
+        exit_animationName = "sit_chair_table_lean0__2h_on_table__01__to__stand__2h_on_sides__01__turn0l__01",
+        mappin_worldPosition = Vector4.new(-1041.2463, 1341.5469, 6.21331358, 1),
+        mappin_interactionRange = 1.4,
+        mappin_interactionAngle = 80,
+        mappin_rangeMax = 6.5,
+        mappin_rangeMin = 0.5,
+        mappin_color = nil,
+        mappin_worldIcon = "ChoiceIcons.SitIcon",
+        mappin_hubText = GameLocale.Text("Blackjack"),
+        mappin_choiceText = GameLocale.Text("Join Table"),
+        mappin_choiceIcon = "ChoiceCaptionParts.SitIcon",
+        mappin_choiceFont = gameinteractionsChoiceType.QuestImportant,
+        mappin_gameMappinID = nil,
+        mappin_visible = false,
+        mappin_variant = gamedataMappinVariant.SitVariant,
+        camera_worldPositionOffset = Vector4.new(0, 0.4, 0.7, 1),
+        camera_OrientationOffset = EulerAngles.new(0, -60, 0),
+        camera_showElectroshockEffect = true,
+        camera_useForcedCamInWorkspot = ForcedCameraOption[1]
+    }
+    SpotManager.AddSpot(spotObj)
 
     -- Setup observer and GameUI to detect inGame / inMenu, credit: keanuwheeze | init.lua from the sitAnywhere mod
     Observe('RadialWheelController', 'OnIsInMenuChanged', function(_, isInMenu)
@@ -222,13 +206,13 @@ registerForEvent( "onInit", function()
             SingleRoundLogic.blackjackHandsPaid = {false,false,false,false}
             SingleRoundLogic.doubledHands = {false,false,false,false}
             SingleRoundLogic.dealerHandRevealed = false
-            blackjackCamera.forcedCam = false
-            blackjackCamera.activeCam = nil
-            if blackjackCamera.appliedCameraControlStatus then
-                StatusEffectHelper.RemoveStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
-                blackjackCamera.appliedCameraControlStatus = false
-            end
+            SpotManager.forcedCam = false
+            StatusEffectHelper.RemoveStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
             --GetMod("ImmersiveFirstPerson").api.Enable()
+            if not dealerSpawned then
+                spawnNPCdealer()
+                dealerSpawned = true
+            end
 
             interactionUI.hideHub()
         end
@@ -239,7 +223,8 @@ registerForEvent( "onInit", function()
             --print('Game Session Ended')
             isLoaded = false
 
-            TableManager.cleanupAllDealers()
+            Game.GetDynamicEntitySystem():DeleteEntity(dealerEntID)
+            dealerSpawned = false
         end
     end)
 
@@ -251,43 +236,6 @@ registerForEvent( "onInit", function()
         DualPrint('ImmersiveFirstPerson mod found. Applying known workarounds, expect some visual bugs.')
         ImmersiveFirstPersonInstalled = true
     end
-    
-    -- Register camera management callbacks for blackjack spots only
-    SpotManager.RegisterOnSpotEnter(function(spotID, spotObject)
-        -- Only handle camera for blackjack spots
-        if not isBlackjackSpot(spotID) then
-            return
-        end
-        
-        -- Only apply NoCameraControl if top-down camera is enabled
-        if ImmersiveFirstPersonInstalled and ForcedCameraOption[1] and spotObject.camera_useForcedCamInWorkspot then
-            --disables camera control. User movement input + Immersive First Person causes visual bug
-            StatusEffectHelper.ApplyStatusEffect(GetPlayer(), "GameplayRestriction.NoCameraControl")
-            blackjackCamera.appliedCameraControlStatus = true
-        end
-    end)
-    
-    SpotManager.RegisterOnSpotEnterAfterAnimation(function(spotID, spotObject)
-        -- Only handle camera for blackjack spots
-        if not isBlackjackSpot(spotID) then
-            return
-        end
-        
-        blackjackCamera.activeCam = spotID
-        if spotObject.camera_useForcedCamInWorkspot then
-            setForcedCamera(true, spotObject)
-        end
-    end)
-    
-    SpotManager.RegisterOnSpotExit(function(spotID, spotObject)
-        -- Only handle camera for blackjack spots
-        if not isBlackjackSpot(spotID) then
-            return
-        end
-        
-        setForcedCamera(false) --disable forced camera perspective
-        blackjackCamera.activeCam = nil
-    end)
 
     --native settings UI
     local nativeSettings = GetMod("nativeSettings")
@@ -305,19 +253,15 @@ registerForEvent( "onInit", function()
             GameLocale.Text("Enable Top-Down camera view while sitting at the table. (Recommended) (Causes flashing when used with ImmersiveFirstPerson mod)"), currentForcedCameraSetting, false, function(state)
         -- save the changes to session
         ForcedCameraOption[1] = state
-        -- update the spot configuration for all tables
-        for tableID, _ in pairs(RelativeCoordinateCalulator.registeredTables) do
-            SpotManager.changeSpotData(false, {camera_useForcedCamInWorkspot = state}, tableID)
-        end
+        -- update the spot configuration
+        SpotManager.changeSpotData(false, {camera_useForcedCamInWorkspot = state}, 'hooh')
     end)
 
 end)
 registerForEvent('onUpdate', function(dt)
     if  not inMenu and inGame then
-        Cron.Update(dt) -- First update (maintains 2x speed behavior)
-        Cron.Update(dt) -- Second update (compensates for removed call in SpotManager.update)
+        Cron.Update(dt)
         SpotManager.update(dt)
-        updateForcedCamera() -- Update blackjack camera
         CardEngine.update(dt)
         interactionUI.update()
         local chips = BlackjackMainMenu.getCurrentChips()
@@ -325,40 +269,6 @@ registerForEvent('onUpdate', function(dt)
         BlackjackMainMenu.Update()
         HandCountDisplay.update()
         SingleRoundLogic.update()
-        
-        -- Distance-based dealer spawning/despawning
-        local player = GetPlayer()
-        if player and player:IsAttached() then
-            local playerPosition = player:GetWorldPosition()
-            local spawnDistance = 20.0  -- Spawn dealers when player is within 20 units
-            local despawnDistance = 30.0  -- Despawn dealers when player is beyond 30 units
-            
-            for tableID, tableData in pairs(RelativeCoordinateCalulator.registeredTables) do
-                -- Use cached center point if available, fallback to table position
-                local centerPoint = TableManager.GetTableCenterPoint(tableID)
-                local tablePosition
-                if centerPoint then
-                    tablePosition = Vector4.new(centerPoint.x, centerPoint.y, centerPoint.z, 1)
-                else
-                    tablePosition = tableData.position
-                end
-                
-                local dx = playerPosition.x - tablePosition.x
-                local dy = playerPosition.y - tablePosition.y
-                local dz = playerPosition.z - tablePosition.z
-                local distance = math.sqrt(dx * dx + dy * dy + dz * dz)
-                
-                local isSpawned = TableManager.isDealerSpawned(tableID)
-                
-                if distance <= spawnDistance and not isSpawned then
-                    -- Spawn dealer when player is close enough
-                    TableManager.spawnDealer(tableID)
-                elseif distance > despawnDistance and isSpawned then
-                    -- Despawn dealer when player is far enough
-                    TableManager.despawnDealer(tableID)
-                end
-            end
-        end
     end
 end)
 registerForEvent('onShutdown', function()
@@ -369,10 +279,7 @@ end)
 registerHotkey('DevHotkey1', 'Dev Hotkey 1', function()
     DualPrint('||=1  Dev hotkey 1 Pressed =')
 
-    local activeTableID = TableManager.GetActiveTable()
-    if activeTableID then
-        SpotManager.ExitSpot(activeTableID)
-    end
+    SpotManager.ExitSpot('hooh')
     BlackjackMainMenu.playerChipsMoney = 0
 end)
 registerHotkey('DevHotkey2', 'Dev Hotkey 2', function()

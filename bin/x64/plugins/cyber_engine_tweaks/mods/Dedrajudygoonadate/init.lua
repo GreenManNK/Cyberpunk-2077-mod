@@ -1,8 +1,22 @@
--- Judy Date SMS
--- One-date Judy swim event using the same CET phone and mappin pattern as the Panam version.
-
 local Cron = require("modules/Cron")
 local okLang, lang = pcall(require, "modules/lang")
+local okDateJournal, dateJournal = pcall(require, "modules/nativeJudyDateJournal")
+
+if not okDateJournal or type(dateJournal) ~= "table" then
+  print("[JudyDateSMS] ERROR: modules/nativeJudyDateJournal.lua could not be loaded: " .. tostring(dateJournal))
+  dateJournal = {
+    requestLoadReset = function() end,
+    onSessionEnd = function() end,
+    start = function() return false end,
+    setObjective = function() return false end,
+    complete = function() return false end,
+    completeNow = function() return false end,
+    fail = function() return false end,
+    failNow = function() return false end,
+    cancel = function() return false end,
+    update = function() end
+  }
+end
 
 if not okLang or type(lang) ~= "table" then
   print("[JudyDateSMS] ERROR: modules/lang.lua could not be loaded: " .. tostring(lang))
@@ -1022,6 +1036,7 @@ JudyDateSMS.guitar = {
   finalSampleTimer = 0,
   finalLastKey = nil,
   finalStable = false,
+  journalEndObjectiveShown = false,
   endUiShown = false,
   noUiWarned = false,
   endDone = false,
@@ -1069,6 +1084,62 @@ local POS_CLIMB = {
   chillIcon = { x = 212.0675201416, y = 866.54699707031, z = 171.48057556152, w = 1, yaw = 33.591938018799 },
   finalTop = { x = 211.29983520508, y = 859.81793212891, z = 187.83929443359, w = 1, yaw = 128.02005004883 }
 }
+
+-- Optional external XYZ configuration.
+-- The native journal map-pin format points at NodeRefs. These Lua pins use raw XYZ,
+-- so keeping the coordinates in a separate JSON file lets them be edited without touching init.lua.
+local DATE_XYZ_FILE = "judy_date_xyz.json"
+
+local function mergeXYZGroup(target, source)
+  if type(target) ~= "table" or type(source) ~= "table" then return end
+  for key, value in pairs(source) do
+    if type(value) == "table" and type(target[key]) == "table" then
+      local dst = target[key]
+      if tonumber(value.x) then dst.x = tonumber(value.x) end
+      if tonumber(value.y) then dst.y = tonumber(value.y) end
+      if tonumber(value.z) then dst.z = tonumber(value.z) end
+      if tonumber(value.w) then dst.w = tonumber(value.w) end
+      if tonumber(value.yaw) then dst.yaw = tonumber(value.yaw) end
+    end
+  end
+end
+
+local function loadDateXYZOverrides()
+  if not (json and type(json.decode) == "function") then
+    dbg("XYZ config skipped: CET json.decode is unavailable")
+    return false
+  end
+
+  local scriptDir = getScriptDirectory()
+  local candidates = {}
+  if scriptDir then
+    table.insert(candidates, scriptDir .. "\\ra\\" .. DATE_XYZ_FILE)
+    table.insert(candidates, scriptDir .. "/ra/" .. DATE_XYZ_FILE)
+  end
+  table.insert(candidates, "cyber_engine_tweaks\\mods\\Dedrajudygoonadate\\ra\\" .. DATE_XYZ_FILE)
+  table.insert(candidates, "cyber_engine_tweaks/mods/Dedrajudygoonadate/ra/" .. DATE_XYZ_FILE)
+  table.insert(candidates, "ra\\" .. DATE_XYZ_FILE)
+  table.insert(candidates, "ra/" .. DATE_XYZ_FILE)
+
+  for _, path in ipairs(candidates) do
+    local content = readFile(path)
+    if content then
+      local ok, data = pcall(function() return json.decode(content) end)
+      if ok and type(data) == "table" then
+        mergeXYZGroup(POS, data.swim)
+        mergeXYZGroup(POS_GUITAR, data.guitar)
+        mergeXYZGroup(POS_CLIMB, data.climb)
+        dbg("Loaded Judy date XYZ overrides from " .. tostring(path))
+        return true
+      end
+    end
+  end
+
+  dbg("XYZ config not found or invalid; using built-in Judy date coordinates")
+  return false
+end
+
+loadDateXYZOverrides()
 
 local function getGameSeconds()
   local ts = Game.GetTimeSystem()
@@ -1356,6 +1427,7 @@ local function sendGuitarRideMessageAndMarker(self)
   g.rideMessageSent = true
   if self.messenger then self.messenger:sendIncomingFromCategory("GuitarRideBeast") end
   self:setPin(POS_GUITAR.downstairsIcon, lang.getText("ui_meet_judy_caption"))
+  dateJournal.setObjective("guitar", 3)
   g.phase = "go_downstairs"
   g.phaseTimer = 0
 end
@@ -1366,6 +1438,7 @@ local function startGuitarRidePhase(self)
   g.rideStarted = true
   setGuitarRideVariants()
   self:clearPin()
+  dateJournal.setObjective("guitar", 4)
   g.phase = "ride_timer"
   g.phaseTimer = 0
 end
@@ -1378,12 +1451,14 @@ local function finishGuitarRide(self, withGlitch)
   if withGlitch then spawnGlitchFx() end
   setGuitarComeUpVariants()
   self:setPin(POS_GUITAR.comeUpIcon, lang.getText("ui_meet_judy_caption"))
+  dateJournal.setObjective("guitar", 5)
   g.phase = "come_up"
   g.phaseTimer = 0
 end
 
-local function cleanupGuitarDate(self, sendMissed, missedDelayHours, missedCategory)
+local function cleanupGuitarDate(self, sendMissed, missedDelayHours, missedCategory, preservePhoneThread)
   local g = self.guitar
+  if g.active then dateJournal.failNow("guitar") end
   hideGuitarEndUI(self)
   self:clearPin()
   falseAllGuitarVariants()
@@ -1407,6 +1482,7 @@ local function cleanupGuitarDate(self, sendMissed, missedDelayHours, missedCateg
   g.finalSampleTimer = 0
   g.finalLastKey = nil
   g.finalStable = false
+  g.journalEndObjectiveShown = false
   g.endUiShown = false
   g.noUiWarned = false
   g.endDone = false
@@ -1416,7 +1492,7 @@ local function cleanupGuitarDate(self, sendMissed, missedDelayHours, missedCateg
   self.active = false
   self.currentDateKind = nil
   self.dateStartGameSeconds = nil
-  if self.messenger then self.messenger:clearActiveMessage("guitar date cleanup") end
+  if self.messenger and not preservePhoneThread then self.messenger:clearActiveMessage("guitar date cleanup") end
   if sendMissed then
     queueMissedDateMessage(self, missedDelayHours or 0, missedCategory or "MissedDate")
   else
@@ -1430,6 +1506,7 @@ function JudyDateSMS:finishGuitarDateSuccess()
   g.endDone = true
   hideGuitarEndUI(self)
   self:clearPin()
+  dateJournal.completeNow("guitar")
 
   -- End-date cleanup is immediate when the player confirms End Date.
   spawnGlitchFx()
@@ -1478,6 +1555,7 @@ function JudyDateSMS:finishGuitarDateSuccess()
   g.finalSampleTimer = 0
   g.finalLastKey = nil
   g.finalStable = false
+  g.journalEndObjectiveShown = false
   g.endUiShown = false
   g.noUiWarned = false
 
@@ -1521,6 +1599,7 @@ function JudyDateSMS:startGuitarDate(force, suppressStartMessage)
   g.finalSampleTimer = 0
   g.finalLastKey = nil
   g.finalStable = false
+  g.journalEndObjectiveShown = false
   g.endUiShown = false
   g.noUiWarned = false
   g.endDone = false
@@ -1534,6 +1613,7 @@ function JudyDateSMS:startGuitarDate(force, suppressStartMessage)
     self.messenger:sendIncomingFromCategory("GuitarInvite")
   end
 
+  dateJournal.start("guitar", 1)
   self:setPin(POS_GUITAR.firstMapIcon, lang.getText("ui_meet_judy_caption"))
   dbg("Judy guitar date started")
 end
@@ -1607,6 +1687,7 @@ function JudyDateSMS:tickGuitarDate(dt)
     if self.messenger and not g.ritaCallSent then
       g.ritaCallSent = true
       self.messenger:sendIncomingFromCategory("GuitarRitaCall")
+      dateJournal.setObjective("guitar", 2)
       g.phase = "wait_show_moves_gate"
       g.phaseTimer = 0
       g.rideGatePoll = 0
@@ -1661,6 +1742,10 @@ function JudyDateSMS:tickGuitarDate(dt)
 
     if inRange(POS_GUITAR.finalExact, 2.0) then
       self:clearPin()
+      if not g.journalEndObjectiveShown then
+        g.journalEndObjectiveShown = true
+        dateJournal.setObjective("guitar", 6)
+      end
       showGuitarEndUI(self)
     else
       if g.endUiShown then hideGuitarEndUI(self) end
@@ -1715,7 +1800,8 @@ local function resetClimbStateOnly(self)
   c.endDone = false
 end
 
-local function cleanupClimbDate(self, sendMissed, missedDelayHours, missedCategory)
+local function cleanupClimbDate(self, sendMissed, missedDelayHours, missedCategory, preservePhoneThread)
+  if self.climb and self.climb.active then dateJournal.failNow("climb") end
   hideClimbEndUI(self)
   self:clearPin()
   falseAllClimbVariants()
@@ -1723,7 +1809,7 @@ local function cleanupClimbDate(self, sendMissed, missedDelayHours, missedCatego
   self.active = false
   self.currentDateKind = nil
   self.dateStartGameSeconds = nil
-  if self.messenger then self.messenger:clearActiveMessage("climb date cleanup") end
+  if self.messenger and not preservePhoneThread then self.messenger:clearActiveMessage("climb date cleanup") end
   if sendMissed then
     queueMissedDateMessage(self, missedDelayHours or 0, missedCategory or "MissedDate")
   else
@@ -1737,6 +1823,7 @@ function JudyDateSMS:finishClimbDateSuccess()
   c.endDone = true
   hideClimbEndUI(self)
   self:clearPin()
+  dateJournal.completeNow("climb")
 
   spawnGlitchFx()
   falseAllClimbVariants()
@@ -1793,6 +1880,7 @@ function JudyDateSMS:startClimbDate(force, suppressStartMessage)
     self.messenger:sendIncomingFromCategory("ClimbInvite")
   end
 
+  dateJournal.start("climb", 1)
   self:setPin(POS_CLIMB.firstIcon, lang.getText("ui_meet_judy_caption"))
   dbg("Judy climb date started")
 end
@@ -1839,6 +1927,7 @@ function JudyDateSMS:tickClimbDate(dt)
       toggleClimbVariant("judysitt2", true)
       toggleClimbVariant("judysmoke22", false)
       self:setPin(POS_CLIMB.upperIcon, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("climb", 2)
       c.phase = "go_upper_icon"
       c.phaseTimer = 0
     end
@@ -1849,6 +1938,7 @@ function JudyDateSMS:tickClimbDate(dt)
     if inRange(POS_CLIMB.upperIcon, 5.0) then
       self:clearPin()
       c.firstTopReached = true
+      dateJournal.setObjective("climb", 3)
       c.phase = "wait_near_judy"
       c.phaseTimer = 0
     end
@@ -1863,6 +1953,7 @@ function JudyDateSMS:tickClimbDate(dt)
       toggleClimbVariant("judystand22", true)
       toggleClimbVariant("judysitt2", false)
       self:setPin(POS_CLIMB.chillIcon, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("climb", 4)
       c.phase = "go_chill_icon"
       c.phaseTimer = 0
     end
@@ -1876,6 +1967,7 @@ function JudyDateSMS:tickClimbDate(dt)
       toggleClimbVariant("judymm", true)
       if self.messenger then self.messenger:sendIncomingFromCategory("ClimbGoUp") end
       self:setPin(POS_CLIMB.finalTop, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("climb", 5)
       c.phase = "go_final_top"
       c.phaseTimer = 0
     end
@@ -1896,6 +1988,7 @@ function JudyDateSMS:tickClimbDate(dt)
 
   if c.phase == "final_voice_sequence" then
     if c.phaseTimer >= 20.0 then
+      dateJournal.setObjective("climb", 6)
       c.phase = "end_ui"
       c.phaseTimer = 0
     end
@@ -1913,7 +2006,8 @@ function JudyDateSMS:tickClimbDate(dt)
   end
 end
 
-function JudyDateSMS:cleanupDate(sendEnding)
+function JudyDateSMS:cleanupDate(sendEnding, preservePhoneThread)
+  if self.active and self.currentDateKind == "swim" then dateJournal.failNow("swim") end
   hideSwimEndUI(self)
   self:clearPin()
   self:clearMaterialPin()
@@ -1934,9 +2028,55 @@ function JudyDateSMS:cleanupDate(sendEnding)
   if sendEnding and self.messenger and not self.endSent then
     self.endSent = true
     self.messenger:sendIncomingFromCategory("Ending")
-  elseif self.messenger and not self.endSent then
+  elseif self.messenger and not self.endSent and not preservePhoneThread then
     self.messenger:clearActiveMessage("swim date cleanup")
   end
+end
+
+function JudyDateSMS:handleDateReply(action, dateKind)
+  local kind = dateKind or self.currentDateKind
+
+  if action == "accept" then
+    dbg("Phone reply accepted Judy date: " .. tostring(kind))
+
+    if self.active then
+      dbg("Phone reply ignored because another Judy date is already active")
+      return false
+    end
+
+    if kind == "guitar" then
+      self:startGuitarDate(true, true)
+    elseif kind == "climb" then
+      self:startClimbDate(true, true)
+    elseif kind == "swim" then
+      self:startDate(true, true)
+    else
+      dbg("Phone reply could not start unknown date kind: " .. tostring(kind))
+      return false
+    end
+
+    self.hasMail = false
+    self.currentCategory = nil
+    return true
+  end
+
+  if action ~= "busy" and action ~= "decline" then return false end
+
+  -- The world date has not started yet, so declining only clears the invitation.
+  if kind == "guitar" or kind == "climb" or kind == "swim" then
+    dateJournal.cancel(kind)
+  else
+    dbg("Phone reply could not cancel unknown date kind: " .. tostring(kind))
+    return false
+  end
+
+  self.hasMail = false
+  self.currentCategory = nil
+  if (self.lastGiftDay or -1) < 0 or (self.cooldownDays or 0) <= 0 then
+    setNextCooldownFromNow(self, "date declined by phone reply")
+  end
+  dbg("Phone reply declined Judy date; reset until next cycle: " .. tostring(kind))
+  return true
 end
 
 function JudyDateSMS:startDate(force, suppressStartMessage)
@@ -1983,6 +2123,7 @@ function JudyDateSMS:startDate(force, suppressStartMessage)
   if self.messenger and not suppressStartMessage then
     self.messenger:sendIncomingFromCategory("JudySwim")
   end
+  dateJournal.start("swim", 1)
   self:setPin(POS.meetSurface, lang.getText("ui_meet_judy_caption"))
   dbg("Judy swim date started")
 end
@@ -2059,6 +2200,7 @@ function JudyDateSMS:resetRuntimeForNewSave(performWorldCleanup)
   g.finalSampleTimer = 0
   g.finalLastKey = nil
   g.finalStable = false
+  g.journalEndObjectiveShown = false
   g.endUiShown = false
   g.noUiWarned = false
   g.endDone = false
@@ -2110,19 +2252,17 @@ function JudyDateSMS:sendMessageAndReact()
   local ts = Game.GetTimeSystem()
   self.debug.lastMessageFiredDay = ts and ts:GetGameTime():Days() or -1
 
-  -- Weighted almost equally, but swim is very slightly less likely than the other two dates.
-  -- Swim 32%, guitar 34%, climb 34%.
+  -- Invitation first. The selected date starts only after V accepts the phone reply.
   local roll = math.random(1, 100)
   if roll <= 32 then
     self.currentCategory = "JudySwim"
-    self:startDate(true, false)
   elseif roll <= 66 then
     self.currentCategory = "GuitarInvite"
-    self:startGuitarDate(true, false)
   else
     self.currentCategory = "ClimbInvite"
-    self:startClimbDate(true, false)
   end
+
+  self.messenger:sendIncomingFromCategory(self.currentCategory)
 end
 
 function JudyDateSMS:startSwimScavengeLoop()
@@ -2151,6 +2291,7 @@ function JudyDateSMS:finishUnderwaterSequence()
   toggleVariant("judysmoke", true)
   self:setPin(POS.surfaceSmokeIcon, lang.getText("ui_meet_judy_caption"))
   self:clearMaterialPin()
+  dateJournal.setObjective("swim", 4)
   self.phase = "return_top"
   self.phaseTimer = 0
 end
@@ -2158,6 +2299,7 @@ end
 function JudyDateSMS:finishSleepStep()
   self:clearPin()
   self:setPin(POS.restIcon, lang.getText("ui_meet_judy_caption"))
+  dateJournal.setObjective("swim", 6)
   self.phase = "rest_end_ui"
   self.phaseTimer = 0
 end
@@ -2167,6 +2309,7 @@ function JudyDateSMS:finishSwimDateSuccess()
   self.swimEndDone = true
   hideSwimEndUI(self)
   self:clearPin()
+  dateJournal.completeNow("swim")
   self:clearMaterialPin()
   spawnGlitchFx()
   advanceTimeHours(1)
@@ -2223,6 +2366,7 @@ function JudyDateSMS:tickDate(dt)
   if self.phase == "meet_judy" then
     if inRange(POS.meetSurface, 7.0) then
       self:setPin(POS.underwaterIcon1, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("swim", 2)
       self.phase = "swim_to_truck"
       self.phaseTimer = 0
     end
@@ -2238,6 +2382,7 @@ function JudyDateSMS:tickDate(dt)
       toggleVariant("judys2", true)
       SUPPRESS_SWIM_SPLASH = oldSuppressSplash
       self:setPin(POS.cuteIcon, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("swim", 3)
       self.phase = "go_cute_icon"
       self.phaseTimer = 0
     end
@@ -2322,6 +2467,7 @@ function JudyDateSMS:tickDate(dt)
     if inRange(POS.surfaceSmokeTrigger, 9.0) then
       if self.messenger then self.messenger:sendIncomingFromCategory("JudyEasy") end
       self:setPin(POS.sleepIcon, lang.getText("ui_meet_judy_caption"))
+      dateJournal.setObjective("swim", 5)
       self.phase = "go_sleep"
       self.phaseTimer = 0
     end
@@ -2375,6 +2521,7 @@ end
 function JudyDateSMS:tickAutoMessages(dt)
   if not self.enabled then return end
   if self.active then return end
+  if self.hasMail then return end
   if not self.runtimeData.inGame or self.runtimeData.inMenu then return end
   if not self.messenger then return end
 
@@ -2415,12 +2562,14 @@ local function registerJudyDebugHotkeys(self)
 
   if type(registerHotkey) == "function" then
     registerHotkey("judy_start_random", "JudyDate: Start Random Date", onStartRandom)
+    registerHotkey("judy_reload_xyz", "JudyDate: Reload XYZ JSON", function() loadDateXYZOverrides() end)
     self._hotkeysRegistered = true
     return
   end
 
   if type(registerInput) == "function" then
     registerInput("judy_start_random", "JudyDate: Start Random Date", function(pressed) if pressed then onStartRandom() end end)
+    registerInput("judy_reload_xyz", "JudyDate: Reload XYZ JSON", function(pressed) if pressed then loadDateXYZOverrides() end end)
     self._hotkeysRegistered = true
     return
   end
@@ -2444,11 +2593,13 @@ function JudyDateSMS:onInit()
     YELLOW_CHOICE_TYPE = (gameinteractionsChoiceType and gameinteractionsChoiceType.QuestImportant) or nil
     self.runtimeData.inGame = true
     self:checkJudyRomanceAndResetCycle()
+    dateJournal.requestLoadReset()
     falseAllDateVariantsOnLoadBurst()
   end)
 
   ObserveBefore("PlayerPuppet", "OnDetach", function()
     -- Do not call world, mappin, or entity systems while the game world is detaching.
+    dateJournal.onSessionEnd()
     self.runtimeData.inGame = false
     self.runtimeData.inMenu = false
     self.pin = nil
@@ -2477,6 +2628,7 @@ registerForEvent("onDraw", function()
 end)
 
 local ONUPDATE_ACCUMULATOR = 0.0
+local JOURNAL_TICK_ACCUMULATOR = 0.0
 local SWIM_TICK_ACCUMULATOR = 0.0
 local GUITAR_TICK_ACCUMULATOR = 0.0
 local CLIMB_TICK_ACCUMULATOR = 0.0
@@ -2492,6 +2644,13 @@ registerForEvent("onUpdate", function(dt)
   Cron.Update(tickDt)
 
   if JudyDateSMS.runtimeData.inGame and not JudyDateSMS.runtimeData.inMenu then
+    JOURNAL_TICK_ACCUMULATOR = JOURNAL_TICK_ACCUMULATOR + tickDt
+    if JOURNAL_TICK_ACCUMULATOR >= 1.5 then
+      local journalDt = JOURNAL_TICK_ACCUMULATOR
+      JOURNAL_TICK_ACCUMULATOR = 0.0
+      dateJournal.update(journalDt)
+    end
+
     JudyDateSMS:tickAutoMessages(tickDt)
     JudyDateSMS:tickMissedDateMessage(tickDt)
     JudyDateSMS:tickPostGuitarVehicleMonitor(tickDt)

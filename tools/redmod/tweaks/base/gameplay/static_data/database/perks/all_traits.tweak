@@ -1,0 +1,231 @@
+package Traits
+using RTDB, Prereqs, Effectors, Perks
+
+AssaultTrait01 : Trait
+{
+	enumName = "AssaultTrait01";
+	loc_name_key = "LocKey#40427";
+	loc_desc_key = "LocKey#40426";
+	traitIcon = "UIIcon.AssaultTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : AssaultMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40428";
+	};
+}
+
+AthleticsTrait01 : Trait
+{
+	enumName = "AthleticsTrait01";
+	loc_name_key = "LocKey#40480";
+	loc_desc_key = "LocKey#40479";
+	traitIcon = "UIIcon.AthleticsTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : AthleticsMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40481";
+	};
+}
+
+BrawlingTrait01 : Trait
+{
+	enumName = "BrawlingTrait01";
+	loc_name_key = "LocKey#40460";
+	loc_desc_key = "LocKey#40459";
+	traitIcon = "UIIcon.BrawlingTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : BrawlingMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40461";
+	};
+}
+
+ColdBloodTrait01 : Trait
+{
+	enumName = "ColdBloodTrait01";
+	loc_name_key = "LocKey#40488";
+	loc_desc_key = "LocKey#40486";
+	traitIcon = "UIIcon.ColdBloodTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : ColdBloodMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40487";
+	};
+}
+
+CombatHackingTrait01 : Trait
+{
+	enumName = "CombatHackingTrait01";
+	traitIcon = "UIIcon.CombatHackingTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : CombatHackingMasteryPrereq;
+	loc_name_key = "LocKey#43295";
+	loc_desc_key = "LocKey#43293";
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#43294";
+	};
+}
+
+CraftingTrait01 : Trait
+{
+	enumName = "CraftingTrait01";
+	loc_name_key = "LocKey#43298";
+	loc_desc_key = "LocKey#43296";
+	traitIcon = "UIIcon.CraftingTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : CraftingMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#43297";
+	};
+}
+
+DemolitionTrait01 : Trait
+{
+	enumName = "DemolitionTrait01";
+	loc_name_key = "LocKey#40435";
+	loc_desc_key = "LocKey#40434";
+	traitIcon = "UIIcon.DemolitionTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : DemolitionMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40436";
+	};
+}
+
+EngineeringTrait01 : Trait
+{
+	enumName = "EngineeringTrait01";
+	loc_name_key = "LocKey#43301";
+	loc_desc_key = "LocKey#43299";
+	traitIcon = "UIIcon.EngineeringTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : EngineeringMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#43300";
+	};
+}
+
+GunslingerTrait01 : Trait
+{
+	enumName = "GunslingerTrait01";
+	loc_name_key = "LocKey#40394";
+	loc_desc_key = "LocKey#40395";
+	traitIcon = "UIIcon.GunslingerTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : GunslingerMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40396";
+	};
+}
+
+HackingTrait01 : Trait
+{
+	enumName = "HackingTrait01";
+	loc_name_key = "LocKey#43304";
+	loc_desc_key = "LocKey#43302";
+	traitIcon = "UIIcon.HackingTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : HackingMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#43303";
+	};
+}
+
+KenjutsuTrait01 : Trait
+{
+	enumName = "KenjutsuTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : KenjutsuMasteryPrereq;
+	loc_name_key = "LocKey#40432";
+	loc_desc_key = "LocKey#40431";
+	traitIcon = "UIIcon.KenjutsuTrait01";
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#40433";
+	};
+}
+
+StealthTrait01 : Trait
+{
+	enumName = "StealthTrait01";
+	loc_name_key = "LocKey#43307";
+	loc_desc_key = "LocKey#43305";
+	traitIcon = "UIIcon.StealthTrait01";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : StealthMasteryPrereq;
+	baseTraitData = 
+	{
+	};
+	infiniteTraitData = 
+	{
+		loc_desc_key = "LocKey#43306";
+	};
+}
+

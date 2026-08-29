@@ -1,0 +1,1948 @@
+package Character
+using RTDB, BaseStats
+
+Player_Primary_Stats_Base : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Level";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			id = "player_levelToPowerLevel";
+			column = "player_levelToPowerLevel";
+			refStat = "BaseStats.Level";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Additive";
+			id = "player_powerLevelToDefensiveStats";
+			column = "player_powerLevelToHealth";
+			refStat = "BaseStats.PowerLevel";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.Stamina";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRatio";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Evasion";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MitigationChance";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MitigationStrength";
+			modifierType = "Additive";
+			value = 50;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Armor";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Armor";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ArmorMultBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ArmorEffectivenessMultiplier";
+			modifierType = "Additive";
+			id = "player_armorEffectiveness";
+			column = "player_powerLevelToArmorEffectivenessMultiplier";
+			refStat = "BaseStats.PowerLevel";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.Adrenaline";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CarryCapacity";
+			modifierType = "Additive";
+			value = 200;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CritDamage";
+			modifierType = "Additive";
+			value = 50;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Oxygen";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusDamageAgainstElites";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusRicochetDamage";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BaseRicochetDamageMultiplier";
+			modifierType = "Additive";
+			value = 0.8;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChargeMultiplier";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusDamageAgainstRares";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveDPS";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BaseDamage";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingApplicationRate";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BurningApplicationRate";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PoisonedApplicationRate";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectrocutedApplicationRate";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReductionExplosion";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageReductionDamageOverTime";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FallDamageReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickHackImmunity";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickhackShield";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IsAimingWithWeapon";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HandgunStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.LightMachinegunStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RevolverStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AssaultRifleStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PrecisionRifleStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SniperStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DualShotgunStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ShotgunStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SubMachinegunStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AxeStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BatonStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ChainswordStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FistsStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.KatanaStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MacheteStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.KnifeStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MantisBladesStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MonoWiresStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StrongArmsStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TwoHandHammerStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OneHandBladeStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OneHandBluntStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TwoHandBluntStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DodgeStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ADSStaminaRegenMultiplier";
+			modifierType = "Additive";
+			value = -0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FullAutoStaminaCostPenalty";
+			modifierType = "Additive";
+			value = 3.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CraftingItemLevelBoost";
+			modifierType = "Additive";
+			refStat = "BaseStats.Crafting";
+			opSymbol = "/";
+			value = 4f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.StrengthSkillcheckBonus";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IntelligenceSkillcheckBonus";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechnicalAbilitySkillcheckBonus";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Memory";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BonusQuickHackDamage";
+			modifierType = "Additive";
+			value = 0;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusQuickhack";
+			modifierType = "Additive";
+			value = 0;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.BufferSize";
+			modifierType = "Additive";
+			value = 4;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MinigameTimeLimitExtension";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MinigameMoneyMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MinigameShardChanceMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MinigameMaterialsEarned";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MinigameMemoryRegenPerk";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CameraShutdownExtension";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TurretShutdownExtension";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VulnerabilityExtension";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TurretFriendlyExtension";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElementalResistanceMultiplier";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickhackExtraDamageMultiplier";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HighlightAccessPoint";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.UploadQuickHackMod";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RestoreMemoryOnDefeat";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.LowerActiveCooldownOnDefeat";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "Additive";
+			value = 8;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickHackSpreadNumber";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickHackOverclockSpreadNumber";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PlayerOnRevealHackProgressMultiplier";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RevealPositionMaxDistance";
+			modifierType = "Additive";
+			value = 50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GroundSlamCooldownModifier";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RefreshesPingOnQuickhack";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.QuickhacksCooldownReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.UltimateMemoryCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DeviceMemoryCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamageQuickHackMemoryCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StealthHacksCostReduction";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.NPCUploadTime";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HackRevealPositionModifier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HasCybereye";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanRemoveModsFromClothing";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HasSmartLink";
+			modifierType = "Additive";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HasDodge";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanCrouch";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanSprint";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanJump";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Detection";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AudioStimRangeMultiplier";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VisualStimRangeMultiplier";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AudioLocomotionStimRangeMultiplier";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanThrowWeapon";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanAerialTakedown";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanPickUpBodyAfterTakedown";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanShootWhileCarryingBody";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TBHsBaseCoefficient";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TBHsVisibilityCooldown";
+			modifierType = "Additive";
+			value = 1.9f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FFInputLock";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.XPbonusMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HousingBuffsDurationBonus";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemMaxCharges";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsRechargeDuration";
+			modifierType = "Additive";
+			value = 28f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsCharges";
+			modifierType = "Additive";
+			refObject = "Self";
+			refStat = "BaseStats.HealingItemsRechargeDuration";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsCharges";
+			modifierType = "Multiplier";
+			refObject = "Self";
+			refStat = "BaseStats.HealingItemMaxCharges";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoRechargeDuration";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoDuration";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoCharges";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoDurationMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskMaxCharges";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskRechargeDuration";
+			modifierType = "Additive";
+			value = 1500;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskCharges";
+			modifierType = "Additive";
+			refObject = "Self";
+			refStat = "BaseStats.CWMaskRechargeDuration";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CWMaskCharges";
+			modifierType = "Multiplier";
+			refObject = "Self";
+			refStat = "BaseStats.CWMaskMaxCharges";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherMaxCharges";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherRechargeDuration";
+			modifierType = "Additive";
+			value = 25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherCharges";
+			modifierType = "Additive";
+			refObject = "Self";
+			refStat = "BaseStats.ProjectileLauncherRechargeDuration";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherCharges";
+			modifierType = "Multiplier";
+			refObject = "Self";
+			refStat = "BaseStats.ProjectileLauncherMaxCharges";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockStatValue";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockDuration";
+			modifierType = "Additive";
+			value = 14f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockDuration";
+			modifierType = "AdditiveMultiplier";
+			refObject = "Self";
+			refStat = "BaseStats.DurationBonusOverclock";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockCooldown";
+			modifierType = "Additive";
+			value = 30f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Overshield";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			opSymbol = "*";
+			value = 0.5f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.OvershieldGainedToHealAmountMultiplier";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesMaxCharges";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesRechargeDuration";
+			modifierType = "Additive";
+			value = 35f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesCharges";
+			modifierType = "Additive";
+			refObject = "Self";
+			refStat = "BaseStats.GrenadesRechargeDuration";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.GrenadesCharges";
+			modifierType = "Multiplier";
+			refObject = "Self";
+			refStat = "BaseStats.GrenadesMaxCharges";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.GrenadeExplosionBonusRange";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadeExplosionBonusDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherLockOnTime";
+			modifierType = "Additive";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherProjectilesPerCharge";
+			modifierType = "Additive";
+			value = 8;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherSalvoCharges";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherBaseCharges";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherMaxCharges";
+			modifierType = "Additive";
+			value = 3;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherRechargeDuration";
+			modifierType = "Additive";
+			value = 16;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherCharges";
+			modifierType = "Additive";
+			refObject = "Self";
+			refStat = "BaseStats.VehicleMissileLauncherRechargeDuration";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherCharges";
+			modifierType = "Multiplier";
+			refObject = "Self";
+			refStat = "BaseStats.VehicleMissileLauncherMaxCharges";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ManiacPerkBonusSpeed";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MaxSpeed";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ManiacPerkBonusSpeed";
+			refObject = "Player";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.AccumulatedDoT";
+			modifierType = "Additive";
+			value = 9999;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ManiacStatCounter";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleDamagePercentBonus";
+			modifierType = "Additive";
+			value = -0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InVehicleDamageTakenPercent";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OnBikeDamageTakenPercent";
+			modifierType = "Additive";
+			value = 0.75f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OnBikeDamageTakenPercentMinSpeed";
+			modifierType = "Additive";
+			value = 5.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OnBikeDamageTakenPercentMaxSpeed";
+			modifierType = "Additive";
+			value = 15.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PermanentHealthBonus";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PermanentStaminaRegenBonus";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PermanentMemoryRegenBonus";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GearheadDamageMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RoadWarriorDamageMultiplier";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.LocomotionExperienceReward";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MaxQuality";
+			modifierType = "Additive";
+			refStat = "BaseStats.PowerLevel";
+			id = "quality_curves";
+			column = "level_to_max_quality_on_item";
+		} : CurveStatModifier
+	];
+}
+
+Player_Attributes_Base : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Strength";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Reflexes";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Intelligence";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechnicalAbility";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Cool";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Locomotion_Base : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ClimbSpeedModifier";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.JumpSpeedModifier";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Stat_Flags : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = [];
+}
+
+Player_Skills : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.StreetCred";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StrengthSkill";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ReflexesSkill";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TechnicalAbilitySkill";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IntelligenceSkill";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CoolSkill";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Gunslinger";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Assault";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Demolition";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Kenjutsu";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Brawling";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Athletics";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ColdBlood";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Engineering";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Stealth";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Crafting";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Hacking";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Mastery_Modifier : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = [];
+}
+
+Player_Cover_Modifier : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			value = -0.5f;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Workspot_DamageReduction_Modifier : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.TBHsBaseCoefficient";
+			modifierType = "Multiplier";
+			value = 3;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Workspot_VisibilityReduction_Modifier : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			value = -0.5f;
+		} : ConstantStatModifier
+	];
+}
+
+Player_Stat_Pools_Modifier : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.StaminaRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenStartThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenEndThrehold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRate";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRateBase";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRateAdd";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRateMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.StaminaRegenRateBase";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.StaminaRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.StaminaRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.StaminaRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.StaminaDecayEnabled";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaDecayDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaDecayStartThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaDecayEndThrehold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.StaminaAimingCost";
+			modifierType = "Additive";
+			value = 5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenEnabled";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenStartThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenEndThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthInCombatRegenRateBase";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthInCombatRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealthInCombatRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthGeneralRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRateBase";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthInCombatRegenRateMult";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthGeneralRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenStartThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthOutOfCombatRegenRateBase";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthOutOfCombatRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealthOutOfCombatRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthGeneralRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRateBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealthOutOfCombatRegenRateMult";
+			modifierType = "Additive";
+			refStat = "BaseStats.HealthGeneralRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenStartThreshold";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenEndThreshold";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.MemoryRegenRateBase";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			refStat = "BaseStats.MemoryRegenRateAdd";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.MemoryRegenRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRateBase";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRateAdd";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MemoryRegenRateMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AccumulatedDoTDecayEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealingItemsChargesRegenMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesRegenMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HealingItemsChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesDecayRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesDecayRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.OpticalCamoChargesDecayRateMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesDecayRateMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OpticalCamoChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CWMaskChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.ProjectileLauncherChargesRegenMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesRegenMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ProjectileLauncherChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesRegenStartDelay";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PlayerSandevistanChargesDecayPerSecond";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanChargesDecayDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BerserkChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockDecayRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CyberdeckOverclockDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.OvershieldDecayEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenRate";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.GrenadesChargesRegenMult";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesRegenMult";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.GrenadesChargesDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherChargesRegenRate";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherChargesRegenStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.VehicleMissileLauncherChargesRegenDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InjectorHealingEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InjectorHealingRegenEnds";
+			modifierType = "Additive";
+			value = 100f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InjectorHealingRegenBegins";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InjectorHealingDecayStartDelay";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InjectorHealingDelayOnChange";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeBankRegenEnabled";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeBankRegenRate";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+}
+
+PlayerCyberwareSystem : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.StrengthAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.Strength";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.StrengthAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.StrengthAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ReflexesAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.Reflexes";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.ReflexesAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.ReflexesAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.IntelligenceAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.Intelligence";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.IntelligenceAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.IntelligenceAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.TechnicalAbilityAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.TechnicalAbility";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.TechnicalAbilityAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.TechnicalAbilityAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CoolAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.Cool";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CoolAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.CoolAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Humanity";
+			modifierType = "Additive";
+			value = 21;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Humanity";
+			modifierType = "Additive";
+			refStat = "BaseStats.Level";
+			opSymbol = "*";
+			value = 3f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.Humanity";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityAvailable";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAllocated";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityOverallocationPossible";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAllocated";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityOverallocationPossible";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAvailable";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityOverallocationPossible";
+			modifierType = "Additive";
+			refStat = "BaseStats.Humanity";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityOverallocated";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAllocated";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityOverallocated";
+			modifierType = "Additive";
+			refStat = "BaseStats.Humanity";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityTotalMaxValue";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAllocated";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.HumanityTotalMaxValue";
+			modifierType = "Additive";
+			refStat = "BaseStats.HumanityAvailable";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CyberwareTinkererStat";
+			modifierType = "Additive";
+			value = 0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.InhalerBaseHealing";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealingItemsEffectPercentBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.InjectorBaseHealing";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealingItemsEffectPercentBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.HealingItemsEffectPercentBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritChance";
+			modifierType = "Additive";
+			refStat = "BaseStats.CritChanceBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.CritDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.CritDamageBonus";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.Visibility";
+			modifierType = "Additive";
+			refStat = "BaseStats.VisibilityReduction";
+			opSymbol = "*";
+			value = -1f;
+		} : CombinedStatModifier
+	];
+}
+

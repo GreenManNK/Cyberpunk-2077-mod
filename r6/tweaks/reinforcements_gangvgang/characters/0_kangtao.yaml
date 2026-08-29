@@ -1,0 +1,29 @@
+Character.GR_kangtao_ranger1_ranged2_dian_ma:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_android_android2_dian_ma:
+    $base: Character.kangtao_android_android2_dian_ma
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_soldier2_shotgun2_zhuo_mah_rare:
+    $base: Character.kangtao_soldier2_shotgun2_zhuo_mah_rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_soldier2_shotgun3_zhuo_mah_elite:
+    $base: Character.kangtao_soldier2_shotgun3_zhuo_mah_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_officer_grenadier3_mah_elite:
+    $base: Character.kangtao_officer_grenadier3_mah_elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat

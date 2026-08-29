@@ -16,10 +16,14 @@ local Cron = require("modules/utils/Cron")
 ---@field name string
 ---@field worldIcon string
 ---@field worldIconRange number
+---@field worldIconColor { Red: number, Green: number, Blue: number, Alpha: number }
+---@field useWorldIconColor boolean
 ---@field interactionAngle number
 ---@field interactionRange number
 ---@field editorIcon string
+---@field needsUpdate boolean -- Determines if onUpdate is ran
 ---@field sceneRunning boolean
+---@field pendingStartTimer number?
 ---@field worldInteractionID number?
 ---@field worldIconPosition {x: number, y: number, z: number}?
 ---@field choiceUniqueID number
@@ -40,11 +44,15 @@ function interaction:new(mod, project)
     o.name = "Default Interaction"
     o.worldIcon = "ChoiceIcons.SitIcon"
     o.worldIconRange = 5
+    o.worldIconColor = { Red = 0.15829999744892, Green = 1.3033000230789, Blue = 1.4141999483109, Alpha = 1.0 }
+    o.useWorldIconColor = false
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.RobotConfusedOutline
 
+    o.needsUpdate = false
     o.sceneRunning = false
+    o.pendingStartTimer = nil
     o.worldInteractionID = nil
 
     o.worldIconPosition = nil
@@ -65,7 +73,7 @@ function interaction:load(data)
         self.choiceUniqueID = math.random(0, 4294967295 - 100000) -- 100k nodeIDs for base nodes
     end
 
-    self.worldInteractionID = world.addInteraction(self.modulePath, ToVector4(self.worldIconPosition), self.interactionRange, self.interactionAngle, self.worldIcon, self.worldIconRange, nil, function (state)
+    self.worldInteractionID = world.addInteraction(self.modulePath, ToVector4(self.worldIconPosition), self.interactionRange, self.interactionAngle, self.worldIcon, self.worldIconRange, self.useWorldIconColor and self.worldIconColor or nil, function (state)
         if state then
             self:start()
         else
@@ -84,7 +92,11 @@ function interaction:start()
     self.sceneRunning = true
 
     -- Delay this, so that if during the same tick another one stops, there is time for it to properly shutdown, before this one starts
-    Cron.AfterTicks(2, function ()
+    self.pendingStartTimer = Cron.AfterTicks(2, function ()
+        self.pendingStartTimer = nil
+
+        if not self.sceneRunning then return end
+
         local success = resourceHelper.registerSceneEnd(self.endEvent, function (sceneActive)
             utils.removeSaveLock()
             self.sceneRunning = false
@@ -99,11 +111,13 @@ function interaction:start()
             return
         end
 
-        Game.GetResourceDepot():RemoveResourceFromCache(self.scene)
-        resourceHelper.registerPatch(self.scene, self:getPatchData())
-        Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
-        Game.GetQuestsSystem():SetFactStr("nif_interaction_id", self.startFactID)
-        utils.addSaveLock()
+        resourceHelper.requestSceneSignal(self, function ()
+            Game.GetResourceDepot():RemoveResourceFromCache(self.scene)
+            resourceHelper.registerPatch(self.scene, self:getPatchData())
+            Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
+            Game.GetQuestsSystem():SetFactStr("nif_interaction_id", self.startFactID)
+            utils.addSaveLock()
+        end)
     end)
 end
 
@@ -111,7 +125,25 @@ function interaction:stop()
     if not self.sceneRunning then return end
 
     self.sceneRunning = false
+
+    -- Scene didnt even get started, could probably also just move registerSceneEnd into requestSceneSignal cb
+    if resourceHelper.cancelSceneSignal(self) then
+        resourceHelper.endEvents[self.endEvent] = nil
+    end
+
+    -- cancle pending start
+    if self.pendingStartTimer then
+        Cron.Halt(self.pendingStartTimer)
+        self.pendingStartTimer = nil
+        return
+    end
+
     Game.GetQuestsSystem():SetFactStr(self.skipFact, 1)
+end
+
+function interaction:resetSceneState()
+    self.pendingStartTimer = nil
+    self.sceneRunning = false
 end
 
 function interaction:remove()
@@ -148,6 +180,8 @@ function interaction:save()
     data.interactionRange = self.interactionRange
     data.worldIconPosition = utils.deepcopy(self.worldIconPosition)
     data.choiceUniqueID = self.choiceUniqueID
+    data.worldIconColor = utils.deepcopy(self.worldIconColor)
+    data.useWorldIconColor = self.useWorldIconColor
 
     return data
 end

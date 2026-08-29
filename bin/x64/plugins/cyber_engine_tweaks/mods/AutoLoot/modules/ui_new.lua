@@ -15,7 +15,7 @@ By modifying the mod code or files, you acknowledge I cannot support the modifie
 You're not allowed to publish your modifications to the mod code or files without my consent.
 You're not allowed to publicly propose unauthorized changes to the mod code or files.
 You're not allowed to use any part of the mod code or files for commercial purposes, advertising or promotion of any kind.
-You can use parts the code or file modifications in your creations only by my consent and on a credit note.
+You may use parts of the code or any original algorithms developed for this mod in your own creations only with my prior consent and proper credit.
 You're not allowed to use parts of the code or files marked as coming from other people without their consent.
 You can create and publish translations of the parts of the mod that are explicitly marked as allowed to translate either in the mod description either in the mod files.
 The translations must follow the Nexusmods translation publishing rules.
@@ -24,7 +24,7 @@ The translations must follow the Nexusmods translation publishing rules.
 -- DO NOT TRANSLATE THIS FILE!
 -- Translation support is described in the file: "..\Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\mods\AutoLoot\language\Readme.txt"
 
--- Jun 20, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
+-- Aug 15, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
 
 function printError(...)
 	local args = {...}
@@ -66,8 +66,8 @@ local isGameV2 = false
 if cetVer >= 1.26 then isGameV2 = true end
 
 ui = {
-		modVer = 'v3.10.3',
-		moduleVer = 'v3.10.3',
+		modVer = 'v3.10.5',
+		moduleVer = 'v3.10.5',
 		modName = 'Autoloot',
 		modAuthorName = 'keanuWheeze and anygoodname',
 		isInitialized = false,
@@ -518,6 +518,7 @@ function ui.onInit()
 	end)
 
 	ObserveAfter("SettingsSelectorController", "OnInitialize", function(this)
+		if not nativeSettings then return end
 		if not nativeSettings.fromMods then return end
 		local burstTriggerCooldownTime = nativeSettingsOptions.burstTriggerCooldownTime
 		if not burstTriggerCooldownTime then return end
@@ -531,6 +532,7 @@ function ui.onInit()
 	end)
 	local n_SettingsSelectorControllerInt = n"SettingsSelectorControllerInt"
 	ObserveAfter("SettingsSelectorControllerInt", "Refresh", function(this)
+		if not nativeSettings then return end
 		if not nativeSettings.fromMods then return end
 		local burstTriggerCooldownTime = nativeSettingsOptions.burstTriggerCooldownTime
 		if not burstTriggerCooldownTime then return end

@@ -1,0 +1,972 @@
+package LootTables
+using RTDB, Loot, Prereqs, LootPrereqs
+
+q001_loot_demo_handgun : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q001_handgun_vindicator"
+	];
+}
+
+q001_handgun_vindicator : LootItem
+{
+	fk< Item > itemID = "Items.Preset_Base_Lexington";
+}
+
+q001_loot_demo_katana : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q001_katana"
+	];
+}
+
+q001_katana : LootItem
+{
+	fk< Item > itemID = "Items.Preset_Katana_Arasaka_2020";
+}
+
+q001_wilson_gun_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q001_wilson_gun"
+	];
+}
+
+q001_wilson_gun : LootItem
+{
+	fk< Item > itemID = "Items.Preset_Q001_Lexington";
+}
+
+mq000_vs_apartment_wardrobe : LootTable
+{
+	minItemsToLoot = 7;
+	maxItemsToLoot = 7;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.Jacket_05_old_01";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Shorts_03_old_01";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Boots_01_old_01";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Cap_01_basic_03";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Vest_10_old_01";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Shirt_01_old_01";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.TShirt_11_basic_01";
+		} : LootItem
+	];
+}
+
+q005_suit_cover : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q005_loot_suit_cover"
+	];
+}
+
+q005_loot_suit_cover : LootItem
+{
+	fk< Item > itemID = "Items.q005_suit_cover";
+}
+
+q005_loot_table_dogtag : LootTable
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q005_loot_dogtag", {
+			playerPrereqID = 
+			{
+				fact = "tanto_saburo_owned";
+				value = 0;
+				comparisonType = "LessOrEqual";
+			} : FactValuePrereq;
+			itemID = "Items.Preset_Tanto_Saburo";
+		} : IconicWeapon_LootItem
+	];
+}
+
+q005_loot_dogtag : LootItem
+{
+	fk< Item > itemID = "Items.q005_saburo_dogtag";
+}
+
+q005_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q005_keycard";
+}
+
+q005_keycard_loot_table : LootTable
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q005_keycard", {
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_1_Exclusion_Prereq";
+			itemID = "Items.MoneyShardUncommon";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_1_to_2_Exclusion_Prereq";
+			itemID = "Items.MoneyShardRare";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_2_to_3_Exclusion_Prereq";
+			itemID = "Items.MoneyShardEpic";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_3_to_4_Exclusion_Prereq";
+			itemID = "Items.MoneyShardLegendary";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_4_to_5_Exclusion_Prereq";
+			itemID = "Items.MoneyShardLegendary";
+		}
+	];
+}
+
+q005_loot_yorinobus_suitcase_1 : LootTable
+{
+	int minItemsToLoot = 1;
+	int maxItemsToLoot = 1;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.Q005_Steel_Dragons_Coat";
+		} : LootItem
+	];
+}
+
+q005_loot_yorinobus_suitcase_2 : LootTable
+{
+	int minItemsToLoot = 2;
+	int maxItemsToLoot = 2;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.Q005_Yorinobu_FormalShirt";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.Q005_Yorinobu_FormalPants";
+		} : LootItem
+	];
+}
+
+q101_dex_corpse_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q101_dex_corpse_gun"
+	];
+}
+
+q101_dex_corpse_gun : IconicWeapon_LootItem
+{
+	playerPrereqID = 
+	{
+		fact = "liberty_dex_owned";
+		value = 0;
+		comparisonType = "LessOrEqual";
+	} : FactValuePrereq;
+	fk< Item > itemID = "Items.Preset_Liberty_Dex";
+}
+
+q103_car_cable_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q103_car_battery_cable"
+	];
+}
+
+q103_car_battery_cable : LootItem
+{
+	fk< Item > itemID = "Items.q103_car_battery_cable";
+}
+
+q105_keycard_dollhouse_vip : LootItem
+{
+	fk< Item > itemID = "Keycards.q105_keycard_dollhouse_vip";
+}
+
+q105_keycard_dollhouse_vip_loot_table : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q105_keycard_dollhouse_vip"
+	];
+}
+
+q105_fingers_loot : LootTable
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 400;
+			dropCountMax = 400;
+			itemID = "Items.money";
+		}
+	];
+}
+
+q105_loot_evelyns_locker : LootTable
+{
+	int minItemsToLoot = 1;
+	int maxItemsToLoot = 1;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.q105_evelyns_handbag";
+		} : LootItem
+	];
+}
+
+q105_woodman_loot : LootTable
+{
+	minItemsToLoot = 5;
+	maxItemsToLoot = 5;
+	lootItems = 
+	[
+		{
+			itemID = "Items.Preset_Ajax_Pimp";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumRareQuality"
+			];
+		}, 
+		{
+			dropCountMin = 30;
+			dropCountMax = 60;
+			itemID = "Ammo.RifleAmmo";
+		}, 
+		{
+			dropCountMin = 30;
+			dropCountMax = 60;
+			itemID = "Ammo.HandgunAmmo";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+q105_loot_toms_locker : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.LowQualityFood3";
+		} : LootItem
+	];
+}
+
+q105_loot_roxys_locker : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.LowQualityFood3";
+		} : LootItem
+	];
+}
+
+q105_loot_angels_locker : LootTable
+{
+	lootItems = 
+	[
+		{
+			itemID = "Items.Pants_01_basic_02";
+		}
+	];
+}
+
+q105_loot_skyes_locker : LootTable
+{
+	lootItems = 
+	[
+		{
+			itemID = "Items.Undershirt_02_basic_01";
+		}
+	];
+}
+
+q110_placide_loot : LootTable
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	lootItems = 
+	[
+		{
+			itemID = "Keycards.q110_chapel_door_key";
+		}, 
+		{
+			itemID = "Items.HighQualityJewellery3";
+		}, 
+		{
+			itemID = "Items.MemoryBooster";
+		}, 
+		{
+			itemID = "Items.Coat_04_old_02";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MinimumLegendaryQuality"
+			];
+		}
+	];
+}
+
+q114_arasaka_basement_sec_room_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q114_arasaka_basement_sec_room_keycard";
+}
+
+q114_arasaka_basement_sec_room_keycard_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q114_arasaka_basement_sec_room_keycard"
+	];
+}
+
+q115_solo_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q115_solo_keycard";
+}
+
+q115_solo_keycard_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q115_solo_keycard"
+	];
+}
+
+q115_jungle_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q115_jungle_keycard";
+}
+
+q115_jungle_keycard_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q115_jungle_keycard"
+	];
+}
+
+q115_nest_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q115_nest_keycard";
+}
+
+q115_nest_keycard_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q115_nest_keycard"
+	];
+}
+
+q115_pistol_ammo : LootItem
+{
+	fk< Item > itemID = "Ammo.HandgunAmmo";
+	int dropCountMin = 250;
+	int dropCountMax = 250;
+}
+
+q115_shotgun_ammo : LootItem
+{
+	fk< Item > itemID = "Ammo.ShotgunAmmo";
+	int dropCountMin = 50;
+	int dropCountMax = 50;
+}
+
+q115_rifle_ammo : LootItem
+{
+	fk< Item > itemID = "Ammo.RifleAmmo";
+	int dropCountMin = 350;
+	int dropCountMax = 350;
+}
+
+q115_ammo_pile : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q115_pistol_ammo", "LootTables.q115_shotgun_ammo", "LootTables.q115_rifle_ammo"
+	];
+}
+
+q116_smasher_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.q116_smasher_keycard";
+}
+
+q116_smasher_keycard_lt : LootTable
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.q116_smasher_keycard"
+	];
+	lootTableInclusions = 
+	[
+		"Loot.AdamSmasherLoot"
+	];
+}
+
+q116_smasher_room_lt : LootTable
+{
+	lootItems = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.CraftedIconicWeaponRecipePrereq_Common";
+			itemID = "Items.Recipe_Common_Zhuo_Eight_Star";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.CraftedIconicWeaponRecipePrereq_Uncommon";
+			itemID = "Items.Recipe_Uncommon_Zhuo_Eight_Star";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.CraftedIconicWeaponRecipePrereq_Rare";
+			itemID = "Items.Recipe_Rare_Zhuo_Eight_Star";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.CraftedIconicWeaponRecipePrereq_Epic";
+			itemID = "Items.Recipe_Epic_Zhuo_Eight_Star";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.CraftedIconicWeaponRecipePrereq_Legendary";
+			itemID = "Items.Recipe_Legendary_Zhuo_Eight_Star";
+		}
+	];
+}
+
+q203_pants_lt : LootTable
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.Q203_Epilogue_Glasses";
+		} : LootItem, 
+		{
+			itemID = "Items.Q203_Epilogue_Pants";
+		} : LootItem, 
+		{
+			itemID = "Items.Q203_Epilogue_Boots";
+		} : LootItem, 
+		{
+			itemID = "Items.Q203_Epilogue_TShirt";
+		} : LootItem
+	];
+}
+
+q203_staging_camp : LootTable
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.Coat_01_old_02";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}, 
+		{
+			itemID = "Items.Pants_06_basic_01";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}, 
+		{
+			itemID = "Items.Boots_02_old_01";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}
+	];
+}
+
+q204_music_store : LootTable
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.Hat_02_basic_01";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}, 
+		{
+			itemID = "Items.Pants_04_rich_01";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}, 
+		{
+			itemID = "Items.CasualShoes_07_rich_03";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.RandomCurveInputNullifier"
+			];
+		}
+	];
+}
+
+q204_loot_samurai_jacket : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.SQ031_Samurai_Jacket";
+		} : LootItem
+	];
+}
+
+sq004_loot_raffen_smg : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.Preset_Saratoga_Raffen";
+		} : IconicWeapon_LootItem
+	];
+}
+
+sq012_rqr_ext_secret_entrance_keycard : LootItem
+{
+	fk< Item > itemID = "Keycards.sq012_rqr_ext_secret_entrance_keycard";
+}
+
+sq012_rqr_ext_secret_entrance_keycard_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.sq012_rqr_ext_secret_entrance_keycard"
+	];
+}
+
+sq018_loot_key : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.sq018_jackies_key_room";
+		} : LootItem
+	];
+}
+
+sq018_package : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.sq018_jackies_key_bike";
+		} : LootItem
+	];
+}
+
+sq025_scanner : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.sq025_scanner";
+		} : LootItem
+	];
+}
+
+sq026_lt_katana_hiromi : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.Preset_Katana_Hiromi";
+		} : IconicWeapon_LootItem
+	];
+}
+
+sq027_punchcard : LootItem
+{
+	fk< Item > itemID = "Items.sq027_punchcard";
+}
+
+sq027_loot_punchcard : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.sq027_punchcard"
+	];
+}
+
+sq029_loot_rice : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.sq029_rice";
+		} : LootItem
+	];
+}
+
+sq030_lt_diving_suit_male : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.sq030_diving_suit_male";
+		} : LootItem
+	];
+}
+
+sq030_lt_diving_suit_female : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.sq030_diving_suit_female";
+		} : LootItem
+	];
+}
+
+sq030_lt_diving_suit : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.SQ030_Diving_Suit_NoShoes";
+		} : LootItem
+	];
+}
+
+sq030_lt_maxtac_suit : LootTable
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.SQ030_MaxTac_Chest";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.SQ030_MaxTac_Pants";
+		} : LootItem, 
+		{
+			fk< Item > itemID = "Items.SQ030_MaxTac_Helmet";
+		} : LootItem
+	];
+}
+
+sq031_grayson_loot : LootTable
+{
+	lootItems = 
+	[
+		{
+			itemID = "Items.Preset_Yukimura_Military";
+			fk< StatModifier >[] statModifiers = [];
+		}
+	];
+}
+
+mq005_corpo_loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropCountMin = 120;
+			dropCountMax = 200;
+			itemID = "Items.money";
+		} : LootItem
+	];
+}
+
+mq007_skippy : LootItem
+{
+	fk< Item > itemID = "Items.mq007_skippy";
+}
+
+mq007_loot_skippy : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq007_skippy"
+	];
+}
+
+mq007_skippy_post_quest : LootItem
+{
+	fk< Item > itemID = "Items.mq007_skippy_post_quest";
+}
+
+mq007_loot_skippy_post_quest : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq007_skippy_post_quest"
+	];
+}
+
+mq008_golden_knuckledusters : LootItem
+{
+	fk< Item > itemID = "Items.mq008_golden_knuckledusters";
+}
+
+mq008_pistol_ammo : LootItem
+{
+	fk< Item > itemID = "Ammo.HandgunAmmo";
+	int dropCountMin = 30;
+	int dropCountMax = 30;
+}
+
+mq008_loot_ammo : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq008_pistol_ammo"
+	];
+}
+
+mq015_loot_stash : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.mq015_wizardbook_encrypted";
+		} : LootItem
+	];
+}
+
+mq016_loot_cyberdeck : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.mq016_bartmoss_cyberdeck_encrypted";
+		} : LootItem
+	];
+}
+
+mq016_loot_shard : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			fk< Item > itemID = "Items.mq016_shard";
+		} : LootItem
+	];
+}
+
+mq017_jacket_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		{
+			itemID = "Items.mq017_SameraiJacket";
+		} : LootItem
+	];
+}
+
+mq049_jacket_lt : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq049_jacket_loot_item"
+	];
+}
+
+mq049_jacket_loot_item : LootItem
+{
+	fk< Item > itemID = "Items.MQ049_martinez_jacket";
+	int dropCountMin = 1;
+	int dropCountMax = 1;
+}
+
+mq049_rebeccas_gun_loot_item : IconicWeapon_LootItem
+{
+	fk< Item > itemID = "Items.Preset_Carnage_Edgerunners";
+	int dropCountMin = 1;
+	int dropCountMax = 1;
+}
+
+mq049_rebeccas_gun_loot : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq049_rebeccas_gun_loot_item"
+	];
+}
+
+mq006_body_shard_loot_item : LootItem
+{
+	fk< Item > itemID = "Items.mq006_body_shard";
+	int dropCountMin = 1;
+	int dropCountMax = 1;
+}
+
+mq006_body_shard_loot : LootTable
+{
+	fk< LootItem >[] lootItems = 
+	[
+		"LootTables.mq006_body_shard_loot_item"
+	];
+}
+
+mq056_courier_loot : LootTable
+{
+	lootItems = 
+	[
+		{
+			dropChance = 1;
+			itemID = "Items.base_game_courier_reward_autofixer_discount";
+		}
+	];
+	int dropCountMin = 1;
+	int dropCountMax = 1;
+}
+
+cyberpsychos_reward : LootTable
+{
+	minItemsToLoot = 6;
+	maxItemsToLoot = 6;
+	lootItems = 
+	[
+		{
+			playerPrereqID = 
+			{
+				comparisonType = "Less";
+			} : PlayerLevel_Tier_4_Start_Prereq;
+			itemID = "Items.GenericMod1_Rare";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_3_to_4_Exclusion_Prereq";
+			itemID = "Items.GenericMod1_Epic";
+		}, 
+		{
+			playerPrereqID = 
+			{
+				comparisonType = "Less";
+			} : PlayerLevel_Tier_4_Start_Prereq;
+			itemID = "Items.CWCapacityPermaReward_2_Epic";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_5_Start_Prereq";
+			itemID = "Items.GenericMod1_Legendary";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevel_Tier_4_Start_Prereq";
+			itemID = "Items.CWCapacityPermaReward_2_Legendary";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterUncommon_Regina";
+			playerPrereqID = "LootPrereqs.Minimum_UncommonCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterUncommonPlus_Regina";
+			playerPrereqID = "LootPrereqs.UncommonPlusCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterRare_Regina";
+			playerPrereqID = "LootPrereqs.RareCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterRarePlus_Regina";
+			playerPrereqID = "LootPrereqs.RarePlusCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterEpic_Regina";
+			playerPrereqID = "LootPrereqs.EpicCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterEpicPlus_Regina";
+			playerPrereqID = "LootPrereqs.EpicPlusCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterLegendary_Regina";
+			playerPrereqID = "LootPrereqs.LegendaryCWLevelAvailabilityInLoot";
+		}, 
+		{
+			itemID = "Items.CapacityBoosterLegendaryPlus_Regina";
+			playerPrereqID = "LootPrereqs.LegendaryPlusCWLevelAvailabilityInLoot";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialRewardTable"
+	];
+}
+
+q005_netrunner_loot : LootTable
+{
+	lootGenerationType = "dropChance";
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Loot.ArasakaDrop", "LootTables.HealingItemsTable", "LootTables.QuickhackMaterialsTable"
+	];
+}
+
+q005_guard_loot : LootTable
+{
+	lootGenerationType = "dropChance";
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Loot.ArasakaDrop", "LootTables.HealingItemsTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+q005_shotgunSoldier_loot : LootTable
+{
+	lootGenerationType = "dropChance";
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Loot.ArasakaDrop", "LootTables.HealingItemsTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+q005_heavyMeleeSumo_loot : LootTable
+{
+	lootGenerationType = "dropChance";
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Loot.ArasakaDrop", "LootTables.HealingItemsTable"
+	];
+}
+

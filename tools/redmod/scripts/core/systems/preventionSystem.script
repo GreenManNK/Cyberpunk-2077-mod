@@ -1,0 +1,5659 @@
+class PreventionSystem extends ScriptableSystem
+{
+	private persistent var m_districtManager : DistrictManager;
+	[ unsavable = "true" ]
+	private persistent var m_agentRegistry : PoliceAgentRegistry;
+	private persistent var m_ignoreSecurityAreasByQuest : Bool;
+	default m_ignoreSecurityAreasByQuest = false;
+	private persistent var m_forceEternalGreyStars : Bool;
+	default m_forceEternalGreyStars = false;
+	private persistent var m_blockOnFootSpawnByQuest : Bool;
+	default m_blockOnFootSpawnByQuest = false;
+	private persistent var m_blockVehicleSpawnByQuest : Bool;
+	default m_blockVehicleSpawnByQuest = false;
+	private persistent var m_blockReconDroneSpawnByQuest : Bool;
+	default m_blockReconDroneSpawnByQuest = false;
+	private persistent var m_crimeScoreMultiplierByQuest : Float;
+	default m_crimeScoreMultiplierByQuest = 1.f;
+	private persistent var m_preventionQuestEventSources : array< CName >;
+	private persistent var m_systemLockSources : array< CName >;
+	private persistent var m_systemEnabled : Bool;
+	private var m_player : weak< PlayerPuppet >;
+	private var m_preventionPreset : weak< DistrictPreventionData_Record >;
+	private var m_preventionDataMatrix : weak< PreventionHeatDataMatrix_Record >;
+	private var m_preventionDataTable : weak< PreventionHeatTable_Record >;
+	private var m_systemLocked : Bool;
+	private var m_nodeEventSources : array< CName >;
+	private var m_heatStage : EPreventionHeatStage;
+	private var m_heatChangeReason : String;
+	private var m_ignoreSecurityAreas : Bool;
+	default m_ignoreSecurityAreas = true;
+	private var m_playerIsInSecurityArea : array< PersistentID >;
+	private var m_playerIsInPreventionFreeArea : Bool;
+	private var m_policeSecuritySystems : array< PersistentID >;
+	private var m_agentGroupsList : array< PreventionAgents >;
+	private var m_lastKnownPosition : Vector4;
+	private var m_lastKnownVehicle : weak< VehicleObject >;
+	private var m_districtMultiplier : Float;
+	default m_districtMultiplier = 1.f;
+	private var m_shouldForceStarStateUIToActive : Bool;
+	private var m_lastAttackTime : Float;
+	private var m_lastAttackTargetIDs : array< EntityID >;
+	private var m_viewers : array< weak< GameObject > >;
+	private var m_hasViewers : Bool;
+	private var m_starState : EStarState;
+	private var m_starStateUIChanged : Bool;
+	private var m_isPlayerMounted : Bool;
+	private var m_policeKnowsPlayerLocation : Bool;
+	private var m_isInitialSearchState : Bool;
+	private var m_heatLevelChanged : Bool;
+	private var m_playerCrossedBufferDistance : Bool;
+	private var m_crimescoreTimerDelayID : DelayID;
+	private var m_starStateBufferTimerDelayID : DelayID;
+	private var m_beliefAccuracyTimerDelayID : DelayID;
+	private var m_blinkingStatusDelayID : DelayID;
+	private var m_searchingStatusDelayID : DelayID;
+	private var m_transitionToGreyStateDelayID : DelayID;
+	private var m_policemenSpawnDelayID : DelayID;
+	private var m_securityAreaResetDelayID : DelayID;
+	private var m_inputlockDelayID : DelayID;
+	private var m_freeAreaResetDelayID : DelayID;
+	private var m_securityAreaResetCheck : Bool;
+	private var m_hadOngoingSpawnRequest : Bool;
+	private var m_totalCrimeScore : Float;
+	private var m_canSpawnFallbackEarly : Bool;
+	private var m_failsafePoliceRecordT1 : TweakDBID;
+	private var m_failsafePoliceRecordT2 : TweakDBID;
+	private var m_failsafePoliceRecordT3 : TweakDBID;
+	private var m_blinkReasonsStack : array< CName >;
+	private var m_wantedBarBlackboard : weak< IBlackboard >;
+	private var m_onPlayerChoiceCallID : CallbackHandle;
+	private var m_playerAttachedCallbackID : Uint32;
+	private var m_playerDetachedCallbackID : Uint32;
+	private var m_playerHLSID : CallbackHandle;
+	private var m_playerVehicleStateID : CallbackHandle;
+	private var m_playerHLS : gamePSMHighLevel;
+	private var m_playerVehicleState : gamePSMVehicle;
+	private var m_unhandledInputsReceived : Int32;
+	private var m_preventionUnitKilledDuringLock : Bool;
+	private var m_previousHitTargetID : EntityID;
+	private var m_previousHitAttackTime : Float;
+	private var m_reconPhaseEnabled : Bool;
+	default m_reconPhaseEnabled = false;
+	private var m_reconDeployed : Bool;
+	private var m_reconDestroyed : Bool;
+	private var m_minHeatLevel : EPreventionHeatStage;
+	default m_minHeatLevel = EPreventionHeatStage.Heat_0;
+	private var m_maxHeatLevel : EPreventionHeatStage;
+	default m_maxHeatLevel = EPreventionHeatStage.Heat_5;
+	private var m_defaultHeatLevels : Bool;
+	default m_defaultHeatLevels = true;
+	private var m_vehicleSpawnBlockSide : EVehicleSpawnBlockSide;
+	default m_vehicleSpawnBlockSide = EVehicleSpawnBlockSide.Default;
+	private var m_damageToPlayerMultiplier : Float;
+	default m_damageToPlayerMultiplier = 1.f;
+	private var m_chaseMultiplier : Float;
+	default m_chaseMultiplier = 1.f;
+	private var m_policeChaseBlackboard : weak< IBlackboard >;
+	private var m_blockShootingFromVehicle : Bool;
+	default m_blockShootingFromVehicle = false;
+	private var Debug_ProcessReason : EPreventionDebugProcessReason;
+	private var Debug_LastAttackType : gamedataAttackType;
+	private var Debug_LastDamageDealt : Float;
+	private var Debug_LastCrimeDistance : Float;
+	private var Debug_lastAVRequestedSpawnPosition : Vector3;
+	private var m_temp_const_false : Bool;
+	default m_temp_const_false = false;
+	private var m_preventionTickCaller : IntervalCaller;
+	private var m_roadblockadeRespawnTickCaller : IntervalCaller;
+	private var m_maxtacTicketID : Uint32;
+	private var m_avSpawnPointList : array< Vector3 >;
+	private var m_maxAllowedDistanceToPlayer : Float;
+	default m_maxAllowedDistanceToPlayer = 20.f;
+	private var m_lastAVRequestedSpawnPositionsArray : array< Vector4 >;
+	private var m_shouldPreventionUnitsStartRetreating : Bool;
+	private var m_numberOfMaxtacSquadsSpawned : Int32;
+	private var m_maxtacTroopBeingAliveTimeStamp : Float;
+	private var m_civilianVehicleDestructionCount : Int32;
+	private var m_lastCivilianVehicleDestructionTimeStamp : Float;
+	default m_lastCivilianVehicleDestructionTimeStamp = -1.f;
+	private var m_civilianVehicleDestructionThreshold : Int32;
+	default m_civilianVehicleDestructionThreshold = 3;
+	private var m_civilianVehicleDestructionTimeout : Float;
+	default m_civilianVehicleDestructionTimeout = 60.f;
+	private var m_vehicleSpawnTickCaller : IntervalCaller;
+	private var m_ressuplyVehicleTicketCaller : IntervalCaller;
+	private var m_isVehicleDelayOver : Bool;
+	private var m_currentVehicleTicketCount : Int32;
+	private var m_failedVehicleSpawnAttempts : Int32;
+	private var m_codeRedReinforcement : Bool;
+	private var m_lastStarChangeTimeStamp : Float;
+	private var m_firstStarTimeStamp : Float;
+	private persistent var m_setCallRejectionIncrement : Bool;
+
+	public constexpr static function GetSystemName() : CName
+	{
+		return 'PreventionSystem';
+	}
+
+	public constexpr static function GetPreventionQuestDisabledFactName() : CName
+	{
+		return 'prevention_quest_disabled';
+	}
+
+	public constexpr static function GetPreventionQuestDisabledTweakContentTag() : CName
+	{
+		return 'PreventionGlobalQuest';
+	}
+
+	public constexpr static function GetPreventionQuestDisabledGenericQuestReason() : CName
+	{
+		return 'prevention_state_managed_by_quest_generic';
+	}
+
+	public static function GetPreventionHeatTableRecord( game : GameInstance ) : weak< PreventionHeatTable_Record >
+	{
+		var instance : PreventionSystem;
+		instance = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		return instance.m_preventionDataTable;
+	}
+
+	public static function UseCWMask( game : GameInstance )
+	{
+		var ps : PreventionSystem;
+		var preventionForceDeescalateRequest : PreventionForceDeescalateRequest;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		if( ( !( ps.IsChasingPlayer() ) || ps.GetHeatStage() == EPreventionHeatStage.Heat_5 ) || ps.GetStarState() == EStarState.Active )
+		{
+			return;
+		}
+		preventionForceDeescalateRequest = new PreventionForceDeescalateRequest;
+		preventionForceDeescalateRequest.fakeBlinkingDuration = TweakDBInterface.GetFloat( T"PreventionSystem.setup.forcedDeescalationUIStarsBlinkingDurationSeconds", 4.0 );
+		preventionForceDeescalateRequest.telemetryInfo = "MaskCyberware";
+		ps.QueueRequest( preventionForceDeescalateRequest );
+	}
+
+	public static function NotifyPolice( owner : GameObject )
+	{
+		var ps : PreventionSystem;
+		var puppetTarget : ScriptedPuppet;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( owner.GetGame() ).Get( 'PreventionSystem' ) ) );
+		puppetTarget = ( ( ScriptedPuppet )( owner ) );
+		if( ps.IsChasingPlayer() && ( ( ( ( puppetTarget.IsCrowd() || puppetTarget.IsVendor() ) || puppetTarget.IsCharacterCivilian() ) || puppetTarget.IsPrevention() ) || NPCManager.HasTag( puppetTarget.GetRecordID(), 'TriggerPrevention' ) ) )
+		{
+			ps.UpdateStarState();
+		}
+	}
+
+	private export override function OnAttach()
+	{
+		m_districtManager = new DistrictManager;
+		m_districtManager.Initialize( this );
+		m_agentRegistry = PoliceAgentRegistry.Construct( GetGame() );
+		SetIsPlayerMounted( VehicleComponent.IsMountedToVehicle( GetGame(), GameInstance.GetPlayerSystem( GetGame() ).GetLocalPlayerControlledGameObject() ) );
+		m_failsafePoliceRecordT1 = T"Character.prevention_unit_tier1";
+		m_failsafePoliceRecordT2 = T"Character.prevention_unit_tier2";
+		m_failsafePoliceRecordT3 = T"Character.prevention_unit_tier3";
+		SyncTweakDistrictData();
+		GetDataTableForCurrentHeat();
+		m_wantedBarBlackboard = GameInstance.GetBlackboardSystem( GetGame() ).Get( GetAllBlackboardDefs().UI_WantedBar );
+		RegisterToBBCalls();
+		ChangeAgentsAttitude( EAIAttitude.AIA_Neutral );
+		m_roadblockadeRespawnTickCaller = IntervalCaller.Create( this );
+		m_preventionTickCaller = IntervalCaller.Create( this );
+		m_vehicleSpawnTickCaller = IntervalCaller.Create( this );
+		m_ressuplyVehicleTicketCaller = IntervalCaller.Create( this );
+		ReevaluttatePreventionLockSources();
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionActive( false );
+		SetWantedLevelFact( 0 );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private export override function OnDetach()
+	{
+		if( IsChasingPlayer() )
+		{
+			GameInstance.GetTelemetrySystem( GetGameInstance() ).LogHeatLevelChanged( 0, "OnGameExit", ComputeTotalCrimeScoreForTelemetry( m_heatStage ) );
+		}
+		m_civilianVehicleDestructionCount = 0;
+		m_lastCivilianVehicleDestructionTimeStamp = -1.0;
+		UnregisterBBCalls();
+	}
+
+	private export override function OnRestored( saveVersion : Int32, gameVersion : Int32 )
+	{
+		m_districtManager.Initialize( this );
+		SyncTweakDistrictData();
+		GetDataTableForCurrentHeat();
+		ReevaluttatePreventionLockSources();
+		if( !( IsChasingPlayer() ) )
+		{
+			FastTravelSystem.RemoveFastTravelLock( 'PreventionSystem', GetGameInstance() );
+			ChangeAgentsAttitude( EAIAttitude.AIA_Neutral );
+			SendDropPointLockRequest( true );
+		}
+		UpdateStrategyPreCheckRequests();
+		SetWantedLevelFact( 0 );
+	}
+
+	public const function IsSystemEnabled() : Bool
+	{
+		return m_systemEnabled;
+	}
+
+	public const function IsSystemLocked() : Bool
+	{
+		return m_systemLocked;
+	}
+
+	public const function IsChasingPlayer() : Bool
+	{
+		return m_heatStage != EPreventionHeatStage.Heat_0;
+	}
+
+	public const function IsMaxTacDefeated() : Bool
+	{
+		return m_agentRegistry.GetMaxTacNPCCount() < 1;
+	}
+
+	private function IsPreventionInputLocked() : Bool
+	{
+		return m_inputlockDelayID != GetInvalidDelayID();
+	}
+
+	private export override function IsSavingLocked() : Bool
+	{
+		return IsChasingPlayer();
+	}
+
+	public const function GetLastAttackTime() : Float
+	{
+		return m_lastAttackTime;
+	}
+
+	public const function GetLastAttackTargetIDs() : array< EntityID >
+	{
+		return m_lastAttackTargetIDs;
+	}
+
+	public const function GetLastKnownPlayerPosition() : Vector4
+	{
+		return m_lastKnownPosition;
+	}
+
+	public const function GetLastKnownPlayerVehicle() : weak< VehicleObject >
+	{
+		return m_lastKnownVehicle;
+	}
+
+	public const function GetPlayer() : weak< PlayerPuppet >
+	{
+		return m_player;
+	}
+
+	public const function GetHeatStage() : EPreventionHeatStage
+	{
+		return m_heatStage;
+	}
+
+	public const function GetStarState() : EStarState
+	{
+		return m_starState;
+	}
+
+	public const function GetHeatStageAsInt() : Uint32
+	{
+		return ( ( Uint32 )( m_heatStage ) );
+	}
+
+	public const function IsShootingFromVehicleBlocked() : Bool
+	{
+		return m_blockShootingFromVehicle;
+	}
+
+	public const function GetGame() : GameInstance
+	{
+		return GetGameInstance();
+	}
+
+	public const function GetDamageToPlayerMultiplier() : Float
+	{
+		return m_damageToPlayerMultiplier;
+	}
+
+	public const function AreTurretsActive() : Bool
+	{
+		return m_temp_const_false;
+	}
+
+	public const function GetCurrentDistrict() : weak< District >
+	{
+		return m_districtManager.GetCurrentDistrict();
+	}
+
+	public const function GetLastStarChangeStartTimeStamp() : Float
+	{
+		return m_lastStarChangeTimeStamp;
+	}
+
+	public const function GetFirstStarTimeStamp() : Float
+	{
+		return m_firstStarTimeStamp;
+	}
+
+	public const function IsPlayerMounted() : Bool
+	{
+		return m_isPlayerMounted;
+	}
+
+	private function IsPlayerInQuestArea() : Bool
+	{
+		return ( ( ( Int32 )( m_playerHLS ) ) > ( ( Int32 )( gamePSMHighLevel.SceneTier1 ) ) ) && ( ( ( Int32 )( m_playerHLS ) ) <= ( ( Int32 )( gamePSMHighLevel.SceneTier5 ) ) );
+	}
+
+	private function SetIsPlayerMounted( isPlayerMounted : Bool )
+	{
+		m_isPlayerMounted = isPlayerMounted;
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).NotifyPlayerMounted( isPlayerMounted );
+	}
+
+	private function GetSoftDeescalationBlinkingStarsDuration() : Float
+	{
+		var duration : Float;
+		duration = TweakDBInterface.GetFloat( T"PreventionSystem.setup.softDeescalationUIStarsBlinkingDurationSeconds", 4.0 );
+		return duration;
+	}
+
+	private function GetSoftDeescalationGreyStarsDuration() : Float
+	{
+		var duration : Float;
+		duration = TweakDBInterface.GetFloat( T"PreventionSystem.setup.softDeescalationUIStarsGreyDurationSeconds", 5.0 );
+		return duration;
+	}
+
+	public const function IsPoliceUnawareOfThePlayerExactLocation() : Bool
+	{
+		if( m_beliefAccuracyTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			return true;
+		}
+		return GetStarState() != EStarState.Active;
+	}
+
+	private const function GetAgentRegistry() : PoliceAgentRegistry
+	{
+		if( m_agentRegistry )
+		{
+			return m_agentRegistry;
+		}
+		else
+		{
+			return PoliceAgentRegistry.Construct( GetGame() );
+		}
+	}
+
+	public static function CheckNPCSpawnedType( game : GameInstance, entityID : EntityID, spawnedTypeToCheck : DynamicVehicleType ) : Bool
+	{
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		return preventionSystem.m_agentRegistry.GetNPCSpawnedType( entityID ) == spawnedTypeToCheck;
+	}
+
+	public const function ShouldWorkSpotPoliceJoinChase( puppet : ScriptedPuppet ) : Bool
+	{
+		if( ( ( ( ( NPCManager.HasVisualTag( puppet, 'Inspector' ) || NPCManager.HasVisualTag( puppet, 'Investigator' ) ) || NPCManager.HasVisualTag( puppet, 'Agent' ) ) || NPCManager.HasVisualTag( puppet, 'Constable' ) ) || NPCManager.HasTag( puppet.GetRecordID(), 'AndroidNCPD_NotPrevention' ) ) || NPCManager.HasTag( puppet.GetRecordID(), 'HazmatNCPD_NotPrevention' ) )
+		{
+			return false;
+		}
+		else if( NPCManager.HasTag( puppet.GetRecordID(), 'MaxTac_NotPrevention' ) )
+		{
+			return GetHeatStage() == EPreventionHeatStage.Heat_5;
+		}
+		else
+		{
+			return ( GetHeatStageAsInt() > 2 ) && !( m_isPlayerMounted );
+		}
+	}
+
+	private const function ShouldSpawnPatrolVehicleWhenInSearch() : Bool
+	{
+		return !( GetAgentRegistry().GetSupportVehiclesWithStrategyCount( vehiclePoliceStrategy.InitialSearch ) < m_preventionDataTable.SpawnedEngagedCars() );
+	}
+
+	private function UpdateDataMatrixOnDistrictChange( district : weak< District > )
+	{
+		GetPreventionMatrixPresetForCurrentDistrict( district );
+		GetDataTableForCurrentHeat();
+	}
+
+	private function GetDataTableForCurrentHeat()
+	{
+		var heatDataRecord : PreventionHeatTable_Record;
+		if( !( m_preventionDataMatrix ) )
+		{
+			return;
+		}
+		heatDataRecord = GetDataTableForHeat( m_heatStage );
+		if( heatDataRecord )
+		{
+			m_preventionDataTable = heatDataRecord;
+		}
+	}
+
+	private const function GetDataTableForHeat( heatStage : EPreventionHeatStage ) : PreventionHeatTable_Record
+	{
+		switch( heatStage )
+		{
+			case EPreventionHeatStage.Heat_0:
+				return m_preventionDataMatrix.Heat0();
+			case EPreventionHeatStage.Heat_1:
+				return m_preventionDataMatrix.Heat1();
+			case EPreventionHeatStage.Heat_2:
+				return m_preventionDataMatrix.Heat2();
+			case EPreventionHeatStage.Heat_3:
+				return m_preventionDataMatrix.Heat3();
+			case EPreventionHeatStage.Heat_4:
+				return m_preventionDataMatrix.Heat4();
+			case EPreventionHeatStage.Heat_5:
+				return m_preventionDataMatrix.Heat5();
+			default:
+				return NULL;
+		}
+	}
+
+	public const function GetPreventionInputLockTime() : Float
+	{
+		if( m_preventionPreset )
+		{
+			return m_preventionPreset.InputLockTime();
+		}
+		return 3.0;
+	}
+
+	public const function GetInputLockOverrideThreshold() : Int32
+	{
+		if( m_preventionPreset )
+		{
+			return m_preventionPreset.InputLockOverrideThreshold();
+		}
+		return 4;
+	}
+
+	public const function GetSpawnOriginMaxDistance() : Float
+	{
+		if( m_preventionPreset )
+		{
+			return m_preventionPreset.SpawnOriginMaxDistance();
+		}
+		return 30.0;
+	}
+
+	private function GetDataTableForCurrentHeat( heatStage : EPreventionHeatStage, characterRecords : ref< array< TweakDBID > >, out spawnRange : Vector2, out unitsCount : Uint32, out spawnInterval : Float, out hasRecon : Bool ) : Bool
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		var characterRecordPool : array< weak< PreventionUnitPoolData_Record > >;
+		var characterRecord : TweakDBID;
+		var i : Int32;
+		characterRecords.Clear();
+		if( m_preventionPreset )
+		{
+			if( ( m_reconPhaseEnabled && !( m_reconDeployed ) ) && heatStage == EPreventionHeatStage.Heat_1 )
+			{
+				heatData = m_preventionPreset.Recon();
+			}
+			if( !( heatData ) )
+			{
+				switch( heatStage )
+				{
+					case EPreventionHeatStage.Heat_0:
+						return false;
+					case EPreventionHeatStage.Heat_1:
+						heatData = m_preventionPreset.Heat1();
+					break;
+					case EPreventionHeatStage.Heat_2:
+						heatData = m_preventionPreset.Heat2();
+					break;
+					case EPreventionHeatStage.Heat_3:
+						heatData = m_preventionPreset.Heat3();
+					break;
+					case EPreventionHeatStage.Heat_4:
+						heatData = m_preventionPreset.Heat4();
+					break;
+					case EPreventionHeatStage.Heat_5:
+						heatData = m_preventionPreset.Heat5();
+					break;
+					default:
+						return false;
+				}
+			}
+			else
+			{
+				hasRecon = true;
+			}
+			if( heatData && ( heatData.GetUnitRecordsPoolCount() > 0 ) )
+			{
+				heatData.UnitRecordsPool( characterRecordPool );
+				unitsCount = ( ( Uint32 )( heatData.UnitsCount() ) );
+				spawnRange = heatData.SpawnRange();
+				spawnInterval = MaxF( heatData.SpawnInterval(), 0.0 );
+				for( i = 0; i < ( ( Int32 )( unitsCount ) ); i += 1 )
+				{
+					if( GetCharacterRecordFromPool( characterRecordPool, characterRecord ) )
+					{
+						characterRecords.PushBack( characterRecord );
+					}
+					else
+					{
+						break;
+					}
+				}
+				if( characterRecords.Size() > 0 )
+				{
+					return true;
+				}
+			}
+		}
+		switch( heatStage )
+		{
+			case EPreventionHeatStage.Heat_0:
+				return false;
+			case EPreventionHeatStage.Heat_1:
+			{
+				characterRecords.PushBack( m_failsafePoliceRecordT1 );
+				unitsCount = ( ( Uint32 )( 2 ) );
+				spawnRange.X = 45.0;
+				spawnRange.Y = 65.0;
+				break;
+			}
+			case EPreventionHeatStage.Heat_2:
+			{
+				characterRecords.PushBack( m_failsafePoliceRecordT2 );
+				unitsCount = ( ( Uint32 )( 2 ) );
+				spawnRange.X = 45.0;
+				spawnRange.Y = 65.0;
+				break;
+			}
+			case EPreventionHeatStage.Heat_3:
+			case EPreventionHeatStage.Heat_4:
+			case EPreventionHeatStage.Heat_5:
+			{
+				characterRecords.PushBack( m_failsafePoliceRecordT3 );
+				unitsCount = ( ( Uint32 )( 2 ) );
+				spawnRange.X = 45.0;
+				spawnRange.Y = 65.0;
+				break;
+			}
+			;
+			default:
+				break;
+		}
+		if( characterRecords.Size() > 0 )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private function GetVehicleRecordFromPool( const pool : ref< array< weak< PreventionVehiclePoolData_Record > > >, out outVehicleRecord : weak< Vehicle_Record > ) : Bool
+	{
+		var i : Int32;
+		var weightSum, accumulator, randomVal : Float;
+		var vehicleRecord : weak< Vehicle_Record >;
+		randomVal = 0.0;
+		for( i = 0; i < pool.Size(); i += 1 )
+		{
+			weightSum += pool[ i ].Weight();
+		}
+		randomVal = RandRangeF( 0.0, weightSum );
+		for( i = 0; i < pool.Size(); i += 1 )
+		{
+			accumulator += pool[ i ].Weight();
+			if( randomVal <= accumulator )
+			{
+				vehicleRecord = pool[ i ].VehicleRecord();
+				if( vehicleRecord )
+				{
+					outVehicleRecord = vehicleRecord;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private function GetCharacterRecordsFromPool( const recordsCount : Int32, const pool : ref< array< weak< PreventionUnitPoolData_Record > > >, recordIDs : ref< array< TweakDBID > > ) : Bool
+	{
+		var count : Int32;
+		var recordID : TweakDBID;
+		count = 0;
+		if( pool.Size() <= 0 )
+		{
+			return false;
+		}
+		while( count < recordsCount )
+		{
+			if( GetCharacterRecordFromPool( pool, recordID ) )
+			{
+				recordIDs.PushBack( recordID );
+				count += 1;
+			}
+		}
+		return true;
+	}
+
+	private function GetCharacterRecordFromPool( const pool : ref< array< weak< PreventionUnitPoolData_Record > > >, out recordID : TweakDBID ) : Bool
+	{
+		var i : Int32;
+		var weightSum, accumulator, randomVal : Float;
+		var characterRecord : weak< Character_Record >;
+		randomVal = 0.0;
+		for( i = 0; i < pool.Size(); i += 1 )
+		{
+			weightSum += pool[ i ].Weight();
+		}
+		randomVal = RandRangeF( 0.0, weightSum );
+		for( i = 0; i < pool.Size(); i += 1 )
+		{
+			accumulator += pool[ i ].Weight();
+			if( randomVal < accumulator )
+			{
+				characterRecord = pool[ i ].CharacterRecord();
+				if( characterRecord )
+				{
+					recordID = characterRecord.GetID();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private function TryGetRoadblockDataFromHeatStage( heatStage : EPreventionHeatStage, out outVehicleRecord : weak< Vehicle_Record >, out spawnDistanceRange : Vector2 ) : Bool
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		var vehicleRecordPool : array< weak< PreventionVehiclePoolData_Record > >;
+		if( m_preventionPreset )
+		{
+			switch( heatStage )
+			{
+				case EPreventionHeatStage.Heat_3:
+					heatData = m_preventionPreset.Heat3();
+				break;
+				case EPreventionHeatStage.Heat_4:
+					heatData = m_preventionPreset.Heat4();
+				break;
+				case EPreventionHeatStage.Heat_5:
+					heatData = m_preventionPreset.Heat5();
+				break;
+				default:
+					return false;
+			}
+		}
+		if( heatData && ( heatData.GetVehicleRecordPoolCount() > 0 ) )
+		{
+			heatData.VehicleRecordPool( vehicleRecordPool );
+			GetVehicleRecordFromPool( vehicleRecordPool, outVehicleRecord );
+			spawnDistanceRange = heatData.RoadblockadeSpawnRange();
+		}
+		return TDBID.IsValid( outVehicleRecord.GetID() );
+	}
+
+	private function TryGetVehicleDataFromHeatStage( heatStage : EPreventionHeatStage, out outVehicleRecord : weak< Vehicle_Record > ) : Bool
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		var vehicleRecordPool : array< weak< PreventionVehiclePoolData_Record > >;
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( m_preventionPreset )
+		{
+			switch( heatStage )
+			{
+				case EPreventionHeatStage.Heat_0:
+					return false;
+				case EPreventionHeatStage.Heat_1:
+					heatData = m_preventionPreset.Heat1();
+				break;
+				case EPreventionHeatStage.Heat_2:
+					heatData = m_preventionPreset.Heat2();
+				break;
+				case EPreventionHeatStage.Heat_3:
+					heatData = m_preventionPreset.Heat3();
+				break;
+				case EPreventionHeatStage.Heat_4:
+					heatData = m_preventionPreset.Heat4();
+				break;
+				case EPreventionHeatStage.Heat_5:
+					heatData = m_preventionPreset.Heat5();
+				break;
+				default:
+					return false;
+			}
+			if( heatData && ( heatData.GetVehicleRecordPoolCount() > 0 ) )
+			{
+				if( questSystem && ( questSystem.GetFact( 'q302_ps_motorbikes_disabled' ) == 1 ) )
+				{
+					heatData.QuestVehicleRecordPool( vehicleRecordPool );
+				}
+				else
+				{
+					heatData.VehicleRecordPool( vehicleRecordPool );
+				}
+				GetVehicleRecordFromPool( vehicleRecordPool, outVehicleRecord );
+			}
+		}
+		return TDBID.IsValid( outVehicleRecord.GetID() );
+	}
+
+	private function GetHeatData() : weak< PreventionHeatData_Record >
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		if( m_preventionPreset )
+		{
+			switch( GetHeatStage() )
+			{
+				case EPreventionHeatStage.Heat_1:
+					heatData = m_preventionPreset.Heat1();
+				break;
+				case EPreventionHeatStage.Heat_2:
+					heatData = m_preventionPreset.Heat2();
+				break;
+				case EPreventionHeatStage.Heat_3:
+					heatData = m_preventionPreset.Heat3();
+				break;
+				case EPreventionHeatStage.Heat_4:
+					heatData = m_preventionPreset.Heat4();
+				break;
+				case EPreventionHeatStage.Heat_5:
+					heatData = m_preventionPreset.Heat5();
+				break;
+				case EPreventionHeatStage.Heat_0:
+				default:
+					break;
+			}
+		}
+		return heatData;
+	}
+
+	private function TryGetUnitDataFromVehicleRecord( vehicleRecord : weak< Vehicle_Record >, const recordsCount : Int32, recordIDs : ref< array< TweakDBID > > ) : Bool
+	{
+		var i, j : Int32;
+		var unitRecordPool : array< weak< Character_Record > >;
+		if( vehicleRecord && ( vehicleRecord.GetPreventionPassengersCount() > 0 ) )
+		{
+			vehicleRecord.PreventionPassengers( unitRecordPool );
+			while( i < recordsCount )
+			{
+				j = RandRange( 0, unitRecordPool.Size() );
+				recordIDs.PushBack( unitRecordPool[ j ].GetID() );
+				i += 1;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	private function TryGetUnitDataFromHeatStage( heatStage : EPreventionHeatStage, const recordsCount : Int32, recordIDs : ref< array< TweakDBID > > ) : Bool
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		var unitRecordPool : array< weak< PreventionUnitPoolData_Record > >;
+		heatData = GetHeatData();
+		if( heatData && ( heatData.GetUnitRecordsPoolCount() > 0 ) )
+		{
+			heatData.UnitRecordsPool( unitRecordPool );
+			return GetCharacterRecordsFromPool( recordsCount, unitRecordPool, recordIDs );
+		}
+		return false;
+	}
+
+	private function TryGetDistinctUnitDataFromHeatStage( recordIDs : ref< array< TweakDBID > > ) : Bool
+	{
+		var heatData : weak< PreventionHeatData_Record >;
+		var unitRecordPool : array< weak< PreventionUnitPoolData_Record > >;
+		var i : Int32;
+		heatData = GetHeatData();
+		if( heatData && ( heatData.GetUnitRecordsPoolCount() > 0 ) )
+		{
+			heatData.UnitRecordsPool( unitRecordPool );
+			for( i = 0; i < unitRecordPool.Size(); i += 1 )
+			{
+				recordIDs.PushBack( unitRecordPool[ i ].CharacterRecord().GetID() );
+			}
+			return recordIDs.Size() > 0;
+		}
+		return false;
+	}
+
+	private function GetFindSpawnPointsOrigin( out pos : Vector4, out dir : Vector4 )
+	{
+		var vehicle : weak< VehicleObject >;
+		var vehSpeed : Float;
+		var offsetDist : Float;
+		dir = m_player.GetWorldForward();
+		if( VehicleComponent.GetVehicle( m_player.GetGame(), m_player, vehicle ) )
+		{
+			vehSpeed = vehicle.GetBlackboard().GetFloat( GetAllBlackboardDefs().Vehicle.SpeedValue );
+			if( vehSpeed > 0.5 )
+			{
+				offsetDist = LerpF( vehSpeed / 30.0, 20.0, 60.0, true );
+				pos = pos + ( offsetDist * vehicle.GetWorldForward() );
+				dir *= -1.0;
+			}
+		}
+		else
+		{
+			pos = GetLastKnownPlayerPosition();
+		}
+	}
+
+	private function GetFindSpawnPointsOriginsData( spawnOriginsPositions : ref< array< Vector4 > > )
+	{
+		var vehicle : weak< VehicleObject >;
+		var vehSpeed : Float;
+		var offsetDist : Float;
+		var playerPos : Vector4;
+		var viewerPos : Vector4;
+		var currentOriginPosition : Vector4;
+		var distanceToCheck : Float;
+		var sortedResults : array< HandleWithValue >;
+		var singleSortedResult : HandleWithValue;
+		var pointData : PointData;
+		var i : Int32;
+		var lastKnownPlayerPos : Vector4;
+		lastKnownPlayerPos = GetLastKnownPlayerPosition();
+		playerPos = m_player.GetWorldPosition();
+		if( VehicleComponent.GetVehicle( m_player.GetGame(), m_player, vehicle ) )
+		{
+			vehSpeed = vehicle.GetBlackboard().GetFloat( GetAllBlackboardDefs().Vehicle.SpeedValue );
+			if( vehSpeed > 0.5 )
+			{
+				offsetDist = LerpF( vehSpeed / 30.0, 20.0, 60.0, true );
+				currentOriginPosition = playerPos + ( offsetDist * vehicle.GetWorldForward() );
+			}
+			else
+			{
+				currentOriginPosition = playerPos;
+			}
+			spawnOriginsPositions.PushBack( currentOriginPosition );
+		}
+		else
+		{
+			currentOriginPosition = playerPos;
+			spawnOriginsPositions.PushBack( currentOriginPosition );
+			for( i = 0; i < m_viewers.Size(); i += 1 )
+			{
+				viewerPos = m_viewers[ i ].GetWorldPosition();
+				distanceToCheck = Vector4.Distance( playerPos, viewerPos );
+				if( distanceToCheck <= GetSpawnOriginMaxDistance() )
+				{
+					pointData = new PointData;
+					pointData.position = viewerPos;
+					singleSortedResult.value = distanceToCheck;
+					singleSortedResult.handle = pointData;
+					sortedResults.PushBack( singleSortedResult );
+				}
+			}
+			if( !( Vector4.IsZero( lastKnownPlayerPos ) ) && lastKnownPlayerPos != playerPos )
+			{
+				distanceToCheck = Vector4.Distance( playerPos, lastKnownPlayerPos );
+				if( distanceToCheck <= GetSpawnOriginMaxDistance() )
+				{
+					pointData = new PointData;
+					pointData.position = lastKnownPlayerPos;
+					singleSortedResult.value = distanceToCheck;
+					singleSortedResult.handle = pointData;
+					sortedResults.PushBack( singleSortedResult );
+				}
+			}
+			if( sortedResults.Size() > 0 )
+			{
+				SortHandleWithValueArray( sortedResults );
+				for( i = 0; i < sortedResults.Size(); i += 1 )
+				{
+					pointData = ( ( PointData )( sortedResults[ i ].handle ) );
+					if( pointData )
+					{
+						currentOriginPosition = pointData.position;
+						spawnOriginsPositions.PushBack( currentOriginPosition );
+					}
+				}
+			}
+		}
+	}
+
+	private function UpdateTotalCrimeScore( request : PreventionDamageRequest )
+	{
+		if( request.isTargetVehicle )
+		{
+			CalculateCrimeScoreForVehicle( request );
+		}
+		else
+		{
+			CalculateCrimeScoreForNPC( request );
+		}
+	}
+
+	private function CalculateCrimeScoreForNPC( request : PreventionDamageRequest )
+	{
+		var score : Float;
+		if( !( request.isTargetPrevention ) )
+		{
+			if( request.isTargetKilled )
+			{
+				m_totalCrimeScore += ( m_preventionDataTable.HeatKillCiv() * m_crimeScoreMultiplierByQuest );
+				return;
+			}
+			switch( request.attackType )
+			{
+				case gamedataAttackType.Melee:
+				case gamedataAttackType.QuickMelee:
+				case gamedataAttackType.StrongMelee:
+				{
+					score = m_preventionDataTable.HeatMeleAttackCiv();
+					break;
+				}
+				;
+				case gamedataAttackType.Direct:
+				case gamedataAttackType.Ranged:
+				case gamedataAttackType.Thrown:
+				{
+					score = m_preventionDataTable.HeatRangeAttackCiv();
+					break;
+				}
+				;
+				case gamedataAttackType.Hack:
+				{
+					score = m_preventionDataTable.HeatQuickHackCiv();
+					break;
+				}
+				case gamedataAttackType.PressureWave:
+				case gamedataAttackType.Explosion:
+				{
+					score = m_preventionDataTable.HeatExplosionCiv();
+					break;
+				}
+				;
+				default:
+				{
+					score = request.damageDealtPercentValue / 2.0;
+					break;
+				}
+			}
+		}
+		else
+		{
+			if( request.isTargetKilled )
+			{
+				UnregisterPreventionUnit( request.targetID );
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).MarkAsDead( request.targetID );
+				m_totalCrimeScore += ( m_preventionDataTable.HeatKillPolice() * m_crimeScoreMultiplierByQuest );
+				return;
+			}
+			switch( request.attackType )
+			{
+				case gamedataAttackType.Melee:
+				case gamedataAttackType.QuickMelee:
+				case gamedataAttackType.StrongMelee:
+				{
+					if( TryMarkAsAttackedByPlayer( request.targetID ) )
+					{
+						score = m_preventionDataTable.HeatMeleAttackPolice();
+					}
+					break;
+				}
+				;
+				case gamedataAttackType.Direct:
+				case gamedataAttackType.Ranged:
+				case gamedataAttackType.Thrown:
+				{
+					if( TryMarkAsAttackedByPlayer( request.targetID ) )
+					{
+						score = m_preventionDataTable.HeatRangeAttackPolice();
+					}
+					break;
+				}
+				;
+				case gamedataAttackType.Hack:
+				{
+					score = m_preventionDataTable.HeatQuickHackPolice();
+					break;
+				}
+				case gamedataAttackType.PressureWave:
+				case gamedataAttackType.Explosion:
+				{
+					score = m_preventionDataTable.HeatExplosionPolice();
+					break;
+				}
+				;
+				default:
+				{
+					score = request.damageDealtPercentValue;
+					break;
+				}
+			}
+		}
+		m_totalCrimeScore += ( score * m_crimeScoreMultiplierByQuest );
+	}
+
+	private function CalculateCrimeScoreForVehicle( request : PreventionDamageRequest )
+	{
+		var score : Float;
+		if( request.isTargetPrevention )
+		{
+			score = request.damageDealtPercentValue * m_preventionDataTable.PoliceVehicleCrimeScoreMultiplier();
+		}
+		else
+		{
+			score = request.damageDealtPercentValue * m_preventionDataTable.CivVehicleCrimeScoreMultiplier();
+		}
+		m_totalCrimeScore += ( score * m_crimeScoreMultiplierByQuest );
+	}
+
+	private function TryMarkAsAttackedByPlayer( targetId : EntityID ) : Bool
+	{
+		var policeAgent : NPCAgent;
+		if( !( m_agentRegistry.TryGetNPCAgentByID( targetId, policeAgent ) ) || policeAgent.hasBeenAttackedByPlayer )
+		{
+			return false;
+		}
+		policeAgent.hasBeenAttackedByPlayer = true;
+		return true;
+	}
+
+	private function GetDistrictMultiplier() : Float
+	{
+		if( m_districtManager )
+		{
+			return m_districtMultiplier;
+		}
+		return 1.0;
+	}
+
+	protected function SetLastAttackTime( value : Float )
+	{
+		m_lastAttackTime = value;
+	}
+
+	protected function UpdateLastAttackTargetIDs( value : EntityID )
+	{
+		m_lastAttackTargetIDs.PushBack( value );
+	}
+
+	protected function ClearLastAttackTargetIDs()
+	{
+		m_lastAttackTargetIDs.Clear();
+	}
+
+	protected function SetLastKnownPlayerPosition( value : Vector4 )
+	{
+		m_lastKnownPosition = value;
+	}
+
+	protected function SetSystemLock( value : Bool )
+	{
+		m_systemLocked = value;
+	}
+
+	protected function SetCrimeScoreMultiplier( value : Float )
+	{
+		m_crimeScoreMultiplierByQuest = value;
+	}
+
+	protected function SetVehicleSpawnBlockSide( value : EVehicleSpawnBlockSide )
+	{
+		m_vehicleSpawnBlockSide = value;
+	}
+
+	protected function SetDamageToPlayerMultiplier( value : Float )
+	{
+		m_damageToPlayerMultiplier = value;
+	}
+
+	protected function SetChaseMultiplier( value : Float )
+	{
+		m_chaseMultiplier = value;
+	}
+
+	protected function SetBlockVehicleSpawn( value : Bool )
+	{
+		m_blockVehicleSpawnByQuest = value;
+	}
+
+	protected function SetBlockOnFootSpawn( value : Bool )
+	{
+		m_blockOnFootSpawnByQuest = value;
+	}
+
+	protected function SetBlockShootingFromVehicle( value : Bool )
+	{
+		m_blockShootingFromVehicle = value;
+	}
+
+	protected function SetBlockReconDroneSpawn( value : Bool )
+	{
+		m_blockReconDroneSpawnByQuest = value;
+	}
+
+	protected function SetMinMaxResetHeatLevels( MinLevel : Int32, MaxLevel : Int32, isDefault : Bool )
+	{
+		m_minHeatLevel = IntToEPreventionHeatStage( MinLevel );
+		m_maxHeatLevel = IntToEPreventionHeatStage( MaxLevel );
+		m_defaultHeatLevels = isDefault;
+	}
+
+	protected function SetStarStateUI( newState : EStarState )
+	{
+		if( m_shouldForceStarStateUIToActive )
+		{
+			if( newState != EStarState.Active )
+			{
+				return;
+			}
+		}
+		if( m_starState != newState )
+		{
+			m_starStateUIChanged = true;
+		}
+		else
+		{
+			return;
+		}
+		PoliceRadioScriptSystem.UpdatePoliceRadioOnPlayerVisibilityChanged( GetGameInstance(), GetLastStarChangeStartTimeStamp(), m_heatStage, m_starState, newState );
+		SetWantedStateFact( newState );
+		m_starState = newState;
+		PreventionSystemHackerLoop.UpdateStarStateUI( GetGameInstance() );
+		if( m_wantedBarBlackboard )
+		{
+			switch( newState )
+			{
+				case EStarState.Active:
+					m_wantedBarBlackboard.SetName( GetAllBlackboardDefs().UI_WantedBar.CurrentChaseState, 'Active', true );
+				break;
+				case EStarState.Searching:
+					m_wantedBarBlackboard.SetName( GetAllBlackboardDefs().UI_WantedBar.CurrentChaseState, 'Searching', true );
+				break;
+				case EStarState.Blinking:
+					m_wantedBarBlackboard.SetName( GetAllBlackboardDefs().UI_WantedBar.CurrentChaseState, 'Dropping', true );
+				break;
+				case EStarState.Default:
+					m_wantedBarBlackboard.SetName( GetAllBlackboardDefs().UI_WantedBar.CurrentChaseState, 'Default', true );
+				break;
+				default:
+					m_wantedBarBlackboard.SetName( GetAllBlackboardDefs().UI_WantedBar.CurrentChaseState, 'Default', true );
+				break;
+			}
+		}
+	}
+
+	private function GetWantedLevelFact() : Int32
+	{
+		var wantedLevel : Int32;
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		wantedLevel = questSystem.GetFact( 'wanted_level' );
+		return wantedLevel;
+	}
+
+	private function SetWantedLevelFact( level : Int32 )
+	{
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( questSystem )
+		{
+			questSystem.SetFact( 'wanted_level', level );
+		}
+	}
+
+	private function SetWantedStateFact( state : EStarState )
+	{
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( questSystem )
+		{
+			if( state == EStarState.Active )
+			{
+				questSystem.SetFact( 'wanted_chase_active', 1 );
+			}
+			else
+			{
+				questSystem.SetFact( 'wanted_chase_active', 0 );
+			}
+		}
+	}
+
+	private function SetAgentsSupport( hasSupport : Bool )
+	{
+		var i : Int32;
+		var i1 : Int32;
+		for( i = 0; i < m_agentGroupsList.Size(); i += 1 )
+		{
+			for( i1 = 0; i1 < m_agentGroupsList[ i ].GetAgentsNumber(); i1 += 1 )
+			{
+				SetSingleAgentSupport( m_agentGroupsList[ i ].GetAgetntByIndex( i1 ), hasSupport );
+			}
+		}
+	}
+
+	private function SetSingleAgentSupport( ps : weak< PersistentState >, hasSupport : Bool )
+	{
+		var evt : SecuritySystemSupport;
+		if( !( PersistentID.IsDefined( ps.GetID() ) ) )
+		{
+			return;
+		}
+		evt = new SecuritySystemSupport;
+		evt.supportGranted = hasSupport;
+		GameInstance.GetPersistencySystem( GetGameInstance() ).QueuePSEvent( ps.GetID(), ps.GetClassName(), evt );
+	}
+
+	public const function CanPreventionReactToInput() : Bool
+	{
+		if( !( m_player ) )
+		{
+			return false;
+		}
+		if( ( !( IsSystemEnabled() ) || IsMultiplayer() ) || IsSystemLocked() )
+		{
+			return false;
+		}
+		if( m_securityAreaResetCheck )
+		{
+			return false;
+		}
+		if( ( ( ( Int32 )( m_playerHLS ) ) > ( ( Int32 )( gamePSMHighLevel.SceneTier1 ) ) ) && ( ( ( Int32 )( m_playerHLS ) ) <= ( ( Int32 )( gamePSMHighLevel.SceneTier5 ) ) ) )
+		{
+			return false;
+		}
+		if( StatusEffectSystem.ObjectHasStatusEffectWithTag( m_player, 'VehicleCombat' ) )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private function RegisterToBBCalls()
+	{
+		if( !( m_onPlayerChoiceCallID ) )
+		{
+			m_onPlayerChoiceCallID = GameInstance.GetBlackboardSystem( GetGame() ).Get( GetAllBlackboardDefs().UIInteractions ).RegisterListenerVariant( GetAllBlackboardDefs().UIInteractions.LastAttemptedChoice, this, 'OnPlayerChoice' );
+		}
+		m_playerAttachedCallbackID = GameInstance.GetPlayerSystem( GetGameInstance() ).RegisterPlayerPuppetAttachedCallback( this, 'PlayerAttachedCallback' );
+		m_playerDetachedCallbackID = GameInstance.GetPlayerSystem( GetGameInstance() ).RegisterPlayerPuppetDetachedCallback( this, 'PlayerDetachedCallback' );
+	}
+
+	private function UnregisterBBCalls()
+	{
+		if( m_onPlayerChoiceCallID )
+		{
+			GameInstance.GetBlackboardSystem( GetGame() ).Get( GetAllBlackboardDefs().UIInteractions ).UnregisterListenerVariant( GetAllBlackboardDefs().UIInteractions.LastAttemptedChoice, m_onPlayerChoiceCallID );
+		}
+		GameInstance.GetPlayerSystem( GetGameInstance() ).UnregisterPlayerPuppetAttachedCallback( m_playerAttachedCallbackID );
+		GameInstance.GetPlayerSystem( GetGameInstance() ).UnregisterPlayerPuppetDetachedCallback( m_playerDetachedCallbackID );
+	}
+
+	private export function PlayerAttachedCallback( playerPuppet : GameObject )
+	{
+		var psmBlackboard : IBlackboard;
+		m_player = ( ( PlayerPuppet )( playerPuppet ) );
+		if( !( m_player ) )
+		{
+			return;
+		}
+		psmBlackboard = GameInstance.GetBlackboardSystem( GetGame() ).GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		if( psmBlackboard )
+		{
+			m_playerHLSID = psmBlackboard.RegisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.HighLevel, this, 'OnPlayerHLSChange', true );
+			m_playerVehicleStateID = psmBlackboard.RegisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle, this, 'OnPlayerVehicleStateChange', true );
+		}
+		else
+		{
+			m_playerHLSID = NULL;
+			m_playerVehicleStateID = NULL;
+		}
+	}
+
+	private export function PlayerDetachedCallback( playerPuppet : GameObject )
+	{
+		var psmBlackboard : IBlackboard;
+		m_player = NULL;
+		psmBlackboard = GameInstance.GetBlackboardSystem( GetGame() ).GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		if( psmBlackboard )
+		{
+			if( m_playerHLSID )
+			{
+				psmBlackboard.UnregisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.HighLevel, m_playerHLSID );
+			}
+			if( m_playerVehicleStateID )
+			{
+				psmBlackboard.UnregisterListenerInt( GetAllBlackboardDefs().PlayerStateMachine.Vehicle, m_playerVehicleStateID );
+			}
+		}
+	}
+
+	protected event OnPlayerHLSChange( value : Int32 )
+	{
+		m_playerHLS = ( ( gamePSMHighLevel )( value ) );
+		ReevaluateSecurityAreaReset();
+	}
+
+	protected event OnPlayerVehicleStateChange( value : Int32 )
+	{
+		m_playerVehicleState = ( ( gamePSMVehicle )( value ) );
+	}
+
+	private function StartTransitiontoGreyStateTimerRequest()
+	{
+		var request : PreventionTransitionToGreyStateTimerRequest;
+		if( m_transitionToGreyStateDelayID == DelayID.GetInvalidDelayID() )
+		{
+			request = new PreventionTransitionToGreyStateTimerRequest;
+			m_transitionToGreyStateDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, 2.5 );
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugEvents();
+		}
+	}
+
+	private function CancelTransitiontoGreyStateTimerRequest()
+	{
+		if( m_transitionToGreyStateDelayID != DelayID.GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_transitionToGreyStateDelayID );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelCallback( m_transitionToGreyStateDelayID );
+			m_transitionToGreyStateDelayID = GetInvalidDelayID();
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function ResetTransitiontoGreyStateTimerRequest()
+	{
+		if( m_transitionToGreyStateDelayID != DelayID.GetInvalidDelayID() )
+		{
+			CancelTransitiontoGreyStateTimerRequest();
+			StartTransitiontoGreyStateTimerRequest();
+		}
+	}
+
+	private function StartStateBufferTimerRequest()
+	{
+		var request : PreventionStarStateBufferTimerRequest;
+		if( m_starStateBufferTimerDelayID == DelayID.GetInvalidDelayID() )
+		{
+			request = new PreventionStarStateBufferTimerRequest;
+			m_starStateBufferTimerDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, m_preventionDataTable.StateBufferTimer() );
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugEvents();
+		}
+	}
+
+	private function CancelStateBufferTimerRequest()
+	{
+		if( m_starStateBufferTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_starStateBufferTimerDelayID );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelCallback( m_starStateBufferTimerDelayID );
+			m_starStateBufferTimerDelayID = GetInvalidDelayID();
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function ResetStateBufferTimerRequest()
+	{
+		if( m_starStateBufferTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			CancelStateBufferTimerRequest();
+			StartStateBufferTimerRequest();
+		}
+	}
+
+	private function UpdateStateBufferTimerRequest()
+	{
+		var timeRemain : Float;
+		var increment : Float;
+		var request : PreventionStarStateBufferTimerRequest;
+		increment = 5.0;
+		if( m_starStateBufferTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			timeRemain = GameInstance.GetDelaySystem( GetGameInstance() ).GetRemainingDelayTime( m_starStateBufferTimerDelayID );
+			timeRemain = MinF( m_preventionDataTable.StateBufferTimer(), timeRemain + increment );
+			CancelStateBufferTimerRequest();
+			request = new PreventionStarStateBufferTimerRequest;
+			m_starStateBufferTimerDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, timeRemain );
+		}
+	}
+
+	private function StartSearchingTimerRequest()
+	{
+		var request : PreventionSearchingStatusRequest;
+		var duration : Float;
+		if( m_searchingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			return;
+		}
+		if( GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).IsPlayerInSoftDeescalationTrigger() )
+		{
+			duration = GetSoftDeescalationGreyStarsDuration();
+		}
+		else
+		{
+			duration = m_preventionDataTable.StateGreyStarTime();
+		}
+		request = new PreventionSearchingStatusRequest;
+		m_searchingStatusDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, duration );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugEvents();
+		}
+	}
+
+	private function CancelSearchingTimerRequest()
+	{
+		if( m_searchingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_searchingStatusDelayID );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelCallback( m_searchingStatusDelayID );
+			m_searchingStatusDelayID = GetInvalidDelayID();
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function ResetSearchingTimerRequest()
+	{
+		if( m_searchingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			CancelSearchingTimerRequest();
+			StartSearchingTimerRequest();
+		}
+	}
+
+	private function UpdateSearchingTimerRequest()
+	{
+		var timeRemain : Float;
+		var increment : Float;
+		var request : PreventionSearchingStatusRequest;
+		increment = 3.0;
+		if( m_searchingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			timeRemain = GameInstance.GetDelaySystem( GetGameInstance() ).GetRemainingDelayTime( m_searchingStatusDelayID );
+			timeRemain = MinF( m_preventionDataTable.StateGreyStarTime(), timeRemain + increment );
+			CancelSearchingTimerRequest();
+			request = new PreventionSearchingStatusRequest;
+			m_searchingStatusDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, timeRemain );
+		}
+	}
+
+	private function StartBlinkingTimerRequest()
+	{
+		var duration : Float;
+		var telemetryInfo : String;
+		if( GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).IsPlayerInSoftDeescalationTrigger() )
+		{
+			duration = GetSoftDeescalationBlinkingStarsDuration();
+			telemetryInfo = "QuestPreventionTriggerSoftDeescalation";
+		}
+		else
+		{
+			duration = m_preventionDataTable.StateBlinkingStarTime();
+			telemetryInfo = "SystemTimeOut";
+		}
+		StartBlinkingTimerRequest( duration, false, telemetryInfo );
+	}
+
+	private function StartBlinkingTimerRequest( duration : Float, lockWhileBlinking : Bool, telemetryInfo : String )
+	{
+		var request : PreventionBlinkingStatusRequest;
+		if( lockWhileBlinking )
+		{
+			TogglePreventionSystem( false );
+		}
+		if( m_blinkingStatusDelayID == DelayID.GetInvalidDelayID() )
+		{
+			request = new PreventionBlinkingStatusRequest;
+			request.m_lockPreventionSystemWhileBlinking = lockWhileBlinking;
+			request.m_telemetryInfo = telemetryInfo;
+			m_blinkingStatusDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, duration );
+			m_wantedBarBlackboard.SetFloat( GetAllBlackboardDefs().UI_WantedBar.BlinkingStarsDurationTime, duration, true );
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function CancelBlinkingTimerRequest()
+	{
+		if( m_blinkingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_blinkingStatusDelayID );
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelCallback( m_blinkingStatusDelayID );
+			m_blinkingStatusDelayID = GetInvalidDelayID();
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function ResetBlinkingTimerRequest()
+	{
+		if( m_blinkingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			CancelBlinkingTimerRequest();
+			StartBlinkingTimerRequest();
+		}
+	}
+
+	private function StartCrimescoreDropTimerRequest()
+	{
+		var request : PreventionCrimeScoreZeroRequest;
+		if( m_crimescoreTimerDelayID == DelayID.GetInvalidDelayID() )
+		{
+			request = new PreventionCrimeScoreZeroRequest;
+			m_crimescoreTimerDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, m_preventionDataTable.HeatCrimeScoreResetTime() );
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function CancelCrimescoreDropTimerRequest()
+	{
+		if( m_crimescoreTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_crimescoreTimerDelayID );
+			m_crimescoreTimerDelayID = GetInvalidDelayID();
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugEvents();
+			}
+		}
+	}
+
+	private function ResetCrimescoreDropTimerRequest()
+	{
+		if( m_crimescoreTimerDelayID != DelayID.GetInvalidDelayID() )
+		{
+			CancelCrimescoreDropTimerRequest();
+			StartCrimescoreDropTimerRequest();
+		}
+	}
+
+	private function CancelNPCSpawnDelay() : Bool
+	{
+		if( m_policemenSpawnDelayID != GetInvalidDelayID() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_policemenSpawnDelayID );
+			m_policemenSpawnDelayID = GetInvalidDelayID();
+			return true;
+		}
+		return false;
+	}
+
+	private function OnResupplyVehicleTicketsRequest( evt : ResupplyVehicleTicketsRequest )
+	{
+		TryResupplyTicket();
+		TryRequestVehicleSpawnWithStrategy();
+	}
+
+	private function TryResupplyTicket()
+	{
+		if( m_currentVehicleTicketCount < m_preventionDataTable.VehicleTicketsAmount() )
+		{
+			m_currentVehicleTicketCount = Min( m_preventionDataTable.VehicleTicketsAmount(), m_currentVehicleTicketCount + 1 );
+		}
+	}
+
+	private function OnSpawnPoliceVehicleRequest( evt : SpawnPoliceVehicleWithDelayRequest )
+	{
+		m_isVehicleDelayOver = true;
+		TryRequestVehicleSpawnWithStrategy();
+	}
+
+	private function OnSpawnRoadblockRequest( evt : SpawnRoadblockadeWithDelayRequest )
+	{
+		if( ShouldSpawnRoadblockade() )
+		{
+			SpawnRoadblockade( GetHeatStage() );
+		}
+	}
+
+	private function CanRequestAVSpawn() : Bool
+	{
+		var maxNumberOfMaxTacAVsAtTheSameTime : Int32;
+		var timeSinceLastMaxtacTroopDied : Float;
+		maxNumberOfMaxTacAVsAtTheSameTime = 1;
+		if( GetAgentRegistry().GetMaxTacNPCCount() > 1 )
+		{
+			m_maxtacTroopBeingAliveTimeStamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) );
+			return false;
+		}
+		if( m_lastAVRequestedSpawnPositionsArray.Size() >= maxNumberOfMaxTacAVsAtTheSameTime )
+		{
+			return false;
+		}
+		if( GetHeatStage() != EPreventionHeatStage.Heat_5 )
+		{
+			return false;
+		}
+		if( GetStarState() != EStarState.Active )
+		{
+			return false;
+		}
+		if( !( PreventionSystemHackerLoop.AVCanBeSpawned( GetGame() ) ) )
+		{
+			return false;
+		}
+		timeSinceLastMaxtacTroopDied = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) ) - m_maxtacTroopBeingAliveTimeStamp;
+		if( timeSinceLastMaxtacTroopDied < m_preventionDataTable.TimeBetweenAVSpawnsAfterEncounter() )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private function TryRequestVehicleSpawnWithStrategy() : Bool
+	{
+		var canSpawnEngagedVehicle : Bool;
+		var canSpawnSupportVehicle : Bool;
+		if( m_blockVehicleSpawnByQuest )
+		{
+			return false;
+		}
+		if( !( IsChasingPlayer() ) || !( m_isVehicleDelayOver ) )
+		{
+			return false;
+		}
+		if( m_agentRegistry.GetTotalNPCCount() >= m_preventionDataTable.MaxUnitCount() )
+		{
+			return false;
+		}
+		if( m_currentVehicleTicketCount > 0 )
+		{
+			if( !( ReachedEngagedVehiclesLimit() ) )
+			{
+				canSpawnEngagedVehicle = true;
+			}
+			if( !( ReachedSupportVehiclesLimit() ) )
+			{
+				canSpawnSupportVehicle = true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		if( !( canSpawnEngagedVehicle ) && !( canSpawnSupportVehicle ) )
+		{
+			return false;
+		}
+		if( ReachedTotalVehiclesLimit() )
+		{
+			return false;
+		}
+		if( SpawnPoliceVehicle() == 0 )
+		{
+			m_failedVehicleSpawnAttempts += 1;
+			if( m_failedVehicleSpawnAttempts >= m_preventionDataTable.FallbackVehicleSpawnFailedAttempts() )
+			{
+				TrySpawnPoliceOnFootFallback();
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private function OnPreventionStarStateBufferTimerRequest( evt : PreventionStarStateBufferTimerRequest )
+	{
+		PoliceLostPlayer();
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function PoliceLostPlayer()
+	{
+		m_canSpawnFallbackEarly = false;
+		m_policeKnowsPlayerLocation = false;
+		CancelStateBufferTimerRequest();
+		if( !( m_forceEternalGreyStars ) )
+		{
+			StartSearchingTimerRequest();
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function OnPreventionTransitionToGreyStateTimerRequest( evt : PreventionTransitionToGreyStateTimerRequest )
+	{
+		CancelTransitiontoGreyStateTimerRequest();
+		UpdateStarStateTo( EStarState.Searching );
+	}
+
+	private function OnPreventionSearchingStatusRequest( evt : PreventionSearchingStatusRequest )
+	{
+		CancelSearchingTimerRequest();
+		StartBlinkingTimerRequest();
+		SetStarStateUI( EStarState.Blinking );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function OnPreventionBlinkingStatusRequest( evt : PreventionBlinkingStatusRequest )
+	{
+		execInstructionSafe( evt.m_telemetryInfo );
+		if( evt.m_lockPreventionSystemWhileBlinking )
+		{
+			TogglePreventionSystem( true );
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function OnPreventionForceDeescalateRequest( evt : PreventionForceDeescalateRequest )
+	{
+		if( !( m_systemEnabled ) || !( IsChasingPlayer() ) )
+		{
+			return;
+		}
+		StartBlinkingTimerRequest( evt.fakeBlinkingDuration, true, evt.telemetryInfo );
+		SetStarStateUI( EStarState.Blinking );
+	}
+
+	private function OnRefreshDeescalationTimers( evt : RefreshDeescalationTimers )
+	{
+		var remainingDelayTime : Float;
+		if( !( m_systemEnabled ) || !( IsChasingPlayer() ) )
+		{
+			return;
+		}
+		if( m_forceEternalGreyStars )
+		{
+			return;
+		}
+		if( m_blinkingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			remainingDelayTime = GameInstance.GetDelaySystem( GetGameInstance() ).GetRemainingDelayTime( m_blinkingStatusDelayID );
+			if( remainingDelayTime > GetSoftDeescalationBlinkingStarsDuration() )
+			{
+				ResetBlinkingTimerRequest();
+			}
+		}
+		if( m_searchingStatusDelayID != DelayID.GetInvalidDelayID() )
+		{
+			remainingDelayTime = GameInstance.GetDelaySystem( GetGameInstance() ).GetRemainingDelayTime( m_searchingStatusDelayID );
+			if( remainingDelayTime > GetSoftDeescalationGreyStarsDuration() )
+			{
+				ResetSearchingTimerRequest();
+			}
+		}
+	}
+
+	private function RequestUnitSpawn( recordID : TweakDBID, spawnTransform : WorldTransform )
+	{
+		var ticketID : Uint32;
+		ticketID = GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestUnitSpawn( recordID, spawnTransform );
+		m_agentRegistry.CreateTicket( ticketID, vehiclePoliceStrategy.None, true );
+	}
+
+	private function RemovePreventionInputLockRequest()
+	{
+		if( IsPreventionInputLocked() )
+		{
+			GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_inputlockDelayID );
+			m_inputlockDelayID = GetInvalidDelayID();
+			m_unhandledInputsReceived = 0;
+			m_preventionUnitKilledDuringLock = false;
+		}
+	}
+
+	private function PreventionInputLockRequest()
+	{
+		var request : UnlockPreventionInputRequest;
+		var inputLockTime : Float;
+		if( IsPreventionInputLocked() )
+		{
+			RemovePreventionInputLockRequest();
+		}
+		inputLockTime = GetPreventionInputLockTime();
+		if( inputLockTime > 0.0 )
+		{
+			request = new UnlockPreventionInputRequest;
+			m_inputlockDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, inputLockTime );
+		}
+	}
+
+	private function OnUnlockPreventionInputRequest( request : UnlockPreventionInputRequest )
+	{
+		if( m_preventionUnitKilledDuringLock )
+		{
+			SendInternalSystem( 1.0 );
+		}
+		RemovePreventionInputLockRequest();
+	}
+
+	private function SendDropPointLockRequest( isEnabled : Bool )
+	{
+		var lockDropPointSystem : ToggleDropPointSystemRequest;
+		lockDropPointSystem = new ToggleDropPointSystemRequest;
+		lockDropPointSystem.isEnabled = isEnabled;
+		lockDropPointSystem.reason = 'PreventionSystem';
+		GameInstance.QueueScriptableSystemRequest( GetGameInstance(), 'DropPointSystem', lockDropPointSystem );
+	}
+
+	private function OnPreventionCrimeScoreZeroRequest( request : PreventionCrimeScoreZeroRequest )
+	{
+		m_totalCrimeScore = 0.0;
+	}
+
+	private function OnPreventionUnitDespawnedRequest( request : PreventionUnitDespawnedRequest )
+	{
+		UnregisterPreventionUnit( request.entityID );
+	}
+
+	private function OnPreventionUnitSpawnedRequest( request : PreventionUnitSpawnedRequest )
+	{
+		var ticketData : TicketData;
+		if( !( m_agentRegistry.PopRequestTicket( request.requestResult.requestID, ticketData ) ) )
+		{
+			return;
+		}
+		if( request.requestResult.success )
+		{
+			HandleSpawnRequestSuccess( request.requestResult, ticketData );
+		}
+		else
+		{
+			HandleSpawnRequestFailure( request.requestResult, ticketData );
+		}
+	}
+
+	private function HandleSpawnRequestSuccess( result : SpawnRequestResult, ticketData : TicketData )
+	{
+		var i : Int32;
+		var spawnedObject : GameObject;
+		var vehicleType : DynamicVehicleType;
+		var isRoadblockade : Bool;
+		vehicleType = result.vehicleType;
+		m_failedVehicleSpawnAttempts = 0;
+		isRoadblockade = vehicleType == DynamicVehicleType.RoadBlockade || vehicleType == DynamicVehicleType.RoadBlockadeWithAV;
+		for( i = 0; i < result.spawnedObjects.Size(); i += 1 )
+		{
+			spawnedObject = result.spawnedObjects[ i ];
+			RegisterPreventionUnit( spawnedObject, vehicleType, true, result.policeStrategy, ticketData.isFallback );
+			if( isRoadblockade )
+			{
+				HandleRoadblockadeUnitSpawned( spawnedObject );
+			}
+		}
+	}
+
+	private function HandleRoadblockadeUnitSpawned( spawnedObject : GameObject )
+	{
+		if( spawnedObject.IsVehicle() )
+		{
+			( ( VehicleObject )( spawnedObject ) ).ApplyAvgZOffset();
+		}
+	}
+
+	private function HandleSpawnRequestFailure( result : SpawnRequestResult, ticketData : TicketData )
+	{
+		if( result.vehicleType == DynamicVehicleType.Car )
+		{
+			m_failedVehicleSpawnAttempts += 1;
+			TryResupplyTicket();
+			if( m_agentRegistry.GetPendingVehicleTicketsCount() <= 0 )
+			{
+				TryRequestVehicleSpawnWithStrategy();
+			}
+		}
+	}
+
+	private function OnRegisterNPC( request : RegisterNPCRequest )
+	{
+		var vehicleType : DynamicVehicleType;
+		var preventionNPC : ScriptedPuppet;
+		vehicleType = DynamicVehicleType.None;
+		preventionNPC = request.puppet;
+		if( !( IsChasingPlayer() ) )
+		{
+			return;
+		}
+		if( !( preventionNPC ) || !( preventionNPC.IsPrevention() ) )
+		{
+			return;
+		}
+		if( preventionNPC.IsCrowd() )
+		{
+			vehicleType = DynamicVehicleType.None;
+		}
+		else
+		{
+			GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TryGetVehicleType( preventionNPC.GetEntityID(), vehicleType );
+		}
+		RegisterPreventionUnit( preventionNPC, vehicleType, false );
+	}
+
+	private function RegisterPreventionUnit( preventionUnit : GameObject, vehicleType : DynamicVehicleType, overrideExisting : Bool, optional strategy : vehiclePoliceStrategy, optional isFallback : Bool ) : Bool
+	{
+		if( !( m_agentRegistry.RegisterAgent( preventionUnit, vehicleType, strategy, isFallback, overrideExisting ) ) )
+		{
+			return false;
+		}
+		GameInstance.GetPreventionSpawnSystem( GetGame() ).RegisterEntityDeathCallback( this, "OnPreventionEntityDestroyed", preventionUnit.GetEntityID() );
+		return true;
+	}
+
+	private function CheckLastMaxTacAlone()
+	{
+		var maxTacArray : array< NPCAgent >;
+		var maxTacAgent : NPCAgent;
+		maxTacArray = GetAgentRegistry().GetMaxTacNPCList();
+		if( maxTacArray.Size() == 1 )
+		{
+			maxTacAgent = maxTacArray[ 0 ];
+			StatusEffectHelper.ApplyStatusEffect( maxTacAgent.gameObject, T"BaseStatusEffect.MaxTacAlone", maxTacAgent.gameObject.GetEntityID() );
+		}
+	}
+
+	private function UnregisterPreventionUnit( entityID : EntityID )
+	{
+		var result : UnregisterResult;
+		result = m_agentRegistry.UnregisterAgent( entityID );
+		if( !( result.success ) )
+		{
+			return;
+		}
+		switch( result.spawnedType )
+		{
+			case DynamicVehicleType.Car:
+			{
+				m_isVehicleDelayOver = false;
+				if( result.isVehicle )
+				{
+					TryRequestVehicleSpawnWithStrategy();
+				}
+				break;
+			}
+			case DynamicVehicleType.AV:
+			{
+				if( !( result.isVehicle ) )
+				{
+					CheckLastMaxTacAlone();
+				}
+				if( !( result.isVehicle ) && IsMaxTacDefeated() )
+				{
+					m_shouldPreventionUnitsStartRetreating = false;
+					GetNewBatchMaxTacSpawnPositions();
+				}
+				break;
+			}
+			case DynamicVehicleType.RoadBlockade:
+			{
+				break;
+			}
+			case DynamicVehicleType.RoadBlockadeWithAV:
+			{
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	private function OnPreventionEntityDestroyed( destroyedEntityID : EntityID )
+	{
+		UnregisterPreventionUnit( destroyedEntityID );
+	}
+
+	public const function TrySetNPCMarkedForDespawnAI( entityID : EntityID, markedForDespawn : Bool ) : Bool
+	{
+		var npcAgent : NPCAgent;
+		if( GetAgentRegistry().TryGetNPCAgentByID( entityID, npcAgent ) )
+		{
+			npcAgent.markedToBeDespawned = markedForDespawn;
+			return true;
+		}
+		return false;
+	}
+
+	public const function TryGetNPCMarkedForDespawnAI( entityID : EntityID, out markedForDespawn : Bool ) : Bool
+	{
+		var npcAgent : NPCAgent;
+		if( GetAgentRegistry().TryGetNPCAgentByID( entityID, npcAgent ) )
+		{
+			markedForDespawn = npcAgent.markedToBeDespawned;
+			return true;
+		}
+		return false;
+	}
+
+	public const function UpdateVehiclePassengerCount( entityID : EntityID, passengersCount : Int32 )
+	{
+		GetAgentRegistry().UpdateVehiclePassengerCount( entityID, passengersCount );
+	}
+
+	public const function IsRegistered( entityID : EntityID ) : Bool
+	{
+		return GetAgentRegistry().Contains( entityID );
+	}
+
+	private export function OnPreventionTickRequest( request : PreventionTickRequest )
+	{
+		UpdateViewers();
+		TryUpdateStarState();
+		if( ( !( m_ignoreSecurityAreas ) && ( m_playerIsInSecurityArea.Size() > 0 ) ) && !( m_isPlayerMounted ) )
+		{
+			ReevaluateSecurityAreaReset();
+		}
+		if( CanRequestAVSpawn() )
+		{
+			CheckPossibleSpawnPosAndRequestAVSpawn();
+		}
+		UpdateVehicles();
+		UpdateMaxTacUnits();
+		UpdateRoadblockadeUnits();
+		if( m_lastKnownVehicle && !( m_isPlayerMounted ) )
+		{
+			StimBroadcasterComponent.BroadcastStim( m_lastKnownVehicle, gamedataStimType.CrimeWitness );
+		}
+		if( m_starStateUIChanged )
+		{
+			TryUpdateWantedLevelFact();
+			m_starStateUIChanged = false;
+		}
+		UpdateNPCs();
+		TryResolveIndefiniteStarState();
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function CheckPlayerDistanceToLKP()
+	{
+		var currentDistance : Float;
+		var thresholdDistance : Float;
+		thresholdDistance = 175.0;
+		if( m_playerCrossedBufferDistance || Vector4.IsZero( m_lastKnownPosition ) )
+		{
+			return;
+		}
+		currentDistance = Vector4.Distance( m_player.GetWorldPosition(), m_lastKnownPosition );
+		if( thresholdDistance < currentDistance )
+		{
+			m_playerCrossedBufferDistance = true;
+			PoliceLostPlayer();
+		}
+	}
+
+	private function TryResolveIndefiniteStarState()
+	{
+		if( m_starState != EStarState.Searching )
+		{
+			return;
+		}
+		if( ( ( !( m_forceEternalGreyStars ) && ( m_starStateBufferTimerDelayID == DelayID.GetInvalidDelayID() ) ) && ( m_searchingStatusDelayID == DelayID.GetInvalidDelayID() ) ) && ( m_blinkingStatusDelayID == DelayID.GetInvalidDelayID() ) )
+		{
+			StartSearchingTimerRequest();
+		}
+	}
+
+	private function TryUpdateStarState()
+	{
+		var isPoliceInCombarWithPlayer : Bool;
+		if( m_securityAreaResetCheck )
+		{
+			return;
+		}
+		isPoliceInCombarWithPlayer = m_agentRegistry.IsPoliceInCombatWithPalyer();
+		if( isPoliceInCombarWithPlayer )
+		{
+			SetLastKnownPlayerPosition( GetPlayer().GetWorldPosition() );
+			UpdateStarStateTo( EStarState.Active );
+		}
+		else if( ( ( !( m_isInitialSearchState ) && !( isPoliceInCombarWithPlayer ) ) && ( m_starStateBufferTimerDelayID == DelayID.GetInvalidDelayID() ) ) && m_starState == EStarState.Active )
+		{
+			StartTransitiontoGreyStateTimerRequest();
+			PoliceLostPlayer();
+		}
+		else if( m_isInitialSearchState && !( isPoliceInCombarWithPlayer ) )
+		{
+			m_isInitialSearchState = false;
+			m_canSpawnFallbackEarly = true;
+			SetStarStateUI( EStarState.Searching );
+			StartStateBufferTimerRequest();
+		}
+		else
+		{
+			CheckPlayerDistanceToLKP();
+		}
+	}
+
+	private function UpdateMaxTacUnits()
+	{
+		var i : Int32;
+		var maxTacArray : array< NPCAgent >;
+		var currentPlayerPosition : Vector4;
+		var maxTacAgent : NPCAgent;
+		var maxTacPosition : Vector4;
+		var despawnDistanceSquared : Float;
+		maxTacArray = GetAgentRegistry().GetMaxTacNPCList();
+		if( maxTacArray.Size() < 1 )
+		{
+			return;
+		}
+		currentPlayerPosition = m_player.GetWorldPosition();
+		despawnDistanceSquared = TweakDBInterface.GetFloat( T"PreventionSystem.av_spawn_setup.despawnDistance", despawnDistanceSquared );
+		despawnDistanceSquared = despawnDistanceSquared * despawnDistanceSquared;
+		for( i = 0; i < maxTacArray.Size(); i += 1 )
+		{
+			maxTacAgent = maxTacArray[ i ];
+			if( !( maxTacAgent ) || VehicleComponent.IsMountedToVehicle( GetGame(), maxTacAgent.unit ) )
+			{
+				continue;
+			}
+			maxTacPosition = maxTacAgent.unit.GetWorldPosition();
+			if( Vector4.DistanceSquared( currentPlayerPosition, maxTacPosition ) > despawnDistanceSquared )
+			{
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestDespawn( maxTacAgent.unit.GetEntityID() );
+			}
+		}
+	}
+
+	private function UpdateRoadblockadeUnits()
+	{
+		var i : Int32;
+		var raodblockNPCsArray : array< NPCAgent >;
+		var raodblockVehiclesArray : array< VehicleAgent >;
+		var currentPlayerPosition : Vector4;
+		var roadblockAgent : NPCAgent;
+		var roadblockVehicle : VehicleAgent;
+		var roadblockPosition : Vector4;
+		var despawnDistanceSquared : Float;
+		raodblockNPCsArray = GetAgentRegistry().GetRoadblockNPCList();
+		raodblockVehiclesArray = GetAgentRegistry().GetRoadblockVehicleList();
+		if( ( raodblockNPCsArray.Size() < 1 ) && ( raodblockVehiclesArray.Size() < 1 ) )
+		{
+			return;
+		}
+		currentPlayerPosition = m_player.GetWorldPosition();
+		despawnDistanceSquared = TweakDBInterface.GetFloat( T"PreventionSystem.roadblockade_spawn_setup.despawnDistance", despawnDistanceSquared );
+		despawnDistanceSquared = despawnDistanceSquared * despawnDistanceSquared;
+		for( i = 0; i < raodblockNPCsArray.Size(); i += 1 )
+		{
+			roadblockAgent = raodblockNPCsArray[ i ];
+			if( !( roadblockAgent ) )
+			{
+				continue;
+			}
+			roadblockPosition = roadblockAgent.unit.GetWorldPosition();
+			if( Vector4.DistanceSquared( currentPlayerPosition, roadblockPosition ) > despawnDistanceSquared )
+			{
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestDespawn( roadblockAgent.unit.GetEntityID() );
+			}
+		}
+		for( i = 0; i < raodblockVehiclesArray.Size(); i += 1 )
+		{
+			roadblockVehicle = raodblockVehiclesArray[ i ];
+			if( !( roadblockVehicle ) )
+			{
+				continue;
+			}
+			roadblockPosition = roadblockVehicle.unit.GetWorldPosition();
+			if( Vector4.DistanceSquared( currentPlayerPosition, roadblockPosition ) > despawnDistanceSquared )
+			{
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestDespawn( roadblockVehicle.unit.GetEntityID() );
+			}
+		}
+	}
+
+	private function UpdateStarStateTo( state : EStarState )
+	{
+		if( !( m_systemEnabled ) )
+		{
+			return;
+		}
+		UpdateStarStateTimers( state );
+		SetStarStateUI( state );
+	}
+
+	private function UpdateStarStateTimers( state : EStarState )
+	{
+		if( state == EStarState.Active )
+		{
+			CancelTransitiontoGreyStateTimerRequest();
+			CancelStateBufferTimerRequest();
+			CancelSearchingTimerRequest();
+			CancelBlinkingTimerRequest();
+		}
+		else
+		{
+			CancelBlinkingTimerRequest();
+			CancelTransitiontoGreyStateTimerRequest();
+			if( m_heatLevelChanged )
+			{
+				ResetSearchingTimerRequest();
+				m_heatLevelChanged = false;
+			}
+			else
+			{
+				UpdateSearchingTimerRequest();
+			}
+		}
+	}
+
+	private function UpdateStarState()
+	{
+		if( m_agentRegistry.IsPoliceInCombatWithPalyer() )
+		{
+			UpdateStarStateTo( EStarState.Active );
+		}
+		else
+		{
+			UpdateStarStateTo( EStarState.Searching );
+		}
+	}
+
+	private function TryUpdateWantedLevelFact()
+	{
+		if( GetWantedLevelFact() == ( ( Int32 )( m_heatStage ) ) )
+		{
+			return;
+		}
+		if( m_forceEternalGreyStars && m_starState == EStarState.Searching )
+		{
+			SetWantedLevelFact( 0 );
+		}
+		else
+		{
+			SetWantedLevelFact( ( ( Int32 )( m_heatStage ) ) );
+		}
+	}
+
+	private function CheckPossibleSpawnPosAndRequestAVSpawn()
+	{
+		var i : Int32;
+		var maxDistanceToClosestPointSquared : Float;
+		var currentPlayerPosition : Vector4;
+		var currentDistanceSquared : Float;
+		var closestSpawnPointDistanceSquared : Float;
+		var playerDirection : Vector4;
+		var playerSpeed : Float;
+		var estimatedPositionToSpawnAV : Vector4;
+		if( m_avSpawnPointList.Size() != 0 )
+		{
+			currentPlayerPosition = m_player.GetWorldPosition();
+			playerDirection = Vector4.Normalize( currentPlayerPosition - m_player.GetTransformHistoryComponent().GetInterpolatedPositionFromHistory( 3.0 ) );
+			playerSpeed = Vector4.Length( m_player.GetTransformHistoryComponent().GetVelocity( 3.0 ) );
+			estimatedPositionToSpawnAV = ( currentPlayerPosition + ( playerDirection * playerSpeed ) ) + ( playerDirection * m_maxAllowedDistanceToPlayer );
+			closestSpawnPointDistanceSquared = Vector4.DistanceSquared( estimatedPositionToSpawnAV, ( ( Vector4 )( m_avSpawnPointList[ 0 ] ) ) );
+			for( i = 0; i < m_avSpawnPointList.Size(); i += 1 )
+			{
+				if( IsMaxTacDefeated() && CanSpawnAvAtPosition( estimatedPositionToSpawnAV, ( ( Vector4 )( m_avSpawnPointList[ i ] ) ) ) )
+				{
+					RequestAVSpawnAtPosition( m_avSpawnPointList[ i ] );
+					return;
+				}
+				currentDistanceSquared = Vector4.DistanceSquared( estimatedPositionToSpawnAV, ( ( Vector4 )( m_avSpawnPointList[ i ] ) ) );
+				if( currentDistanceSquared < closestSpawnPointDistanceSquared )
+				{
+					closestSpawnPointDistanceSquared = currentDistanceSquared;
+				}
+			}
+			maxDistanceToClosestPointSquared = SqrF( m_preventionDataTable.AvMaxDistanceForNewRequest() );
+			if( closestSpawnPointDistanceSquared >= maxDistanceToClosestPointSquared )
+			{
+				GetNewBatchMaxTacSpawnPositions();
+			}
+		}
+		else
+		{
+			GetNewBatchMaxTacSpawnPositions();
+		}
+	}
+
+	private function CanSpawnAvAtPosition( playerPosition : Vector4, position : Vector4 ) : Bool
+	{
+		var i : Int32;
+		var minDistToLastRequestedAVSquared : Float;
+		minDistToLastRequestedAVSquared = SqrF( m_preventionDataTable.AvMinDistToSpawnedAV() );
+		for( i = 0; i < m_lastAVRequestedSpawnPositionsArray.Size(); i += 1 )
+		{
+			if( Vector4.DistanceSquared( m_lastAVRequestedSpawnPositionsArray[ i ], position ) < minDistToLastRequestedAVSquared )
+			{
+				return false;
+			}
+		}
+		return Vector4.DistanceSquared( playerPosition, ( ( Vector4 )( position ) ) ) <= SqrF( m_maxAllowedDistanceToPlayer );
+	}
+
+	public const function ShouldPreventionUnitsRetreat() : Bool
+	{
+		return m_shouldPreventionUnitsStartRetreating;
+	}
+
+	private function IsPlayerCloseToLastCrimePosition() : Bool
+	{
+		var currentDistance : Float;
+		currentDistance = Vector4.Distance( m_player.GetWorldPosition(), GetLastKnownPlayerPosition() );
+		if( currentDistance <= m_preventionDataTable.CrimeAreaRadius() )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private function StartSecurityAreaResetRequest( optional resetDelay : Float )
+	{
+		var request : SecurityAreaResetRequest;
+		if( !( IsChasingPlayer() ) )
+		{
+			return;
+		}
+		if( m_securityAreaResetCheck )
+		{
+			return;
+		}
+		request = new SecurityAreaResetRequest;
+		if( resetDelay <= 0.0 )
+		{
+			resetDelay = 5.0;
+		}
+		m_securityAreaResetDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, resetDelay );
+		m_securityAreaResetCheck = true;
+		m_wantedBarBlackboard.SetFloat( GetAllBlackboardDefs().UI_WantedBar.BlinkingStarsDurationTime, resetDelay, true );
+		SetStarStateUI( EStarState.Blinking );
+		if( CancelNPCSpawnDelay() )
+		{
+			m_hadOngoingSpawnRequest = true;
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugEvents();
+		}
+	}
+
+	private function CancelSecurityAreaResetRequest()
+	{
+		if( !( m_securityAreaResetCheck ) )
+		{
+			return;
+		}
+		GameInstance.GetDelaySystem( GetGameInstance() ).CancelDelay( m_securityAreaResetDelayID );
+		m_securityAreaResetCheck = false;
+		if( m_hadOngoingSpawnRequest )
+		{
+			m_hadOngoingSpawnRequest = false;
+		}
+		UpdateStarState();
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugEvents();
+		}
+	}
+
+	private function OnSecurityAreaResetRequest( request : SecurityAreaResetRequest )
+	{
+		m_securityAreaResetCheck = false;
+		if( m_defaultHeatLevels && m_minHeatLevel == EPreventionHeatStage.Heat_0 )
+		{
+			execInstructionSafe( "SecurityAreaReset" );
+		}
+	}
+
+	protected function OnDamageInput( request : PreventionDamageRequest )
+	{
+		ProcessPreventionDamageRequest( request );
+	}
+
+	private function ProcessPreventionDamageRequest( request : PreventionDamageRequest )
+	{
+		if( !( CanPreventionReactToInput() ) )
+		{
+			Debug_ProcessReason = EPreventionDebugProcessReason.Abort_SystemLockedBySceneTier;
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugProcessInfo();
+			}
+			return;
+		}
+		if( IsPreventionInputLocked() )
+		{
+			if( !( request.isTargetPrevention ) && request.isTargetKilled )
+			{
+				m_preventionUnitKilledDuringLock = true;
+			}
+		}
+		Debug_ProcessReason = EPreventionDebugProcessReason.Process_NewDamage;
+		if( request.damageDealtPercentValue < 0.0 )
+		{
+			Debug_ProcessReason = EPreventionDebugProcessReason.Abort_DamageZero;
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugProcessInfo();
+			}
+			return;
+		}
+		if( !( m_ignoreSecurityAreas ) && ( m_playerIsInSecurityArea.Size() > 0 ) )
+		{
+			if( !( IsFinal() ) )
+			{
+				RefreshDebugProcessInfo();
+			}
+			return;
+		}
+		SetLastKnownPlayerPosition( GetPlayer().GetWorldPosition() );
+		if( !( IsPlayerInQuestArea() ) )
+		{
+			CancelSecurityAreaResetRequest();
+		}
+		if( request.requestedHeat == EPreventionHeatStage.Heat_0 )
+		{
+			execInstructionSafe( "DEBUG" );
+			return;
+		}
+		else
+		{
+			if( m_crimescoreTimerDelayID == DelayID.GetInvalidDelayID() )
+			{
+				StartCrimescoreDropTimerRequest();
+			}
+			else
+			{
+				ResetCrimescoreDropTimerRequest();
+			}
+			if( IsChasingPlayer() )
+			{
+				UpdateStarState();
+			}
+			UpdateTotalCrimeScore( request );
+		}
+		if( !( IsFinal() ) )
+		{
+			Debug_LastAttackType = request.attackType;
+			Debug_LastDamageDealt = request.damageDealtPercentValue * 100.0;
+			RefreshDebug();
+		}
+		if( m_totalCrimeScore >= m_preventionDataTable.HeatThresholdCapacity() )
+		{
+			m_totalCrimeScore = 0.0;
+			StartPipeline( request );
+		}
+	}
+
+	private function StartPipeline( request : PreventionDamageRequest )
+	{
+		PreDamageChange();
+		DamageChange();
+		PostDamageChange( request );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function PreDamageChange() {}
+
+	private function DamageChange() {}
+
+	private function PostDamageChange( request : PreventionDamageRequest )
+	{
+		HeatPipeline( request.telemetryInfo );
+	}
+
+	private function HeatPipeline( heatChangeReason : String )
+	{
+		var heatStageToSet : EPreventionHeatStage;
+		heatStageToSet = IntToEPreventionHeatStage( ( ( Int32 )( m_heatStage ) ) + 1 );
+		ChangeHeatStage( heatStageToSet, heatChangeReason );
+	}
+
+	private function ComputeTotalCrimeScoreForTelemetry( newHeatStageEnum : EPreventionHeatStage ) : Uint32
+	{
+		var heatDataRecord : PreventionHeatTable_Record;
+		var i : Int32;
+		var newHeatStage : Int32;
+		var totalCrimeScore : Float;
+		newHeatStage = ( ( Int32 )( newHeatStageEnum ) );
+		totalCrimeScore = 0.0;
+		for( i = 0; i < newHeatStage; i += 1 )
+		{
+			heatDataRecord = GetDataTableForHeat( ( ( EPreventionHeatStage )( i ) ) );
+			if( heatDataRecord )
+			{
+				totalCrimeScore += heatDataRecord.HeatThresholdCapacity();
+			}
+		}
+		return ( ( Uint32 )( totalCrimeScore + m_totalCrimeScore ) );
+	}
+
+	private function ChangeHeatStage( newHeatStage : EPreventionHeatStage, heatChangeReason : String )
+	{
+		var previousHeatStage : EPreventionHeatStage;
+		if( !( m_wantedBarBlackboard ) )
+		{
+			return;
+		}
+		if( !( m_defaultHeatLevels ) )
+		{
+			newHeatStage = IntToEPreventionHeatStage( Clamp( ( ( Int32 )( newHeatStage ) ), ( ( Int32 )( m_minHeatLevel ) ), ( ( Int32 )( m_maxHeatLevel ) ) ) );
+		}
+		if( m_heatStage == newHeatStage )
+		{
+			return;
+		}
+		previousHeatStage = m_heatStage;
+		m_heatStage = newHeatStage;
+		m_heatChangeReason = heatChangeReason;
+		GameInstance.GetTelemetrySystem( GetGameInstance() ).LogHeatLevelChanged( ( ( Uint32 )( m_heatStage ) ), heatChangeReason, ComputeTotalCrimeScoreForTelemetry( newHeatStage ) );
+		m_wantedBarBlackboard.SetInt( GetAllBlackboardDefs().UI_WantedBar.CurrentWantedLevel, ( ( Int32 )( m_heatStage ) ), true );
+		m_lastStarChangeTimeStamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) );
+		GetDataTableForCurrentHeat();
+		OnHeatChanged( previousHeatStage );
+	}
+
+	private function OnHeatChanged( previousHeat : EPreventionHeatStage )
+	{
+		var elevator : weak< GameObject >;
+		var i : Int32;
+		var agressivenessMultiplier : Float;
+		var rammingTime : Float;
+		var rammingAttemptTime : Float;
+		var npcAgents : array< NPCAgent >;
+		var targetTrackerComponent : TargetTrackerComponent;
+		var threat : TrackedLocation;
+		var reserveAssignedSeatEvt : ReserveAssignedSeat;
+		reserveAssignedSeatEvt = new ReserveAssignedSeat;
+		npcAgents = m_agentRegistry.GetNPCList();
+		agressivenessMultiplier = m_chaseMultiplier;
+		GamepadLightScriptableSystem.UpdatePoliceSiren( GetGameInstance(), m_heatStage );
+		PoliceRadioScriptSystem.UpdatePoliceRadioOnHeatChange( GetGameInstance(), m_heatStage, GetCurrentDistrict() );
+		PreventionSystemHackerLoop.UpdateHeatLevel( GetGame(), m_preventionDataTable.IsVehicleHackingLoopEnabled() );
+		SetLastKnownPlayerPosition( GetPlayer().GetWorldPosition() );
+		GameInstance.GetAudioSystem( GetGame() ).RegisterPreventionHeatStage( ( ( Uint8 )( ( ( Int32 )( GetHeatStage() ) ) ) ) );
+		if( LiftDevice.GetCurrentElevator( GetGame(), elevator ) )
+		{
+			elevator.QueueEvent( new RefreshPlayerAuthorizationEvent );
+		}
+		rammingAttemptTime = 4.0 * agressivenessMultiplier;
+		GameInstance.GetVehicleSystem( GetGame() ).SetRammingAttemptDuration( rammingAttemptTime );
+		TryUpdateWantedLevelFact();
+		if( previousHeat == EPreventionHeatStage.Heat_0 )
+		{
+			GameInstance.GetPreventionSpawnSystem( GetGame() ).ReinitAll();
+			ReinitAll();
+		}
+		switch( m_heatStage )
+		{
+			case EPreventionHeatStage.Heat_0:
+			{
+				GameInstance.GetVehicleSystem( GetGame() ).ResetChaseManager();
+				GameInstance.GetPreventionSpawnSystem( GetGame() ).CancelAllSpawnRequests();
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionActive( false );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_reset' );
+				FastTravelSystem.RemoveFastTravelLock( 'PreventionSystem', GetGameInstance() );
+				for( i = 0; i < npcAgents.Size(); i += 1 )
+				{
+					if( IsNPCValid( npcAgents[ i ].unit ) )
+					{
+						npcAgents[ i ].unit.QueueEvent( reserveAssignedSeatEvt );
+						npcAgents[ i ].unit.StopPoliceBehaviour();
+						targetTrackerComponent = npcAgents[ i ].unit.GetTargetTrackerComponent();
+						if( targetTrackerComponent )
+						{
+							if( targetTrackerComponent.ThreatFromEntity( m_player, threat ) )
+							{
+								AISquadHelper.RemoveThreatFromSquad( npcAgents[ i ].unit, threat );
+								GameObject.ChangeAttitudeToNeutral( npcAgents[ i ].unit, m_player );
+							}
+							targetTrackerComponent.RemoveThreat( targetTrackerComponent.MapThreat( m_player ) );
+							targetTrackerComponent.ResetRecentlyDroppedThreat();
+						}
+						NPCPuppet.ChangeHighLevelState( ( ( GameObject )( npcAgents[ i ].unit ) ), gamedataNPCHighLevelState.Relaxed );
+						StatusEffectHelper.ApplyStatusEffect( npcAgents[ i ].unit, T"PreventionStatusEffect.OnStarDropToZero" );
+						ScriptedPuppet.RevokeAllTicketsForPrevention( npcAgents[ i ].unit );
+						StatusEffectHelper.ApplyStatusEffect( npcAgents[ i ].unit, T"BaseStatusEffect.MemoryWipeLevel2Police" );
+					}
+				}
+				SendDropPointLockRequest( true );
+				RemovePreventionInputLockRequest();
+				m_reconDeployed = false;
+				m_reconDestroyed = false;
+				m_shouldPreventionUnitsStartRetreating = false;
+				m_codeRedReinforcement = false;
+				CancelAllIntervalCallers();
+				TogglePreventionGlobalQuestObjective_Internal( false, GetPreventionQuestDisabledGenericQuestReason() );
+				break;
+			}
+			case EPreventionHeatStage.Heat_1:
+			{
+				m_firstStarTimeStamp = EngineTime.ToFloat( GameInstance.GetSimTime( GetGameInstance() ) );
+				rammingTime = 1.0 * agressivenessMultiplier;
+				GameInstance.GetVehicleSystem( GetGame() ).SetRammingUponCollisionDuration( rammingTime );
+				GameInstance.GetVehicleSystem( GetGame() ).SetSuicideSpeedChancePercentage( 0.0 );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_commit_crime' );
+				break;
+			}
+			case EPreventionHeatStage.Heat_2:
+			{
+				rammingTime = 1.5 * agressivenessMultiplier;
+				GameInstance.GetVehicleSystem( GetGame() ).SetRammingUponCollisionDuration( rammingTime );
+				GameInstance.GetVehicleSystem( GetGame() ).SetSuicideSpeedChancePercentage( 0.0 );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_commit_crime' );
+				break;
+			}
+			case EPreventionHeatStage.Heat_3:
+			{
+				rammingTime = 2.0 * agressivenessMultiplier;
+				GameInstance.GetVehicleSystem( GetGame() ).SetRammingUponCollisionDuration( rammingTime );
+				GameInstance.GetVehicleSystem( GetGame() ).SetSuicideSpeedChancePercentage( 0.025 );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_commit_crime' );
+				TryStartRoadblockRespawn();
+				break;
+			}
+			case EPreventionHeatStage.Heat_4:
+			{
+				rammingTime = 2.5 * agressivenessMultiplier;
+				GameInstance.GetVehicleSystem( GetGame() ).SetRammingUponCollisionDuration( rammingTime );
+				GameInstance.GetVehicleSystem( GetGame() ).SetSuicideSpeedChancePercentage( 0.05 );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_commit_crime' );
+				TryStartRoadblockRespawn();
+				WakeUpAllAgents( true );
+				break;
+			}
+			case EPreventionHeatStage.Heat_5:
+			{
+				m_numberOfMaxtacSquadsSpawned = 0;
+				rammingTime = 3.0 * agressivenessMultiplier;
+				GameInstance.GetVehicleSystem( GetGame() ).SetRammingUponCollisionDuration( rammingTime );
+				GameInstance.GetVehicleSystem( GetGame() ).SetSuicideSpeedChancePercentage( 0.25 );
+				GameInstance.GetAudioSystem( GetGame() ).Play( 'gmp_ui_prevention_player_marked_psycho' );
+				TryStartRoadblockRespawn();
+				WakeUpAllAgents( true );
+				ProcessDogtownLawAchievement();
+				break;
+			}
+		}
+		UpdateStrategyPreCheckRequests();
+		if( IsChasingPlayer() )
+		{
+			m_heatLevelChanged = true;
+			TryInitializePreventionTick();
+			TryStartVehicleRespawn();
+			TryRessuplyVehicleTickets();
+			GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionActive( true );
+			m_currentVehicleTicketCount = m_preventionDataTable.VehicleTicketsAmount();
+			GameInstance.GetVehicleSystem( GetGame() ).SetChaseManagerLimit( m_preventionDataTable.SpawnedEngagedCars() );
+			if( !( m_ignoreSecurityAreas ) && ( m_playerIsInSecurityArea.Size() > 0 ) )
+			{
+				ReevaluateSecurityAreaReset();
+			}
+			ChangeAgentsAttitude( EAIAttitude.AIA_Hostile );
+			PreventionMinimapOverride();
+			TutorialAddPoliceSystemFact();
+			FastTravelSystem.AddFastTravelLock( 'PreventionSystem', GetGameInstance() );
+			SendDropPointLockRequest( false );
+			SpawnPipeline();
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function TryRessuplyVehicleTickets()
+	{
+		m_ressuplyVehicleTicketCaller.Start( m_preventionDataTable.VehicleTicketCooldown(), new ResupplyVehicleTicketsRequest );
+	}
+
+	private function TryStartVehicleRespawn()
+	{
+		m_vehicleSpawnTickCaller.Start( m_preventionDataTable.VehicleSpawnCooldown(), new SpawnPoliceVehicleWithDelayRequest );
+	}
+
+	private function TryStartRoadblockRespawn()
+	{
+		m_roadblockadeRespawnTickCaller.Start( m_preventionDataTable.RoadblockT1Cooldown(), new SpawnRoadblockadeWithDelayRequest );
+	}
+
+	private function TryInitializePreventionTick()
+	{
+		if( !( m_preventionTickCaller.IsRunning() ) )
+		{
+			m_preventionTickCaller.Start( 0.33000001, new PreventionTickRequest );
+			m_isInitialSearchState = true;
+		}
+	}
+
+	private function TutorialAddPoliceSystemFact()
+	{
+		var questSystem : QuestsSystem;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( ( questSystem.GetFact( 'police_system_tutorial' ) == 0 ) && ( questSystem.GetFact( 'disable_tutorials' ) == 0 ) )
+		{
+			questSystem.SetFact( 'police_system_tutorial', 1 );
+		}
+	}
+
+	private function SpawnPipeline()
+	{
+		if( !( CanPreventionReactToInput() ) )
+		{
+			return;
+		}
+		TryRequestVehicleSpawnWithStrategy();
+	}
+
+	private function TrySpawnPoliceOnFootFallback()
+	{
+		var characterRecordIDs : array< TweakDBID >;
+		var spawnRange : Vector2;
+		var unitCount : Uint32;
+		var spawnInterval : Float;
+		var hasRecon : Bool;
+		var spawnOriginsPositions : array< Vector4 >;
+		var minUnitCount : Int32;
+		if( ( !( m_player ) || m_blockOnFootSpawnByQuest ) || m_isPlayerMounted )
+		{
+			return;
+		}
+		if( ( !( m_policeKnowsPlayerLocation ) && !( m_canSpawnFallbackEarly ) ) && !( m_forceEternalGreyStars ) )
+		{
+			return;
+		}
+		if( m_agentRegistry.GetPendingFallbackOnFootTicketCount() > 0 )
+		{
+			return;
+		}
+		if( GetDataTableForCurrentHeat( GetHeatStage(), characterRecordIDs, spawnRange, unitCount, spawnInterval, hasRecon ) )
+		{
+			minUnitCount = Min( m_preventionDataTable.MaxUnitCount() - ( m_agentRegistry.GetTotalNPCCount() + m_preventionDataTable.MaxUnitFallbackCount() ), m_preventionDataTable.MaxUnitFallbackCount() - m_agentRegistry.GetFallbackNPCCount() );
+			if( Min( minUnitCount, ( ( Int32 )( unitCount ) ) ) <= 0 )
+			{
+				return;
+			}
+			unitCount = ( ( Uint32 )( Min( minUnitCount, ( ( Int32 )( unitCount ) ) ) ) );
+			GetFindSpawnPointsOriginsData( spawnOriginsPositions );
+			GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).FindPursuitPointsRangeAsync( spawnOriginsPositions, spawnRange.X, spawnRange.Y, unitCount, characterRecordIDs, true, NavGenAgentSize.Human, this, "SpawnFallbackUnits" );
+		}
+	}
+
+	private function SpawnFallbackUnits( const spawnPoints : array< Vector3 >, const characterRecords : array< TweakDBID >, unitCount : Uint32 ) : Int32
+	{
+		var sentRequests : Int32;
+		if( SpawnUnits( spawnPoints, characterRecords, unitCount, sentRequests ) )
+		{
+			if( sentRequests >= ( ( Int32 )( unitCount ) ) )
+			{
+				m_failedVehicleSpawnAttempts = 0;
+				return sentRequests;
+			}
+		}
+		return sentRequests;
+	}
+
+	private function SpawnUnits( const spawnPoints : ref< array< Vector3 > >, const characterRecords : ref< array< TweakDBID > >, unitCount : Uint32, out sentRequests : Int32 ) : Bool
+	{
+		var i : Int32;
+		var spawnTransform : WorldTransform;
+		var currentRecordIdx : Int32;
+		var lastRecordIdx : Int32;
+		if( spawnPoints.Size() > 0 )
+		{
+			lastRecordIdx = characterRecords.Size() - 1;
+			for( i = 0; i < spawnPoints.Size(); i += 1 )
+			{
+				WorldTransform.SetPosition( spawnTransform, ( ( Vector4 )( spawnPoints[ i ] ) ) );
+				WorldTransform.SetOrientationFromDir( spawnTransform, Vector4.Normalize2D( m_player.GetWorldPosition() - ( ( Vector4 )( spawnPoints[ i ] ) ) ) );
+				RequestUnitSpawn( characterRecords[ currentRecordIdx ], spawnTransform );
+				sentRequests += 1;
+				if( currentRecordIdx < lastRecordIdx )
+				{
+					currentRecordIdx += 1;
+				}
+				if( sentRequests >= ( ( Int32 )( unitCount ) ) )
+				{
+					return true;
+				}
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	private function ReachedEngagedVehiclesLimit() : Bool
+	{
+		return GetAgentRegistry().GetEngagedVehicleCount() >= m_preventionDataTable.SpawnedEngagedCars();
+	}
+
+	private function ReachedSupportVehiclesLimit() : Bool
+	{
+		return GetAgentRegistry().GetSupportVehicleCount() >= m_preventionDataTable.SpawnedSupportCars();
+	}
+
+	private function ReachedTotalVehiclesLimit() : Bool
+	{
+		var totalVehicles : Int32;
+		var totalVehicleLimit : Int32;
+		totalVehicles = ( GetAgentRegistry().GetSupportVehicleCount() + GetAgentRegistry().GetEngagedVehicleCount() ) + m_agentRegistry.GetPendingVehicleTicketsCount();
+		totalVehicleLimit = Max( m_preventionDataTable.SpawnedEngagedCars(), m_preventionDataTable.SpawnedSupportCars() );
+		return totalVehicles >= totalVehicleLimit;
+	}
+
+	private function ShouldSpawnRoadblockade() : Bool
+	{
+		if( !( IsChasingPlayer() ) || m_blockVehicleSpawnByQuest )
+		{
+			return false;
+		}
+		if( !( VehicleComponent.IsMountedToVehicle( GetGame(), GameInstance.GetPlayerSystem( GetGame() ).GetLocalPlayerControlledGameObject() ) ) )
+		{
+			return false;
+		}
+		if( GetStarState() == EStarState.Blinking )
+		{
+			return false;
+		}
+		if( ReachedRoadblockLimit() )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private function ReachedRoadblockLimit() : Bool
+	{
+		var limitReached : Bool;
+		limitReached = GetAgentRegistry().GetRoadblockCount() >= m_preventionDataTable.RoadblockT1TicketAmount();
+		return limitReached;
+	}
+
+	private function GetNewBatchMaxTacSpawnPositions()
+	{
+		if( m_maxtacTicketID != 0 )
+		{
+			return;
+		}
+		m_maxtacTicketID = GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestAVSpawnPoints( this, "TryGetAVSpawnPointsCallback", m_preventionDataTable.AvSpawnRange(), ( ( Uint32 )( m_preventionDataTable.AvSpawnPointsPerRequest() ) ), UseOffTrafficPoints() );
+		m_agentRegistry.CreateTicket( m_maxtacTicketID, vehiclePoliceStrategy.None );
+	}
+
+	private function UseOffTrafficPoints() : Bool
+	{
+		if( m_districtManager )
+		{
+			return !( m_districtManager.GetCurrentDistrict().IsBadlands() );
+		}
+		return false;
+	}
+
+	private function TryGetAVSpawnPointsCallback( requestResult : AVSpawnPointsRequestResult )
+	{
+		if( m_maxtacTicketID == requestResult.requestID )
+		{
+			m_maxtacTicketID = 0;
+		}
+		m_agentRegistry.PopRequestTicket( requestResult.requestID );
+		if( requestResult.spawnPoints.Size() != 0 )
+		{
+			m_avSpawnPointList = requestResult.spawnPoints;
+		}
+	}
+
+	private function RequestAVSpawnAtPosition( position : Vector3 )
+	{
+		var request : RemoveRecentAvSpawnLocationFromCacheRequest;
+		var ticketID : Uint32;
+		var tweakId : TweakDBID;
+		var randomValue : Int32;
+		request = new RemoveRecentAvSpawnLocationFromCacheRequest;
+		PreventionSystemHackerLoop.ForceCarToStop( GetGame() );
+		m_numberOfMaxtacSquadsSpawned += 1;
+		randomValue = RandRange( 1, 4 );
+		switch( randomValue )
+		{
+			case 1:
+				tweakId = ( ( m_numberOfMaxtacSquadsSpawned == 1 ) ? ( T"Vehicle.max_tac_av1" ) : ( T"Vehicle.max_tac_av_2nd_wave1" ) );
+			break;
+			case 2:
+				tweakId = ( ( m_numberOfMaxtacSquadsSpawned == 1 ) ? ( T"Vehicle.max_tac_av2" ) : ( T"Vehicle.max_tac_av_2nd_wave2" ) );
+			break;
+			case 3:
+				tweakId = ( ( m_numberOfMaxtacSquadsSpawned == 1 ) ? ( T"Vehicle.max_tac_av3" ) : ( T"Vehicle.max_tac_av_2nd_wave3" ) );
+			break;
+			default:
+				tweakId = ( ( m_numberOfMaxtacSquadsSpawned == 1 ) ? ( T"Vehicle.max_tac_av1" ) : ( T"Vehicle.max_tac_av_2nd_wave" ) );
+			break;
+		}
+		ticketID = GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestAVSpawnAtLocation( tweakId, position );
+		m_agentRegistry.CreateTicket( ticketID, vehiclePoliceStrategy.None );
+		m_lastAVRequestedSpawnPositionsArray.PushBack( ( ( Vector4 )( position ) ) );
+		Debug_lastAVRequestedSpawnPosition = position;
+		m_shouldPreventionUnitsStartRetreating = true;
+		PreventionSystem.QueueRequest( GetGameInstance(), request, 60.0 );
+	}
+
+	private function OnRemoveRecentAvSpawnLocationFromCacheRequest( req : RemoveRecentAvSpawnLocationFromCacheRequest )
+	{
+		if( m_lastAVRequestedSpawnPositionsArray.Size() > 0 )
+		{
+			m_lastAVRequestedSpawnPositionsArray.Erase( 0 );
+		}
+	}
+
+	private function SpawnRoadblockade( heatStage : EPreventionHeatStage )
+	{
+		var vehicleRecord : weak< Vehicle_Record >;
+		var spawnDistanceRange : Vector2;
+		var passengerIDs : array< TweakDBID >;
+		var vehicleIDs : array< TweakDBID >;
+		var ticketID : Uint32;
+		if( TryGetRoadblockDataFromHeatStage( heatStage, vehicleRecord, spawnDistanceRange ) && TryGetDistinctUnitDataFromHeatStage( passengerIDs ) )
+		{
+			vehicleIDs.PushBack( vehicleRecord.GetID() );
+			ticketID = GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestRoadBlockadeSpawn( vehicleIDs, spawnDistanceRange, 2 );
+			m_agentRegistry.CreateTicket( ticketID, vehiclePoliceStrategy.None );
+		}
+	}
+
+	private function UpdateStrategyPreCheckRequests()
+	{
+		var preCheckRequests : array< BaseStrategyRequest >;
+		var isChasingPlayer : Bool;
+		isChasingPlayer = IsChasingPlayer();
+		if( !( isChasingPlayer ) )
+		{
+			GameInstance.GetPreventionSpawnSystem( GetGame() ).ClearStrategyPreCheckRequests();
+		}
+		if( IsChasingPlayer() || !( IsFinal() ) )
+		{
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.DriveTowardsPlayer ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.DriveAwayFromPlayer ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.PatrolNearby ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.InterceptAtNextIntersection ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.GetToPlayerFromAnywhere ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.InitialSearch ) );
+			preCheckRequests.PushBack( CreateStrategyRequest( vehiclePoliceStrategy.SearchFromAnywhere ) );
+			GameInstance.GetPreventionSpawnSystem( GetGame() ).SetStrategyPreCheckRequests( preCheckRequests );
+		}
+	}
+
+	private const function IsStrategyAvailable( strategy : vehiclePoliceStrategy ) : Bool
+	{
+		return GameInstance.GetPreventionSpawnSystem( GetGame() ).IsStrategyAvailable( strategy );
+	}
+
+	private function IsDistanceRangeValid( range : Vector2 ) : Bool
+	{
+		return ( range.X >= 0.0 ) && ( range.Y >= 0.0 );
+	}
+
+	private function SelectRange( strategyDataRec : weak< StrategyData_Record > ) : Vector2
+	{
+		if( GameInstance.GetPreventionSpawnSystem( GetGame() ).IsPlayerOnHighway() && IsDistanceRangeValid( strategyDataRec.VehicleSpawnDistanceRangeHighway() ) )
+		{
+			return strategyDataRec.VehicleSpawnDistanceRangeHighway();
+		}
+		else if( !( m_isPlayerMounted ) && IsDistanceRangeValid( strategyDataRec.VehicleSpawnDistanceRangeOnFoot() ) )
+		{
+			return strategyDataRec.VehicleSpawnDistanceRangeOnFoot();
+		}
+		return strategyDataRec.VehicleSpawnDistanceRange();
+	}
+
+	private function CreateStrategyRequest( strategy : vehiclePoliceStrategy ) : BaseStrategyRequest
+	{
+		if( strategy == vehiclePoliceStrategy.DriveTowardsPlayer )
+		{
+			return DriveTowardsPlayerStrategyRequest.Create( m_preventionDataTable.Strategy1().VehicleSpawnDistanceRange(), m_preventionDataTable.Strategy1().MinDirectDistance() );
+		}
+		else if( strategy == vehiclePoliceStrategy.DriveAwayFromPlayer )
+		{
+			return DriveAwayFromPlayerStrategyRequest.Create( m_preventionDataTable.Strategy2().VehicleSpawnDistanceRange(), m_preventionDataTable.Strategy2().MinDirectDistance() );
+		}
+		else if( strategy == vehiclePoliceStrategy.PatrolNearby )
+		{
+			return PatrolNearbyStrategyRequest.Create( m_preventionDataTable.Strategy3().VehicleSpawnDistanceRange(), m_preventionDataTable.Strategy3().VehicleSpawnAngleRange() );
+		}
+		else if( strategy == vehiclePoliceStrategy.InterceptAtNextIntersection )
+		{
+			return InterceptAtNextIntersectionStrategyRequest.Create( m_preventionDataTable.Strategy4().VehicleSpawnDistanceRange(), m_preventionDataTable.Strategy4().MinDirectDistance() );
+		}
+		else if( strategy == vehiclePoliceStrategy.GetToPlayerFromAnywhere )
+		{
+			return GetToPlayerFromAnywhereStrategyRequest.Create( m_preventionDataTable.Strategy5().VehicleSpawnDistanceRange(), m_preventionDataTable.Strategy5().MinDirectDistance() );
+		}
+		else if( strategy == vehiclePoliceStrategy.InitialSearch )
+		{
+			return InitialSearchStrategyRequest.Create( SelectRange( m_preventionDataTable.Strategy6() ), m_preventionDataTable.Strategy6().MinDirectDistance() );
+		}
+		else
+		{
+			return SearchFromAnywhereStrategyRequest.Create( SelectRange( m_preventionDataTable.Strategy7() ), m_preventionDataTable.Strategy7().VehicleSpawnAngleRange() );
+		}
+	}
+
+	private function SpawnPoliceVehicle() : Uint32
+	{
+		var preventionSpawnSystem : PreventionSpawnSystem;
+		var vehicleRecord : weak< Vehicle_Record >;
+		var passengerIDs : array< TweakDBID >;
+		var ticketID : Uint32;
+		var strategyRequest : BaseStrategyRequest;
+		var wantedStrategies : array< vehiclePoliceStrategy >;
+		var strategy : vehiclePoliceStrategy;
+		var passengersCount : Int32;
+		var canVehicleTryToBeInFront : Bool;
+		var strat7Available : Bool;
+		var playerOnHighway : Bool;
+		preventionSpawnSystem = GameInstance.GetPreventionSpawnSystem( GetGameInstance() );
+		ticketID = 0;
+		canVehicleTryToBeInFront = RandF() < 0.60000002;
+		strat7Available = IsStrategyAvailable( vehiclePoliceStrategy.SearchFromAnywhere );
+		playerOnHighway = preventionSpawnSystem.IsPlayerOnHighway();
+		if( !( TryGetVehicleDataFromHeatStage( GetHeatStage(), vehicleRecord ) ) || !( preventionSpawnSystem.IsAnyStrategyAvailable() ) )
+		{
+			return ticketID;
+		}
+		if( !( TrySpawnOnFootFallbackBasedOnRoadInfo( preventionSpawnSystem ) ) )
+		{
+			return ticketID;
+		}
+		if( IsAnyVehicleChasingTarget() && m_isPlayerMounted )
+		{
+			wantedStrategies.PushBack( vehiclePoliceStrategy.DriveTowardsPlayer );
+			wantedStrategies.PushBack( vehiclePoliceStrategy.DriveAwayFromPlayer );
+			wantedStrategies.PushBack( vehiclePoliceStrategy.InterceptAtNextIntersection );
+			if( playerOnHighway )
+			{
+				wantedStrategies.PushBack( vehiclePoliceStrategy.SearchFromAnywhere );
+			}
+			if( IsPursuedVehicleFast() )
+			{
+				strategy = preventionSpawnSystem.GetRandomAvailableStrategy( wantedStrategies );
+			}
+			if( strategy == vehiclePoliceStrategy.None )
+			{
+				wantedStrategies.PushBack( vehiclePoliceStrategy.PatrolNearby );
+				strategy = preventionSpawnSystem.GetRandomAvailableStrategy( wantedStrategies );
+			}
+		}
+		else
+		{
+			if( m_codeRedReinforcement )
+			{
+				m_codeRedReinforcement = false;
+				strategy = preventionSpawnSystem.SetIfAvailable( vehiclePoliceStrategy.DriveTowardsPlayer );
+			}
+			else
+			{
+				if( ( ( ( ( ( Int32 )( GetHeatStage() ) ) > 1 ) && m_agentRegistry.IsPoliceInCombatWithPalyer() ) && !( m_isPlayerMounted ) ) && !( ShouldPreventionUnitsRetreat() ) )
+				{
+					wantedStrategies.PushBack( vehiclePoliceStrategy.DriveTowardsPlayer );
+					wantedStrategies.PushBack( vehiclePoliceStrategy.InterceptAtNextIntersection );
+					if( ( ( Int32 )( GetHeatStage() ) ) > 2 )
+					{
+						wantedStrategies.PushBack( vehiclePoliceStrategy.GetToPlayerFromAnywhere );
+					}
+					strategy = preventionSpawnSystem.GetRandomAvailableStrategy( wantedStrategies );
+					if( strategy == vehiclePoliceStrategy.None || ( ( ( Int32 )( GetHeatStage() ) ) >= 4 ) )
+					{
+						strategy = preventionSpawnSystem.SetIfAvailable( vehiclePoliceStrategy.GetToPlayerFromAnywhere );
+					}
+				}
+				else
+				{
+					if( ShouldSpawnPatrolVehicleWhenInSearch() )
+					{
+						strategy = preventionSpawnSystem.SetIfAvailable( vehiclePoliceStrategy.PatrolNearby );
+					}
+					else
+					{
+						wantedStrategies.PushBack( vehiclePoliceStrategy.InitialSearch );
+						if( playerOnHighway )
+						{
+							wantedStrategies.PushBack( vehiclePoliceStrategy.DriveAwayFromPlayer );
+							wantedStrategies.PushBack( vehiclePoliceStrategy.SearchFromAnywhere );
+						}
+						strategy = preventionSpawnSystem.GetRandomAvailableStrategy( wantedStrategies );
+					}
+				}
+			}
+		}
+		if( ( !( canVehicleTryToBeInFront ) && !( playerOnHighway ) ) && ( ( strategy == vehiclePoliceStrategy.DriveTowardsPlayer || strategy == vehiclePoliceStrategy.DriveAwayFromPlayer ) || strategy == vehiclePoliceStrategy.InitialSearch ) )
+		{
+			strategy = ( ( strat7Available ) ? ( vehiclePoliceStrategy.SearchFromAnywhere ) : ( strategy ) );
+		}
+		preventionSpawnSystem.DebugTryOverrideWithForcedStrategy( strategy );
+		if( strategy == vehiclePoliceStrategy.None )
+		{
+			if( strat7Available && ( m_failedVehicleSpawnAttempts > 4 ) )
+			{
+				strategy = vehiclePoliceStrategy.SearchFromAnywhere;
+			}
+			else
+			{
+				return ticketID;
+			}
+		}
+		strategyRequest = CreateStrategyRequest( strategy );
+		m_currentVehicleTicketCount = Max( 0, m_currentVehicleTicketCount - 1 );
+		passengersCount = RandRange( vehicleRecord.MinVehiclePassengersCount(), vehicleRecord.MaxVehiclePassengersCount() + 1 );
+		TryGetUnitDataFromVehicleRecord( vehicleRecord, passengersCount, passengerIDs );
+		ticketID = preventionSpawnSystem.RequestChaseVehicle( vehicleRecord.GetID(), passengerIDs, strategyRequest );
+		m_agentRegistry.CreateTicket( ticketID, strategy );
+		return ticketID;
+	}
+
+	private function TrySpawnOnFootFallbackBasedOnRoadInfo( system : PreventionSpawnSystem ) : Bool
+	{
+		var roadInfo : NearestRoadFromPlayerInfo;
+		var heightAbs : Float;
+		var playerPos : Vector4;
+		playerPos = m_player.GetWorldPosition();
+		system.GetNearestRoadFromPlayerInfo( roadInfo );
+		if( Vector4.IsXYZZero( roadInfo.point ) )
+		{
+			return false;
+		}
+		heightAbs = AbsF( playerPos.Z - roadInfo.point.Z );
+		if( ( ( roadInfo.pathLength < 0.0 ) || ( roadInfo.pathLength >= m_preventionDataTable.FallbackMaxDistanceToRoad() ) ) || ( ( heightAbs >= m_preventionDataTable.FallbackMaxHeightDifference() ) && ( roadInfo.pathLength >= m_preventionDataTable.FallbackMaxDistanceForHeight() ) ) )
+		{
+			TrySpawnPoliceOnFootFallback();
+		}
+		return true;
+	}
+
+	private function IsPursuedVehicleFast() : Bool
+	{
+		var vehicle : weak< VehicleObject >;
+		var speed : Float;
+		if( VehicleComponent.GetVehicle( GetGameInstance(), GetPlayer( GetGameInstance() ), vehicle ) )
+		{
+			speed = vehicle.GetCurrentSpeed();
+			return speed > 30.0;
+		}
+		return false;
+	}
+
+	public static function SetSpawnCodeRedReinforcement( game : GameInstance, shouldSpawnReinforcement : Bool )
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		ps.m_codeRedReinforcement = shouldSpawnReinforcement;
+	}
+
+	private function DespawnAllPolice( useAggressiveDespawn : Bool )
+	{
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).RequestDespawnAll( useAggressiveDespawn );
+	}
+
+	public static function ShowMessage( gameInstance : GameInstance, const message : ref< String >, time : Float )
+	{
+		var warningMsg : SimpleScreenMessage;
+		warningMsg.isShown = true;
+		warningMsg.duration = time;
+		warningMsg.message = message;
+		GameInstance.GetBlackboardSystem( gameInstance ).Get( GetAllBlackboardDefs().UI_Notifications ).SetVariant( GetAllBlackboardDefs().UI_Notifications.WarningMessage, warningMsg, true );
+	}
+
+	private export function OnRefreshDistrict( request : RefreshDistrictRequest )
+	{
+		if( !( request.preventionPreset ) )
+		{
+			RestoreDefaultPreset();
+		}
+		else
+		{
+			m_preventionPreset = request.preventionPreset;
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugDistrictInfo();
+		}
+	}
+
+	private function RestoreDefaultConfig()
+	{
+		RestoreDefaultPreset();
+	}
+
+	private function UpdateVehicles()
+	{
+		var i : Int32;
+		var vehicleAgents : array< VehicleAgent >;
+		m_agentRegistry.GetVehiclesWithoutRegisteredPassengers( vehicleAgents );
+		for( i = vehicleAgents.Size() - 1; i >= 0; i -= 1 )
+		{
+			GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).MarkAsDead( vehicleAgents[ i ].id );
+		}
+		vehicleAgents.Clear();
+		vehicleAgents = m_agentRegistry.GetVehicleList();
+		for( i = vehicleAgents.Size() - 1; i >= 0; i -= 1 )
+		{
+			vehicleAgents[ i ].UpdateLifetimeStatus( m_player.GetWorldPosition() );
+		}
+	}
+
+	private function UpdateNPCs()
+	{
+		var i : Int32;
+		var npcAgents : array< NPCAgent >;
+		npcAgents = m_agentRegistry.GetNPCList();
+		for( i = npcAgents.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( !( IsNPCValid( npcAgents[ i ].unit ) ) )
+			{
+				UnregisterPreventionUnit( npcAgents[ i ].id );
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).MarkAsDead( npcAgents[ i ].id );
+			}
+		}
+	}
+
+	protected export function OnViewerRequest( request : PreventionVisibilityRequest )
+	{
+		if( !( m_player ) )
+		{
+			return;
+		}
+		if( request.seePlayer )
+		{
+			ViewerRegister( request.requester );
+			SetLastKnownPlayerPosition( m_player.GetWorldPosition() );
+		}
+		else
+		{
+			ViewerUnRegister( request.requester );
+		}
+	}
+
+	protected function OnVehicleStolenRequest( request : PreventionVehicleStolenRequest )
+	{
+		if( !( CanPreventionReactToInput() ) )
+		{
+			return;
+		}
+		if( request.vehicleAffiliation != gamedataAffiliation.NCPD )
+		{
+			return;
+		}
+		if( !( IsChasingPlayer() ) )
+		{
+			HeatPipeline( "PlayerStoleVehicle" );
+		}
+		else
+		{
+			UpdateStarState();
+		}
+	}
+
+	protected export function OnCombatStartedRequest( request : PreventionCombatStartedRequest )
+	{
+		if( !( CanPreventionReactToInput() ) )
+		{
+			return;
+		}
+		if( !( IsChasingPlayer() ) )
+		{
+			HeatPipeline( "EnterCombat" );
+		}
+		m_policeKnowsPlayerLocation = true;
+		UpdateStarState();
+		SetLastKnownPlayerPosition( request.requesterPosition );
+	}
+
+	protected function OnCrimeWitnessRequest( request : PreventionCrimeWitnessRequest )
+	{
+		if( !( CanPreventionReactToInput() ) )
+		{
+			return;
+		}
+		if( !( IsChasingPlayer() ) )
+		{
+			HeatPipeline( "CrimeWitness" );
+		}
+		else
+		{
+			UpdateStarState();
+		}
+		SetLastKnownPlayerPosition( request.criminalPosition );
+	}
+
+	private function UpdateViewers() : Bool
+	{
+		var i : Int32;
+		if( m_viewers.Size() <= 0 )
+		{
+			HasViewersChanged( false );
+			return false;
+		}
+		for( i = m_viewers.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( !( m_viewers[ i ] ) || !( m_viewers[ i ].IsActive() ) )
+			{
+				m_viewers.Erase( i );
+			}
+		}
+		HasViewersChanged( true );
+		return true;
+	}
+
+	private function HasViewersChanged( currentViewerState : Bool )
+	{
+		if( currentViewerState != m_hasViewers )
+		{
+			m_hasViewers = currentViewerState;
+			OnViewersStateChanged();
+		}
+	}
+
+	private function OnViewersStateChanged()
+	{
+		if( AreTurretsActive() )
+		{
+			SetAgentsSupport( m_hasViewers );
+		}
+	}
+
+	private function ViewerRegister( viewer : weak< GameObject > )
+	{
+		if( !( viewer ) )
+		{
+			return;
+		}
+		SetLastKnownPlayerPosition( m_player.GetWorldPosition() );
+		if( !( m_viewers.Contains( viewer ) ) )
+		{
+			m_viewers.PushBack( viewer );
+		}
+	}
+
+	private function ViewerUnRegister( viewer : weak< GameObject > )
+	{
+		m_viewers.Remove( viewer );
+	}
+
+	protected export function OnRegisterRequest( request : PreventionRegisterRequest )
+	{
+		if( request.register )
+		{
+			Register( request.attitudeGroup, request.requester );
+		}
+		else
+		{
+			UnRegister( request.attitudeGroup, request.requester );
+		}
+	}
+
+	private function Register( attitudeGroup : CName, ps : weak< PersistentState > )
+	{
+		var i : Int32;
+		var newGroup : PreventionAgents;
+		for( i = 0; i < m_agentGroupsList.Size(); i += 1 )
+		{
+			if( m_agentGroupsList[ i ].GetGroupName() == attitudeGroup )
+			{
+				if( !( m_agentGroupsList[ i ].IsAgentalreadyAdded( ps ) ) )
+				{
+					m_agentGroupsList[ i ].AddAgent( ps );
+				}
+				if( AreTurretsActive() )
+				{
+					WakeUpAgent( ps, true );
+				}
+				else
+				{
+					WakeUpAgent( ps, false );
+				}
+				return;
+			}
+		}
+		if( IsNameValid( attitudeGroup ) )
+		{
+			newGroup = new PreventionAgents;
+			newGroup.CreateGroup( attitudeGroup, ps );
+			m_agentGroupsList.PushBack( newGroup );
+		}
+	}
+
+	private function UnRegister( attitudeGroup : CName, ps : weak< PersistentState > )
+	{
+		var i : Int32;
+		for( i = 0; i < m_agentGroupsList.Size(); i += 1 )
+		{
+			if( m_agentGroupsList[ i ].GetGroupName() == attitudeGroup )
+			{
+				m_agentGroupsList[ i ].RemoveAgent( ps );
+				if( !( m_agentGroupsList[ i ].HasAgents() ) )
+				{
+					m_agentGroupsList.Erase( i );
+					break;
+				}
+			}
+		}
+	}
+
+	protected export function OnPreventionSecurityAreaRequest( request : PreventionSecurityAreaRequest )
+	{
+		if( request.playerIsIn )
+		{
+			if( !( m_playerIsInSecurityArea.Contains( request.areaID ) ) )
+			{
+				m_playerIsInSecurityArea.PushBack( request.areaID );
+			}
+		}
+		else
+		{
+			if( m_playerIsInSecurityArea.Contains( request.areaID ) )
+			{
+				m_playerIsInSecurityArea.Remove( request.areaID );
+			}
+		}
+		ReevaluateSecurityAreaReset();
+		if( !( IsFinal() ) )
+		{
+			RefreshDebugSecAreaInfo();
+		}
+	}
+
+	protected export function OnPreventionPoliceSecuritySystemRequest( request : PreventionPoliceSecuritySystemRequest )
+	{
+		var removeFromBlacklist : RemoveFromBlacklistEvent;
+		if( !( m_policeSecuritySystems.Contains( request.securitySystemID ) ) )
+		{
+			m_policeSecuritySystems.PushBack( request.securitySystemID );
+			if( m_player && !( IsChasingPlayer() ) )
+			{
+				removeFromBlacklist = new RemoveFromBlacklistEvent;
+				removeFromBlacklist.entityIDToRemove = m_player.GetEntityID();
+				removeFromBlacklist.isPlayerEntity = true;
+				GameInstance.GetPersistencySystem( GetGame() ).QueuePSEvent( request.securitySystemID, 'SecuritySystemControllerPS', removeFromBlacklist );
+			}
+		}
+	}
+
+	public const function ShouldReactionBeAggressive() : Bool
+	{
+		if( IsChasingPlayer() )
+		{
+			return true;
+		}
+		if( !( m_ignoreSecurityAreas ) && ( m_playerIsInSecurityArea.Size() > 0 ) )
+		{
+			return false;
+		}
+		if( !( CanPreventionReactToInput() ) )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public static function NotifyVehicleExplosion( veh : VehicleObject )
+	{
+		var preventionSystem : PreventionSystem;
+		preventionSystem = veh.GetPreventionSystem();
+		if( preventionSystem )
+		{
+			preventionSystem.OnVehicleExplosion();
+		}
+	}
+
+	private function OnVehicleExplosion()
+	{
+		var now : Float;
+		now = EngineTime.ToFloat( GameInstance.GetSimTime( GetGame() ) );
+		if( IsChasingPlayer() )
+		{
+			return;
+		}
+		if( ( m_lastCivilianVehicleDestructionTimeStamp >= 0.0 ) && ( ( now - m_lastCivilianVehicleDestructionTimeStamp ) > m_civilianVehicleDestructionTimeout ) )
+		{
+			m_lastCivilianVehicleDestructionTimeStamp = -1.0;
+			m_civilianVehicleDestructionCount = 0;
+		}
+		m_lastCivilianVehicleDestructionTimeStamp = now;
+		m_civilianVehicleDestructionCount += 1;
+		if( m_civilianVehicleDestructionCount >= m_civilianVehicleDestructionThreshold )
+		{
+			HeatPipeline( "CivilianVehicleDestroyed" );
+		}
+		else if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	public static function ShouldReactionBeAgressive( game : GameInstance ) : Bool
+	{
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		if( preventionSystem )
+		{
+			return preventionSystem.ShouldReactionBeAggressive();
+		}
+		return true;
+	}
+
+	public static function CanPreventionReact( game : GameInstance ) : Bool
+	{
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		if( preventionSystem )
+		{
+			return preventionSystem.CanPreventionReactToInput();
+		}
+		return true;
+	}
+
+	public constexpr static function GetDamageReactionThreshold() : Float
+	{
+		return 0.015;
+	}
+
+	public static function CreateNewPreventionDamageRequest( context : GameInstance, target : GameObject, attackTime : Float, attackType : gamedataAttackType, damageDealt : Float, isTargetKilled : Bool )
+	{
+		var request : PreventionDamage;
+		request = new PreventionDamage;
+		request.target = target;
+		request.attackTime = attackTime;
+		request.attackType = attackType;
+		request.damageDealtPercent = damageDealt;
+		request.isTargetKilled = isTargetKilled;
+		GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ).QueueRequest( request );
+	}
+
+	protected function OnPreventionDamage( evt : PreventionDamage )
+	{
+		var preventionSystemRequest : PreventionDamageRequest;
+		if( ShouldPreventionSystemReactToAttack( evt.target, evt.attackTime, evt.isTargetKilled ) )
+		{
+			preventionSystemRequest = new PreventionDamageRequest;
+			if( evt.target )
+			{
+				preventionSystemRequest.targetID = evt.target.GetEntityID();
+				preventionSystemRequest.targetPosition = evt.target.GetWorldPosition();
+				preventionSystemRequest.isTargetPrevention = evt.target.IsPrevention();
+				preventionSystemRequest.isTargetVehicle = evt.target.IsVehicle();
+				preventionSystemRequest.isTargetKilled = evt.isTargetKilled;
+				preventionSystemRequest.telemetryInfo = evt.GetTelemetryDescription();
+			}
+			preventionSystemRequest.attackType = evt.attackType;
+			preventionSystemRequest.damageDealtPercentValue = evt.damageDealtPercent;
+			ProcessPreventionDamageRequest( preventionSystemRequest );
+		}
+	}
+
+	public static function ShouldPreventionSystemReactToAttack( target : weak< GameObject >, attackTime : Float, istargetDefeated : Bool ) : Bool
+	{
+		var system : PreventionSystem;
+		var puppetTarget : weak< ScriptedPuppet >;
+		var vehicleTarget : weak< VehicleObject >;
+		var targetIDList : array< EntityID >;
+		var shouldReact : Bool;
+		var targetID : EntityID;
+		targetID = target.GetEntityID();
+		if( attackTime >= 0.0 )
+		{
+			system = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( target.GetGame() ).Get( 'PreventionSystem' ) ) );
+			if( system.GetLastAttackTime() != attackTime )
+			{
+				system.SetLastAttackTime( attackTime );
+				system.ClearLastAttackTargetIDs();
+			}
+			targetIDList = system.GetLastAttackTargetIDs();
+			if( !( targetIDList.Contains( targetID ) ) )
+			{
+				system.UpdateLastAttackTargetIDs( targetID );
+				shouldReact = true;
+			}
+			if( !( shouldReact ) )
+			{
+				return false;
+			}
+		}
+		if( target.IsPuppet() )
+		{
+			puppetTarget = ( ( ScriptedPuppet )( target ) );
+			if( puppetTarget.GetPuppetPS().IsPreventionNotified() )
+			{
+				return false;
+			}
+			if( istargetDefeated )
+			{
+				puppetTarget.GetPuppetPS().SetIsPreventionNotified( true );
+			}
+			if( NPCManager.HasTag( puppetTarget.GetRecordID(), 'DoNotTriggerPrevention' ) )
+			{
+				return false;
+			}
+			if( ( ( ( puppetTarget.IsCrowd() || puppetTarget.IsVendor() ) || puppetTarget.IsCharacterCivilian() ) || puppetTarget.IsPrevention() ) || NPCManager.HasTag( puppetTarget.GetRecordID(), 'TriggerPrevention' ) )
+			{
+				return true;
+			}
+		}
+		else if( target.IsVehicle() )
+		{
+			vehicleTarget = ( ( VehicleObject )( target ) );
+			if( vehicleTarget.IsDestroyed() )
+			{
+				return false;
+			}
+			if( vehicleTarget.IsPrevention() || vehicleTarget.HasPassengers() )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static function ShouldPreventionSystemReactToDamageDealt( puppet : weak< ScriptedPuppet > ) : Bool
+	{
+		if( !( puppet ) || !( puppet.IsActive() ) )
+		{
+			return false;
+		}
+		if( puppet.IsPrevention() || NPCManager.HasTag( puppet.GetRecordID(), 'TriggerPrevention' ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public static function ShouldPreventionSystemReactToCombat( puppet : weak< ScriptedPuppet > ) : Bool
+	{
+		if( !( puppet ) || puppet.IsIncapacitated() )
+		{
+			return false;
+		}
+		if( puppet.IsPrevention() || NPCManager.HasTag( puppet.GetRecordID(), 'TriggerPrevention' ) )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	protected event OnPlayerChoice( value : Variant )
+	{
+		var attemptedChoice : InteractionAttemptedChoice;
+		attemptedChoice = ( ( InteractionAttemptedChoice )value );
+		if( ( attemptedChoice.isSuccess && attemptedChoice.visualizerType == EVisualizerType.Dialog ) && !( attemptedChoice.choice.doNotTurnOffPreventionSystem ) )
+		{
+			execInstructionSafe( "PlayerChoice" );
+		}
+	}
+
+	private export function OnDistrictAreaEntered( request : DistrictEnteredEvent )
+	{
+		var currentDistrict : weak< District >;
+		if( m_districtManager )
+		{
+			m_districtManager.Update( request );
+			currentDistrict = m_districtManager.GetCurrentDistrict();
+			m_districtMultiplier = currentDistrict.GetCrimeMultiplier();
+			PoliceRadioScriptSystem.UpdatePoliceRadioOnDistrictChange( GetGameInstance(), currentDistrict, m_heatStage );
+			UpdateDataMatrixOnDistrictChange( currentDistrict );
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function SyncTweakDistrictData()
+	{
+		var currentDistrict : weak< District >;
+		if( m_districtManager )
+		{
+			currentDistrict = m_districtManager.GetCurrentDistrict();
+			GetPreventionMatrixPresetForCurrentDistrict( currentDistrict );
+			GetPreventionDataForCurrentDistrict( currentDistrict );
+		}
+		else
+		{
+			RestoreDefaultPreventionMatrixPreset();
+			RestoreDefaultPreset();
+		}
+	}
+
+	private function GetPreventionMatrixPresetForCurrentDistrict( district : weak< District > )
+	{
+		var questSystem : QuestsSystem;
+		if( !( district ) )
+		{
+			RestoreDefaultPreventionMatrixPreset();
+			return;
+		}
+		if( district.IsDogTown() )
+		{
+			m_preventionDataMatrix = TweakDBInterface.GetPreventionHeatDataMatrixRecord( T"PreventionData.DogTownDataMatrix" );
+			questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+			if( !( questSystem ) )
+			{
+				return;
+			}
+			if( questSystem.GetFact( 'mq304_city_scenes_active' ) == 1 )
+			{
+				m_preventionDataMatrix = TweakDBInterface.GetPreventionHeatDataMatrixRecord( T"PreventionData.DogTown_Kurt_DataMatrix" );
+			}
+			else if( questSystem.GetFact( 'mq304_bennett_prevention' ) == 1 )
+			{
+				m_preventionDataMatrix = TweakDBInterface.GetPreventionHeatDataMatrixRecord( T"PreventionData.DogTown_Bennet_DataMatrix" );
+			}
+			m_wantedBarBlackboard.SetBool( GetAllBlackboardDefs().UI_WantedBar.IsDogtown, true, true );
+		}
+		else
+		{
+			m_preventionDataMatrix = TweakDBInterface.GetPreventionHeatDataMatrixRecord( T"PreventionData.NCPDDataMatrix" );
+			m_wantedBarBlackboard.SetBool( GetAllBlackboardDefs().UI_WantedBar.IsDogtown, false, true );
+		}
+	}
+
+	private function GetPreventionDataForCurrentDistrict( district : weak< District > )
+	{
+		if( !( district ) )
+		{
+			RestoreDefaultPreset();
+			return;
+		}
+		TweakDBInterface.GetDistrictPreventionDataRecord( district.GetPresetID() );
+	}
+
+	private function RestoreDefaultPreventionMatrixPreset()
+	{
+		m_preventionDataMatrix = TweakDBInterface.GetPreventionHeatDataMatrixRecord( T"PreventionData.NCPDDataMatrix" );
+	}
+
+	private function RestoreDefaultPreset()
+	{
+		m_preventionPreset = TweakDBInterface.GetDistrictPreventionDataRecord( T"PreventionData.NCPD" );
+	}
+
+	private function ChangeAgentsAttitude( desiredAffiliation : EAIAttitude )
+	{
+		var i : Int32;
+		var player : GameObject;
+		var playerAttitude : CName;
+		var spawnedEntities : array< weak< Entity > >;
+		var groupName : CName;
+		player = GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject();
+		if( !( player ) )
+		{
+			return;
+		}
+		playerAttitude = player.GetAttitudeAgent().GetAttitudeGroup();
+		GameInstance.GetAttitudeSystem( GetGameInstance() ).SetAttitudeGroupRelationPersistent( 'police', playerAttitude, desiredAffiliation );
+		for( i = 0; i < m_agentGroupsList.Size(); i += 1 )
+		{
+			groupName = m_agentGroupsList[ i ].GetGroupName();
+			if( !( CanChangeAttitudeRelationFor( groupName ) ) )
+			{
+				continue;
+			}
+			GameInstance.GetAttitudeSystem( GetGameInstance() ).SetAttitudeGroupRelationPersistent( groupName, playerAttitude, desiredAffiliation );
+		}
+		GameInstance.GetCompanionSystem( GetGameInstance() ).GetSpawnedEntities( spawnedEntities );
+		for( i = 0; i < spawnedEntities.Size(); i += 1 )
+		{
+			ChangeAttitude( ( ( GameObject )( spawnedEntities[ i ] ) ), player, desiredAffiliation );
+		}
+	}
+
+	private final function ChangeAttitude( owner : weak< GameObject >, target : weak< GameObject >, desiredAttitude : EAIAttitude )
+	{
+		var attitudeOwner : AttitudeAgent;
+		var attitudeTarget : AttitudeAgent;
+		if( !( owner ) || !( target ) )
+		{
+			return;
+		}
+		attitudeOwner = owner.GetAttitudeAgent();
+		attitudeTarget = target.GetAttitudeAgent();
+		if( !( attitudeOwner ) || !( attitudeTarget ) )
+		{
+			return;
+		}
+		attitudeOwner.SetAttitudeTowards( attitudeTarget, desiredAttitude );
+	}
+
+	private function WakeUpAllAgents( wakeUp : Bool )
+	{
+		var i : Int32;
+		var i1 : Int32;
+		for( i = 0; i < m_agentGroupsList.Size(); i += 1 )
+		{
+			for( i1 = 0; i1 < m_agentGroupsList[ i ].GetAgentsNumber(); i1 += 1 )
+			{
+				WakeUpAgent( m_agentGroupsList[ i ].GetAgetntByIndex( i1 ), wakeUp );
+			}
+		}
+	}
+
+	private function WakeUpAgent( ps : weak< PersistentState >, wakeUp : Bool )
+	{
+		var evt : ReactoToPreventionSystem;
+		evt = new ReactoToPreventionSystem;
+		evt.wakeUp = wakeUp;
+		GameInstance.GetPersistencySystem( GetGameInstance() ).QueuePSEvent( ps.GetID(), ps.GetClassName(), evt );
+		if( wakeUp )
+		{
+			SetSingleAgentSupport( ps, m_hasViewers );
+		}
+		else
+		{
+			SetSingleAgentSupport( ps, false );
+		}
+	}
+
+	private function ReevaluateSecurityAreaReset()
+	{
+		if( m_ignoreSecurityAreasByQuest || m_forceEternalGreyStars )
+		{
+			return;
+		}
+		if( IsPlayerInQuestArea() )
+		{
+			StartSecurityAreaResetRequest( 2.0 );
+		}
+	}
+
+	private function CancelAllDelayedEvents()
+	{
+		CancelTransitiontoGreyStateTimerRequest();
+		CancelStateBufferTimerRequest();
+		CancelSearchingTimerRequest();
+		CancelBlinkingTimerRequest();
+		CancelCrimescoreDropTimerRequest();
+		CancelNPCSpawnDelay();
+		CancelSecurityAreaResetRequest();
+		m_preventionTickCaller.Cancel();
+	}
+
+	private function CancelAllIntervalCallers()
+	{
+		m_roadblockadeRespawnTickCaller.Cancel();
+		m_preventionTickCaller.Cancel();
+		m_vehicleSpawnTickCaller.Cancel();
+		m_ressuplyVehicleTicketCaller.Cancel();
+	}
+
+	private function ReevaluttatePreventionLockSources()
+	{
+		if( m_systemLockSources.Size() <= 0 )
+		{
+			TogglePreventionGlobalQuestObjective_Internal( true, GetPreventionQuestDisabledGenericQuestReason() );
+			execInstructionOn();
+		}
+		else if( m_systemLockSources.Size() > 0 )
+		{
+			execInstructionOff();
+		}
+		RefreshDebugLockSources();
+	}
+
+	private function OnClearPreventionSystemLocks( evt : ClearPreventionSystemLocks )
+	{
+		m_systemLockSources.Clear();
+		execInstructionOn();
+		RefreshDebugLockSources();
+	}
+
+	private function OnTogglePreventionSystem( evt : TogglePreventionSystem )
+	{
+		if( !( IsNameValid( evt.sourceName ) ) )
+		{
+			return;
+		}
+		RefreshDebugRemoveAllLockSources();
+		if( evt.isActive )
+		{
+			if( m_systemLockSources.Contains( evt.sourceName ) )
+			{
+				m_systemLockSources.Remove( evt.sourceName );
+				if( m_systemLockSources.Size() <= 0 )
+				{
+					TogglePreventionGlobalQuestObjective_Internal( true, GetPreventionQuestDisabledGenericQuestReason() );
+					execInstructionOn();
+				}
+			}
+		}
+		else
+		{
+			if( !( m_systemLockSources.Contains( evt.sourceName ) ) )
+			{
+				m_systemLockSources.PushBack( evt.sourceName );
+				if( m_systemLockSources.Size() > 0 )
+				{
+					execInstructionOff();
+				}
+			}
+		}
+		RefreshDebugLockSources();
+	}
+
+	private function OnTogglePreventionCrowdSpawns( evt : TogglePreventionCrowdSpawns )
+	{
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionCrowdSpawns( evt.toggle );
+	}
+
+	private function OnSetWantedLevel( evt : SetWantedLevel )
+	{
+		var preventionForceDeescalateRequest : PreventionForceDeescalateRequest;
+		if( evt.m_wantedLevel != EPreventionHeatStage.Invalid )
+		{
+			TogglePreventionSystem( true );
+			m_ignoreSecurityAreasByQuest = evt.m_forceIgnoreSecurityAreas;
+			if( evt.m_resetGreyStars )
+			{
+				m_forceEternalGreyStars = false;
+			}
+			if( evt.m_wantedLevel == EPreventionHeatStage.Heat_0 && IsChasingPlayer() )
+			{
+				preventionForceDeescalateRequest = new PreventionForceDeescalateRequest;
+				preventionForceDeescalateRequest.fakeBlinkingDuration = TweakDBInterface.GetFloat( T"PreventionSystem.setup.forcedDeescalationUIStarsBlinkingDurationSeconds", 4.0 );
+				preventionForceDeescalateRequest.telemetryInfo = "QuestEvent";
+				QueueRequest( preventionForceDeescalateRequest );
+				return;
+			}
+			else if( evt.m_wantedLevel == EPreventionHeatStage.Heat_0 && !( IsChasingPlayer() ) )
+			{
+				return;
+			}
+			if( evt.m_forcePlayerPositionAsLastCrimePoint || Vector4.IsZero( GetLastKnownPlayerPosition() ) )
+			{
+				SetLastKnownPlayerPosition( m_player.GetWorldPosition() );
+			}
+			if( evt.m_forceGreyStars )
+			{
+				m_forceEternalGreyStars = true;
+			}
+			TogglePreventionGlobalQuestObjective_Internal( true, GetPreventionQuestDisabledGenericQuestReason() );
+			ChangeHeatStage( evt.m_wantedLevel, "QuestEvent" );
+		}
+	}
+
+	private function RestoreMinimapToDefault()
+	{
+		GameInstance.GetMinimapSystem( GetGameInstance() ).RestoreDefaultVehicleSettings();
+	}
+
+	private function PreventionMinimapOverride()
+	{
+		var data : weak< PreventionMinimapData_Record >;
+		data = m_preventionDataMatrix.MinimapData();
+		GameInstance.GetMinimapSystem( GetGameInstance() ).OverrideVehicleSettings( data.MinRadius(), data.MaxRadius(), data.MinSpeed(), data.MaxSpeed() );
+	}
+
+	private function HandleDebugEventSourceTracking( sourceName : CName, tryRemoveLock : Bool )
+	{
+		if( !( IsNameValid( sourceName ) ) )
+		{
+			return;
+		}
+		if( tryRemoveLock )
+		{
+			if( m_nodeEventSources.Contains( sourceName ) )
+			{
+				m_nodeEventSources.Remove( sourceName );
+			}
+		}
+		else if( !( m_nodeEventSources.Contains( sourceName ) ) )
+		{
+			m_nodeEventSources.PushBack( sourceName );
+		}
+		RefreshDebugEventSources();
+	}
+
+	private function OnSetHeatCounterMultiplier( evt : SetHeatCounterMultiplier )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_reset );
+		if( evt.m_reset )
+		{
+			SetCrimeScoreMultiplier( 1.0 );
+		}
+		else
+		{
+			SetCrimeScoreMultiplier( evt.m_heatMultiplier );
+		}
+	}
+
+	private function OnSetHeatLevelLimiter( evt : SetHeatLevelLimiter )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_HeatLevelReset );
+		if( evt.m_HeatLevelReset )
+		{
+			SetMinMaxResetHeatLevels( 0, 5, evt.m_HeatLevelReset );
+		}
+		else
+		{
+			SetMinMaxResetHeatLevels( evt.m_HeatLevelMin, evt.m_HeatLevelMax, evt.m_HeatLevelReset );
+		}
+	}
+
+	private function OnSetPreventionPath( evt : SetPreventionPath )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_resetToDefault );
+		if( evt.m_resetToDefault )
+		{
+			SetVehicleSpawnBlockSide( EVehicleSpawnBlockSide.Default );
+		}
+		else
+		{
+			SetVehicleSpawnBlockSide( evt.m_blockSpawnFrom );
+		}
+	}
+
+	private function OnSetPreventionDifficulty( evt : SetPreventionDifficulty )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_difficuiltyReset );
+		if( evt.m_difficuiltyReset )
+		{
+			SetChaseMultiplier( 1.0 );
+			SetDamageToPlayerMultiplier( 1.0 );
+		}
+		else
+		{
+			SetChaseMultiplier( evt.m_chaseAggressivnessMultiplier );
+			SetDamageToPlayerMultiplier( evt.m_damageDealtToPlayerMultiplier );
+		}
+	}
+
+	private function OnSetPoliceSearchArea( evt : SetPoliceSearchArea )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_resetToDefault );
+		if( evt.m_resetToDefault )
+		{
+			m_policeChaseBlackboard.SetFloat( GetAllBlackboardDefs().PoliceChaseParams.SearchAreaRadius, -1.0, true );
+			m_policeChaseBlackboard.SetFloat( GetAllBlackboardDefs().PoliceChaseParams.ChasePlayerDistance, -1.0, true );
+		}
+		else
+		{
+			m_policeChaseBlackboard.SetFloat( GetAllBlackboardDefs().PoliceChaseParams.SearchAreaRadius, evt.m_SearchAreaRadius, true );
+			m_policeChaseBlackboard.SetFloat( GetAllBlackboardDefs().PoliceChaseParams.ChasePlayerDistance, evt.m_ChaseDistance, true );
+		}
+	}
+
+	private function OnSetBlockShootingFromVehicle( evt : SetBlockShootingFromVehicle )
+	{
+		SetBlockShootingFromVehicle( evt.m_enable );
+	}
+
+	private function OnTogglePreventionFreeArea( evt : TogglePreventionFreeArea )
+	{
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).ToggleFreeArea( evt.m_areaReference, evt.m_enable );
+	}
+
+	private function OnToggleQuestPreventionTrigger( evt : ToggleQuestPreventionTrigger )
+	{
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionQuestTrigger( evt.m_areaReference, evt.m_enable );
+	}
+
+	private function OnTogglePreventionGlobalQuestObjective( evt : TogglePreventionGlobalQuestObjective )
+	{
+		TogglePreventionGlobalQuestObjective_Internal( evt.m_preventionGlobalQuestDisabled, evt.m_eventSource );
+	}
+
+	private function TogglePreventionGlobalQuestObjective_Internal( preventionGlobalQuestDisabled : Bool, eventSource : CName )
+	{
+		var questSystem : QuestsSystem;
+		var ignoreRequest : Bool;
+		var preventionGlobalQuestShouldBeDisabled : Bool;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( !( questSystem ) )
+		{
+			return;
+		}
+		ignoreRequest = preventionGlobalQuestDisabled == m_preventionQuestEventSources.Contains( eventSource );
+		if( ignoreRequest )
+		{
+			return;
+		}
+		if( preventionGlobalQuestDisabled )
+		{
+			m_preventionQuestEventSources.PushBack( eventSource );
+		}
+		else
+		{
+			m_preventionQuestEventSources.Remove( eventSource );
+		}
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+		preventionGlobalQuestShouldBeDisabled = m_preventionQuestEventSources.Size() > 0;
+		questSystem.SetFact( GetPreventionQuestDisabledFactName(), ( ( preventionGlobalQuestShouldBeDisabled ) ? ( 1 ) : ( 0 ) ) );
+	}
+
+	private function IsPreventionGlobalQuestObjectiveEnabled() : Bool
+	{
+		var questSystem : QuestsSystem;
+		var factValue : Int32;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		if( !( questSystem ) )
+		{
+			return false;
+		}
+		factValue = questSystem.GetFact( GetPreventionQuestDisabledFactName() );
+		return factValue <= 0;
+	}
+
+	private function OnToggleBlockSceneInteractions( evt : ToggleBlockSceneInteractions )
+	{
+		var interactionManager : InteractionManager;
+		interactionManager = GameInstance.GetInteractionManager( GetGame() );
+		if( interactionManager )
+		{
+			interactionManager.SetBlockAllInteractions( evt.m_block );
+		}
+	}
+
+	private function OnSetPoliceForcesPool( evt : SetPoliceForcesPool )
+	{
+		HandleDebugEventSourceTracking( evt.source, evt.m_resetToDefault );
+		if( evt.m_resetToDefault )
+		{
+			SetBlockVehicleSpawn( false );
+			SetBlockOnFootSpawn( false );
+			SetBlockReconDroneSpawn( false );
+		}
+		else
+		{
+			SetBlockVehicleSpawn( evt.m_disableVehicleSpawn );
+			SetBlockOnFootSpawn( evt.m_disableOnFootSpawn );
+			SetBlockReconDroneSpawn( evt.m_disableDroneSpawn );
+		}
+	}
+
+	public static function IsChasingPlayer( game : GameInstance ) : Bool
+	{
+		var self : PreventionSystem;
+		if( !( GameInstance.IsValid( game ) ) )
+		{
+			return false;
+		}
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		if( !( self ) )
+		{
+			return false;
+		}
+		if( self.IsChasingPlayer() )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public static function ForceStarStateToActive( context : GameInstance, value : Bool )
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		ps.m_shouldForceStarStateUIToActive = value;
+		if( value )
+		{
+			ps.UpdateStarStateTo( EStarState.Active );
+		}
+		else
+		{
+			ps.TryUpdateStarState();
+		}
+	}
+
+	public static function SetLastKnownPlayerPosition( context : GameInstance, value : Vector4 )
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		ps.m_lastKnownPosition = value;
+	}
+
+	public static function SetLastKnownPlayerVehicle( context : GameInstance, value : weak< VehicleObject > )
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		ps.m_lastKnownVehicle = value;
+	}
+
+	public static function GetLastKnownPlayerVehicle( context : GameInstance ) : VehicleObject
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		return ps.m_lastKnownVehicle;
+	}
+
+	public static function SetPlayerMounted( context : GameInstance, value : Bool )
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( ps.m_isPlayerMounted != value )
+		{
+			ps.SetIsPlayerMounted( value );
+		}
+	}
+
+	public static function GetAgentRegistry( context : GameInstance ) : PoliceAgentRegistry
+	{
+		var ps : PreventionSystem;
+		ps = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		return ps.m_agentRegistry;
+	}
+
+	public static function IsPreventionMaxTac( context : GameInstance, owner : gamePuppet ) : Bool
+	{
+		var agentRegistry : PoliceAgentRegistry;
+		var preventionSystem : PreventionSystem;
+		preventionSystem = owner.GetPreventionSystem();
+		if( preventionSystem )
+		{
+			agentRegistry = PreventionSystem.GetAgentRegistry( context );
+			if( agentRegistry )
+			{
+				return agentRegistry.IsPreventionMaxTac( owner );
+			}
+		}
+		return false;
+	}
+
+	private function IsVehicleValid( vehicle : weak< VehicleObject > ) : Bool
+	{
+		return ( vehicle && !( vehicle.IsDestroyed() ) ) && VehicleComponent.HasAnyPreventionPassengers( vehicle );
+	}
+
+	private function IsNPCValid( puppet : weak< ScriptedPuppet > ) : Bool
+	{
+		var isAlive : Bool;
+		var isPrevention : Bool;
+		if( puppet )
+		{
+			isAlive = ScriptedPuppet.IsActive( puppet );
+			isPrevention = puppet.IsPrevention();
+			return isAlive && isPrevention;
+		}
+		return false;
+	}
+
+	public static function GetDamageToPlayerMultiplier( game : GameInstance ) : Float
+	{
+		var self : PreventionSystem;
+		if( !( GameInstance.IsValid( game ) ) )
+		{
+			return 1.0;
+		}
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( game ).Get( 'PreventionSystem' ) ) );
+		if( !( self ) )
+		{
+			return 1.0;
+		}
+		return self.GetDamageToPlayerMultiplier();
+	}
+
+	public static function QueueRequest( context : GameInstance, request : ScriptableSystemRequest, optional delay : Float ) : Bool
+	{
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( preventionSystem )
+		{
+			if( delay <= 0.0 )
+			{
+				preventionSystem.QueueRequest( request );
+			}
+			else
+			{
+				GameInstance.GetDelaySystem( context ).DelayScriptableSystemRequest( 'PreventionSystem', request, delay );
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public static function CreateNewDamageRequest( context : GameInstance, target : GameObject, attackType : gamedataAttackType, damageDealt : Float, optional isTargetKilled : Bool )
+	{
+		var preventionSystemRequest : PreventionDamageRequest;
+		preventionSystemRequest = new PreventionDamageRequest;
+		if( target )
+		{
+			preventionSystemRequest.targetID = target.GetEntityID();
+			preventionSystemRequest.targetPosition = target.GetWorldPosition();
+			preventionSystemRequest.isTargetPrevention = target.IsPrevention();
+			preventionSystemRequest.isTargetVehicle = target.IsVehicle();
+			preventionSystemRequest.isTargetKilled = isTargetKilled;
+			preventionSystemRequest.telemetryInfo = PreventionDamage.GetTelemetryDescription( target, isTargetKilled );
+		}
+		preventionSystemRequest.attackType = attackType;
+		preventionSystemRequest.damageDealtPercentValue = damageDealt;
+		GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ).QueueRequest( preventionSystemRequest );
+	}
+
+	public static function RegisterToPreventionSystem( context : GameInstance, requester : Device )
+	{
+		var request : PreventionRegisterRequest;
+		return;
+		request = new PreventionRegisterRequest;
+		request.requester = requester.GetDevicePS();
+		request.attitudeGroup = requester.GetAttitudeAgent().GetAttitudeGroup();
+		request.register = true;
+		GameInstance.QueueScriptableSystemRequest( context, 'PreventionSystem', request );
+	}
+
+	public static function UnRegisterToPreventionSystem( context : GameInstance, requester : Device )
+	{
+		var request : PreventionRegisterRequest;
+		return;
+		request = new PreventionRegisterRequest;
+		request.requester = requester.GetDevicePS();
+		request.attitudeGroup = requester.GetAttitudeAgent().GetAttitudeGroup();
+		request.register = false;
+		GameInstance.QueueScriptableSystemRequest( context, 'PreventionSystem', request );
+	}
+
+	public static function RegisterAsViewerToPreventionSystem( context : GameInstance, requester : GameObject )
+	{
+		var request : PreventionVisibilityRequest;
+		var self : PreventionSystem;
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( ( ( Int32 )( self.GetHeatStage() ) ) == 0 )
+		{
+			return;
+		}
+		request = new PreventionVisibilityRequest;
+		request.requester = requester;
+		request.seePlayer = true;
+		GameInstance.QueueScriptableSystemRequest( context, 'PreventionSystem', request );
+	}
+
+	public static function UnRegisterAsViewerToPreventionSystem( context : GameInstance, requester : GameObject )
+	{
+		var request : PreventionVisibilityRequest;
+		var self : PreventionSystem;
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( ( ( Int32 )( self.GetHeatStage() ) ) == 0 )
+		{
+			return;
+		}
+		request = new PreventionVisibilityRequest;
+		request.requester = requester;
+		request.seePlayer = false;
+		self.QueueRequest( request );
+	}
+
+	public static function CombatStartedRequestToPreventionSystem( context : GameInstance, requester : weak< GameObject > )
+	{
+		var request : PreventionCombatStartedRequest;
+		var self : PreventionSystem;
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( self )
+		{
+			request = new PreventionCombatStartedRequest;
+			request.requesterPosition = requester.GetWorldPosition();
+			request.requester = requester;
+			self.QueueRequest( request );
+		}
+	}
+
+	public static function CrimeWitnessRequestToPreventionSystem( context : GameInstance, criminalPosition : Vector4 )
+	{
+		var request : PreventionCrimeWitnessRequest;
+		var self : PreventionSystem;
+		self = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		request = new PreventionCrimeWitnessRequest;
+		request.criminalPosition = criminalPosition;
+		self.QueueRequest( request );
+	}
+
+	public static function PreventionSecurityAreaEnterRequest( context : GameInstance, playerIsIn : Bool, areaID : PersistentID )
+	{
+		var request : PreventionSecurityAreaRequest;
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( preventionSystem )
+		{
+			request = new PreventionSecurityAreaRequest;
+			request.playerIsIn = playerIsIn;
+			request.areaID = areaID;
+			preventionSystem.QueueRequest( request );
+		}
+	}
+
+	public static function PreventionPoliceSecuritySystemRequest( context : GameInstance, securitySystemID : PersistentID )
+	{
+		var request : PreventionPoliceSecuritySystemRequest;
+		var preventionSystem : PreventionSystem;
+		preventionSystem = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( context ).Get( 'PreventionSystem' ) ) );
+		if( preventionSystem )
+		{
+			request = new PreventionPoliceSecuritySystemRequest;
+			request.securitySystemID = securitySystemID;
+			preventionSystem.QueueRequest( request );
+		}
+	}
+
+	public static function StartRoadblockNPCAgentBehaviour( unit : weak< ScriptedPuppet > )
+	{
+		var aiHoldPositionCommand : AIHoldPositionCommand;
+		aiHoldPositionCommand = new AIHoldPositionCommand;
+		aiHoldPositionCommand.duration = 240.0;
+		AIComponent.SendCommand( unit, aiHoldPositionCommand );
+	}
+
+	private function ReinitAll()
+	{
+		var vehicles : array< VehicleAgent >;
+		var npcs : array< NPCAgent >;
+		var i : Int32;
+		var wheeledObject : WheeledObject;
+		vehicles = m_agentRegistry.GetVehicleList();
+		npcs = m_agentRegistry.GetNPCList();
+		for( i = 0; i < npcs.Size(); i += 1 )
+		{
+			if( VehicleComponent.IsMountedToVehicle( GetGame(), npcs[ i ].unit ) )
+			{
+				continue;
+			}
+			NPCPuppet.ChangeHighLevelState( npcs[ i ].unit, gamedataNPCHighLevelState.Alerted );
+		}
+		for( i = 0; i < vehicles.Size(); i += 1 )
+		{
+			wheeledObject = ( ( WheeledObject )( vehicles[ i ].unit ) );
+			wheeledObject.SetPoliceStrategy( vehiclePoliceStrategy.SearchFromAnywhere );
+			wheeledObject.SetPoliceStrategyDestination( m_lastKnownPosition );
+			StartActiveVehicleBehaviour( GetGameInstance(), wheeledObject );
+		}
+	}
+
+	private static function LogChaseVehicleInitBehaviorError( wheeledVehicleObject : weak< WheeledObject >, strat : vehiclePoliceStrategy )
+	{
+	}
+
+	public static function StartActiveVehicleBehaviour( context : GameInstance, wheeledVehicleObject : weak< WheeledObject > )
+	{
+		var strat : vehiclePoliceStrategy;
+		var ps : PreventionSystem;
+		var destIsLastKnownPlayerPos : Bool;
+		var driveToPointNeeded : Bool;
+		strat = wheeledVehicleObject.GetPoliceStrategy();
+		ps = wheeledVehicleObject.GetPreventionSystem();
+		destIsLastKnownPlayerPos = strat == vehiclePoliceStrategy.InitialSearch || strat == vehiclePoliceStrategy.SearchFromAnywhere;
+		driveToPointNeeded = ( ( destIsLastKnownPlayerPos || strat == vehiclePoliceStrategy.DriveTowardsPlayer ) || strat == vehiclePoliceStrategy.DriveAwayFromPlayer ) || strat == vehiclePoliceStrategy.InterceptAtNextIntersection;
+		if( !( ps ) )
+		{
+			return;
+		}
+		if( destIsLastKnownPlayerPos )
+		{
+			wheeledVehicleObject.SetPoliceStrategyDestination( ps.GetLastKnownPlayerPosition() );
+		}
+		if( driveToPointNeeded )
+		{
+			if( !( StartDriveToPoint( wheeledVehicleObject ) ) )
+			{
+				LogChaseVehicleInitBehaviorError( wheeledVehicleObject, strat );
+			}
+			return;
+		}
+		if( strat == vehiclePoliceStrategy.PatrolNearby )
+		{
+			StartPatrol( wheeledVehicleObject, ps );
+			return;
+		}
+		if( strat == vehiclePoliceStrategy.GetToPlayerFromAnywhere )
+		{
+			ChasePlayer( wheeledVehicleObject );
+			return;
+		}
+		LogChaseVehicleInitBehaviorError( wheeledVehicleObject, strat );
+	}
+
+	private static function VehicleRegistered( vehicle : weak< VehicleObject > ) : Bool
+	{
+		var id : EntityID;
+		if( !( vehicle ) )
+		{
+			return false;
+		}
+		id = vehicle.GetEntityID();
+		return PreventionSystem.GetAgentRegistry( vehicle.GetGame() ).Contains( id );
+	}
+
+	private static function ChasePlayer( vehicle : weak< WheeledObject > )
+	{
+		var command : AIVehicleChaseCommand;
+		var evt : AICommandEvent;
+		command = new AIVehicleChaseCommand;
+		evt = new AICommandEvent;
+		command.target = GameInstance.GetPlayerSystem( vehicle.GetGame() ).GetLocalPlayerMainGameObject();
+		command.distanceMin = 3.0;
+		command.distanceMax = 10.0;
+		command.forcedStartSpeed = ( ( VehicleRegistered( vehicle ) ) ? ( -1.0 ) : ( 10.0 ) );
+		evt.command = command;
+		vehicle.QueueEvent( evt );
+		vehicle.GetAIComponent().SetInitCmd( command );
+	}
+
+	private static function StartDriveToPoint( vehicle : weak< WheeledObject > ) : Bool
+	{
+		var command : AIVehicleDriveToPointAutonomousCommand;
+		var evt : AICommandEvent;
+		var destination : Vector4;
+		var isStrat2 : Bool;
+		command = new AIVehicleDriveToPointAutonomousCommand;
+		evt = new AICommandEvent;
+		destination = Vector4.Vector3To4( vehicle.GetPoliceStrategyDestination() );
+		isStrat2 = vehicle.GetPoliceStrategy() == vehiclePoliceStrategy.DriveAwayFromPlayer;
+		if( Vector4.IsXYZZero( destination ) )
+		{
+			return false;
+		}
+		if( vehicle.GetPreventionSystem().GetHeatStage() == EPreventionHeatStage.Heat_1 )
+		{
+			command.clearTrafficOnPath = true;
+			command.maxSpeed = 20.0;
+			command.minSpeed = 10.0;
+		}
+		if( isStrat2 )
+		{
+			command.maxSpeed = 15.0;
+			command.minSpeed = 10.0;
+		}
+		command.targetPosition = Vector4.Vector4To3( destination );
+		command.minimumDistanceToTarget = 20.0;
+		command.forcedStartSpeed = ( ( VehicleRegistered( vehicle ) ) ? ( -1.0 ) : ( 10.0 ) );
+		command.driveDownTheRoadIndefinitely = isStrat2;
+		evt.command = command;
+		vehicle.QueueEvent( evt );
+		vehicle.GetAIComponent().SetInitCmd( command );
+		return true;
+	}
+
+	private static function StartPatrol( vehicle : weak< WheeledObject >, ps : PreventionSystem )
+	{
+		var cmd : AIVehicleDrivePatrolCommand;
+		var evt : AICommandEvent;
+		cmd = new AIVehicleDrivePatrolCommand;
+		evt = new AICommandEvent;
+		cmd.maxSpeed = 20.0;
+		cmd.minSpeed = 5.0;
+		cmd.clearTrafficOnPath = false;
+		cmd.emergencyPatrol = ps.GetHeatStage() != EPreventionHeatStage.Heat_0;
+		cmd.numPatrolLoops = 2;
+		cmd.forcedStartSpeed = ( ( VehicleRegistered( vehicle ) ) ? ( -1.0 ) : ( 10.0 ) );
+		evt.command = cmd;
+		vehicle.QueueEvent( evt );
+		vehicle.GetAIComponent().SetInitCmd( cmd );
+	}
+
+	private function IsAnyVehicleChasingTarget() : Bool
+	{
+		var i : Int32;
+		var vehicles : array< VehicleAgent >;
+		vehicles = m_agentRegistry.GetVehicleList();
+		for( i = vehicles.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( IsVehicleValid( vehicles[ i ].unit ) && vehicles[ i ].unit.IsChasingTarget() )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static function IsPlayerInAPoliceCarChase( gameInstance : GameInstance ) : Bool
+	{
+		var system : PreventionSystem;
+		system = ( ( PreventionSystem )( GameInstance.GetScriptableSystemsContainer( gameInstance ).Get( 'PreventionSystem' ) ) );
+		return system.IsAnyVehicleChasingTarget();
+	}
+
+	private function SendInternalSystem( damageDealt : Float, optional heatStage : EPreventionHeatStage )
+	{
+		var preventionSystemRequest : PreventionDamageRequest;
+		var playerPos : Vector4;
+		TogglePreventionSystem( true );
+		playerPos = GetPlayer( GetGameInstance() ).GetWorldPosition();
+		preventionSystemRequest = new PreventionDamageRequest;
+		preventionSystemRequest.damageDealtPercentValue = damageDealt;
+		preventionSystemRequest.isInternal = true;
+		preventionSystemRequest.isTargetPrevention = false;
+		preventionSystemRequest.requestedHeat = heatStage;
+		preventionSystemRequest.targetPosition = playerPos;
+		preventionSystemRequest.attackType = gamedataAttackType.Ranged;
+		preventionSystemRequest.telemetryInfo = "KillPrevention";
+		QueueRequest( preventionSystemRequest );
+	}
+
+	protected export function OnPreventionConsoleInstructionRequest( request : PreventionConsoleInstructionRequest )
+	{
+		switch( request.instruction )
+		{
+			case EPreventionSystemInstruction.Safe:
+			{
+				execInstructionSafe( "DEBUG" );
+				break;
+			}
+			case EPreventionSystemInstruction.Active:
+			{
+				if( request.heatStage == EPreventionHeatStage.Heat_0 )
+				{
+					execInstructionSafe( "DEBUG" );
+				}
+				else
+				{
+					execInstructionActive( request.heatStage );
+				}
+				break;
+			}
+			case EPreventionSystemInstruction.On:
+			{
+				execInstructionOn();
+				break;
+			}
+			case EPreventionSystemInstruction.Off:
+			{
+				execInstructionOff();
+				break;
+			}
+			case EPreventionSystemInstruction.ReconPhaseOn:
+			{
+				m_reconPhaseEnabled = true;
+				break;
+			}
+			case EPreventionSystemInstruction.ReconPhaseOff:
+			{
+				m_reconPhaseEnabled = false;
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	protected export function OnPreventionConsoleLockRequest( request : PreventionConsoleLockRequest )
+	{
+		SetSystemLock( !( IsSystemLocked() ) );
+	}
+
+	protected export function OnPreventionMinMaxHeatLevels( request : PreventionMinMaxHeatLevels )
+	{
+		SetMinMaxResetHeatLevels( request.minLvl, request.maxLvl, request.isDefault );
+	}
+
+	private function RemovePlayerFromSecuritySystemBlacklist()
+	{
+		var i : Int32;
+		var removeFromBlacklist : RemoveFromBlacklistEvent;
+		if( !( m_player ) )
+		{
+			return;
+		}
+		removeFromBlacklist = new RemoveFromBlacklistEvent;
+		removeFromBlacklist.entityIDToRemove = m_player.GetEntityID();
+		removeFromBlacklist.isPlayerEntity = true;
+		for( i = 0; i < m_policeSecuritySystems.Size(); i += 1 )
+		{
+			if( PersistentID.IsDefined( m_policeSecuritySystems[ i ] ) )
+			{
+				GameInstance.GetPersistencySystem( GetGame() ).QueuePSEvent( m_policeSecuritySystems[ i ], 'SecuritySystemControllerPS', removeFromBlacklist );
+			}
+		}
+	}
+
+	private function TogglePreventionSystem( toggle : Bool )
+	{
+		if( m_systemEnabled == toggle )
+		{
+			return;
+		}
+		m_systemEnabled = toggle;
+		GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).TogglePreventionCrowdSpawns( toggle );
+	}
+
+	private function StartPreventionFreeAreaReset()
+	{
+		var request : TryResetPreventionFreeArea;
+		request = new TryResetPreventionFreeArea;
+		m_freeAreaResetDelayID = GameInstance.GetDelaySystem( GetGameInstance() ).DelayScriptableSystemRequest( 'PreventionSystem', request, 0.5 );
+	}
+
+	private function UpdatePreventionFreeAreas( isPlayerInFreeArea : Bool )
+	{
+		var togglePreventionRequest : TogglePreventionSystem;
+		if( isPlayerInFreeArea && ( m_freeAreaResetDelayID == DelayID.GetInvalidDelayID() ) )
+		{
+			StartPreventionFreeAreaReset();
+		}
+		if( m_playerIsInPreventionFreeArea == isPlayerInFreeArea )
+		{
+			return;
+		}
+		m_playerIsInPreventionFreeArea = isPlayerInFreeArea;
+		togglePreventionRequest = new TogglePreventionSystem;
+		togglePreventionRequest.sourceName = 'PreventionFreeArea';
+		togglePreventionRequest.isActive = !( isPlayerInFreeArea );
+		QueueRequest( togglePreventionRequest );
+	}
+
+	protected export function OnTryResetPreventionFreeArea( request : TryResetPreventionFreeArea )
+	{
+		var playerPosition : Vector4;
+		playerPosition = GetPlayer().GetWorldPosition();
+		m_freeAreaResetDelayID = DelayID.GetInvalidDelayID();
+		UpdatePreventionFreeAreas( GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).IsPointInPreventionFreeArea( playerPosition ) );
+	}
+
+	private function execInstructionSafe( heatChangeReason : String )
+	{
+		var i : Int32;
+		var vehicles : array< VehicleAgent >;
+		if( IsSystemLocked() )
+		{
+			return;
+		}
+		DespawnAllPolice( heatChangeReason == "ResetOnPlayerChoice" );
+		if( !( IsChasingPlayer() ) )
+		{
+			return;
+		}
+		TogglePreventionSystem( true );
+		m_policeKnowsPlayerLocation = false;
+		m_canSpawnFallbackEarly = false;
+		m_isVehicleDelayOver = false;
+		m_playerCrossedBufferDistance = false;
+		m_totalCrimeScore = 0.0;
+		ChangeAgentsAttitude( EAIAttitude.AIA_Neutral );
+		RestoreMinimapToDefault();
+		WakeUpAllAgents( false );
+		RemovePlayerFromSecuritySystemBlacklist();
+		CancelAllDelayedEvents();
+		CancelAllIntervalCallers();
+		GameInstance.GetPreventionSpawnSystem( GetGame() ).CancelAllSpawnRequests();
+		ChangeHeatStage( EPreventionHeatStage.Heat_0, heatChangeReason );
+		vehicles = m_agentRegistry.GetVehicleList();
+		for( i = vehicles.Size() - 1; i >= 0; i -= 1 )
+		{
+			if( IsVehicleValid( vehicles[ i ].unit ) && vehicles[ i ].unit.IsA( 'vehicleWheeledBaseObject' ) )
+			{
+				GameInstance.GetPreventionSpawnSystem( GetGameInstance() ).InterruptAllActionAndCommands( vehicles[ i ].unit );
+				StartVehicleDeescalationBehavior( vehicles[ i ].unit );
+			}
+		}
+		SetStarStateUI( EStarState.Default );
+		SetWantedLevelFact( 0 );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function StartVehicleDeescalationBehavior( vehicle : weak< VehicleObject > )
+	{
+		var panicDrivingCmd : AIVehiclePanicCommand;
+		var evt : AICommandEvent;
+		panicDrivingCmd = new AIVehiclePanicCommand;
+		evt = new AICommandEvent;
+		panicDrivingCmd.allowSimplifiedMovement = true;
+		panicDrivingCmd.ignoreTickets = true;
+		panicDrivingCmd.useSpeedBasedLookupRange = true;
+		evt.command = panicDrivingCmd;
+		vehicle.QueueEvent( evt );
+		vehicle.GetAIComponent().SetInitCmd( panicDrivingCmd );
+	}
+
+	private function execInstructionActive( optional heatStage : EPreventionHeatStage )
+	{
+		TogglePreventionSystem( true );
+		ChangeHeatStage( heatStage, "DEBUG" );
+	}
+
+	private function execInstructionOn()
+	{
+		TogglePreventionSystem( true );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	private function execInstructionOff()
+	{
+		execInstructionSafe( "DEBUG" );
+		TogglePreventionSystem( false );
+		if( !( IsFinal() ) )
+		{
+			RefreshDebug();
+		}
+	}
+
+	public const function FillPreventionSystemDebugData( out dataToFill : PreventionSystemDebugData )
+	{
+		var i : Int32;
+		i = 0;
+		dataToFill.totalCrimeScore = m_totalCrimeScore;
+		dataToFill.heatStage = ( ( Int32 )( m_heatStage ) );
+		dataToFill.heatThreshold = m_preventionDataTable.HeatThresholdCapacity();
+		dataToFill.heatMultiplierDistrict = 1.0;
+		dataToFill.heatMultiplierQuest = m_crimeScoreMultiplierByQuest;
+		dataToFill.totalVehiclesCount = m_agentRegistry.GetTotalVehicleCount();
+		dataToFill.totalAVsCount = m_agentRegistry.GetAvCount();
+		dataToFill.totalBlockadesCount = m_agentRegistry.GetRoadblockCount();
+		dataToFill.totalNPCCount = m_agentRegistry.GetTotalNPCCount();
+		dataToFill.currentVehicleTicketCount = m_currentVehicleTicketCount;
+		dataToFill.maxVehicleTicketCount = m_preventionDataTable.VehicleTicketsAmount();
+		dataToFill.maxTacNPCCount = m_agentRegistry.GetMaxTacNPCCount();
+		dataToFill.engagedVehiclesCount = GetAgentRegistry().GetEngagedVehicleCount();
+		dataToFill.engagedVehiclesLimit = m_preventionDataTable.SpawnedEngagedCars();
+		dataToFill.supportVehiclesCount = GetAgentRegistry().GetSupportVehicleCount();
+		dataToFill.supportVehiclesLimit = m_preventionDataTable.SpawnedSupportCars();
+		dataToFill.maxAVPlayerDistance = m_maxAllowedDistanceToPlayer;
+		dataToFill.lastAVRequestedSpawnPosition = Debug_lastAVRequestedSpawnPosition;
+		dataToFill.totalNPCLimit = m_preventionDataTable.MaxUnitCount();
+		dataToFill.externalNPCCount = GetAgentRegistry().GetExternalNPCCount();
+		dataToFill.fallbackNPCCount = GetAgentRegistry().GetFallbackNPCCount();
+		dataToFill.registeredPendingTickets = GetAgentRegistry().GetTotalPendingTicketsCount();
+		dataToFill.awaitedAVSpawnPointsRequestID = m_maxtacTicketID;
+		dataToFill.lastKnownPosition = m_lastKnownPosition;
+		dataToFill.systemEnabled = m_systemEnabled;
+		dataToFill.systemLockEventSources.Clear();
+		for( i = 0; i < m_systemLockSources.Size(); i += 1 )
+		{
+			dataToFill.systemLockEventSources.PushBack( NameToString( m_systemLockSources[ i ] ) );
+		}
+		dataToFill.heatChangeReason = m_heatChangeReason;
+	}
+
+	private function DebugGetCivilianDestroyedVehicleCount() : Int32
+	{
+		var now : Float;
+		now = EngineTime.ToFloat( GameInstance.GetSimTime( GetGame() ) );
+		if( IsChasingPlayer() || ( m_lastCivilianVehicleDestructionTimeStamp < 0.0 ) )
+		{
+			return 0;
+		}
+		if( ( now - m_lastCivilianVehicleDestructionTimeStamp ) > m_civilianVehicleDestructionTimeout )
+		{
+			return 0;
+		}
+		return m_civilianVehicleDestructionCount;
+	}
+
+	private function RefreshDebug()
+	{
+		var i : Int32;
+		var sink : SDOSink;
+		var district : weak< District >;
+		var questSystem : QuestsSystem;
+		var delaySystem : DelaySystem;
+		var wantedLevel : Int32;
+		questSystem = GameInstance.GetQuestsSystem( GetGameInstance() );
+		delaySystem = GameInstance.GetDelaySystem( GetGameInstance() );
+		if( questSystem )
+		{
+			wantedLevel = questSystem.GetFact( 'wanted_level' );
+		}
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		SDOSink.PushString( sink, "Heat", EnumValueToString( "EPreventionHeatStage", ( ( Int32 )( m_heatStage ) ) ) );
+		SDOSink.PushInt32( sink, "QuestWantedLevel", wantedLevel );
+		SDOSink.PushString( sink, "----TIMERS----", "---------TIMERS---------" );
+		SDOSink.SetKeyColor( sink, "----TIMERS----", Color( 255, 255, 255, 255 ) );
+		SDOSink.PushBool( sink, "Is Transition Timer Active", m_transitionToGreyStateDelayID != DelayID.GetInvalidDelayID() );
+		SDOSink.PushFloat( sink, "Transition time Remaining", delaySystem.GetRemainingDelayTime( m_transitionToGreyStateDelayID ) );
+		SDOSink.PushBool( sink, "Is Buffer Timer Active", m_starStateBufferTimerDelayID != DelayID.GetInvalidDelayID() );
+		SDOSink.PushFloat( sink, "Buffer time Remaining", delaySystem.GetRemainingDelayTime( m_starStateBufferTimerDelayID ) );
+		SDOSink.PushBool( sink, "Is Search Timer Active", m_searchingStatusDelayID != DelayID.GetInvalidDelayID() );
+		SDOSink.PushFloat( sink, "Searching time Remaining", delaySystem.GetRemainingDelayTime( m_searchingStatusDelayID ) );
+		SDOSink.PushBool( sink, "Is Blinking Timer Active", m_blinkingStatusDelayID != DelayID.GetInvalidDelayID() );
+		SDOSink.PushFloat( sink, "Blinking time Remaining", delaySystem.GetRemainingDelayTime( m_blinkingStatusDelayID ) );
+		SDOSink.PushString( sink, "----AGENT REGISTRY----", "---------AGENT REGISTRY---------" );
+		SDOSink.SetKeyColor( sink, "----AGENT REGISTRY----", Color( 255, 255, 255, 255 ) );
+		SDOSink.PushInt32( sink, "Active NPC ", m_agentRegistry.GetTotalNPCCount() );
+		SDOSink.PushInt32( sink, "Active Vehicles ", m_agentRegistry.GetEngagedVehicleCount() );
+		SDOSink.PushInt32( sink, "Support Vehicles ", m_agentRegistry.GetSupportVehicleCount() );
+		SDOSink.PushBool( sink, "Is Police in combat with Player", m_agentRegistry.IsPoliceInCombatWithPalyer() );
+		SDOSink.PushInt32( sink, "NPC that see Player", m_viewers.Size() );
+		SDOSink.PushString( sink, "----CHASE----", "---------CHASE---------" );
+		SDOSink.SetKeyColor( sink, "----CHASE----", Color( 100, 100, 100, 255 ) );
+		SDOSink.PushBool( sink, "Vehicle Delay over?", m_isVehicleDelayOver );
+		SDOSink.PushInt32( sink, "Tickets available", m_currentVehicleTicketCount );
+		SDOSink.PushInt32( sink, "Tickets pending", m_agentRegistry.GetPendingVehicleTicketsCount() );
+		SDOSink.PushBool( sink, "Vehicle limit reached", ReachedTotalVehiclesLimit() );
+		SDOSink.PushInt32( sink, "Requests pending", m_agentRegistry.GetTotalPendingTicketsCount() );
+		SDOSink.PushInt32( sink, "spawned as engaged vehicles", m_agentRegistry.GetEngagedVehicleCount() );
+		SDOSink.PushInt32( sink, "spawned as support vehicles", m_agentRegistry.GetSupportVehicleCount() );
+		SDOSink.PushString( sink, "----MAXTAC----", "---------MAXTAC---------" );
+		SDOSink.SetKeyColor( sink, "----MAXTAC----", Color( 100, 100, 100, 255 ) );
+		SDOSink.PushInt32( sink, "Active MaxTac NPC ", m_agentRegistry.GetMaxTacNPCCount() );
+		SDOSink.PushInt32( sink, "Deployed AVs (Agent Registry) ", m_agentRegistry.GetAvCount() );
+		SDOSink.PushBool( sink, "Is MaxTacDefeated ", IsMaxTacDefeated() );
+		SDOSink.PushString( sink, "----DISTRICT----", "---------DISTRICT---------" );
+		SDOSink.SetKeyColor( sink, "----DISTRICT----", Color( 100, 200, 100, 255 ) );
+		district = m_districtManager.GetCurrentDistrict();
+		if( district )
+		{
+			SDOSink.PushString( sink, "District", TDBID.ToStringDEBUG( district.GetDistrictID() ) );
+			SDOSink.PushString( sink, "Preset", TDBID.ToStringDEBUG( district.GetPresetID() ) );
+		}
+		SDOSink.PushString( sink, "----REACTION----", "---------TYPE---------" );
+		SDOSink.SetKeyColor( sink, "----REACTION----", Color( 100, 100, 200, 255 ) );
+		SDOSink.PushString( sink, "ProcessInfo", EnumValueToString( "EPreventionDebugProcessReason", ( ( Int32 )( Debug_ProcessReason ) ) ) );
+		SDOSink.PushBool( sink, "Prevention input lock", IsPreventionInputLocked() );
+		if( IsPreventionInputLocked() )
+		{
+			SDOSink.PushInt32( sink, "Unhandled input lock threshold", GetInputLockOverrideThreshold() );
+			SDOSink.PushInt32( sink, "Unhandled prevention inputs", m_unhandledInputsReceived );
+		}
+		SDOSink.PushBool( sink, "Is Prevention Locked", m_systemLocked );
+		SDOSink.PushBool( sink, "Are security areas disabled by Quest", m_ignoreSecurityAreasByQuest );
+		SDOSink.PushString( sink, "Heat Data Table used:", m_preventionDataTable.DisplayName() );
+		SDOSink.PushFloat( sink, "Last damage dealt (in %)", Debug_LastDamageDealt );
+		SDOSink.PushString( sink, "Last attack type", EnumValueToString( "EAttackType", ( ( Int32 )( Debug_LastAttackType ) ) ) );
+		SDOSink.PushFloat( sink, "Total crime score", m_totalCrimeScore );
+		SDOSink.PushFloat( sink, "Heat threshold", m_preventionDataTable.HeatThresholdCapacity() );
+		SDOSink.PushString( sink, "Current Star state", EnumValueToString( "EStarState", ( ( Int32 )( m_starState ) ) ) );
+		SDOSink.PushString( sink, "Civilian Car Destroyed", ( IntToString( DebugGetCivilianDestroyedVehicleCount() ) + "/" ) + IntToString( m_civilianVehicleDestructionThreshold ) );
+		SDOSink.PushString( sink, "----ACTIVE----", "---------ACTIVE---------" );
+		SDOSink.SetKeyColor( sink, "----ACTIVE----", Color( 100, 100, 100, 255 ) );
+		SDOSink.PushBool( sink, "Should reaction be aggressive", ShouldReactionBeAggressive() );
+		SDOSink.PushBool( sink, "Player is in security area", m_playerIsInSecurityArea.Size() > 0 );
+		SDOSink.PushBool( sink, "Player is in prevfree area", m_playerIsInPreventionFreeArea );
+		SDOSink.PushString( sink, "----DISTANCE----", "---------DISTANCE---------" );
+		SDOSink.SetKeyColor( sink, "----DISTANCE----", Color( 0, 0, 0, 0 ) );
+		SDOSink.PushFloat( sink, "Distance", Debug_LastCrimeDistance );
+		SDOSink.PushString( sink, "----EVENTS----", "---------EVENTS---------" );
+		SDOSink.SetKeyColor( sink, "----EVENTS----", Color( 255, 255, 255, 255 ) );
+		SDOSink.PushBool( sink, "securityAreaResetCheck", m_securityAreaResetCheck );
+		for( i = 0; i < m_systemLockSources.Size(); i += 1 )
+		{
+			SDOSink.PushName( sink, "sourceName" + i, m_systemLockSources[ i ] );
+		}
+		SDOSink.PushBool( sink, "prevention global quest locked", m_preventionQuestEventSources.Size() > 0 );
+		for( i = 0; i < m_preventionQuestEventSources.Size(); i += 1 )
+		{
+			SDOSink.PushName( sink, "global quest lock sourceName" + i, m_preventionQuestEventSources[ i ] );
+		}
+	}
+
+	private function RefreshDebugRemoveAllLockSources()
+	{
+		var i : Int32;
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		for( i = 0; i < m_systemLockSources.Size(); i += 1 )
+		{
+			SDOSink.PushName( sink, "locks/sourceName" + i, 'NONE - debug error ignore' );
+		}
+	}
+
+	private function RefreshDebugLockSources()
+	{
+		var i : Int32;
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		for( i = 0; i < m_systemLockSources.Size(); i += 1 )
+		{
+			SDOSink.PushName( sink, "locks/sourceName" + i, m_systemLockSources[ i ] );
+		}
+	}
+
+	private function RefreshDebugEventSources()
+	{
+		var i : Int32;
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		for( i = 0; i < m_nodeEventSources.Size(); i += 1 )
+		{
+			SDOSink.PushName( sink, "events/sourceName" + i, m_nodeEventSources[ i ] );
+		}
+	}
+
+	private function RefreshDebugEvents()
+	{
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		SDOSink.PushString( sink, "----EVENTS----", "---------EVENTS---------" );
+		SDOSink.SetKeyColor( sink, "----EVENTS----", Color( 255, 255, 255, 255 ) );
+		SDOSink.PushBool( sink, "securityAreaResetCheck", m_securityAreaResetCheck );
+	}
+
+	private function RefreshDebugProcessInfo()
+	{
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		SDOSink.PushString( sink, "ProcessInfo", EnumValueToString( "EPreventionDebugProcessReason", ( ( Int32 )( Debug_ProcessReason ) ) ) );
+	}
+
+	private function RefreshDebugDistrictInfo()
+	{
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		SDOSink.PushString( sink, "District", TDBID.ToStringDEBUG( m_districtManager.GetCurrentDistrict().GetDistrictID() ) );
+		SDOSink.PushString( sink, "Preset", TDBID.ToStringDEBUG( m_districtManager.GetCurrentDistrict().GetPresetID() ) );
+	}
+
+	private function RefreshDebugSecAreaInfo()
+	{
+		var sink : SDOSink;
+		sink = GameInstance.GetScriptsDebugOverlaySystem( GetGameInstance() ).CreateSink();
+		SDOSink.SetRoot( sink, "Prevention" );
+		SDOSink.PushBool( sink, "Player is in seciurity area", m_playerIsInSecurityArea.Size() > 0 );
+	}
+
+	private function ProcessDogtownLawAchievement()
+	{
+		var achievementRequest : AddAchievementRequest;
+		var dataTrackingSystem : DataTrackingSystem;
+		var achievement : gamedataAchievement;
+		var currentDistrict : weak< District >;
+		achievement = gamedataAchievement.DogtownLaw;
+		dataTrackingSystem = ( ( DataTrackingSystem )( GameInstance.GetScriptableSystemsContainer( GetGame() ).Get( 'DataTrackingSystem' ) ) );
+		currentDistrict = m_districtManager.GetCurrentDistrict();
+		if( !( currentDistrict.IsDogTown() ) )
+		{
+			return;
+		}
+		achievementRequest = new AddAchievementRequest;
+		achievementRequest.achievement = achievement;
+		dataTrackingSystem.QueueRequest( achievementRequest );
+	}
+
+}
+
+abstract class PreventionConditionAbstract extends AIbehaviorconditionScript
+{
+}
+
+class ShouldPoliceReactionBeAggressive extends PreventionConditionAbstract
+{
+
+	protected override function Check( context : ScriptExecutionContext ) : AIbehaviorConditionOutcomes
+	{
+		if( GetPuppet( context ).IsPrevention() && !( PreventionSystem.ShouldReactionBeAgressive( ScriptExecutionContext.GetOwner( context ).GetGame() ) ) )
+		{
+			return false;
+		}
+		return true;
+	}
+
+}
+
+class PreventionDamage extends ScriptableSystemRequest
+{
+	var target : weak< GameObject >;
+	var attackTime : Float;
+	var attackType : gamedataAttackType;
+	var damageDealtPercent : Float;
+	var isTargetKilled : Bool;
+
+	public const function GetTelemetryDescription() : String
+	{
+		return GetTelemetryDescription( target, isTargetKilled );
+	}
+
+	public static function GetTelemetryDescription( target : GameObject, isTargetKilled : Bool ) : String
+	{
+		return ( ( isTargetKilled ) ? ( "Kill" ) : ( "Damage" ) ) + GetTargetTelemetryDescription( target );
+	}
+
+	private static function GetTargetTelemetryDescription( target : GameObject ) : String
+	{
+		var puppet : ScriptedPuppet;
+		puppet = ( ( ScriptedPuppet )( target ) );
+		if( puppet && puppet.IsCharacterCivilian() )
+		{
+			return "Civilian";
+		}
+		else if( target && target.IsPrevention() )
+		{
+			return "Prevention";
+		}
+		return "Other";
+	}
+
+}
+
+class PreventionDamageRequest extends ScriptableSystemRequest
+{
+	var isInternal : Bool;
+	var damageDealtPercentValue : Float;
+	var targetID : EntityID;
+	var targetPosition : Vector4;
+	var isTargetKilled : Bool;
+	var isTargetPrevention : Bool;
+	var isTargetVehicle : Bool;
+	var requestedHeat : EPreventionHeatStage;
+	default requestedHeat = EPreventionHeatStage.Invalid;
+	var attackType : gamedataAttackType;
+	var telemetryInfo : String;
+}
+
+class RemoveRecentAvSpawnLocationFromCacheRequest extends ScriptableSystemRequest
+{
+}
+
+class AVSpawnedRequest extends ScriptableSystemRequest
+{
+	var spawnedObjects : array< weak< GameObject > >;
+}
+
+class PreventionRegisterRequest extends ScriptableSystemRequest
+{
+	var requester : PersistentState;
+	var attitudeGroup : CName;
+	var register : Bool;
+}
+
+class PreventionVisibilityRequest extends ScriptableSystemRequest
+{
+	var requester : weak< GameObject >;
+	var seePlayer : Bool;
+}
+
+class PreventionCombatStartedRequest extends ScriptableSystemRequest
+{
+	var requesterPosition : Vector4;
+	var requester : weak< GameObject >;
+}
+
+class PreventionVehicleStolenRequest extends ScriptableSystemRequest
+{
+	var requesterPosition : Vector4;
+	var vehicleAffiliation : gamedataAffiliation;
+}
+
+class PreventionCrimeWitnessRequest extends ScriptableSystemRequest
+{
+	var criminalPosition : Vector4;
+}
+
+class RefreshDistrictRequest extends ScriptableSystemRequest
+{
+	var preventionPreset : weak< DistrictPreventionData_Record >;
+}
+
+class UnlockPreventionInputRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionConsoleInstructionRequest extends ScriptableSystemRequest
+{
+	var instruction : EPreventionSystemInstruction;
+	var heatStage : EPreventionHeatStage;
+	default heatStage = EPreventionHeatStage.Invalid;
+}
+
+class PreventionConsoleLockRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionMinMaxHeatLevels extends ScriptableSystemRequest
+{
+	var minLvl : Int32;
+	var maxLvl : Int32;
+	var isDefault : Bool;
+}
+
+class PreventionSearchingStatusRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionStarStateBufferTimerRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionTransitionToGreyStateTimerRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionForceDeescalateRequest extends ScriptableSystemRequest
+{
+	var fakeBlinkingDuration : Float;
+	var telemetryInfo : String;
+}
+
+class RefreshDeescalationTimers extends ScriptableSystemRequest
+{
+}
+
+class PreventionBlinkingStatusRequest extends ScriptableSystemRequest
+{
+	var m_lockPreventionSystemWhileBlinking : Bool;
+	default m_lockPreventionSystemWhileBlinking = false;
+	var m_telemetryInfo : String;
+}
+
+class PreventionCrimeScoreZeroRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionSecurityAreaRequest extends ScriptableSystemRequest
+{
+	var playerIsIn : Bool;
+	var areaID : PersistentID;
+}
+
+class PreventionPoliceSecuritySystemRequest extends ScriptableSystemRequest
+{
+	var securitySystemID : PersistentID;
+}
+
+class ResupplyVehicleTicketsRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionUnitSpawnedRequest extends ScriptableSystemRequest
+{
+	var requestResult : SpawnRequestResult;
+}
+
+class PreventionUnitDespawnedRequest extends ScriptableSystemRequest
+{
+	var entityID : EntityID;
+}
+
+class SpawnPoliceVehicleWithDelayRequest extends ScriptableSystemRequest
+{
+}
+
+class SpawnMaxTacAVWithDelayRequest extends ScriptableSystemRequest
+{
+}
+
+class SpawnRoadblockadeWithDelayRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionDelayedSpawnBaseRequest extends ScriptableSystemRequest
+{
+	var heatStage : EPreventionHeatStage;
+}
+
+class NoReactionPerformedRequest extends ScriptableSystemRequest
+{
+}
+
+class PreventionTickRequest extends ScriptableSystemRequest
+{
+}
+
+class SecurityAreaResetRequest extends ScriptableSystemRequest
+{
+}
+
+class RegisterNPCRequest extends ScriptableSystemRequest
+{
+	var puppet : weak< ScriptedPuppet >;
+}
+
+class TogglePreventionSystem extends ScriptableSystemRequest
+{
+	editable var sourceName : CName;
+	editable var isActive : Bool;
+}
+
+class ClearPreventionSystemLocks extends ScriptableSystemRequest
+{
+}
+
+class TogglePreventionCrowdSpawns extends ScriptableSystemRequest
+{
+	editable var toggle : Bool;
+	hint toggle = "Toggles Prevention System Units units spawning in crowd. Please re-enable after disabling.";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Toggles Prevention System units spawning in crowd. Enabled by default. Please re-enable after disabling.";
+	}
+
+}
+
+class SetWantedLevel extends ScriptableSystemRequest
+{
+	editable var m_wantedLevel : EPreventionHeatStage;
+	default m_wantedLevel = EPreventionHeatStage.Heat_0;
+	hint m_wantedLevel = "Set how many stars player should receive. Use only for triggering the system.";
+	editable var m_forceGreyStars : Bool;
+	default m_forceGreyStars = false;
+	hint m_forceGreyStars = "If set to TRUE, Heat will never drop. Stars will never go into blinking state. Stars will only be in Active\Searching states.";
+	editable var m_resetGreyStars : Bool;
+	default m_resetGreyStars = false;
+	hint m_resetGreyStars = "Set this to TRUE if you want to reset forceGreyStars logic";
+	editable var m_forcePlayerPositionAsLastCrimePoint : Bool;
+	hint m_forcePlayerPositionAsLastCrimePoint = "If set to TRUE, will override last known crime posiition with Player position. If set to false will try to use cached crime point first, than the player";
+	editable var m_forceIgnoreSecurityAreas : Bool;
+	default m_forceIgnoreSecurityAreas = false;
+	hint m_forceIgnoreSecurityAreas = "If set to TRUE, no quest or security areas will disable prevention system. Prevention system will only be able to disable itself through normal pipeline. DON'T FORGET TO DISABLE IT AFTER QUEST HAD FINISHED";
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Set Wanted Level";
+	}
+
+}
+
+class SetHeatCounterMultiplier extends ScriptableSystemRequest
+{
+	editable var m_heatMultiplier : Float;
+	default m_heatMultiplier = 1.f;
+	hint m_heatMultiplier = "Set the multiplier that will determine how fast will the player gain heat when commiting crimes";
+	editable var m_reset : Bool;
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Set Heat Counter Multiplier";
+	}
+
+}
+
+class SetHeatLevelLimiter extends ScriptableSystemRequest
+{
+	editable var m_HeatLevelMin : Int32;
+	default m_HeatLevelMin = 0;
+	hint m_HeatLevelMin = "Set Minimum heat level that can be reached. Heat won't drop below this level. ";
+	editable var m_HeatLevelMax : Int32;
+	default m_HeatLevelMax = 5;
+	hint m_HeatLevelMax = "Set Maximum heat level that can be reached. Heat won't increase above this level. ";
+	editable var m_HeatLevelReset : Bool;
+	default m_HeatLevelReset = false;
+	hint m_HeatLevelReset = "Reset everything to default Prevention System behavior.";
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Set Minimum and Maximum Heat levels.";
+	}
+
+}
+
+class SetPreventionPath extends ScriptableSystemRequest
+{
+	editable var m_blockSpawnFrom : EVehicleSpawnBlockSide;
+	default m_blockSpawnFrom = EVehicleSpawnBlockSide.Default;
+	hint m_blockSpawnFrom = "Blocks spawning from this side of a vehicle.";
+	editable var m_resetToDefault : Bool;
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Set Spawning points for vehicles. This will enforce or block certain spawn angles for police vehicles.";
+	}
+
+}
+
+class SetPreventionDifficulty extends ScriptableSystemRequest
+{
+	editable var m_damageDealtToPlayerMultiplier : Float;
+	default m_damageDealtToPlayerMultiplier = 1.f;
+	hint m_damageDealtToPlayerMultiplier = "Changes how much damage does the player recieves from the enemies. The lower the value is - the less damage the Player gets. 0 - means that the Player is Immortal. Dafault value : 1.";
+	editable var m_chaseAggressivnessMultiplier : Float;
+	default m_chaseAggressivnessMultiplier = 1.f;
+	hint m_chaseAggressivnessMultiplier = "Multiplier that changes how often police will try to ram or block players vehicle. The higher the value - more often police will try to hit the Player. Default Value : 1.";
+	editable var m_difficuiltyReset : Bool;
+	default m_difficuiltyReset = false;
+	hint m_difficuiltyReset = "Resets everything back to default values.";
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Change Difficuilty of Police.";
+	}
+
+}
+
+class SetPoliceSearchArea extends ScriptableSystemRequest
+{
+	editable var m_SearchAreaRadius : Float;
+	default m_SearchAreaRadius = -1.f;
+	hint m_SearchAreaRadius = "Edit the size of the area the police will be searching for the player in when the player is hiding.";
+	editable var m_ChaseDistance : Float;
+	default m_ChaseDistance = -1.f;
+	hint m_ChaseDistance = "Edit the distance from the player to police when the player is running away and police are following the player using 'breadcrumbs'.";
+	editable var m_resetToDefault : Bool;
+	default m_resetToDefault = false;
+	hint m_resetToDefault = "Resets everything back to default.";
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Edit search area of the police when searching for the player. Edit chase distance (how far the police can fall behind) when player is running away from the police.";
+	}
+
+}
+
+class TogglePreventionFreeArea extends ScriptableSystemRequest
+{
+	editable var m_areaReference : NodeRef;
+	hint m_areaReference = "Global name for the area defined in the world editor.";
+	editable var m_enable : Bool;
+	hint m_enable = "Enables/disables the free area.";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Enables the free area, previously added to the world. Prevention NPCs won't enter or spawn in the area.";
+	}
+
+}
+
+class ToggleQuestPreventionTrigger extends ScriptableSystemRequest
+{
+	editable var m_areaReference : NodeRef;
+	hint m_areaReference = "Global name for the area defined in the world editor.";
+	editable var m_enable : Bool;
+	default m_enable = false;
+	hint m_enable = "Enables/disables the quest prevention trigger.";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Enables the quest trigger, previously added to the world. Prevention System will get disabled upon entering active trigger";
+	}
+
+}
+
+class TogglePreventionGlobalQuestObjective extends ScriptableSystemRequest
+{
+	editable var m_preventionGlobalQuestDisabled : Bool;
+	default m_preventionGlobalQuestDisabled = true;
+	hint m_preventionGlobalQuestDisabled = "If disabled, prevention system will not trigger a global quest objective";
+	editable var m_eventSource : CName;
+	default m_eventSource = 'fill_in_with_valid_source_name';
+	hint m_eventSource = "Must be set to uniquely estabilish lock source";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Toggle functionality that enables prevention system to interrupt current quest objective";
+	}
+
+}
+
+class ToggleBlockSceneInteractions extends ScriptableSystemRequest
+{
+	editable var m_block : Bool;
+	default m_block = false;
+	hint m_block = "If true, player will not be able to make scene interactions";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Toggle functionality that enables prevention system to interrupt current quest objective";
+	}
+
+}
+
+class TryResetPreventionFreeArea extends ScriptableSystemRequest
+{
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "This event is used to poll whether player is inside prevention free area, and reset the status if that is no longer the case.";
+	}
+
+}
+
+class SetBlockShootingFromVehicle extends ScriptableSystemRequest
+{
+	editable var m_enable : Bool;
+	hint m_enable = "Toggles NPCs shooting while driving behaviour";
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Toggles NPC shooting from vehicle behaviour, enabled by default";
+	}
+
+}
+
+class SetPoliceForcesPool extends ScriptableSystemRequest
+{
+	editable var m_disableOnFootSpawn : Bool;
+	default m_disableOnFootSpawn = false;
+	hint m_disableOnFootSpawn = "Prevents Police NPC from spawning on foot.";
+	editable var m_disableVehicleSpawn : Bool;
+	default m_disableVehicleSpawn = false;
+	hint m_disableVehicleSpawn = "Prevents Police NPC from spawning in vehicles.";
+	editable var m_disableDroneSpawn : Bool;
+	default m_disableDroneSpawn = false;
+	hint m_disableDroneSpawn = "Prevents Recon Drone NPC from spawning. Currently does nothing since we disabled Recon drones completely.";
+	editable var m_resetToDefault : Bool;
+	default m_resetToDefault = false;
+	hint m_resetToDefault = "Resets everything back to default.";
+	editable var source : CName;
+
+	public constexpr function GetFriendlyDesctiption() : String
+	{
+		return "Allows to block spawning Police NPC on certain conditions.";
+	}
+
+}
+
+class SPreventionAgentData
+{
+	var ps : weak< PersistentState >;
+}
+
+importonly struct PreventionSystemDebugData
+{
+	import var totalCrimeScore : Float;
+	import var heatStage : Int32;
+	import var heatThreshold : Float;
+	import var heatMultiplierDistrict : Float;
+	import var heatMultiplierQuest : Float;
+	import var totalVehiclesCount : Int32;
+	import var totalAVsCount : Int32;
+	import var totalBlockadesCount : Int32;
+	import var totalNPCCount : Int32;
+	import var currentVehicleTicketCount : Int32;
+	import var maxVehicleTicketCount : Int32;
+	import var maxTacNPCCount : Int32;
+	import var engagedVehiclesCount : Int32;
+	import var engagedVehiclesLimit : Int32;
+	import var supportVehiclesCount : Int32;
+	import var supportVehiclesLimit : Int32;
+	import var maxAVPlayerDistance : Float;
+	import var lastAVRequestedSpawnPosition : Vector3;
+	import var totalNPCLimit : Int32;
+	import var externalNPCCount : Int32;
+	import var fallbackNPCCount : Int32;
+	import var registeredPendingTickets : Int32;
+	import var awaitedAVSpawnPointsRequestID : Uint32;
+	import var lastKnownPosition : Vector4;
+	import var heatChangeReason : String;
+	import var systemEnabled : Bool;
+	import var systemLockEventSources : array< String >;
+}
+
+enum EPreventionHeatStage
+{
+	Heat_0 = 0,
+	Heat_1 = 1,
+	Heat_2 = 2,
+	Heat_3 = 3,
+	Heat_4 = 4,
+	Heat_5 = 5,
+	Size = 6,
+	Invalid = 7,
+}
+
+enum EPreventionDebugProcessReason
+{
+	Redirected_IsPsycho = 0,
+	Process_NewDamage = 1,
+	Process_EntityCalls = 2,
+	Abort_EntitySame = 3,
+	Abort_DamageZero = 4,
+	Abort_SystemLockedBySceneTier = 5,
+}
+
+enum EPreventionSystemInstruction
+{
+	Safe = 0,
+	Active = 1,
+	Off = 2,
+	On = 3,
+	ReconPhaseOn = 4,
+	ReconPhaseOff = 5,
+	Debug_BlinkStart = 6,
+	Debug_BlinkStop = 7,
+	Debug_SearchStart = 8,
+	Debug_SearchStop = 9,
+	Debug_Stars = 10,
+}
+
+enum EVehicleSpawnBlockSide
+{
+	Front = 0,
+	Back = 1,
+	Left = 2,
+	Right = 3,
+	Default = 4,
+}
+
+enum EStarState
+{
+	Default = 0,
+	Active = 1,
+	Searching = 2,
+	Blinking = 3,
+}
+
+function IntToEPreventionHeatStage( index : Int32 ) : EPreventionHeatStage
+{
+	if( index < 0 )
+	{
+		index = 0;
+	}
+	if( index >= ( ( Int32 )( EPreventionHeatStage.Size ) ) )
+	{
+		index = ( ( Int32 )( EPreventionHeatStage.Size ) ) - 1;
+	}
+	return ( ( EPreventionHeatStage )( index ) );
+}
+

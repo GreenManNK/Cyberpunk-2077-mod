@@ -1,0 +1,76 @@
+package Character
+using RTDB, BaseStats, ArchetypeData
+
+mws_wat_01_robot : NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\watson\mws_wat_01\characters\mws_wat_01_robot.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#39570";
+	savable = true;
+	isCrowd = false;
+	enableSensesOnStart = true;
+	priority = "SpawnableObjectPriority.Regular";
+}
+
+mws_wat_04_cop : ncpd_constable_ranged1_lexington_ma
+{
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+}
+
+mws_wat_08_trauma_team_member : NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__traumateam_ma.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	savable = true;
+	isCrowd = false;
+	priority = "SpawnableObjectPriority.Regular";
+	fk< Affiliation > affiliation = "Factions.TraumaTeam";
+}
+
+mws_wat_05_maelstrom_fast_fmelee3_mantis_wa_elite : maelstrom_fast_fmelee3_mantis_wa_elite
+{
+	displayName = "LocKey#44327";
+}
+
+mws_wat_09_ninja_2 : NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\watson\mws_wat_09\entities\mws_wat_09_ninja_safe.ent";
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	displayName = "LocKey#92069";
+	fullDisplayName = "LocKey#95743";
+	savable = true;
+	isCrowd = false;
+}
+
+mws_thenerves_driver_01 : NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__youngster_wa.ent";
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#96329";
+	savable = true;
+	isCrowd = false;
+}
+
+mws_thenerves_driver_02 : NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__lowlife_ma.ent";
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#96330";
+	savable = true;
+	isCrowd = false;
+}
+
+mws_thenerves_crowd_01 : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__rich_ma.ent";
+	baseAttitudeGroup = "neutral";
+}
+

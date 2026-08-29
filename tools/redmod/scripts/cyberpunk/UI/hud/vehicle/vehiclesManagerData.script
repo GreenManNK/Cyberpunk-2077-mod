@@ -1,0 +1,81 @@
+class VehicleListItemData extends IScriptable
+{
+	var m_displayName : CName;
+	var m_data : PlayerVehicle;
+	var m_icon : weak< UIIcon_Record >;
+	var m_repairTimeRemaining : Float;
+	var m_canBeActive : Bool;
+}
+
+class RadioListItemData extends IScriptable
+{
+	var m_record : weak< RadioStation_Record >;
+}
+
+class VehiclesManagerDataHelper
+{
+
+	public static function GetVehicles( player : GameObject ) : array< IScriptable >
+	{
+		var vehiclesList : array< PlayerVehicle >;
+		var vehicle : PlayerVehicle;
+		var vehicleRecord : Vehicle_Record;
+		var currentData : VehicleListItemData;
+		var repairElapsedTime : Float;
+		var repairTime : Float;
+		var currentSimTime : EngineTime;
+		var result : array< IScriptable >;
+		var i : Int32;
+		repairTime = TweakDBInterface.GetFloat( T"Vehicle.summon_setup.repairCooldownMax", 0.0 );
+		currentSimTime = GameInstance.GetSimTime( player.GetGame() );
+		GameInstance.GetVehicleSystem( player.GetGame() ).GetPlayerUnlockedVehicles( vehiclesList );
+		for( i = 0; i < vehiclesList.Size(); i += 1 )
+		{
+			vehicle = vehiclesList[ i ];
+			if( TDBID.IsValid( vehicle.recordID ) )
+			{
+				vehicleRecord = TweakDBInterface.GetVehicleRecord( vehicle.recordID );
+				currentData = new VehicleListItemData;
+				currentData.m_displayName = vehicleRecord.DisplayName();
+				currentData.m_icon = vehicleRecord.Icon();
+				currentData.m_data = vehicle;
+				repairElapsedTime = EngineTime.ToFloat( currentSimTime - vehicle.destructionTimeStamp );
+				currentData.m_repairTimeRemaining = ( ( repairElapsedTime > repairTime ) ? ( 0.0 ) : ( repairTime - repairElapsedTime ) );
+				currentData.m_canBeActive = vehicleRecord.CanBeActiveVehicle();
+				result.PushBack( currentData );
+			}
+		}
+		return result;
+	}
+
+	public static function GetRadioStations( player : GameObject ) : array< IScriptable >
+	{
+		var res : array< IScriptable >;
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.NoStation" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Downtempo" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.AggroIndie" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.GrowlFM" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Jazz" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.ElectroIndie" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.MinimTech" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Metal" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Pop" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Impulse" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.HipHop" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.AggroTechno" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.Latino" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.AttRock" ) );
+		PushRadioStationData( res, TweakDBInterface.GetRadioStationRecord( T"RadioStation.DarkStar" ) );
+		return res;
+	}
+
+	private static function PushRadioStationData( result : ref< array< IScriptable > >, record : RadioStation_Record )
+	{
+		var stationDataObj : RadioListItemData;
+		stationDataObj = new RadioListItemData;
+		stationDataObj.m_record = record;
+		result.PushBack( stationDataObj );
+	}
+
+}
+

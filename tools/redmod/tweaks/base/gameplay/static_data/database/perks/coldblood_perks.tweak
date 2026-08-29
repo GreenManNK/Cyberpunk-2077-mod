@@ -1,0 +1,359 @@
+package Perks
+using RTDB, Effectors, Prereqs, BaseStatusEffect, BaseStats
+
+ColdBloodProficiencyPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Cool";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+ColdBloodMasteryPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "ColdBlood";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+ColdBlood_Area_01 : PerkArea
+{
+	enumName = "ColdBlood_Area_01";
+	requirement = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_01_Perk_1"
+	];
+	maxLevel = 3;
+}
+
+ColdBlood_Area_02 : PerkArea
+{
+	enumName = "ColdBlood_Area_02";
+	requirement = 
+	{
+		valueToCheck = 5;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_02_Perk_1", "Perks.ColdBlood_Area_02_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+ColdBlood_Area_03 : PerkArea
+{
+	enumName = "ColdBlood_Area_03";
+	requirement = 
+	{
+		valueToCheck = 7;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_03_Perk_1", "Perks.ColdBlood_Area_03_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+ColdBlood_Area_04 : PerkArea
+{
+	enumName = "ColdBlood_Area_04";
+	requirement = 
+	{
+		valueToCheck = 9;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_04_Perk_1", "Perks.ColdBlood_Area_04_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+ColdBlood_Area_05 : PerkArea
+{
+	enumName = "ColdBlood_Area_05";
+	requirement = 
+	{
+		valueToCheck = 11;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_05_Perk_1", "Perks.ColdBlood_Area_05_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+ColdBlood_Area_06 : PerkArea
+{
+	enumName = "ColdBlood_Area_06";
+	requirement = 
+	{
+		valueToCheck = 12;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_06_Perk_1", "Perks.ColdBlood_Area_06_Perk_2", "Perks.ColdBlood_Area_06_Perk_3"
+	];
+	maxLevel = 2;
+}
+
+ColdBlood_Area_07 : PerkArea
+{
+	enumName = "ColdBlood_Area_07";
+	requirement = 
+	{
+		valueToCheck = 14;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_07_Perk_1", "Perks.ColdBlood_Area_07_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+ColdBlood_Area_08 : PerkArea
+{
+	enumName = "ColdBlood_Area_08";
+	requirement = 
+	{
+		valueToCheck = 16;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_08_Perk_1", "Perks.ColdBlood_Area_08_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+ColdBlood_Area_09 : PerkArea
+{
+	enumName = "ColdBlood_Area_09";
+	requirement = 
+	{
+		valueToCheck = 18;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_09_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+ColdBlood_Area_10 : PerkArea
+{
+	enumName = "ColdBlood_Area_10";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : ColdBloodProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : ColdBloodMasteryPrereq;
+	perks = 
+	[
+		"Perks.ColdBlood_Area_10_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+ColdBlood_Area_01_Perk_1 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_01_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_01_Perk_1";
+	loc_name_key = "LocKey#6590";
+	loc_desc_key = "LocKey#79824";
+	levels = [];
+}
+
+ColdBlood_Area_02_Perk_1 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_02_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_02_Perk_1";
+	loc_name_key = "LocKey#6592";
+	loc_desc_key = "LocKey#5893";
+	levels = [];
+}
+
+ColdBlood_Area_02_Perk_2 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_02_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_02_Perk_2";
+	loc_name_key = "LocKey#6599";
+	loc_desc_key = "LocKey#5901";
+	levels = [];
+}
+
+ColdBlood_Area_03_Perk_1 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_03_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_03_Perk_1";
+	loc_name_key = "LocKey#79834";
+	loc_desc_key = "LocKey#79825";
+	levels = [];
+}
+
+ColdBlood_Area_03_Perk_2 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_03_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_03_Perk_2";
+	loc_name_key = "LocKey#6668";
+	loc_desc_key = "LocKey#6669";
+	levels = [];
+}
+
+ColdBlood_Area_04_Perk_1 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_04_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_04_Perk_1";
+	loc_name_key = "LocKey#6670";
+	loc_desc_key = "LocKey#6671";
+	levels = [];
+}
+
+ColdBlood_Area_04_Perk_2 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_04_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_04_Perk_2";
+	loc_name_key = "LocKey#6672";
+	loc_desc_key = "LocKey#6673";
+	levels = [];
+}
+
+ColdBlood_Area_05_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_05_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_05_Perk_1";
+	loc_name_key = "LocKey#6602";
+	loc_desc_key = "LocKey#5904";
+	levels = [];
+}
+
+ColdBlood_Area_05_Perk_2 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_05_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_05_Perk_2";
+	loc_name_key = "LocKey#6594";
+	loc_desc_key = "LocKey#5896";
+	levels = [];
+}
+
+ColdBlood_Area_06_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_06_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_06_Perk_1";
+	loc_name_key = "LocKey#5900";
+	loc_desc_key = "LocKey#6598";
+	levels = [];
+}
+
+ColdBlood_Area_06_Perk_2 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_06_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_06_Perk_2";
+	loc_name_key = "LocKey#6664";
+	loc_desc_key = "LocKey#6663";
+	levels = [];
+}
+
+ColdBlood_Area_06_Perk_3 : ColdBloodPerk
+{
+	CName enumName = "ColdBlood_Area_06_Perk_3";
+	perkIcon = "UIIcon.ColdBlood_Area_06_Perk_3";
+	loc_name_key = "LocKey#6597";
+	loc_desc_key = "LocKey#5899";
+	levels = [];
+}
+
+ColdBlood_Area_07_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_07_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_07_Perk_1";
+	loc_name_key = "LocKey#6603";
+	loc_desc_key = "LocKey#5905";
+	levels = [];
+}
+
+ColdBlood_Area_07_Perk_2 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_07_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_07_Perk_2";
+	loc_name_key = "LocKey#6601";
+	loc_desc_key = "LocKey#5903";
+	levels = [];
+}
+
+ColdBlood_Area_08_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_08_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_08_Perk_1";
+	loc_name_key = "LocKey#6666";
+	loc_desc_key = "LocKey#79827";
+	levels = [];
+}
+
+ColdBlood_Area_08_Perk_2 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_08_Perk_2";
+	perkIcon = "UIIcon.ColdBlood_Area_08_Perk_2";
+	loc_name_key = "LocKey#6593";
+	loc_desc_key = "LocKey#6675";
+	levels = [];
+}
+
+ColdBlood_Area_09_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_09_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_09_Perk_1";
+	loc_name_key = "LocKey#6605";
+	loc_desc_key = "LocKey#79828";
+	levels = [];
+}
+
+ColdBlood_Area_10_Perk_1 : ColdBloodPerk
+{
+	enumName = "ColdBlood_Area_10_Perk_1";
+	perkIcon = "UIIcon.ColdBlood_Area_10_Perk_1";
+	loc_name_key = "LocKey#6600";
+	loc_desc_key = "LocKey#80635";
+	levels = [];
+}
+

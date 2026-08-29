@@ -1,0 +1,559 @@
+package Query
+using RTDB
+
+RecipeItemQuery : ItemQuery
+{
+	excludeUnlocked = true;
+}
+
+RecipeGrenadeQuery : RecipeItemQuery
+{
+	recordType = "Items.RecipeGrenadeBase";
+}
+
+RecipeSimpleWeaponModQuery : RecipeItemQuery
+{
+	recordType = "Items.RecipeSimpleWeaponModBase";
+}
+
+RecipeSimpleFabricEnhancerQuery : RecipeItemQuery
+{
+	recordType = "Items.RecipeSimpleFabricEnhancerBase";
+}
+
+RecipePowerfulFabricEnhancerQuery : RecipeItemQuery
+{
+	recordType = "Items.RecipePowerfulFabricEnhancerBase";
+}
+
+WeaponRecipeBaseQuery : RecipeItemQuery
+{
+	tagsToExclude = 
+	[
+		"EP1"
+	];
+}
+
+WeaponRecipeBaseQuery_EP1 : RecipeItemQuery
+{
+}
+
+CommonWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonMeleeWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseMeleeWeaponRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonRangedWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRangedWeaponRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseHandgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseHandgunRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseRevolverRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRevolverRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseRifleRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRifleRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseSniperRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSniperRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseShotgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseShotgunRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+CommonBaseSMGRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Common"
+	];
+}
+
+UncommonWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonMeleeWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseMeleeWeaponRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonRangedWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRangedWeaponRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseHandgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseHandgunRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseRevolverRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRevolverRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseRifleRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRifleRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseSniperRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSniperRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseShotgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseShotgunRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+UncommonBaseSMGRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Uncommon"
+	];
+}
+
+RareWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareMeleeWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseMeleeWeaponRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareRangedWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRangedWeaponRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseHandgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseHandgunRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseRevolverRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRevolverRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseRifleRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRifleRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseSniperRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSniperRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseShotgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseShotgunRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseSMGRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareWeaponRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+RareBaseSMGRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Rare"
+	];
+}
+
+EpicWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicMeleeWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseMeleeWeaponRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicRangedWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRangedWeaponRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseHandgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseHandgunRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseRevolverRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRevolverRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseRifleRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRifleRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseSniperRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSniperRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseShotgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseShotgunRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseSMGRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicWeaponRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+EpicBaseSMGRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Epic"
+	];
+}
+
+LegendaryWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryMeleeWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseMeleeWeaponRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryRangedWeaponRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRangedWeaponRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseHandgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseHandgunRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseRevolverRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRevolverRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseRifleRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseRifleRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseSniperRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSniperRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseShotgunRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseShotgunRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseSMGRecipeQuery : WeaponRecipeBaseQuery
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryWeaponRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseWeaponRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+LegendaryBaseSMGRecipeQuery_EP1 : WeaponRecipeBaseQuery_EP1
+{
+	recordType = "Items.BaseSMGRecipe";
+	tags = 
+	[
+		"Legendary"
+	];
+}
+
+MantisBladesEdgeRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_MantisBladesEdgeBase";
+}
+
+MantisBladesRotorRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_MantisBladesRotorBase";
+}
+
+NanoWiresCableRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_NanoWiresCableBase";
+}
+
+NanoWiresBatteryRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_NanoWiresBatteryBase";
+}
+
+StrongArmsKnucklesRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_StrongArmsKnucklesBase";
+}
+
+StrongArmsBatteryRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_StrongArmsBatteryBase";
+}
+
+ProjectileLauncherRoundRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_ProjectileLauncherRoundBase";
+}
+
+ProjectileLauncherWiringRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_ProjectileLauncherWiringBase";
+}
+
+ArmsCyberwarePartRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_ArmsCyberwarePartBase";
+}
+
+KiroshiOpticsFragmentRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_KiroshiOpticsBaseFragment";
+}
+
+BerserkFragmentRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_BerserkFragmentBase";
+}
+
+SandevistanFragmentRecipeQuery : RecipeItemQuery
+{
+	recordType = "Items.Recipe_SandevistanFragmentBase";
+}
+

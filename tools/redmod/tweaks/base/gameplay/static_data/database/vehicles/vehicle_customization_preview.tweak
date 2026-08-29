@@ -1,0 +1,401 @@
+package Vehicle
+using RTDB
+
+PreviewGeneric : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_generic_01";
+	secondaryImage = "UIIcon.vehicle_preview_generic_02";
+	lightsImage = "UIIcon.vehicle_preview_generic_lights";
+	backgroundImage = "UIIcon.vehicle_preview_generic_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -150.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 150.0;
+}
+
+PreviewGenericReversed : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_generic_reversed_01";
+	secondaryImage = "UIIcon.vehicle_preview_generic_reversed_02";
+	lightsImage = "UIIcon.vehicle_preview_generic_reversed_lights";
+	backgroundImage = "UIIcon.vehicle_preview_generic_reversed_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -150.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 150.0;
+}
+
+PreviewRayfieldCaliburnOld : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_caliburn_lights";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = 0.0;
+	previewRightLight = true;
+	rightLightMarginTop = 0.0;
+	rightLightMarginRight = 0.0;
+}
+
+PreviewRayfieldAerondightOld : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_aerondight_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_aerondight_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_aerondight_lights";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaKusanagiOld : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_kusanagi_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_kusanagi_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewHerreraOutlaw : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_herrera_outlaw_gts_01";
+	secondaryImage = "UIIcon.vehicle_preview_herrera_outlaw_gts_02";
+	lightsImage = "UIIcon.vehicle_preview_herrera_outlaw_gts_lights";
+	backgroundImage = "UIIcon.vehicle_preview_herrera_outlaw_gts_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewMizutaniShionBasic : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_mizutani_shion_mz2_01";
+	secondaryImage = "UIIcon.vehicle_preview_mizutani_shion_mz2_02";
+	lightsImage = "UIIcon.vehicle_preview_mizutani_shion_mz2_lights";
+	backgroundImage = "UIIcon.vehicle_preview_mizutani_shion_mz2_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewQuadraType66Avenger : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_quadra_type66_avenger_01";
+	secondaryImage = "UIIcon.vehicle_preview_quadra_type66_avenger_02";
+	lightsImage = "UIIcon.vehicle_preview_quadra_type66_avenger_lights";
+	backgroundImage = "UIIcon.vehicle_preview_quadra_type66_avenger_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewCortesV5000Valor : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_villefort_cortes_v5000_valor_01";
+	secondaryImage = "UIIcon.vehicle_preview_villefort_cortes_v5000_valor_02";
+	lightsImage = "UIIcon.vehicle_preview_villefort_cortes_v5000_valor_lights";
+	backgroundImage = "UIIcon.vehicle_preview_villefort_cortes_v5000_valor_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewThortonColbyCST40 : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_thorton_colby_cst40_01";
+	secondaryImage = "UIIcon.vehicle_preview_thorton_colby_cst40_02";
+	lightsImage = "UIIcon.vehicle_preview_thorton_colby_cst40_lights";
+	backgroundImage = "UIIcon.vehicle_preview_thorton_colby_cst40_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewRayfieldCaliburn : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_murkmobile_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_murkmobile_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_caliburn_murkmobile_lights";
+	backgroundImage = "UIIcon.vehicle_preview_rayfield_caliburn_murkmobile_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewRayfieldMordred : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_lights";
+	backgroundImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewGlowRayfieldMordred : VehicleVisualCustomizationPreviewGlowSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_glow_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_glow_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_glow_lights";
+	backgroundImage = "UIIcon.vehicle_preview_rayfield_caliburn_mordred_glow_bg";
+}
+
+PreviewChevillonEmperor : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_chevillon_emperor_620_ragnar_01";
+	secondaryImage = "UIIcon.vehicle_preview_chevillon_emperor_620_ragnar_02";
+	lightsImage = "UIIcon.vehicle_preview_chevillon_emperor_620_ragnar_lights";
+	backgroundImage = "UIIcon.vehicle_preview_chevillon_emperor_620_ragnar_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewChevillonThrax : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_chevillon_thrax_388_jefferson_01";
+	secondaryImage = "UIIcon.vehicle_preview_chevillon_thrax_388_jefferson_02";
+	lightsImage = "UIIcon.vehicle_preview_chevillon_thrax_388_jefferson_lights";
+	backgroundImage = "UIIcon.vehicle_preview_chevillon_thrax_388_jefferson_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewQuadraTurboR : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_quadra_turbo_r_740_01";
+	secondaryImage = "UIIcon.vehicle_preview_quadra_turbo_r_740_02";
+	lightsImage = "UIIcon.vehicle_preview_quadra_turbo_r_740_lights";
+	backgroundImage = "UIIcon.vehicle_preview_quadra_turbo_r_740_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewQuadraType66Basic : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_quadra_type66_basic_01";
+	secondaryImage = "UIIcon.vehicle_preview_quadra_type66_basic_02";
+	lightsImage = "UIIcon.vehicle_preview_quadra_type66_basic_lights";
+	backgroundImage = "UIIcon.vehicle_preview_quadra_type66_basic_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewArchNazare : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_arch_nazare_racer_01";
+	secondaryImage = "UIIcon.vehicle_preview_arch_nazare_racer_02";
+	lightsImage = "UIIcon.vehicle_preview_arch_nazare_racer_lights";
+	backgroundImage = "UIIcon.vehicle_preview_arch_nazare_racer_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewHerreraRiptide : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_herrera_riptide_terrier_01";
+	secondaryImage = "UIIcon.vehicle_preview_herrera_riptide_terrier_02";
+	lightsImage = "UIIcon.vehicle_preview_herrera_riptide_terrier_lights";
+	backgroundImage = "UIIcon.vehicle_preview_herrera_riptide_terrier_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewMizutaniHozukiHoseki : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_mizutani_hozuki_hoseki_01";
+	secondaryImage = "UIIcon.vehicle_preview_mizutani_hozuki_hoseki_02";
+	lightsImage = "UIIcon.vehicle_preview_mizutani_hozuki_hoseki_lights";
+	backgroundImage = "UIIcon.vehicle_preview_mizutani_hozuki_hoseki_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewQuadraSportR7 : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_quadra_sport_r7_01";
+	secondaryImage = "UIIcon.vehicle_preview_quadra_sport_r7_02";
+	lightsImage = "UIIcon.vehicle_preview_quadra_sport_r7_lights";
+	backgroundImage = "UIIcon.vehicle_preview_quadra_sport_r7_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewRayfieldAerondight : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_rayfield_aerondight_guinevere_01";
+	secondaryImage = "UIIcon.vehicle_preview_rayfield_aerondight_guinevere_02";
+	lightsImage = "UIIcon.vehicle_preview_rayfield_aerondight_guinevere_lights";
+	backgroundImage = "UIIcon.vehicle_preview_rayfield_aerondight_guinevere_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewVillefortAlvaradoBasic : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_villefort_alvarado_basic_vato_01";
+	secondaryImage = "UIIcon.vehicle_preview_villefort_alvarado_basic_vato_02";
+	lightsImage = "UIIcon.vehicle_preview_villefort_alvarado_basic_vato_lights";
+	backgroundImage = "UIIcon.vehicle_preview_villefort_alvarado_basic_vato_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewVillefortDeleon : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_villefort_deleon_01";
+	secondaryImage = "UIIcon.vehicle_preview_villefort_deleon_02";
+	lightsImage = "UIIcon.vehicle_preview_villefort_deleon_lights";
+	backgroundImage = "UIIcon.vehicle_preview_villefort_deleon_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaKusanagiAkashita : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_akashita_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_akashita_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_kusanagi_akashita_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_kusanagi_akashita_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaKusanagiCT3X : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_ct3x_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_ct3x_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_kusanagi_ct3x_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_kusanagi_ct3x_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaKusanagiPeacekeeper : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_peacekeeper_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_kusanagi_peacekeeper_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_kusanagi_peacekeeper_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_kusanagi_peacekeeper_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaMuramasa : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_muramasa_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_muramasa_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_muramasa_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_muramasa_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+
+PreviewYaibaSemimaru : VehicleVisualCustomizationPreviewSetup
+{
+	primaryImage = "UIIcon.vehicle_preview_yaiba_semimaru_01";
+	secondaryImage = "UIIcon.vehicle_preview_yaiba_semimaru_02";
+	lightsImage = "UIIcon.vehicle_preview_yaiba_semimaru_lights";
+	backgroundImage = "UIIcon.vehicle_preview_yaiba_semimaru_bg";
+	previewLeftLight = true;
+	leftLightMarginTop = -180.0;
+	leftLightMarginRight = -100.0;
+	previewRightLight = true;
+	rightLightMarginTop = -180.0;
+	rightLightMarginRight = 100.0;
+}
+

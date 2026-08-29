@@ -1,4 +1,4 @@
-// TweakXL 1.11.3
+// TweakXL 1.11.4
 
 public abstract native class ScriptableTweak {
     protected cb func OnApply() -> Void

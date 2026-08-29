@@ -1,0 +1,2894 @@
+package EquipmentGLP
+using RTDB, Prereqs, Perks, Effectors
+
+Silenced : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_silenced";
+		localizedName = "LocKey#49305";
+		localizedDescription = "LocKey#49306";
+		stats = 
+		[
+			"BaseStats.StealthHitDamageMultiplier"
+		];
+	};
+}
+
+MuzzleBrake : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "";
+		localizedName = "LocKey#78480";
+		localizedDescription = "LocKey#78479";
+		stats = 
+		[
+			"BaseStats.RicochetMaxAngle", "BaseStats.RicochetChance"
+		];
+	};
+}
+
+DamageHack : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#51402";
+	};
+}
+
+UltimateHack : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#51403";
+	};
+}
+
+ControlHack : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#51404";
+	};
+}
+
+CovertHack : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#51405";
+	};
+}
+
+Lethal : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#52983";
+	};
+}
+
+NonLethal : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#52984";
+	};
+}
+
+DataMiner : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#2045";
+		localizedDescription = "LocKey#2044";
+	};
+}
+
+MalfunctionProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#2020";
+		localizedDescription = "LocKey#2021";
+	};
+}
+
+SuicideLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#845";
+		localizedDescription = "LocKey#52611";
+	};
+}
+
+SuicideLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#845";
+		localizedDescription = "LocKey#92197";
+		floatValues = 
+		[
+			10, 30, 2
+		];
+	};
+}
+
+SuicideLvl3ProgramPassive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						hitFlag = "FinisherTriggered";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statusEffect = "BaseStatusEffect.SuicideHackMemoryCostReduction";
+			removeWithEffector = false;
+		} : ApplyStatusEffectOnPlayer
+	];
+}
+
+SuicideLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#845";
+		localizedDescription = "LocKey#51562";
+		floatValues = 
+		[
+			10
+		];
+	};
+}
+
+SuicideLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#845";
+		localizedDescription = "LocKey#51562";
+		floatValues = 
+		[
+			20
+		];
+	};
+}
+
+GrenadeExplodeLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#850";
+		localizedDescription = "LocKey#52615";
+	};
+}
+
+GrenadeExplodeWeakspot : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#850";
+		localizedDescription = "LocKey#93824";
+	};
+}
+
+GrenadeExplodeLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#850";
+		localizedDescription = "LocKey#51499";
+		floatValues = 
+		[
+			10, 2
+		];
+	};
+}
+
+GrenadeExplodeLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#850";
+		localizedDescription = "LocKey#51500";
+	};
+}
+
+GrenadeExplodeLvl4PlusPlusProgramPassive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.ExplosionKillsRecudeUltimateHacksCost";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+
+GrenadeExplodeLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#850";
+		localizedDescription = "LocKey#51499";
+		floatValues = 
+		[
+			15, 1
+		];
+	};
+}
+
+BlindProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#92922";
+	};
+}
+
+BlindLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#852";
+	};
+}
+
+BlindLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#51376";
+		floatValues = 
+		[
+			15
+		];
+	};
+}
+
+BlindLvl2ProgramPassive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						conditions = 
+						[
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "QuickHackBlindLevel2";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "Headshot";
+							} : HitFlagHitPrereqCondition
+						];
+					} : ProcessHitTriggered, 
+					{
+						conditions = 
+						[
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "QuickHackBlindLevel2";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "WeakspotHit";
+							} : HitFlagHitPrereqCondition
+						];
+					} : ProcessHitTriggered
+				];
+			} : ORPrereq;
+			value = 1.15f;
+		} : MultiplyDamage
+	];
+}
+
+BlindLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#51377";
+	};
+}
+
+BlindLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#51378";
+		floatValues = 
+		[
+			3
+		];
+	};
+}
+
+BlindLvl4ProgramPassive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackBlindSpreadNumber";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						conditions += 
+						[
+							{
+								statusEffect = "QuickHackBlindLevel4";
+								checkType = "CheckType.Record";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								statusEffect = "Defeated";
+								checkType = "CheckType.Type";
+								invert = true;
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "Headshot";
+							} : HitFlagHitPrereqCondition
+						];
+					} : IsTargetKilled, 
+					{
+						conditions += 
+						[
+							{
+								statusEffect = "QuickHackBlindLevel4";
+								checkType = "CheckType.Record";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								statusEffect = "Defeated";
+								checkType = "CheckType.Type";
+								invert = true;
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "WeakspotHit";
+							} : HitFlagHitPrereqCondition
+						];
+					} : IsTargetKilled
+				];
+			} : ORPrereq;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Memory";
+					statPoolValue = 3;
+				} : StatPoolUpdate
+			];
+		} : ModifyStatPoolValueEffector
+	];
+}
+
+BlindLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#849";
+		localizedDescription = "LocKey#51376";
+		floatValues = 
+		[
+			30
+		];
+	};
+}
+
+BlindLvl4PlusPlusProgramPassive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						conditions = 
+						[
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "QuickHackBlindLevel4";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "Headshot";
+							} : HitFlagHitPrereqCondition
+						];
+					} : ProcessHitTriggered, 
+					{
+						conditions = 
+						[
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "QuickHackBlindLevel4";
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								hitFlag = "WeakspotHit";
+							} : HitFlagHitPrereqCondition
+						];
+					} : ProcessHitTriggered
+				];
+			} : ORPrereq;
+			value = 1.30f;
+		} : MultiplyDamage
+	];
+}
+
+MadnessLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_mod";
+		localizedName = "LocKey#27958";
+		localizedDescription = "LocKey#52614";
+	};
+}
+
+MadnessSetFriendly : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_mod";
+		localizedName = "LocKey#27958";
+		localizedDescription = "LocKey#2023";
+	};
+}
+
+MadnessLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_mod";
+		localizedName = "LocKey#27958";
+		localizedDescription = "LocKey#51563";
+		floatValues = 
+		[
+			6, 3
+		];
+	};
+}
+
+MadnessLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_mod";
+		localizedName = "LocKey#27958";
+		localizedDescription = "LocKey#51564";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+MadnessLvl4ProgramPassive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.HasMadnessLvl4Passive";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+
+MadnessLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_mod";
+		localizedName = "LocKey#27958";
+		localizedDescription = "LocKey#51564";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+UntraceableHack : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#93241";
+	};
+}
+
+SubsequentHacksStartsTracing : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#96060";
+	};
+}
+
+SubsequentHacksWillNotBumpTheRevealBar : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "";
+		localizedDescription = "LocKey#96061";
+	};
+}
+
+CommsNoiseLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27959";
+		localizedDescription = "LocKey#51948";
+	};
+}
+
+CommsNoiseLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27959";
+		localizedDescription = "LocKey#51949";
+	};
+}
+
+CommsNoiseLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27959";
+		localizedDescription = "LocKey#51950";
+	};
+}
+
+CommsNoiseLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27959";
+		localizedDescription = "LocKey#51951";
+	};
+}
+
+CommsCallInLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#51953";
+		intValues = 
+		[
+			1
+		];
+	};
+}
+
+CommsCallInLvl1ProgramRange : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93979";
+		intValues = 
+		[
+			10
+		];
+	};
+}
+
+CommsCallInLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93116";
+	};
+}
+
+CommsCallInLvl2ProgramRange : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93979";
+		intValues = 
+		[
+			15
+		];
+	};
+}
+
+CommsCallInLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93117";
+	};
+}
+
+CommsCallInLvl3ProgramRange : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93979";
+		intValues = 
+		[
+			20
+		];
+	};
+}
+
+CommsCallInLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#51954";
+		intValues = 
+		[
+			4
+		];
+	};
+}
+
+CommsCallInLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#51954";
+		intValues = 
+		[
+			5
+		];
+	};
+}
+
+CommsCallInLvl4ProgramRange : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27960";
+		localizedDescription = "LocKey#93979";
+		intValues = 
+		[
+			30
+		];
+	};
+}
+
+WhistleLvl0Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51291";
+		localizedDescription = "LocKey#92196";
+	};
+}
+
+WhistleLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51291";
+		localizedDescription = "LocKey#51337";
+	};
+}
+
+WhistleLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51291";
+		localizedDescription = "LocKey#51293";
+	};
+}
+
+WhistleLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51291";
+		localizedDescription = "LocKey#52756";
+	};
+}
+
+WhistleLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51291";
+		localizedDescription = "LocKey#93126";
+	};
+}
+
+MemoryWipeLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51310";
+		localizedDescription = "LocKey#51338";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+MemoryWipeLvl2UpgradeLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51310";
+		localizedDescription = "LocKey#51338";
+		floatValues = 
+		[
+			35
+		];
+	};
+}
+
+MemoryWipeLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51310";
+		localizedDescription = "LocKey#51312";
+	};
+}
+
+MemoryWipeLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51310";
+		localizedDescription = "LocKey#92529";
+	};
+}
+
+ContagionLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51313";
+		localizedDescription = "LocKey#51318";
+		floatValues = 
+		[
+			2, 8, 2
+		];
+	};
+}
+
+ContagionLvl1Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackContagionSpreadNumber";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51313";
+		localizedDescription = "LocKey#51318";
+		floatValues = 
+		[
+			4, 8, 2
+		];
+	};
+}
+
+ContagionLvl2Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackContagionSpreadNumber";
+			modifierType = "Additive";
+			value = 2.f;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51313";
+		localizedDescription = "LocKey#51316";
+	};
+}
+
+ContagionLvl3Passive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						conditions += 
+						[
+							{
+								statusEffect = "ContagionPoisonLvl3";
+								checkType = "CheckType.Record";
+							} : StatusEffectPresentHitPrereqCondition
+						];
+					} : ContagionBurnPrereq, 
+					{
+						conditions += 
+						[
+							{
+								statusEffect = "ContagionPoisonLvl4";
+								checkType = "CheckType.Record";
+							} : StatusEffectPresentHitPrereqCondition
+						];
+					} : ContagionBurnPrereq, 
+					{
+						conditions += 
+						[
+							{
+								statusEffect = "ContagionPoisonLvl4PlusPlus";
+								checkType = "CheckType.Record";
+							} : StatusEffectPresentHitPrereqCondition
+						];
+					} : ContagionBurnPrereq
+				];
+			} : ORPrereq;
+			attackRecord = "Attacks.ContagionBurnCombo";
+		} : TriggerAttackOnAttackEffect, 
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						statusEffect = "Burning";
+						checkType = "CheckType.Type";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						statusEffect = "ContagionPoisonBounce2";
+						checkType = "CheckType.Record";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition
+				];
+			} : ProcessHitTriggered;
+			attackRecord = "Attacks.ContagionBurnComboBounce2";
+		} : TriggerAttackOnAttackEffect, 
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						statusEffect = "Burning";
+						checkType = "CheckType.Type";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						statusEffect = "ContagionPoisonBounce3";
+						checkType = "CheckType.Record";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition
+				];
+			} : ProcessHitTriggered;
+			attackRecord = "Attacks.ContagionBurnComboBounce3";
+		} : TriggerAttackOnAttackEffect, 
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						statusEffect = "Burning";
+						checkType = "CheckType.Type";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						statusEffect = "ContagionPoisonBounce4";
+						checkType = "CheckType.Record";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition
+				];
+			} : ProcessHitTriggered;
+			attackRecord = "Attacks.ContagionBurnComboBounce4";
+		} : TriggerAttackOnAttackEffect, 
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						statusEffect = "Burning";
+						checkType = "CheckType.Type";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						checkType = "CheckType.Tag";
+						tagToCheck = "ContagionPoison";
+						onlyOncePerShot = true;
+					} : StatusEffectPresentHitPrereqCondition
+				];
+			} : ProcessHitTriggered;
+			effectTags = 
+			[
+				"ContagionPoison"
+			];
+		} : RemoveStatusEffectOnAttackEffector, 
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						statType = "HasGrenadeHack";
+						valueToCheck = 1;
+						comparisonType = "Equal";
+						objectToCheck = "Player";
+					} : StatPrereq, 
+					{
+						statType = "ExplosionKillsRecudeUltimateHacksCost";
+						valueToCheck = 1;
+						comparisonType = "Less";
+						objectToCheck = "Player";
+					} : StatPrereq, 
+					{
+						conditions = 
+						[
+							{
+								statusEffect = "Burning";
+								checkType = "CheckType.Type";
+								onlyOncePerShot = true;
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "ContagionPoison";
+								onlyOncePerShot = true;
+							} : StatusEffectPresentHitPrereqCondition
+						];
+					} : ProcessHitTriggered
+				];
+			} : ANDPrereq;
+			statusEffect = "BaseStatusEffect.ReduceUltimateSuicideWithGrenadeCost";
+		} : ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					{
+						statType = "HasGrenadeHack";
+						valueToCheck = 1;
+						comparisonType = "Equal";
+						objectToCheck = "Player";
+					} : StatPrereq, 
+					{
+						statType = "ExplosionKillsRecudeUltimateHacksCost";
+						valueToCheck = 1;
+						comparisonType = "Equal";
+						objectToCheck = "Player";
+					} : StatPrereq, 
+					{
+						conditions = 
+						[
+							{
+								statusEffect = "Burning";
+								checkType = "CheckType.Type";
+								onlyOncePerShot = true;
+							} : StatusEffectPresentHitPrereqCondition, 
+							{
+								checkType = "CheckType.Tag";
+								tagToCheck = "ContagionPoison";
+								onlyOncePerShot = true;
+							} : StatusEffectPresentHitPrereqCondition
+						];
+					} : ProcessHitTriggered
+				];
+			} : ANDPrereq;
+			statusEffect = "BaseStatusEffect.ReduceUltimateSuicideWithGrenadeCostPlusPlus";
+		} : ApplyStatusEffectOnPlayer
+	];
+}
+
+ContagionLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51313";
+		localizedDescription = "LocKey#51317";
+		floatValues = 
+		[
+			15
+		];
+	};
+}
+
+BlackwallProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#86796";
+		localizedDescription = "LocKey#87023";
+		floatValues = 
+		[
+			3, 20
+		];
+	};
+}
+
+BlackwallLvl2Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackBlackWallSpreadNumber";
+			modifierType = "Additive";
+			value = 3.f;
+		} : ConstantStatModifier
+	];
+}
+
+BlackwallProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#86796";
+		localizedDescription = "LocKey#87023";
+		floatValues = 
+		[
+			4, 20
+		];
+	};
+}
+
+BlackwallLvl3Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackBlackWallSpreadNumber";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+}
+
+BlackwallProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#86796";
+		localizedDescription = "LocKey#87023";
+		floatValues = 
+		[
+			5, 20
+		];
+	};
+}
+
+BlackwallProgramLvl4Plus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#86796";
+		localizedDescription = "LocKey#87023";
+		floatValues = 
+		[
+			5, 25
+		];
+	};
+}
+
+BlackwallProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#86796";
+		localizedDescription = "LocKey#87023";
+		floatValues = 
+		[
+			5, 30
+		];
+	};
+}
+
+BlackwallLvl4Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.QuickHackBlackWallSpreadNumber";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+}
+
+DisableCyberwareProgramLvl1 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#27714";
+		floatValues = 
+		[
+			10, 5
+		];
+	};
+}
+
+DisableCyberwareProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#51372";
+	};
+}
+
+DisableCyberwareProgramLvl2Stacks : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#93963";
+		floatValues = 
+		[
+			3
+		];
+	};
+}
+
+DisableCyberwareProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#51373";
+		floatValues = 
+		[
+			3
+		];
+	};
+}
+
+DisableCyberwareProgramLvl3Stacks : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#93963";
+		floatValues = 
+		[
+			5
+		];
+	};
+}
+
+DisableCyberwareProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#92195";
+	};
+}
+
+DisableCyberwareProgramLvl4Stacks : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#93963";
+		floatValues = 
+		[
+			8
+		];
+	};
+}
+
+DisableCyberwareProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27961";
+		localizedDescription = "LocKey#27714";
+		floatValues = 
+		[
+			10, 15
+		];
+	};
+}
+
+OverheatProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#92185";
+	};
+}
+
+OverheatProgramLvl1 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#51322";
+	};
+}
+
+OverheatProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#51323";
+	};
+}
+
+OverheatPassiveLvl2 : GameplayLogicPackage
+{
+	effectors += 
+	[
+		{
+			prereqRecord = 
+			{
+				isSynchronous = false;
+				conditions = 
+				[
+					{
+						hitFlag = "Overheat";
+						invertHitFlag = true;
+						onlyOncePerShot = true;
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			gameplayTags = 
+			[
+				"Overheat"
+			];
+			change = 0.5;
+		} : ModifyStatusEffectDurationOnAttackEffector
+	];
+}
+
+OverheatProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#51324";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+OverheatProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#51325";
+		floatValues = 
+		[
+			10
+		];
+	};
+}
+
+OverheatProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_offensive";
+		localizedName = "LocKey#27962";
+		localizedDescription = "LocKey#51325";
+		floatValues = 
+		[
+			20
+		];
+	};
+}
+
+SystemCollapseLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27964";
+		localizedDescription = "LocKey#52617";
+	};
+}
+
+SystemCollapseLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27964";
+		localizedDescription = "LocKey#51556";
+		floatValues = 
+		[
+			12, 2
+		];
+	};
+	float memoryCostReductionPerStack = 12;
+}
+
+SystemCollapseLvl3Passive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.HasSystemCollapse";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	effectors += 
+	[
+		{
+			effectorClassName = "SystemCollapseLifetimeEffector";
+		} : Effector
+	];
+}
+
+SystemCollapseLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27964";
+		localizedDescription = "LocKey#51557";
+		floatValues = 
+		[
+			20
+		];
+	};
+}
+
+SystemCollapseLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27964";
+		localizedDescription = "LocKey#51557";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+JamWeaponProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27978";
+		localizedDescription = "LocKey#27719";
+	};
+}
+
+WeaponMalfunctionLvl0Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#52616";
+	};
+}
+
+WeaponMalfunctionLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#27720";
+	};
+}
+
+WeaponMalfunctionLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#51350";
+	};
+}
+
+WeaponMalfunctionLvl3Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#51351";
+	};
+}
+
+WeaponMalfunctionLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#51348";
+		intValues = 
+		[
+			6, 10
+		];
+		floatValues = 
+		[
+			5
+		];
+	};
+}
+
+WeaponMalfunctionLvl4PlusPlusProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27965";
+		localizedDescription = "LocKey#51348";
+		intValues = 
+		[
+			12, 10
+		];
+		floatValues = 
+		[
+			5
+		];
+	};
+}
+
+LocomotionMalfunctionProgramLvl1 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27966";
+		localizedDescription = "LocKey#51940";
+	};
+}
+
+LocomotionMalfunctionProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27966";
+		localizedDescription = "LocKey#51941";
+		floatValues = 
+		[
+			15
+		];
+	};
+}
+
+LocomotionMalfunctionProgramLvl2Passive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				conditions = 
+				[
+					{
+						checkType = "CheckType.Tag";
+						tagToCheck = "LocomotionMalfunctionLevel2";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						weaponType = "Melee";
+					} : WeaponTypeHitPrereqCondition
+				];
+			} : ProcessHitTriggered;
+			value = 1.15f;
+		} : MultiplyDamage
+	];
+}
+
+LocomotionMalfunctionProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27966";
+		localizedDescription = "LocKey#51942";
+	};
+}
+
+LocomotionMalfunctionProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27966";
+		localizedDescription = "LocKey#51943";
+		floatValues = 
+		[
+			5, 2
+		];
+	};
+}
+
+LocomotionMalfunctionProgramLvl4Passive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				conditions += 
+				[
+					{
+						statusEffect = "LocomotionMalfunctionLevel4";
+						checkType = "CheckType.Record";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						hitFlag = "FinisherTriggered";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Memory";
+					statPoolValue = 2;
+				} : StatPoolUpdate
+			];
+		} : ModifyStatPoolValueEffector, 
+		{
+			prereqRecord = 
+			{
+				conditions += 
+				[
+					{
+						statusEffect = "LocomotionMalfunctionLevel4";
+						checkType = "CheckType.Record";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						hitFlag = "FinisherTriggered";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Health";
+					statPoolValue = 5;
+				} : StatPoolUpdate
+			];
+			usePercent = true;
+		} : ModifyStatPoolValueEffector
+	];
+}
+
+LocomotionMalfunctionProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27966";
+		localizedDescription = "LocKey#51943";
+		floatValues = 
+		[
+			10, 4
+		];
+	};
+}
+
+LocomotionMalfunctionProgramLvl4PlusPlusPassive : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				conditions += 
+				[
+					{
+						statusEffect = "LocomotionMalfunctionLevel4";
+						checkType = "CheckType.Record";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						hitFlag = "FinisherTriggered";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Memory";
+					statPoolValue = 4;
+				} : StatPoolUpdate
+			];
+		} : ModifyStatPoolValueEffector, 
+		{
+			prereqRecord = 
+			{
+				conditions += 
+				[
+					{
+						statusEffect = "LocomotionMalfunctionLevel4";
+						checkType = "CheckType.Record";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						hitFlag = "FinisherTriggered";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Health";
+					statPoolValue = 10;
+				} : StatPoolUpdate
+			];
+			usePercent = true;
+		} : ModifyStatPoolValueEffector
+	];
+}
+
+PingLvl1Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51955";
+		localizedDescription = "LocKey#51955";
+	};
+}
+
+PingLvl2Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#51955";
+		localizedDescription = "LocKey#52609";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+PingLvl4Program : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27967";
+		localizedDescription = "LocKey#51956";
+	};
+}
+
+PingLvl4ProgramPassive : GameplayLogicPackage
+{
+	stats += 
+	[
+		{
+			statType = "BaseStats.AutoReveal";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+
+SetFriendlyProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "Set Friendly";
+		localizedDescription = "Sets the target to be friendly";
+	};
+}
+
+EMPOverloadProgram : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#92184";
+	};
+}
+
+EMPOverloadProgramLvl1 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#51326";
+		floatValues = 
+		[
+			3
+		];
+	};
+}
+
+EMPOverloadProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#51327";
+		floatValues = 
+		[
+			10
+		];
+	};
+}
+
+EMPOverloadProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#51328";
+	};
+}
+
+EMPOverloadProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#51329";
+		floatValues = 
+		[
+			20
+		];
+	};
+}
+
+EMPOverloadProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#27968";
+		localizedDescription = "LocKey#51327";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+BrainMeltProgramLvl2 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#45340";
+		localizedDescription = "LocKey#51330";
+		floatValues = 
+		[
+			10, 300
+		];
+	};
+}
+
+BrainMeltProgramLvl3 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#45340";
+		localizedDescription = "LocKey#51331";
+		floatValues = 
+		[
+			2, 15, 3
+		];
+	};
+}
+
+BrainMeltProgramLvl3Passive : GameplayLogicPackage
+{
+	effectors += 
+	[
+		{
+			prereqRecord = 
+			{
+				isSynchronous = false;
+				conditions = 
+				[
+					"Prereqs.TargetKilledHitPrereqCondition", {
+						hitFlag = "DamageBasedOnMissingMemoryBonus";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statusEffect = "BaseStatusEffect.BrainMeltCostReductionSE";
+			removeWithEffector = false;
+		} : ApplyStatusEffectOnPlayer
+	];
+	float memoryCostReductionPerStack = 2.0f;
+}
+
+BrainMeltProgramLvl4 : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#45340";
+		localizedDescription = "LocKey#51332";
+		floatValues = 
+		[
+			100, 3
+		];
+	};
+}
+
+BrainMeltProgramLvl4Passive : GameplayLogicPackage
+{
+	effectors += 
+	[
+		{
+			prereqRecord = 
+			{
+				isSynchronous = false;
+				conditions = 
+				[
+					"Prereqs.TargetKilledHitPrereqCondition", {
+						statusEffect = "Intelligence_Central_Milestone_3_Overclock_Buff";
+						checkType = "CheckType.Record";
+						objectToCheck = "Instigator";
+					} : StatusEffectPresentHitPrereqCondition, 
+					{
+						hitFlag = "DamageBasedOnMissingMemoryBonus";
+					} : HitFlagHitPrereqCondition
+				];
+			} : PostProcessHitTriggered;
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.CyberdeckOverclock";
+					statPoolValue = 3;
+				} : StatPoolUpdate
+			];
+			bool usePercent = false;
+		} : ModifyStatPoolValueEffector
+	];
+}
+
+BrainMeltProgramLvl4PlusPlus : GameplayLogicPackage
+{
+	UIData = 
+	{
+		iconPath = "ability_utility";
+		localizedName = "LocKey#45340";
+		localizedDescription = "LocKey#51330";
+		floatValues = 
+		[
+			10, 400
+		];
+	};
+}
+
+FastStaminaRegen : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenRateMult";
+						modifierType = "Additive";
+						value = -0.3f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+MediumStaminaRegen : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenRateMult";
+						modifierType = "Additive";
+						value = -0.35f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+SlowStaminaRegen : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenRateMult";
+						modifierType = "Additive";
+						value = -0.40f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+LightStaminaDelay : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenStartDelay";
+						modifierType = "Additive";
+						value = -0.75f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+MediumStaminaDelay : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenStartDelay";
+						modifierType = "Additive";
+						value = -0.5f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+HeavyStaminaDelay : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenStartDelay";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+VeryHeavyStaminaDelay : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.StaminaRegenStartDelay";
+						modifierType = "Additive";
+						value = 0.5f;
+					} : ConstantStatModifier
+				];
+			};
+			applicationTarget = "Player";
+		} : ApplyStatGroupEffector
+	];
+}
+
+MediumWeapon : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.MediumWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage
+	];
+}
+
+HeavyWeapon : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.HeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+VeryHeavyWeapon : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.HeavyStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.VeryHeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+VeryHeavyWeaponNoKnockback : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.VeryHeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+HeavyLMGWeapon : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.HeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+HeavyFastFiringWeaponCloseRangeDamageMult : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				conditions += 
+				[
+					{
+						attackType = "Ranged";
+					} : AttackTypeHitPrereqCondition, 
+					{
+						weaponType = "Ranged";
+					} : WeaponTypeHitPrereqCondition, 
+					{
+						float distanceRequired = 4f;
+						string comparisonType = "LessOrEqual";
+					} : DistanceCoveredHitPrereqCondition
+				];
+			} : IsTargetPlayer;
+			value = 0.8f;
+		} : MultiplyDamage
+	];
+}
+
+ProjectileLauncherSelfDamageModifier : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Perks.IsTargetPlayer";
+			value = 0.5f;
+		} : MultiplyDamage
+	];
+}
+
+SlowerStaminaRegen : GameplayLogicPackage
+{
+	effectors = [];
+}
+
+StaminaStagger : GameplayLogicPackage
+{
+	effectors = [];
+}
+
+BuckWeaponHeavy : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.HeavyStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.HasDodge";
+						modifierType = "Multiplier";
+						value = 0.f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.HasDodgeAir";
+						modifierType = "Multiplier";
+						value = 0.f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.CanSprint";
+						modifierType = "Multiplier";
+						value = 0f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.BuckWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+PanamWeaponLight : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.MediumWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+EdgerunnersBorgWeaponStagger : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.EdgerunnersStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.VeryHeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+BrickBorgWeaponStagger : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.BrickStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.VeryHeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+NicolasBorgWeaponStagger : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.NicolasStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			prereqRecord = 
+			{
+				statType = "LocomotionPenaltyDisabled";
+				valueToCheck = 1;
+				comparisonType = "Less";
+			} : StatPrereq;
+			fk< StatModifierGroup > statGroup = 
+			{
+				fk< StatModifier >[] statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxSpeed";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.JumpHeight";
+						modifierType = "Multiplier";
+						value = 0.85f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupEffector, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.VeryHeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+ComradeBorgWeaponStagger : GameplayLogicPackage
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				fk< IPrereq >[] nestedPrereqs = 
+				[
+					{
+						string stateName = "Shoot";
+					} : Prereqs.RangedWeaponPSMPrereq, 
+					"Perks.IsPlayer"
+				];
+			} : RTDB.MultiPrereq;
+			fk< StatusEffect > statusEffect = "BaseStatusEffect.ComradeStun";
+		} : Perks.ApplyStatusEffectOnPlayer, 
+		{
+			prereqRecord = "Perks.IsHitQuickMelee";
+			value = 1.5f;
+		} : MultiplyDamage, 
+		{
+			fk< StatModifierGroup > statGroup = "EquipmentGLP.HeavyWeaponStaggerStats";
+			applicationTarget = "Weapon";
+		} : ApplyStatGroupEffector
+	];
+}
+
+MediumWeaponStaggerStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilMagForFullDrift";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoverySpeed";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoveryTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilHoldDuration";
+			modifierType = "AdditiveMultiplier";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayTraversalTime";
+			modifierType = "Multiplier";
+			value = 0.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartDelay";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartBlendTime";
+			modifierType = "Multiplier";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+}
+
+HeavyWeaponStaggerStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilMagForFullDrift";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoverySpeed";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoveryTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilHoldDuration";
+			modifierType = "AdditiveMultiplier";
+			value = 0.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayTraversalTime";
+			modifierType = "Multiplier";
+			value = 0.75f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartDelay";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartBlendTime";
+			modifierType = "Multiplier";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+}
+
+VeryHeavyWeaponStaggerStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilMagForFullDrift";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoverySpeed";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoveryTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilTime";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilHoldDuration";
+			modifierType = "AdditiveMultiplier";
+			value = 0.50f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayTraversalTime";
+			modifierType = "Multiplier";
+			value = 0.75f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartDelay";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartBlendTime";
+			modifierType = "Multiplier";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+}
+
+BuckWeaponStaggerStats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 3.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 3.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilMagForFullDrift";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoverySpeed";
+			modifierType = "AdditiveMultiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilRecoveryTime";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilTime";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilHoldDuration";
+			modifierType = "AdditiveMultiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayTraversalTime";
+			modifierType = "Multiplier";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartDelay";
+			modifierType = "Multiplier";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SwayStartBlendTime";
+			modifierType = "Multiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ReloadTimeBonus";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AimInTime";
+			modifierType = "Multiplier";
+			value = 1.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AimOutTime";
+			modifierType = "Multiplier";
+			value = 1.3f;
+		} : ConstantStatModifier
+	];
+}
+

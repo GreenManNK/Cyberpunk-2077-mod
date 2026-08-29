@@ -1,0 +1,9 @@
+package vehicles
+
+PlayerHeadlightsOverride
+{
+	float intensity = 200.0f;
+	float radius = 20.0f;
+	bool inverseSquareAttenuation = false;
+}
+

@@ -1,0 +1,946 @@
+package Items
+using RTDB, BaseStats, Prereqs, Perks
+
+[ notQueryable ]
+SandevistanBase : SystemReplacementModule
+{
+	displayName = "LocKey#3639";
+	localizedDescription = "LocKey#3640";
+	placementSlots = 
+	[
+		"AttachmentSlots.SystemReplacementCW"
+	];
+	entityName = "cyberware_dummy";
+	isCoreCW = true;
+	fk< ItemBlueprint > blueprint = "Items.SandevistanBlueprint";
+	fk< SlotItemPartListElement >[] slotPartList = 
+	[
+		"Items.GenericRootSlotItem"
+	];
+	objectActions += 
+	[
+		"CyberwareAction.DisableSandevistan", "CyberwareAction.DisableCorruptedSandevistan"
+	];
+	tags += 
+	[
+		"Sandevistan"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.HasSandevistan";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			refStat = "BaseStats.TimeDilationSandevistanCooldownReduction";
+			opSymbol = "*";
+			value = -1;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.AttunementHelper";
+			modifierType = "Additive";
+			refStat = "BaseStats.Reflexes";
+			refObject = "Player";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.SandevistanKillRechargeValue";
+			modifierType = "Additive";
+			value = 10.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanEnterCost";
+			modifierType = "Additive";
+			value = -10.f;
+		} : ConstantStatModifier
+	];
+	OnEquip = 
+	[
+		{
+			UIData = "Items.SandevistanAbilityUIData";
+		} : GameplayLogicPackage, 
+		"Attunements.ReflexesSandyProlong"
+	];
+	CName cyberwareType = "Sandevistan";
+}
+
+[ notQueryable ]
+SandevistanBlueprint : ItemBlueprint
+{
+	fk< ItemBlueprintElement > rootElement = 
+	{
+		fk< AttachmentSlot > slot = "AttachmentSlots.GenericItemRoot";
+	};
+}
+
+[ notQueryable ]
+SandevistanAbilityUIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#92413";
+	stats = 
+	[
+		"BaseStats.TimeDilationSandevistanTimeScale", "BaseStats.TimeDilationSandevistanDuration", "BaseStats.TimeDilationSandevistanRechargeDuration"
+	];
+}
+
+[ notQueryable ]
+AdvancedSandevistanAbilityUIData : GameplayLogicPackageUIData
+{
+	localizedDescription = "LocKey#91745";
+	stats = 
+	[
+		"BaseStats.TimeDilationSandevistanTimeScale", "BaseStats.TimeDilationSandevistanDuration", "BaseStats.TimeDilationSandevistanRechargeDuration"
+	];
+}
+
+[ notQueryable ]
+SandevistanC1MK1 : SandevistanBase
+{
+	displayName = "LocKey#53617";
+	localizedDescription = "LocKey#53628";
+	quality = "Quality.Uncommon";
+	iconPath = "cw_system_sandevistanc1";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 8.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.75f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanKillRechargeValue";
+			modifierType = "Additive";
+			value = 10.f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 6;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 10;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53582";
+				intValues = 
+				[
+					10
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC1MK1";
+}
+
+[ notQueryable ]
+SandevistanC1MK2 : SandevistanBase
+{
+	displayName = "LocKey#53618";
+	localizedDescription = "LocKey#53629";
+	quality = "Quality.Rare";
+	iconPath = "cw_system_sandevistanc1";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 12.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanKillRechargeValue";
+			modifierType = "Additive";
+			value = 10.f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 9;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 15;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53582";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC1MK1";
+}
+
+[ notQueryable ]
+SandevistanC1MK3 : SandevistanBase
+{
+	displayName = "LocKey#53619";
+	localizedDescription = "LocKey#53630";
+	quality = "Quality.Epic";
+	iconPath = "cw_system_sandevistanc1";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 16.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SandevistanKillRechargeValue";
+			modifierType = "Additive";
+			value = 100.f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 20;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53582";
+				intValues = 
+				[
+					20
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC1MK1";
+}
+
+[ notQueryable ]
+SandevistanC2MK1 : SandevistanBase
+{
+	displayName = "LocKey#53620";
+	localizedDescription = "LocKey#53631";
+	quality = "Quality.Uncommon";
+	iconPath = "cw_system_sandevistanc2";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 8.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 6;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.05f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					5
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC1MK1";
+}
+
+[ notQueryable ]
+SandevistanC2MK2 : SandevistanBase
+{
+	displayName = "LocKey#53621";
+	localizedDescription = "LocKey#53632";
+	quality = "Quality.Rare";
+	iconPath = "cw_system_sandevistanc2";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 12.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 9;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.1f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					10
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC2MK1";
+}
+
+[ notQueryable ]
+SandevistanC2MK3 : SandevistanBase
+{
+	displayName = "LocKey#53623";
+	localizedDescription = "LocKey#53633";
+	quality = "Quality.Epic";
+	iconPath = "cw_system_sandevistanc2";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 16.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.15f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	counterpart = "Items.AdvancedSandevistanC2MK1";
+}
+
+[ notQueryable ]
+SandevistanC2MK4 : SandevistanBase
+{
+	displayName = "LocKey#53624";
+	localizedDescription = "LocKey#53634";
+	quality = "Quality.Legendary";
+	iconPath = "cw_system_sandevistanc2";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 16.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 15;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.15f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 15;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53582";
+				intValues = 
+				[
+					15
+				];
+			};
+		}
+	];
+	counterpart = "Items.AdvancedSandevistanC2MK1";
+}
+
+[ notQueryable ]
+SandevistanC3MK4 : SandevistanBase
+{
+	displayName = "LocKey#53625";
+	localizedDescription = "LocKey#53635";
+	quality = "Quality.Legendary";
+	iconPath = "cw_system_sandevistanc3";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 12.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 15;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.15f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 15;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53582";
+				intValues = 
+				[
+					15
+				];
+			};
+		}
+	];
+	counterpart = "Items.AdvancedSandevistanC3MK3";
+}
+
+[ notQueryable ]
+SandevistanC3MK5 : SandevistanBase
+{
+	displayName = "LocKey#53626";
+	localizedDescription = "LocKey#53636";
+	quality = "Quality.Legendary";
+	iconPath = "cw_system_sandevistanc3";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 8.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 18;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Perks.IsTargetNotPlayerAllowProjection";
+						float value = 1.15f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 10;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.CritDamage";
+								modifierType = "Additive";
+								value = 35;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53584";
+				intValues = 
+				[
+					10, 35
+				];
+			};
+		}
+	];
+	counterpart = "Items.AdvancedSandevistanC3MK3";
+}
+
+[ notQueryable ]
+SandevistanC4MK5 : SandevistanBase
+{
+	displayName = "LocKey#53627";
+	localizedDescription = "LocKey#53637";
+	quality = "Quality.Legendary";
+	iconPath = "cw_system_sandevistanc4";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.TimeDilationSandevistanDuration";
+			modifierType = "Additive";
+			value = 18.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanTimeScale";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanCooldownBase";
+			modifierType = "Additive";
+			value = 6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TimeDilationSandevistanRechargeDuration";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier
+	];
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 20;
+		} : ReflexesPrereq
+	];
+	OnEquip += 
+	[
+		{
+			fk< Effector >[] effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< Effector > effectorToApply = 
+					{
+						prereqRecord = "Prereqs.ProcessHitTriggeredAllowProjection";
+						float value = 1.15f;
+					} : MultiplyDamage;
+				} : ApplyEffectorOnPlayer
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53583";
+				intValues = 
+				[
+					15
+				];
+			};
+		} : GameplayLogicPackage, 
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						string stateName = "Sandevistan";
+						bool isInState = true;
+					} : Prereqs.TimeDilationPSMPrereq;
+					fk< StatModifierGroup > statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.CritChance";
+								modifierType = "Additive";
+								value = 20;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.CritDamage";
+								modifierType = "Additive";
+								value = 20;
+							} : ConstantStatModifier
+						];
+					};
+				} : ApplyStatGroupEffector
+			];
+			UIData = 
+			{
+				localizedDescription = "LocKey#53584";
+				intValues = 
+				[
+					20, 20
+				];
+			};
+		}
+	];
+	counterpart = "Items.AdvancedSandevistanC4MK4";
+}
+

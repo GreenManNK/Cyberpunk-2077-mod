@@ -1,12 +1,19 @@
 -- vm_gas_markers.lua
 -- Drops clustered map pins for gas stations (from vm_gas_locations.json)
 
+local MAPPIN_DEFINITION =
+  "Mappins.VehicleMileageGasStationMappinDefinition"
+
+local SHOW_IN_WORLD_FLAT =
+  MAPPIN_DEFINITION .. ".showInWorld"
+
 local M = {
   _cfg = {
     points_path         = "vm_gas_locations.json",
     cluster_radius      = 10.0,
     clampToGround       = true,
     visibleThroughWalls = true,
+    showInWorld         = true,
     trace               = false,
     title               = "CHOOH2 PUMP",
     desc                = "Pay & Refuel",
@@ -14,7 +21,6 @@ local M = {
   },
   _handles = {},
   _lastHash = 0,
-  _wm_patched = false,
 }
 
 -- ─────────── logging ───────────
@@ -26,30 +32,8 @@ local function _log(level, msg)
 end
 local function TRACE(fmt, ...) if M._cfg.trace then _log("TRACE", string.format(fmt, ...)) end end
 
--- ─────────── whitelist: show WanderingMerchant under Service Points (and All) ───────────
-local function _ensureWMInServicePoints()
-  if M._wm_patched then return end
-  M._wm_patched = true
-
-  local variant = TweakDBID.new('Mappins.PointOfInterest_WanderingMerchantVariant')
-
-  local function addIfArray(groupFlat)
-    local id  = TweakDBID.new(groupFlat)
-    local arr = TweakDB:GetFlat(id)
-    if type(arr) ~= 'table' then return false end
-    local want = tostring(variant)
-    for i=1,#arr do if tostring(arr[i]) == want then return true end end
-    arr[#arr+1] = variant
-    TweakDB:SetFlat(id, arr)
-    return true
-  end
-
-  -- Ensure visibility where players expect it:
-  addIfArray('WorldMap.ServicePointsFilterGroup.mappins')
-  addIfArray('WorldMap.AllServicePointsFilterGroup.mappins')
-  addIfArray('WorldMap.AllFilterGroup.mappins')
-  addIfArray('WorldMap.CommonFilterGroup.mappins')
-end
+-- Gas-station pins use their own TweakXL mappin definition and filter.
+-- Do not add their variant to any vanilla world-map filter groups here.
 
 -- ─────────── tiny JSON helpers ───────────
 local function _readFile(p)
@@ -176,9 +160,11 @@ local function _spawnOne(self, pos, idx)
   pcall(function() md = NewObject('gamemappinsMappinData') end)
   if not md then md = NewObject('MappinData') end
 
-  md.mappinType = TweakDBID.new('Mappins.DefaultStaticMappin')
-  local variant = (gamemappinsMappinVariant and gamemappinsMappinVariant.WanderingMerchantVariant)
-               or (gamedataMappinVariant    and gamedataMappinVariant.WanderingMerchantVariant)
+  -- Custom definition + variant from r6/tweaks/vm_gas_station_filter.yaml.
+  -- This keeps these pins exclusive to the "Gas Stations" custom map filter.
+  md.mappinType = TweakDBID.new(MAPPIN_DEFINITION)
+  local variant = (gamemappinsMappinVariant and gamemappinsMappinVariant.CPO_PingGoHereVariant)
+               or (gamedataMappinVariant    and gamedataMappinVariant.CPO_PingGoHereVariant)
   if variant then md.variant = variant end
 
   -- default caption (safe)
@@ -215,17 +201,44 @@ local function _spawnOne(self, pos, idx)
     pcall(function() ms:SetMappinActive(id, true) end)
     pcall(function() ms:RevealMappin(id, true)   end)
     pcall(function() ms:RefreshMappin(id)        end)
-    if self._cfg.trace then _log("TRACE", "spawned id="..tostring(id).." variant=WanderingMerchantVariant") end
+    if self._cfg.trace then _log("TRACE", "spawned id="..tostring(id).." variant=VehicleMileageGasStationVariant") end
     return id
   end
   return nil
 end
 
 -- ─────────── API ───────────
+function M.setShowInWorld(enabled, refreshPins)
+  enabled = enabled ~= false
+  M._cfg.showInWorld = enabled
+
+  local ok, err = pcall(function()
+    TweakDB:SetFlat(SHOW_IN_WORLD_FLAT, enabled)
+  end)
+
+  if not ok then
+    _log(
+      "WARN",
+      "Could not set " .. SHOW_IN_WORLD_FLAT .. ": " .. tostring(err)
+    )
+    return false
+  end
+
+  if refreshPins ~= false then
+    M:refresh(true)
+  end
+
+  return true
+end
+
 function M.setup(opts)
   opts = opts or {}
-  for k,v in pairs(opts) do M._cfg[k] = v end
-  pcall(_ensureWMInServicePoints)
+
+  for k, v in pairs(opts) do
+    M._cfg[k] = v
+  end
+
+  M.setShowInWorld(M._cfg.showInWorld ~= false, false)
   M:refresh(true)
   TRACE("using points file: %s; clamp=%s", tostring(M._cfg.points_path), tostring(M._cfg.clampToGround ~= false))
 end

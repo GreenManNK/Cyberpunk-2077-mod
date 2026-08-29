@@ -1,0 +1,585 @@
+package Items
+using RTDB
+
+[ notQueryable ]
+RecipeGrenadeBase : ItemRecipe
+{
+	localizedDescription = "LocKey#49396";
+	buyPrice += 
+	[
+		"Price.ConsumableRecipeBasePrice"
+	];
+}
+
+EffectRecipeGrenadeBase : RecipeGrenadeBase
+{
+	buyPrice += 
+	[
+		"Price.EffectGrenade"
+	];
+}
+
+[ notQueryable ]
+RecipeGrenadeFlashRegular : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5166";
+	quality = "Quality.Common";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFlashRegular";
+	};
+}
+
+RecipeGrenadeFlashUncommon : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5166";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFlashUncommon";
+	};
+}
+
+RecipeGrenadeFlashHoming : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5166";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFlashHoming";
+	};
+}
+
+RecipeGrenadeFlashEpic : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5166";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFlashEpic";
+	};
+}
+
+RecipeGrenadeFlashLegendary : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5166";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFlashLegendary";
+	};
+}
+
+RecipeGrenadeFragUncommon : RecipeGrenadeBase
+{
+	displayName = "LocKey#5164";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFragUncommon";
+	};
+}
+
+RecipeGrenadeFragSticky : RecipeGrenadeBase
+{
+	displayName = "LocKey#5164";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFragSticky";
+	};
+}
+
+RecipeGrenadeFragEpic : RecipeGrenadeBase
+{
+	displayName = "LocKey#5164";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFragEpic";
+	};
+}
+
+RecipeGrenadeFragHoming : RecipeGrenadeBase
+{
+	displayName = "LocKey#6424";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeFragLegendary";
+	};
+}
+
+[ notQueryable ]
+RecipeGrenadeOzobsNose : RecipeGrenadeBase
+{
+	displayName = "LocKey#54016";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeOzobsNose";
+	};
+}
+
+[ notQueryable ]
+RecipeGrenadeEMPRegular : RecipeGrenadeBase
+{
+	displayName = "LocKey#5169";
+	quality = "Quality.Common";
+	craftingResult = 
+	{
+		item = "Items.GrenadeEMPRegular";
+	};
+}
+
+RecipeGrenadeEMPUncommon : RecipeGrenadeBase
+{
+	displayName = "LocKey#5169";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeEMPUncommon";
+	};
+}
+
+RecipeGrenadeEMPRare : RecipeGrenadeBase
+{
+	displayName = "LocKey#5169";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeEMPRare";
+	};
+}
+
+RecipeGrenadeEMPSticky : RecipeGrenadeBase
+{
+	displayName = "LocKey#5169";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeEMPSticky";
+	};
+}
+
+RecipeGrenadeEMPLegendary : RecipeGrenadeBase
+{
+	displayName = "LocKey#5169";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeEMPLegendary";
+	};
+}
+
+RecipeGrenadeBiohazardRegular : RecipeGrenadeBase
+{
+	displayName = "LocKey#17913";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeBiohazardRegular";
+	};
+}
+
+RecipeGrenadeBiohazardHoming : RecipeGrenadeBase
+{
+	displayName = "LocKey#17913";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeBiohazardHoming";
+	};
+}
+
+RecipeGrenadeBiohazardLegendary : RecipeGrenadeBase
+{
+	displayName = "LocKey#17913";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeBiohazardLegendary";
+	};
+}
+
+RecipeGrenadeIncendiaryRegular : RecipeGrenadeBase
+{
+	displayName = "LocKey#5172";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeIncendiaryRegular";
+	};
+}
+
+RecipeGrenadeIncendiaryRare : RecipeGrenadeBase
+{
+	displayName = "LocKey#5172";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeIncendiaryRare";
+	};
+}
+
+RecipeGrenadeIncendiarySticky : RecipeGrenadeBase
+{
+	displayName = "LocKey#5172";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeIncendiarySticky";
+	};
+}
+
+RecipeGrenadeIncendiaryLegendary : RecipeGrenadeBase
+{
+	displayName = "LocKey#5172";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeIncendiaryLegendary";
+	};
+}
+
+RecipeGrenadeReconRegular : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5175";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeReconRegular";
+	};
+}
+
+RecipeGrenadeReconRare : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5175";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeReconRare";
+	};
+}
+
+RecipeGrenadeReconSticky : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5175";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeReconSticky";
+	};
+}
+
+RecipeGrenadeReconLegendary : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#5175";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeReconLegendary";
+	};
+}
+
+[ notQueryable ]
+RecipeGrenadeCuttingRegular : RecipeGrenadeBase
+{
+	displayName = "LocKey#5177";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeCuttingRegular";
+	};
+}
+
+RecipeGrenadeSmokeRegular : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#82583";
+	quality = "Quality.Uncommon";
+	craftingResult = 
+	{
+		item = "Items.GrenadeSmokeRegular";
+	};
+}
+
+RecipeGrenadeSmokeRare : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#82583";
+	quality = "Quality.Rare";
+	craftingResult = 
+	{
+		item = "Items.GrenadeSmokeRare";
+	};
+}
+
+RecipeGrenadeSmokeEpic : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#82583";
+	quality = "Quality.Epic";
+	craftingResult = 
+	{
+		item = "Items.GrenadeSmokeEpic";
+	};
+}
+
+RecipeGrenadeSmokeLegendary : EffectRecipeGrenadeBase
+{
+	displayName = "LocKey#82583";
+	quality = "Quality.Legendary";
+	craftingResult = 
+	{
+		item = "Items.GrenadeSmokeLegendary";
+	};
+}
+
+[ notQueryable ]
+RecipeConsumableBase : ItemRecipe
+{
+	buyPrice += 
+	[
+		"Price.ConsumableRecipeBasePrice"
+	];
+	localizedDescription = "LocKey#49397";
+}
+
+[ notQueryable ]
+RecipeConsumableCommonBase : RecipeConsumableBase
+{
+	quality = "Quality.Common";
+}
+
+[ notQueryable ]
+RecipeConsumableUncommonBase : RecipeConsumableBase
+{
+	quality = "Quality.Uncommon";
+}
+
+[ notQueryable ]
+RecipeConsumableRareBase : RecipeConsumableBase
+{
+	quality = "Quality.Rare";
+}
+
+[ notQueryable ]
+RecipeConsumableEpicBase : RecipeConsumableBase
+{
+	quality = "Quality.Epic";
+}
+
+[ notQueryable ]
+RecipeConsumableLegendaryBase : RecipeConsumableBase
+{
+	quality = "Quality.Legendary";
+}
+
+[ notQueryable ]
+RecipeBonesMcCoy70V0 : RecipeConsumableCommonBase
+{
+	displayName = "LocKey#35418";
+	craftingResult = 
+	{
+		item = "Items.BonesMcCoy70V0";
+	};
+}
+
+RecipeBonesMcCoy70VUncommon : RecipeConsumableUncommonBase
+{
+	displayName = "LocKey#34157";
+	craftingResult = 
+	{
+		item = "Items.BonesMcCoy70VUncommon";
+	};
+}
+
+RecipeBonesMcCoy70V1 : RecipeConsumableRareBase
+{
+	displayName = "LocKey#35420";
+	craftingResult = 
+	{
+		item = "Items.BonesMcCoy70V1";
+	};
+}
+
+RecipeBonesMcCoy70VEpic : RecipeConsumableEpicBase
+{
+	displayName = "LocKey#92392";
+	craftingResult = 
+	{
+		item = "Items.BonesMcCoy70VEpic";
+	};
+}
+
+RecipeBonesMcCoy70V2 : RecipeConsumableLegendaryBase
+{
+	displayName = "LocKey#92393";
+	craftingResult = 
+	{
+		item = "Items.BonesMcCoy70V2";
+	};
+}
+
+[ notQueryable ]
+RecipeFirstAidWhiffV0 : RecipeConsumableCommonBase
+{
+	displayName = "LocKey#35384";
+	craftingResult = 
+	{
+		item = "Items.FirstAidWhiffV0";
+	};
+}
+
+RecipeFirstAidWhiffVUncommon : RecipeConsumableUncommonBase
+{
+	displayName = "LocKey#2679";
+	craftingResult = 
+	{
+		item = "Items.FirstAidWhiffVUncommon";
+	};
+}
+
+RecipeFirstAidWhiffV1 : RecipeConsumableRareBase
+{
+	displayName = "LocKey#35387";
+	craftingResult = 
+	{
+		item = "Items.FirstAidWhiffV1";
+	};
+}
+
+RecipeFirstAidWhiffVEpic : RecipeConsumableEpicBase
+{
+	displayName = "LocKey#92394";
+	craftingResult = 
+	{
+		item = "Items.FirstAidWhiffVEpic";
+	};
+}
+
+RecipeFirstAidWhiffV2 : RecipeConsumableLegendaryBase
+{
+	displayName = "LocKey#92395";
+	craftingResult = 
+	{
+		item = "Items.FirstAidWhiffV2";
+	};
+}
+
+RecipeHealthBooster : RecipeConsumableRareBase
+{
+	displayName = "LocKey#43539";
+	craftingResult = 
+	{
+		item = "Items.HealthBooster";
+	};
+}
+
+RecipeStaminaBooster : RecipeConsumableUncommonBase
+{
+	displayName = "LocKey#43539";
+	craftingResult = 
+	{
+		item = "Items.StaminaBooster";
+	};
+}
+
+RecipeMemoryBooster : RecipeConsumableUncommonBase
+{
+	displayName = "LocKey#43539";
+	craftingResult = 
+	{
+		item = "Items.MemoryBooster";
+	};
+}
+
+RecipeCarryCapacityBooster : RecipeConsumableUncommonBase
+{
+	displayName = "LocKey#43539";
+	craftingResult = 
+	{
+		item = "Items.CarryCapacityBooster";
+	};
+}
+
+RecipeUncommonCraftingMaterial : ItemRecipe
+{
+	quality = "Quality.Uncommon";
+	displayName = "LocKey#4933";
+	craftingResult = 
+	{
+		item = "Items.UncommonMaterial1";
+	};
+}
+
+RecipeRareCraftingMaterial : ItemRecipe
+{
+	quality = "Quality.Rare";
+	displayName = "LocKey#4934";
+	craftingResult = 
+	{
+		item = "Items.RareMaterial1";
+	};
+}
+
+RecipeEpicCraftingMaterial : ItemRecipe
+{
+	quality = "Quality.Epic";
+	displayName = "LocKey#4935";
+	craftingResult = 
+	{
+		item = "Items.EpicMaterial1";
+	};
+}
+
+RecipeLegendaryCraftingMaterial : ItemRecipe
+{
+	quality = "Quality.Legendary";
+	displayName = "LocKey#4936";
+	craftingResult = 
+	{
+		item = "Items.LegendaryMaterial1";
+	};
+}
+
+QuickhackCraftingMaterialRecipe : ItemRecipe
+{
+	buyPrice = 
+	[
+		"Price.QuickhackCraftingMaterialRecipe", "Price.BuyMultiplier", "Price.ItemQualityMultiplier", "Price.BuyPrice_StreetCred_Discount"
+	];
+	tags += 
+	[
+		"QuickhackComponentRecipe"
+	];
+}
+
+RecipeQuickHackRareMaterial1 : QuickhackCraftingMaterialRecipe
+{
+	quality = "Quality.Rare";
+	displayName = "LocKey#54086";
+	craftingResult = 
+	{
+		item = "Items.QuickHackRareMaterial1";
+	};
+}
+
+RecipeQuickHackEpicMaterial1 : QuickhackCraftingMaterialRecipe
+{
+	quality = "Quality.Epic";
+	displayName = "LocKey#34882";
+	craftingResult = 
+	{
+		item = "Items.QuickHackEpicMaterial1";
+	};
+}
+
+RecipeQuickHackLegendaryMaterial1 : QuickhackCraftingMaterialRecipe
+{
+	quality = "Quality.Legendary";
+	displayName = "LocKey#54087";
+	craftingResult = 
+	{
+		item = "Items.QuickHackLegendaryMaterial1";
+	};
+}
+

@@ -1,6 +1,6 @@
--- Apr 21, 2026 by (c)anygoodname
+-- Aug 9, 2026 by (c)anygoodname
 
-local moduleVer = 'v1.6.1'
+local moduleVer = 'v1.7.0'
 local moduleName = 'Hotscenes cet version blowup preventer'
 local modAuthorName = 'anygoodname'
 
@@ -34,7 +34,7 @@ local unsupportedCetVersions = {
 	--{min = 1.35, max = 1.35, reason = 'exEntitySpawner'},	-- game v2.21	-- proved to work correctly.
 	--{min = 1.36, max = 1.36, reason = 'exEntitySpawner'},	-- game v2.3	-- proved to work correctly.
 	--{min = 1.37, max = 1.37, reason = 'exEntitySpawner'},	-- game v2.31	-- proved to work correctly.
-	{min = 1.38, max = 1.38, reason = 'exEntitySpawner'},	-- future game release or major CET update
+	--{min = 1.38, max = 1.38, reason = 'exEntitySpawner'},	-- future game release or major CET update -- assuming the next CET version is only going to address compatibility or major bugs as the game developement seems to be completed.
 	{min = 1.39, max = 1.39, reason = 'exEntitySpawner'},	-- future game release or major CET update
 	{min = 2.0, max = 2.0, reason = 'exEntitySpawner'},	-- future game release or major CET update
 }

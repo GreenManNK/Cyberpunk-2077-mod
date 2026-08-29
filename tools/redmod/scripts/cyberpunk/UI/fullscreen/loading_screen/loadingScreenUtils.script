@@ -1,0 +1,14 @@
+import enum inkLoadingScreenType
+{
+	Unknown,
+	SplashScreen,
+	Initial,
+	FastTravel,
+}
+
+importonly class inkSetNextLoadingScreenEvent extends Event
+{
+	public import function SetNextLoadingScreenType( newType : inkLoadingScreenType );
+	public import function GetNextLoadingScreenType() : inkLoadingScreenType;
+}
+

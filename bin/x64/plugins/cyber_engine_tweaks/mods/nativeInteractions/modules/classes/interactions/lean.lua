@@ -39,10 +39,12 @@ function lean:load(data)
     CName.add("nif_lean_enable_smoke")
 end
 
-function lean:onUpdate()
-    if self.sceneRunning then
+function lean:start()
+    if not self.sceneRunning then
         Game.GetQuestsSystem():SetFactStr("nif_lean_enable_smoke", self.enableSmoke and 1 or 0)
     end
+
+    workspot.start(self)
 end
 
 function lean:draw()
@@ -58,7 +60,12 @@ function lean:draw()
     ImGui.SameLine()
     ImGui.SetCursorPosX(self.maxActionPropertyWidth)
     self.enableSmoke, changed = ImGui.Checkbox('##enableSmoke', self.enableSmoke)
-    if changed then self.project:save() end
+    if changed then
+        self.project:save()
+        if self.sceneRunning then
+            Game.GetQuestsSystem():SetFactStr("nif_lean_enable_smoke", self.enableSmoke and 1 or 0)
+        end
+    end
 
     style.sectionHeaderEnd()
 end

@@ -1,0 +1,188 @@
+package scanning
+using RTDB
+
+mq060_billboards : device_scanning_data
+{
+	string friendlyName = "Billboard";
+	localizedName = "LocKey#96763";
+	localizedDescription = "LocKey#96764";
+}
+
+mq060_billboards_clue : FocusClue
+{
+	string friendlyName = "Billboard";
+	localizedName = "LocKey#96764";
+	localizedDescription = "LocKey#97109";
+}
+
+mq060_billboards_clue_2 : FocusClue
+{
+	string friendlyName = "Billboard";
+	localizedName = "LocKey#97110";
+	localizedDescription = "LocKey#97111";
+}
+
+mq060_billboards_clue_3 : FocusClue
+{
+	string friendlyName = "Billboard";
+	localizedName = "LocKey#97112";
+	localizedDescription = "LocKey#97113";
+}
+
+mq060_android_terminal : device_scanning_data
+{
+	string friendlyName = "Android Terminal";
+	localizedName = "LocKey#96844";
+	localizedDescription = "LocKey#96845";
+}
+
+mq060_order_terminal : device_scanning_data
+{
+	string friendlyName = "Order Terminal";
+	localizedName = "LocKey#96846";
+	localizedDescription = "LocKey#96847";
+}
+
+mq060_android_wall : FocusClue
+{
+	string friendlyName = "Android wall";
+	localizedName = "LocKey#96851";
+	localizedDescription = "LocKey#97114";
+}
+
+mq060_android_wall_2 : FocusClue
+{
+	string friendlyName = "Android wall";
+	localizedName = "LocKey#97115";
+	localizedDescription = "LocKey#97116";
+}
+
+mq060_android_wall_3 : FocusClue
+{
+	string friendlyName = "Android wall";
+	localizedName = "LocKey#97117";
+	localizedDescription = "LocKey#97118";
+}
+
+mq060_robot : npc_scanning_data
+{
+	string friendlyName = "Robot";
+	localizedDescription = "LocKey#96849";
+}
+
+mq060_android_kiroshi_01 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97119";
+}
+
+mq060_android_kiroshi_02 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97120";
+}
+
+mq060_android_kiroshi_03 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97121";
+}
+
+mq060_android_kiroshi_04 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97122";
+}
+
+mq060_android_kiroshi_05 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97124";
+}
+
+mq060_android_kiroshi_06 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97126";
+}
+
+mq060_android_kiroshi_07 : npc_scanning_data
+{
+	localizedName = "LocKey#96848";
+	localizedDescription = "LocKey#97127";
+}
+
+mq060_guards_01 : npc_scanning_data
+{
+	localizedName = "LocKey#96851";
+	localizedDescription = "LocKey#96867";
+}
+
+mq060_guards_02 : npc_scanning_data
+{
+	localizedName = "LocKey#97115";
+	localizedDescription = "LocKey#97116";
+}
+
+mq060_guards_03 : npc_scanning_data
+{
+	localizedName = "LocKey#97117";
+	localizedDescription = "LocKey#97071";
+}
+
+mq060_yaiba_setup_01 : device_scanning_data
+{
+	string friendlyName = "Aggressive";
+	localizedName = "LocKey#96828";
+	localizedDescription = "LocKey#96829";
+}
+
+mq060_yaiba_setup_02 : device_scanning_data
+{
+	string friendlyName = "Minimalist";
+	localizedName = "LocKey#96830";
+	localizedDescription = "LocKey#96831";
+}
+
+mq060_yaiba_setup_03 : device_scanning_data
+{
+	string friendlyName = "predator";
+	localizedName = "LocKey#96832";
+	localizedDescription = "LocKey#96833";
+}
+
+mq060_yaiba_setup_04 : device_scanning_data
+{
+	string friendlyName = "showoff";
+	localizedName = "LocKey#96834";
+	localizedDescription = "LocKey#96835";
+}
+
+mq060_yaiba_setup_05 : device_scanning_data
+{
+	string friendlyName = "designer";
+	localizedName = "LocKey#96836";
+	localizedDescription = "LocKey#96837";
+}
+
+mq060_yaiba_setup_06 : device_scanning_data
+{
+	string friendlyName = "jack";
+	localizedName = "LocKey#96838";
+	localizedDescription = "LocKey#96839";
+}
+
+mq060_yaiba_setup_07 : device_scanning_data
+{
+	string friendlyName = "brandclassic";
+	localizedName = "LocKey#96840";
+	localizedDescription = "LocKey#96841";
+}
+
+mq060_container : device_scanning_data
+{
+	string friendlyName = "Container";
+	localizedName = "LocKey#96842";
+	localizedDescription = "LocKey#96843";
+}
+

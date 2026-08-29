@@ -14,18 +14,14 @@ function part_brakes_s1_steelbraidedbrakelines.getPart()
 	Modifiers[0] = {}
 	Modifiers[0].RecordType = "FrontWheelSuspension"
 	Modifiers[0].VariableName = "maxBrakingTorque"
-	Modifiers[0].ModifierValue = 1.02
-	Modifiers[0].ModifierType = "Mult"
-
-	--Old system
-	--Modifiers[0].ModifierValue = 100
-	--Modifiers[0].ModifierType = "Add"
+	Modifiers[0].ModifierValue = 100
+	Modifiers[0].ModifierType = "Add"
 	
 	Modifiers[1] = {}
 	Modifiers[1].RecordType = "RearWheelSuspension"
 	Modifiers[1].VariableName = "maxBrakingTorque"
-	Modifiers[1].ModifierValue = 1.02
-	Modifiers[1].ModifierType = "Mult"
+	Modifiers[1].ModifierValue = 100
+	Modifiers[1].ModifierType = "Add"
 	
 	--Part Type
 	Part.Type = "Brakes"

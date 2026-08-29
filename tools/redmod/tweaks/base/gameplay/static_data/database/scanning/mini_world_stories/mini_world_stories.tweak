@@ -1,0 +1,119 @@
+package scanning
+using RTDB
+
+mws_cc_01 : FocusClue
+{
+	string friendlyName = "mws_cc_01_vending_machine";
+	int revealOrder = 1;
+	localizedName = "LocKey#91898";
+	localizedDescription = "LocKey#91899";
+}
+
+mws_se5_06_death_cause : FocusClue
+{
+	string friendlyName = "mws_se5_06_death_cause";
+	int revealOrder = 1;
+	localizedName = "LocKey#49155";
+	localizedDescription = "LocKey#49156";
+}
+
+mws_wat_09_ninja_body : FocusClue
+{
+	string friendlyName = "mws_wat_09_ninja_body";
+	localizedName = "LocKey#28322";
+	localizedDescription = "LocKey#95706";
+}
+
+mws_se5_07_description : FocusClue
+{
+	string friendlyName = "mws_se5_07_description";
+	localizedName = "LocKey#28591";
+	localizedDescription = "LocKey#95704";
+}
+
+mws_wat_09_sword_conclusion : FocusClue
+{
+	string friendlyName = "mws_wat_09_sword_conclusion";
+	localizedName = "LocKey#28325";
+	localizedDescription = "LocKey#95705";
+}
+
+mws_wat_09_blood : FocusClue
+{
+	string friendlyName = "mws_wat_09_blood";
+	localizedName = "LocKey#28325";
+	localizedDescription = "LocKey#96013";
+}
+
+mws_jim_driver : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_golden : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_hologram : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_lucky : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_lusty : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_ramen : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_ride : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_sixth : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_spare : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_splash : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_trophy_1 : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+
+mws_jim_trophy_2 : FocusClue
+{
+	localizedName = "";
+	localizedDescription = "";
+}
+

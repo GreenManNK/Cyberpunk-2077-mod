@@ -1,0 +1,106 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+[ notQueryable ]
+Preset_Kolac_Default : Base_Kolac
+{
+	CName appearanceResourceName = "Preset_Kolac_Default";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Kolac";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+}
+
+[ notQueryable ]
+Preset_Kolac_Tiny_Mike : Preset_Kolac_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "kolac_tiny_mike_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#82706";
+	visualTags = 
+	[
+		"Legendary"
+	];
+	quality = "Quality.Random";
+	localizedDescription = "LocKey#82707";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	rangedAttacks = "Attacks.ExplodingBulletLightPackage";
+	attacks += 
+	[
+		"Attacks.ExplodingBulletLightEffect", "Attacks.ExplodingBulletLightProjectile"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Kolac_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_rifle_precision__rostovic_kolac__rcv1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_rifle_precision__rostovic_kolac__base1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_rifle_precision__rostovic_kolac__mag_std";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_rifle_precision__rostovic_kolac__mag_stdr";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.TinyMikeWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Kolac_Technical_Stats", "Items.Base_Kolac_Handling_Stats", "Items.Base_Kolac_Recoil_Stats", "Items.Base_Kolac_Spread_Stats", "Items.Base_Kolac_Aim_Stats", "Items.Base_Kolac_Constant_Stats", "Items.Base_Kolac_Damage_Stats", "Items.Base_Power_Stats", "Items.Base_Power_Precision_Rifle_Stats", "Items.Base_Power_Precision_Rifle_Mult_Stats", "Items.Base_Precision_Rifle_RPG_Stats", "Items.Base_Precision_Rifle_Misc_Stats", "Items.Base_Precision_Rifle_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Precision_Rifle_DeadReckoning_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Thermal"
+	];
+}
+

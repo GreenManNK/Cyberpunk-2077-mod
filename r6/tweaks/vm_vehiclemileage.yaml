@@ -1,0 +1,20 @@
+Items.chooh2_gascan:
+  $base: Items.GoodQualityDrink1
+  canDrop: False
+  displayName: elm_chooh2_gascan_name
+  # entityName: testcan_entity
+  localizedDescription: elm_chooh2_gascan_description
+  icon:
+    atlasResourcePath: odohud\icons\chooh2_gascan.inkatlas
+    atlasPartName: chooh2_gascan
+  quality: Quality.Rare
+  mass: 10.0
+  OnEquip: []
+  statModifierGroups: []
+  statModifiers: []
+  sellPrice: []
+  tags:
+    - Preload
+    - Consumable
+    - Edible
+    

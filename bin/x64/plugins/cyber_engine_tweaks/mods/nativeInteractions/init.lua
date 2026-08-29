@@ -21,7 +21,7 @@ local manager = require("modules/projectsManager")
 local world = require("modules/utils/worldInteraction")
 local removals = require("modules/removalManager")
 local apartmentManager = require("modules/apartmentManager")
-local bench = require("modules/utils/benchmark")
+local utils = require("modules/utils/utils")
 
 ---@class mod
 ---@field runtimeData {cetOpen: boolean, inGame: boolean, inMenu: boolean}
@@ -40,9 +40,17 @@ local mod = {
 }
 
 function mod:new()
+    registerForEvent("onHook", function ()
+        -- Temporary patch data, as loading all projects/interactions cannot be done yet, as some of them use Game API
+        apartmentManager.loadHookPatches()
+        resourceHelper.hook()
+    end)
+
     registerForEvent("onInit", function()
+        math.randomseed(os.time())
+
         self.baseUI.init()
-        resourceHelper.init()
+        resourceHelper.init() -- Must be called before (apartment) interactions are loaded / manager.init
         manager.init(self)
         world.init()
         removals.init(self)
@@ -66,7 +74,9 @@ function mod:new()
             manager.sessionStart()
             world.onSessionStart()
             resourceHelper.endEvents = {}
+            resourceHelper.sceneQueue = {}
             resourceHelper.patches = {}
+            removals.registerPatches()
             self.baseUI.interactionUI.paused = false
             self.baseUI.interactionUI.fastForward = false
             self.baseUI.interactionUI.cameraExternal = false
@@ -75,6 +85,8 @@ function mod:new()
                 self.baseUI.interactionUI.interaction:editEnd()
                 self.baseUI.interactionUI.interaction = nil
             end
+
+            utils.saveLock = 0
         end)
 
         self.GameUI.OnSessionEnd(function()
@@ -87,10 +99,6 @@ function mod:new()
 
         if self.runtimeData.inGame then
         end
-
-        -- Allow us to patch the journal
-        Game.GetResourceDepot():RemoveResourceFromCache("nif\\dummy.journal")
-        ArchiveXL.Reload()
     end)
 
     registerForEvent("onUpdate", function (dt)
@@ -98,6 +106,7 @@ function mod:new()
             Cron.Update(dt)
             manager.update()
             world.update()
+            resourceHelper.onUpdate()
         end
     end)
 

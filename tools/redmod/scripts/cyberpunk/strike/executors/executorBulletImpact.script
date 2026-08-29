@@ -1,0 +1,33 @@
+import class gameEffectExecutor_BulletImpact extends EffectExecutor
+{
+
+	public export function GetImpactMaterialOverride( ctx : EffectScriptContext, isMelee : Bool, orginalHitMaterial : CName, target : Entity, hitPosition : Vector4, hitDirection : Vector4 ) : CName
+	{
+		var statsSystem : StatsSystem;
+		var result : CName;
+		var aiComponent : AIHumanComponent;
+		var ignoreArmor : Bool;
+		statsSystem = GameInstance.GetStatsSystem( EffectScriptContext.GetGameInstance( ctx ) );
+		result = orginalHitMaterial;
+		ignoreArmor = WeaponObject.CanIgnoreArmor( ( ( WeaponObject )( EffectScriptContext.GetWeapon( ctx ) ) ) ) > 0.25;
+		if( ( !( ignoreArmor ) && ( statsSystem.GetStatValue( target.GetEntityID(), gamedataStatType.Armor ) > 0.0 ) ) || RPGManager.CalculatePowerDifferential( ( ( GameObject )( target ) ) ) == gameEPowerDifferential.IMPOSSIBLE )
+		{
+			result = 'cyberware_metal.physmat';
+		}
+		else if( orginalHitMaterial == 'cyberware_metal.physmat' && ignoreArmor )
+		{
+			result = 'character_flesh.physmat';
+		}
+		else if( isMelee )
+		{
+			aiComponent = ( ( ScriptedPuppet )( target ) ).GetAIControllerComponent();
+			if( aiComponent.GetActionBlackboard().GetBool( GetAllBlackboardDefs().AIAction.attackParried ) || aiComponent.GetActionBlackboard().GetBool( GetAllBlackboardDefs().AIAction.attackBlocked ) )
+			{
+				result = '';
+			}
+		}
+		return result;
+	}
+
+}
+

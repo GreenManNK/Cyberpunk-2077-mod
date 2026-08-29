@@ -1,0 +1,1601 @@
+package PreventionData
+using RTDB
+
+NCPD : DistrictPreventionData
+{
+	recon = 
+	{
+		unitsCount = 1;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_unit_wyvern_drone";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = [];
+	};
+	heat1 = 
+	{
+		unitsCount = 2;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_police_handgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_handgun_wa";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_brennan_apollo_bike";
+				weight = 0.9f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 4;
+		vehicleCount = 3;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_police_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_rifle_wa";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_shotgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_shotgun_wa";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_brennan_apollo_bike";
+				weight = 0.8f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_2";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_2";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_1";
+				weight = 0.8f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 4;
+		vehicleCount = 4;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_2";
+				weight = 0.75f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 0.85f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_2";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 5;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_lmg_mb";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 0.75f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_thorton_merrimac_police_heat_4";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_hellhound_heat_5";
+				weight = 0.8f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 6;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_lmg_mb";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 0.5f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_thorton_merrimac_police_heat_4";
+				weight = 0.8f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_hellhound_heat_5";
+				weight = 0.9f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 1.0f;
+			}
+		];
+		avRecord = "Vehicle.max_tac_av";
+	};
+}
+
+Aldecaldos : DistrictPreventionData
+{
+	heat1 = 
+	{
+		unitsCount = 3;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_wa";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_shotgun_ma";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 3;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_wa";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_shotgun_ma";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_2";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 4;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_wa";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_shotgun_ma";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_archer_quartz_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_colby_heat_3";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 5;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_wa";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_shotgun_ma";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_archer_quartz_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_colby_heat_3";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 6;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_wa";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_aldecaldo_shotgun_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_archer_quartz_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_colby_heat_3";
+				weight = 1.0f;
+			}
+		];
+	};
+}
+
+BorderGuards : DistrictPreventionData
+{
+	spawnOriginMaxDistance = 80.f;
+	heat1 = 
+	{
+		unitsCount = 3;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_border_guards";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_border_guards_shotgun";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 3;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_border_guards";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_border_guards_shotgun";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_1";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_2";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 4;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_border_guards";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_border_guards_shotgun";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.border_patrol_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_2";
+				weight = 0.8f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_1";
+				weight = 0.6f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 5;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_militech_HMG_mb";
+				weight = 0.4;
+			}, 
+			{
+				characterRecord = "Character.prevention_unit_octant_drone";
+				weight = 0.4;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.border_patrol_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_2";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 6;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_militech_HMG_mb";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_unit_octant_drone";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.border_patrol_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.border_patrol_villefort_cortes_heat_2";
+				weight = 0.5f;
+			}
+		];
+	};
+}
+
+BadlandsPrevention : DistrictPreventionData
+{
+	recon = 
+	{
+		unitsCount = 1;
+		vehicleCount = 1;
+		spawnRange = ( 50f, 150f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_unit_wyvern_drone";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = [];
+	};
+	heat1 = 
+	{
+		unitsCount = 2;
+		vehicleCount = 1;
+		spawnRange = ( 50f, 150f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_unit_wyvern_drone";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_smg_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 4;
+		vehicleCount = 3;
+		spawnRange = ( 50f, 150f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_unit_wyvern_drone";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_smg_ma";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_1";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_2";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 4;
+		spawnRange = ( 50f, 150f );
+		fallbackUnitData = "PreventionData.OctantDroneFallbackUnitData";
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_militech_rifle_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_smg_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_militech_sniper_ma";
+				weight = 0.2;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_2";
+				weight = 0.8f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 6;
+		vehicleCount = 5;
+		spawnRange = ( 50f, 150f );
+		fallbackUnitData = "PreventionData.OctantDroneFallbackUnitData";
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_militech_HMG_mb";
+				weight = 0.4;
+			}, 
+			{
+				characterRecord = "Character.prevention_unit_octant_drone";
+				weight = 0.4;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_2";
+				weight = 0.6f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 6;
+		spawnRange = ( 50f, 150f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_militech_HMG_mb";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_unit_octant_drone";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.wasteland_chevalier_emperor_militech_heat_2";
+				weight = 0.4f;
+			}
+		];
+	};
+}
+
+NCPDLowSec : DistrictPreventionData
+{
+	recon = 
+	{
+		unitsCount = 1;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_unit_wyvern_drone";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = [];
+	};
+	heat1 = 
+	{
+		unitsCount = 3;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_police_handgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_handgun_wa";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 3;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_police_shotgun_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_shotgun_wa";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_police_rifle_wa";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_2";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_2";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_1";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 4;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 0.5;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_lmg_mb";
+				weight = 0.5;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_2";
+				weight = 0.75f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 0.85f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_villefort_cortes_heat_2";
+				weight = 0.75f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 5;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_lmg_mb";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 0.75f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 1.0f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_hellhound_heat_5";
+				weight = 0.8f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 8;
+		vehicleCount = 6;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.prevention_enforcer_rifle_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_shotgun_ma";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_enforcer_lmg_mb";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.prevention_android_rifle_ma";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.ncpd_archer_hella_heat_3";
+				weight = 0.5f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_hellhound_heat_5";
+				weight = 0.9f;
+			}, 
+			{
+				vehicleRecord = "Vehicle.ncpd_suv_chevalier_emperor_heat_4";
+				weight = 1.0f;
+			}
+		];
+		avRecord = "Vehicle.max_tac_av";
+	};
+}
+
+q000_nomad_yucca : DistrictPreventionData
+{
+	heat1 = 
+	{
+		unitsCount = 3;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_tactician";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_nova";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_pulsar";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat2 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_tactician";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_nova";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_pulsar";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat3 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_tactician";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_nova";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_pulsar";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat4 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_tactician";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_nova";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_pulsar";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+	heat5 = 
+	{
+		unitsCount = 5;
+		vehicleCount = 1;
+		spawnRange = ( 30f, 100f );
+		unitRecordsPool = 
+		[
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_tactician";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_nova";
+				weight = 1.0;
+			}, 
+			{
+				characterRecord = "Character.q000_roadhouse_town_male_defender_pulsar";
+				weight = 1.0;
+			}
+		];
+		vehicleRecordPool = 
+		[
+			{
+				vehicleRecord = "Vehicle.aldecado_thorton_galena_heat_1";
+				weight = 1.0f;
+			}
+		];
+	};
+}
+
+WyvernDroneFallbackUnitData : PreventionFallbackUnitData
+{
+	fk< Character > characterRecord = "Character.prevention_unit_wyvern_drone";
+	float minSpawnRange = 10.0f;
+}
+
+OctantDroneFallbackUnitData : PreventionFallbackUnitData
+{
+	fk< Character > characterRecord = "Character.prevention_unit_octant_drone";
+	float minSpawnRange = 10.0f;
+}
+
+WyvernDroneMercsFallbackUnitData : PreventionFallbackUnitData
+{
+	fk< Character > characterRecord = "Character.prevention_unit_wyvern_drone_mercs";
+	float minSpawnRange = 10.0f;
+}
+
+NCPDDataMatrix : PreventionHeatDataMatrix
+{
+	recon = 
+	{
+		string displayName = "Recon Data Table";
+		float heatThresholdCapacity = 100.f;
+		float heatCrimeScoreResetTime = 15.f;
+		float heatHijackVehicle = 100.f;
+		float heatStealPoliceVehicle = 100.f;
+		float heatRangeAttackCiv = 20.f;
+		float heatMeleAttackCiv = 20.f;
+		float heatQuickHackCiv = 20.f;
+		float heatExplosionCiv = 40.f;
+		float heatKillCiv = 50.f;
+		float heatRangeAttackPolice = 20.f;
+		float heatMeleAttackPolice = 20.f;
+		float heatQuickHackPolice = 20.f;
+		float heatExplosionPolice = 50.f;
+		float heatKillPolice = 50.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 20.f;
+		float stateGreyStarTime = 30.f;
+		float stateBlinkingStarTime = 25.f;
+		int spawnedEngagedCars = 1;
+		int spawnedSupportCars = 4;
+		int maxUnitCount = 18;
+		float vehicleSpawnCooldown = 12.f;
+		int vehicleTicketsAmount = 2;
+		float vehicleTicketCooldown = 5.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 200.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 10.f, 20.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 100.f, 200.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 100.f, 200.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat0 = 
+	{
+		string displayName = "Heat 0 Data Table";
+		float crimeAreaRadius = 15.f;
+		float heatThresholdCapacity = 100.f;
+		float heatCrimeScoreResetTime = 15.f;
+		float heatHijackVehicle = 100.f;
+		float heatStealPoliceVehicle = 100.f;
+		float heatRangeAttackCiv = 20.f;
+		float heatMeleAttackCiv = 20.f;
+		float heatQuickHackCiv = 20.f;
+		float heatExplosionCiv = 60.f;
+		float heatKillCiv = 100.f;
+		float heatRangeAttackPolice = 100.f;
+		float heatMeleAttackPolice = 100.f;
+		float heatQuickHackPolice = 100.f;
+		float heatExplosionPolice = 100.f;
+		float heatKillPolice = 200.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 20.f;
+		float stateGreyStarTime = 14.5f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 1;
+		int spawnedSupportCars = 2;
+		int maxUnitCount = 16;
+		float vehicleSpawnCooldown = 10.f;
+		int vehicleTicketsAmount = 2;
+		float vehicleTicketCooldown = 5.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 10.f, 20.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat1 = 
+	{
+		string displayName = "Heat 1 Data Table";
+		float crimeAreaRadius = 20.f;
+		float heatThresholdCapacity = 110.f;
+		float heatCrimeScoreResetTime = 20.f;
+		float heatHijackVehicle = 0.f;
+		float heatStealPoliceVehicle = 0.f;
+		float heatRangeAttackCiv = 8.f;
+		float heatMeleAttackCiv = 8.f;
+		float heatQuickHackCiv = 8.f;
+		float heatExplosionCiv = 10.f;
+		float heatKillCiv = 17.f;
+		float heatRangeAttackPolice = 35.f;
+		float heatMeleAttackPolice = 30.f;
+		float heatQuickHackPolice = 30.f;
+		float heatExplosionPolice = 50.f;
+		float heatKillPolice = 110.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 30.f;
+		float stateGreyStarTime = 12f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 1;
+		int spawnedSupportCars = 2;
+		int maxUnitCount = 12;
+		float vehicleSpawnCooldown = 9.f;
+		int vehicleTicketsAmount = 1;
+		float vehicleTicketCooldown = 10.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 10.f, 20.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat2 = 
+	{
+		string displayName = "Heat 2 Data Table";
+		float crimeAreaRadius = 20.f;
+		float heatThresholdCapacity = 140.f;
+		float heatCrimeScoreResetTime = 35.f;
+		float heatHijackVehicle = 0.f;
+		float heatStealPoliceVehicle = 0.f;
+		float heatRangeAttackCiv = 5.f;
+		float heatMeleAttackCiv = 3.f;
+		float heatQuickHackCiv = 2.f;
+		float heatExplosionCiv = 10.f;
+		float heatKillCiv = 15.f;
+		float heatRangeAttackPolice = 8.f;
+		float heatMeleAttackPolice = 6.f;
+		float heatQuickHackPolice = 8.f;
+		float heatExplosionPolice = 9.f;
+		float heatKillPolice = 40.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 30.f;
+		float stateGreyStarTime = 14.f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 2;
+		int spawnedSupportCars = 4;
+		int maxUnitCount = 16;
+		float vehicleSpawnCooldown = 2.f;
+		int vehicleTicketsAmount = 2;
+		float vehicleTicketCooldown = 7.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 150.f, 300.f );
+			float minDirectDistance = 150.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 10.f, 20.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat3 = 
+	{
+		string displayName = "Heat 3 Data Table";
+		float crimeAreaRadius = 20.f;
+		float heatThresholdCapacity = 210.f;
+		float heatCrimeScoreResetTime = 60.f;
+		float heatHijackVehicle = 0.f;
+		float heatStealPoliceVehicle = 0.f;
+		float heatRangeAttackCiv = 2.f;
+		float heatMeleAttackCiv = 1.f;
+		float heatQuickHackCiv = 1.f;
+		float heatExplosionCiv = 3.f;
+		float heatKillCiv = 3.f;
+		float heatRangeAttackPolice = 2.f;
+		float heatMeleAttackPolice = 2.f;
+		float heatQuickHackPolice = 2.f;
+		float heatExplosionPolice = 5.f;
+		float heatKillPolice = 30.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 20.f;
+		float stateGreyStarTime = 16.f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 3;
+		int spawnedSupportCars = 5;
+		int maxUnitCount = 16;
+		float vehicleSpawnCooldown = 2.f;
+		int vehicleTicketsAmount = 3;
+		float vehicleTicketCooldown = 7.f;
+		int roadblockT1TicketAmount = 1;
+		float roadblockT1Cooldown = 30.f;
+		int roadblockT2TicketAmount = 0;
+		float roadblockT2Cooldown = 30.f;
+		int roadblockT3TicketAmount = 0;
+		float roadblockT3Cooldown = 30.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 10.f, 20.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat4 = 
+	{
+		string displayName = "Heat 4 Data Table";
+		float crimeAreaRadius = 10.f;
+		float heatThresholdCapacity = 300.f;
+		float heatCrimeScoreResetTime = 80.f;
+		float heatHijackVehicle = 0.f;
+		float heatStealPoliceVehicle = 0.f;
+		float heatRangeAttackCiv = 2.f;
+		float heatMeleAttackCiv = 1.f;
+		float heatQuickHackCiv = 1.f;
+		float heatExplosionCiv = 4.f;
+		float heatKillCiv = 3.f;
+		float heatRangeAttackPolice = 1.f;
+		float heatMeleAttackPolice = 1.f;
+		float heatQuickHackPolice = 1.f;
+		float heatExplosionPolice = 2.f;
+		float heatKillPolice = 25.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 20.f;
+		float stateGreyStarTime = 20f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 4;
+		int spawnedSupportCars = 8;
+		int maxUnitCount = 24;
+		float vehicleSpawnCooldown = 2.f;
+		int vehicleTicketsAmount = 3;
+		float vehicleTicketCooldown = 6.f;
+		int roadblockT1TicketAmount = 2;
+		float roadblockT1Cooldown = 30.f;
+		int roadblockT2TicketAmount = 1;
+		float roadblockT2Cooldown = 30.f;
+		int roadblockT3TicketAmount = 0;
+		float roadblockT3Cooldown = 30.f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 100.f, 200.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 270f, 90f );
+		};
+	};
+	heat5 = 
+	{
+		string displayName = "Heat 5 Data Table";
+		float crimeAreaRadius = 10.f;
+		float heatThresholdCapacity = 999999990.f;
+		float heatCrimeScoreResetTime = 15.f;
+		float heatHijackVehicle = 0.f;
+		float heatStealPoliceVehicle = 0.f;
+		float heatRangeAttackCiv = 20.f;
+		float heatMeleAttackCiv = 20.f;
+		float heatQuickHackCiv = 20.f;
+		float heatExplosionCiv = 40.f;
+		float heatKillCiv = 50.f;
+		float heatRangeAttackPolice = 20.f;
+		float heatMeleAttackPolice = 20.f;
+		float heatQuickHackPolice = 20.f;
+		float heatExplosionPolice = 50.f;
+		float heatKillPolice = 50.f;
+		float heatShootMaxTac = 400.f;
+		float heatKillMaxTac = 400.f;
+		float stateBufferTimer = 20.f;
+		float stateGreyStarTime = 20.5f;
+		float stateBlinkingStarTime = 10.f;
+		int spawnedEngagedCars = 5;
+		int spawnedSupportCars = 10;
+		int maxUnitCount = 32;
+		float vehicleSpawnCooldown = 2.f;
+		int vehicleTicketsAmount = 3;
+		float vehicleTicketCooldown = 5.f;
+		int roadblockT1TicketAmount = 3;
+		float roadblockT1Cooldown = 30.f;
+		int roadblockT2TicketAmount = 2;
+		float roadblockT2Cooldown = 30.f;
+		int roadblockT3TicketAmount = 1;
+		float roadblockT3Cooldown = 30.f;
+		float avCooldown = 10.f;
+		int avSpawnPointsPerRequest = 40;
+		Vector2 avSpawnRange = ( 5f, 125f );
+		float avMaxDistanceForNewRequest = 150.f;
+		float avMinDistToSpawnedAV = 20.f;
+		float timeBetweenAVSpawnsAfterEncounter = 35.0f;
+		fk< StrategyData > strategy0 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy1 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 550.f, 650.f );
+		};
+		fk< StrategyData > strategy2 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 250.f, 300.f );
+		};
+		fk< StrategyData > strategy3 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 300.f, 650.f );
+			Vector2 minDistanceBetweenSpawningVehicles = ( 100.f, 200.f );
+			Vector2 vehicleSpawnAngleRange = ( 90f, 270f );
+		};
+		fk< StrategyData > strategy4 = 
+		{
+			Vector2 playerToIntersectionDistance = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy5 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 100.f, 250.f );
+			float minDirectDistance = 100.f;
+		};
+		fk< StrategyData > strategy6 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 500.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+		};
+		fk< StrategyData > strategy7 = 
+		{
+			Vector2 vehicleSpawnDistanceRange = ( 400.f, 650.f );
+			Vector2 vehicleSpawnDistanceRangeHighway = ( 300.f, 400.f );
+			Vector2 vehicleSpawnDistanceRangeOnFoot = ( 280.f, 400.f );
+			Vector2 vehicleSpawnAngleRange = ( 90f, 270f );
+		};
+		bool isVehicleHackingLoopEnabled = true;
+	};
+	minimapData = 
+	{
+		float minRadius = 500;
+		float maxRadius = 650;
+		float minSpeed = 15;
+		float maxSpeed = 30;
+	};
+}
+

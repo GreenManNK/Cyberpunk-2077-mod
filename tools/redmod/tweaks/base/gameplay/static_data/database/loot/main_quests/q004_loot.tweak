@@ -1,0 +1,140 @@
+package LootTables
+using RTDB
+
+Q004_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q004_Lizzies_MGM_chemicals : Q004_Loot
+{
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q004_Lizzies_MGM_locker : Q004_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.MoxiesClothing";
+		}
+	];
+}
+
+Q004_Lizzies_MGM_safe : Q004_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6f;
+			dropCountMin = 500;
+			dropCountMax = 1000;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q004_Lizzies_MGM_toolbox : Q004_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q004_Lizzies_MGS_ammo : Q004_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q004_Lizzies_MGS_suitcase : Q004_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Q004_Lizzies_MGM_locker"
+	];
+	lootItems = 
+	[
+		{
+			dropChance = 0.5;
+			itemID = "Items.MoxiesJunkItem1";
+		}, 
+		{
+			dropChance = 0.5;
+			itemID = "Items.MoxiesJunkItem2";
+		}, 
+		{
+			dropChance = 0.5;
+			itemID = "Items.MoxiesJunkItem3";
+		}
+	];
+	queries = 
+	[
+		{
+			dropChance = 0.3;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+}
+
+Q004_Lizzies_MGS_equipment : Q004_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.Q004_Lizzies_MGM_locker"
+	];
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.Neon_WeaponQuery";
+		}
+	];
+}
+
+Q004_Lizzies_MGS_first_aid : Q004_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+	lootItems = [];
+}
+
+Q004_Lizzies_MGS_gadgets : Q004_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+

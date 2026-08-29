@@ -1,0 +1,1477 @@
+package Price
+using RTDB
+
+PriceMultiplier : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Multiplier";
+}
+
+PriceAdditive : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+}
+
+PriceCurve : CurveStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Multiplier";
+	id = "price_curves";
+}
+
+BasePrice : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+	value = 1.f;
+}
+
+BaseWeaponPrice : PriceAdditive
+{
+	value = 1000;
+}
+
+BaseCyberwarePrice : PriceAdditive
+{
+	value = 1000;
+}
+
+CyberwareMultiplier : PriceMultiplier
+{
+	value = 0.4;
+}
+
+RangedWeaponPowerLevelMultiplier : PriceCurve
+{
+	column = "ranged_weapon_power_level_to_price_mult";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Item";
+}
+
+MeleeWeaponPowerLevelMultiplier : PriceCurve
+{
+	column = "melee_weapon_power_level_to_price_mult";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Item";
+}
+
+RangedWeaponLootLevelMultiplier : PriceCurve
+{
+	column = "ranged_weapon_power_level_to_price_mult";
+	refStat = "BaseStats.LootLevel";
+	refObject = "Item";
+}
+
+MeleeWeaponLootLevelMultiplier : PriceCurve
+{
+	column = "melee_weapon_power_level_to_price_mult";
+	refStat = "BaseStats.LootLevel";
+	refObject = "Item";
+}
+
+PowerLevelMultiplier : PriceCurve
+{
+	column = "power_level_to_price_mult";
+	refStat = "BaseStats.ItemLevel";
+	refObject = "Item";
+}
+
+ItemQualityMultiplier : PriceCurve
+{
+	column = "quality_to_price_mult";
+	refStat = "BaseStats.Quality";
+	refObject = "Item";
+}
+
+PlusTierMultiplier : PriceCurve
+{
+	column = "plus_to_price_multiplier";
+	refStat = "BaseStats.IsItemPlus";
+	refObject = "Item";
+}
+
+IconicMultiplier : PriceCurve
+{
+	column = "iconic_to_price_mult";
+	refStat = "BaseStats.IsItemIconic";
+	refObject = "Item";
+}
+
+ItemQualitySellMultiplier : PriceCurve
+{
+	column = "quality_to_sell_price_mult";
+	refStat = "BaseStats.Quality";
+	refObject = "Item";
+}
+
+CyberwareQualityMultiplier : PriceCurve
+{
+	column = "quality_to_cyberware_price_mult";
+	refStat = "BaseStats.Quality";
+	refObject = "Item";
+}
+
+PriceBaseAddSmall : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+	value = 20.f;
+}
+
+PriceBaseAddMedium : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+	value = 100.f;
+}
+
+PriceBaseAddLarge : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+	value = 200.f;
+}
+
+PriceBaseAddExtraLarge : ConstantStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Additive";
+	value = 399.f;
+}
+
+TopManufactureQuality : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+MediumManufactureQuality : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+LowManufactureQuality : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+PowerWeapon : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+TechWeapon : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+SmartWeapon : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+BuyMultiplier : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+SellMultiplier : PriceMultiplier
+{
+	value = 0.1f;
+}
+
+WeaponSellMultiplier : PriceCurve
+{
+	column = "weapon_quality_to_sell_price_mult";
+	refStat = "BaseStats.Quality";
+	refObject = "Item";
+}
+
+ClothingSellMultiplier : PriceMultiplier
+{
+	value = 0.05f;
+}
+
+CraftingMaterial : PriceMultiplier
+{
+	value = 40.0f;
+}
+
+CyberwareSellMultiplier : PriceMultiplier
+{
+	value = 0.2f;
+}
+
+Meleeware : PriceMultiplier
+{
+	value = 5000.0f;
+}
+
+BloodVessels : PriceMultiplier
+{
+	value = 2.f;
+}
+
+IronLungs : PriceMultiplier
+{
+	value = 1;
+}
+
+BioConductors : PriceMultiplier
+{
+	value = 2.f;
+}
+
+SecondHeart : PriceMultiplier
+{
+	value = 6.f;
+}
+
+BloodPump : PriceMultiplier
+{
+	value = 5.f;
+}
+
+HealthMonitor : PriceMultiplier
+{
+	value = 6.f;
+}
+
+MicroGenerator : PriceMultiplier
+{
+	value = 1.f;
+}
+
+StaminaRegenBooster : PriceMultiplier
+{
+	value = 4f;
+}
+
+DischargeConnector : PriceMultiplier
+{
+	value = 3.f;
+}
+
+TyrosineInjector : PriceMultiplier
+{
+	value = 1.f;
+}
+
+LimbicSystemEnhancement : PriceMultiplier
+{
+	value = 3.f;
+}
+
+ImprovedPerception : PriceMultiplier
+{
+	value = 3.f;
+}
+
+BrainCapacityBooster : PriceMultiplier
+{
+	value = 4.f;
+}
+
+FastAccessMemory : PriceMultiplier
+{
+	value = 1.f;
+}
+
+AntiVirus : PriceMultiplier
+{
+	value = 3.f;
+}
+
+HealOnKill : PriceMultiplier
+{
+	value = 5.f;
+}
+
+MemoryBoost : PriceMultiplier
+{
+	value = 4.f;
+}
+
+MemoryReplenishment : PriceMultiplier
+{
+	value = 2.f;
+}
+
+RoboticCore : PriceMultiplier
+{
+	value = 3.f;
+}
+
+SmartLink : PriceMultiplier
+{
+	value = 3.f;
+}
+
+PowerGrip : PriceMultiplier
+{
+	value = 3.f;
+}
+
+ElectromagneticPlating : PriceMultiplier
+{
+	value = 3.f;
+}
+
+ToxinCleanser : PriceMultiplier
+{
+	value = 4.f;
+}
+
+ReverseMetabolicEnhancer : PriceMultiplier
+{
+	value = 5.f;
+}
+
+ReversePowerInductor : PriceMultiplier
+{
+	value = 4.f;
+}
+
+ResistancesBooster : PriceMultiplier
+{
+	value = 2.f;
+}
+
+ElectroshockMechanism : PriceMultiplier
+{
+	value = 1.f;
+}
+
+PainReductor : PriceMultiplier
+{
+	value = 4.f;
+}
+
+HeatUsingBooster : PriceMultiplier
+{
+	value = 5.f;
+}
+
+FireproofSkin : PriceMultiplier
+{
+	value = 4.f;
+}
+
+GroundingPlating : PriceMultiplier
+{
+	value = 4.f;
+}
+
+MetalCoveredSkin : PriceMultiplier
+{
+	value = 4.f;
+}
+
+Berserk : PriceMultiplier
+{
+	value = 5.f;
+}
+
+SubdermalArmor : PriceMultiplier
+{
+	value = 2.f;
+}
+
+BoostedTendons : PriceMultiplier
+{
+	value = 15.f;
+}
+
+CatPaws : PriceMultiplier
+{
+	value = 17.f;
+}
+
+ReinforcedMuscles : PriceMultiplier
+{
+	value = 15.f;
+}
+
+Endoskeleton : PriceMultiplier
+{
+	value = 4.f;
+}
+
+EnhancedTissue : PriceMultiplier
+{
+	value = 1.f;
+}
+
+JointLock : PriceMultiplier
+{
+	value = 2.f;
+}
+
+MicroVibrationsGenerator : PriceMultiplier
+{
+	value = 5.f;
+}
+
+DenseMarrow : PriceMultiplier
+{
+	value = 2.f;
+}
+
+TitaniumInfusedBones : PriceMultiplier
+{
+	value = 1.f;
+}
+
+NeoFiber : PriceMultiplier
+{
+	value = 1.f;
+}
+
+CyberRotors : PriceMultiplier
+{
+	value = 2.f;
+}
+
+ImprovedReaction : PriceMultiplier
+{
+	value = 4.f;
+}
+
+NervousSystemDischarge : PriceMultiplier
+{
+	value = 1.f;
+}
+
+Kerenzikov : PriceMultiplier
+{
+	value = 5.f;
+}
+
+OpticalCamo : PriceMultiplier
+{
+	value = 5.f;
+}
+
+ReflexRecorder : PriceMultiplier
+{
+	value = 2.5f;
+}
+
+Cyberdeck : PriceMultiplier
+{
+	value = 5.f;
+}
+
+Sandevistan : PriceMultiplier
+{
+	value = 5.f;
+}
+
+SynapticAccelerator : PriceMultiplier
+{
+	value = 5.f;
+}
+
+CyberdeckProgram : PriceMultiplier
+{
+	value = 2000.0f;
+}
+
+BaseHackPrice : PriceAdditive
+{
+	value = 1500f;
+}
+
+DamageHackMultiplier : PriceMultiplier
+{
+	value = 1f;
+}
+
+UltimateHackMultiplier : PriceMultiplier
+{
+	value = 1.7f;
+}
+
+ControlHackMultiplier : PriceMultiplier
+{
+	value = 0.6f;
+}
+
+CovertHackMultiplier : PriceMultiplier
+{
+	value = 0.6f;
+}
+
+CommonQuickhack : PriceAdditive
+{
+	value = 500.0f;
+}
+
+UncommonQuickhack : PriceAdditive
+{
+	value = 6000.0f;
+}
+
+RareQuickhack : PriceAdditive
+{
+	value = 12000.0f;
+}
+
+EpicQuickhack : PriceAdditive
+{
+	value = 15000.0f;
+}
+
+LegendaryQuickhack : PriceAdditive
+{
+	value = 25000.0f;
+}
+
+UncommonQuickhackSchematics : PriceAdditive
+{
+	value = 600.0f;
+}
+
+RareQuickhackSchematics : PriceAdditive
+{
+	value = 1200.0f;
+}
+
+EpicQuickhackSchematics : PriceAdditive
+{
+	value = 1500.0f;
+}
+
+LegendaryQuickhackSchematics : PriceAdditive
+{
+	value = 5000.0f;
+}
+
+LegendaryPlusPlusQuickhackSchematics : PriceAdditive
+{
+	value = 10000.0f;
+}
+
+LauncherFragment : PriceMultiplier
+{
+	value = 450.0f;
+}
+
+MantisBladesFragment : PriceMultiplier
+{
+	value = 350.0f;
+}
+
+StrongArmsFragment : PriceMultiplier
+{
+	value = 250.0f;
+}
+
+SharedArmsFragment : PriceMultiplier
+{
+	value = 150.0f;
+}
+
+NanoWiresFragment : PriceMultiplier
+{
+	value = 450.0f;
+}
+
+OpticsFragment : PriceMultiplier
+{
+	value = 330.0f;
+}
+
+OpticsFragmentRecipe : PriceMultiplier
+{
+	value = 75.f;
+}
+
+SandevistanFragment : PriceMultiplier
+{
+	value = 150.0f;
+}
+
+BerserkFragment : PriceMultiplier
+{
+	value = 150.0f;
+}
+
+MeleeWeapon : PriceMultiplier
+{
+	value = 1f;
+}
+
+AssaultRifleMultiplier : PriceMultiplier
+{
+	value = 1f;
+}
+
+SMGMultiplier : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+PrecisionSniperRifleMultiplier : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+HandgunMultiplier : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+RevolverMultiplier : PriceMultiplier
+{
+	value = 1f;
+}
+
+ShotgunMultiplier : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+LMGMultiplier : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+SenkohMultiplier : PriceMultiplier
+{
+	value = 1.3f;
+}
+
+MA70Multiplier : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+CarnageMultiplier : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+MetelMultiplier : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+GuilottineMultiplier : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+Clothing : PriceMultiplier
+{
+	value = 1500f;
+}
+
+CrownSpecial : PriceMultiplier
+{
+	value = 10.0f;
+}
+
+FaceClothing : PriceMultiplier
+{
+	value = 0.6f;
+}
+
+Glasses : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+Mask : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+Visor : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+TechFaceClothing : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+HeadClothing : PriceMultiplier
+{
+	value = 0.6f;
+}
+
+Helmet : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Hat : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Cap : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Scarf : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Balaclava : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+OuterChestClothing : PriceMultiplier
+{
+	value = 1.6f;
+}
+
+Vest : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+Jacket : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+Coat : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Dress : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+FormalJacket : PriceMultiplier
+{
+	value = 1.05f;
+}
+
+LooseShirt : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+Jumpsuit : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+InnerChestClothing : PriceMultiplier
+{
+	value = 1.6f;
+}
+
+TShirt : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+Shirt : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+TankTop : PriceMultiplier
+{
+	value = 0.95f;
+}
+
+Undershirt : PriceMultiplier
+{
+	value = 0.9f;
+}
+
+FormalShirt : PriceMultiplier
+{
+	value = 1.05f;
+}
+
+TightJumpsuit : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+LegClothing : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Pants : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Shorts : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+FormalPants : PriceMultiplier
+{
+	value = 1.2f;
+}
+
+Skirt : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+FeetClothing : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+FormalShoes : PriceMultiplier
+{
+	value = 1.2f;
+}
+
+CasualShoes : PriceMultiplier
+{
+	value = 1f;
+}
+
+Boots : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+Scope : PriceMultiplier
+{
+	value = 60.0f;
+}
+
+SniperScope : PriceMultiplier
+{
+	value = 5.f;
+}
+
+LongScope : PriceMultiplier
+{
+	value = 2.f;
+}
+
+ShortScope : PriceMultiplier
+{
+	value = 1.f;
+}
+
+Muzzle : PriceMultiplier
+{
+	value = 100.0f;
+}
+
+Magazine : PriceMultiplier
+{
+	value = 50.0f;
+}
+
+WeaponMod : PriceMultiplier
+{
+	value = 100.0f;
+}
+
+MeleeWeaponMod : PriceMultiplier
+{
+	value = 1.2f;
+}
+
+FabricEnhancer : PriceMultiplier
+{
+	value = 50.0f;
+}
+
+PowerfulFabricEnhancer : PriceMultiplier
+{
+	value = 1.5f;
+}
+
+FabricVariant1 : PriceMultiplier
+{
+	value = 1.05f;
+}
+
+FabricVariant2 : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+FabricVariant3 : PriceMultiplier
+{
+	value = 1.15f;
+}
+
+FabricVariant4 : PriceMultiplier
+{
+	value = 1.2f;
+}
+
+FabricVariant5 : PriceMultiplier
+{
+	value = 1.25f;
+}
+
+FabricVariant6 : PriceMultiplier
+{
+	value = 1.3f;
+}
+
+IntrinsicFabricEnhancer : PriceAdditive
+{
+	value = 400.0f;
+}
+
+Splinter : PriceMultiplier
+{
+	value = 20.0f;
+}
+
+DamageGrenade : PriceMultiplier
+{
+	value = 1f;
+}
+
+EffectGrenade : PriceMultiplier
+{
+	value = 0.7f;
+}
+
+GrenadeSell : PriceMultiplier
+{
+	value = 82.0f;
+}
+
+Mine : PriceMultiplier
+{
+	value = 4.0f;
+}
+
+ConsumableRecipeBasePrice : PriceAdditive
+{
+	value = 250f;
+}
+
+ConsumableBasePrice : PriceAdditive
+{
+	value = 500f;
+}
+
+Injector : PriceMultiplier
+{
+	value = 1f;
+}
+
+Inhaler : PriceMultiplier
+{
+	value = 1f;
+}
+
+LongLastingConsumable : PriceMultiplier
+{
+	value = 0.08f;
+}
+
+BlackmarketLongLastingConsumable : PriceAdditive
+{
+	value = 900.0f;
+}
+
+Ammo : PriceAdditive
+{
+	value = 2.0f;
+}
+
+PowerAmmo : PriceMultiplier
+{
+	value = 1.f;
+}
+
+TechAmmo : PriceMultiplier
+{
+	value = 2.0f;
+}
+
+SmartAmmo : PriceMultiplier
+{
+	value = 3.0f;
+}
+
+HeavyAmmo : PriceMultiplier
+{
+	value = 1.2f;
+}
+
+LightAmmo : PriceMultiplier
+{
+	value = 0.8f;
+}
+
+Junk : PriceMultiplier
+{
+	value = 30.f;
+}
+
+Jewellery : PriceAdditive
+{
+	value = 500f;
+}
+
+Food : PriceAdditive
+{
+	value = 5.0f;
+}
+
+IllegalFood : PriceAdditive
+{
+	value = 2000.0f;
+}
+
+PermanentIllegalFood : PriceMultiplier
+{
+	value = 6f;
+}
+
+LowQualityFood : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+MediumQualityFood : PriceMultiplier
+{
+	value = 2.4f;
+}
+
+GoodQualityFood : PriceMultiplier
+{
+	value = 5.0f;
+}
+
+Drink : PriceAdditive
+{
+	value = 10.0f;
+}
+
+LowQualityDrink : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+MediumQualityDrink : PriceMultiplier
+{
+	value = 2.0f;
+}
+
+GoodQualityDrink : PriceMultiplier
+{
+	value = 4.0f;
+}
+
+TopQualityDrink : PriceMultiplier
+{
+	value = 8.0f;
+}
+
+Alcohol : PriceAdditive
+{
+	value = 30.f;
+}
+
+LowQualityAlcohol : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+MediumQualityAlcohol : PriceMultiplier
+{
+	value = 2.0f;
+}
+
+GoodQualityAlcohol : PriceMultiplier
+{
+	value = 3.0f;
+}
+
+TopQualityAlcohol : PriceMultiplier
+{
+	value = 5.0f;
+}
+
+ExquisiteQualityAlcohol : PriceMultiplier
+{
+	value = 10.0f;
+}
+
+Drug : PriceMultiplier
+{
+	value = 20.f;
+}
+
+Skillbook : PriceMultiplier
+{
+	value = 1.1f;
+}
+
+PerkPointsResetterSkillbook : PriceMultiplier
+{
+	value = 22.727272f;
+}
+
+Arasaka : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+BudgetArms : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+ConstitutionalArms : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Dex : PriceMultiplier
+{
+	value = 3.923f;
+}
+
+Malorian : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Militech : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+KangTao : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Tsunami : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Techtronika : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Darra : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Nokota : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+MidnightArms : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+Rostovic : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+KrauserArmory : PriceMultiplier
+{
+	value = 1.0f;
+}
+
+VeryLow : PriceMultiplier
+{
+	value = 0.2f;
+}
+
+VeryLowNullifier : PriceMultiplier
+{
+	value = 5f;
+}
+
+Recipe : PriceMultiplier
+{
+	value = 0.7f;
+}
+
+QuickhackCraftingMaterialRecipe : PriceAdditive
+{
+	value = 1000f;
+}
+
+IconicRecipe : PriceMultiplier
+{
+	value = 2;
+}
+
+Flathead : PriceAdditive
+{
+	value = 8000;
+}
+
+RavenControlSplinter : PriceAdditive
+{
+	value = 2000;
+}
+
+Braindance : PriceMultiplier
+{
+	value = 50f;
+}
+
+BlackmarketBraindanceBrian : PriceAdditive
+{
+	value = 1989;
+}
+
+BlackmarketBraindanceMate : PriceAdditive
+{
+	value = 1999;
+}
+
+BlackmarketBraindanceSnitcher : PriceAdditive
+{
+	value = 2007;
+}
+
+BlackmarketBraindanceRent : PriceAdditive
+{
+	value = 2017;
+}
+
+BlackmarketBraindanceRetro : PriceAdditive
+{
+	value = 2020;
+}
+
+BlackmarketBraindancebonetweaker : PriceAdditive
+{
+	value = 2018;
+}
+
+FancyGuitarQ204 : PriceAdditive
+{
+	value = 5000;
+}
+
+KerryGuitar : PriceAdditive
+{
+	value = 5000;
+}
+
+LargeSkillbook : PriceAdditive
+{
+	value = 10000;
+}
+
+IKPerkPointSkillbook : PriceAdditive
+{
+	value = 20000;
+}
+
+Slaughtomatic : PriceAdditive
+{
+	value = 100;
+}
+
+CraftingTraitMultiplier : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "AdditiveMultiplier";
+	refObject = "Player";
+	opSymbol = "*";
+	value = 1f;
+	refStat = "BaseStats.CraftingTrait01Stat";
+}
+
+RespecBase : PriceAdditive
+{
+	value = 2000;
+}
+
+RespecSinglePerk : PriceAdditive
+{
+	value = 200;
+}
+
+CasinoChip : PriceAdditive
+{
+	value = 1000;
+}
+
+MoneyShardUncommon : PriceAdditive
+{
+	value = 500;
+}
+
+MoneyShardRare : PriceAdditive
+{
+	value = 2500;
+}
+
+MoneyShardEpic : PriceAdditive
+{
+	value = 4000;
+}
+
+MoneyShardLegendary : PriceAdditive
+{
+	value = 9000;
+}
+
+BuyPrice_StreetCred_Discount : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "AdditiveMultiplier";
+	refObject = "Player";
+	opSymbol = "*";
+	value = -0.01f;
+	refStat = "BaseStats.VendorBuyPriceDiscount";
+}
+
+SellPriceIntrinsicModMult : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "AdditiveMultiplier";
+	refObject = "Player";
+	opSymbol = "*";
+	value = 0.01f;
+	refStat = "BaseStats.VendorSellPriceDiscount";
+}
+
+PostCyberwareTutorialPrice : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Multiplier";
+	opSymbol = "*";
+	value = 1f;
+	refStat = "BaseStats.PostTutorialCyberwarePrice";
+	refObject = "Player";
+}
+
+PostLexWilsonPrice : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "Multiplier";
+	opSymbol = "*";
+	value = 1f;
+	refStat = "BaseStats.PostLexWilsonBuyPrice";
+	refObject = "Player";
+}
+
+BrokenItemPriceMult : CombinedStatModifier
+{
+	statType = "BaseStats.Price";
+	modifierType = "AdditiveMultiplier";
+	opSymbol = "*";
+	value = -0.9f;
+	refStat = "BaseStats.IsItemBroken";
+	refObject = "Item";
+}
+
+MoneyReward_LevelMultiplier : CurveStatModifier
+{
+	id = "price_curves";
+	column = "player_level_to_reward_multiplier";
+	refStat = "BaseStats.PowerLevel";
+	refObject = "Player";
+	modifierType = "Multiplier";
+}
+
+GangWatch_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 900;
+}
+
+HiddenStash_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 500;
+}
+
+CyberPsycho_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 1600;
+}
+
+Outpost_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 1300;
+}
+
+EndlessOutpost_BaseMoney_Big : RandomStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	min = 440;
+	max = 460;
+}
+
+EndlessOutpost_BaseMoney_Small : RandomStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	min = 95;
+	max = 105;
+}
+
+Resource_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 400;
+}
+
+FailedCrossing_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 400;
+}
+
+BaseMiniStory_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 250;
+}
+
+StreetStory_BaseMoney : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 1600;
+}
+
+MQ003_painting : ConstantStatModifier
+{
+	statType = "BaseStats.Quantity";
+	modifierType = "Additive";
+	value = 8000;
+}
+

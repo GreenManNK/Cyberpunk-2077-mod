@@ -1,0 +1,594 @@
+class PhotoModePlayerEntityComponent extends ScriptableComponent
+{
+	private var usedWeaponItemId : ItemID;
+	private var currentWeaponInSlot : ItemID;
+	private var swapMeleeWeaponItemId : ItemID;
+	private var swapHangunWeaponItemId : ItemID;
+	private var swapRifleWeaponItemId : ItemID;
+	private var swapShootgunWeaponItemId : ItemID;
+	private var fakePuppet : weak< gamePuppet >;
+	private var mainPuppet : weak< PlayerPuppet >;
+	private var currentPuppet : weak< PlayerPuppet >;
+	private var TS : TransactionSystem;
+	private var loadingItems : array< ItemID >;
+	private var loadingVisualItems : array< ItemID >;
+	private var itemsLoadingTime : Float;
+	private var muzzleEffectEnabled : Bool;
+	private var customizable : Bool;
+	private var holsteredArmsShouldBeVisible : Bool;
+	private var holsteredArmsBeingSpawned : Bool;
+	private var holsteredArmsVisible : Bool;
+	private var holsteredArmsItem : ItemID;
+	private var cyberwareArmsBeingSpawned : Bool;
+	private var cyberwareArmsVisible : Bool;
+	private var cyberwareArmsItem : ItemID;
+
+	private function OnGameAttach() {}
+
+	private function OnGameDetach() {}
+
+	private function HasAllItemsFinishedLoading() : Bool
+	{
+		var time : Float;
+		time = EngineTime.ToFloat( GetEngineTime() ) - itemsLoadingTime;
+		if( time > 5.0 )
+		{
+			loadingItems.Clear();
+		}
+		return loadingItems.Size() == 0;
+	}
+
+	private function HasAllItemsVisualsFinishedLoading() : Bool
+	{
+		return loadingVisualItems.Size() == 0;
+	}
+
+	private function PutOnFakeItem( itemToAdd : ItemID, puppet : weak< PlayerPuppet > )
+	{
+		var equipAreaType : gamedataEquipmentArea;
+		var item : ItemID;
+		var itemData : weak< gameItemData >;
+		var currSlot : TweakDBID;
+		equipAreaType = EquipmentSystem.GetEquipAreaType( itemToAdd );
+		if( EquipmentSystem.GetData( puppet ).IsSlotHidden( equipAreaType ) )
+		{
+			return;
+		}
+		item = ItemID.FromTDBID( ItemID.GetTDBID( itemToAdd ) );
+		if( equipAreaType == gamedataEquipmentArea.RightArm )
+		{
+			if( !( TS.HasItem( fakePuppet, item ) ) )
+			{
+				TS.GiveItem( fakePuppet, item, 1 );
+			}
+			holsteredArmsShouldBeVisible = true;
+			holsteredArmsBeingSpawned = true;
+			holsteredArmsItem = item;
+			ReevaluateArmsVisibility();
+		}
+		else if( ( ( ( equipAreaType == gamedataEquipmentArea.Weapon || equipAreaType == gamedataEquipmentArea.WeaponLeft ) || equipAreaType == gamedataEquipmentArea.WeaponHeavy ) || equipAreaType == gamedataEquipmentArea.VDefaultHandgun ) || equipAreaType == gamedataEquipmentArea.ArmsCW )
+		{
+			item = ItemID.CreateQuery( ItemID.GetTDBID( itemToAdd ) );
+			if( !( TS.HasItem( fakePuppet, item ) ) )
+			{
+				itemData = TS.GetItemData( puppet, itemToAdd );
+				TS.GiveItemByItemData( fakePuppet, itemData );
+			}
+			if( equipAreaType == gamedataEquipmentArea.ArmsCW )
+			{
+				holsteredArmsShouldBeVisible = false;
+				cyberwareArmsBeingSpawned = true;
+				cyberwareArmsItem = item;
+			}
+			else
+			{
+				holsteredArmsShouldBeVisible = true;
+			}
+			ReevaluateArmsVisibility();
+		}
+		else if( EquipmentSystem.IsClothing( item ) )
+		{
+			TS.GivePreviewItemByItemID( fakePuppet, item );
+			item = TS.CreatePreviewItemID( item );
+		}
+		else
+		{
+			itemData = TS.GetItemData( puppet, itemToAdd );
+			TS.GivePreviewItemByItemData( fakePuppet, itemData );
+			item = TS.CreatePreviewItemID( itemToAdd );
+		}
+		currSlot = EquipmentSystem.GetPlacementSlot( itemToAdd );
+		if( TS.CanPlaceItemInSlot( fakePuppet, currSlot, item ) && TS.AddItemToSlot( fakePuppet, currSlot, item, true ) )
+		{
+			if( TS.HasItemInSlot( puppet, currSlot, itemToAdd ) )
+			{
+				loadingItems.PushBack( item );
+				loadingVisualItems.PushBack( item );
+			}
+			itemsLoadingTime = EngineTime.ToFloat( GetEngineTime() );
+		}
+	}
+
+	private function PutOnFakeItemFromMainPuppet( itemToAdd : ItemID )
+	{
+		PutOnFakeItem( itemToAdd, mainPuppet );
+	}
+
+	private function PutOnFakeItemFromCurrentPuppet( itemToAdd : ItemID )
+	{
+		PutOnFakeItem( itemToAdd, currentPuppet );
+	}
+
+	private function EquipHolsteredArms()
+	{
+		if( ItemID.IsValid( holsteredArmsItem ) )
+		{
+			PutOnFakeItemFromMainPuppet( holsteredArmsItem );
+			holsteredArmsBeingSpawned = true;
+		}
+	}
+
+	private function UnequipHolsteredArms()
+	{
+		if( ItemID.IsValid( holsteredArmsItem ) )
+		{
+			TS.RemoveItemFromAnySlot( fakePuppet, ItemID.CreateQuery( ItemID.GetTDBID( holsteredArmsItem ) ) );
+			holsteredArmsVisible = false;
+		}
+	}
+
+	private function UnequipCyberwareArms()
+	{
+		if( ItemID.IsValid( cyberwareArmsItem ) )
+		{
+			TS.RemoveItemFromAnySlot( fakePuppet, ItemID.CreateQuery( ItemID.GetTDBID( cyberwareArmsItem ) ) );
+			cyberwareArmsVisible = false;
+		}
+	}
+
+	private function ReevaluateArmsVisibility()
+	{
+		if( holsteredArmsShouldBeVisible )
+		{
+			if( !( holsteredArmsVisible ) && !( holsteredArmsBeingSpawned ) )
+			{
+				EquipHolsteredArms();
+			}
+			if( holsteredArmsVisible && cyberwareArmsVisible )
+			{
+				UnequipCyberwareArms();
+			}
+		}
+		else
+		{
+			if( holsteredArmsVisible && cyberwareArmsVisible )
+			{
+				UnequipHolsteredArms();
+			}
+		}
+	}
+
+	private function RemoveAllItems( const areas : ref< array< SEquipArea > > )
+	{
+		var currentPlayerItem : ItemID;
+		var i : Int32;
+		for( i = 0; i < areas.Size(); i += 1 )
+		{
+			currentPlayerItem = EquipmentSystem.GetData( fakePuppet ).GetActiveItem( areas[ i ].areaType );
+			if( ItemID.IsValid( currentPlayerItem ) )
+			{
+				TS.RemoveItem( fakePuppet, currentPlayerItem, 1 );
+			}
+		}
+	}
+
+	private function GetWeaponInHands() : gamedataItemType
+	{
+		var itemType : gamedataItemType;
+		if( !( ItemID.IsValid( usedWeaponItemId ) ) )
+		{
+			return gamedataItemType.Invalid;
+		}
+		itemType = TweakDBInterface.GetItemRecord( ItemID.GetTDBID( usedWeaponItemId ) ).ItemType().Type();
+		return itemType;
+	}
+
+	private function IsItemOfThisType( item : ItemID, const typesList : ref< array< gamedataItemType > > ) : Bool
+	{
+		var i : Int32;
+		var itemType : gamedataItemType;
+		itemType = TweakDBInterface.GetItemRecord( ItemID.GetTDBID( item ) ).ItemType().Type();
+		for( i = 0; i < typesList.Size(); i += 1 )
+		{
+			if( itemType == typesList[ i ] )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private function AddAmmoForWeapon( weaponID : ItemID )
+	{
+		var ammoID : ItemID;
+		ammoID = WeaponObject.GetAmmoType( weaponID );
+		if( ItemID.IsValid( ammoID ) )
+		{
+			TS.GiveItem( fakePuppet, ammoID, 1 );
+		}
+	}
+
+	private function EquipWeaponOfThisType( typesList : array< gamedataItemType > )
+	{
+		var selectedWeaponId : ItemID;
+		var currSlot : TweakDBID;
+		var area : gamedataEquipmentArea;
+		var armsCyberwareId : ItemID;
+		if( ItemID.IsValid( currentWeaponInSlot ) && IsItemOfThisType( currentWeaponInSlot, typesList ) )
+		{
+			return;
+		}
+		if( ItemID.IsValid( usedWeaponItemId ) && IsItemOfThisType( usedWeaponItemId, typesList ) )
+		{
+			selectedWeaponId = usedWeaponItemId;
+		}
+		if( !( ItemID.IsValid( selectedWeaponId ) ) )
+		{
+			armsCyberwareId = EquipmentSystem.GetData( mainPuppet ).GetActiveMeleeWare();
+			if( ItemID.IsValid( armsCyberwareId ) && IsItemOfThisType( armsCyberwareId, typesList ) )
+			{
+				selectedWeaponId = armsCyberwareId;
+			}
+		}
+		if( !( ItemID.IsValid( selectedWeaponId ) ) )
+		{
+			selectedWeaponId = FindMatchingEquipmentInEquipArea( gamedataEquipmentArea.WeaponWheel, typesList );
+		}
+		if( !( ItemID.IsValid( selectedWeaponId ) ) )
+		{
+			selectedWeaponId = FindMatchingEquipmentInInventory( typesList );
+		}
+		if( !( ItemID.IsValid( selectedWeaponId ) ) && typesList.Contains( gamedataItemType.Wea_Handgun ) )
+		{
+			selectedWeaponId = FindMatchingEquipmentInEquipArea( gamedataEquipmentArea.VDefaultHandgun, typesList );
+		}
+		if( ItemID.IsValid( selectedWeaponId ) )
+		{
+			AddAmmoForWeapon( selectedWeaponId );
+			PutOnFakeItemFromCurrentPuppet( selectedWeaponId );
+			currentWeaponInSlot = selectedWeaponId;
+			return;
+		}
+		if( ItemID.IsValid( currentWeaponInSlot ) )
+		{
+			area = EquipmentSystem.GetEquipAreaType( currentWeaponInSlot );
+			if( area == gamedataEquipmentArea.ArmsCW )
+			{
+				holsteredArmsShouldBeVisible = true;
+				currentWeaponInSlot = ItemID.None();
+				ReevaluateArmsVisibility();
+				return;
+			}
+			currSlot = EquipmentSystem.GetPlacementSlot( currentWeaponInSlot );
+			TS.RemoveItemFromSlot( fakePuppet, currSlot );
+			currentWeaponInSlot = ItemID.None();
+		}
+	}
+
+	private function FindMatchingEquipmentInEquipArea( area : gamedataEquipmentArea, typesList : array< gamedataItemType > ) : ItemID
+	{
+		var equipmentData : EquipmentSystemPlayerData;
+		var item : ItemID;
+		var emptyItem : ItemID;
+		var i : Int32;
+		equipmentData = EquipmentSystem.GetData( mainPuppet );
+		for( i = 0; i < equipmentData.GetNumberOfSlots( area ); i += 1 )
+		{
+			item = equipmentData.GetItemInEquipSlot( area, i );
+			if( ItemID.IsValid( item ) && IsItemOfThisType( item, typesList ) )
+			{
+				return item;
+			}
+		}
+		return emptyItem;
+	}
+
+	private function FindMatchingEquipmentInInventory( typesList : array< gamedataItemType > ) : ItemID
+	{
+		var inventory : TransactionSystem;
+		var allItems : array< weak< gameItemData > >;
+		var item : ItemID;
+		var emptyItem : ItemID;
+		var i : Int32;
+		inventory = EquipmentSystem.GetData( mainPuppet ).GetInventoryManager().GetTransactionSystem();
+		inventory.GetItemList( mainPuppet, allItems );
+		for( i = 0; i < allItems.Size(); i += 1 )
+		{
+			item = allItems[ i ].GetID();
+			if( ItemID.IsValid( item ) && IsItemOfThisType( item, typesList ) )
+			{
+				return item;
+			}
+		}
+		return emptyItem;
+	}
+
+	protected event OnItemAddedToSlot( evt : ItemAddedToSlot )
+	{
+		var i : Int32;
+		var area : gamedataEquipmentArea;
+		var obj : ItemObject;
+		var data : EquipmentSystemPlayerData;
+		for( i = 0; i < loadingItems.Size(); i += 1 )
+		{
+			if( loadingItems[ i ] == evt.GetItemID() )
+			{
+				loadingItems.Erase( i );
+				break;
+			}
+		}
+		data = EquipmentSystem.GetData( mainPuppet );
+		area = EquipmentSystem.GetEquipAreaType( evt.GetItemID() );
+		if( data.IsSlotHidden( area ) )
+		{
+			TS.RemoveItem( fakePuppet, evt.GetItemID(), 1 );
+		}
+		else if( area == gamedataEquipmentArea.OuterChest && TS.MatchVisualTagByItemID( evt.GetItemID(), fakePuppet, 'hide_T1part' ) )
+		{
+			obj = TS.GetItemInSlot( fakePuppet, T"AttachmentSlots.Chest" );
+			if( obj )
+			{
+				TS.ResetItemAppearance( fakePuppet, obj.GetItemID() );
+			}
+		}
+	}
+
+	protected event OnItemVisualsAddedToSlot( evt : ItemVisualsAddedToSlot )
+	{
+		var currentWeaponInSlotItemType : gamedataItemType;
+		var evtItemType : gamedataItemType;
+		var area : gamedataEquipmentArea;
+		var i : Int32;
+		for( i = 0; i < loadingVisualItems.Size(); i += 1 )
+		{
+			if( loadingVisualItems[ i ] == evt.GetItemID() )
+			{
+				loadingVisualItems.Erase( i );
+				break;
+			}
+		}
+		if( ( !( EquipmentSystem.GetData( mainPuppet ).IsSlotHidden( EquipmentSystem.GetEquipAreaType( evt.GetItemID() ) ) ) && muzzleEffectEnabled ) && ItemID.IsValid( currentWeaponInSlot ) )
+		{
+			currentWeaponInSlotItemType = TweakDBInterface.GetItemRecord( ItemID.GetTDBID( currentWeaponInSlot ) ).ItemType().Type();
+			evtItemType = TweakDBInterface.GetItemRecord( ItemID.GetTDBID( evt.GetItemID() ) ).ItemType().Type();
+			if( currentWeaponInSlotItemType == evtItemType )
+			{
+				SetMuzzleEffectEnabled( true );
+			}
+		}
+		area = EquipmentSystem.GetEquipAreaType( evt.GetItemID() );
+		if( area == gamedataEquipmentArea.RightArm )
+		{
+			holsteredArmsBeingSpawned = false;
+			holsteredArmsVisible = true;
+		}
+		else if( area == gamedataEquipmentArea.ArmsCW )
+		{
+			cyberwareArmsBeingSpawned = false;
+			cyberwareArmsVisible = true;
+			AnimationControllerComponent.SetAnimWrapperWeight( fakePuppet, 'PhotoModePauseAnim', 1.0 );
+		}
+		ReevaluateArmsVisibility();
+	}
+
+	public function StopWeaponShootEffects()
+	{
+		var weaponInHands : WeaponObject;
+		weaponInHands = GameObject.GetActiveWeapon( currentPuppet );
+		if( weaponInHands )
+		{
+			WeaponObject.StopWeaponEffects( currentPuppet, weaponInHands, gamedataFxAction.Shoot );
+		}
+	}
+
+	public function SetMuzzleEffectEnabled( enabled : Bool )
+	{
+		var weaponInHands : WeaponObject;
+		weaponInHands = GameObject.GetActiveWeapon( fakePuppet );
+		muzzleEffectEnabled = enabled;
+		if( !( weaponInHands ) )
+		{
+			return;
+		}
+		if( enabled )
+		{
+			GameObjectEffectHelper.StartEffectEvent( weaponInHands, 'muzzle_flash_photo_mode', false, NULL );
+		}
+		else
+		{
+			GameObjectEffectHelper.StopEffectEvent( weaponInHands, 'muzzle_flash_photo_mode' );
+		}
+	}
+
+	public function IsMuzzleFireSupported() : Bool
+	{
+		var itemType : gamedataItemType;
+		if( !( ItemID.IsValid( currentWeaponInSlot ) ) )
+		{
+			return false;
+		}
+		itemType = TweakDBInterface.GetItemRecord( ItemID.GetTDBID( currentWeaponInSlot ) ).ItemType().Type();
+		return ( ( ( ( ( ( ( ( ( itemType == gamedataItemType.Wea_AssaultRifle || itemType == gamedataItemType.Wea_Handgun ) || itemType == gamedataItemType.Wea_HeavyMachineGun ) || itemType == gamedataItemType.Wea_LightMachineGun ) || itemType == gamedataItemType.Wea_PrecisionRifle ) || itemType == gamedataItemType.Wea_Revolver ) || itemType == gamedataItemType.Wea_Rifle ) || itemType == gamedataItemType.Wea_Shotgun ) || itemType == gamedataItemType.Wea_ShotgunDual ) || itemType == gamedataItemType.Wea_SniperRifle ) || itemType == gamedataItemType.Wea_SubmachineGun;
+	}
+
+	private function ClearInventory()
+	{
+		var equipmentData : EquipmentSystemPlayerData;
+		var visualAreas : array< SEquipArea >;
+		var activeAreas : array< SEquipArea >;
+		equipmentData = EquipmentSystem.GetData( fakePuppet );
+		visualAreas = GetPhotoModeVisualEquipAreas( equipmentData, true );
+		activeAreas = GetPhotoModeActiveEquipAreas( equipmentData );
+		RemoveAllItems( visualAreas );
+		RemoveAllItems( activeAreas );
+	}
+
+	private function SetupUnderwear() {}
+
+	private function SetupInventory( isCurrentPlayerObjectCustomizable : Bool )
+	{
+		var visualAreas : array< SEquipArea >;
+		var activeAreas : array< SEquipArea >;
+		var equipmentData : EquipmentSystemPlayerData;
+		var currentPlayerItem : ItemID;
+		var i : Int32;
+		var weaponInHands : WeaponObject;
+		var gender : CName;
+		var head : ItemID;
+		muzzleEffectEnabled = false;
+		customizable = isCurrentPlayerObjectCustomizable;
+		fakePuppet = ( ( gamePuppet )( GetEntity() ) );
+		mainPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( fakePuppet.GetGame() ).GetLocalPlayerMainGameObject() ) );
+		currentPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( fakePuppet.GetGame() ).GetLocalPlayerControlledGameObject() ) );
+		gender = fakePuppet.GetResolvedGenderName();
+		TS = GameInstance.GetTransactionSystem( fakePuppet.GetGame() );
+		weaponInHands = GameObject.GetActiveWeapon( currentPuppet );
+		if( weaponInHands )
+		{
+			usedWeaponItemId = weaponInHands.GetItemID();
+		}
+		if( !( customizable ) )
+		{
+			return;
+		}
+		equipmentData = EquipmentSystem.GetData( mainPuppet );
+		holsteredArmsShouldBeVisible = false;
+		activeAreas = GetPhotoModeActiveEquipAreas( equipmentData );
+		for( i = 0; i < activeAreas.Size(); i += 1 )
+		{
+			currentPlayerItem = equipmentData.GetActiveItem( activeAreas[ i ].areaType );
+			if( ItemID.IsValid( currentPlayerItem ) )
+			{
+				PutOnFakeItemFromMainPuppet( currentPlayerItem );
+			}
+		}
+		visualAreas = GetPhotoModeVisualEquipAreas( equipmentData, customizable );
+		for( i = 0; i < visualAreas.Size(); i += 1 )
+		{
+			currentPlayerItem = equipmentData.GetVisualItemInSlot( visualAreas[ i ].areaType );
+			if( visualAreas[ i ].areaType == gamedataEquipmentArea.RightArm )
+			{
+				if( ItemID.IsValid( currentPlayerItem ) )
+				{
+					holsteredArmsItem = currentPlayerItem;
+				}
+				else
+				{
+					holsteredArmsItem = ItemID.CreateQuery( TweakDBInterface.GetWeaponItemRecord( ItemID.GetTDBID( EquipmentSystem.GetData( mainPuppet ).GetActiveMeleeWare() ) ).HolsteredItem().GetID() );
+				}
+				holsteredArmsShouldBeVisible = true;
+				EquipHolsteredArms();
+				continue;
+			}
+			else if( !( ItemID.IsValid( currentPlayerItem ) ) )
+			{
+				continue;
+			}
+			PutOnFakeItemFromMainPuppet( currentPlayerItem );
+		}
+		if( gender == 'Male' )
+		{
+			head = ItemID.FromTDBID( T"Items.PlayerMaPhotomodeHead" );
+		}
+		else if( gender == 'Female' )
+		{
+			head = ItemID.FromTDBID( T"Items.PlayerWaPhotomodeHead" );
+		}
+		loadingItems.PushBack( head );
+		TS.GiveItem( fakePuppet, head, 1 );
+		TS.AddItemToSlot( fakePuppet, EquipmentSystem.GetPlacementSlot( head ), head, true );
+		itemsLoadingTime = EngineTime.ToFloat( GetEngineTime() );
+	}
+
+	public const function GetPhotoModeEquipAreas( equipmentData : EquipmentSystemPlayerData, isVisual : Bool, withUnderwear : Bool ) : array< SEquipArea >
+	{
+		var i : Int32;
+		var areas : array< SEquipArea >;
+		var slots : array< gamedataEquipmentArea >;
+		slots = ( ( isVisual ) ? ( GetPhotoModeVisualSlots( withUnderwear ) ) : ( GetPhotoModeActiveSlots() ) );
+		for( i = 0; i < slots.Size(); i += 1 )
+		{
+			areas.PushBack( GetEquipArea( equipmentData, slots[ i ] ) );
+		}
+		return areas;
+	}
+
+	public const function GetPhotoModeVisualEquipAreas( equipmentData : EquipmentSystemPlayerData, withUnderwear : Bool ) : array< SEquipArea >
+	{
+		return GetPhotoModeEquipAreas( equipmentData, true, withUnderwear );
+	}
+
+	public const function GetPhotoModeActiveEquipAreas( equipmentData : EquipmentSystemPlayerData ) : array< SEquipArea >
+	{
+		return GetPhotoModeEquipAreas( equipmentData, false, false );
+	}
+
+	public const function GetPhotoModeVisualSlots( withUnderwear : Bool ) : array< gamedataEquipmentArea >
+	{
+		var slots : array< gamedataEquipmentArea >;
+		if( withUnderwear )
+		{
+			slots.PushBack( gamedataEquipmentArea.UnderwearTop );
+			slots.PushBack( gamedataEquipmentArea.UnderwearBottom );
+		}
+		slots.PushBack( gamedataEquipmentArea.Face );
+		slots.PushBack( gamedataEquipmentArea.Feet );
+		slots.PushBack( gamedataEquipmentArea.Head );
+		slots.PushBack( gamedataEquipmentArea.InnerChest );
+		slots.PushBack( gamedataEquipmentArea.Legs );
+		slots.PushBack( gamedataEquipmentArea.OuterChest );
+		slots.PushBack( gamedataEquipmentArea.Outfit );
+		slots.PushBack( gamedataEquipmentArea.HandsCW );
+		slots.PushBack( gamedataEquipmentArea.LeftArm );
+		slots.PushBack( gamedataEquipmentArea.RightArm );
+		return slots;
+	}
+
+	public const function GetPhotoModeActiveSlots() : array< gamedataEquipmentArea >
+	{
+		var slots : array< gamedataEquipmentArea >;
+		return slots;
+	}
+
+	private const function GetEquipArea( equipmentData : EquipmentSystemPlayerData, areaType : gamedataEquipmentArea ) : SEquipArea
+	{
+		var i : Int32;
+		var emptyArea : SEquipArea;
+		var equipment : SLoadout;
+		equipment = equipmentData.GetEquipment();
+		for( i = 0; i < equipment.equipAreas.Size(); i += 1 )
+		{
+			if( equipment.equipAreas[ i ].areaType == areaType )
+			{
+				return equipment.equipAreas[ i ];
+			}
+		}
+		return emptyArea;
+	}
+
+	public function SwitchWardrobeSet( wardrobeSet : Int32 )
+	{
+		var playerData : EquipmentSystemPlayerData;
+		playerData = EquipmentSystem.GetData( mainPuppet );
+		if( wardrobeSet == 8 )
+		{
+			playerData.UnequipWardrobeSet();
+		}
+		else
+		{
+			playerData.EquipWardrobeSet( ( ( gameWardrobeClothingSetIndex )( wardrobeSet ) ) );
+		}
+	}
+
+}
+

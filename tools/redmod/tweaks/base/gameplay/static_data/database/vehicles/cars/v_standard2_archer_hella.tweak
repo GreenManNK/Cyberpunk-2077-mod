@@ -1,0 +1,1851 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_standard2_archer_hella : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard2_archer_hella__basic_01.ent";
+	visualTags = 
+	[
+		"Standard"
+	];
+	manufacturer = "Vehicle.Archer";
+	randomPassengers = 
+	[
+		"Passengers.CorporatDriverEntry", "Passengers.CorporatPassengerFrontEntry", "Passengers.CorporatPassengerBackEntry"
+	];
+	displayName = "LocKey#22076";
+	vehicleUIData = "Vehicle.VehicleArcherHellaUIData";
+	twintoneModelName = "archer.hella";
+	appearancesToColorTemplate = "Vehicle.VehicleArcherHellaAppearancesToColorTemplate";
+	fk< UIIcon > icon = "UIIcon.archer_hella__basic_player_01";
+	headlightColor = 
+	[
+		210, 210, 255, 255
+	];
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_M";
+	player_audio_resource = "v_car_archer_hella";
+	traffic_audio_resource = "v_car_archer_hella_traffic";
+	enableDestruction = true;
+	destroyedAppearance = "archer_hella__basic_burnt_01";
+	destruction = "Vehicle.VehicleDestructionParamsHella";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 2;
+		} : ConstantStatModifier
+	];
+	string hijackDifficulty = "EASY";
+	string crackLockDifficulty = "EASY";
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/archer/archer_regular.inkstyle";
+	vehDataPackage = 
+	{
+		canStoreBody = true;
+	} : VehicleDataPackageDefault;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.28f;
+			tireWidth = 0.25f;
+			wheelOffset = 0.06f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.28f;
+			tireWidth = 0.27f;
+			wheelOffset = 0.07f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Archer";
+	vehEngineData = "Vehicle.VehicleEngineData_4_Regular_Medium";
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_Archer_Hella_High_Close", "Camera.VehicleTPP_4w_Archer_Hella_High_Medium", "Camera.VehicleTPP_4w_Archer_Hella_High_Far", "Camera.VehicleTPP_4w_Archer_Hella_High_DriverCombatClose", "Camera.VehicleTPP_4w_Archer_Hella_High_DriverCombatMedium", "Camera.VehicleTPP_4w_Archer_Hella_High_DriverCombatFar", "Camera.VehicleTPP_4w_Archer_Hella_Low_Close", "Camera.VehicleTPP_4w_Archer_Hella_Low_Medium", "Camera.VehicleTPP_4w_Archer_Hella_Low_Far", "Camera.VehicleTPP_4w_Archer_Hella_Low_DriverCombatClose", "Camera.VehicleTPP_4w_Archer_Hella_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_Archer_Hella_Low_DriverCombatFar"
+	];
+	vehDriver_FPPCameraParams = 
+	{
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.6073, 0.9264 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	trafficSuspension = "Vehicle.TrafficSuspension_Standard";
+}
+
+VehicleWheelPreset_Archer_Players_Front : VehicleWheelDrivingPreset_4_FWD_Front
+{
+	maxBrakingTorque = 320.0f;
+	frictionMulLongitudinal = 0.88f;
+	frictionMulLateral = 0.89f;
+	tireLongitudinalSlipEffectsMul = 0.84f;
+	tireLateralSlipEffectsMul = 0.59f;
+	swaybarStiffness = 20.0f;
+	swaybarLengthScalar = 1.4f;
+	springStiffness = 20.0f;
+	springDamping = 2700.0f;
+	springReboundDamping = 2850.0f;
+	springBoundDampingLowRate = 1700.0f;
+	springReboundDampingLowRate = 1850.0f;
+	springDampingLowRateCompression = 0.20f;
+	springDampingHighRateCompression = 0.35f;
+	extremeCompressionEventScalor = 0.64f;
+	logicalSuspensionCompressionLength = 0.29f;
+	visualSuspensionDroop = 0.11f;
+	visualSuspensionCompressionLength = 0.10f;
+	wheelsVerticalOffset = 0.0f;
+}
+
+VehicleWheelPreset_Archer_Players_Rear : VehicleWheelDrivingPreset_4_FWD_Rear
+{
+	maxBrakingTorque = 220.0f;
+	frictionMulLongitudinal = 0.88f;
+	frictionMulLateral = 0.87f;
+	tireLateralSlipEffectsMul = 0.9f;
+	tireLongitudinalSlipEffectsMul = 0.86f;
+	swaybarStiffness = 9.0f;
+	swaybarLengthScalar = 0.99f;
+	springStiffness = 15.0f;
+	springDamping = 2200.0f;
+	springReboundDamping = 2400.0f;
+	springBoundDampingLowRate = 1350.0f;
+	springReboundDampingLowRate = 1550.0f;
+	springDampingLowRateCompression = 0.20f;
+	springDampingHighRateCompression = 0.35f;
+	extremeCompressionEventScalor = 0.46f;
+	logicalSuspensionCompressionLength = 0.32f;
+	visualSuspensionDroop = 0.08f;
+	visualSuspensionCompressionLength = 0.10f;
+	wheelsVerticalOffset = 0.0f;
+}
+
+VehicleBurnOut_Archer_Players : VehicleBurnOut_4w_FWD
+{
+	maxSpeedToInitiateBurnOut = 15.0f;
+	lateralSlipRatioInfluence = 0.99f;
+	lateralForceMaxAcceleration = 0.24f;
+	lateralForceMaxSpeed = 1.24f;
+	lateralAccelForwardSpeedMaxDecimation = 0.99f;
+	maxDriveWheelSlipRatio = 12.0f;
+	maxLateralAccelSlipRatioMultipler = 0.9f;
+	maxLongFrictionSlipRatioMultipler = 0.8f;
+	burnOutGripBonus = 8.0f;
+}
+
+VehicleDriveModelData_Archer : VehicleDriveModelData_Regular_Medium_FWD
+{
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+			wheelsVerticalOffset = 0.01f;
+			visualSuspensionCompressionLength = 0.10f;
+		} : VehicleWheelDrivingPreset_4_FWD_Front;
+		backPreset = 
+		{
+			logicalSuspensionCompressionLength = 0.45f;
+			visualSuspensionCompressionLength = 0.13f;
+			wheelsVerticalOffset = 0.01f;
+		} : VehicleWheelDrivingPreset_4_FWD_Rear;
+	} : VehicleWheelDrivingSetup_4_FWD;
+}
+
+VehicleDriveModelData_Archer_Players : VehicleDriveModelData_Archer
+{
+	maxWheelTurnDeg = 54.f;
+	wheelTurnMaxAddPerSecond = 100.f;
+	wheelTurnMaxSubPerSecond = 145.f;
+	turnUpdateMidSpeedTurnMul = 0.97f;
+	turnUpdateMidSpeedTurnChangeMul = 1.42f;
+	turnUpdateMaxSpeedTurnMul = 0.48f;
+	turnUpdateMaxSpeedTurnChangeMul = 1.86f;
+	antiSwaybarDampingScalor = 0.9f;
+	wheelSetup = 
+	{
+		frontPreset = "Vehicle.VehicleWheelPreset_Archer_Players_Front";
+		backPreset = "Vehicle.VehicleWheelPreset_Archer_Players_Rear";
+	} : VehicleWheelDrivingSetup_4_FWD;
+	burnOut = "Vehicle.VehicleBurnOut_Archer_Players";
+	driveHelpers = 
+	[
+		{
+			type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+		} : DriveWheelsAccelerateNoise_Basic, 
+		{
+			type = "Vehicle.RotationLimiter_HelperType";
+		} : RotationLimiter_Standard, 
+		{
+			type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+		} : HandbrakeFrictionModifier_Standard, 
+		{
+			type = "Vehicle.UphillDriveHelper_HelperType";
+		} : UphillDriveHelper_Standard, 
+		{
+			type = "Vehicle.InAirGravityModifier_HelperType";
+		} : InAirGravityModifier
+	];
+}
+
+v_standard2_archer_hella_getto : v_standard2_archer_hella
+{
+	player_audio_resource = "v_car_archer_hella_jacky";
+	traffic_audio_resource = "v_car_archer_hella_traffic";
+	appearanceName = "archer_hella__basic_player_01";
+	vehicleUIData = 
+	{
+		horsepower = 225.0f;
+	} : VehicleArcherHellaUIData;
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_L";
+	tags += 
+	[
+		"CanDriveOnVehicles"
+	];
+	vehDataPackage = 
+	{
+		canStoreBody = true;
+		wheelBumperVertOffsetScalor = 0.45f;
+	} : VehicleDataPackageDefault;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.28f;
+			tireWidth = 0.35f;
+			wheelOffset = 0.08f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.28f;
+			tireWidth = 0.38f;
+			wheelOffset = 0.09f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Archer_Players";
+	vehEngineData = 
+	{
+		engineMaxTorque = 295.f;
+		finalGearTorqueDecimationScalor = 0.88f;
+	} : VehicleEngineData_4_Regular_Medium;
+	destruction = 
+	{
+		wheels = 
+		[
+			{
+				name = "FrontLeft";
+				intact = "tire_01_fl_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "FrontRight";
+				intact = "tire_01_fr_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "BackRight";
+				intact = "tire_01_br_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "BackLeft";
+				intact = "tire_01_bl_a";
+				hitsToFlatten = 2;
+			}
+		];
+	} : VehicleDestructionParamsHella;
+}
+
+v_standard2_archer_hella_quest : v_standard2_archer_hella
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+}
+
+v_standard2_archer_hella_poor : v_standard2_archer_hella
+{
+	visualTags = 
+	[
+		"Poor"
+	];
+	headlightColor = 
+	[
+		255, 240, 200, 255
+	];
+	randomPassengers = 
+	[
+		"Passengers.LowlifeRedneckDriverEntry", "Passengers.LowlifeRedneckPassengerFrontEntry", "Passengers.LowlifeRedneckPassengerBackEntry"
+	];
+	player_audio_resource = "v_car_archer_hella_poor";
+	traffic_audio_resource = "v_car_archer_hella_traffic";
+}
+
+[ EP1 ]
+v_standard2_archer_hella_poor_dogtown : v_standard2_archer_hella_poor
+{
+	[ EP1 ]
+	randomPassengers = 
+	[
+		"Passengers.EP1PacificDriverEntry", "Passengers.EP1PacificPassengerFrontEntry", "Passengers.EP1PacificPassengerBackEntry"
+	];
+	player_audio_resource = "v_car_archer_hella_poor";
+	traffic_audio_resource = "v_car_archer_hella_traffic";
+}
+
+v_standard2_archer_hella_combat_cab : v_standard2_archer_hella
+{
+	appearanceName = "archer_hella__basic_combatcab_01";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	displayName = "LocKey#22707";
+}
+
+v_standard2_archer_hella_sixth_street : v_standard2_archer_hella
+{
+	visualTags = 
+	[
+		"SixthStreet"
+	];
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+}
+
+v_standard2_archer_hella_ncu : v_standard2_archer_hella_police
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard2_archer_hella__police_01.ent";
+	vehDataPackage = 
+	{
+		useAuxiliary = false;
+	} : VehicleDataPackageDefault;
+	displayName = "LocKey#22711";
+	destroyedAppearance = "archer_hella__basic_deathrace_burnt_01";
+	player_audio_resource = "v_car_archer_hella_police";
+	traffic_audio_resource = "v_car_archer_hella_police_traffic";
+	visualTags = 
+	[
+		"NCU"
+	];
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+}
+
+v_standard2_archer_hella_police : v_standard2_archer_hella
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard2_archer_hella__police_01.ent";
+	destroyedAppearance = "archer_hella__basic_police_burnt_01";
+	destruction = 
+	{
+		wheels = 
+		[
+			{
+				name = "FrontLeft";
+				intact = "tire_03_fl";
+				flat = "tire_flat_01_fl_a";
+			}, 
+			{
+				name = "FrontRight";
+				intact = "tire_01_fr_a";
+				flat = "tire_flat_01_fr_a";
+			}, 
+			{
+				name = "BackRight";
+				intact = "tire_03_br";
+				flat = "tire_flat_01_br_a";
+			}, 
+			{
+				name = "BackLeft";
+				intact = "tire_03_bl";
+				flat = "tire_flat_01_bl_a";
+			}
+		];
+	} : VehicleDestructionParamsHella;
+	headlightColor = 
+	[
+		175, 200, 255, 255
+	];
+	displayName = "LocKey#22077";
+	vehicleUIData = 
+	{
+		driveLayout = "LocKey#45372";
+		horsepower = 374.0f;
+		mass = 1862.0f;
+		info = "LocKey#53543";
+	} : VehicleArcherHellaUIData;
+	statModifierGroups = 
+	[
+		"VehicleStatPreset.BaseCar", "VehicleStatPreset.Strong", "VehicleStatPreset.Prevention"
+	];
+	affiliation = "Factions.NCPD";
+	vehDataPackage = 
+	{
+		useAuxiliary = true;
+	} : VehicleDataPackageDefault;
+	player_audio_resource = "v_car_archer_hella_police";
+	traffic_audio_resource = "v_car_archer_hella_police_traffic";
+	randomPassengers = 
+	[
+		"Passengers.NCPDDriverEntry", "Passengers.NCPDPassengerFrontEntry"
+	];
+	visualTags = 
+	[
+		"NCPD"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier
+	];
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.24f;
+			tireWidth = 0.24f;
+			wheelOffset = 0.10f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.24f;
+			tireWidth = 0.24f;
+			wheelOffset = 0.10f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 1940.0f;
+		chassis_mass = 1940.0f;
+		center_of_mass_offset = ( 0.0f, 0.1f, 0.22f );
+		momentOfInertia = ( 4590.0f, 777.0f, 4960.0f );
+		wheelTurnMaxAddPerSecond = 105.f;
+		turnUpdateMaxSpeedThreshold = 38.f;
+		turnUpdateMaxSpeedTurnMul = 0.34f;
+		turnUpdateMaxSpeedTurnChangeMul = 2.9f;
+		turnUpdateMidSpeedThreshold = 20.f;
+		turnUpdateMidSpeedTurnMul = 0.76;
+		turnUpdateMidSpeedTurnChangeMul = 1.52f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				mass = 16.0f;
+				maxBrakingTorque = 500.0f;
+				frictionMulLateral = 0.88f;
+				frictionMulLongitudinal = 0.88f;
+				tireLateralSlipEffectsMul = 0.75f;
+				swaybarStiffness = 24.0f;
+				swaybarLengthScalar = 1.5f;
+				swaybarDisplacementLimit = 0.18f;
+				springStiffness = 22.0f;
+				springDamping = 3300;
+				springReboundDamping = 3000.0f;
+				springBoundDampingLowRate = 1900.0f;
+				springReboundDampingLowRate = 1800.0f;
+				extremeCompressionEventScalor = 0.73f;
+				logicalSuspensionCompressionLength = 0.49f;
+				visualSuspensionDroop = 0.15f;
+				wheelsVerticalOffset = 0.05f;
+			} : VehicleWheelDrivingPreset_4_FWD_Front;
+			backPreset = 
+			{
+				mass = 16.0f;
+				maxBrakingTorque = 400.0f;
+				frictionMulLateral = 0.88f;
+				frictionMulLongitudinal = 0.88f;
+				swaybarStiffness = 11.0f;
+				swaybarDisplacementLimit = 0.18f;
+				springStiffness = 19.0f;
+				springDamping = 3000;
+				springReboundDamping = 2600.0f;
+				springBoundDampingLowRate = 1700.0f;
+				springReboundDampingLowRate = 1600.0f;
+				extremeCompressionEventScalor = 0.79f;
+				logicalSuspensionCompressionLength = 0.49f;
+				visualSuspensionDroop = 0.15f;
+				wheelsVerticalOffset = 0.06f;
+			} : VehicleWheelDrivingPreset_4_FWD_Rear;
+		} : VehicleWheelDrivingSetup_4_AWD;
+		burnOut = 
+		{
+		} : VehicleBurnOut_Cortes_Police;
+		flatTireSim = "Vehicle.VehicleFlatTireSimulation_AWD_4w";
+	} : VehicleDriveModelData_Regular_Medium_RWD;
+	vehEngineData = 
+	{
+	} : VehicleEngineData_4_Regular_Large_SC;
+	vehDriver_FPPCameraParams = 
+	{
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.1882, 1.1255 );
+	} : VehicleDriverFPPCameraParamsDefault;
+}
+
+v_standard2_archer_hella_police_siren : v_standard2_archer_hella_police
+{
+	destroyedAppearance = "archer_hella__basic_police_burnt_01";
+	vehDefaultState = 
+	{
+		SirenLight = true;
+		SirenSounds = false;
+		LockAll = true;
+	};
+}
+
+v_standard2_archer_hella_scavengers : v_standard2_archer_hella
+{
+	entityTemplatePath = "ep1\vehicles\standard\v_standard2_archer_hella_ep1__basic_01.ent";
+	destroyedAppearance = "archer_hella__basic_burnt_01";
+	visualTags = 
+	[
+		"Scavengers"
+	];
+	player_audio_resource = "v_car_archer_hella_scavenger";
+	traffic_audio_resource = "v_car_archer_hella_traffic";
+}
+
+v_standard2_archer_hella_kurtz : v_standard2_archer_hella
+{
+	entityTemplatePath = "ep1\vehicles\standard\v_standard2_archer_hella_ep1__kurtz_01.ent";
+	destroyedAppearance = "archer_hella__basic_burnt_01";
+	visualTags = 
+	[
+		"Poor"
+	];
+}
+
+VehicleArcherHellaUIData : VehicleDefaultUIData
+{
+	productionYear = "2023-2038";
+	driveLayout = "LocKey#45370";
+	horsepower = 212.0f;
+	mass = 1721.0f;
+	info = "LocKey#53542";
+}
+
+VehicleDestructionParamsHella : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.9f, 4.8f, 0.15f );
+	gridLocalOffset = ( 0.0f, 0.0f, 0.75f );
+	chargePortCenter = ( -0.940826416f, -1.72207355f, 0.653903842f );
+	glass = 
+	[
+		{
+			component = "window_f";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.2;
+		}, 
+		{
+			component = "window_fl";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_fr";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl";
+			effect = "damage_glass_bl";
+			gridCells = 
+			[
+				2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br";
+			effect = "damage_glass_br";
+			gridCells = 
+			[
+				3, 11
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_bl_02_01";
+			effect = "damage_glass_bl";
+			gridCells = 
+			[
+				2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_br_02_01";
+			effect = "damage_glass_br";
+			gridCells = 
+			[
+				3, 11
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_b";
+			effect = "damage_glass_b";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.15;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"trunk_a"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"hood_a", "hood_a_shadow"
+			];
+		}, 
+		{
+			name = "PoliceSearchLight";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_common_nomad_part__ext01_light_device_medium_03"
+			];
+		}, 
+		{
+			name = "PoliceRoofDevice";
+			gridCells = 
+			[
+				10, 11
+			];
+			threshold = 0.06;
+			components = 
+			[
+				"v_common_nomad_part__ext01_sensor_medium_03"
+			];
+		}, 
+		{
+			name = "license_plate";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate"
+			];
+		}, 
+		{
+			name = "PoliceFrontBumperLight";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"v_common_nomad_part__ext01_light_device_medium_02"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.8;
+			components = 
+			[
+				"bumper_f_01"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_b_01"
+			];
+		}, 
+		{
+			name = "PoliceBumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"v_standard2_archer_hella_police__ext01_bumper_b_01"
+			];
+		}, 
+		{
+			name = "MirrorLeft_01";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"door_mirror_fl_01"
+			];
+		}, 
+		{
+			name = "MirrorRight_01";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"door_mirror_fr_01"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fl_a", "window_fl"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fr_a", "window_fr"
+			];
+		}, 
+		{
+			name = "DoorBackLeft";
+			gridCells = 
+			[
+				2
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_bl_a", "door_bl_shadow", "window_bl", "window_bl_01_armored"
+			];
+		}, 
+		{
+			name = "DoorBackRight";
+			gridCells = 
+			[
+				3
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_br_a", "door_br_shadow", "window_br", "window_br_01_armored"
+			];
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			flat = "tire_flat_01_fl_a";
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			flat = "tire_flat_01_fr_a";
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			flat = "tire_flat_01_br_a";
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			flat = "tire_flat_01_bl_a";
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_left_02";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "police_head_light_left_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "police_head_light_left_02";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_02";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "police_head_light_right_01";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "vehicleLight6407";
+			gridCells = 
+			[
+				11
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "vehicleLight6520";
+			gridCells = 
+			[
+				13
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_02";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_03";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_03";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_f_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3, 4
+					];
+					gridCells = 
+					[
+						6, 7, 14, 15
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_b_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1, 2, 3
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						7, 8
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						0, 2, 5
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_1_6 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_1_6"
+	];
+	matchingColorVariant = 
+	[
+		"poor_1_6"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_1_6";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_police_white_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_2 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_2"
+	];
+	matchingColorVariant = 
+	[
+		"poor_2"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_2";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "door_br_a", "door_fl_a", "door_mirror_fl_01", "junk_fuelcell", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"bumper_b_01", "junk_fuelcell"
+			];
+			customMlSetup = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset_02.mlsetup";
+			customMlMask = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 21.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_br_a", "door_mirror_fl_01", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\primer_red.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_fl_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_stickerbomb_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_2_1 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_2_1"
+	];
+	matchingColorVariant = 
+	[
+		"poor_2_1"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_2_1";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "bumper_f_01", "junk_fuelcell"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\primer_black.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"bumper_b_01", "junk_fuelcell"
+			];
+			customMlSetup = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset_01.mlsetup";
+			customMlMask = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 21.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"bumper_f_01"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_stickerbomb_02.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_2_3 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_2_3"
+	];
+	matchingColorVariant = 
+	[
+		"poor_2_3"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_2_3";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "door_bl_a", "door_br_a", "door_fr_a", "door_mirror_fr_01", "junk_fuelcell", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\primer_gray.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"bumper_b_01"
+			];
+			customMlSetup = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset_03.mlsetup";
+			customMlMask = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 21.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_bl_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_stickerbomb_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_br_a", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_03.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_fr_a", "door_mirror_fr_01"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"junk_fuelcell"
+			];
+			customMlSetup = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset_02.mlsetup";
+			customMlMask = "base\vehicles\common\parts\v_common__junk_kit\entities\meshes\textures\ml_junkset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 21.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_3 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_3"
+	];
+	matchingColorVariant = 
+	[
+		"poor_3"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_3";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "hood_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"hood_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_stickerbomb_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_3_1 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_3_1"
+	];
+	matchingColorVariant = 
+	[
+		"poor_3_1"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_3_1";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "door_bl_a", "door_br_a", "door_fl_a", "door_fr_a", "door_mirror_fl_01", "door_mirror_fr_01", "hood_a", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\primer_red.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_bl_a", "door_br_a", "door_fl_a", "door_fr_a", "door_mirror_fl_01", "door_mirror_fr_01"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_police_white_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"hood_a", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_poor_3_3 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_poor_3_3"
+	];
+	matchingColorVariant = 
+	[
+		"poor_3_3"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_poor_3_3";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "door_bl_a", "door_br_a", "door_fl_a", "door_fr_a", "door_mirror_fl_01", "door_mirror_fr_01", "hood_a", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext_stickerbomb_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"door_bl_a", "door_br_a", "door_fl_a", "door_fr_a", "door_mirror_fl_01", "door_mirror_fr_01"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"hood_a", "trunk_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\poor_03.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_suburban_1 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_suburban_1", "archer_hella__basic_suburban_2"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1", "suburban_2"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_suburban_1";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\suburban_01.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_suburban_1_1 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_suburban_1_1", "archer_hella__basic_suburban_2_1"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_1", "suburban_2_1"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_suburban_1_1";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\suburban_02.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_suburban_1_2 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_suburban_1_2", "archer_hella__basic_suburban_2_2"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_2", "suburban_2_2"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_suburban_1_2";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\suburban_03.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_suburban_1_3 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_suburban_1_3", "archer_hella__basic_suburban_2_3"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_3", "suburban_2_3"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_suburban_1_3";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\suburban_04.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_archer_hella__basic_suburban_1_4 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"archer_hella__basic_suburban_1_4", "archer_hella__basic_suburban_2_4"
+	];
+	matchingColorVariant = 
+	[
+		"suburban_1_4", "suburban_2_4"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_archer_hella__basic_suburban_1_4";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+			];
+			customMlSetup = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\suburban_05.mlsetup";
+			customMlMask = "base\vehicles\standard\v_standard2_archer_hella\entities\meshes\textures\ml_v_standard2_archer_hella_ext00_masksset.mlmask";
+			coatLayerMin = -1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+VehicleArcherHellaAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1"
+			];
+			mainColor = 
+			[
+				56, 55, 64
+			];
+			secondaryColor = 
+			[
+				56, 54, 55
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_1"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_1"
+			];
+			mainColor = 
+			[
+				72, 101, 128
+			];
+			secondaryColor = 
+			[
+				104, 104, 104
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_2"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_2"
+			];
+			mainColor = 
+			[
+				124, 118, 113
+			];
+			secondaryColor = 
+			[
+				55, 43, 51
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_3"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_3"
+			];
+			mainColor = 
+			[
+				155, 128, 84
+			];
+			secondaryColor = 
+			[
+				80, 71, 69
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_4"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_4"
+			];
+			mainColor = 
+			[
+				154, 127, 84
+			];
+			secondaryColor = 
+			[
+				55, 54, 55
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_5"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_5"
+			];
+			mainColor = 
+			[
+				74, 102, 128
+			];
+			secondaryColor = 
+			[
+				141, 142, 141
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_1_7"
+			];
+			matchingColorVariant = 
+			[
+				"poor_1_7"
+			];
+			mainColor = 
+			[
+				91, 45, 44
+			];
+			secondaryColor = 
+			[
+				56, 54, 55
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_2_2"
+			];
+			matchingColorVariant = 
+			[
+				"poor_2_2"
+			];
+			mainColor = 
+			[
+				56, 52, 65
+			];
+			secondaryColor = 
+			[
+				56, 54, 55
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_2_4"
+			];
+			matchingColorVariant = 
+			[
+				"poor_2_4"
+			];
+			mainColor = 
+			[
+				68, 82, 84
+			];
+			secondaryColor = 
+			[
+				163, 160, 163
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_3_2"
+			];
+			matchingColorVariant = 
+			[
+				"poor_3_2"
+			];
+			mainColor = 
+			[
+				64, 64, 69
+			];
+			secondaryColor = 
+			[
+				123, 117, 110
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_3_4"
+			];
+			matchingColorVariant = 
+			[
+				"poor_3_4"
+			];
+			mainColor = 
+			[
+				200, 196, 191
+			];
+			secondaryColor = 
+			[
+				52, 49, 52
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_4"
+			];
+			matchingColorVariant = 
+			[
+				"poor_4"
+			];
+			mainColor = 
+			[
+				73, 97, 120
+			];
+			secondaryColor = 
+			[
+				66, 64, 63
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_4_1"
+			];
+			matchingColorVariant = 
+			[
+				"poor_4_1"
+			];
+			mainColor = 
+			[
+				129, 122, 115
+			];
+			secondaryColor = 
+			[
+				56, 46, 52
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"archer_hella__basic_poor_4_2"
+			];
+			matchingColorVariant = 
+			[
+				"poor_4_2"
+			];
+			mainColor = 
+			[
+				155, 129, 85
+			];
+			secondaryColor = 
+			[
+				56, 54, 55
+			];
+		} : VehicleColorTemplate, 
+		"Vehicle.vcc_paintjob_archer_hella__basic_poor_1_6", "Vehicle.vcc_paintjob_archer_hella__basic_poor_2", "Vehicle.vcc_paintjob_archer_hella__basic_poor_2_1", "Vehicle.vcc_paintjob_archer_hella__basic_poor_2_3", "Vehicle.vcc_paintjob_archer_hella__basic_poor_3", "Vehicle.vcc_paintjob_archer_hella__basic_poor_3_1", "Vehicle.vcc_paintjob_archer_hella__basic_poor_3_3", "Vehicle.vcc_paintjob_archer_hella__basic_suburban_1", "Vehicle.vcc_paintjob_archer_hella__basic_suburban_1_1", "Vehicle.vcc_paintjob_archer_hella__basic_suburban_1_2", "Vehicle.vcc_paintjob_archer_hella__basic_suburban_1_3", "Vehicle.vcc_paintjob_archer_hella__basic_suburban_1_4"
+	];
+}
+

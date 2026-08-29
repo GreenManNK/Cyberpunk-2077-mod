@@ -50,11 +50,13 @@ private class VM3DVehicleHelper {
     let components = car.GetComponents();
 
     for component in components {
-      let physMesh = component as PhysicalMeshComponent;
-      let name = NameToString(component.GetName());
+      if IsDefined(component) {
+        let physMesh = component as PhysicalMeshComponent;
+        let name = NameToString(component.GetName());
 
-      if IsDefined(physMesh) && StrContains(name, "odo") && StrContains(name, query) {
-        return physMesh;
+        if IsDefined(physMesh) && StrContains(name, "odo") && StrContains(name, query) {
+          return physMesh;
+        };
       };
     };
 
@@ -89,7 +91,9 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 
     self.renderingPlane = ERenderingPlane.RPl_Scene;
     self.objectTypeID = ERenderObjectType.ROT_Vehicle;
-    self.visualScale = Vector3(1.0, 1.0, 1.0);
+    // Start hard-hidden. The service reveals this mesh only after the 3D
+    // controller is ready, preventing a backing-material flash during power/UI changes.
+    self.visualScale = Vector3(0.0, 0.0, 0.0);
 
     self.castShadows = shadowsShadowCastingMode.Never;
     self.castLocalShadows = shadowsShadowCastingMode.Never;
@@ -166,6 +170,10 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 		// with the currently mounted vehicle.
 	}
 
+	public func VM_HardHide() -> Void {
+		this.visualScale = Vector3(0.0, 0.0, 0.0);
+	}
+
 	public func ApplyLivePlacementFor(car: wref<WheeledObject>) -> Void {
 		if !IsDefined(car) {
 			return;
@@ -200,7 +208,7 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 		// The saved user scale stays untouched.
 		// But when the widget is hidden, the mesh plane is scaled to 0.
 		// This removes the Path Tracing / Ray Tracing reflection from hidden widgets.
-		if this.__IsHidden() {
+		if this.__Fact(n"vm_3d_enabled") <= 0 || this.__IsHidden() {
 			this.visualScale = Vector3(0.0, 0.0, 0.0);
 			return;
 		};
@@ -1816,6 +1824,10 @@ public class VM3DOdoService extends IScriptable {
   private let tickPeriod: Float = 0.25;
 
 	private let callbackSystem: wref<CallbackSystem>;
+	private let lastFuelMesh: wref<VM3DOdoMeshComponent>;
+	private let lastOdoMesh: wref<VM3DOdoMeshComponent>;
+	private let lastFuelAltMesh: wref<VM3DOdoMeshComponent>;
+	private let lastOdoAltMesh: wref<VM3DOdoMeshComponent>;
 	private let lastFuelWidget: wref<VM3DOdoWidgetComponent>;
 	private let lastOdoWidget: wref<VM3DOdoWidgetComponent>;
 	private let lastFuelAltWidget: wref<VM3DOdoWidgetComponent>;
@@ -1844,6 +1856,32 @@ private func Fact(name: CName) -> Int32 {
   };
 
   return qs.GetFact(name);
+}
+
+private func IsVehicleUIActive(car: wref<WheeledObject>) -> Bool {
+	if !IsDefined(car) {
+		return false;
+	};
+
+	let blackboard: ref<IBlackboard> = car.GetBlackboard();
+	return IsDefined(blackboard)
+		&& blackboard.GetBool(GetAllBlackboardDefs().Vehicle.IsUIActive);
+}
+
+private func HideCarMeshes(car: wref<WheeledObject>) -> Void {
+	if !IsDefined(car) {
+		return;
+	};
+
+	let fuelMesh = car.FindComponentByName(n"fuel_mesh") as VM3DOdoMeshComponent;
+	let odoMesh = car.FindComponentByName(n"odo_mesh") as VM3DOdoMeshComponent;
+	let fuelAltMesh = car.FindComponentByName(n"fuel_alt_mesh") as VM3DOdoMeshComponent;
+	let odoAltMesh = car.FindComponentByName(n"odo_alt_mesh") as VM3DOdoMeshComponent;
+
+	if IsDefined(fuelMesh) { fuelMesh.VM_HardHide(); };
+	if IsDefined(odoMesh) { odoMesh.VM_HardHide(); };
+	if IsDefined(fuelAltMesh) { fuelAltMesh.VM_HardHide(); };
+	if IsDefined(odoAltMesh) { odoAltMesh.VM_HardHide(); };
 }
 
 private func PlacementChanged() -> Bool {
@@ -1998,6 +2036,7 @@ private func PlacementChanged() -> Bool {
 		// This is safe now because inkOdoHUD.OnInitialize() starts hidden.
 		// Tick() is the only place that makes the mounted vehicle visible.
 		this.EnsureCarComponents(car);
+		this.HideCarMeshes(car);
 	}
 
 	private func GetMountedWheeledVehicle() -> wref<WheeledObject> {
@@ -2025,6 +2064,18 @@ public func Tick() -> Void {
 	// If 3D Widget mode is not active, keep everything hidden.
 	if this.Fact(n"vm_3d_enabled") <= 0 {
 		this.placementCacheReady = false;
+		this.HideCarMeshes(car);
+		this.HideLastWidget();
+		this.ArmTick();
+		return;
+	};
+
+	// EVS and the base game drive this vanilla blackboard when the vehicle
+	// dashboard is powered down. Its world-UI controller can be unavailable
+	// while the backing mesh still renders, so hard-hide both layers.
+	if !this.IsVehicleUIActive(car) {
+		this.placementCacheReady = false;
+		this.HideCarMeshes(car);
 		this.HideLastWidget();
 		this.ArmTick();
 		return;
@@ -2060,27 +2111,21 @@ public func Tick() -> Void {
 		|| !IsDefined(odoMesh) || !IsDefined(odoWidget)
 		|| !IsDefined(fuelAltMesh) || !IsDefined(fuelAltWidget)
 		|| !IsDefined(odoAltMesh) || !IsDefined(odoAltWidget) {
+		this.HideCarMeshes(car);
 		this.ArmTick();
 		return;
 	};
 
-  // --------------------------------------------------------------------------
-  // Apply live placement separately
-  // --------------------------------------------------------------------------
-  fuelMesh.ApplyLivePlacementFor(car);
-  fuelWidget.ApplyLivePlacementFromMesh(fuelMesh);
+	this.lastFuelMesh = fuelMesh;
+	this.lastOdoMesh = odoMesh;
+	this.lastFuelAltMesh = fuelAltMesh;
+	this.lastOdoAltMesh = odoAltMesh;
 
-  odoMesh.ApplyLivePlacementFor(car);
-  odoWidget.ApplyLivePlacementFromMesh(odoMesh);
-
+  // --------------------------------------------------------------------------
+	// Remember the current widget components.
+  // --------------------------------------------------------------------------
   this.lastFuelWidget = fuelWidget;
   this.lastOdoWidget = odoWidget;
-	
-	fuelAltMesh.ApplyLivePlacementFor(car);
-	fuelAltWidget.ApplyLivePlacementFromMesh(fuelAltMesh);
-
-	odoAltMesh.ApplyLivePlacementFor(car);
-	odoAltWidget.ApplyLivePlacementFromMesh(odoAltMesh);
 
 	this.lastFuelAltWidget = fuelAltWidget;
 	this.lastOdoAltWidget = odoAltWidget;
@@ -2105,9 +2150,11 @@ public func Tick() -> Void {
   // --------------------------------------------------------------------------
   // Fuel widget: show fuel gauge only
   // --------------------------------------------------------------------------
-  let fuelHud = fuelWidget.GetHUD();
+	let fuelHud = fuelWidget.GetHUD();
 
 	if IsDefined(fuelHud) {
+		fuelMesh.ApplyLivePlacementFor(car);
+		fuelWidget.ApplyLivePlacementFromMesh(fuelMesh);
 		fuelHud.Load(fuelMesh);
 
 		if fuelHidden {
@@ -2117,15 +2164,18 @@ public func Tick() -> Void {
 			fuelHud.VM_SetFuelGaugeData(odoText, fuel);
 		};
 	} else {
+		fuelMesh.VM_HardHide();
 		// LogChannel(n"DEBUG", "[OdoHUD] fuel_widget controller is NULL");
 	};
 
   // --------------------------------------------------------------------------
   // ODO widget: show ODO plate only
   // --------------------------------------------------------------------------
-  let odoHud = odoWidget.GetHUD();
+	let odoHud = odoWidget.GetHUD();
 
 	if IsDefined(odoHud) {
+		odoMesh.ApplyLivePlacementFor(car);
+		odoWidget.ApplyLivePlacementFromMesh(odoMesh);
 		odoHud.Load(odoMesh);
 
 		if odoHidden {
@@ -2135,6 +2185,7 @@ public func Tick() -> Void {
 			odoHud.VM_SetFuelGaugeData(odoText, fuel);
 		};
 	} else {
+		odoMesh.VM_HardHide();
 		// LogChannel(n"DEBUG", "[OdoHUD] odo_widget controller is NULL");
 	};
 	
@@ -2144,6 +2195,8 @@ public func Tick() -> Void {
 	let fuelAltHud = fuelAltWidget.GetHUD();
 
 	if IsDefined(fuelAltHud) {
+		fuelAltMesh.ApplyLivePlacementFor(car);
+		fuelAltWidget.ApplyLivePlacementFromMesh(fuelAltMesh);
 		fuelAltHud.Load(fuelAltMesh);
 
 		if fuelAltHidden {
@@ -2152,6 +2205,8 @@ public func Tick() -> Void {
 			fuelAltHud.VM_SetMode(3); // 3 = fuel alt only
 			fuelAltHud.VM_SetFuelGaugeData(odoText, fuel);
 		};
+	} else {
+		fuelAltMesh.VM_HardHide();
 	};
 
 	// --------------------------------------------------------------------------
@@ -2160,6 +2215,8 @@ public func Tick() -> Void {
 	let odoAltHud = odoAltWidget.GetHUD();
 
 	if IsDefined(odoAltHud) {
+		odoAltMesh.ApplyLivePlacementFor(car);
+		odoAltWidget.ApplyLivePlacementFromMesh(odoAltMesh);
 		odoAltHud.Load(odoAltMesh);
 
 		if odoAltHidden {
@@ -2168,12 +2225,19 @@ public func Tick() -> Void {
 			odoAltHud.VM_SetMode(4); // 4 = ODO plate alt only
 			odoAltHud.VM_SetFuelGaugeData(odoText, fuel);
 		};
+	} else {
+		odoAltMesh.VM_HardHide();
 	};
 
   this.ArmTick();
 }
 
 private func HideLastWidget() -> Void {
+	if IsDefined(this.lastFuelMesh) { this.lastFuelMesh.VM_HardHide(); };
+	if IsDefined(this.lastOdoMesh) { this.lastOdoMesh.VM_HardHide(); };
+	if IsDefined(this.lastFuelAltMesh) { this.lastFuelAltMesh.VM_HardHide(); };
+	if IsDefined(this.lastOdoAltMesh) { this.lastOdoAltMesh.VM_HardHide(); };
+
   if IsDefined(this.lastFuelWidget) {
     let fuelHud = this.lastFuelWidget.GetHUD();
     if IsDefined(fuelHud) {

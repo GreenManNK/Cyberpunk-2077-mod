@@ -1,0 +1,60 @@
+NewPerks.Tech_Left_Milestone_1_inline51:
+    $base: NewPerks.Tech_Left_Milestone_1_inline5
+    refStat: BaseStats.ProjectileLauncherRechargeDuration
+    statType: BaseStats.ProjectileLauncherCharges
+
+NewPerks.Tech_Left_Milestone_1_inline41:
+    $base: NewPerks.Tech_Left_Milestone_1_inline4
+    statModifiers: [ NewPerks.Tech_Left_Milestone_1_inline51 ]
+    statPoolType: BaseStatPools.ProjectileLauncherCharges
+
+NewPerks.Tech_Left_Milestone_1_inline3:
+    statPoolUpdates: [ !append-once NewPerks.Tech_Left_Milestone_1_inline41 ]
+
+NewPerks.Tech_Left_Milestone_2_inline61:
+    $base: NewPerks.Tech_Left_Milestone_2_inline6
+    statType: BaseStats.ProjectileLauncherChargesRegenMult
+
+NewPerks.Tech_Left_Perk_2_1_inline51:
+    $base: NewPerks.Tech_Left_Perk_2_1_inline5
+    statType: BaseStats.ProjectileLauncherMaxCharges
+
+NewPerks.Tech_Left_Perk_2_1_inline91:
+    $base: NewPerks.Tech_Left_Perk_2_1_inline9
+    statType: BaseStats.ProjectileLauncherChargesRegenMult
+
+NewPerks.Tech_Left_Milestone_2_inline4:
+    statModifiers: [ !append-once NewPerks.Tech_Left_Milestone_2_inline61 ]
+
+NewPerks.Tech_Left_Perk_2_1_inline4:
+    statModifiers: [ !append-once NewPerks.Tech_Left_Perk_2_1_inline51 ]
+
+NewPerks.Tech_Left_Perk_2_1_inline8:
+    statModifiers: [ !append-once NewPerks.Tech_Left_Milestone_2_inline61 ]
+
+NewPerks.Tech_Left_Perk_2_4_inline61:
+    $base: NewPerks.Tech_Left_Perk_2_4_inline6
+    statType: BaseStats.ProjectileLauncherChargesRegenMult
+
+NewPerks.Tech_Left_Perk_2_4_inline51:
+    $base: NewPerks.Tech_Left_Perk_2_4_inline5
+    statModifiers: [ NewPerks.Tech_Left_Perk_2_4_inline61 ]
+
+NewPerks.Tech_Left_Perk_2_4_inline41:
+    $base: NewPerks.Tech_Left_Perk_2_4_inline4
+    typeOfItem: ProjectileLauncher
+
+NewPerks.Tech_Left_Perk_2_4_inline31:
+    $base: NewPerks.Tech_Left_Perk_2_4_inline3
+    prereqRecord: NewPerks.Tech_Left_Perk_2_4_inline41
+    statGroup: NewPerks.Tech_Left_Perk_2_4_inline51
+
+NewPerks.Tech_Left_Perk_2_4_inline2:
+    effectors: [ !append-once NewPerks.Tech_Left_Perk_2_4_inline31 ]
+
+NewPerks.Tech_Left_Milestone_3_inline51:
+    $base: NewPerks.Tech_Left_Milestone_3_inline5
+    statType: BaseStats.ProjectileLauncherChargesRegenMult
+
+NewPerks.Tech_Left_Milestone_3_inline4:
+    statModifiers: [ !append-once NewPerks.Tech_Left_Milestone_3_inline51 ]

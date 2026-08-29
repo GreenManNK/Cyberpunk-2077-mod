@@ -1,0 +1,21 @@
+package Items
+using RTDB, ItemAction
+
+mq058_mint_girlfriend_chat : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq058_semimaru_crystalcoat/mq058_shards/mq058_mint_girlfriend_chat";
+	} : ItemAction.Read;
+}
+
+mq058_shard_generic1 : BaseShard
+{
+	displayName = "";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/generic/shards/others/generic_death_loved";
+	} : ItemAction.Read;
+}
+

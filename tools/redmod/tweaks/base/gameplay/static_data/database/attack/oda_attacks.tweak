@@ -1,0 +1,124 @@
+package Attacks
+using RTDB
+
+OdaExplosion : Attack_GameEffect
+{
+	attackType = "AttackType.Explosion";
+	effectName = "oda_explosions";
+	effectTag = "default_explosion";
+	range = 4.0f;
+}
+
+MaskExplosion : OdaExplosion
+{
+	attackType = "AttackType.Explosion";
+	effectTag = "mask_explosion";
+	range = 0.1f;
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "Oda.Stunned";
+			applyImmediately = true;
+		}, 
+		{
+			statusEffect = "Oda.Revealed";
+			applyImmediately = true;
+		}
+	];
+	hitFlags = 
+	[
+		"FriendlyFire"
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier
+	];
+}
+
+OdaSmartRifleBulletPackage : RangedAttackPackage
+{
+	defaultFire = "Attacks.OdaSmartRiflePhysicalBullet";
+	chargeFire = "Attacks.OdaSmartRiflePhysicalBullet";
+}
+
+OdaSmartRiflePhysicalBullet : RangedAttack
+{
+	playerAttack = "Attacks.OdaSmartRifleBulletProjectile";
+	playerTimeDilated = "Attacks.OdaSmartRifleBulletProjectile";
+	NPCAttack = "Attacks.OdaSmartRifleBulletProjectile";
+	NPCTimeDilated = "Attacks.OdaSmartRifleBulletProjectile";
+}
+
+OdaSmartRifleBulletEffect : Bullet_GameEffect
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		"Attacks.OdaSmartRifleDamage"
+	];
+	userDataPath = "Attacks.SmartBullet";
+}
+
+OdaSmartRifleBulletProjectile : Bullet_Projectile
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		"Attacks.OdaSmartRifleDamage"
+	];
+	userDataPath = "Attacks.SmartBullet";
+	projectileTemplateName = "smart_bullet_high";
+}
+
+OdaSmartRifleDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.075f;
+}
+
+OdaComboAttackDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.3f;
+}
+
+OdaDashAttackDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.4f;
+}
+
+OdaLeapAttackDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.5f;
+}
+
+OdaSmokeAttackDamage : CombinedStatModifier
+{
+	statType = "BaseStats.PhysicalDamage";
+	modifierType = "Additive";
+	refStat = "BaseStats.NPCDamage";
+	refObject = "Root";
+	opSymbol = "*";
+	value = 0.6f;
+}
+

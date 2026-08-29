@@ -1,0 +1,27 @@
+Character.GR_the_mox_shotgun2_palica_shotgunner_wa:
+    $base: Character.the_mox_base_wa
+    lootDrop: Loot.MoxiesGenericRanged1T1
+    primaryEquipment: Character.GR_the_mox_shotgun2_palica_shotgunner_wa_primary_equipment
+    archetypeData: ArchetypeData.ShotgunnerT2
+    rarity: NPCRarity.Rare
+    abilities:
+        - !append-once Ability.CanUseEMPGrenades
+        - !append-once Ability.DealsElectricDamage
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_the_mox_shotgun2_palica_shotgunner_wa_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_the_mox_shotgun2_palica_shotgunner_wa_primary_item
+
+Character.GR_the_mox_shotgun2_palica_shotgunner_wa_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Palica_Neon
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

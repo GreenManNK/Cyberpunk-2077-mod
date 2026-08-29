@@ -1,0 +1,8 @@
+package LootTables
+using RTDB
+
+PlaceholderLoot : LootTable
+{
+	fk< LootItem >[] lootItems = [];
+}
+

@@ -1,0 +1,2033 @@
+package GameplayRestriction
+using RTDB, Effectors, Prereqs, Perks
+
+FistFight : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FistFight", "Fists", "NoRadialMenus", "Melee", "NoQuickHacks", "DisableRagdoll", "NoPhone", "VehicleNoInteraction", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+}
+
+Melee : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Melee"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+SecurityLocker : Melee
+{
+}
+
+NoDangerousCyberware : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoArmsCW"
+	];
+	packages = 
+	[
+		"GLP.DeactivateDangerousCyberware"
+	];
+}
+
+NoCyberware : GameplayRestrictionStatusEffect
+{
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+CerberusNoSandevistan : GameplayRestrictionStatusEffect
+{
+}
+
+NoDangerousPerks : GameplayRestrictionStatusEffect
+{
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		"GLP.DeactivateDangerousPerks"
+	];
+}
+
+Firearms : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Firearms", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+NoGrenadeOrGadget : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoGrenadeOrGadget"
+	];
+}
+
+ShootingRangeCompetition : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"ShootingRangeCompetition", "Firearms", "FirearmsNoSwitch", "NoQuickMelee", "NoRadialMenus"
+	];
+}
+
+FirearmsNoUnequipNoSwitch : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FirearmsNoUnequipNoSwitch", "FirearmsNoUnequip", "FirearmsNoSwitch", "Firearms", "NoWeaponWheel"
+	];
+}
+
+NoQuickMelee : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoQuickMelee"
+	];
+}
+
+OneHandedFirearms : GameplayRestrictionStatusEffect
+{
+	savable = false;
+	gameplayTags += 
+	[
+		"OneHandedFirearms"
+	];
+}
+
+DriverCombatFirearms : GameplayRestrictionStatusEffect
+{
+	savable = false;
+	gameplayTags += 
+	[
+		"DriverCombatFirearms"
+	];
+}
+
+DriverCombatBikeWeapons : GameplayRestrictionStatusEffect
+{
+	savable = false;
+	gameplayTags += 
+	[
+		"DriverCombatBikeWeapons"
+	];
+}
+
+NoWeapons : GameplayRestrictionStatusEffect
+{
+	savable = false;
+	gameplayTags += 
+	[
+		"NoWeapons"
+	];
+}
+
+InfiniteAmmo : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"InfiniteAmmo"
+	];
+}
+
+PhoneCall : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"PhoneCall", "BlockFastTravel"
+	];
+	CName restrictionName = "PhoneCall_Restriction";
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						nestedPrereqs = 
+						[
+							{
+								stateName = "InCombat";
+								isInState = false;
+							} : Prereqs.CombatPSMPrereq, 
+							{
+								statusEffect = "GameplayRestriction.DriverCombatFirearms";
+							} : StatusEffectAbsentPrereq
+						];
+					} : ANDPrereq;
+					effectorToApply = 
+					{
+						statGroup = 
+						{
+							statModifiers = 
+							[
+								{
+									statType = "BaseStats.CanUseOverclock";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier, 
+								{
+									statType = "BaseStats.HasSandevistan";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier
+							];
+						};
+					} : ApplyStatGroupOnPlayer;
+				} : Perks.ApplyEffectorOnPlayer
+			];
+		}
+	];
+}
+
+NoPhone : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoPhone"
+	];
+}
+
+PhoneNoTexting : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"PhoneNoTexting"
+	];
+}
+
+PhoneNoCalling : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"PhoneNoCalling"
+	];
+}
+
+PhoneInterrupted : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"PhoneInterrupted", "NoPhone"
+	];
+}
+
+NoZooming : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoZooming"
+	];
+}
+
+DeviceControlZoomLock : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"DeviceControlZoomLock"
+	];
+}
+
+NoCameraControl : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoCameraControl"
+	];
+}
+
+VehicleNoSummoning : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleNoSummoning"
+	];
+}
+
+NoRadialMenus : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoRadialMenus", "VehicleBlockRadioInput"
+	];
+}
+
+NoCombat : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoCombat", "NoQuickHacks", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+NoPhotoMode : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoPhotoMode"
+	];
+}
+
+VehicleSummoning : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleSummoning", "NoPhone", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+}
+
+CustomVehicleSummon : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"CustomVehicleSummon"
+	];
+}
+
+NoWorldInteractions : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoWorldInteractions"
+	];
+}
+
+VehicleNoInteraction : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleNoInteraction"
+	];
+}
+
+VehicleScene : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleScene", "NoWeaponWheel"
+	];
+}
+
+VehicleSceneFpp : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleScene", "VehicleFPP", "NoWeaponWheel"
+	];
+}
+
+VehicleOnlyForward : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleOnlyForward"
+	];
+}
+
+VehicleSceneFppOnlyForward : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleScene", "VehicleFPP", "VehicleOnlyForward", "NoWeaponWheel"
+	];
+}
+
+VehicleCombat : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleCombat", "InfiniteAmmo", "Firearms"
+	];
+}
+
+VehicleBlockExit : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleBlockExit"
+	];
+}
+
+VehicleBlockRadioInput : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleBlockRadioInput", "VehicleBlockPocketRadio"
+	];
+}
+
+VehicleCombatNoInterruptions : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleCombat", "VehicleCombatBlockExit", "InfiniteAmmo", "FirearmsNoUnequip", "Firearms", "BlockAllHubMenu", "NoPhone"
+	];
+}
+
+VehicleCombatBlockExit : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleCombat", "InfiniteAmmo", "Firearms", "VehicleCombatBlockExit", "FirearmsNoUnequip", "NoPhone"
+	];
+}
+
+VehicleFPP : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"VehicleFPP"
+	];
+}
+
+NoDriving : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoDriving"
+	];
+}
+
+BlockTrafficInteractions : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockTrafficInteractions"
+	];
+}
+
+BodyCarryingNoDrop : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BodyCarryingNoDrop"
+	];
+}
+
+BodyCarryingForceDrop : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BodyCarryingForceDrop"
+	];
+}
+
+BodyCarryingGeneric : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BodyCarryingGeneric", "NoRadialMenus", "NoLadder", "NoQuickMelee", "FirearmsNoSwitch", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.JumpHeight";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Acceleration";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.7f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+BodyCarryingBodyMasterPerk5 : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BodyCarryingBodyMasterPerk5", "NoRadialMenus", "NoLadder", "NoQuickMelee", "FirearmsNoSwitch", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+}
+
+BodyCarryingFriendly : BodyCarryingGeneric
+{
+	gameplayTags += 
+	[
+		"BodyCarryingFriendly"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JumpHeight";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Acceleration";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.7f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+BodyCarryingCanSprint : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BodyCarryingCanSprint", "NoSlide", "OneHandedFirearms", "NoLadder", "NoQuickMelee", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 1.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 1.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JumpHeight";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Acceleration";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.7f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+BodyCarryingWoundedSoldier : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoSlide", "NoLadder", "NoQuickMelee", "NoQuickHacks", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JumpHeight";
+					modifierType = "Multiplier";
+					value = 0.0f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Acceleration";
+					modifierType = "Multiplier";
+					value = 0.5f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+NoSecondHeart : GameplayRestrictionStatusEffect
+{
+	packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasSecondHeart";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+Braindance : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Braindance", "NoCombat"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanDash";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseCovers";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseGrenades";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanBlock";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanParry";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanGrab";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseTakedowns";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseLeftHand";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+Cyberspace : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Cyberspace", "CyberspacePresence", "Tier2Locomotion", "BlockAllHubMenu", "NoScanning", "NoRadialMenus", "NoZooming", "NoPhone", "VehicleSummoning", "NoEncumbrance", "ForceStand"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasAirHover";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+FastForward : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FastForward", "NoMovement", "NoJump", "NoCombat", "NoWorldInteractions", "NoQuickMelee", "NoScanning", "NoRadialMenus", "NoZooming", "NoPhone"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.FFInputLock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.AllowMovementInput";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Deceleration";
+					modifierType = "Additive";
+					value = 32;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistanTier1";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+FastForwardHintActive : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FastForwardHintActive"
+	];
+}
+
+FastForwardCrouchLock : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FastForwardCrouchLock"
+	];
+	duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 2.5;
+			} : ConstantStatModifier
+		];
+	};
+	maxStacks = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxStacks";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.FFInputLock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+AllowTracingInTier2 : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"AllowTracingInTier2"
+	];
+}
+
+AllowTracingInTier3 : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"AllowTracingInTier3"
+	];
+}
+
+AllowTracingInTier4 : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"AllowTracingInTier4"
+	];
+}
+
+AllowTracingInTier5 : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"AllowTracingInTier5"
+	];
+}
+
+AllowFastForwardInVehicle : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"AllowFastForwardInVehicle"
+	];
+}
+
+NoMovement : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoMovement"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Deceleration";
+					modifierType = "Additive";
+					value = 32;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+NoJump : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoJump"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasAirHover";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+Tier2LocomotionSlow : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Tier2Locomotion", "NoSlide", "NoLadder", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+Tier2Locomotion : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Tier2Locomotion", "NoLadder", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+Tier2LocomotionFast : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"Tier2Locomotion", "NoLadder", "NoInhalerOrInjector", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+SandstormLocomotion : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"SandstormLocomotion", "NoCombat", "NoRadialMenus", "FirearmsNoSwitch"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+SpaceShuttleInterior : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"SpaceShuttleInterior", "NoCombat", "NoRadialMenus", "VehicleNoInteraction"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			animationWrapperOverrides = 
+			[
+				"lowGravity"
+			];
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.4f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Acceleration";
+					modifierType = "Multiplier";
+					value = 0.08f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Deceleration";
+					modifierType = "Multiplier";
+					value = 0.09f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Brake";
+					modifierType = "Additive";
+					value = -35f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.BrakeDot";
+					modifierType = "Additive";
+					value = -0.4f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDoubleJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.JenkinsHelper";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+ForceCrouch : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"ForceCrouch"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 1;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+ForceStand : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"ForceStand"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+ForceStandKeepState : ForceStand
+{
+	gameplayTags += 
+	[
+		"KeepState"
+	];
+}
+
+ForceStandWithDodge : ForceStand
+{
+	gameplayTags += 
+	[
+		"ForceStand"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+ForceAim : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"ForceAim"
+	];
+}
+
+ForceCrouchNoMovementOnlyFirearms : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"ForceCrouchNoMovementOnlyFirearms", "ForceCrouch", "Firearms"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.MaxSpeed";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.Deceleration";
+					modifierType = "Additive";
+					value = 32;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanCrouch";
+					modifierType = "Multiplier";
+					value = 1;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasChargeJump";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanSprint";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+FocusModeLocomotion : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"FocusModeLocomotion"
+	];
+	savable = false;
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasDodge";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasDodgeAir";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+GrappleNoBreakFree : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"GrappleNoBreakFree"
+	];
+}
+
+NoScanning : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoScanning"
+	];
+}
+
+NoTimeSkip : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoTimeSkip"
+	];
+}
+
+NoTimeDisplay : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoTimeDisplay"
+	];
+}
+
+NoCrafting : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoCrafting"
+	];
+}
+
+NoEncumbrance : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoEncumbrance"
+	];
+}
+
+InDaClub : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoWeaponWheel", "InDaClub"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					prereqRecord = 
+					{
+						stateName = "InCombat";
+						isInState = false;
+					} : Prereqs.CombatPSMPrereq;
+					effectorToApply = 
+					{
+						statGroup = 
+						{
+							statModifiers = 
+							[
+								{
+									statType = "BaseStats.CanSprint";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier, 
+								{
+									statType = "BaseStats.HasDodge";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier, 
+								{
+									statType = "BaseStats.HasChargeJump";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier, 
+								{
+									statType = "BaseStats.HasDoubleJump";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier
+							];
+						};
+					} : ApplyStatGroupOnPlayer;
+				} : Perks.ApplyEffectorOnPlayer
+			];
+		}
+	];
+}
+
+NoSprint : GameplayRestrictionStatusEffect
+{
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					effectorToApply = 
+					{
+						statGroup = 
+						{
+							statModifiers = 
+							[
+								{
+									statType = "BaseStats.CanSprint";
+									modifierType = "Multiplier";
+									value = 0.f;
+								} : ConstantStatModifier
+							];
+						};
+					} : ApplyStatGroupOnPlayer;
+				} : Perks.ApplyEffectorOnPlayer
+			];
+		}
+	];
+}
+
+MetroRide : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"MetroRide"
+	];
+}
+
+BinocularView : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BinocularView"
+	];
+}
+
+CinematicCamera : GameplayRestrictionStatusEffect
+{
+	savable = false;
+	gameplayTags += 
+	[
+		"NoCombat", "NoQuickHacks", "NoGrenadeOrGadget"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.HasBerserk";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasSandevistan";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HasKerenzikov";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.CanUseOverclock";
+					modifierType = "Multiplier";
+					value = 0.f;
+				} : ConstantStatModifier
+			];
+		}
+	];
+}
+
+NoHealing : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"NoInhalerOrInjector"
+	];
+}
+
+BlockAllMenu : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockAllMenu"
+	];
+}
+
+BlockAllHubMenu : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockAllHubMenu"
+	];
+}
+
+LockInHubMenu : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"LockInHubMenu"
+	];
+}
+
+PreventLowHealthOverlay : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"PreventLowHealthOverlay"
+	];
+}
+
+BlockFastTravelQuest : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockFastTravel"
+	];
+	CName restrictionName = "BlockFastTravelQuest";
+}
+
+BlockFastTravel : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockFastTravel"
+	];
+	CName restrictionName = "Generic_BlockFastTravel";
+}
+
+BlockDeviceInteractions : GameplayRestrictionStatusEffect
+{
+	fk< ActionRestrictionGroup > actionRestriction = "ActionRestriction.LockAllActionsRestriction";
+}
+
+OnlyOpenDoor : GameplayRestrictionStatusEffect
+{
+	fk< ActionRestrictionGroup > actionRestriction = "ActionRestriction.OnlyOpenDoorRestriction";
+}
+
+BodyCarryingActionRestriction : GameplayRestrictionStatusEffect
+{
+	fk< ActionRestrictionGroup > actionRestriction = "ActionRestriction.CarryingRestriction";
+}
+
+PhoneCallDeviceActionRestrictions : GameplayRestrictionStatusEffect
+{
+	fk< ActionRestrictionGroup > actionRestriction = "ActionRestriction.PhoneCallRestriction";
+}
+
+BlockSmartWeapons : GameplayRestrictionStatusEffect
+{
+	gameplayTags += 
+	[
+		"BlockSmartWeapons"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statGroup = 
+					{
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.SmartGunHipMaxLockedTargets";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.SmartGunAdsMaxLockedTargets";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier, 
+							{
+								statType = "BaseStats.SmartGunMaxLockedPointsPerTarget";
+								modifierType = "Multiplier";
+								value = 0;
+							} : ConstantStatModifier
+						];
+					};
+					bool reapplyOnWeaponChange = true;
+				} : ApplyStatGroupOnWeapon
+			];
+		}
+	];
+}
+

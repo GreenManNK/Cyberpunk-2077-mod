@@ -1,0 +1,410 @@
+package LootTables
+using RTDB
+
+Q112_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q112_parade_LRM_chemicals : Q112_Loot
+{
+	lootItems = [];
+}
+
+Q112_parade_LRM_equipment : Q112_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.CasualClothing";
+		}
+	];
+}
+
+Q112_parade_LRM_toolbox : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q112_parade_LRS_ammo : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q112_parade_LRS_ammo_sniper : Q112_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6;
+			dropCountMin = 12;
+			dropCountMax = 30;
+			itemID = "Ammo.SniperRifleAmmo";
+		}
+	];
+}
+
+Q112_parade_LRS_suitcase : Q112_Loot
+{
+	minItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.CasualClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.LowQualityDrink";
+		}
+	];
+}
+
+Q112_parade_LRS_consumables : Q112_Loot
+{
+	minItemsToLoot = 4;
+	maxItemsToLoot = 4;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q112_parade_LRS_crate : Q112_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem4";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem9";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem23";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem24";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem26";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem28";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem29";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.GenericJunkItem30";
+		}
+	];
+}
+
+Q112_parade_LRS_first_aid : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q112_parade_LRS_gadgets : Q112_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable", "LootTables.TechJunkieItemsTable"
+	];
+}
+
+Q112_parade_LRS_weapon : Q112_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.RevolverQuery";
+		}
+	];
+}
+
+Q112_warehouse_MCM_chemicals : Q112_Loot
+{
+	lootItems = [];
+}
+
+Q112_warehouse_MCM_equipment : Q112_Loot
+{
+	minItemsToLoot = 2;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.GenericMeleeModsQuery";
+		}
+	];
+}
+
+Q112_warehouse_MCM_toolbox : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q112_warehouse_MCS_ammo : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q112_warehouse_MCS_consumables : Q112_Loot
+{
+	minItemsToLoot = 3;
+	maxItemsToLoot = 3;
+	lootItems = 
+	[
+		{
+			dropChance = 0.2;
+			dropCountMin = 3;
+			dropCountMax = 5;
+			itemID = "Items.HealthBooster";
+		}, 
+		{
+			dropChance = 0.2;
+			itemID = "Items.PerkPointSkillbook";
+		}
+	];
+}
+
+Q112_warehouse_MCS_crates : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q112_warehouse_MCS_first_aid : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q112_warehouse_MCS_gadgets : Q112_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable", "LootTables.TechJunkieItemsTable"
+	];
+}
+
+Q112_warehouse_MCS_valuable : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q112_safehouse_MRM_locker : Q112_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.7;
+			query = "Query.ArasakaClothing";
+		}
+	];
+}
+
+Q112_safehouse_MRM_toolbox : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q112_safehouse_MRS_ammo : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q112_safehouse_MRS_freezer : Q112_Loot
+{
+}
+
+Q112_safehouse_MRS_suitcase : Q112_Loot
+{
+	minItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+	queries = 
+	[
+		{
+			dropChance = 0.2;
+			query = "Query.MediumQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ArasakaClothing";
+		}
+	];
+}
+
+Q112_safehouse_MRS_first_aid : Q112_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q112_safehouse_MRS_valuable : Q112_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 700;
+			dropCountMax = 1000;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q112_safehouse_MRS_weapon : Q112_Loot
+{
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Shingen_Default";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Kenshin_Default";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Yukimura_Default";
+		}
+	];
+}
+

@@ -1,0 +1,77 @@
+package LootTables
+using RTDB
+
+SQ024_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+SQ024_garage_MIM_equipment : SQ024_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.6;
+			query = "Query.IndustrialClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.RecipeSimpleFabricEnhancerQuery";
+		}
+	];
+}
+
+SQ024_garage_MIM_locker : SQ024_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+SQ024_garage_MIM_toolbox : SQ024_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+SQ024_garage_MIS_first_aid : SQ024_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+SQ024_garage_MIS_gadgets : SQ024_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+

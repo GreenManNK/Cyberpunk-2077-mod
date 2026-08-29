@@ -1,0 +1,237 @@
+package Royce
+using RTDB, BaseStatusEffect, BaseStats, Effectors, QuickHack, Prereqs
+
+OverloadWeakspotEffector : ApplyStatusEffectEffector
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				statusEffect = "Royce.Broken";
+			} : StatusEffectAbsentPrereq, 
+			"BaseStatusEffect.CyberwareMalfunctionWeakspotDestructionAppliedPereq"
+		];
+	} : Prereqs.ANDPrereq;
+	statusEffect = "Royce.RoyceExplodeExplosive";
+	removeWithEffector = false;
+}
+
+RoyceExplodeExplosive : BaseQuickHackStatusEffect
+{
+	fk< StatusEffectType > statusEffectType = "BaseStatusEffectTypes.Jam";
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	CName[] gameplayTags = 
+	[
+		"Debuff", "JamWeapon"
+	];
+	uiData = "BaseStatusEffect.JamWeaponUI";
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			bool stackable = false;
+			effectors = 
+			[
+				{
+					CName effectorClassName = "DestroyWeakspotEffector";
+					int weakSpotIndex = -1;
+				} : Effector, 
+				{
+					statusEffect = "Royce.Broken";
+					removeWithEffector = false;
+				} : ApplyStatusEffectEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+Broken : StatusEffect
+{
+	bool canReapply = false;
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+		} : GameplayLogicPackage
+	];
+}
+
+WeakSpotDestroyed : StatusEffect
+{
+	fk< StatModifierGroup > duration = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.MaxDuration";
+				modifierType = "Additive";
+				value = 1;
+			} : ConstantStatModifier
+		];
+	};
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			bool stackable = false;
+			effectors = 
+			[
+				{
+					prereqRecord = "Prereqs.AlwaysTruePrereq";
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Health";
+							statPoolValue = -25f;
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+HeadExploded : StatusEffect
+{
+	fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+	CName[] gameplayTags += 
+	[
+		"RoyceStatusEffect"
+	];
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			effectors = 
+			[
+				"Royce.HeadExplodedEffector"
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+HeadExplodedEffector : Effector
+{
+	fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+	CName effectorClassName = "ChangeAppearanceEffector";
+	bool resetAppearance = false;
+	CName appearanceName = "royce_dead";
+}
+
+Phase1 : StatusEffect
+{
+	bool canReapply = false;
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+		} : GameplayLogicPackage
+	];
+}
+
+Phase2 : StatusEffect
+{
+	bool canReapply = false;
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+		} : GameplayLogicPackage
+	];
+}
+
+Jackie_Royce_Dps_Modifier : DebuffStatusEffect
+{
+	fk< StatModifierGroup > duration = "BaseStats.InfiniteDuration";
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.NPCDamage";
+					modifierType = "Multiplier";
+					value = 0.03;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+InvulnerableLimited : StatusEffect
+{
+	fk< GameplayLogicPackage >[] packages = 
+	[
+		{
+			fk< StatModifierGroup > duration = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.MaxDuration";
+						modifierType = "Additive";
+						value = 1;
+					} : ConstantStatModifier
+				];
+			};
+			fk< StatModifier >[] stats = 
+			[
+				{
+					statType = "BaseStats.IsInvulnerable";
+					modifierType = "Additive";
+					value = 1.f;
+				} : ConstantStatModifier
+			];
+		} : GameplayLogicPackage
+	];
+}
+
+MaelstromVsMilitech_Stat_mult : ApplyStatGroupEffector
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				fact = "q003_militech_betrayed";
+				value = 1;
+				comparisonType = "GreaterOrEqual";
+			} : FactValuePrereq, 
+			{
+				fact = "q003_done";
+				value = 0;
+				comparisonType = "LessOrEqual";
+			} : FactValuePrereq
+		];
+	} : ANDPrereq;
+	statGroup = 
+	{
+		statModifiers = 
+		[
+			{
+				statType = "BaseStats.NPCDamage";
+				modifierType = "Multiplier";
+				id = "boss_power_level_to_dps_mult";
+				column = "maelstrom_vs_militech_level_to_stat_mult";
+				refStat = "BaseStats.PowerLevel";
+			} : CurveStatModifier, 
+			{
+				statType = "BaseStats.Health";
+				modifierType = "Multiplier";
+				id = "boss_power_level_to_dps_mult";
+				column = "maelstrom_vs_militech_level_to_stat_mult";
+				refStat = "BaseStats.PowerLevel";
+			} : CurveStatModifier
+		];
+	};
+}
+

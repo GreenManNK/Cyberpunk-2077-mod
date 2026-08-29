@@ -1,0 +1,96 @@
+class TutorialPopupDisplayController extends inkLogicController
+{
+	protected editable var m_title : inkTextRef;
+	protected editable var m_message : inkTextRef;
+	protected editable var m_image : inkImageRef;
+	protected editable var m_video_1360x768 : inkVideoRef;
+	protected editable var m_video_1024x576 : inkVideoRef;
+	protected editable var m_video_1280x720 : inkVideoRef;
+	protected editable var m_video_720x405 : inkVideoRef;
+	protected editable var m_inputHint : inkWidgetRef;
+	private var m_data : TutorialPopupData;
+
+	public function SetData( data : TutorialPopupData, inputDevice : InputDevice, inputScheme : InputScheme )
+	{
+		m_data = data;
+		inkTextRef.SetText( m_title, m_data.title );
+		UpdateMessage( inputDevice, inputScheme );
+		SetVideoData( m_data.videoType, m_data.video );
+		if( TDBID.IsValid( m_data.imageId ) )
+		{
+			inkImageRef.SetVisible( m_image, true );
+			InkImageUtils.RequestSetImage( this, m_image, m_data.imageId );
+		}
+		else
+		{
+			inkImageRef.SetVisible( m_image, false );
+		}
+		inkWidgetRef.SetVisible( m_inputHint, m_data.closeAtInput );
+	}
+
+	public function Refresh( inputDevice : InputDevice, inputScheme : InputScheme )
+	{
+		UpdateMessage( inputDevice, inputScheme );
+	}
+
+	private function UpdateMessage( inputDevice : InputDevice, inputScheme : InputScheme )
+	{
+		var isEntryDescriptionOverridden : Bool;
+		var i : Int32;
+		if( inkTextRef.IsValid( m_message ) )
+		{
+			for( i = 0; i < m_data.messageOverrideDataList.Size(); i += 1 )
+			{
+				if( m_data.messageOverrideDataList[ i ].inputDevice == inputDevice && ( m_data.messageOverrideDataList[ i ].inputDevice == InputDevice.KBM || m_data.messageOverrideDataList[ i ].inputScheme == inputScheme ) )
+				{
+					inkTextRef.SetText( m_message, m_data.messageOverrideDataList[ i ].GetOverriddenLocalizedText() );
+					isEntryDescriptionOverridden = true;
+					break;
+				}
+			}
+			if( !( isEntryDescriptionOverridden ) )
+			{
+				inkTextRef.SetText( m_message, m_data.message );
+			}
+		}
+	}
+
+	private function SetVideoData( videoType : VideoType, video : ResRef )
+	{
+		inkVideoRef.SetVisible( m_video_1360x768, false );
+		inkVideoRef.SetVisible( m_video_1024x576, false );
+		inkVideoRef.SetVisible( m_video_1280x720, false );
+		inkVideoRef.SetVisible( m_video_720x405, false );
+		switch( videoType )
+		{
+			case VideoType.Tutorial_720x405:
+				PlayVideo( m_video_720x405, video );
+			break;
+			case VideoType.Tutorial_1024x576:
+				PlayVideo( m_video_1024x576, video );
+			break;
+			case VideoType.Tutorial_1280x720:
+				PlayVideo( m_video_1280x720, video );
+			break;
+			case VideoType.Tutorial_1360x768:
+				PlayVideo( m_video_1360x768, video );
+			break;
+			default:
+				break;
+		}
+	}
+
+	private function PlayVideo( videoWidget : inkVideoRef, video : ResRef )
+	{
+		if( ResRef.IsValid( video ) )
+		{
+			inkVideoRef.Stop( videoWidget );
+			inkVideoRef.SetVideoPath( videoWidget, video );
+			inkVideoRef.SetLoop( videoWidget, true );
+			inkVideoRef.Play( videoWidget );
+			inkVideoRef.SetVisible( videoWidget, true );
+		}
+	}
+
+}
+

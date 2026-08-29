@@ -1,0 +1,403 @@
+package Perks
+using RTDB, Prereqs
+
+GunslingerProficiencyPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Reflexes";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+GunslingerMasteryPrereq : StatPrereq
+{
+	float valueToCheck = 0;
+	CName statType = "Gunslinger";
+	CName comparisonType = "GreaterOrEqual";
+}
+
+Gunslinger_Area_01 : PerkArea
+{
+	enumName = "Gunslinger_Area_01";
+	requirement = 
+	{
+		valueToCheck = 0;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_01_Perk_1", "Perks.Gunslinger_Area_01_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+Gunslinger_Area_02 : PerkArea
+{
+	enumName = "Gunslinger_Area_02";
+	requirement = 
+	{
+		valueToCheck = 5;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_02_Perk_1", "Perks.Gunslinger_Area_02_Perk_2"
+	];
+	maxLevel = 3;
+}
+
+Gunslinger_Area_03 : PerkArea
+{
+	enumName = "Gunslinger_Area_03";
+	requirement = 
+	{
+		valueToCheck = 7;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_03_Perk_1", "Perks.Gunslinger_Area_03_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+Gunslinger_Area_04 : PerkArea
+{
+	enumName = "Gunslinger_Area_04";
+	requirement = 
+	{
+		valueToCheck = 9;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_04_Perk_1", "Perks.Gunslinger_Area_04_Perk_2", "Perks.Gunslinger_Area_04_Perk_3"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_05 : PerkArea
+{
+	enumName = "Gunslinger_Area_05";
+	requirement = 
+	{
+		valueToCheck = 11;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_05_Perk_1", "Perks.Gunslinger_Area_05_Perk_2"
+	];
+	maxLevel = 2;
+}
+
+Gunslinger_Area_06 : PerkArea
+{
+	enumName = "Gunslinger_Area_06";
+	requirement = 
+	{
+		valueToCheck = 12;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_06_Perk_1", "Perks.Gunslinger_Area_06_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_07 : PerkArea
+{
+	enumName = "Gunslinger_Area_07";
+	requirement = 
+	{
+		valueToCheck = 14;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_07_Perk_1", "Perks.Gunslinger_Area_07_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_08 : PerkArea
+{
+	enumName = "Gunslinger_Area_08";
+	requirement = 
+	{
+		valueToCheck = 16;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_08_Perk_1", "Perks.Gunslinger_Area_08_Perk_2"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_09 : PerkArea
+{
+	enumName = "Gunslinger_Area_09";
+	requirement = 
+	{
+		valueToCheck = 18;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_09_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_10 : PerkArea
+{
+	enumName = "Gunslinger_Area_10";
+	requirement = 
+	{
+		valueToCheck = 20;
+	} : GunslingerProficiencyPrereq;
+	masteryLevel = 
+	{
+		valueToCheck = 0;
+	} : GunslingerMasteryPrereq;
+	perks = 
+	[
+		"Perks.Gunslinger_Area_10_Perk_1"
+	];
+	maxLevel = 1;
+}
+
+Gunslinger_Area_01_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6462";
+	loc_desc_key = "LocKey#5762";
+	perkIcon = "UIIcon.Gunslinger_Area_01_Perk_1";
+	enumName = "Gunslinger_Area_01_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_01_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6463";
+	loc_desc_key = "LocKey#5763";
+	perkIcon = "UIIcon.Gunslinger_Area_01_Perk_2";
+	enumName = "Gunslinger_Area_01_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_02_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6464";
+	loc_desc_key = "LocKey#5764";
+	perkIcon = "UIIcon.Gunslinger_Area_02_Perk_1";
+	enumName = "Gunslinger_Area_02_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_02_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6465";
+	loc_desc_key = "LocKey#5765";
+	perkIcon = "UIIcon.Gunslinger_Area_02_Perk_2";
+	enumName = "Gunslinger_Area_02_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_03_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6466";
+	loc_desc_key = "LocKey#5766";
+	perkIcon = "UIIcon.Gunslinger_Area_03_Perk_1";
+	enumName = "Gunslinger_Area_03_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_03_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6467";
+	loc_desc_key = "LocKey#5767";
+	perkIcon = "UIIcon.Gunslinger_Area_03_Perk_2";
+	enumName = "Gunslinger_Area_03_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_04_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6468";
+	loc_desc_key = "LocKey#5768";
+	perkIcon = "UIIcon.Gunslinger_Area_04_Perk_1";
+	enumName = "Gunslinger_Area_04_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_04_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6469";
+	loc_desc_key = "LocKey#5769";
+	perkIcon = "UIIcon.Gunslinger_Area_04_Perk_2";
+	enumName = "Gunslinger_Area_04_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_04_Perk_3 : GunslingerPerk
+{
+	loc_name_key = "LocKey#35315";
+	loc_desc_key = "LocKey#79830";
+	perkIcon = "UIIcon.Gunslinger_Area_04_Perk_3";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Gunslinger_Area_04_Perk_3";
+	levels = [];
+}
+
+Gunslinger_Area_05_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6470";
+	loc_desc_key = "LocKey#5770";
+	perkIcon = "UIIcon.Gunslinger_Area_05_Perk_1";
+	enumName = "Gunslinger_Area_05_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_05_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6471";
+	loc_desc_key = "LocKey#5771";
+	perkIcon = "UIIcon.Gunslinger_Area_05_Perk_2";
+	enumName = "Gunslinger_Area_05_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_06_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6472";
+	loc_desc_key = "LocKey#5772";
+	perkIcon = "UIIcon.Gunslinger_Area_06_Perk_1";
+	enumName = "Gunslinger_Area_06_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_06_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6473";
+	loc_desc_key = "LocKey#5773";
+	perkIcon = "UIIcon.Gunslinger_Area_06_Perk_2";
+	utility = "Perks.ActiveUtility";
+	enumName = "Gunslinger_Area_06_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_07_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6474";
+	loc_desc_key = "LocKey#5774";
+	perkIcon = "UIIcon.Gunslinger_Area_07_Perk_1";
+	enumName = "Gunslinger_Area_07_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_07_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6475";
+	loc_desc_key = "LocKey#5775";
+	perkIcon = "UIIcon.Gunslinger_Area_07_Perk_2";
+	enumName = "Gunslinger_Area_07_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_08_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6476";
+	loc_desc_key = "LocKey#5776";
+	perkIcon = "UIIcon.Gunslinger_Area_08_Perk_1";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Gunslinger_Area_08_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_08_Perk_2 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6477";
+	loc_desc_key = "LocKey#5777";
+	perkIcon = "UIIcon.Gunslinger_Area_08_Perk_2";
+	enumName = "Gunslinger_Area_08_Perk_2";
+	levels = [];
+}
+
+Gunslinger_Area_09_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6478";
+	loc_desc_key = "LocKey#5778";
+	perkIcon = "UIIcon.Gunslinger_Area_09_Perk_1";
+	utility = "Perks.ActiveUtility";
+	enumName = "Gunslinger_Area_09_Perk_1";
+	levels = [];
+}
+
+Gunslinger_Area_10_Perk_1 : GunslingerPerk
+{
+	loc_name_key = "LocKey#6480";
+	loc_desc_key = "LocKey#5780";
+	perkIcon = "UIIcon.Gunslinger_Area_10_Perk_1";
+	utility = "Perks.TriggeredUtility";
+	enumName = "Gunslinger_Area_10_Perk_1";
+	levels = [];
+}
+
+GunslingerPerkPrereq : Prereqs.ORPrereq
+{
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		{
+			itemType = "ItemType.Wea_Handgun";
+		} : Prereqs.WeaponHeldByTypePrereq, 
+		{
+			itemType = "ItemType.Wea_Revolver";
+		} : Prereqs.WeaponHeldByTypePrereq
+	];
+}
+
+RevolverPerkPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Revolver";
+}
+
+PistolPerkPrereq : WeaponHeldByTypePrereq
+{
+	itemType = "ItemType.Wea_Handgun";
+}
+
+WeaponFullyModded : ItemInSlotPrereq
+{
+	CName prereqClassName = "ItemInSlotPrereq";
+	checkType = "CheckType.FullyModded";
+	attachmentSlot = "AttachmentSlots.WeaponRight";
+}
+

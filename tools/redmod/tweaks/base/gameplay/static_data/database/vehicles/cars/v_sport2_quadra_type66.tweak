@@ -1,0 +1,2108 @@
+package Vehicle
+using RTDB, BaseStats, Driving, Camera
+
+v_sport2_quadra_type66 : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport2_quadra_type66__basic_01.ent";
+	rightFrontCamber = -3.0f;
+	leftFrontCamber = 3.0f;
+	rightBackCamber = -3.0f;
+	leftBackCamber = 3.0f;
+	rightFrontCamberOffset = ( -0.02, 0, 0 );
+	leftFrontCamberOffset = ( 0.02, 0, 0 );
+	rightBackCamberOffset = ( -0.02, 0, 0 );
+	leftBackCamberOffset = ( 0.02, 0, 0 );
+	visualTags = 
+	[
+		"Standard"
+	];
+	tags += 
+	[
+		"Sport"
+	];
+	manufacturer = "Vehicle.Quadra";
+	randomPassengers = 
+	[
+		"Passengers.NightLifeDriverEntry", "Passengers.NightLifePassengerFrontEntry"
+	];
+	displayName = "LocKey#1618";
+	twintoneModelName = "quadra.type66";
+	appearancesToColorTemplate = "Vehicle.VehicleQuadraType66AppearancesToColorTemplate";
+	vehicleUIData = "Vehicle.VehicleQuadraType66UIData";
+	fk< UIIcon > icon = "UIIcon.quadra_type66__basic_jen_rowley";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	destroyedAppearance = "quadra_type66__basic_burnt_01";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Sport_M";
+	fxWheelsDecals = "Vehicle.FxWheels_Sport_XL";
+	model = "Vehicle.Type66";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 5;
+		} : ConstantStatModifier
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Strong"
+	];
+	fk< VehicleDataPackage > vehDataPackage = 
+	{
+	} : VehicleDataPackage_Type66;
+	enableDestruction = true;
+	player_audio_resource = "v_car_quadra_type_66";
+	traffic_audio_resource = "v_car_quadra_type_66_traffic";
+	destruction = "Vehicle.VehicleDestructionParamsQuadraType66";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.31f;
+			tireWidth = 0.3f;
+			wheelOffset = 0.05f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.41f;
+			rimRadius = 0.315f;
+			tireWidth = 0.44f;
+			wheelOffset = 0.05f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Type66";
+	vehEngineData = 
+	{
+		finalGearTorqueDecimationScalor = 0.98f;
+	} : VehicleEngineData_4_Sport_SC;
+	crowdMemberSettings = "Crowds.Sport_DrivingPackage";
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_Quadra66_High_Close", "Camera.VehicleTPP_4w_Quadra66_High_Medium", "Camera.VehicleTPP_4w_Quadra66_High_Far", "Camera.VehicleTPP_4w_Quadra66_High_DriverCombatClose", "Camera.VehicleTPP_4w_Quadra66_High_DriverCombatMedium", "Camera.VehicleTPP_4w_Quadra66_High_DriverCombatFar", "Camera.VehicleTPP_4w_Quadra66_Low_Close", "Camera.VehicleTPP_4w_Quadra66_Low_Medium", "Camera.VehicleTPP_4w_Quadra66_Low_Far", "Camera.VehicleTPP_4w_Quadra66_Low_DriverCombatClose", "Camera.VehicleTPP_4w_Quadra66_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_Quadra66_Low_DriverCombatFar"
+	];
+	vehDriver_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		rear_view_offset = ( 0.0000, -1.4136, 0.9213 );
+		enable_rear_view = true;
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		is_forward_offset = 1.0f;
+		forward_offset_value = 0.0f;
+	} : VehicleDriverCombatFPPCameraParamsDefault;
+	queryOnlyExceptions = 
+	[
+		"trunk_a", "trunk_b", "hood_a"
+	];
+	drivingParamsPanic = "Driving.Panic_Sport";
+	trafficSuspension = "Vehicle.TrafficSuspension_Sport";
+	weaponSafeModeBounds = 
+	{
+		enableSafeModeBounds = true;
+		backBound = 
+		{
+			yawMin = -100.0f;
+			yawMax = 180.f;
+		};
+	} : WeaponSafeModeBounds;
+}
+
+VehicleDataPackage_Type66 : VehicleDataPackageSport2
+{
+	vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+	entering = 2.4f;
+	slideDuration = 0.8f;
+	open_close_duration = 1.2f;
+	normal_open = 1.7f;
+	stealing_open = 3.3f;
+	exitDelay = 0.4f;
+}
+
+VehicleWheelDrivingPreset_Type66_Front : VehicleWheelDrivingPreset_4_RWD_Front
+{
+	maxBrakingTorque = 600.0f;
+	frictionMulLateral = 0.90f;
+	frictionMulLongitudinal = 0.90f;
+	tireLateralSlipEffectsMul = 1.09f;
+	swaybarStiffness = 19.0f;
+	swaybarDisplacementLimit = 0.10;
+	springDamping = 3700;
+	springReboundDamping = 3500;
+	springBoundDampingLowRate = 2200.0f;
+	springReboundDampingLowRate = 2300.0f;
+	springDampingHighRateCompression = 0.32f;
+	extremeCompressionEventScalor = 0.82f;
+	logicalSuspensionCompressionLength = 0.26f;
+	visualSuspensionDroop = 0.06f;
+	visualSuspensionCompressionLength = 0.05f;
+}
+
+VehicleWheelDrivingPreset_Type66_Rear : VehicleWheelDrivingPreset_4_RWD_Rear
+{
+	maxBrakingTorque = 500.0f;
+	frictionMulLateral = 0.91f;
+	frictionMulLongitudinal = 0.90f;
+	tireLateralSlipEffectsMul = 0.98f;
+	swaybarStiffness = 16.0f;
+	swaybarDisplacementLimit = 0.10;
+	springDamping = 3600;
+	springReboundDamping = 3400;
+	springDampingLowRateCompression = 0.18f;
+	springDampingHighRateCompression = 0.32f;
+	extremeCompressionEventScalor = 0.62f;
+	logicalSuspensionCompressionLength = 0.26f;
+	visualSuspensionDroop = 0.06f;
+	visualSuspensionCompressionLength = 0.10f;
+}
+
+VehicleWheelDrivingPreset_Type66_GT_Front : VehicleWheelDrivingPreset_Type66_Front
+{
+	maxBrakingTorque = 650.0f;
+	frictionMulLateral = 0.91f;
+	frictionMulLongitudinal = 0.91f;
+	swaybarStiffness = 20.0f;
+}
+
+VehicleWheelDrivingPreset_Type66_GT_Rear : VehicleWheelDrivingPreset_Type66_Rear
+{
+	maxBrakingTorque = 550.0f;
+	frictionMulLateral = 0.92f;
+	frictionMulLongitudinal = 0.91f;
+	swaybarStiffness = 17.0f;
+}
+
+VehicleWheelDrivingPreset_60sMuscle_Front : VehicleWheelDrivingPreset_Type66_Front
+{
+	frictionMulLateral = 0.86f;
+	frictionMulLongitudinal = 0.86f;
+	tireLateralSlipEffectsMul = 1.1f;
+	swaybarStiffness = 18.0f;
+	springDamping = 3800;
+	springReboundDamping = 3400;
+	springBoundDampingLowRate = 2000.0f;
+	springReboundDampingLowRate = 2300.0f;
+	extremeCompressionEventScalor = 0.59f;
+	springDampingHighRateCompression = 0.37f;
+	logicalSuspensionCompressionLength = 0.30f;
+	visualSuspensionDroop = 0.08f;
+	wheelsVerticalOffset = 0.04f;
+}
+
+VehicleWheelDrivingPreset_60sMuscle_Rear : VehicleWheelDrivingPreset_Type66_Rear
+{
+	frictionMulLateral = 0.865f;
+	frictionMulLongitudinal = 0.865f;
+	tireLateralSlipEffectsMul = 0.94f;
+	swaybarStiffness = 12.0f;
+	springStiffness = 20.0f;
+	springDamping = 3600;
+	springReboundDamping = 3400;
+	springBoundDampingLowRate = 1800.0f;
+	springReboundDampingLowRate = 2100.0f;
+	extremeCompressionEventScalor = 0.53f;
+	springDampingHighRateCompression = 0.37f;
+	logicalSuspensionCompressionLength = 0.30f;
+	visualSuspensionDroop = 0.05f;
+	visualSuspensionCompressionLength = 0.15f;
+	wheelsVerticalOffset = 0.04f;
+}
+
+VehicleBurnOut_Type66 : VehicleBurnOut_4w_RWD
+{
+	maxSpeedToInitiateBurnOut = 21.f;
+	maxBrakeForceModifier = 0.68f;
+}
+
+VehicleBurnOut_Type66_666hp : VehicleBurnOut_Type66
+{
+	lateralForceMaxSpeed = 6.7f;
+	minLongFrictionCoeff = 0.51f;
+	gripBonusMaxLaunchSpeed = 8.5f;
+}
+
+VehicleBurnOut_Type66_777hp : VehicleBurnOut_Type66_666hp
+{
+	maxSpeedToInitiateBurnOut = 24.f;
+	lateralForceMaxSpeed = 6.9f;
+	lateralAccelForwardSpeedMaxDecimation = 0.4f;
+	lateralSlipRatioInfluence = 0.38f;
+	maxDriveWheelSlipRatio = 21.0f;
+	maxLateralAccelSlipRatioMultipler = 0.92f;
+	maxLongFrictionSlipRatioMultipler = 0.73f;
+	minLongFrictionCoeff = 0.57f;
+	burnOutGripBonus = 11.0f;
+	gripBonusMaxSpeedMultiplier = 1.55f;
+	gripBonusMaxLaunchSpeed = 8.5f;
+	minBrakeForceModifier = 0.03f;
+	maxBrakeForceModifier = 0.65f;
+}
+
+VehicleDriveModelData_Type66 : VehicleDriveModelData_Sport_RWD
+{
+	total_mass = 1700.0f;
+	chassis_mass = 1700.0f;
+	momentOfInertia = ( 3500.0f, 760.0f, 3900.0f );
+	center_of_mass_offset = ( 0.0f, 0.10f, 0.12f );
+	airResistanceFactor = 2.2f;
+	antiSwaybarDampingScalor = 0.72f;
+	turnUpdateMaxSpeedThreshold = 39.f;
+	turnUpdateMidSpeedThreshold = 21.f;
+	turnUpdateMidSpeedTurnMul = 0.6f;
+	turnUpdateMidSpeedTurnChangeMul = 1.37f;
+	turnUpdateMaxSpeedTurnChangeMul = 2.78f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_Front;
+		backPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_Rear;
+	} : VehicleWheelDrivingSetup_4_RWD;
+	driveHelpers = 
+	[
+		{
+			type = "Vehicle.RotationLimiter_HelperType";
+		} : RotationLimiter_Sport, 
+		{
+			type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+		} : DriveWheelsAccelerateNoise_Sport, 
+		{
+			type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+			rearWheelsLatFrictionCoef = 0.78f;
+			rearWheelsLongFrictionCoef = 0.35f;
+			blendOutTime = 0.55f;
+		} : HandbrakeFrictionModifier_Sport, 
+		{
+			type = "Vehicle.UphillDriveHelper_HelperType";
+		} : UphillDriveHelper_Standard, 
+		{
+			type = "Vehicle.DynamicDownforceHelper_HelperType";
+		} : DynamicDownforceHelper_Sport, 
+		{
+			type = "Vehicle.InAirGravityModifier_HelperType";
+		} : InAirGravityModifier, 
+		{
+			type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+			maxSpeed = 15.f;
+		} : RearWheelsFrictionModifier_Sport
+	];
+	burnOut = "Vehicle.VehicleBurnOut_Type66";
+}
+
+VehicleDriveModelData_Type66_GT : VehicleDriveModelData_Type66
+{
+	total_mass = 1711.0f;
+	chassis_mass = 1711.0f;
+	airResistanceFactor = 2.4f;
+	turnUpdateMidSpeedTurnChangeMul = 1.41f;
+	turnUpdateMaxSpeedTurnChangeMul = 2.8f;
+	wheelSetup = 
+	{
+		frontPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_GT_Front;
+		backPreset = 
+		{
+		} : VehicleWheelDrivingPreset_Type66_GT_Rear;
+	} : VehicleWheelDrivingSetup_4_RWD;
+	burnOut = "Vehicle.VehicleBurnOut_Type66_666hp";
+}
+
+VehicleDriveModelData_60sMuscle : VehicleDriveModelData_Type66
+{
+	maxWheelTurnDeg = 50.f;
+	wheelTurnMaxAddPerSecond = 85.f;
+	wheelTurnMaxSubPerSecond = 120.f;
+	turnUpdateMidSpeedTurnChangeMul = 1.36f;
+	turnUpdateMaxSpeedTurnChangeMul = 2.77f;
+	wheelSetup = 
+	{
+		frontPreset = "Vehicle.VehicleWheelDrivingPreset_60sMuscle_Front";
+		backPreset = "Vehicle.VehicleWheelDrivingPreset_60sMuscle_Rear";
+	} : VehicleWheelDrivingSetup_4_RWD;
+}
+
+v_sport2_quadra_type66_poor : v_sport2_quadra_type66
+{
+	visualTags = 
+	[
+		"Poor"
+	];
+	headlightColor = 
+	[
+		255, 230, 150, 255
+	];
+	randomPassengers = 
+	[
+		"Passengers.LowlifeDriverEntry", "Passengers.LowlifePassengerFrontEntry"
+	];
+}
+
+v_sport2_quadra_type66_sport : v_sport2_quadra_type66
+{
+	visualTags = 
+	[
+		"Sport"
+	];
+	headlightColor = 
+	[
+		175, 200, 255, 255
+	];
+	displayName = "LocKey#95036";
+	vehicleUIData = 
+	{
+		horsepower = 616.0f;
+		mass = 1731.0f;
+	} : VehicleQuadraType66UIData;
+	player_audio_resource = "v_car_quadra_type_66_rogue";
+	traffic_audio_resource = "v_car_quadra_type_66_rogue_traffic";
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Type66_GT";
+	vehEngineData = 
+	{
+		engineMaxTorque = 660.0f;
+		finalGearTorqueDecimationScalor = 0.89f;
+	} : VehicleEngineData_4_Sport_SC;
+}
+
+v_sport2_quadra_type66_quest : v_sport2_quadra_type66
+{
+	savable = true;
+	tags += 
+	[
+		"Immortal", "IgnoreImpulses"
+	];
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+}
+
+v_sport2_quadra_type66_rogue : v_sport2_quadra_type66_sport
+{
+	displayName = "LocKey#22339";
+	appearanceName = "quadra_type66__basic_rogue_01";
+	colorProfilesRestricted = true;
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+}
+
+v_sport2_quadra_type66_bulleat : v_sport2_quadra_type66
+{
+	displayName = "LocKey#96112";
+	appearanceName = "quadra_type66__basic_bulleat";
+	vehicleUIData = 
+	{
+		mass = 1717.0f;
+	} : VehicleQuadraType66UIData;
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	fk< UIIcon > icon = "UIIcon.quadra_type66__bulleat";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Sport_M";
+	fxWheelsDecals = "Vehicle.FxWheels_Sport_M";
+	rightFrontCamber = -1.f;
+	leftFrontCamber = 1.f;
+	rightBackCamber = -0.0f;
+	leftBackCamber = 0.0f;
+	rightFrontCamberOffset = ( -0.05, 0, 0 );
+	leftFrontCamberOffset = ( 0.05, 0, 0 );
+	rightBackCamberOffset = ( -0.04, 0, 0 );
+	leftBackCamberOffset = ( 0.04, 0, 0 );
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.395f;
+			rimRadius = 0.27f;
+			tireWidth = 0.26f;
+			wheelOffset = 0.12f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.395f;
+			rimRadius = 0.27f;
+			tireWidth = 0.30f;
+			wheelOffset = 0.15f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+			} : VehicleWheelDrivingPreset_60sMuscle_Front;
+			backPreset = 
+			{
+			} : VehicleWheelDrivingPreset_60sMuscle_Rear;
+		} : VehicleWheelDrivingSetup_4_RWD;
+	} : VehicleDriveModelData_60sMuscle;
+}
+
+v_sport2_quadra_type66_rowley : v_sport2_quadra_type66_rogue
+{
+	displayName = "LocKey#78402";
+	appearanceName = "quadra_type66__basic_jen_rowley";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.26f;
+			tireWidth = 0.3f;
+			wheelOffset = 0.05f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.315f;
+			tireWidth = 0.43f;
+			wheelOffset = 0.10f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	rightBackCamberOffset = ( -0.03, 0, 0 );
+	leftBackCamberOffset = ( 0.03, 0, 0 );
+	vehDriveModelData = 
+	{
+		airResistanceFactor = 2.4f;
+		turnUpdateMidSpeedTurnChangeMul = 1.36f;
+		turnUpdateMaxSpeedTurnChangeMul = 2.78f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				frictionMulLateral = 0.88f;
+				frictionMulLongitudinal = 0.88f;
+				springDamping = 3600;
+				springReboundDamping = 3300;
+				springBoundDampingLowRate = 2100.0f;
+				springReboundDampingLowRate = 2400.0f;
+				visualSuspensionDroop = 0.07f;
+				wheelsVerticalOffset = 0.03f;
+			} : VehicleWheelDrivingPreset_60sMuscle_Front;
+			backPreset = 
+			{
+				frictionMulLateral = 0.9f;
+				frictionMulLongitudinal = 0.91f;
+				tireLateralSlipEffectsMul = 0.95f;
+				springStiffness = 21.0f;
+				springDamping = 3700;
+				springReboundDamping = 3200;
+				springBoundDampingLowRate = 2100.0f;
+				springReboundDampingLowRate = 2200.0f;
+				extremeCompressionEventScalor = 0.52f;
+				visualSuspensionDroop = 0.06f;
+				wheelsVerticalOffset = 0.02f;
+			} : VehicleWheelDrivingPreset_60sMuscle_Rear;
+		} : VehicleWheelDrivingSetup_4_RWD;
+		burnOut = 
+		{
+			gripBonusMaxLaunchSpeed = 9.5f;
+		} : VehicleBurnOut_Type66_666hp;
+	} : VehicleDriveModelData_60sMuscle;
+}
+
+v_sport2_quadra_type66_sampson : v_sport2_quadra_type66
+{
+	appearanceName = "quadra_type66__basic_sampson";
+	displayName = "LocKey#22340";
+	vehicleUIData = 
+	{
+		horsepower = 666.0f;
+		mass = 1744.0f;
+	} : VehicleQuadraType66UIData;
+	tags += 
+	[
+		"CanDriveOnVehicles"
+	];
+	fk< VehicleDataPackage > vehDataPackage = 
+	{
+		wheelBumperVertOffsetScalor = 0.45f;
+	} : VehicleDataPackage_Type66;
+	vehDefaultState = 
+	{
+		trunk = 
+		{
+			disableInteraction = true;
+		};
+	};
+	fk< UIIcon > icon = "UIIcon.quadra_type66__basic_sampson";
+	headlightColor = 
+	[
+		175, 200, 255, 255
+	];
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_AllTerrain_M";
+	fxWheelsDecals = "Vehicle.FxWheels_AllTerrain_XL";
+	player_audio_resource = "v_car_quadra_type_66_ncu";
+	traffic_audio_resource = "v_car_quadra_type_66_ncu_traffic";
+	destruction = 
+	{
+		gridDimensions = ( 1.9f, 4.7f, 0.2f );
+		gridLocalOffset = ( 0.0f, 0.0f, 0.75f );
+		chargePortCenter = ( -1.06372261f, 0.674334407f, 0.511436105f );
+		glass = 
+		[
+			{
+				component = "window_f";
+				effect = "damage_windshield";
+				isWindshield = true;
+				gridCells = 
+				[
+					4, 5, 12, 13
+				];
+				threshold = 0.15;
+			}, 
+			{
+				component = "window_fl";
+				effect = "damage_glass_fl";
+				gridCells = 
+				[
+					4, 2, 10
+				];
+				threshold = 0.1;
+			}, 
+			{
+				component = "window_fr";
+				effect = "damage_glass_fr";
+				gridCells = 
+				[
+					5, 3, 11
+				];
+				threshold = 0.1;
+			}
+		];
+		detachableParts = 
+		[
+			{
+				name = "Trunk";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"trunk_a", "trunk_deathrace_stickers", "trunk_deathrace_b"
+				];
+			}, 
+			{
+				name = "Hood";
+				gridCells = 
+				[
+					6, 7
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"hood_a", "hood_deathrace_stickers", "hood_deathrace_02"
+				];
+			}, 
+			{
+				name = "BumperFront";
+				gridCells = 
+				[
+					6, 7
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"bumper_f_deathrace_03", "bumper_f_deathrace_04"
+				];
+			}, 
+			{
+				name = "BumperBack";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"bumper_b_deathrace_01"
+				];
+			}, 
+			{
+				name = "Spoiler";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"deathrace_spoiler_01"
+				];
+			}, 
+			{
+				name = "FenderBL";
+				gridCells = 
+				[
+					2
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"deathrace_fender_flares"
+				];
+			}, 
+			{
+				name = "DoorFrontLeft";
+				gridCells = 
+				[
+					2, 4
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"door_fl_a", "door_fl_b", "door_fl_shadow", "window_fl"
+				];
+			}, 
+			{
+				name = "DoorFrontRight";
+				gridCells = 
+				[
+					3, 5
+				];
+				threshold = 0.7;
+				components = 
+				[
+					"door_fr_a", "door_fr_b", "door_fr_shadow", "window_fr"
+				];
+			}, 
+			{
+				name = "MirrorLeft";
+				gridCells = 
+				[
+					4
+				];
+				threshold = 0.07;
+				components = 
+				[
+					"mirror_fl"
+				];
+			}, 
+			{
+				name = "MirrorLeft";
+				gridCells = 
+				[
+					5
+				];
+				threshold = 0.07;
+				components = 
+				[
+					"mirror_fr"
+				];
+			}
+		];
+		wheels = 
+		[
+			{
+				name = "FrontLeft";
+				intact = "tire_deathrace_01_fl_a";
+				flat = "tire_flat_01_fl_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "FrontRight";
+				intact = "tire_deathrace_01_fr_a";
+				flat = "tire_flat_01_fr_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "BackRight";
+				intact = "tire_deathrace_01_br_a";
+				flat = "tire_flat_01_br_a";
+				hitsToFlatten = 2;
+			}, 
+			{
+				name = "BackLeft";
+				intact = "tire_deathrace_01_bl_a";
+				flat = "tire_flat_01_bl_a";
+				hitsToFlatten = 2;
+			}
+		];
+		lights = 
+		[
+			{
+				component = "head_light_left_01";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_left_02";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_right_01";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "head_light_right_02";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_letf_01";
+				gridCells = 
+				[
+					6
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_right_01";
+				gridCells = 
+				[
+					7
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_letf_02";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "position_light_right_02";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_01";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_02";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_01";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_02";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_03";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_04";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_left_05";
+				gridCells = 
+				[
+					0
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_01";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_02";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_03";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_04";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "break_light_right_05";
+				gridCells = 
+				[
+					1
+				];
+				threshold = 0.1f;
+			}, 
+			{
+				component = "reverse_light_01";
+				gridCells = 
+				[
+					0, 1
+				];
+				threshold = 0.1f;
+			}
+		];
+	} : VehicleDestructionParamsDefault_4w;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.4f;
+			rimRadius = 0.26f;
+			tireWidth = 0.29f;
+			wheelOffset = 0.07f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.4f;
+			rimRadius = 0.30f;
+			tireWidth = 0.48f;
+			wheelOffset = 0.15;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 1725.0f;
+		chassis_mass = 1725.0f;
+		momentOfInertia = ( 4500.0f, 1210.0f, 4500.0f );
+		center_of_mass_offset = ( 0.0f, 0.08f, 0.12f );
+		airResistanceFactor = 2.35f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				maxBrakingTorque = 700.0f;
+				frictionMulLateral = 0.89f;
+				frictionMulLongitudinal = 0.90f;
+				swaybarStiffness = 18.0f;
+				springDamping = 3600;
+				springReboundDamping = 3300;
+				springBoundDampingLowRate = 2100.0f;
+				springReboundDampingLowRate = 2400.0f;
+				extremeCompressionEventScalor = 0.77f;
+				visualSuspensionCompressionLength = 0.04f;
+				wheelsVerticalOffset = 0.02f;
+			} : VehicleWheelDrivingPreset_Type66_GT_Front;
+			backPreset = 
+			{
+				maxBrakingTorque = 600.0f;
+				frictionMulLateral = 0.89f;
+				frictionMulLongitudinal = 0.90f;
+				swaybarStiffness = 15.0f;
+				springDamping = 3700;
+				springReboundDamping = 3200;
+				extremeCompressionEventScalor = 0.57f;
+				visualSuspensionCompressionLength = 0.04f;
+				wheelsVerticalOffset = 0.05f;
+			} : VehicleWheelDrivingPreset_Type66_GT_Rear;
+		} : VehicleWheelDrivingSetup_4_RWD;
+		burnOut = 
+		{
+			lateralForceMaxAcceleration = 0.56f;
+			burnOutGripBonus = 9.5f;
+			gripBonusMaxLaunchSpeed = 9.0f;
+		} : VehicleBurnOut_Type66_777hp;
+	} : VehicleDriveModelData_Type66_GT;
+	vehEngineData = "Vehicle.VehicleEngineData_4_SportPlus";
+}
+
+v_sport2_quadra_type66_avenger : v_sport2_quadra_type66
+{
+	displayName = "LocKey#22090";
+	twintoneModelName = "quadra.type66.avenger";
+	vehicleUIData = 
+	{
+		horsepower = 777.0f;
+		mass = 1851.0f;
+	} : VehicleQuadraType66UIData;
+	visualTags = 
+	[
+		"Premium"
+	];
+	tags += 
+	[
+		"CanDriveOnVehicles"
+	];
+	fk< VehicleDataPackage > vehDataPackage = 
+	{
+		wheelBumperVertOffsetScalor = 0.45f;
+	} : VehicleDataPackage_Type66;
+	fk< UIIcon > icon = "UIIcon.quadra_type66_vtech_noralee";
+	headlightColor = 
+	[
+		215, 190, 255, 255
+	];
+	destroyedAppearance = "quadra_type66_vtech_burnt_01";
+	curvesPath = "base\gameplay\vehicles\curves\muscle_car.vehcurveset";
+	player_audio_resource = "v_car_quadra_type_66_avenger";
+	traffic_audio_resource = "v_car_quadra_type_66_avenger_traffic";
+	randomPassengers = 
+	[
+		"Passengers.CitizenRichDriverEntry", "Passengers.CitizenRichPassengerFrontEntry"
+	];
+	rightFrontCamber = -2.0f;
+	leftFrontCamber = 2.0f;
+	rightBackCamber = -3.0f;
+	leftBackCamber = 3.0f;
+	rightFrontCamberOffset = ( -0.025, 0, 0 );
+	leftFrontCamberOffset = ( 0.025, 0, 0 );
+	rightBackCamberOffset = ( -0.02, 0, 0 );
+	leftBackCamberOffset = ( 0.02, 0, 0 );
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.32f;
+			tireWidth = 0.3f;
+			wheelOffset = 0.14f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.40f;
+			rimRadius = 0.32f;
+			tireWidth = 0.43f;
+			wheelOffset = 0.22;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 1830.0f;
+		chassis_mass = 1830.0f;
+		momentOfInertia = ( 4500.0f, 1210.0f, 4500.0f );
+		center_of_mass_offset = ( 0.0f, 0.08f, 0.12f );
+		maxWheelTurnDeg = 50.f;
+		wheelTurnMaxAddPerSecond = 127.f;
+		wheelTurnMaxSubPerSecond = 150.f;
+		turnUpdateMidSpeedThreshold = 26.f;
+		turnUpdateMaxSpeedThreshold = 43.f;
+		turnUpdateMidSpeedTurnMul = 0.51f;
+		turnUpdateMidSpeedTurnChangeMul = 1.29f;
+		turnUpdateMaxSpeedTurnMul = 0.19f;
+		turnUpdateMaxSpeedTurnChangeMul = 1.8f;
+		airResistanceFactor = 2.4f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				maxBrakingTorque = 700.0f;
+				frictionMulLateral = 0.91f;
+				frictionMulLongitudinal = 0.91f;
+				swaybarStiffness = 18.0f;
+				springDamping = 3600;
+				springReboundDamping = 3300;
+				springBoundDampingLowRate = 2100.0f;
+				springReboundDampingLowRate = 2400.0f;
+				extremeCompressionEventScalor = 0.77f;
+				wheelsVerticalOffset = 0.0f;
+			} : VehicleWheelDrivingPreset_Type66_Front;
+			backPreset = 
+			{
+				maxBrakingTorque = 600.0f;
+				frictionMulLateral = 0.93f;
+				frictionMulLongitudinal = 0.93f;
+				swaybarStiffness = 16.0f;
+				springDamping = 3700;
+				springReboundDamping = 3200;
+				springReboundDampingLowRate = 2300.0f;
+				extremeCompressionEventScalor = 0.57f;
+				visualSuspensionCompressionLength = 0.11f;
+				wheelsVerticalOffset = -0.01f;
+			} : VehicleWheelDrivingPreset_Type66_Rear;
+		} : VehicleWheelDrivingSetup_4_RWD;
+		driveHelpers = 
+		[
+			{
+				type = "Vehicle.RotationLimiter_HelperType";
+			} : RotationLimiter_Sport, 
+			{
+				type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+			} : DriveWheelsAccelerateNoise_Sport, 
+			{
+				type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+				rearWheelsLatFrictionCoef = 0.82f;
+				rearWheelsLongFrictionCoef = 0.22f;
+				postHandbrakeTractionBoost = 3.f;
+			} : HandbrakeFrictionModifier_Sport, 
+			{
+				type = "Vehicle.UphillDriveHelper_HelperType";
+			} : UphillDriveHelper_Standard, 
+			{
+				type = "Vehicle.DynamicDownforceHelper_HelperType";
+			} : DynamicDownforceHelper_Sport, 
+			{
+				type = "Vehicle.InAirGravityModifier_HelperType";
+			} : InAirGravityModifier, 
+			{
+				type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+				maxSpeed = 15.f;
+			} : RearWheelsFrictionModifier_Sport
+		];
+		burnOut = "Vehicle.VehicleBurnOut_Type66_777hp";
+	} : VehicleDriveModelData_Type66;
+	vehEngineData = "Vehicle.VehicleEngineData_4_Muscle";
+	vehDriver_FPPCameraParams = 
+	{
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.6519, 0.9492 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.0f;
+		is_forward_offset = 1.0f;
+		forward_offset_value = 0.0f;
+	} : VehicleDriverCombatFPPCameraParamsDefault;
+	weaponSafeModeBounds = 
+	{
+		enableSafeModeBounds = true;
+		backBound = 
+		{
+			yawMin = -100.0f;
+			yawMax = 180.f;
+		};
+	} : WeaponSafeModeBounds;
+}
+
+VehicleDestructionParamsQuadraType66 : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.9f, 4.7f, 0.2f );
+	gridLocalOffset = ( 0.0f, 0.0f, 0.75f );
+	chargePortCenter = ( -1.06372261f, 0.674334407f, 0.511436105f );
+	glass = 
+	[
+		{
+			component = "window_f";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				4, 5, 12, 13
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				4, 2, 10
+			];
+			threshold = 0.1;
+		}, 
+		{
+			component = "window_fr";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				5, 3, 11
+			];
+			threshold = 0.1;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"hood_a", "hood_a_shadow", "hood_deathrace_02"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_f_01", "bumper_f_02", "bumper_f_shadow"
+			];
+		}, 
+		{
+			name = "BumperFrontJen";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_f_deathrace_03", "bumper_f_deathrace_04"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_b_01", "bumper_b_shadow"
+			];
+		}, 
+		{
+			name = "license_plate";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft";
+			gridCells = 
+			[
+				2, 4
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fl_a", "door_fl_b", "door_fl_shadow", "window_fl"
+			];
+		}, 
+		{
+			name = "DoorFrontRight";
+			gridCells = 
+			[
+				3, 5
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fr_a", "door_fr_b", "door_fr_shadow", "window_fr"
+			];
+		}, 
+		{
+			name = "MirrorLeft";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"mirror_fl"
+			];
+		}, 
+		{
+			name = "MirrorLeft";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"mirror_fr"
+			];
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			flat = "tire_flat_01_fl_a";
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			flat = "tire_flat_01_fr_a";
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			flat = "tire_flat_01_br_a";
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			flat = "tire_flat_01_bl_a";
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_left_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_left_02";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_right_02";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_letf_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_letf_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_01";
+			gridCells = 
+			[
+				0, 1, 2, 3
+			];
+			threshold = 0.2f;
+		}, 
+		{
+			component = "break_light_02";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_03";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_04";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_left_05";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_03";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_04";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "break_light_right_05";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_01";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.1f;
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						2, 9, 10
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						4, 4, 13
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+}
+
+VehicleQuadraType66AppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_suburban_01"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_01"
+			];
+			mainColor = 
+			[
+				138, 178, 215
+			];
+			secondaryColor = 
+			[
+				50, 49, 53
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_suburban_02"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_02"
+			];
+			mainColor = 
+			[
+				129, 37, 42
+			];
+			secondaryColor = 
+			[
+				123, 120, 123
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_suburban_03"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_03"
+			];
+			mainColor = 
+			[
+				30, 30, 101
+			];
+			secondaryColor = 
+			[
+				186, 177, 164
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_suburban_04"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_04"
+			];
+			mainColor = 
+			[
+				144, 54, 17
+			];
+			secondaryColor = 
+			[
+				152, 135, 89
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_suburban_05"
+			];
+			matchingColorVariant = 
+			[
+				"suburban_05"
+			];
+			mainColor = 
+			[
+				182, 179, 42
+			];
+			secondaryColor = 
+			[
+				50, 47, 52
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_poor_02"
+			];
+			matchingColorVariant = 
+			[
+				"poor_02"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_poor_02";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_dark_gray.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_dark_gray.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_dark_gray.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext02.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 2.0f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext02.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_poor02.mlmask";
+					coatLayerMin = 4.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_poor_03"
+			];
+			matchingColorVariant = 
+			[
+				"poor_03"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_poor_03";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_dark_gray.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_dark_gray.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_dark_gray.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext03.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext03.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_poor03.mlmask";
+					coatLayerMin = 4.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_poor_04"
+			];
+			matchingColorVariant = 
+			[
+				"poor_04"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_poor_04";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_light_gray.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_light_gray.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_light_gray.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext04.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.1f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\poor_ext04.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_poor04.mlmask";
+					coatLayerMin = 4.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_urban_01"
+			];
+			matchingColorVariant = 
+			[
+				"urban_01"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_urban_01";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_black.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_black.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_black.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\urban_ext01.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_basic_urban.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.01f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\sampson_ext_urban01.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_urban.mlmask";
+					coatLayerMin = 3.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_urban_02"
+			];
+			matchingColorVariant = 
+			[
+				"urban_02"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_urban_02";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_black.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_black.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_black.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\urban_ext02.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_basic_urban.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.01f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\sampson_ext_urban02.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_urban.mlmask";
+					coatLayerMin = 3.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_urban_04"
+			];
+			matchingColorVariant = 
+			[
+				"urban_04"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_urban_04";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_black.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_black.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_black.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\urban_ext04.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_basic_urban.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.01f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\sampson_ext_urban04.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_urban.mlmask";
+					coatLayerMin = 3.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66__basic_urban_05"
+			];
+			matchingColorVariant = 
+			[
+				"urban_05"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_urban_05";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_body_stripes_01_gold.ent";
+					componentToAttachTo = "body_01";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_stripes_01_gold.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_stripes_01_gold.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\urban_ext05.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_basic_urban.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 3.0f;
+				} : VehicleCustomMultilayer, 
+				{
+					affectedComponents = 
+					[
+						"hood_deathrace_02", "deathrace_spoiler_01", "deathrace_fender_flares", "bumper_f_deathrace_03", "bumper_b_deathrace_01", "body_02_deathrace"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\sampson_ext_urban05.mlsetup";
+					customMlMask = "base\gameplay\vehicles\visual_customization\unique_mlmasks\quadra_type66\quadra_type66_sampson_urban.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 21.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66_vtech_avenger_04"
+			];
+			matchingColorVariant = 
+			[
+				"avenger_04"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_avenger_04";
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\avenger_ext04.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66_avenger__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 2.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66_vtech_avenger_06"
+			];
+			matchingColorVariant = 
+			[
+				"avenger_06"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_avenger_06";
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\avenger_ext06.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66_avenger__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66_vtech_khm_01"
+			];
+			matchingColorVariant = 
+			[
+				"khm_01"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_avenger_05";
+			customDecals = 
+			[
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fl_a_number.ent";
+					componentToAttachTo = "door_fl_a";
+				} : VehicleDecalAttachment, 
+				{
+					decalResource = "base\gameplay\vehicles\visual_customization\decals\quadra_type66\vcc_quadra_type66_door_fr_a_number.ent";
+					componentToAttachTo = "door_fr_a";
+				} : VehicleDecalAttachment
+			];
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\avenger_ext05.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\ml_v_sport2_quadra_type66_v_tech__ext01_masksset.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 4.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate, 
+		{
+			matchingAppearances = 
+			[
+				"quadra_type66_vtech_vtech"
+			];
+			matchingColorVariant = 
+			[
+				"vtech"
+			];
+			hasCustomPattern = true;
+			customIcon = "UIIcon.vehicle_unique_template_quadra_type66_avenger_01";
+			customMultilayers = 
+			[
+				{
+					excludedComponents = 
+					[
+						"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+					];
+					customMlSetup = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\avenger_ext01.mlsetup";
+					customMlMask = "base\vehicles\sport\v_sport2_quadra_type66\entities\meshes\textures\type66_avenger__ext01.mlmask";
+					coatLayerMin = -1.0f;
+					coatLayerMax = 0.0f;
+				} : VehicleCustomMultilayer
+			];
+		} : VehicleColorTemplate
+	];
+}
+
+VehicleQuadraType66UIData : VehicleDefaultUIData
+{
+	productionYear = "2055-2077";
+	driveLayout = "LocKey#45371";
+	horsepower = 555.0f;
+	mass = 1720.0f;
+	info = "LocKey#53540";
+}
+

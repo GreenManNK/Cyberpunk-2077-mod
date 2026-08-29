@@ -1,0 +1,361 @@
+package Quality
+using RTDB
+
+Common : Quality
+{
+	name = "Common";
+	value = 0;
+	statModifiers = 
+	[
+		"Quality.CommonQualityModifier", {
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusOnMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusBelowMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+CommonPlus : Common
+{
+	name = "CommonPlus";
+	value = 1;
+	statModifiers += 
+	[
+		"Quality.PlusModifier"
+	];
+}
+
+Uncommon : Quality
+{
+	name = "Uncommon";
+	value = 2;
+	statModifiers = 
+	[
+		"Quality.UncommonQualityModifier", {
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusOnMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusBelowMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+UncommonPlus : Uncommon
+{
+	name = "UncommonPlus";
+	value = 3;
+	statModifiers += 
+	[
+		"Quality.PlusModifier"
+	];
+}
+
+Rare : Quality
+{
+	name = "Rare";
+	value = 4;
+	statModifiers = 
+	[
+		"Quality.RareQualityModifier", {
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusOnMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusBelowMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+RarePlus : Rare
+{
+	name = "RarePlus";
+	value = 5;
+	statModifiers += 
+	[
+		"Quality.PlusModifier"
+	];
+}
+
+Epic : Quality
+{
+	name = "Epic";
+	value = 6;
+	statModifiers = 
+	[
+		"Quality.EpicQualityModifier", {
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusOnMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusBelowMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+EpicPlus : Epic
+{
+	name = "EpicPlus";
+	value = 7;
+	statModifiers += 
+	[
+		"Quality.PlusModifier"
+	];
+}
+
+Legendary : Quality
+{
+	name = "Legendary";
+	value = 8;
+	statModifiers = 
+	[
+		"Quality.LegendaryQualityModifier", {
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusOnMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RollForPlusBelowMaxQuality";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+LegendaryPlus : Legendary
+{
+	name = "LegendaryPlus";
+	value = 9;
+	statModifiers += 
+	[
+		"Quality.PlusModifier"
+	];
+}
+
+LegendaryPlusPlus : Legendary
+{
+	name = "LegendaryPlusPlus";
+	value = 10;
+	statModifiers += 
+	[
+		"Quality.PlusPlusModifier"
+	];
+}
+
+Iconic : Quality
+{
+	name = "Iconic";
+	value = -1;
+}
+
+Random : Quality
+{
+	name = "Random";
+	value = -1;
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.RandomCurveInput";
+			modifierType = "Additive";
+			min = 0.01;
+			max = 0.99;
+		} : RandomStatModifier
+	];
+}
+
+BaseQualityStatModifier : ConstantStatModifier
+{
+	statType = "BaseStats.Quality";
+	modifierType = "Additive";
+}
+
+CommonQualityModifier : BaseQualityStatModifier
+{
+	value = 0;
+}
+
+UncommonQualityModifier : BaseQualityStatModifier
+{
+	value = 1;
+}
+
+RareQualityModifier : BaseQualityStatModifier
+{
+	value = 2;
+}
+
+EpicQualityModifier : BaseQualityStatModifier
+{
+	value = 3;
+}
+
+LegendaryQualityModifier : BaseQualityStatModifier
+{
+	value = 4;
+}
+
+BasePlusStatModifier : ConstantStatModifier
+{
+	statType = "BaseStats.IsItemPlus";
+	modifierType = "Additive";
+}
+
+PlusModifier : BasePlusStatModifier
+{
+	value = 1;
+}
+
+PlusPlusModifier : BasePlusStatModifier
+{
+	value = 2;
+}
+
+PlusModifierForRewards : CurveStatModifier
+{
+	statType = "BaseStats.IsItemPlus";
+	modifierType = "Additive";
+	refStat = "BaseStats.LootLevel";
+	id = "quality_curves";
+	column = "guaranteed_plus_to_level";
+}
+
+BaseRandomCurveModifier : ConstantStatModifier
+{
+	statType = "BaseStats.RandomCurveInput";
+	modifierType = "Additive";
+}
+
+MinimumUncommonQuality : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+MinimumRareQuality : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+MinimumEpicQuality : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+MinimumLegendaryQuality : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+MiniStoryReward : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+MinorActivityReward : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+StreetStoryReward : BaseRandomCurveModifier
+{
+	value = 0;
+}
+
+RandomCurveInputNullifier : ConstantStatModifier
+{
+	statType = "BaseStats.RandomCurveInput";
+	modifierType = "Multiplier";
+	value = 1;
+}
+
+NPCWeaponDropRandomizer : RandomStatModifier
+{
+	statType = "BaseStats.NPCWeaponDropRandomizer";
+	modifierType = "Additive";
+	min = -0.80f;
+	max = 0.20f;
+}
+
+NPCWeaponDropRandomizerNullifier : ConstantStatModifier
+{
+	statType = "BaseStats.NPCWeaponDropRandomizer";
+	modifierType = "Multiplier";
+	value = 0;
+}
+
+IconicItem : ConstantStatModifier
+{
+	statType = "BaseStats.IsItemIconic";
+	modifierType = "Additive";
+	value = 1;
+}
+
+BrokenItem : ConstantStatModifier
+{
+	statType = "BaseStats.IsItemBroken";
+	modifierType = "Additive";
+	value = 1f;
+}
+
+MaximumUncommonQuality : ConstantStatModifier
+{
+	statType = "BaseStats.RandomCurveInput";
+	modifierType = "Multiplier";
+	value = 1;
+}
+
+MaximumRareQuality : ConstantStatModifier
+{
+	statType = "BaseStats.RandomCurveInput";
+	modifierType = "Multiplier";
+	value = 1;
+}
+
+ScaleRandomQualityWithLevel : CurveStatModifier
+{
+	statType = "BaseStats.Quality";
+	modifierType = "Additive";
+	refObject = "Player";
+	refStat = "BaseStats.Level";
+	id = "quality_curves";
+	column = "crafted_iconic_quality_to_level";
+}
+

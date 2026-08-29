@@ -1,0 +1,1585 @@
+package Vehicle
+using RTDB
+
+v_sport1_herrera_outlaw_player : v_sport1_herrera_outlaw
+{
+	savable = true;
+	appearanceName = "herrera_outlaw__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewHerreraOutlaw";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_herrera_outlaw_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = false;
+}
+
+v_sport1_quadra_turbo_player : v_sport1_quadra_turbo
+{
+	savable = true;
+	appearanceName = "quadra_turbo_basic_player_02";
+	customizableAppearance = "quadra_turbo_basic_player_02";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraTurboR";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_turbo_basic_player_02_generic_mask.xbm";
+	excludedComponentsCustomization += 
+	[
+		"console_a", "console_b", "bobble_head_01_vdog_head", "steering_wheel"
+	];
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_02_br", "wheel_02_bl_a"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_quadra_turbo_r_player : v_sport1_quadra_turbo_r
+{
+	savable = true;
+	appearanceName = "quadra_turbo_basic_player";
+	customizableAppearance = "quadra_turbo_basic_player";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraTurboR";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_turbo_basic_player_generic_mask.xbm";
+	excludedComponentsCustomization += 
+	[
+		"console_a", "console_b", "bobble_head_01_vdog_head", "steering_wheel"
+	];
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_02_br", "wheel_02_bl_a"
+	];
+	customizeCarRims = false;
+}
+
+v_sport1_rayfield_aerondight_player : v_sport1_rayfield_aerondight
+{
+	savable = true;
+	appearanceName = "rayfield_aerondight__basic_player_01";
+	displayName = "LocKey#1615";
+	customizableAppearance = "rayfield_aerondight__basic_player_01_customizable_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Rayfield";
+	customizationPreview = "Vehicle.PreviewRayfieldAerondight";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_rayfield_aerondight_basic_player_01_customizable_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_rayfield_caliburn_player : v_sport1_rayfield_caliburn
+{
+	savable = true;
+	appearanceName = "rayfield_caliburn__basic_player_01";
+	customizableAppearance = "rayfield_caliburn__basic_player_01_customizable";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Rayfield";
+	customizationPreview = "Vehicle.PreviewRayfieldCaliburn";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_rayfield_caliburn_basic_player_01_customizable_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_rayfield_caliburn_02_player : v_sport1_rayfield_caliburn
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.rayfield_caliburn__basic_ma_bls_ina_se1_40";
+	appearanceName = "rayfield_caliburn__basic_ma_bls_ina_se1_40";
+	visualCustomizationTeaser = true;
+	customizableAppearance = "rayfield_caliburn__basic_ma_bls_ina_se1_40";
+	displayName = "LocKey#95884";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Rayfield";
+	customizationPreview = "Vehicle.PreviewRayfieldCaliburn";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_rayfield_caliburn_basic_ma_bls_ina_se1_40_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_rayfield_caliburn_mordred_player : v_sport1_rayfield_caliburn_mordred
+{
+	savable = true;
+	priority = "SpawnableObjectPriority.Quest";
+	fk< UIIcon > icon = "UIIcon.rayfield_caliburn__basic_mordred";
+	appearanceName = "rayfield_caliburn__basic_mordred";
+	headlightColor = 
+	[
+		175, 131, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Mordred";
+	customizationPreview = "Vehicle.PreviewRayfieldMordred";
+	customizationPreviewGlow = "Vehicle.PreviewGlowRayfieldMordred";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_rayfield_caliburn__basic_mordred_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_05_fr_a", "wheel_fl_05_a"
+	];
+	customizeCarRims = true;
+	customizeLights = false;
+	displayName = "LocKey#96418";
+}
+
+v_sport2_mizutani_shion_player : v_sport2_mizutani_shion_tdr
+{
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewMizutaniShionBasic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_mizutani_shion_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_custom_fl_01", "wheel_custom_fr_01", "wheel_custom_bl_01", "wheel_custom_br_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_mizutani_shion_nomad_player : v_sport2_mizutani_shion_nomad
+{
+	savable = true;
+	appearanceName = "mizutani_shion_nomad_player_01";
+}
+
+v_sport2_mizutani_shion_nomad_02_player : v_sport2_mizutani_shion_nomad_buggy
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.mizutani_shion_nomad_player_02";
+	appearanceName = "mizutani_shion_nomad_player_02";
+}
+
+v_sport2_mizutani_shion_targa_player : v_sport2_mizutani_shion_targa
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.mizutani_shion_targa";
+	appearanceName = "mizutani_shion__basic_targa_blue";
+	twintoneModelName = "mizutani.shion.targa";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewMizutaniShionBasic";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_mizutani_shion_basic_targa_blue_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_02_bl", "wheel_02_br", "wheel_02_fl", "wheel_custom_fl_01", "wheel_02_fr", "body_01", "bumper_b_01", "bumper_f_01", "window_frame_01"
+	];
+}
+
+v_sport2_mizutani_shion_base_player : v_sport2_mizutani_shion
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.mizutani_shion_mz1";
+	appearanceName = "mizutani_shion__basic_suburban_07";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewMizutaniShionBasic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_mizutani_shion_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_custom_fl_01", "wheel_custom_fr_01", "wheel_custom_bl_01", "wheel_custom_br_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sport1_yaiba_semimaru_player : v_sport1_yaiba_semimaru
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.yaiba_semimaru";
+	appearanceName = "yaiba_semimaru_basic_urban_01";
+	visualCustomizationUpdateRequired = true;
+	canDeleteUniqueTemplates = false;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewYaibaSemimaru";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_yaiba_semimaru_basic_urban_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	customizeCarRims = false;
+	customizeLights = true;
+}
+
+v_sport2_mizutani_shion_nomad_player_missiles : v_sport2_mizutani_shion_nomad_samum
+{
+	savable = true;
+}
+
+v_sport2_porsche_911turbo_player : v_sport2_porsche_911turbo
+{
+	savable = true;
+}
+
+v_sport2_porsche_911turbo_cabrio_player : v_sport2_porsche_911turbo_cabrio
+{
+	fk< UIIcon > icon = "UIIcon.porsche_911turbo__basic_alt";
+	savable = true;
+}
+
+v_sport2_quadra_type66_player : v_sport2_quadra_type66_rowley
+{
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Basic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_basic_bulleat_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "bumper_f_deathrace_03", "bumper_f_deathrace_04", "hood_deathrace_02"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_nomad_ncu_player : v_sport2_quadra_type66_sampson
+{
+	savable = true;
+	appearanceName = "quadra_type66__basic_sampson";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Basic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_basic_sampson_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "body_02_deathrace", "bumper_b_deathrace_01", "bumper_f_deathrace_03", "bumper_f_deathrace_04", "deathrace_fender_flares", "deathrace_spoiler_01", "hood_deathrace_02"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_base_player : v_sport2_quadra_type66
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.quadra_type66_gt_640TS";
+	appearanceName = "quadra_type66__basic_suburban_06";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Basic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_basic_suburban_06_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_gt_player : v_sport2_quadra_type66_sport
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.quadra_type66_640TS";
+	appearanceName = "quadra_type66__basic_player_urban_03";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Basic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_basic_urban_03_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a", "hood_deathrace_02"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_02_player : v_sport2_quadra_type66_bulleat
+{
+	savable = true;
+	appearanceName = "quadra_type66__basic_bulleat";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Basic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_basic_bulleat_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_avenger_player : v_sport2_quadra_type66_avenger
+{
+	savable = true;
+	appearanceName = "quadra_type66_vtech_noralee";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraType66Avenger";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_type66_vtech_noralee_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_deathrace_01_bl_a", "wheel_deathrace_01_br_a", "wheel_deathrace_01_fl_a", "wheel_deathrace_01_fr_a"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_quadra_type66_nomad_player : v_sport2_quadra_type66_nomad
+{
+	savable = true;
+	appearanceName = "quadra_type66_nomad_player_01";
+}
+
+v_sport2_quadra_type66_nomad_tribute : v_sport2_quadra_type66_nomad_kb
+{
+	savable = true;
+}
+
+v_sport2_quadra_type66_nomad_player_03 : v_sport2_quadra_type66_nomad
+{
+	fk< UIIcon > icon = "UIIcon.v_sport2_quadra_type66_nomad_player_03";
+	savable = true;
+	displayName = "LocKey#93151";
+	appearanceName = "quadra_type66_nomad_player_03";
+}
+
+v_sport2_villefort_alvarado_player : v_sport2_villefort_alvarado
+{
+	savable = true;
+	appearanceName = "villefort_alvarado__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewVillefortAlvaradoBasic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_alvarado_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_fl_03", "wheel_fl_b_03", "wheel_fl_04", "wheel_fr_03", "wheel_fr_b_03", "wheel_fr_04", "wheel_bl_04", "wheel_br_04", "door_bl_c", "door_br_c"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_villefort_alvarado_valentinos_player : v_sport2_villefort_alvarado_valentinos_cabrio
+{
+	savable = true;
+	appearanceName = "villefort_alvarado__basic_valentinos_02";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewVillefortAlvaradoBasic";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_alvarado_basic_valentinos_02_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_fl_03", "wheel_fl_b_03", "wheel_fl_04", "wheel_fr_03", "wheel_fr_b_03", "wheel_fr_04", "wheel_bl_04", "wheel_br_04"
+	];
+	customizeCarRims = false;
+}
+
+v_standard25_mahir_supron_player : v_standard25_mahir_supron
+{
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_mahir_supron_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	customizeCarRims = false;
+	appearanceName = "mahir_supron__basic_player_01";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.32f;
+			rimRadius = 0.255f;
+			tireWidth = 0.20f;
+			wheelOffset = 0.07f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.32f;
+			rimRadius = 0.255f;
+			tireWidth = 0.20f;
+			wheelOffset = 0.07f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+}
+
+v_standard25_mahir_supron_gt_player : v_standard25_mahir_supron_sport
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.mahir_supron_gt_FS3T";
+	appearanceName = "mahir_supron__basic_urban_02";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_mahir_supron__basic_urban_02_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+}
+
+v_standard25_thorton_colby_nomad_player : v_standard25_thorton_colby_nomad_mule
+{
+	appearanceName = "thorton_colby_pickup_nomad_player_01";
+	savable = true;
+}
+
+v_standard25_thorton_colby_nomad_player_missiles : v_standard25_thorton_colby_nomad_vulture
+{
+	savable = true;
+}
+
+v_standard25_villefort_columbus_player : v_standard25_villefort_columbus
+{
+	savable = true;
+	appearanceName = "villefort_columbus__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_columbus_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"v_standard25_villefort_columbus__ext01_wheel_quadra66_b2_fl_01", "wheel_quadra66_br", "wheel_quadra66_fl", "wheel_quadra66_fr"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_archer_hella_player : v_standard2_archer_hella_getto
+{
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_archer_hella_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "junk_fuelcell"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_archer_quartz_player : v_standard2_archer_quartz_gt
+{
+	savable = true;
+	appearanceName = "archer_quartz__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_archer_quartz_basic_suburban_1_1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_bl_03", "wheel_bl_05", "wheel_br_03", "wheel_br_05", "wheel_fl_03", "wheel_fl_05", "wheel_fr_03", "wheel_fr_05", "junk_bumper_b", "junk_bumper_f", "junk_engine"
+	];
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_L";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.24f;
+			tireWidth = 0.28f;
+			wheelOffset = 0.12f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.24f;
+			tireWidth = 0.37f;
+			wheelOffset = 0.12f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+}
+
+v_standard2_archer_quartz_base_player : v_standard2_archer_quartz
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.archer_quartz_EC_L_R275";
+	appearanceName = "archer_quartz__basic_suburban_1_1";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_archer_quartz_basic_suburban_1_1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_bl_03", "wheel_bl_05", "wheel_br_03", "wheel_br_05", "wheel_fl_03", "wheel_fl_05", "wheel_fr_03", "wheel_fr_05"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_archer_bandit_player : v_standard2_archer_bandit
+{
+	savable = true;
+	headlightColor = 
+	[
+		255, 215, 101, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_archer_bandit_bandit_01_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_bl_03", "wheel_bl_05", "wheel_br_03", "wheel_br_05", "wheel_fl_03", "wheel_fl_05", "wheel_fr_03", "wheel_fr_05", "body_bandit_01", "bumper_b_01_a", "bumper_f_a_02", "hood_a_02", "exhaust_02", "bumper_f_01"
+	];
+	customizeCarRims = false;
+	customizeLights = false;
+}
+
+v_standard2_archer_quartz_nomad_player : v_standard2_archer_quartz_nomad
+{
+	fk< UIIcon > icon = "UIIcon.v_standard2_archer_quartz_nomad_player";
+	savable = true;
+	appearanceName = "archer_quartz_nomad_player_01_missiles";
+}
+
+v_standard2_archer_quartz_nomad_player_02 : v_standard2_archer_quartz_nomad_wraith
+{
+	fk< UIIcon > icon = "UIIcon.v_standard2_archer_quartz_nomad_player02";
+	savable = true;
+	headlightColor = 
+	[
+		171, 255, 235, 255
+	];
+	appearanceName = "archer_quartz_nomad_player_02";
+}
+
+v_standard2_chevalier_thrax_player : v_standard2_chevalier_thrax
+{
+	savable = true;
+	appearanceName = "chevalier_thrax__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewChevillonThrax";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_chevalier_thrax_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.42f;
+			rimRadius = 0.30f;
+			tireWidth = 0.27f;
+			wheelOffset = 0.06f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.42f;
+			rimRadius = 0.30f;
+			tireWidth = 0.35f;
+			wheelOffset = -0.05f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+}
+
+v_standard2_makigai_maimai_player : v_standard2_makigai_maimai_gt
+{
+	savable = true;
+	appearanceName = "makigai_maimai__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_makigai_maimai_basic_player_01_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_02", "wheel_br_02", "wheel_fl_02", "wheel_fr_02", "bumper_b_01", "bumper_f_01", "door_fl_c", "door_fr_c", "hood_a", "trunk_a"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_thorton_colby_player : v_standard2_thorton_colby
+{
+	savable = true;
+	appearanceName = "thorton_colby__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_colby_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_03", "wheel_bl_04", "wheel_br_03", "wheel_br_04", "wheel_fl_03", "wheel_fl_04", "wheel_fr_03", "wheel_fr_04", "bumper_b_01"
+	];
+	customizeCarRims = false;
+	vehDriveModelData = "Vehicle.VehicleDriveModelData_Colby_Players";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.24f;
+			tireWidth = 0.25f;
+			wheelOffset = -0.02f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.35f;
+			rimRadius = 0.24f;
+			tireWidth = 0.25f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+}
+
+v_standard25_thorton_colby_pickup_player : v_standard25_thorton_colby_pickup
+{
+	savable = true;
+	appearanceName = "thorton_colby_pickup_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_colby_pickup_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_02", "wheel_bl_03", "wheel_br_02", "wheel_br_03", "wheel_fl_02", "wheel_fl_03", "wheel_fr_02", "wheel_fr_03"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_thorton_colby_gt_player : v_standard2_thorton_colby_gt
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.thorton_colby_gt_CST40";
+	appearanceName = "thorton_colby__basic_urban_01_1";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_colby_basic_urban_01_1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_03", "wheel_bl_04", "wheel_br_03", "wheel_br_04", "wheel_fl_03", "wheel_fl_04", "wheel_fr_03", "wheel_fr_04"
+	];
+	customizeCarRims = false;
+}
+
+v_standard25_thorton_colby_pickup_02_player : v_standard25_thorton_colby_pickup
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.thorton_colby_pickup_ma_bls_ina_se1_44";
+	appearanceName = "thorton_colby_pickup_ma_bls_ina_se1_44";
+	displayName = "LocKey#95883";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_colby_pickup_ma_bls_ina_se1_44_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_02", "wheel_bl_03", "wheel_br_02", "wheel_br_03", "wheel_fl_02", "wheel_fl_03", "wheel_fr_02", "wheel_fr_03"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_thorton_galena_player : v_standard2_thorton_galena
+{
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_galena_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_02_bl_a", "wheel_02_br", "bumper_b_01", "bumper_f_01", "junk_fuelcell"
+	];
+	customizeCarRims = false;
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Radial_S";
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_L";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.32f;
+			rimRadius = 0.24f;
+			tireWidth = 0.23f;
+			wheelOffset = 0.06f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.32f;
+			rimRadius = 0.24f;
+			tireWidth = 0.34f;
+			wheelOffset = 0.07f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+			} : VehicleWheelDrivingPreset_Galena_Front;
+			backPreset = 
+			{
+				visualSuspensionCompressionLength = 0.05f;
+			} : VehicleWheelDrivingPreset_Galena_Rear;
+		} : VehicleWheelDrivingSetup_4_FWD;
+	} : VehicleDriveModelData_Galena;
+	appearanceName = "thorton_galena__basic_player_01";
+}
+
+v_standard2_thorton_galena_bobas_player : v_standard2_thorton_galena_bobas
+{
+	savable = true;
+	appearanceName = "thorton_galena__basic_q000_galena_bobas";
+}
+
+v_standard2_thorton_galena_nomad_player : v_standard2_thorton_galena_nomad_red_green
+{
+	savable = true;
+}
+
+v_standard2_thorton_galena_nomad_player_missiles : v_standard2_thorton_galena_nomad_locust
+{
+	savable = true;
+}
+
+v_standard2_thorton_galena_gt_player : v_standard2_thorton_galena_gt
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.thorton_galena_gt_GA32t";
+	appearanceName = "thorton_galena__basic_gt_02";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_galena_basic_gt_02_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_02_bl_a", "wheel_02_br"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_villefort_cortes_player : v_standard2_villefort_cortes
+{
+	savable = true;
+	appearanceName = "villefort_cortes__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_cortes_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_bl_center", "wheel_01_br_a", "wheel_01_br_center", "wheel_01_fl_a", "wheel_01_fl_center", "wheel_01_fr_a", "wheel_01_fr_center"
+	];
+	customizeCarRims = false;
+}
+
+v_delamain_taxi : v_standard2_villefort_cortes_delamain_taxi
+{
+	savable = true;
+	appearanceName = "villefort_cortes__basic_delamain_taxi";
+	displayOverride = "Vehicle.v_delamain_taxi_display_override";
+}
+
+v_standard2_villefort_cortes_delamain_player : v_standard2_villefort_cortes_delamain
+{
+	savable = true;
+	appearanceName = "villefort_cortes__basic_delamain";
+}
+
+v_standard3_chevalier_emperor_player : v_standard3_chevalier_emperor
+{
+	savable = true;
+	appearanceName = "chevalier_emperor__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewChevillonEmperor";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_chevalier_emperor_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+}
+
+v_utility4_chevalier_legatus_player : v_utility4_chevalier_legatus_aquila_basic
+{
+	savable = true;
+}
+
+v_standard3_thorton_mackinaw_player : v_standard3_thorton_mackinaw
+{
+	savable = true;
+	appearanceName = "thorton_mackinaw__basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGenericReversed";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_mackinaw_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	customizeCarRims = false;
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Radial_M";
+	fxWheelsDecals = "Vehicle.FxWheels_Radial_XL";
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.39f;
+			rimRadius = 0.28f;
+			tireWidth = 0.29f;
+			wheelOffset = 0.04f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.41f;
+			rimRadius = 0.28f;
+			tireWidth = 0.4f;
+			wheelOffset = 0.15f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+}
+
+v_standard3_thorton_mackinaw_ncu_player : v_standard3_thorton_mackinaw_nomad_ncu
+{
+	savable = true;
+	hasVisualCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_mackinaw_nomad_deathrace_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_02_bl", "wheel_02_br_a", "wheel_02_fl_a", "wheel_02_fr_a", "body_01", "bumper_b_01", "bumper_f_01_b", "bumper_a_01", "door_bl_a", "door_fl_a", "door_fr_a", "trunk_a", "trunk_b", "claire_details", "detector_medium_01", "detector_medium_1620", "roof_hatch"
+	];
+	customizeCarRims = false;
+}
+
+v_standard3_thorton_mackinaw_02_player : v_standard3_thorton_mackinaw_nomad_ncu
+{
+	displayName = "LocKey#22082";
+	savable = true;
+	appearanceName = "thorton_mackinaw_nomad_saguaro_01";
+	fk< UIIcon > icon = "UIIcon.thorton_mackinaw_nomad_saguaro";
+}
+
+v_utility4_thorton_mackinaw_bmf_player : v_utility4_thorton_mackinaw_bmf
+{
+	fk< UIIcon > icon = "UIIcon.v_utility4_thorton_mackinaw_bmf_player";
+	savable = true;
+	appearanceName = "thorton_mackinaw_bmf_bmf_01";
+	hasVisualCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_mackinaw_bmf_bmf_01_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "bumper_b_01", "bumper_b_02", "bumper_f_01", "bumper_f_02", "v_utility4_thorton_mackinaw_monster__ext01_details_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sportbike3_brennan_apollo_player : v_sportbike3_brennan_apollo
+{
+	savable = true;
+	appearanceName = "brennan_apollo_basic_player_01";
+	headlightColor = 
+	[
+		173, 239, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewYaibaKusanagiCT3X";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_brennan_apollo_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"v_sportbike3_brennan_apollo__ext01_wheel_f_01", "wheel_b_01", "wheel_b_player_01", "wheel_f_player_01"
+	];
+	customizeCarRims = false;
+	customizeLights = false;
+}
+
+v_sportbike3_brennan_apollo_nomad_player : v_sportbike3_brennan_apollo_scorpion
+{
+	savable = true;
+}
+
+v_sportbike3_brennan_apollo_player_02 : v_sportbike3_brennan_apollo_sport
+{
+	destroyedAppearance = "brennan_apollo_basic_burnt_player_02";
+	appearanceName = "brennan_apollo_basic_player_02";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizeCarRims = true;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewYaibaKusanagiCT3X";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_brennan_apollo_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"empty"
+	];
+}
+
+v_sportbike2_arch_player : v_sportbike2_arch
+{
+	savable = true;
+	appearanceName = "arch_nemesis_basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewArchNazare";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_arch_nemesis_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_b_01", "wheel_f_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sportbike2_arch_jackie_player : v_sportbike2_arch_jackie
+{
+	savable = true;
+	appearanceName = "arch_nemesis_basic_jackie";
+}
+
+v_sportbike2_arch_jackie_tuned_player : v_sportbike2_arch_jackie_tuned
+{
+	savable = true;
+	appearanceName = "arch_nemesis_basic_jackie_tuned_up";
+}
+
+v_sportbike2_arch_tyger_player : v_sportbike2_arch_tyger
+{
+	savable = true;
+	appearanceName = "arch_nemesis_basic_tygerclaws_boss_01";
+	headlightColor = 
+	[
+		164, 246, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewArchNazare";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_arch_nemesis_basic_tygerclaws_boss_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_b_01", "wheel_f_01"
+	];
+	customizeCarRims = false;
+	customizeLights = false;
+}
+
+v_sportbike2_arch_player_02 : v_sportbike2_arch_sport
+{
+	fk< UIIcon > icon = "UIIcon.arch_nemesis_player_02";
+	appearanceName = "arch_nemesis_basic_player_02";
+	savable = true;
+	headlightColor = 
+	[
+		255, 0, 0, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewArchNazare";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_arch_nemesis_basic_player_02_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_b_01", "wheel_f_01"
+	];
+	customizeCarRims = false;
+	customizeLights = false;
+}
+
+v_sportbike2_arch_player_03 : v_sportbike2_arch_tyger
+{
+	fk< UIIcon > icon = "UIIcon.arch_nemesis_player_03";
+	appearanceName = "arch_nemesis_basic_player_03";
+	savable = true;
+	displayName = "LocKey#95761";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewArchNazare";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_arch_nemesis_basic_player_03_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_b_01", "wheel_f_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sportbike1_yaiba_kusanagi_player : v_sportbike1_yaiba_kusanagi
+{
+	savable = true;
+	appearanceName = "yaiba_kusanagi_basic_player_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewYaibaKusanagiCT3X";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_yaiba_kusanagi_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"v_sportbike1_yaiba_kusanagi__ext01_wheel_f_010871", "v_sportbike1_yaiba_kusanagi__ext01_wheel_r_010655"
+	];
+	customizeCarRims = true;
+}
+
+v_sportbike1_yaiba_kusanagi_tyger_player : v_sportbike1_yaiba_kusanagi_tyger
+{
+	savable = true;
+	appearanceName = "yaiba_kusanagi_basic_tyger_01";
+}
+
+v_sportbike1_yaiba_kusanagi_player_02 : v_sportbike1_yaiba_kusanagi_animal
+{
+	destroyedAppearance = "yaiba_kusanagi_basic_burnt_player_02";
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.yaiba_player_02";
+	appearanceName = "yaiba_kusanagi_basic_player_02";
+	displayName = "LocKey#95758";
+	headlightColor = 
+	[
+		167, 251, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewYaibaKusanagiPeacekeeper";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_yaiba_kusanagi_basic_player_02_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"v_sportbike1_yaiba_kusanagi__ext01_wheel_f_010871", "v_sportbike1_yaiba_kusanagi__ext01_wheel_r_010655", "v_common__ext01_seat_01"
+	];
+	customizeCarRims = true;
+	customizeLights = false;
+	bikeDriveModelData = 
+	{
+		total_mass = 480.0f;
+		chassis_mass = 480.f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+			} : VehicleWheelDrivingPresetKusanagi_Front;
+			backPreset = 
+			{
+				visualSuspensionCompressionLength = 0.11f;
+			} : VehicleWheelDrivingPresetKusanagi_Rear;
+		} : VehicleWheelDrivingSetup_2_Default;
+	} : VehicleDriveModelDataDefaultYaibaKusanagi;
+}
+
+v_sportbike1_yaiba_kusanagi_player_03 : v_sportbike1_yaiba_kusanagi_tyger
+{
+	destroyedAppearance = "yaiba_kusanagi_basic_burnt_player_03";
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.yaiba_player_03";
+	appearanceName = "yaiba_kusanagi_basic_player_03";
+	displayName = "LocKey#95759";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewYaibaKusanagiAkashita";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_yaiba_kusanagi_basic_player_02_body1_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"v_sportbike1_yaiba_kusanagi__ext01_wheel_f_010871", "v_sportbike1_yaiba_kusanagi__ext01_wheel_r_010655", "v_common__ext01_seat_player_03"
+	];
+	customizeCarRims = true;
+}
+
+v_sportbike1_yaiba_muramasa_naked : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked";
+}
+
+v_sportbike1_yaiba_muramasa_naked_as : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_as";
+}
+
+v_sportbike1_yaiba_muramasa_naked_as_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_as_nr";
+}
+
+v_sportbike1_yaiba_muramasa_naked_as_ns : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as_ns";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_as_ns";
+}
+
+v_sportbike1_yaiba_muramasa_naked_as_ns_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_as_ns_nr";
+}
+
+v_sportbike1_yaiba_muramasa_naked_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_nr";
+}
+
+v_sportbike1_yaiba_muramasa_naked_ns : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_ns";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_ns";
+}
+
+v_sportbike1_yaiba_muramasa_naked_ns_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_ns_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_naked_ns_nr";
+}
+
+v_sportbike1_yaiba_muramasa_regular : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular";
+}
+
+v_sportbike1_yaiba_muramasa_regular_as : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_as";
+}
+
+v_sportbike1_yaiba_muramasa_regular_as_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_as_nr";
+}
+
+v_sportbike1_yaiba_muramasa_regular_as_ns : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as_ns";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_as_ns";
+}
+
+v_sportbike1_yaiba_muramasa_regular_as_ns_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_as_ns_nr";
+}
+
+v_sportbike1_yaiba_muramasa_regular_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_nr";
+}
+
+v_sportbike1_yaiba_muramasa_regular_ns : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_ns";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_ns";
+}
+
+v_sportbike1_yaiba_muramasa_regular_ns_nr : v_sportbike1_yaiba_muramasa_player
+{
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_ns_nr";
+	fk< UIIcon > icon = "UIIcon.yaiba_muramasa_regular_ns_nr";
+}
+
+v_sport1_quadra_sport_r7_netrunner : v_sport1_quadra_sport_r7_netrunner_01
+{
+	fk< UIIcon > icon = "UIIcon.quadra_sport_r7_netrunner";
+	savable = true;
+	appearanceName = "quadra_sport_r7_basic_netrunner_01_player";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraSportR7";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_sport_r7_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_01", "wheel_br_01", "wheel_fl_01", "wheel_fr_01", "wheel_fl_c_01", "wheel_fr_c_01", "wheel_fl_08", "wheel_fr_08", "spoiler"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_quadra_sport_r7_player : v_sport1_quadra_sport_r7_rocket
+{
+	fk< UIIcon > icon = "UIIcon.quadra_sport_r7_chiaroscuro";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraSportR7";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_sport_r7_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_01", "wheel_br_01", "wheel_fl_01", "wheel_fr_01", "wheel_fl_c_01", "wheel_fr_c_01", "wheel_fl_08", "wheel_fr_08", "spoiler"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_quadra_sport_r7_player_02 : v_sport1_quadra_sport_r7_rocket
+{
+	fk< UIIcon > icon = "UIIcon.quadra_sport_r7_vigilante";
+	displayName = "LocKey#93555";
+	savable = true;
+	appearanceName = "quadra_sport_r7_basic_player_02";
+	destroyedAppearance = "quadra_sport_r7_basic_burnt_player_02";
+	headlightColor = 
+	[
+		255, 148, 164, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraSportR7";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_sport_r7_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_01", "wheel_br_01", "wheel_fl_01", "wheel_fr_01", "wheel_fl_c_01", "wheel_fr_c_01", "wheel_fl_08", "wheel_fr_08"
+	];
+	customizeCarRims = true;
+	customizeLights = false;
+}
+
+v_sport1_quadra_sport_r7_mrhands : v_sport1_quadra_sport_r7_gt
+{
+	fk< UIIcon > icon = "UIIcon.quadra_sport_r7_mrhands";
+	displayName = "LocKey#93144";
+	savable = true;
+	appearanceName = "quadra_sport_r7_basic_mr_hands_reward";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewQuadraSportR7";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_quadra_sport_r7_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_bl_01", "wheel_br_01", "wheel_fl_01", "wheel_fr_01", "wheel_fl_c_01", "wheel_fr_c_01", "wheel_fl_08", "wheel_fr_08", "spoiler"
+	];
+	customizeCarRims = true;
+}
+
+v_sport1_herrera_riptide_player : v_sport1_herrera_riptide_terrier
+{
+	fk< UIIcon > icon = "UIIcon.herrera_riptide";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewHerreraRiptide";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_herrera_riptide_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_fl_a_02", "wheel_fl_b_01", "wheel_fr_a_02", "wheel_fr_b_01", "wheel_bl_a_01", "wheel_bl_a_02", "wheel_br_a_01", "wheel_br_a_02", "dekielek_fl_01", "dekielek_fr_01", "dekielek_bl_01", "dekielek_br_01", "splitter_01", "trunk_b_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_villefort_alvarado_hearse_player : v_sport2_villefort_alvarado_hearse
+{
+	fk< UIIcon > icon = "UIIcon.villefort_alvarado_hearse";
+	savable = true;
+	appearanceName = "villefort_alvarado_hearse_01_basic_web_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewVillefortAlvaradoBasic";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_alvarado_hearse_01_basic_web_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fl_b", "wheel_01_fr_a", "wheel_01_fr_b", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = false;
+}
+
+v_standard2_mizutani_hozuki_player : v_standard2_mizutani_hozuki_sti
+{
+	fk< UIIcon > icon = "UIIcon.mizutani_hozuki";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewMizutaniHozukiHoseki";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_mizutani_hozuki_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "body_01", "bumper_b_01", "trunk_b", "spoiler_player_01", "wing_a"
+	];
+}
+
+v_standard2_mizutani_hozuki_gt_player : v_standard2_mizutani_hozuki_premium
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.muzitani_hozuki_gt_MH2";
+	appearanceName = "mizutani_hozuki__basic_urban_05";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewMizutaniHozukiHoseki";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_mizutani_hozuki_basic_urban_05_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	customizeCarRims = false;
+}
+
+v_standard25_thorton_merrimac_player : v_standard25_thorton_merrimac_pickup
+{
+	fk< UIIcon > icon = "UIIcon.thorton_merrimac_playere";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_thorton_merrimac_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_02_bl_b", "wheel_02_br_b", "body_01", "body_elements_player_01", "bumper_b_fixed_01", "bumper_f_player_fixed"
+	];
+}
+
+v_sport1_herrera_outlaw_heist_player : v_sport1_herrera_outlaw_heist
+{
+	fk< UIIcon > icon = "UIIcon.herrera_outlaw_heist_player";
+	savable = true;
+	appearanceName = "herrera_outlaw__heist_player_01";
+	headlightColor = 
+	[
+		63, 175, 255, 255
+	];
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewHerreraOutlaw";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_herrera_outlaw_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "wheel_cortes_fl", "wheel_cortes_fr", "wheel_cortes_bl", "wheel_cortes_br", "wheel_hellhound_fl", "wheel_hellhound_fr", "wheel_riptide_bl", "wheel_riptide_br", "body_heist_b_01", "bumper_f_heist_01", "window_b_02_heist", "window_b_heist", "window_bl_heist", "window_br_heist", "window_f_heist", "window_fl_heist", "window_fr_heist"
+	];
+	customizeCarRims = false;
+	customizeLights = false;
+}
+
+v_sport2_villefort_deleon_player : v_sport2_villefort_deleon_vindicator
+{
+	fk< UIIcon > icon = "UIIcon.villefort_deleon";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewVillefortDeleon";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_deleon_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a", "body_player_01", "bumper_f_player_01", "trunk_player_01"
+	];
+	customizeCarRims = false;
+}
+
+v_sport2_villefort_deleon_sport_player : v_sport2_villefort_deleon_sport
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.villefort_deleon_sport_V410Coupe";
+	appearanceName = "villefort_deleon_basic_urban_01";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewVillefortDeleon";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_villefort_deleon_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_fl_a", "wheel_01_fr_a", "wheel_01_bl_a", "wheel_01_br_a"
+	];
+	customizeCarRims = false;
+}
+
+v_standard3_militech_hellhound_player : v_standard3_militech_hellhound
+{
+	fk< UIIcon > icon = "UIIcon.militech_hellhound";
+	savable = true;
+	appearanceName = "militech_hellhound__basic_player_01";
+}
+
+v_standard3_makigai_tanishi_player : v_standard3_makigai_tanishi_kuma
+{
+	fk< UIIcon > icon = "UIIcon.makigai_tanishi_player_01";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_makigai_tanishi_basic_player_mr_hands_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_bl_b", "wheel_01_br_a", "wheel_01_br_b", "wheel_01_fl_a", "wheel_01_fr_a", "rollbar_player_01", "door_fl_a", "door_fr_a", "v_standard3_makigai_tanishi__ext01_wheel_mount_01", "bumper_01_lights"
+	];
+	customizeCarRims = false;
+}
+
+v_standard3_makigai_tanishi_player_mr_hands : v_standard3_makigai_tanishi
+{
+	savable = true;
+	fk< UIIcon > icon = "UIIcon.makigai_tanishi_player_mr_hands";
+	appearanceName = "makigai_tanishi_basic_player_mr_hands";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = true;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_makigai_tanishi_basic_player_mr_hands_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_01_bl_a", "wheel_01_bl_b", "wheel_01_br_a", "wheel_01_br_b", "wheel_01_fl_a", "wheel_01_fr_a"
+	];
+	customizeCarRims = false;
+}
+
+v_standard3_mahir_supron_kurtz_player : v_standard3_mahir_supron_kurtz_overlander
+{
+	fk< UIIcon > icon = "UIIcon.v_standard3_mahir_supron_kurtz_player";
+	savable = true;
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizeCarRims = false;
+	customizeLights = true;
+	visualCustomizationTeaser = false;
+	customizationMenuType = "Cracked";
+	customizationPreview = "Vehicle.PreviewGeneric";
+	customizationPreviewGlow = "";
+	genericCustomizationMask = "ep1\gameplay\vehicles\visual_customization\car_masks\vcc_mahir_supron_kurtz_basic_player_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"sidewall_bl_01", "sidewall_br_01", "sidewall_fl_01", "sidewall_fr_01", "v_standard25_mahir_supron_kurtz__ext01_wheel_kurtz_03", "wheel_bl_03", "wheel_br_03", "wheel_fr_03", "v_standard25_mahir_supron__ext01_body_01", "v_standard25_mahir_supron__ext01_door_bl_01", "v_standard25_mahir_supron__ext01_door_br_01", "v_standard25_mahir_supron__ext01_door_fl_01", "v_standard25_mahir_supron__ext01_door_fr_01"
+	];
+}
+
+v_standard25_thorton_colby_pickup_kurtz_player : v_standard25_thorton_colby_pickup_kurtz
+{
+	fk< UIIcon > icon = "UIIcon.v_standard25_thorton_colby_pickup_kurtz_player";
+	savable = true;
+	appearanceName = "thorton_colby_pickup_kurtz_player_01";
+	statModifierGroups = 
+	[
+		"VehicleStatPreset.BaseCar", "VehicleStatPreset.Durable"
+	];
+}
+
+v_standard25_thorton_merrimac_web : v_standard25_thorton_merrimac
+{
+	savable = true;
+	appearanceName = "thorton_merrimac_basic_web_01";
+}
+
+v_standard2_mizutani_hozuki_web : v_standard2_mizutani_hozuki_premium
+{
+	savable = true;
+	appearanceName = "mizutani_hozuki__basic_web_01";
+}
+
+v_sport2_villefort_deleon_web : v_sport2_villefort_deleon
+{
+	savable = true;
+	appearanceName = "villefort_deleon_basic_web_01";
+}
+
+v_sport1_herrera_riptide_web : v_sport1_herrera_riptide
+{
+	savable = true;
+	appearanceName = "herrera_riptide__basic_web_01";
+}
+
+v_sport2_villefort_alvarado_hearse_web : v_sport2_villefort_alvarado_hearse
+{
+	savable = true;
+	appearanceName = "villefort_alvarado_hearse_01_basic_web_01";
+}
+
+v_sport1_quadra_sport_r7_web : v_sport1_quadra_sport_r7
+{
+	savable = true;
+	appearanceName = "quadra_sport_r7_basic_web_01";
+}
+
+v_sportbike2_arch_linas_player : v_sportbike2_arch_tyger
+{
+	savable = true;
+	entityTemplatePath = "ep1\vehicles\sportbike\v_sportbike2_arch_nemesis_lina_01.ent";
+	appearanceName = "arch_nemesis_lina_lina_malina_02";
+	displayName = "LocKey#94178";
+	hasVisualCustomization = true;
+	hasUniqueCustomization = false;
+	customizationMenuType = "Partner";
+	customizationPreview = "Vehicle.PreviewArchNazare";
+	genericCustomizationMask = "base\gameplay\vehicles\visual_customization\car_masks\vcc_arch_nemesis_basic_tygerclaws_boss_01_generic_mask.xbm";
+	excludedComponentsGeneric = 
+	[
+		"wheel_b_01", "wheel_f_01"
+	];
+	customizeCarRims = false;
+	fk< UIIcon > icon = "UIIcon.arch_nemesis_linamalina";
+	vehicleUIData = 
+	{
+		productionYear = "2069";
+		driveLayout = "LocKey#94190";
+		mass = 303.5f;
+		info = "LocKey#94191";
+	} : VehicleArchUIData;
+}
+

@@ -1,0 +1,74 @@
+package Items
+using RTDB
+
+[ notQueryable ]
+FactionRangedMod : DeprecatedWeaponModBase
+{
+	tags += 
+	[
+		"FactionItem"
+	];
+}
+
+[ notQueryable ]
+FactionMeleeMod : DeprecatedWeaponModBase
+{
+	tags += 
+	[
+		"FactionItem"
+	];
+}
+
+[ notQueryable ]
+WraithsRangedWeaponMod : FactionRangedMod
+{
+}
+
+[ notQueryable ]
+WraithsMeleeWeaponMod : FactionMeleeMod
+{
+}
+
+[ notQueryable ]
+TygerRangedWeaponMod : FactionRangedMod
+{
+}
+
+[ notQueryable ]
+TygerMeleeWeaponMod : FactionMeleeMod
+{
+}
+
+[ notQueryable ]
+ValentinosRangedWeaponMod : FactionRangedMod
+{
+}
+
+[ notQueryable ]
+ValentinosMeleeWeaponMod : FactionMeleeMod
+{
+}
+
+[ notQueryable ]
+ArasakaMeleeWeaponMod : FactionMeleeMod
+{
+}
+
+[ notQueryable ]
+TygerMeleeWeaponModUncommon : TygerRangedWeaponMod
+{
+	quality = "Quality.Uncommon";
+}
+
+[ notQueryable ]
+WraithsMeleeWeaponModUncommon : WraithsMeleeWeaponMod
+{
+	quality = "Quality.Uncommon";
+}
+
+[ notQueryable ]
+ValentinosMeleeWeaponModUncommon : ValentinosMeleeWeaponMod
+{
+	quality = "Quality.Uncommon";
+}
+

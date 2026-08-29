@@ -1,10 +1,16 @@
 local utils = require("modules/utils/utils")
+local ref = require("modules/utils/Ref")
 
 local roundRobin = 0
 local cellSize = 12
+
 local world = {
     interactions = {},
-    searchGrid = {}
+    searchGrid = {},
+    interactionCounter = 0,
+    activeInteractions = {}, -- Currently shown interaction per modulePath, so that limiting to one interaction per modulePath is possible with roundRobin
+    pinnedInteractions = {},
+    cellSize = cellSize
 }
 
 local function getGridKey(position)
@@ -22,9 +28,9 @@ function world.addInteraction(modulePath, position, interactionRange, angle, ico
         angle = angle,
         callback = callback,
         pinID = nil,
+        pinController = nil,
         shown = false,
-        disabled = false,
-        hideIcon = false
+        disabled = false
     }
 
     local key = getGridKey(position)
@@ -33,10 +39,11 @@ function world.addInteraction(modulePath, position, interactionRange, angle, ico
         world.searchGrid[key] = {}
     end
 
-    table.insert(world.interactions, data)
-    table.insert(world.searchGrid[key], world.interactions[#world.interactions])
+    world.interactionCounter = world.interactionCounter + 1
+    world.interactions[world.interactionCounter] = data
+    table.insert(world.searchGrid[key], data)
 
-    return #world.interactions
+    return world.interactionCounter
 end
 
 function world.removeInteraction(key)
@@ -51,6 +58,12 @@ function world.removeInteraction(key)
         if world.interactions[key].pinID then
             Game.GetMappinSystem():UnregisterMappin(world.interactions[key].pinID)
         end
+        world.pinnedInteractions[data] = nil
+
+        local active = world.activeInteractions[data.modulePath]
+        if active and active.interaction == data then
+            world.activeInteractions[data.modulePath] = nil
+        end
 
         world.interactions[key] = nil
     end
@@ -60,7 +73,6 @@ function world.getGridInteractions(origin, singleCell, roundRobin)
     local singleCell = singleCell == nil and false or singleCell
     local originX = math.floor(origin.x / cellSize)
     local originY = math.floor(origin.y / cellSize)
-    local interactions = {}
 
     if singleCell then
         local key = originX .. "_" .. originY
@@ -74,14 +86,7 @@ function world.getGridInteractions(origin, singleCell, roundRobin)
         return world.searchGrid[key] or {}
     end
 
-    for x = -1, 1 do
-        for y = -1, 1 do
-            local key = (originX + x) .. "_" .. (originY + y)
-            utils.combine(interactions, world.searchGrid[key] or {})
-        end
-    end
-
-    return interactions
+    return {}
 end
 
 function world.disableInteraction(key, state)
@@ -91,8 +96,10 @@ function world.disableInteraction(key, state)
 end
 
 function world.init()
-    TweakDB:CloneRecord("WorldMappinUIProfile.nif", "WorldMappinUIProfile.Default")
-    TweakDB:SetFlat("WorldMappinUIProfile.nif.visibleInTier", { true, true, true, false, false })
+    if TweakDB:GetRecord("WorldMappinUIProfile.nif") == nil then
+        TweakDB:CloneRecord("WorldMappinUIProfile.nif", "WorldMappinUIProfile.Default")
+        TweakDB:SetFlat("WorldMappinUIProfile.nif.visibleInTier", { true, true, true, false, false })
+    end
 
     ObserveAfter("BaseMappinBaseController", "UpdateRootState", function(this) -- Custom pin texture
         local mappin = this:GetMappin()
@@ -100,11 +107,18 @@ function world.init()
 
         local pos = mappin:GetWorldPosition()
         for _, interaction in pairs(world.getGridInteractions(pos, true)) do
-            if Vector4.Distance(pos, interaction.pos) < 0.05 and interaction.pinID ~= nil then
+            if interaction.pinID and interaction.pinID.value == this:GetMappin():GetNewMappinID().value then
                 local record = TweakDBInterface.GetUIIconRecord(interaction.icon)
                 this.iconWidget:SetAtlasResource(record:AtlasResourcePath())
                 this.iconWidget:SetTexturePart(record:AtlasPartName())
-                this.iconWidget:SetTintColor(interaction.iconColor or HDRColor.new({ Red = 0.15829999744892, Green = 1.3033000230789, Blue = 1.4141999483109, Alpha = 1.0 }))
+
+                if interaction.iconColor then
+                    this.iconWidget:SetTintColor(HDRColor.new(interaction.iconColor))
+                else
+                    this.iconWidget.widget:BindProperty("tintColor", "MainColors.Blue")
+                end
+                interaction.pinController = ref.Weak(this)
+
                 return
             end
         end
@@ -114,7 +128,7 @@ function world.init()
         if mappin then
             local pos = mappin:GetWorldPosition()
             for _, interaction in pairs(world.getGridInteractions(pos, true)) do
-                if Vector4.Distance(pos, interaction.pos) < 0.05 and interaction.pinID ~= nil then
+                if interaction.pinID and interaction.pinID.value == mappin:GetNewMappinID().value then
                     return true
                 end
             end
@@ -124,73 +138,100 @@ function world.init()
     end)
 end
 
+---Returns whether the interaction should be shown, together with the look at angle and the squared distance
+local function evaluateInteraction(interaction, posPlayer, playerForward)
+    local playerInteractionDist = utils.vectorDistanceSquared(posPlayer, interaction.pos)
+
+    if interaction.disabled or playerInteractionDist >= interaction.interactionRange then
+        return false, 360, playerInteractionDist
+    end
+
+    local interactionAngle = 180 - Vector4.GetAngleBetween(playerForward, Vector4.new(posPlayer.x - interaction.pos.x, posPlayer.y - interaction.pos.y, posPlayer.z - interaction.pos.z, 0))
+
+    return interactionAngle < interaction.angle, interactionAngle, playerInteractionDist
+end
+
+local function hideInteraction(interaction)
+    local active = world.activeInteractions[interaction.modulePath]
+    if active and active.interaction == interaction then
+        world.activeInteractions[interaction.modulePath] = nil
+    end
+
+    if not interaction.shown then return end
+
+    interaction.shown = false
+    interaction.callback(false)
+end
+
+local function showInteraction(interaction, interactionAngle)
+    local active = world.activeInteractions[interaction.modulePath]
+    if active and active.interaction ~= interaction then
+        hideInteraction(active.interaction)
+    end
+
+    interaction.shown = true
+    world.activeInteractions[interaction.modulePath] = { angle = interactionAngle, interaction = interaction }
+end
+
+local function scanCell(cell, posPlayer, playerForward)
+    for _, interaction in pairs(cell) do
+        local show, interactionAngle, playerInteractionDist = evaluateInteraction(interaction, posPlayer, playerForward)
+        local active = world.activeInteractions[interaction.modulePath]
+
+        -- Ensure only one per modulePath is active at a time, the closest one to the crosshair wins
+        if show and (not active or active.interaction == interaction or interactionAngle < active.angle) then
+            showInteraction(interaction, interactionAngle)
+        else
+            hideInteraction(interaction)
+        end
+
+        -- Hiding is handled outside, based on pinnedInteractions table so that pins outside any cells can be hidden still
+        if not interaction.disabled and interaction.icon and not interaction.pinID and playerInteractionDist < interaction.iconRange then
+            world.togglePin(interaction, true)
+        end
+    end
+end
+
 function world.update()
     if Game.GetQuestsSystem():GetFactStr("nif_scene_active") == 1 then return end -- Dont update if a scene is running
-
-    local showInteractions = {} -- Aggregate all callbacks, make sure only one interaction per modulePath is active
 
     local posPlayer = GetPlayer():GetWorldPosition()
     local playerForward = GetPlayer():GetWorldForward()
     posPlayer.z = posPlayer.z + 1
 
-    for _, interaction in pairs(world.getGridInteractions(posPlayer, false, roundRobin)) do
-        local update = interaction.shown
-        local interactionAngle = 360
-        local playerInteractionDist = utils.vectorDistanceSquared(posPlayer, interaction.pos)
+    -- Re-check the active interactions
+    for _, active in pairs(world.activeInteractions) do
+        local show, interactionAngle = evaluateInteraction(active.interaction, posPlayer, playerForward)
 
-        if playerInteractionDist < interaction.interactionRange then -- Custom callback when in range and look at
-            interactionAngle = 180 - Vector4.GetAngleBetween(playerForward, Vector4.new(posPlayer.x - interaction.pos.x, posPlayer.y - interaction.pos.y, posPlayer.z - interaction.pos.z, 0))
-            if interactionAngle < interaction.angle then
-                update = true and not interaction.disabled
-            else
-                update = false
-            end
+        if show then
+            active.angle = interactionAngle
         else
-            update = false
+            hideInteraction(active.interaction)
         end
+    end
 
-        -- Ensure only one per modulePath is active at a time
-        if update then
-            if not showInteractions[interaction.modulePath] then
-                interaction.shown = true
-                showInteractions[interaction.modulePath] = { angle = interactionAngle, interaction = interaction }
-            elseif interactionAngle < showInteractions[interaction.modulePath].angle then
-                showInteractions[interaction.modulePath].interaction.shown = false
-                showInteractions[interaction.modulePath].interaction.callback(false)
-
-                interaction.shown = true
-                showInteractions[interaction.modulePath] = { angle = interactionAngle, interaction = interaction }
-            else
-                interaction.shown = false
-                interaction.callback(false)
-            end
-        elseif interaction.shown then
-            interaction.shown = update
-            interaction.callback(interaction.shown)
-        end
-
-        if not interaction.disabled and interaction.icon and playerInteractionDist < interaction.iconRange then -- Hide / show optional icon
-            if not interaction.pinID then
-                world.togglePin(interaction, true)
-            end
-        elseif interaction.pinID and interaction.icon then
+    -- Hide distant pins, regardless of whether they are in a scanned cell or not
+    for interaction, _ in pairs(world.pinnedInteractions) do
+        if interaction.disabled or utils.vectorDistanceSquared(posPlayer, interaction.pos) >= interaction.iconRange then
             world.togglePin(interaction, false)
         end
     end
+
+    scanCell(world.getGridInteractions(posPlayer, false, roundRobin), posPlayer, playerForward)
 
     roundRobin = roundRobin + 1
     if roundRobin >= 9 then
         roundRobin = 0
     end
 
-    for _, data in pairs(showInteractions) do
-        data.interaction.callback(data.interaction.shown)
+    for _, active in pairs(world.activeInteractions) do
+        active.interaction.callback(true)
     end
 end
 
 --Fix to make sure all icons are visible, to fix bug where after a scene some would be missing
 function world.forceIcons()
-    for _, interaction in pairs(world.interactions) do
+    for interaction, _ in pairs(world.pinnedInteractions) do
         if interaction.pinID then
             Game.GetMappinSystem():UnregisterMappin(interaction.pinID)
             local data = MappinData.new({ mappinType = 'Mappins.DefaultStaticMappin', variant = gamedataMappinVariant.UseVariant, visibleThroughWalls = false })
@@ -200,14 +241,17 @@ function world.forceIcons()
 end
 
 function world.togglePin(interaction, state)
-    if not interaction.icon or interaction.hideIcon then return end
+    if not interaction.icon then return end
 
     if not state and interaction.pinID then
         Game.GetMappinSystem():UnregisterMappin(interaction.pinID)
         interaction.pinID = nil
+        interaction.pinController = nil
+        world.pinnedInteractions[interaction] = nil
     elseif not interaction.pinID and state then
         local data = MappinData.new({ mappinType = 'Mappins.DefaultStaticMappin', variant = gamedataMappinVariant.UseVariant, visibleThroughWalls = false })
         interaction.pinID = Game.GetMappinSystem():RegisterMappin(data, interaction.pos)
+        world.pinnedInteractions[interaction] = true
     end
 end
 
@@ -236,9 +280,13 @@ function world.updateInteractionPosition(id, position)
 end
 
 function world.onSessionStart() -- Save loaded, all pins are gone
+    world.activeInteractions = {}
+    world.pinnedInteractions = {}
+
     for _, interaction in pairs(world.interactions) do
         interaction.shown = false
         interaction.pinID = nil
+        interaction.pinController = nil
     end
 end
 

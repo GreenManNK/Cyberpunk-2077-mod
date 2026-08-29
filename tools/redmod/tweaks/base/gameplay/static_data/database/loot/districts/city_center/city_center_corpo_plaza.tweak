@@ -1,0 +1,194 @@
+package Loot
+using RTDB
+
+CityCenterCorpoPlaza : CityCenter
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+CityCenterCorpoPlazaAmmo : CityCenterCorpoPlaza
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+CityCenterCorpoPlazaClothing : CityCenterCorpoPlaza
+{
+	queries = 
+	[
+		{
+			dropChance = 0.35;
+			query = "Query.RichClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.CorpoClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.FormalClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+CityCenterCorpoPlazaWeapons : CityCenterCorpoPlaza
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.TwoHandBluntQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.AssaultRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.PrecisionRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SniperRifleQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+CityCenterCorpoPlazaConsumables : CityCenterCorpoPlaza
+{
+	maxItemsToLoot = 1;
+	lootTableInclusions = 
+	[
+		"LootTables.HealingItemsTable"
+	];
+}
+
+CityCenterCorpoPlazaEdibles : CityCenterCorpoPlaza
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.GoodQualityDrink";
+		}
+	];
+}
+
+CityCenterCorpoPlazaGadgets : CityCenterCorpoPlaza
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+CityCenterCorpoPlazaJunk : CityCenterCorpoPlaza
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem1";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem3";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem5";
+		}
+	];
+}
+
+CityCenterCorpoPlazaFragments : CityCenterCorpoPlazaJunk
+{
+}
+
+CityCenterCorpoPlazaCraftingMaterials : CityCenterCorpoPlaza
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

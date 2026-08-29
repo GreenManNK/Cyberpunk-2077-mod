@@ -1,0 +1,361 @@
+class ItemTooltipStatController extends inkLogicController
+{
+	protected editable var m_statName : inkTextRef;
+	protected editable var m_statValue : inkTextRef;
+	protected editable var m_statComparedContainer : inkWidgetRef;
+	protected editable var m_statComparedValue : inkTextRef;
+	protected editable var m_arrow : inkImageRef;
+	private var m_measurementUnit : EMeasurementUnit;
+	protected var m_settings : UserSettings;
+	protected var m_settingsListener : ItemTooltipStatSettingsListener;
+	protected var m_groupPath : CName;
+	default m_groupPath = '/accessibility/interface';
+	protected var m_bigFontEnabled : Bool;
+	protected var m_inCrafting : Bool;
+
+	public function SetData( const data : ref< InventoryTooltipData_StatData > )
+	{
+		var statText, statFinalValue : String;
+		var statsTweakID : TweakDBID;
+		var decimalPlaces : Int32;
+		var displayPercent, displayPlus, inMeters, inSeconds, inSpeed, multiplyBy100InText, roundValue, flipNegative, isNegative : Bool;
+		var currentValue, absoluteValue, damageMin, damageMax : Float;
+		statsTweakID = TDBID.Create( "BaseStats." + EnumValueToString( "gamedataStatType", ( ( Int32 )( data.statType ) ) ) );
+		decimalPlaces = TweakDBInterface.GetInt( statsTweakID + T".decimalPlaces", 2 );
+		displayPercent = TweakDBInterface.GetBool( statsTweakID + T".displayPercent", false );
+		displayPlus = TweakDBInterface.GetBool( statsTweakID + T".displayPlus", false );
+		inMeters = TweakDBInterface.GetBool( statsTweakID + T".inMeters", false );
+		inSeconds = TweakDBInterface.GetBool( statsTweakID + T".inSeconds", false );
+		inSpeed = TweakDBInterface.GetBool( statsTweakID + T".inSpeed", false );
+		multiplyBy100InText = TweakDBInterface.GetBool( statsTweakID + T".multiplyBy100InText", false );
+		roundValue = TweakDBInterface.GetBool( statsTweakID + T".roundValue", false );
+		flipNegative = TweakDBInterface.GetBool( statsTweakID + T".shouldFlipNegativeValue", false );
+		currentValue = data.currentValueF;
+		m_measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		if( multiplyBy100InText )
+		{
+			currentValue = currentValue * 100.0;
+		}
+		if( flipNegative )
+		{
+			currentValue = AbsF( currentValue );
+		}
+		absoluteValue = AbsF( currentValue );
+		isNegative = currentValue < 0.0;
+		if( AbsF( currentValue ) > 0.001 )
+		{
+			if( !( roundValue ) )
+			{
+				statText += NoTrailZeros( FloatToStringPrec( ( ( displayPlus ) ? ( absoluteValue ) : ( currentValue ) ), decimalPlaces ) );
+			}
+			else
+			{
+				statText += IntToString( RoundF( ( ( displayPlus ) ? ( absoluteValue ) : ( currentValue ) ) ) );
+			}
+		}
+		if( RPGManager.IsDamageStat( data.statType ) )
+		{
+			damageMin = currentValue * 0.89999998;
+			damageMax = currentValue * 1.10000002;
+			statText = ( FloatToStringPrec( damageMin, 0 ) + "-" ) + FloatToStringPrec( damageMax, 0 );
+		}
+		inkTextRef.SetText( m_statName, data.statName );
+		if( displayPlus )
+		{
+			statFinalValue += ( ( isNegative ) ? ( "-" ) : ( "+" ) );
+		}
+		statFinalValue += statText;
+		if( displayPercent )
+		{
+			statFinalValue += "%";
+		}
+		if( inMeters )
+		{
+			currentValue = MeasurementUtils.ValueUnitToUnit( currentValue, EMeasurementUnit.Meter, m_measurementUnit );
+			statFinalValue += ( " " + GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) ) );
+		}
+		if( inSeconds )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( inSpeed )
+		{
+			currentValue = MeasurementUtils.ValueUnitToUnit( currentValue, EMeasurementUnit.Meter, m_measurementUnit );
+			statFinalValue += ( ( ( " " + GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) ) ) + "/" ) + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( data.statType == gamedataStatType.MaxDuration )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		inkTextRef.SetText( m_statValue, statFinalValue );
+		UpdateComparedValue( data.diffValue, displayPercent, displayPlus, inMeters, inSeconds, inSpeed );
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipStatSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		NewUpdateTooltipSize();
+	}
+
+	public function SetZeroData()
+	{
+		inkTextRef.SetText( m_statValue, "0" );
+	}
+
+	public function SetData( data : MinimalItemTooltipStatData, optional disableComparison : Bool )
+	{
+		var statText, statFinalValue : String;
+		var currentValue, absoluteValue, damageMin, damageMax : Float;
+		var isNegative : Bool;
+		currentValue = data.value;
+		m_measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		if( data.multiplyBy100InText )
+		{
+			currentValue = currentValue * 100.0;
+		}
+		if( data.flipNegative )
+		{
+			currentValue = AbsF( currentValue );
+		}
+		absoluteValue = AbsF( currentValue );
+		isNegative = currentValue < 0.0;
+		if( AbsF( currentValue ) >= 0.001 )
+		{
+			if( !( data.roundValue ) )
+			{
+				statText += NoTrailZeros( FloatToStringPrec( ( ( data.displayPlus ) ? ( absoluteValue ) : ( currentValue ) ), data.decimalPlaces ) );
+			}
+			else
+			{
+				statText += IntToString( RoundF( ( ( data.displayPlus ) ? ( absoluteValue ) : ( currentValue ) ) ) );
+			}
+		}
+		if( RPGManager.IsDamageStat( data.type ) )
+		{
+			damageMin = currentValue * 0.89999998;
+			damageMax = currentValue * 1.10000002;
+			statText = ( FloatToStringPrec( damageMin, 0 ) + "-" ) + FloatToStringPrec( damageMax, 0 );
+		}
+		inkTextRef.SetText( m_statName, data.statName );
+		if( data.displayPlus )
+		{
+			statFinalValue += ( ( isNegative ) ? ( "-" ) : ( "+" ) );
+		}
+		statFinalValue += statText;
+		if( data.displayPercent )
+		{
+			statFinalValue += "%";
+		}
+		if( data.inMeters )
+		{
+			currentValue = MeasurementUtils.ValueUnitToUnit( currentValue, EMeasurementUnit.Meter, m_measurementUnit );
+			statFinalValue += GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) );
+		}
+		if( data.inSeconds )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( data.inSpeed )
+		{
+			currentValue = MeasurementUtils.ValueUnitToUnit( currentValue, EMeasurementUnit.Meter, m_measurementUnit );
+			statFinalValue += ( ( ( " " + GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) ) ) + "/" ) + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( data.type == gamedataStatType.MaxDuration )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		inkTextRef.SetText( m_statValue, statFinalValue );
+		if( !( disableComparison ) )
+		{
+			UpdateComparedValue( ( ( Int32 )( data.diff ) ), data.displayPercent, data.displayPlus, data.inMeters, data.inSeconds, data.inSpeed );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipStatSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		NewUpdateTooltipSize();
+	}
+
+	public function SetTextState( newState : CName )
+	{
+		inkTextRef.SetState( m_statValue, newState );
+		inkTextRef.SetState( m_statName, newState );
+	}
+
+	public function SetData( data : weak< UIInventoryItemStat > )
+	{
+		var statText, statFinalValue : String;
+		var currentValue, absoluteValue, damageMin, damageMax : Float;
+		var isNegative : Bool;
+		var properties : weak< UIItemStatProperties >;
+		currentValue = data.Value;
+		m_measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		properties = data.GetProperties();
+		if( properties.MultiplyBy100InText() )
+		{
+			currentValue = currentValue * 100.0;
+		}
+		if( properties.FlipNegative() )
+		{
+			currentValue = AbsF( currentValue );
+		}
+		absoluteValue = AbsF( currentValue );
+		isNegative = currentValue < 0.0;
+		if( AbsF( currentValue ) >= 0.001 )
+		{
+			if( !( properties.RoundValue() ) )
+			{
+				statText += NoTrailZeros( FloatToStringPrec( ( ( properties.DisplayPlus() ) ? ( absoluteValue ) : ( currentValue ) ), properties.DecimalPlaces() ) );
+			}
+			else
+			{
+				statText += IntToString( RoundF( ( ( properties.DisplayPlus() ) ? ( absoluteValue ) : ( currentValue ) ) ) );
+			}
+		}
+		if( RPGManager.IsDamageStat( data.Type ) )
+		{
+			damageMin = currentValue * 0.89999998;
+			damageMax = currentValue * 1.10000002;
+			statText = ( FloatToStringPrec( damageMin, 0 ) + "-" ) + FloatToStringPrec( damageMax, 0 );
+		}
+		inkTextRef.SetText( m_statName, properties.GetName() );
+		if( properties.DisplayPlus() )
+		{
+			statFinalValue += ( ( isNegative ) ? ( "-" ) : ( "+" ) );
+		}
+		statFinalValue += statText;
+		if( properties.DisplayPercent() )
+		{
+			statFinalValue += "%";
+		}
+		if( properties.InMeters() )
+		{
+			currentValue = MeasurementUtils.ValueUnitToUnit( currentValue, EMeasurementUnit.Meter, m_measurementUnit );
+			statFinalValue += GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) );
+		}
+		if( properties.InSeconds() )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( data.Type == gamedataStatType.MaxDuration )
+		{
+			statFinalValue += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		inkTextRef.SetText( m_statValue, statFinalValue );
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipStatSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		NewUpdateTooltipSize();
+	}
+
+	public function SetData( data : weak< UIInventoryItemStat >, comparisonData : weak< UIInventoryItemStatComparison > )
+	{
+		var properties : weak< UIItemStatProperties >;
+		SetData( data );
+		if( comparisonData )
+		{
+			properties = data.GetProperties();
+			UpdateComparedValue( RoundF( comparisonData.Value ), properties.DisplayPercent(), properties.DisplayPlus(), properties.InMeters(), properties.InSeconds(), properties.InSpeed() );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipStatSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		NewUpdateTooltipSize();
+	}
+
+	private function UpdateComparedValue( diff : Int32, displayPercent : Bool, displayPlus : Bool, inMeters : Bool, inSeconds : Bool, inSpeed : Bool )
+	{
+		var isVisible : Bool;
+		var comaredStatText : String;
+		var statToSet : CName;
+		m_measurementUnit = UILocalizationHelper.GetSystemBaseUnit();
+		isVisible = diff != 0;
+		statToSet = ( ( diff > 0 ) ? ( 'Better' ) : ( 'Worse' ) );
+		if( displayPlus )
+		{
+			comaredStatText += ( ( ( diff > 0 ) ) ? ( "+" ) : ( "-" ) );
+		}
+		comaredStatText += IntToString( Abs( diff ) );
+		if( displayPercent )
+		{
+			comaredStatText += "%";
+		}
+		if( inMeters )
+		{
+			diff = FloorF( MeasurementUtils.ValueUnitToUnit( ( ( Float )( diff ) ), EMeasurementUnit.Meter, m_measurementUnit ) );
+			comaredStatText += GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) );
+		}
+		if( inSeconds )
+		{
+			comaredStatText += ( " " + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		if( inSpeed )
+		{
+			diff = FloorF( MeasurementUtils.ValueUnitToUnit( ( ( Float )( diff ) ), EMeasurementUnit.Meter, m_measurementUnit ) );
+			comaredStatText += ( ( ( " " + GetLocalizedText( NameToString( MeasurementUtils.GetUnitLocalizationKey( m_measurementUnit ) ) ) ) + "/" ) + GetLocalizedText( "UI-Quickhacks-Seconds" ) );
+		}
+		inkTextRef.SetText( m_statComparedValue, comaredStatText );
+		inkImageRef.SetVisible( m_arrow, false );
+		inkTextRef.SetVisible( m_statComparedValue, isVisible );
+		inkImageRef.SetState( m_arrow, statToSet );
+		inkTextRef.SetState( m_statComparedValue, statToSet );
+		inkImageRef.SetBrushMirrorType( m_arrow, ( ( diff > 0 ) ? ( inkBrushMirrorType.NoMirror ) : ( inkBrushMirrorType.Vertical ) ) );
+	}
+
+	public function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		switch( varName )
+		{
+			case 'BigFont':
+				NewUpdateTooltipSize();
+			break;
+			default:
+				break;
+		}
+	}
+
+	private function NewUpdateTooltipSize()
+	{
+		var configVar : ConfigVarBool;
+		configVar = ( ( ConfigVarBool )( m_settings.GetVar( m_groupPath, 'BigFont' ) ) );
+		NewSetTooltipSize( configVar.GetValue() );
+	}
+
+	protected virtual function NewSetTooltipSize( value : Bool )
+	{
+		if( value == true && !( m_inCrafting ) )
+		{
+			inkTextRef.SetWrappingAtPosition( m_statName, 687.0 );
+			m_bigFontEnabled = true;
+		}
+		else
+		{
+			inkTextRef.SetWrappingAtPosition( m_statName, 541.0 );
+			m_bigFontEnabled = false;
+		}
+	}
+
+	public function GetContext( isCrafting : Bool )
+	{
+		m_inCrafting = isCrafting;
+	}
+
+}
+
+class ItemTooltipStatSettingsListener extends ConfigVarListener
+{
+	private var m_ctrl : weak< ItemTooltipStatController >;
+
+	public function RegisterController( ctrl : ItemTooltipStatController )
+	{
+		m_ctrl = ctrl;
+	}
+
+	public export override function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		m_ctrl.OnVarModified( groupPath, varName, varType, reason );
+	}
+
+}
+

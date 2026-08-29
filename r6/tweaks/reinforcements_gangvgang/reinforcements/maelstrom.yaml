@@ -1,0 +1,344 @@
+# Bikes:
+# Vehicle.GR_v_sportbike3_brennan_apollo
+# 2People:
+# Vehicle.GR_v_standard3_makigai_tanishi
+
+# 4 people:
+# Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+# Vehicle.GR_v_standard2_thorton_galena_maelstrom
+# Vehicle.GR_v_standard3_thorton_mackinaw
+
+# weak:
+# Character.maelstrom_grunt2_melee2_hammer_ma - goon
+# Character.maelstrom_grunt2_melee2_hammer_wa - goon
+# Character.maelstrom_grunt2_melee2_machete_ma - goon
+# Character.maelstrom_grunt2_melee2_machete_wa - goon
+# Character.maelstrom_grunt2_ranged2_ajax_ma - goon
+# Character.maelstrom_grunt2_ranged2_ajax_wa - goon
+# Character.maelstrom_grunt2_ranged2_copperhead_ma - goon
+# Character.maelstrom_grunt2_ranged2_copperhead_wa - goon
+# normal:
+# Character.maelstom_strong_shotgun2_carnage_ma_rare - Maniac
+# Character.maelstom_strong_shotgun2_igla_ma - maniac
+# Character.maelstrom_fast_sniper2_grad_ma - raven
+# Character.maelstrom_grunt1_melee1_knife_ma - scout
+# Character.maelstrom_grunt1_ranged1_copperhead_ma - fanatic
+# Character.maelstrom_grunt1_ranged1_copperhead_wa - fanatic
+# Character.maelstrom_grunt1_ranged1_lexington_ma - fanatic
+# Character.maelstrom_grunt1_ranged1_lexington_wa - fanatic
+# Character.maelstrom_netrunner_netrunner2_lexington_ma - codefreak
+# Character.maelstrom_techie_grenadier2_lexington_ma - techie
+
+# rare:
+# Character.maelstrom_fast2_fmelee2_knife_ma_rare - zaelot
+# Character.maelstrom_fast_fmelee2_machete_ma_rare - zaelot
+# Character.maelstrom_fast_franged2_pulsar_ma_rare - goon
+# Character.maelstrom_strong_gunner2_defender_mb_rare - ironstormer
+# elite:
+# Character.maelstrom_fast_fmelee3_mantis_wa_elite - fiend
+
+#reinforcements
+
+# weak:
+DynamicSpawnSystem.GRMaelstromWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromWeakBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+
+# Weak / Normal:
+
+DynamicSpawnSystem.GRMaelstromNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_carnage_ma_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_ajax_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_igla_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_melee2_hammer_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_sniper2_grad_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_makigai_tanishi_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_melee2_machete_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_lexington_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_netrunner_netrunner2_lexington_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_ranged2_ajax_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_techie_grenadier2_lexington_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRMaelstromNormalSquad8:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_poor
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt2_melee2_machete_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 1.0
+
+# normal / rare:
+DynamicSpawnSystem.GRMaelstromRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast2_fmelee2_knife_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_sniper2_grad_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_wa
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_fmelee2_machete_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_netrunner_netrunner2_lexington_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_igla_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_lexington_wa
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_melee1_knife_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_techie_grenadier2_lexington_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_techie_grenadier2_lexington_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_igla_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_carnage_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstom_strong_shotgun2_igla_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_lexington_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_fmelee2_machete_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_sniper2_grad_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_sniper2_grad_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast2_fmelee2_knife_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad8:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_grunt1_ranged1_copperhead_ma
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad9:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_thorton_mackinaw
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_techie_grenadier2_lexington_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_fmelee2_machete_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_netrunner_netrunner2_lexington_ma
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad10:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_chevalier_thrax_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast2_fmelee2_knife_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 0.2
+
+DynamicSpawnSystem.GRMaelstromRareSquad11:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_maelstrom
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_franged2_pulsar_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_strong_gunner2_defender_mb_rare
+          weight: 0.2
+
+# elite:
+DynamicSpawnSystem.GRMaelstromEliteBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_maelstrom_fast_fmelee3_mantis_wa_elite
+          weight: 1.0

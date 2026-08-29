@@ -32,6 +32,7 @@ function incense:new(mod, project)
     o.interactionAngle = 80
     o.interactionRange = 1.5
     o.editorIcon = IconGlyphs.Torch
+    o.needsUpdate = true
 
     o.maxNodeRefPropertyWidth = nil
     o.incenseRef = ""
@@ -52,6 +53,8 @@ function incense:load(data)
 end
 
 function incense:sessionStart()
+    workspot.sessionStart(self)
+
     self:reset()
 end
 
@@ -94,10 +97,12 @@ function incense:reset()
         incense:SetWorldTransform(transform)
     end
 
-    Game.GetResourceDepot():RemoveResourceFromCache("nif\\quest\\incense_stop.scene")
-    resourceHelper.registerPatch("nif\\quest\\incense_stop.scene", self:getPatchData())
-    Game.GetQuestsSystem():SetFactStr("nif_interaction_id", 9)
-    Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
+    resourceHelper.requestSceneSignal(self, function ()
+        Game.GetResourceDepot():RemoveResourceFromCache("nif\\quest\\incense_stop.scene")
+        resourceHelper.registerPatch("nif\\quest\\incense_stop.scene", self:getPatchData())
+        Game.GetQuestsSystem():SetFactStr("nif_interaction_id", 9)
+        Game.GetQuestsSystem():SetFactStr("nif_start_signal", 1)
+    end)
 end
 
 function incense:onUpdate(playerPosition)
@@ -131,8 +136,8 @@ function incense:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(300)
     self.incenseRef, changed = ImGui.InputTextWithHint('##incenseRef', '$/mod/#incense_stick', self.incenseRef, 250)
-    if changed then self.project:save() end
     if ImGui.IsItemDeactivatedAfterEdit() then
+        self.project:save()
         self:reset()
     end
     ImGui.SameLine()
@@ -143,7 +148,7 @@ function incense:draw()
     ImGui.SetCursorPosX(self.maxNodeRefPropertyWidth)
     style.setNextItemWidth(80)
     self.resetDistance, changed = ImGui.DragFloat("##resetDistance", self.resetDistance, 0.01, 1, 50, "%.2f", ImGuiSliderFlags.NoRoundToFormat)
-    if changed then self.project:save() end
+    if ImGui.IsItemDeactivatedAfterEdit() then self.project:save() end
     style.tooltip("Distance from the interaction icon where the incense stick will reset.")
     ImGui.SameLine()
     if ImGui.Button("Reset") then
@@ -157,6 +162,7 @@ function incense:save()
     local data = workspot.save(self)
 
     data.incenseRef = self.incenseRef
+    data.resetDistance = self.resetDistance
 
     return data
 end

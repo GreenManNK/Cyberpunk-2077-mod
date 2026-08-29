@@ -1,6 +1,6 @@
--- Jul 8, 2026 by (c)anygoodname
+-- Aug 12, 2026 by (c)anygoodname
 
-local modVer='v5.38.1'
+local modVer='v5.39.0'
 local modName='Hotscenes'
 local modAuthorName = 'anygoodname'
 
@@ -215,6 +215,10 @@ supportedOverridesArchiveVersionsInfo = {
 	'Hotscenes_overrides_mod_version_info_52508',
 	'Hotscenes_overrides_mod_version_info_52509',
 	'Hotscenes_overrides_mod_version_info_52510',
+	'Hotscenes_overrides_mod_version_info_52600',
+	'Hotscenes_overrides_mod_version_info_52601',
+	'Hotscenes_overrides_mod_version_info_52602',
+	'Hotscenes_overrides_mod_version_info_52605',
 }
 
 local isOverridesArchiveDetected = false

@@ -1,0 +1,559 @@
+package Vehicle
+using RTDB
+
+villefort_columbus_offer : VehicleOffer
+{
+	brandName = "Villefort";
+	name = "LocKey#1610";
+	description = "LocKey#79864";
+	price = "EconomicAssignment.v_standard25_villefort_columbus_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_villefort_columbus_player_full";
+	availabilityFact = "villefort_columbus_available";
+	ownershipFact = "villefort_columbus_owned";
+	hasCustomization = true;
+}
+
+villefort_cortes_offer : VehicleOffer
+{
+	brandName = "Villefort";
+	name = "LocKey#1613";
+	description = "LocKey#79869";
+	price = "EconomicAssignment.v_standard2_villefort_cortes_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_villefort_cortes_player_full";
+	availabilityFact = "villefort_cortes_available";
+	ownershipFact = "villefort_cortes_owned";
+	hasCustomization = true;
+}
+
+villefort_alvarado_offer : VehicleOffer
+{
+	brandName = "Villefort";
+	name = "LocKey#1619";
+	description = "LocKey#79879";
+	price = "EconomicAssignment.v_sport2_villefort_alvarado_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_villefort_alvarado_player_full";
+	availabilityFact = "villefort_alvarado_available";
+	ownershipFact = "villefort_alvarado_owned";
+	hasCustomization = true;
+}
+
+thorton_colby_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#1612";
+	description = "LocKey#79865";
+	price = "EconomicAssignment.v_standard2_thorton_colby_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_colby_player_full";
+	availabilityFact = "thorton_colby_available";
+	ownershipFact = "thorton_colby_owned";
+	hasCustomization = true;
+}
+
+thorton_colby_gt_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#22921";
+	description = "LocKey#96118";
+	price = "EconomicAssignment.v_standard2_thorton_colby_gt_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_colby_gt_full";
+	availabilityFact = "thorton_colby_gt_available";
+	ownershipFact = "thorton_colby_gt_owned";
+	hasCustomization = true;
+}
+
+thorton_galena_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#1608";
+	description = "LocKey#79862";
+	price = "EconomicAssignment.v_standard2_thorton_galena_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_galena_player_full";
+	availabilityFact = "thorton_galena_available";
+	ownershipFact = "thorton_galena_owned";
+	hasCustomization = true;
+}
+
+thorton_colby_pickup_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#22074";
+	description = "LocKey#79868";
+	price = "EconomicAssignment.v_standard2_thorton_colby_pickup_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_colby_pickup_player_full";
+	availabilityFact = "thorton_colby_pickup_available";
+	ownershipFact = "thorton_colby_pickup_owned";
+	hasCustomization = true;
+}
+
+thorton_galena_nomad_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#22080";
+	description = "LocKey#79872";
+	price = "EconomicAssignment.v_standard2_thorton_galena_nomad_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_galena_nomad_player_full";
+	availabilityFact = "thorton_galena_nomad_available";
+	ownershipFact = "thorton_galena_nomad_owned";
+	hasMachineGun = true;
+}
+
+thorton_galena_gt_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#22348";
+	description = "LocKey#96117";
+	price = "EconomicAssignment.v_standard2_thorton_galena_gt";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_galena_gt_full";
+	availabilityFact = "thorton_galena_gt_available";
+	ownershipFact = "thorton_galena_gt_owned";
+	hasCustomization = true;
+}
+
+thorton_mackinaw_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#1614";
+	description = "LocKey#79890";
+	price = "EconomicAssignment.v_standard3_thorton_mackinaw_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_mackinaw_player_full";
+	availabilityFact = "thorton_mackinaw_available";
+	ownershipFact = "thorton_mackinaw_owned";
+	hasCustomization = true;
+}
+
+thorton_colby_pickup_nomad_offer : VehicleOffer
+{
+	brandName = "Thorton";
+	name = "LocKey#22075";
+	description = "LocKey#79876";
+	price = "EconomicAssignment.v_standard25_thorton_colby_nomad_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_thorton_colby_nomad_player_full";
+	availabilityFact = "thorton_colby_nomad_available";
+	ownershipFact = "thorton_colby_nomad_owned";
+	hasMachineGun = true;
+}
+
+quadra_type_66_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#78402";
+	description = "LocKey#79880";
+	price = "EconomicAssignment.v_sport2_quadra_type66_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_player_full";
+	availabilityFact = "quadra_type66_available";
+	ownershipFact = "quadra_type66_owned";
+	hasCustomization = true;
+}
+
+quadra_turbo_r_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#22087";
+	description = "LocKey#79902";
+	price = "EconomicAssignment.v_sport1_quadra_turbo_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_turbo_player_full";
+	availabilityFact = "quadra_turbo_available";
+	ownershipFact = "quadra_turbo_owned";
+	hasCustomization = true;
+}
+
+quadra_type_66_avenger_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#22090";
+	description = "LocKey#79882";
+	price = "EconomicAssignment.v_sport2_quadra_type66_avenger_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_avenger_player_full";
+	availabilityFact = "quadra_type66_avenger_available";
+	ownershipFact = "quadra_type66_avenger_owned";
+	hasCustomization = true;
+}
+
+quadra_type_1_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#22091";
+	description = "LocKey#79883";
+	price = "EconomicAssignment.v_sport2_quadra_type66_nomad_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_nomad_player_full";
+	availabilityFact = "quadra_type66_nomad_available";
+	ownershipFact = "quadra_type66_nomad_owned";
+	hasMachineGun = true;
+}
+
+quadra_type_66_nc_deathrace_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#22340";
+	description = "LocKey#79861";
+	price = "EconomicAssignment.v_sport2_quadra_type66_nomad_ncu_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_ncu_player_full";
+	availabilityFact = "quadra_type66_nomad_ncu_available";
+	ownershipFact = "quadra_type66_nomad_ncu_owned";
+	unlockType = "Vehicle.Quest";
+	hasCustomization = true;
+}
+
+quadra_type_66_base_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#1618";
+	description = "LocKey#96120";
+	price = "EconomicAssignment.v_sport2_quadra_type66_base_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_base_player_full";
+	availabilityFact = "quadra_type66_base_available";
+	ownershipFact = "quadra_type66_base_owned";
+	hasCustomization = true;
+}
+
+quadra_type_66_gt_offer : VehicleOffer
+{
+	brandName = "Quadra";
+	name = "LocKey#95036";
+	description = "LocKey#96122";
+	price = "EconomicAssignment.v_sport2_quadra_type66_gt_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_quadra_type66_gt_player_full";
+	availabilityFact = "quadra_type66_gt_available";
+	ownershipFact = "quadra_type66_gt_owned";
+	hasCustomization = true;
+}
+
+mizutani_shion_offer : VehicleOffer
+{
+	brandName = "Mizutani";
+	name = "LocKey#1616";
+	description = "LocKey#79900";
+	price = "EconomicAssignment.v_sport2_mizutani_shion_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mizutani_shion_player_full";
+	availabilityFact = "mizutani_shion_available";
+	ownershipFact = "mizutani_shion_owned";
+	hasCustomization = true;
+}
+
+mizutani_shion_nomad_offer : VehicleOffer
+{
+	brandName = "Mizutani";
+	name = "LocKey#22089";
+	description = "LocKey#79878";
+	price = "EconomicAssignment.v_sport2_mizutani_shion_nomad_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mizutani_shion_nomad_player_full";
+	availabilityFact = "mizutani_shion_nomad_available";
+	ownershipFact = "mizutani_shion_nomad_owned";
+	hasMachineGun = true;
+}
+
+mizutani_shion_targa_offer : VehicleOffer
+{
+	brandName = "Mizutani";
+	name = "LocKey#22355";
+	description = "LocKey#96116";
+	price = "EconomicAssignment.v_sport2_mizutani_shion_targa";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mizutani_shion_targa_player_full";
+	availabilityFact = "mizutani_shion_targa_available";
+	ownershipFact = "mizutani_shion_targa_owned";
+	hasCustomization = true;
+}
+
+mizutani_shion_base_offer : VehicleOffer
+{
+	brandName = "Mizutani";
+	name = "LocKey#78765";
+	description = "LocKey#96115";
+	price = "EconomicAssignment.v_sport2_mizutani_shion_base_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mizutani_shion_base_player_full";
+	availabilityFact = "mizutani_shion_base_available";
+	ownershipFact = "mizutani_shion_base_owned";
+	hasCustomization = true;
+}
+
+rayfield_caliburn_offer : VehicleOffer
+{
+	brandName = "Rayfield";
+	name = "LocKey#22088";
+	description = "LocKey#79904";
+	price = "EconomicAssignment.v_sport1_rayfield_caliburn_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_rayfield_caliburn_player_full";
+	availabilityFact = "rayfield_caliburn_available";
+	ownershipFact = "rayfield_caliburn_owned";
+	hasCustomization = true;
+}
+
+rayfield_aerondight_offer : VehicleOffer
+{
+	brandName = "Rayfield";
+	name = "LocKey#1615";
+	description = "LocKey#79905";
+	price = "EconomicAssignment.v_sport1_rayfield_aerondight_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_rayfield_aerondight_player_full";
+	availabilityFact = "rayfield_aerondight_available";
+	ownershipFact = "rayfield_aerondight_owned";
+	hasCustomization = true;
+}
+
+brennan_apollo_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#20234";
+	description = "LocKey#79887";
+	price = "EconomicAssignment.v_sportbike3_brennan_apollo_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_brennan_apollo_player_full";
+	availabilityFact = "brennan_apollo_available";
+	ownershipFact = "brennan_apollo_owned";
+	hasCustomization = true;
+}
+
+arch_nemesis_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#22094";
+	description = "LocKey#79903";
+	price = "EconomicAssignment.v_sportbike2_arch_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_arch_player_full";
+	availabilityFact = "arch_available";
+	ownershipFact = "arch_owned";
+	hasCustomization = true;
+}
+
+yaiba_kusanagi_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#20342";
+	description = "LocKey#79874";
+	price = "EconomicAssignment.v_sportbike1_yaiba_kusanagi_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_yaiba_kusanagi_player_full";
+	availabilityFact = "yaiba_kusanagi_available";
+	ownershipFact = "yaiba_kusanagi_owned";
+	hasCustomization = true;
+}
+
+yaiba_muramasa_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#97125";
+	description = "LocKey#96762";
+	price = "EconomicAssignment.v_sportbike1_yaiba_muramasa_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_yaiba_muramasa_player_full";
+	availabilityFact = "yaiba_muramasa_available";
+	ownershipFact = "yaiba_muramasa_owned";
+	unlockType = "Vehicle.Quest";
+	hasCustomization = true;
+}
+
+yaiba_semimaru_offer : VehicleOffer
+{
+	brandName = "Other";
+	name = "LocKey#96428";
+	description = "LocKey#97376";
+	price = "EconomicAssignment.v_sport2_yaiba_semimaru_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_yaiba_semimaru_player_full";
+	availabilityFact = "yaiba_semimaru_available";
+	ownershipFact = "yaiba_semimaru_owned";
+	unlockType = "Vehicle.Quest";
+	hasCustomization = true;
+}
+
+chevillon_thrax_offer : VehicleOffer
+{
+	brandName = "Chevillion";
+	name = "LocKey#1624";
+	description = "LocKey#79867";
+	price = "EconomicAssignment.v_standard2_chevalier_thrax_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_chevalier_thrax_player_full";
+	availabilityFact = "chevalier_thrax_available";
+	ownershipFact = "chevalier_thrax_owned";
+	hasCustomization = true;
+}
+
+chevallion_emperor_police_offer : VehicleOffer
+{
+	brandName = "Chevillion";
+	name = "LocKey#1625";
+	description = "LocKey#79877";
+	price = "EconomicAssignment.v_standard3_chevalier_emperor_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_chevalier_emperor_player_full";
+	availabilityFact = "chevalier_emperor_available";
+	ownershipFact = "chevalier_emperor_owned";
+	hasCustomization = true;
+}
+
+chevillion_legatus_offer : VehicleOffer
+{
+	brandName = "Chevillion";
+	name = "LocKey#97123";
+	description = "LocKey#96693";
+	price = "EconomicAssignment.v_standard3_chevalier_legatus_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_chevalier_legatus_player_full";
+	availabilityFact = "chevalier_legatus_available";
+	ownershipFact = "chevalier_legatus_owned";
+	hasMachineGun = true;
+}
+
+archer_quartz_offer : VehicleOffer
+{
+	brandName = "Archer";
+	name = "LocKey#22738";
+	description = "LocKey#79875";
+	price = "EconomicAssignment.v_standard2_archer_quartz_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_archer_quartz_player_full";
+	availabilityFact = "archer_quartz_available";
+	ownershipFact = "archer_quartz_owned";
+	hasCustomization = true;
+}
+
+archer_quartz_base_offer : VehicleOffer
+{
+	brandName = "Archer";
+	name = "LocKey#22078";
+	description = "LocKey#96119";
+	price = "EconomicAssignment.v_standard2_archer_quartz_base_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_archer_quartz_base_player_full";
+	availabilityFact = "archer_quartz_base_available";
+	ownershipFact = "archer_quartz_base_owned";
+	hasCustomization = true;
+}
+
+archer_quartz_bandit_offer : VehicleOffer
+{
+	brandName = "Archer";
+	name = "LocKey#79858";
+	description = "LocKey#79859";
+	price = "EconomicAssignment.v_standard2_archer_bandit_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_archer_quartz_bandit_full";
+	availabilityFact = "archer_bandit_available";
+	ownershipFact = "archer_bandit_owned";
+	unlockType = "Vehicle.Quest";
+	hasCustomization = true;
+}
+
+makigai_maimai_offer : VehicleOffer
+{
+	brandName = "Makigai";
+	name = "LocKey#1611";
+	description = "LocKey#79866";
+	price = "EconomicAssignment.v_standard2_makigai_maimai_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_makigai_maimai_player_full";
+	availabilityFact = "makigai_maimai_available";
+	ownershipFact = "makigai_maimai_owned";
+	hasCustomization = true;
+}
+
+mahir_supron_offer : VehicleOffer
+{
+	brandName = "Mahir";
+	name = "LocKey#1609";
+	description = "LocKey#79863";
+	price = "EconomicAssignment.v_standard25_mahir_supron_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mahir_supron_player_full";
+	availabilityFact = "mahir_supron_available";
+	ownershipFact = "mahir_supron_owned";
+	hasCustomization = true;
+}
+
+mahir_supron_gt_offer : VehicleOffer
+{
+	brandName = "Mahir";
+	name = "LocKey#94031";
+	description = "LocKey#96124";
+	price = "EconomicAssignment.v_standard25_mahir_supron_gt_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_mahir_supron_gt_player_full";
+	availabilityFact = "mahir_supron_gt_available";
+	ownershipFact = "mahir_supron_gt_owned";
+	hasCustomization = true;
+}
+
+herrera_outlaw_offer : VehicleOffer
+{
+	brandName = "Herrera";
+	name = "LocKey#22086";
+	description = "LocKey#79901";
+	price = "EconomicAssignment.v_sport1_herrera_outlaw_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_herrera_outlaw_player_full";
+	availabilityFact = "herrera_outlaw_available";
+	ownershipFact = "herrera_outlaw_owned";
+	hasCustomization = true;
+}
+
+archer_quartz_nomad_02_offer : VehicleOffer
+{
+	brandName = "Archer";
+	name = "LocKey#22753";
+	description = "LocKey#94390";
+	price = "EconomicAssignment.v_standard2_archer_quartz_nomad_02_player";
+	previewImage = "UIJournalIcons.v_standard2_archer_quartz_nomad_player02_full";
+	availabilityFact = "archer_quartz_nomad_02_available";
+	ownershipFact = "archer_quartz_nomad_02_owned";
+	hasMachineGun = true;
+}
+
+v_sport2_porsche_911turbo_cabrio_offer : VehicleOffer
+{
+	brandName = "Other";
+	name = "LocKey#95288";
+	description = "LocKey#95289";
+	price = "EconomicAssignment.v_sport2_porsche_911turbo_cabrio_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_porsche_911turbo_basic_alt";
+	availabilityFact = "q101_enable_side_content";
+	ownershipFact = "porsche_911_930_turbo_cabriolet_owned";
+	unlockType = "Vehicle.Quest";
+}
+
+brennan_apollo_02_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#95764";
+	description = "LocKey#95756";
+	price = "EconomicAssignment.v_sportbike3_brennan_apollo_02_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_brennan_apollo_player_02_full";
+	availabilityFact = "brennan_apollo_02_available";
+	ownershipFact = "brennan_apollo_02_owned";
+	hasCustomization = true;
+}
+
+yaiba_kusanagi_02_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#95765";
+	description = "LocKey#95752";
+	price = "EconomicAssignment.v_sportbike1_yaiba_kusanagi_02_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_yaiba_player_02_full";
+	availabilityFact = "yaiba_kusanagi_02_available";
+	ownershipFact = "yaiba_kusanagi_02_owned";
+	hasCustomization = true;
+}
+
+yaiba_kusanagi_03_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#95767";
+	description = "LocKey#95753";
+	price = "EconomicAssignment.v_sportbike1_yaiba_kusanagi_03_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_yaiba_player_03_full";
+	availabilityFact = "yaiba_kusanagi_03_available";
+	ownershipFact = "yaiba_kusanagi_03_owned";
+	hasCustomization = true;
+}
+
+arch_nemesis_02_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#95768";
+	description = "LocKey#95754";
+	price = "EconomicAssignment.v_sportbike2_arch_02_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_arch_player_02_full";
+	availabilityFact = "arch_02_available";
+	ownershipFact = "arch_02_owned";
+	hasCustomization = true;
+}
+
+arch_nemesis_03_offer : VehicleOffer
+{
+	brandName = "Motorcycles";
+	name = "LocKey#95769";
+	description = "LocKey#95755";
+	price = "EconomicAssignment.v_sportbike2_arch_03_player";
+	previewImage = "UIJournalIcons.vehicle_metaquest_arch_player_03_full";
+	availabilityFact = "arch_03_available";
+	ownershipFact = "arch_03_owned";
+	hasCustomization = true;
+}
+

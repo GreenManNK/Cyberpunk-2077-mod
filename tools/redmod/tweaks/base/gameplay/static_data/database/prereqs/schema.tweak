@@ -1,0 +1,172 @@
+package RTDB
+
+IPrereq
+{
+	CName prereqClassName = "";
+}
+
+MultiPrereq : IPrereq
+{
+	CName prereqClassName = "gameMultiPrereq";
+	CName aggregationType = "AND";
+	fk< IPrereq >[] nestedPrereqs = [];
+}
+
+StatPrereq : IPrereq
+{
+	CName prereqClassName = "StatPrereq";
+	float valueToCheck = 0;
+	CName statType = "Invalid";
+	CName comparisonType = "";
+	CName objectToCheck = "Owner";
+	bool notifyOnAnyChange = false;
+	bool notifyOnlyOnStateFulfilled = false;
+	fk< StatModifier >[] statModifiers = [];
+}
+
+StatChangedPrereq : IPrereq
+{
+	CName prereqClassName = "StatChangedPrereq";
+	CName statType = "Invalid";
+	CName objectToCheck = "Owner";
+	CName changeType = "";
+}
+
+ItemCreationPrereq : StatPrereq
+{
+	prereqClassName = "ItemCreationPrereq";
+}
+
+StatPoolPrereq : IPrereq
+{
+	CName prereqClassName = "StatPoolPrereq";
+	fk< StatModifier >[] valueToCheck = [];
+	CName statPoolType = "Invalid";
+	CName comparisonType = "";
+	bool skipOnApply = false;
+	bool listenConstantly = false;
+	bool comparePercentage = true;
+	CName objectToCheck = "";
+}
+
+StatusEffectPrereq : IPrereq
+{
+	CName prereqClassName = "StatusEffectPrereq";
+	fk< StatusEffect > statusEffect = "";
+	bool invert = false;
+	bool evaluateOnRegister = false;
+	fk< CheckType > checkType = "";
+	CName tagToCheck = "";
+	CName objectToCheck = "";
+}
+
+NPCTypePrereq : IPrereq
+{
+	CName prereqClassName = "NPCTypePrereq";
+	fk< NPCType >[] allowedTypes = [];
+	bool invert = false;
+}
+
+VisualTagsPrereq : IPrereq
+{
+	CName prereqClassName = "VisualTagsPrereq";
+	CName[] allowedTags = [];
+	bool invert = false;
+}
+
+GameplayTagsPrereq : IPrereq
+{
+	CName prereqClassName = "GameplayTagsPrereq";
+	CName[] allowedTags = [];
+	bool invert = false;
+}
+
+ActionTargetPrereq : IPrereq
+{
+	CName prereqClassName = "ActionTargetPrereq";
+	fk< AIActionTarget > target = "";
+	bool invert = false;
+}
+
+ActionTargetInDistancePrereq : IPrereq
+{
+	CName prereqClassName = "ActionTargetInDistancePrereq";
+	fk< AIActionTarget > target = "";
+	float distance = -1.f;
+	fk< Stat > distanceStat = "";
+	bool invert = false;
+}
+
+TemporalPrereq : IPrereq
+{
+	CName prereqClassName = "TemporalPrereq";
+	float duration = 0;
+}
+
+HitPrereq : IPrereq
+{
+	CName prereqClassName = "";
+	string pipelineStage = "Process";
+	string pipelineType = "All";
+	string callbackType = "HitReceived";
+	bool isSynchronous = true;
+	fk< HitPrereqCondition >[] conditions = [];
+	bool ignoreSelfInflictedPressureWave = true;
+}
+
+HitPrereqCondition
+{
+	fk< HitPrereqConditionType > type = "";
+	bool invert = false;
+	bool onlyOncePerShot = false;
+}
+
+HitPrereqConditionType
+{
+	CName enumName = "";
+	CName enumComment = "";
+}
+
+PerkPrereq : IPrereq
+{
+	prereqClassName = "PerkPrereq";
+	string perk = "";
+}
+
+ConsumableChargesPrereq : StatPoolPrereq
+{
+	prereqClassName = "ConsumableChargesPrereq";
+	statPoolType = "HealingItemsCharges";
+	CName objectToCheck = "Player";
+}
+
+PlayerIsNewPerkBoughtPrereq : IPrereq
+{
+	CName prereqClassName = "PlayerIsNewPerkBoughtPrereq";
+	int level = 1;
+	bool invert = false;
+	string perkType = "";
+}
+
+DistrictPrereq : IPrereq
+{
+	prereqClassName = "DistrictPrereq";
+	fk< District > district = "";
+}
+
+Prereq
+{
+	string name = "";
+	string devNotes = "";
+	bool andValues = false;
+	fk< PrereqCheck >[] checks = [];
+}
+
+PrereqCheck
+{
+	string prereqType = "";
+	string comparisonType = "";
+	float valueToCompare = 0;
+	string contextObject = "";
+}
+

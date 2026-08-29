@@ -1,0 +1,447 @@
+class HUDProgressBarController extends inkHUDGameController
+{
+	private editable var m_bar : inkWidgetRef;
+	private editable var m_barExtra : inkWidgetRef;
+	private editable var m_header : inkTextRef;
+	private editable var m_bottomText : inkTextRef;
+	private editable var m_percent : inkTextRef;
+	private editable var m_completed : inkTextRef;
+	private editable var m_failed : inkTextRef;
+	private editable var m_attencionIcon : inkWidgetRef;
+	private editable var m_neutralIcon : inkWidgetRef;
+	private editable var m_relicIcon : inkWidgetRef;
+	private editable var m_moneyIcon : inkWidgetRef;
+	private editable var m_twintoneIcon : inkWidgetRef;
+	private editable var m_connectionIcon : inkWidgetRef;
+	private editable var m_apartmentIcon : inkImageRef;
+	private editable var m_vehicleIcon : inkImageRef;
+	private editable var m_neutralInIcon : inkImageRef;
+	private editable var m_revealIcon : inkWidgetRef;
+	private editable var m_vahicleHackIcon : inkWidgetRef;
+	private editable var m_wrapper : inkWidgetRef;
+	private var m_rootWidget : weak< inkWidget >;
+	private var m_progressBarBB : weak< IBlackboard >;
+	private var m_progressBarDef : UI_HUDProgressBarDef;
+	private var m_activeBBID : CallbackHandle;
+	private var m_headerBBID : CallbackHandle;
+	private var m_typeBBID : CallbackHandle;
+	private var m_bottomTextBBID : CallbackHandle;
+	private var m_completedTextBBID : CallbackHandle;
+	private var m_failedTextBBID : CallbackHandle;
+	private var m_progressBBID : CallbackHandle;
+	private var m_progressBumpBBID : CallbackHandle;
+	private var m_bb : weak< IBlackboard >;
+	private var m_bbUIInteractionsDef : UIInteractionsDef;
+	private var m_bbChoiceHubDataCallbackId : CallbackHandle;
+	private var m_OutroAnimation : inkAnimProxy;
+	private var m_LoopAnimation : inkAnimProxy;
+	private var m_VLoopAnimation : inkAnimProxy;
+	private var m_IntroAnimation : inkAnimProxy;
+	private var m_IntroWasPlayed : Bool;
+	private var m_title : String;
+	private var m_type : SimpleMessageType;
+	private var valueSaved : Float;
+	private var m_bumpValue : Float;
+
+	protected event OnInitialize()
+	{
+		m_rootWidget = GetRootWidget();
+		m_rootWidget.SetVisible( false );
+		SetupBB();
+	}
+
+	protected event OnUnInitialize()
+	{
+		UnregisterFromBB();
+	}
+
+	private function SetupBB()
+	{
+		m_progressBarDef = GetAllBlackboardDefs().UI_HUDProgressBar;
+		m_progressBarBB = GetBlackboardSystem().Get( m_progressBarDef );
+		m_bbUIInteractionsDef = GetAllBlackboardDefs().UIInteractions;
+		m_bb = GetBlackboardSystem().Get( m_bbUIInteractionsDef );
+		if( m_progressBarBB )
+		{
+			m_activeBBID = m_progressBarBB.RegisterDelayedListenerBool( m_progressBarDef.Active, this, 'OnActivated', true );
+			m_headerBBID = m_progressBarBB.RegisterDelayedListenerString( m_progressBarDef.Header, this, 'OnHeaderChanged', true );
+			m_completedTextBBID = m_progressBarBB.RegisterDelayedListenerString( m_progressBarDef.CompletedText, this, 'OnCompletedTextChanged', true );
+			m_failedTextBBID = m_progressBarBB.RegisterDelayedListenerString( m_progressBarDef.FailedText, this, 'OnFailedTextChanged', true );
+			m_bottomTextBBID = m_progressBarBB.RegisterDelayedListenerString( m_progressBarDef.BottomText, this, 'OnBottomTextChanged', true );
+			m_progressBBID = m_progressBarBB.RegisterDelayedListenerFloat( m_progressBarDef.Progress, this, 'OnProgressChanged', true );
+			m_progressBumpBBID = m_progressBarBB.RegisterDelayedListenerFloat( m_progressBarDef.ProgressBump, this, 'OnProgressBumpChanged', true );
+			m_typeBBID = m_progressBarBB.RegisterDelayedListenerVariant( m_progressBarDef.MessageType, this, 'OnTypeChanged', true );
+		}
+		if( m_bbUIInteractionsDef )
+		{
+			m_bbChoiceHubDataCallbackId = m_bb.RegisterDelayedListenerVariant( m_bbUIInteractionsDef.DialogChoiceHubs, this, 'OnDialogHubAppeared', true );
+		}
+		if( m_progressBarBB.GetBool( m_progressBarDef.Active ) )
+		{
+			Intro();
+			m_IntroAnimation.GotoEndAndStop();
+		}
+	}
+
+	private function UnregisterFromBB()
+	{
+		if( m_activeBBID )
+		{
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.Active, m_activeBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.Header, m_headerBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.MessageType, m_typeBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.BottomText, m_bottomTextBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.Progress, m_progressBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.ProgressBump, m_progressBumpBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.FailedText, m_failedTextBBID );
+			m_progressBarBB.UnregisterDelayedListener( m_progressBarDef.CompletedText, m_completedTextBBID );
+			m_bb.UnregisterDelayedListener( m_bbUIInteractionsDef.DialogChoiceHubs, m_bbChoiceHubDataCallbackId );
+		}
+	}
+
+	protected event OnTypeChanged( value : Variant )
+	{
+		m_type = ( ( SimpleMessageType )value );
+		switch( m_type )
+		{
+			case SimpleMessageType.Neutral:
+				UpdateNeutralType();
+			break;
+			case SimpleMessageType.Money:
+				UpdateMoneyType();
+			break;
+			case SimpleMessageType.Relic:
+				UpdateRelicType();
+			break;
+			case SimpleMessageType.Vehicle:
+				UpdateVehicleType();
+			break;
+			case SimpleMessageType.Reveal:
+				UpdateRevealType();
+			break;
+			case SimpleMessageType.Boss:
+				UpdateBossType();
+			break;
+			case SimpleMessageType.Negative:
+				UpdateDefaultType();
+			break;
+			case SimpleMessageType.Twintone:
+				UpdateTwintoneType();
+			break;
+			case SimpleMessageType.Connection:
+				UpdateConnectionType();
+			break;
+			case SimpleMessageType.Undefined:
+				ResetLabels();
+			UpdateDefaultType();
+			break;
+			default:
+				UpdateDefaultType();
+			break;
+		}
+	}
+
+	protected event OnDialogHubAppeared( value : Variant )
+	{
+		var data : DialogChoiceHubs;
+		data = ( ( DialogChoiceHubs )value );
+		if( data.choiceHubs.Size() == 2 )
+		{
+			inkWidgetRef.SetMargin( m_wrapper, 0.0, 0.0, 0.0, 150.0 );
+		}
+		else if( data.choiceHubs.Size() == 1 )
+		{
+			inkWidgetRef.SetMargin( m_wrapper, 0.0, 0.0, 0.0, 100.0 );
+		}
+		else
+		{
+			inkWidgetRef.SetMargin( m_wrapper, 0.0, 0.0, 0.0, 0.0 );
+		}
+	}
+
+	protected event OnActivated( activated : Bool )
+	{
+		UpdateProgressBarActive( activated );
+	}
+
+	protected event OnHeaderChanged( header : String )
+	{
+		if( header == "" )
+		{
+			UpdateDefaultType();
+			return 0;
+		}
+		UpdateTimerHeader( header );
+		if( header == "LocKey#78223" )
+		{
+			UpdateNeutralType();
+		}
+		else if( header == "LocKey#47982" || header == "LocKey#43690" )
+		{
+			UpdateMoneyType();
+		}
+		else if( header == "LocKey#91924" || header == "LocKey#91925" )
+		{
+			UpdateRelicType();
+		}
+		else if( header == "LocKey#92700" || header == "LocKey#92701" )
+		{
+			UpdateVehicleType();
+		}
+		else
+		{
+			UpdateDefaultType();
+		}
+		m_title = header;
+	}
+
+	private function UpdateNeutralType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Neutral' );
+		inkWidgetRef.SetVisible( m_neutralIcon, true );
+		inkImageRef.SetVisible( m_neutralInIcon, true );
+	}
+
+	private function UpdateMoneyType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Money' );
+		inkWidgetRef.SetVisible( m_moneyIcon, true );
+	}
+
+	private function UpdateRelicType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Relic' );
+		inkWidgetRef.SetVisible( m_relicIcon, true );
+	}
+
+	private function UpdateVehicleType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Default' );
+		inkWidgetRef.SetVisible( m_vahicleHackIcon, true );
+	}
+
+	private function UpdateDefaultType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Default' );
+		inkWidgetRef.SetVisible( m_attencionIcon, true );
+	}
+
+	private function UpdateRevealType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Default' );
+		inkWidgetRef.SetVisible( m_revealIcon, true );
+	}
+
+	private function UpdateBossType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Boss' );
+		inkWidgetRef.SetVisible( m_attencionIcon, true );
+	}
+
+	private function UpdateTwintoneType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Neutral' );
+		inkWidgetRef.SetVisible( m_twintoneIcon, true );
+	}
+
+	private function UpdateConnectionType()
+	{
+		DisableIcons();
+		m_rootWidget.SetState( 'Connection' );
+		inkWidgetRef.SetVisible( m_connectionIcon, true );
+	}
+
+	private function DisableIcons()
+	{
+		inkWidgetRef.SetVisible( m_revealIcon, false );
+		inkWidgetRef.SetVisible( m_attencionIcon, false );
+		inkWidgetRef.SetVisible( m_neutralIcon, false );
+		inkImageRef.SetVisible( m_neutralInIcon, false );
+		inkWidgetRef.SetVisible( m_moneyIcon, false );
+		inkImageRef.SetVisible( m_apartmentIcon, false );
+		inkImageRef.SetVisible( m_vehicleIcon, false );
+		inkWidgetRef.SetVisible( m_relicIcon, false );
+		inkWidgetRef.SetVisible( m_vahicleHackIcon, false );
+		inkWidgetRef.SetVisible( m_twintoneIcon, false );
+		inkWidgetRef.SetVisible( m_connectionIcon, false );
+	}
+
+	protected event OnBottomTextChanged( bottomText : String )
+	{
+		UpdateTimerBottomText( bottomText );
+	}
+
+	protected event OnCompletedTextChanged( completedText : String )
+	{
+		UpdateTimerCompletedText( completedText );
+	}
+
+	protected event OnFailedTextChanged( failedText : String )
+	{
+		UpdateTimerFailedText( failedText );
+	}
+
+	protected event OnProgressChanged( progress : Float )
+	{
+		UpdateTimerProgress( progress );
+	}
+
+	protected event OnProgressBumpChanged( progress : Float )
+	{
+		if( progress >= 0.0 )
+		{
+			inkWidgetRef.Get( m_barExtra ).BindProperty( 'tintColor', 'MainColors.ActiveYellow' );
+		}
+		else
+		{
+			inkWidgetRef.Get( m_barExtra ).BindProperty( 'tintColor', 'MainColors.ActiveGreen' );
+		}
+		m_bumpValue = progress;
+	}
+
+	public function UpdateProgressBarActive( active : Bool )
+	{
+		if( active )
+		{
+			Intro();
+		}
+		else
+		{
+			Outro();
+		}
+	}
+
+	public function UpdateTimerProgress( value : Float )
+	{
+		var baseVal : Float;
+		var extraVal : Float;
+		var loopOptions : inkAnimOptions;
+		loopOptions.applyCustomTimeDilation = true;
+		loopOptions.loopType = inkanimLoopType.Cycle;
+		loopOptions.loopInfinite = true;
+		loopOptions.dependsOnTimeDilation = true;
+		baseVal = MaxF( 0.0, MinF( 1.0, value ) );
+		extraVal = MaxF( 0.0, MinF( 1.0, value + m_bumpValue ) );
+		inkWidgetRef.SetSize( m_bar, Vector2( MinF( baseVal, extraVal ) * 996.0, 9.0 ) );
+		inkWidgetRef.SetSize( m_barExtra, Vector2( MaxF( baseVal, extraVal ) * 996.0, 9.0 ) );
+		inkTextRef.SetText( m_percent, FloatToStringPrec( value * 100.0, 0 ) );
+		valueSaved = value;
+		if( ( value == 1.0 ) && m_type == SimpleMessageType.Vehicle )
+		{
+			m_VLoopAnimation = PlayLibraryAnimation( 'Quickhack_VehicleHackLoop', loopOptions );
+		}
+		GameInstance.GetAudioSystem( GetPlayerControlledObject().GetGame() ).Parameter( 'ui_loading_bar', value );
+	}
+
+	public function UpdateTimerHeader( const label : ref< String > )
+	{
+		inkTextRef.SetText( m_header, label );
+	}
+
+	public function UpdateTimerBottomText( const label : ref< String > )
+	{
+		inkTextRef.SetText( m_bottomText, label );
+	}
+
+	public function UpdateTimerCompletedText( const label : ref< String > )
+	{
+		inkTextRef.SetText( m_completed, label );
+	}
+
+	public function UpdateTimerFailedText( const label : ref< String > )
+	{
+		inkTextRef.SetText( m_failed, label );
+	}
+
+	private function ResetLabels()
+	{
+		UpdateTimerCompletedText( "LocKey#15455" );
+		UpdateTimerFailedText( "LocKey#15353" );
+		UpdateTimerBottomText( "LocKey#92249" );
+	}
+
+	private function Intro()
+	{
+		m_VLoopAnimation.GotoEndAndStop();
+		m_OutroAnimation.GotoEndAndStop();
+		m_IntroAnimation.GotoEndAndStop();
+		m_rootWidget.SetVisible( true );
+		if( !( m_IntroAnimation.IsPlaying() ) && !( m_IntroWasPlayed ) )
+		{
+			m_IntroAnimation = PlayLibraryAnimation( 'Quickhack_Intro' );
+			m_IntroAnimation.RegisterToCallback( inkanimEventType.OnFinish, this, 'IntroEnded' );
+			GameInstance.GetAudioSystem( GetPlayerControlledObject().GetGame() ).Play( 'ui_loading_bar_start' );
+		}
+	}
+
+	private function Outro()
+	{
+		var animOptions : inkAnimOptions;
+		m_VLoopAnimation.GotoEndAndStop();
+		m_OutroAnimation.GotoEndAndStop();
+		m_IntroAnimation.GotoEndAndStop();
+		animOptions.customTimeDilation = 0.5;
+		animOptions.applyCustomTimeDilation = true;
+		if( ( valueSaved < 0.95999998 ) && ( GetFact( GetPlayerControlledObject().GetGame(), 'holofixer_on' ) == 0 ) )
+		{
+			m_OutroAnimation = PlayLibraryAnimation( 'Quickhack_Outro_Failed', animOptions );
+		}
+		else
+		{
+			m_OutroAnimation = PlayLibraryAnimation( 'Quickhack_Outro', animOptions );
+		}
+		m_OutroAnimation.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnHide' );
+		GameInstance.GetAudioSystem( GetPlayerControlledObject().GetGame() ).Play( 'ui_loading_bar_stop' );
+	}
+
+	public function IntroEnded()
+	{
+		m_IntroWasPlayed = true;
+		m_OutroAnimation.GotoEndAndStop();
+		m_IntroAnimation.GotoEndAndStop();
+		m_VLoopAnimation.GotoEndAndStop();
+		m_LoopAnimation = PlayLibraryAnimation( 'Quickhack_Loop' );
+	}
+
+	protected event OnHide( proxy : inkAnimProxy )
+	{
+		m_OutroAnimation.UnregisterFromCallback( inkanimEventType.OnFinish, this, 'OnHide' );
+		Hide();
+	}
+
+	public function Hide()
+	{
+		m_OutroAnimation.GotoEndAndStop();
+		m_IntroAnimation.GotoEndAndStop();
+		m_LoopAnimation.GotoEndAndStop();
+		m_VLoopAnimation.GotoEndAndStop();
+		m_rootWidget.SetVisible( false );
+		m_IntroWasPlayed = false;
+		ResetLabels();
+	}
+
+}
+
+struct HUDProgressBarData
+{
+	var header : String;
+	var bottomText : String;
+	default bottomText = "LocKey#22169";
+	var completedText : String;
+	default completedText = "LocKey#15455";
+	var failedText : String;
+	default failedText = "LocKey#15353";
+	var active : Bool;
+	var progress : Float;
+	var type : SimpleMessageType;
+	default type = SimpleMessageType.Undefined;
+}
+

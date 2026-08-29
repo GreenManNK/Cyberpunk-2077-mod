@@ -1,0 +1,41 @@
+Character.GR_adelcaldos_grunt1_ranged1_nova_ma:
+  $base: Character.adelcaldos_grunt1_ranged1_nova_ma
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_grunt1_ranged1_nova_wa:
+  $base: Character.adelcaldos_grunt1_ranged1_nova_wa
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_grunt1_ranged1_pulsar_ma:
+  $base: Character.adelcaldos_grunt1_ranged1_pulsar_ma
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_grunt1_ranged1_pulsar_wa:
+  $base: Character.adelcaldos_grunt1_ranged1_pulsar_wa
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_grunt2_ranged2_copperhead_ma:
+  $base: Character.adelcaldos_grunt2_ranged2_copperhead_ma
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_driver_shotgun2_tactician_ma:
+  $base: Character.adelcaldos_driver_shotgun2_tactician_ma
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_grunt2_ranged2_sidewinder_ma:
+  $base: Character.adelcaldos_grunt2_ranged2_sidewinder_ma
+  tags:
+    - !append-once GRModPuppet
+    - !append-once pcf_GangerCanRetreat

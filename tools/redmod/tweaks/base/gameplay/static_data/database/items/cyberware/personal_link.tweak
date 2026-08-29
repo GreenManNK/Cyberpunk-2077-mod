@@ -1,0 +1,63 @@
+package Items
+using RTDB, BaseStats
+
+[ notQueryable ]
+PersonalLink : Cyberware
+{
+	isCustomizable = true;
+	string friendlyName = "Personal Link";
+	[ EP1 ]
+	CName entityName = "cyber_personal_link_ep1";
+	fk< EquipmentArea > equipArea = "EquipmentArea.PersonalLink";
+	appearanceName = "personal_link_advanced";
+	appearanceResourceName = "player_personal_link_personal_link_";
+	fk< AttachmentSlot >[] placementSlots = 
+	[
+		"AttachmentSlots.PersonalLink"
+	];
+	fk< ParentAttachmentType > parentAttachmentType = "ParentAttachmentType.Animated";
+	bool isIKEnabled = true;
+	fk< ItemsFactoryAppearanceSuffixBase >[] appearanceSuffixes = 
+	[
+		"itemsFactoryAppearanceSuffix.Gender"
+	];
+	bool[] appearanceSuffixesOwnerOverride = 
+	[
+		true
+	];
+	tags += 
+	[
+		"SkipActivityLog", "HideInBackpackUI", "Quest"
+	];
+}
+
+[ notQueryable ]
+personal_link : PersonalLink
+{
+}
+
+[ notQueryable ]
+male_massive_personal_link : personal_link
+{
+	CName entityName = "male_massive_personal_link";
+	appearanceName = "";
+	appearanceResourceName = "";
+}
+
+[ notQueryable ]
+scene_personal_link : personal_link
+{
+	appearanceName = "player_personal_link_scenes_";
+	appearanceResourceName = "";
+}
+
+[ notQueryable ]
+man_big_personal_link : personal_link
+{
+	fk< ItemsFactoryAppearanceSuffixBase >[] appearanceSuffixes = [];
+	CName entityName = "man_big_personal_link";
+	isCustomizable = false;
+	appearanceName = "";
+	appearanceResourceName = "";
+}
+

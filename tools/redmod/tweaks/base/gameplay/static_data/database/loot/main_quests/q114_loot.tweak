@@ -1,0 +1,380 @@
+package LootTables
+using RTDB
+
+Q114_Loot : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 3;
+}
+
+Q114_tunnel_MIL_decorative : Q114_Loot
+{
+	lootTableInclusions = [];
+}
+
+Q114_tunnel_MIM_locker : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+Q114_tunnel_MIM_weapon : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.ShotgunDualQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.AssaultRifleQuery";
+		}
+	];
+}
+
+Q114_tunnel_MIS_ammo : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q114_tunnel_MIS_crate : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q114_tunnel_MIS_equipment : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+Q114_nomads_LGM_equipment : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.AldecaldosClothing";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.PunkClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.Glasses";
+		}
+	];
+}
+
+Q114_nomads_LGM_toolbox : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q114_nomads_LGM_weapon : Q114_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Tactician_Default";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Sor22_Default";
+		}, 
+		{
+			dropChance = 0.1;
+			itemID = "Items.Preset_Base_Copperhead";
+		}
+	];
+}
+
+Q114_nomads_LGS_ammo : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q114_nomads_LGS_first_aid : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"Loot.GenericHealingCosumabless"
+	];
+}
+
+Q114_nest_HCM_locker : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.7;
+			query = "Query.ArasakaClothing";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.CorpoClothingNoFaction";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.FormalClothingNoFaction";
+		}
+	];
+}
+
+Q114_nest_HCS_ammo : Q114_Loot
+{
+	minItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q114_nest_HCS_consumables : Q114_Loot
+{
+	lootItems = [];
+}
+
+Q114_nest_HCS_first_aid : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q114_nest_HCS_gadgets : Q114_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+Q114_nest_HCS_weapon : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+		}
+	];
+}
+
+Q114_manufacturing_MIM_chemicals : Q114_Loot
+{
+	lootItems = [];
+}
+
+Q114_manufacturing_MIM_locker : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.7;
+			query = "Query.ArasakaClothing";
+		}, 
+		{
+			dropChance = 0.6;
+			query = "Query.IndustrialClothingNoFaction";
+		}
+	];
+}
+
+Q114_manufacturing_MIM_toolbox : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+
+Q114_manufacturing_MIS_ammo : Q114_Loot
+{
+	minItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"Ammo.AmmoLootTable"
+	];
+}
+
+Q114_manufacturing_MIS_consumables : Q114_Loot
+{
+	lootItems = [];
+}
+
+Q114_manufacturing_MIS_crate : Q114_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem1";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem3";
+		}, 
+		{
+			dropChance = 0.15;
+			itemID = "Items.GenericCorporationJunkItem4";
+		}
+	];
+}
+
+Q114_manufacturing_MIS_decorative : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+}
+
+Q114_manufacturing_MIS_equipment : Q114_Loot
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.6;
+			itemID = "Items.Boots_06_basic_01";
+		}, 
+		{
+			dropChance = 0.6;
+			itemID = "Items.Helmet_03_basic_02";
+		}, 
+		{
+			dropChance = 0.6;
+			itemID = "Items.Shirt_02_basic_03";
+		}, 
+		{
+			dropChance = 0.6;
+			itemID = "Items.Vest_12_basic_01";
+		}
+	];
+}
+
+Q114_manufacturing_MIS_first_aid : Q114_Loot
+{
+	lootTableInclusions = 
+	[
+		"LootTables.FirstAidKits"
+	];
+}
+
+Q114_manufacturing_MIS_gadgets : Q114_Loot
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable", "LootTables.TechJunkieItemsTable"
+	];
+}
+
+Q114_manufacturing_MIS_valuable : Q114_Loot
+{
+	lootItems = 
+	[
+		{
+			dropCountMin = 300;
+			dropCountMax = 600;
+			itemID = "Items.money";
+		}
+	];
+}
+
+Q114_manufacturing_MIS_weapon : Q114_Loot
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+		}
+	];
+}
+
+Q114_truck_weapon_medium : Q114_Loot
+{
+}
+
+Q114_truck_weapon_small : Q114_Loot
+{
+}
+

@@ -1,0 +1,1800 @@
+package Items
+using RTDB, Prereqs, Effectors, Perks
+
+CyberdeckAbilityBase : GameplayLogicPackage
+{
+}
+
+MemoryCapAbility : CyberdeckAbilityBase
+{
+}
+
+MemoryCapAbility01 : MemoryCapAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.Memory";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51342";
+		intValues = 
+		[
+			1
+		];
+	};
+}
+
+MemoryCapAbility02 : MemoryCapAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.Memory";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51342";
+		intValues = 
+		[
+			2
+		];
+	};
+}
+
+MemoryRegenAbility : CyberdeckAbilityBase
+{
+}
+
+MemoryRegenAbility01 : MemoryRegenAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			value = 0.05f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51344";
+		intValues = 
+		[
+			3
+		];
+		floatValues = 
+		[
+			60f
+		];
+	};
+}
+
+MemoryRegenAbility02 : MemoryRegenAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51344";
+		intValues = 
+		[
+			6
+		];
+		floatValues = 
+		[
+			60f
+		];
+	};
+}
+
+MemoryRegenAbility03 : MemoryRegenAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.MemoryRegenRate";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51344";
+		intValues = 
+		[
+			9
+		];
+		floatValues = 
+		[
+			60f
+		];
+	};
+}
+
+QuickHackDamageAbility : CyberdeckAbilityBase
+{
+}
+
+QuickHackDamageAbility01 : QuickHackDamageAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.BonusQuickHackDamage";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51349";
+		intValues = 
+		[
+			10
+		];
+	};
+}
+
+QuickHackDamageAbility02 : QuickHackDamageAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.BonusQuickHackDamage";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51349";
+		intValues = 
+		[
+			20
+		];
+	};
+}
+
+QuickHackDamageAbility03 : QuickHackDamageAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.BonusQuickHackDamage";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51349";
+		intValues = 
+		[
+			30
+		];
+	};
+}
+
+QuickHackDurationAbility : CyberdeckAbilityBase
+{
+}
+
+QuickHackDurationAbility01 : QuickHackDurationAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusQuickhack";
+			modifierType = "Additive";
+			value = 0.30f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51352";
+		intValues = 
+		[
+			30
+		];
+	};
+}
+
+QuickHackDurationAbility02 : QuickHackDurationAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusQuickhack";
+			modifierType = "Additive";
+			value = 0.40f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51352";
+		intValues = 
+		[
+			40
+		];
+	};
+}
+
+QuickHackDurationAbility03 : QuickHackDurationAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusQuickhack";
+			modifierType = "Additive";
+			value = 0.50f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51352";
+		intValues = 
+		[
+			50
+		];
+	};
+}
+
+PingRefreshingAbility : CyberdeckAbilityBase
+{
+}
+
+PingRefreshingAbility01 : PingRefreshingAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.RefreshesPingOnQuickhack";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51353";
+	};
+}
+
+CooldownReductionAbility : CyberdeckAbilityBase
+{
+}
+
+CooldownReductionAbility01 : CooldownReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickhacksCooldownReduction";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51354";
+		intValues = 
+		[
+			15
+		];
+	};
+}
+
+CooldownReductionAbility02 : CooldownReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickhacksCooldownReduction";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51354";
+		intValues = 
+		[
+			30
+		];
+	};
+}
+
+CooldownReductionAbility03 : CooldownReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickhacksCooldownReduction";
+			modifierType = "Additive";
+			value = 0.45f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51354";
+		intValues = 
+		[
+			45
+		];
+	};
+}
+
+UploadReductionAbility : CyberdeckAbilityBase
+{
+}
+
+UploadReductionAbility01 : UploadReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UploadQuickHackMod";
+			modifierType = "AdditiveMultiplier";
+			value = -0.25f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51361";
+		intValues = 
+		[
+			25
+		];
+	};
+}
+
+UploadReductionAbility02 : UploadReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UploadQuickHackMod";
+			modifierType = "AdditiveMultiplier";
+			value = -0.5f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51361";
+		intValues = 
+		[
+			50
+		];
+	};
+}
+
+UploadReductionAbility03 : UploadReductionAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UploadQuickHackMod";
+			modifierType = "AdditiveMultiplier";
+			value = -0.75f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51361";
+		intValues = 
+		[
+			75
+		];
+	};
+}
+
+UltimateCostAbility : CyberdeckAbilityBase
+{
+}
+
+UltimateCostAbility01 : UltimateCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UltimateMemoryCostReduction";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51362";
+		intValues = 
+		[
+			1
+		];
+	};
+}
+
+UltimateCostAbility02 : UltimateCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UltimateMemoryCostReduction";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51362";
+		intValues = 
+		[
+			2
+		];
+	};
+}
+
+UltimateCostAbility03 : UltimateCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UltimateMemoryCostReduction";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51362";
+		intValues = 
+		[
+			3
+		];
+	};
+}
+
+SpreadingRangeAbility : CyberdeckAbilityBase
+{
+}
+
+SpreadingRangeAbility01 : SpreadingRangeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 0.2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51363";
+		intValues = 
+		[
+			20
+		];
+	};
+}
+
+SpreadingRangeAbility02 : SpreadingRangeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 0.4f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51363";
+		intValues = 
+		[
+			40
+		];
+	};
+}
+
+SpreadingRangeAbility03 : SpreadingRangeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 0.6f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51363";
+		intValues = 
+		[
+			60
+		];
+	};
+}
+
+DeviceCostAbility : CyberdeckAbilityBase
+{
+}
+
+DeviceCostAbility01 : DeviceCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DeviceMemoryCostReduction";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51365";
+		intValues = 
+		[
+			1
+		];
+	};
+}
+
+DeviceCostAbility02 : DeviceCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DeviceMemoryCostReduction";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51365";
+		intValues = 
+		[
+			2
+		];
+	};
+}
+
+DeviceCostAbility03 : DeviceCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DeviceMemoryCostReduction";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51365";
+		intValues = 
+		[
+			3
+		];
+	};
+}
+
+StealthHacksCostAbility : CyberdeckAbilityBase
+{
+}
+
+StealthHacksCostAbility01 : StealthHacksCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.StealthHacksCostReduction";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51367";
+		intValues = 
+		[
+			1
+		];
+	};
+}
+
+StealthHacksCostAbility02 : StealthHacksCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.StealthHacksCostReduction";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51367";
+		intValues = 
+		[
+			2
+		];
+	};
+}
+
+StealthHacksCostAbility03 : StealthHacksCostAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.StealthHacksCostReduction";
+			modifierType = "Additive";
+			value = 3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51367";
+		intValues = 
+		[
+			3
+		];
+	};
+}
+
+NPCUploadTimeAbility : CyberdeckAbilityBase
+{
+}
+
+NPCUploadTimeAbility01 : NPCUploadTimeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.NPCUploadTime";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51368";
+		intValues = 
+		[
+			50
+		];
+	};
+}
+
+NPCUploadTimeAbility02 : NPCUploadTimeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.NPCUploadTime";
+			modifierType = "Multiplier";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51368";
+		intValues = 
+		[
+			100
+		];
+	};
+}
+
+NPCUploadTimeAbility03 : NPCUploadTimeAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.NPCUploadTime";
+			modifierType = "Multiplier";
+			value = 3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51368";
+		intValues = 
+		[
+			200
+		];
+	};
+}
+
+UltimateHacksSpreadAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UltimateHackSpread";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51369";
+	};
+}
+
+UltimateHacksSpreadAbility01 : UltimateHacksSpreadAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.UltimateHackSpread";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51369";
+	};
+}
+
+DamageHacksAreaAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DamageHackSpread";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51370";
+		intValues = 
+		[
+			3
+		];
+		floatValues = 
+		[
+			6
+		];
+	};
+}
+
+DamageHacksAreaAbility01 : DamageHacksAreaAbility
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DamageHackSpread";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#51370";
+		intValues = 
+		[
+			3
+		];
+		floatValues = 
+		[
+			6
+		];
+	};
+}
+
+DamageHacksSpreadInitEffector : SpreadInitEffector
+{
+	spreadCount = 0;
+	spreadDistance = 6;
+}
+
+ExtendRevealTimeAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.HackRevealPositionModifier";
+			modifierType = "AdditiveMultiplier";
+			value = 0.4f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92307";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+ExtendRevealTimeAbilityLegendaryPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.HackRevealPositionModifier";
+			modifierType = "AdditiveMultiplier";
+			value = 0.6f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92307";
+		floatValues = 
+		[
+			60
+		];
+	};
+}
+
+ExtendRevealTimeAbilityLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.HackRevealPositionModifier";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92307";
+		floatValues = 
+		[
+			100
+		];
+	};
+}
+
+CovertCostReductionAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.StealthHacksCostReduction";
+			modifierType = "Additive";
+			value = 2f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92308";
+		floatValues = 
+		[
+			2
+		];
+	};
+}
+
+RegenerateRamAfterStealthTakedownAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.AnyTakedown";
+			statPoolUpdates = 
+			[
+				{
+					statPoolType = "BaseStatPools.Memory";
+					statPoolValue = 5;
+				} : StatPoolUpdate
+			];
+		} : ModifyStatPoolValueEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92309";
+		floatValues = 
+		[
+			5
+		];
+	};
+}
+
+QuickhacksSpreadOnStartAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.SpreadQuickhacksOnStart";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92319";
+	};
+}
+
+IncreaseDurationOfCombatQuickhacks : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusElectrified";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusBurning";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusPoisoned";
+			modifierType = "Additive";
+			value = 0.15f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92311";
+		floatValues = 
+		[
+			15
+		];
+	};
+}
+
+IncreaseDurationOfCombatQuickhacksLegendaryPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusElectrified";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusBurning";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusPoisoned";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92311";
+		floatValues = 
+		[
+			30
+		];
+	};
+}
+
+IncreaseDurationOfCombatQuickhacksLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DurationBonusElectrified";
+			modifierType = "Additive";
+			value = 0.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusBurning";
+			modifierType = "Additive";
+			value = 0.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DurationBonusPoisoned";
+			modifierType = "Additive";
+			value = 0.6f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92311";
+		floatValues = 
+		[
+			60
+		];
+	};
+}
+
+IncreaseDotHacksDamageAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickhackDamageOverTimeBonusMultiplier";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92312";
+		floatValues = 
+		[
+			10
+		];
+	};
+}
+
+IncreaseMonowireDamageOnTargetsUnderDotHackAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.NanoWiresHeldPrereq";
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							instigatorType = "Player";
+						} : InstigatorTypeHitPrereqCondition, 
+						{
+							checkType = "CheckType.Tag";
+							tagToCheck = "DoT";
+							objectToCheck = "Target";
+						} : StatusEffectPresentHitPrereqCondition
+					];
+				} : IsWeaponMelee;
+				value = 1.25f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92313";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+SpreadingRangeIncreaseAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 0.4f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92320";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+SpreadingRangeIncreaseAbilityLegendaryPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 0.65f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92320";
+		floatValues = 
+		[
+			65
+		];
+	};
+}
+
+SpreadingRangeIncreaseAbilityLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickHackSpreadDistance";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92320";
+		floatValues = 
+		[
+			100
+		];
+	};
+}
+
+IncreaseDamageOnTargetUnderNonCombatQhEffectsAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							checkType = "CheckType.Tag";
+							tagToCheck = "CovertQuickhacked";
+							objectToCheck = "Target";
+						} : StatusEffectPresentHitPrereqCondition
+					];
+				} : IsPlayerHitWithMelee;
+				value = 1.15f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							checkType = "CheckType.Tag";
+							tagToCheck = "ControlQuickhacked";
+							objectToCheck = "Target";
+						} : StatusEffectPresentHitPrereqCondition
+					];
+				} : IsPlayerHitWithMelee;
+				value = 1.15f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							checkType = "CheckType.Tag";
+							tagToCheck = "CovertQuickhacked";
+							objectToCheck = "Target";
+						} : StatusEffectPresentHitPrereqCondition
+					];
+				} : IsPlayerHitWithRanged;
+				value = 1.15f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							checkType = "CheckType.Tag";
+							tagToCheck = "ControlQuickhacked";
+							objectToCheck = "Target";
+						} : StatusEffectPresentHitPrereqCondition
+					];
+				} : IsPlayerHitWithRanged;
+				value = 1.15f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92303";
+		floatValues = 
+		[
+			15
+		];
+	};
+}
+
+CombatQuickhackExtraDamageInQueueBeforeDifferentTypeAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions = 
+					[
+						{
+							attackType = "Hack";
+						} : AttackTypeHitPrereqCondition, 
+						{
+							instigatorType = "Player";
+						} : InstigatorTypeHitPrereqCondition, 
+						{
+							hackCategory = "HackCategory.DamageHack";
+							isTheNextQhInQueue = true;
+							invert = true;
+						} : HitIsQuickhackPresentInQueuePrereqCondition
+					];
+				} : ProcessHitTriggered;
+				value = 1.4f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92304";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+IncreaseRamAbility : CyberdeckAbilityBase
+{
+	UIData = 
+	{
+		localizedDescription = "LocKey#92305";
+		floatValues = 
+		[
+			5
+		];
+	};
+}
+
+IncreaseRamAbilityLegendaryPlus : CyberdeckAbilityBase
+{
+	UIData = 
+	{
+		localizedDescription = "LocKey#92305";
+		floatValues = 
+		[
+			8
+		];
+	};
+}
+
+IncreaseRamAbilityLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	UIData = 
+	{
+		localizedDescription = "LocKey#92305";
+		floatValues = 
+		[
+			12
+		];
+	};
+}
+
+OverclockedSpreadingHacksAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "NewPerks.IsOverclockActivePrereq";
+			effectorToApply = 
+			{
+				objectActions = 
+				[
+					"QuickHack.BlindHack", "QuickHack.WeaponMalfunctionHack"
+				];
+				range = 8;
+			} : SpreadAreaEffector;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92306";
+		floatValues = 
+		[
+			8
+		];
+	};
+}
+
+OverclockedRefreshDotHacksDurationAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "NewPerks.IsOverclockActivePrereq";
+			effectorToApply = 
+			{
+				tags = 
+				[
+					"DoT", "Quickhack"
+				];
+				range = 10;
+			} : RefreshQhWithTagInAreaEffector;
+		} : ApplyEffectorEffector, 
+		{
+			prereqRecord = "NewPerks.IsOverclockActivePrereq";
+			effectorToApply = 
+			{
+				tags = 
+				[
+					"Overload", "Quickhack"
+				];
+				range = 10;
+			} : RefreshQhWithTagInAreaEffector;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92314";
+	};
+}
+
+IncreasedHackDamageAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.QuickhackDamageBonusMultiplier";
+			modifierType = "Additive";
+			value = 0.1f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92315";
+		floatValues = 
+		[
+			10
+		];
+	};
+}
+
+IncreasedDamageBasedOnMissingRamAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.NanoWiresHeldPrereq";
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							instigatorType = "Player";
+						} : InstigatorTypeHitPrereqCondition
+					];
+				} : IsWeaponMelee;
+				effectorClassName = "ModifyDamageWithStatPoolEffector";
+				string statPool = "Memory";
+				string refObj = "Instigator";
+				string operationType = "Multiply";
+				string poolStatus = "Missing";
+				float percentMult = 0.02f;
+				float maxDmg = 1.30f;
+			} : Effector;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92316";
+		floatValues = 
+		[
+			2
+		];
+		intValues = 
+		[
+			30, 30
+		];
+	};
+}
+
+SpeedUpHackUploadOnTargetsAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.SmartWeaponHeldPrereq";
+			effectorToApply = 
+			{
+				prereqRecord = 
+				{
+					conditions += 
+					[
+						{
+							instigatorType = "Player";
+						} : InstigatorTypeHitPrereqCondition, 
+						{
+							targetType = "Player";
+							invert = true;
+						} : TargetTypeHitPrereqCondition
+					];
+				} : IsWeaponRanged;
+				applicationTarget = "Target";
+				statPoolUpdates = 
+				[
+					{
+						statPoolType = "BaseStatPools.BaseQuickHackUpload";
+						statPoolValue = 6.0f;
+					} : StatPoolUpdate
+				];
+				usePercent = true;
+			} : ModifyStatPoolValueEffector;
+		} : ApplyEffectorEffector
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92317";
+	};
+}
+
+IncreaseElectricDamageOnTargetsAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					"NewPerks.IsOverclockActivePrereq", {
+						nestedPrereqs = 
+						[
+							"Prereqs.SmartWeaponHeldPrereq", "Prereqs.NanoWiresHeldPrereq"
+						];
+					} : ORPrereq
+				];
+			} : ANDPrereq;
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.ElectricDamage";
+						modifierType = "Additive";
+						refStat = "BaseStats.DamagePerHit";
+						refObject = "Self";
+						opSymbol = "*";
+						value = 0.25f;
+					} : CombinedStatModifier
+				];
+			};
+		} : ApplyStatGroupOnWeapon
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92318";
+		floatValues = 
+		[
+			25
+		];
+	};
+}
+
+IncreaseElectricDamageOnTargetsAbilityLegendaryPlus : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					"NewPerks.IsOverclockActivePrereq", {
+						nestedPrereqs = 
+						[
+							"Prereqs.SmartWeaponHeldPrereq", "Prereqs.NanoWiresHeldPrereq"
+						];
+					} : ORPrereq
+				];
+			} : ANDPrereq;
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.ElectricDamage";
+						modifierType = "Additive";
+						refStat = "BaseStats.DamagePerHit";
+						refObject = "Self";
+						opSymbol = "*";
+						value = 0.4f;
+					} : CombinedStatModifier
+				];
+			};
+		} : ApplyStatGroupOnWeapon
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92318";
+		floatValues = 
+		[
+			40
+		];
+	};
+}
+
+IncreaseElectricDamageOnTargetsAbilityLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = 
+			{
+				nestedPrereqs = 
+				[
+					"NewPerks.IsOverclockActivePrereq", {
+						nestedPrereqs = 
+						[
+							"Prereqs.SmartWeaponHeldPrereq", "Prereqs.NanoWiresHeldPrereq"
+						];
+					} : ORPrereq
+				];
+			} : ANDPrereq;
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.ElectricDamage";
+						modifierType = "Additive";
+						refStat = "BaseStats.DamagePerHit";
+						refObject = "Self";
+						opSymbol = "*";
+						value = 0.6f;
+					} : CombinedStatModifier
+				];
+			};
+		} : ApplyStatGroupOnWeapon
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92318";
+		floatValues = 
+		[
+			60
+		];
+	};
+}
+
+IncreaseHackSpreadingOnTargetsAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "NewPerks.IsOverclockActivePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.OverclockSpreadChance";
+						modifierType = "Additive";
+						value = 0.15f;
+					} : ConstantStatModifier, 
+					{
+						statType = "BaseStats.QuickHackOverclockSpreadNumber";
+						modifierType = "Additive";
+						value = 2.0f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92321";
+		floatValues = 
+		[
+			15, 2
+		];
+	};
+}
+
+HackDecreasedAwarenessGainAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.PlayerOnRevealHackProgressMultiplier";
+						modifierType = "Additive";
+						value = -0.20f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92322";
+		floatValues = 
+		[
+			20
+		];
+	};
+}
+
+DecreasedHacksCostOnDevicesAbility : CyberdeckAbilityBase
+{
+	stats = 
+	[
+		{
+			statType = "BaseStats.DeviceMemoryCostReductionMult";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92323";
+		intValues = 
+		[
+			50
+		];
+	};
+}
+
+IncreaseDamageDealtWhileControllingDeviceAbilityLegendaryPlus : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			effectorToApply = 
+			{
+				prereqRecord = "Prereqs.ProcessHitTriggered";
+				value = 1.3f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.DurationBonusQuickhack";
+						modifierType = "AdditiveMultiplier";
+						value = 0.2f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92324";
+		floatValues = 
+		[
+			30, 20
+		];
+	};
+}
+
+IncreaseDamageDealtWhileControllingDeviceAbilityLegendaryPlusPlus : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			effectorToApply = 
+			{
+				prereqRecord = "Prereqs.ProcessHitTriggered";
+				value = 1.3f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.DurationBonusQuickhack";
+						modifierType = "AdditiveMultiplier";
+						value = 0.5f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92324";
+		floatValues = 
+		[
+			30, 50
+		];
+	};
+}
+
+IncreaseDamageDealtWhileControllingDeviceAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			effectorToApply = 
+			{
+				prereqRecord = "Prereqs.ProcessHitTriggered";
+				value = 1.15f;
+			} : MultiplyDamage;
+		} : ApplyEffectorEffector, 
+		{
+			prereqRecord = "Prereqs.IsPlayerControlsDevicePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.DurationBonusQuickhack";
+						modifierType = "AdditiveMultiplier";
+						value = 0.2f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92324";
+		floatValues = 
+		[
+			15, 20
+		];
+	};
+}
+
+OverclockAwarenessCostIgnoreAbility : CyberdeckAbilityBase
+{
+	effectors = 
+	[
+		{
+			prereqRecord = "NewPerks.IsOverclockActivePrereq";
+			statGroup = 
+			{
+				statModifiers = 
+				[
+					{
+						statType = "BaseStats.IgnoreAwarenessCostWhenOverclocked";
+						modifierType = "Additive";
+						value = 1f;
+					} : ConstantStatModifier
+				];
+			};
+		} : ApplyStatGroupOnPlayer
+	];
+	UIData = 
+	{
+		localizedDescription = "LocKey#92310";
+	};
+}
+

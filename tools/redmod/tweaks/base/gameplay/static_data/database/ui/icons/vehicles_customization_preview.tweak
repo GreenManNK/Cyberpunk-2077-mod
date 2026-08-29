@@ -1,0 +1,717 @@
+package UIIcon
+using RTDB
+
+vehicle_preview_generic_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_generic_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_generic_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_generic_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_generic_reversed_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic_reversed.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_generic_reversed_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic_reversed.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_generic_reversed_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic_reversed.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_generic_reversed_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_generic_reversed.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_caliburn_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_caliburn_01";
+}
+
+vehicle_preview_rayfield_caliburn_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_caliburn_02";
+}
+
+vehicle_preview_rayfield_caliburn_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_caliburn_lights";
+}
+
+vehicle_preview_rayfield_aerondight_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_aerondight_01";
+}
+
+vehicle_preview_rayfield_aerondight_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_aerondight_02";
+}
+
+vehicle_preview_rayfield_aerondight_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_01.inkatlas";
+	CName atlasPartName = "rayfield_aerondight_lights";
+}
+
+vehicle_preview_yaiba_kusanagi_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_02.inkatlas";
+	CName atlasPartName = "yaiba_kusanagi_01";
+}
+
+vehicle_preview_yaiba_kusanagi_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_02.inkatlas";
+	CName atlasPartName = "yaiba_kusanagi_02";
+}
+
+vehicle_preview_yaiba_kusanagi_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_02.inkatlas";
+	CName atlasPartName = "yaiba_kusanagi_lights";
+}
+
+vehicle_preview_yaiba_kusanagi_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\vehicle_customization_preview_02.inkatlas";
+	CName atlasPartName = "yaiba_kusanagi_bg";
+}
+
+vehicle_preview_herrera_outlaw_gts_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_outlaw_gts\herrera_outlaw_gts.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_herrera_outlaw_gts_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_outlaw_gts\herrera_outlaw_gts.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_herrera_outlaw_gts_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_outlaw_gts\herrera_outlaw_gts.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_herrera_outlaw_gts_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_outlaw_gts\herrera_outlaw_gts.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_mizutani_shion_mz2_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_shion_mz2\mizutani_shion_mz2.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_mizutani_shion_mz2_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_shion_mz2\mizutani_shion_mz2.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_mizutani_shion_mz2_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_shion_mz2\mizutani_shion_mz2.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_mizutani_shion_mz2_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_shion_mz2\mizutani_shion_mz2.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_quadra_type66_avenger_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_avenger\quadra_type66_avenger.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_quadra_type66_avenger_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_avenger\quadra_type66_avenger.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_quadra_type66_avenger_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_avenger\quadra_type66_avenger.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_quadra_type66_avenger_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_avenger\quadra_type66_avenger.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_villefort_alvarado_vato_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_vato\villefort_alvarado_vato.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_villefort_alvarado_vato_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_vato\villefort_alvarado_vato.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_villefort_alvarado_vato_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_vato\villefort_alvarado_vato.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_villefort_alvarado_vato_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_vato\villefort_alvarado_vato.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_villefort_cortes_v5000_valor_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_cortes_v5000_valor\villefort_cortes_v5000_valor.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_villefort_cortes_v5000_valor_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_cortes_v5000_valor\villefort_cortes_v5000_valor.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_villefort_cortes_v5000_valor_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_cortes_v5000_valor\villefort_cortes_v5000_valor.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_villefort_cortes_v5000_valor_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_cortes_v5000_valor\villefort_cortes_v5000_valor.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_thorton_colby_cst40_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\thorton_colby_cst40\thorton_colby_cst40.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_thorton_colby_cst40_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\thorton_colby_cst40\thorton_colby_cst40.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_thorton_colby_cst40_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\thorton_colby_cst40\thorton_colby_cst40.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_thorton_colby_cst40_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\thorton_colby_cst40\thorton_colby_cst40.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_caliburn_murkmobile_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_murkmobile\rayfield_caliburn_murkmobile.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_rayfield_caliburn_murkmobile_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_murkmobile\rayfield_caliburn_murkmobile.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_rayfield_caliburn_murkmobile_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_murkmobile\rayfield_caliburn_murkmobile.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_rayfield_caliburn_murkmobile_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_murkmobile\rayfield_caliburn_murkmobile.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_glow_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred_glow.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_glow_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred_glow.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_glow_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred_glow.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_glow_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred_glow.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_chevillon_emperor_620_ragnar_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_emperor_620_ragnar\chevillon_emperor_620_ragnar.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_chevillon_emperor_620_ragnar_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_emperor_620_ragnar\chevillon_emperor_620_ragnar.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_chevillon_emperor_620_ragnar_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_emperor_620_ragnar\chevillon_emperor_620_ragnar.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_chevillon_emperor_620_ragnar_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_emperor_620_ragnar\chevillon_emperor_620_ragnar.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_caliburn_mordred_outline : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_caliburn_mordred\rayfield_caliburn_mordred_glow.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_chevillon_thrax_388_jefferson_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_thrax_388_jefferson\chevillon_thrax_388_jefferson.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_chevillon_thrax_388_jefferson_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_thrax_388_jefferson\chevillon_thrax_388_jefferson.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_chevillon_thrax_388_jefferson_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_thrax_388_jefferson\chevillon_thrax_388_jefferson.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_chevillon_thrax_388_jefferson_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\chevillon_thrax_388_jefferson\chevillon_thrax_388_jefferson.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_quadra_turbo_r_740_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_turbo_r_740\quadra_turbo_r_740.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_quadra_turbo_r_740_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_turbo_r_740\quadra_turbo_r_740.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_quadra_turbo_r_740_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_turbo_r_740\quadra_turbo_r_740.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_quadra_turbo_r_740_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_turbo_r_740\quadra_turbo_r_740.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_quadra_type66_basic_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_basic\quadra_type66_basic.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_quadra_type66_basic_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_basic\quadra_type66_basic.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_quadra_type66_basic_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_basic\quadra_type66_basic.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_quadra_type66_basic_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_type66_basic\quadra_type66_basic.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_arch_nazare_racer_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\arch_nazare_racer\arch_nazare_racer.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_arch_nazare_racer_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\arch_nazare_racer\arch_nazare_racer.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_arch_nazare_racer_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\arch_nazare_racer\arch_nazare_racer.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_arch_nazare_racer_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\arch_nazare_racer\arch_nazare_racer.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_herrera_riptide_terrier_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_riptide_terrier\herrera_riptide_terrier.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_herrera_riptide_terrier_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_riptide_terrier\herrera_riptide_terrier.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_herrera_riptide_terrier_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_riptide_terrier\herrera_riptide_terrier.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_herrera_riptide_terrier_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\herrera_riptide_terrier\herrera_riptide_terrier.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_mizutani_hozuki_hoseki_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_hozuki_hoseki\mizutani_hozuki_hoseki.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_mizutani_hozuki_hoseki_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_hozuki_hoseki\mizutani_hozuki_hoseki.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_mizutani_hozuki_hoseki_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_hozuki_hoseki\mizutani_hozuki_hoseki.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_mizutani_hozuki_hoseki_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\mizutani_hozuki_hoseki\mizutani_hozuki_hoseki.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_quadra_sport_r7_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_sport_r7\quadra_sport_r7.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_quadra_sport_r7_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_sport_r7\quadra_sport_r7.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_quadra_sport_r7_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_sport_r7\quadra_sport_r7.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_quadra_sport_r7_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\quadra_sport_r7\quadra_sport_r7.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_rayfield_aerondight_guinevere_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_aerondight_guinevere\rayfield_aerondight_guinevere.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_rayfield_aerondight_guinevere_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_aerondight_guinevere\rayfield_aerondight_guinevere.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_rayfield_aerondight_guinevere_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_aerondight_guinevere\rayfield_aerondight_guinevere.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_rayfield_aerondight_guinevere_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\rayfield_aerondight_guinevere\rayfield_aerondight_guinevere.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_villefort_alvarado_basic_vato_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_basic_vato\villefort_alvarado_basic_vato.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_villefort_alvarado_basic_vato_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_basic_vato\villefort_alvarado_basic_vato.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_villefort_alvarado_basic_vato_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_basic_vato\villefort_alvarado_basic_vato.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_villefort_alvarado_basic_vato_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_alvarado_basic_vato\villefort_alvarado_basic_vato.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_villefort_deleon_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_deleon\villefort_deleon.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_villefort_deleon_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_deleon\villefort_deleon.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_villefort_deleon_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_deleon\villefort_deleon.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_villefort_deleon_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\villefort_deleon\villefort_deleon.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_yaiba_kusanagi_akashita_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_akashita\yaiba_kusanagi_akashita.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_yaiba_kusanagi_akashita_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_akashita\yaiba_kusanagi_akashita.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_yaiba_kusanagi_akashita_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_akashita\yaiba_kusanagi_akashita.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_yaiba_kusanagi_akashita_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_akashita\yaiba_kusanagi_akashita.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_yaiba_kusanagi_ct3x_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_ct3x\yaiba_kusanagi_ct3x.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_yaiba_kusanagi_ct3x_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_ct3x\yaiba_kusanagi_ct3x.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_yaiba_kusanagi_ct3x_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_ct3x\yaiba_kusanagi_ct3x.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_yaiba_kusanagi_ct3x_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_ct3x\yaiba_kusanagi_ct3x.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_yaiba_kusanagi_peacekeeper_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_peacekeeper\yaiba_kusanagi_peacekeeper.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_yaiba_kusanagi_peacekeeper_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_peacekeeper\yaiba_kusanagi_peacekeeper.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_yaiba_kusanagi_peacekeeper_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_peacekeeper\yaiba_kusanagi_peacekeeper.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_yaiba_kusanagi_peacekeeper_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_kusanagi_peacekeeper\yaiba_kusanagi_peacekeeper.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_yaiba_muramasa_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_muramasa\yaiba_muramasa.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_yaiba_muramasa_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_muramasa\yaiba_muramasa.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_yaiba_muramasa_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_muramasa\yaiba_muramasa.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_yaiba_muramasa_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_muramasa\yaiba_muramasa.inkatlas";
+	CName atlasPartName = "base";
+}
+
+vehicle_preview_yaiba_semimaru_01 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_semimaru\yaiba_semimaru.inkatlas";
+	CName atlasPartName = "primary";
+}
+
+vehicle_preview_yaiba_semimaru_02 : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_semimaru\yaiba_semimaru.inkatlas";
+	CName atlasPartName = "secondary";
+}
+
+vehicle_preview_yaiba_semimaru_lights : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_semimaru\yaiba_semimaru.inkatlas";
+	CName atlasPartName = "lights";
+}
+
+vehicle_preview_yaiba_semimaru_bg : UIIcon
+{
+	atlasResourcePath = "base\gameplay\gui\widgets\notifications\vehicle_customization_preview\top_views\sport\yaiba_semimaru\yaiba_semimaru.inkatlas";
+	CName atlasPartName = "base";
+}
+

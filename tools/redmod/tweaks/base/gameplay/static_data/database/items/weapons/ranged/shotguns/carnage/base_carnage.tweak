@@ -1,0 +1,407 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, EquipmentGLP
+
+[ notQueryable ]
+Base_Carnage : Base_Power_Shotgun
+{
+	fk< ItemBlueprint > blueprint = "Items.Base_Power_Shotgun_NoAttachments_Blueprint";
+	buyPrice += 
+	[
+		"Price.BudgetArms", "Price.LowManufactureQuality", "Price.CarnageMultiplier"
+	];
+	sellPrice += 
+	[
+		"Price.BudgetArms", "Price.LowManufactureQuality", "Price.CarnageMultiplier"
+	];
+	displayName = "LocKey#3617";
+	string friendlyName = "w_shotgun_budget_carnage";
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 15;
+	} : ConstantStatModifier;
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Carnage";
+	localizedDescription = "LocKey#3618";
+	gameplayDescription = "LocKey#92668";
+	fk< SlotItemPartListElement >[] slotPartList = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__budget_carnage_rcv1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__budget_carnage_base1";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__budget_carnage_mag_std";
+				}
+			];
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_shotgun__budget_carnage_mag_stdr";
+				}
+			];
+		}
+	];
+	CName audioName = "wea_set_carnage";
+	CName[] tags += 
+	[
+		"Preload", "Weapon", "Shotgun", "AnimCycleRound", "Carnage"
+	];
+	fk< TriggerMode >[] triggerModes = 
+	[
+		"TriggerMode.SemiAuto", "TriggerMode.FullAuto"
+	];
+	fk< TriggerMode > primaryTriggerMode = "TriggerMode.SemiAuto";
+	fk< WeaponManufacturer > manufacturer = "WeaponManufacturer.Corporation";
+	fk< WeaponEvolution > evolution = "WeaponEvolution.Power";
+	fk< Item > ammo = "Ammo.ShotgunAmmo";
+	enableNpcRPGData = true;
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Carnage_NPC_Data;
+	statModifierGroups += 
+	[
+		"Items.Base_Carnage_Technical_Stats", "Items.Base_Carnage_Handling_Stats", "Items.Base_Carnage_Recoil_Stats", "Items.Base_Carnage_Spread_Stats", "Items.Base_Carnage_Aim_Stats", "Items.Base_Carnage_Constant_Stats", "Items.Base_Carnage_Damage_Stats"
+	];
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		"EquipmentGLP.SlowStaminaRegen", "EquipmentGLP.VeryHeavyStaminaDelay", "EquipmentGLP.VeryHeavyWeapon"
+	];
+	bool saveStatPools = true;
+	fk< Crosshair > crosshair = "Crosshairs.Hex";
+	fk< WeaponFxPackage > fxPackage = "WeaponFxPackage.PowerShotgun";
+	bool useNewSpawnMethod = true;
+	baseReloadTime = 0.75f;
+	baseEmptyReloadTime = 1.5f;
+	uninterruptibleReloadStart = 0.5f;
+	uninterruptibleEmptyReloadStart = 0.5f;
+	float weaponNearPlane = 0.27f;
+	float weaponFarPlane = 0.6f;
+	float weaponEdgesSharpness = 0.4958f;
+	float weaponVignetteIntensity = 0.1357f;
+	float weaponVignetteRadius = 0.6482f;
+	float weaponVignetteCircular = 0.0f;
+	float weaponBlurIntensity = 1.0f;
+	float weaponNearPlane_aim = 0.19f;
+	float weaponFarPlane_aim = 0.5f;
+	float weaponEdgesSharpness_aim = 0.4958f;
+	float weaponVignetteIntensity_aim = 0.1357f;
+	float weaponVignetteRadius_aim = 0.6814f;
+	float weaponVignetteCircular_aim = 0.1745f;
+	float weaponBlurIntensity_aim = 1.f;
+}
+
+Base_Carnage_NPC_Data : Base_Power_Shotgun_NPC_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Carnage_NPC_Technical_Stats", "Items.Base_Carnage_NPC_Damage_Stats"
+	];
+}
+
+Base_Carnage_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 1.25f;
+		} : CycleTimeModifier, 
+		{
+			value = 4.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.0f;
+		} : ReloadAmountModifier, 
+		{
+			value = 10.f;
+		} : ProjectilesPerShotModifier, 
+		{
+			value = 10.f;
+		} : KnockdownImpulseModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Carnage_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 73f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Carnage_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 85f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Carnage_NPC_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 1.25f;
+		} : CycleTimeModifier, 
+		{
+			value = 4.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.0f;
+		} : ReloadAmountModifier, 
+		{
+			value = 7.f;
+		} : ProjectilesPerShotModifier, 
+		{
+			value = 20.f;
+		} : KnockdownImpulseModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier"
+	];
+}
+
+Base_Carnage_Handling_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.75f;
+		} : ReloadTimeModifier, 
+		{
+			value = 1.5f;
+		} : EmptyReloadTimeModifier, 
+		{
+			value = 0.75f;
+		} : ReloadEndTimeModifier, 
+		{
+			value = 1.5f;
+		} : EmptyReloadEndTimeModifier, 
+		{
+			value = 1.1f;
+		} : ZoomLevelModifier, 
+		{
+			value = 3.5f;
+		} : EquipDuration_FirstModifier
+	];
+}
+
+Base_Carnage_Recoil_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 30.f;
+		} : RecoilDirModifier, 
+		{
+			value = 20.f;
+		} : RecoilAngleModifier, 
+		{
+			value = 0.07f;
+		} : RecoilTimeModifier, 
+		{
+			value = 0.05f;
+		} : RecoilDelayModifier, 
+		{
+			value = 0.9f;
+		} : RecoilRecoveryTimeModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXADSModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYADSModifier
+	];
+}
+
+Base_Carnage_Spread_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.2f;
+		} : SpreadMinXModifier, 
+		{
+			value = 0.75f;
+		} : SpreadMinYModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseInAdsModifier, 
+		{
+			value = 1.2f;
+		} : SpreadAdsMinXModifier, 
+		{
+			value = 0.75f;
+		} : SpreadAdsMinYModifier, 
+		{
+			value = 1.25f;
+		} : SpreadResetSpeedModifier, 
+		{
+			value = 0.5f;
+		} : SpreadResetTimeThresholdModifier, 
+		{
+			value = 0.f;
+		} : SpreadRandomizeOriginPointModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseCircularSpreadModifier
+	];
+}
+
+Base_Carnage_Aim_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.AimFOV";
+			modifierType = "Additive";
+			value = 48;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AimOffset";
+			modifierType = "Additive";
+			value = -0.13f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Carnage_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 3.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 2.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 3.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 2.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsChangePerShot";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 6.4f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 7.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMin";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilDriftRandomRangeMax";
+			modifierType = "AdditiveMultiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "Multiplier";
+			value = 0.6667;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 1.165f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationMedium", {
+			statType = "BaseStats.WeaponVehicleDamagePercentBonus";
+			modifierType = "Additive";
+			value = 0.30f;
+		} : ConstantStatModifier
+	];
+}
+
+w_shotgun__budget_carnage_rcv1 : WeaponShotgunReceiverBase
+{
+	string friendlyName = "w_shotgun__budget_carnage_rcv1";
+	CName appearanceResourceName = "w_shotgun__budget_carnage_mag__rcv1_01";
+}
+
+w_shotgun__budget_carnage_base1 : WeaponShotgunBarrelBase
+{
+	string friendlyName = "w_shotgun__budget_carnage_base1";
+	CName appearanceResourceName = "w_shotgun__budget_carnage_mag__base1_01";
+}
+
+w_shotgun__budget_carnage_mag_std : WeaponMagazineBase
+{
+	string friendlyName = "w_shotgun__budget_carnage_mag_std";
+	CName appearanceResourceName = "w_shotgun__budget_carnage_mag__std_01";
+}
+
+w_shotgun__budget_carnage_mag_stdr : WeaponMagazineBaseEmpty
+{
+	string friendlyName = "w_shotgun__budget_carnage_mag_stdr";
+	CName appearanceResourceName = "w_shotgun__budget_carnage_mag__mag_stdr_01";
+}
+

@@ -1,0 +1,210 @@
+class ConsumeAction extends BaseItemAction
+{
+
+	public override function CompleteAction( gameInstance : GameInstance )
+	{
+		var removePoint : Float;
+		var removeConsumableEvent : RemoveConsumableDelayedEvent;
+		super.CompleteAction( gameInstance );
+		if( ShouldRemoveAfterUse() )
+		{
+			RemoveConsumableItem( gameInstance );
+		}
+		else
+		{
+			removePoint = TweakDBInterface.GetConsumableItemRecord( ItemID.GetTDBID( GetItemData().GetID() ) ).RemovePoint();
+			removeConsumableEvent = new RemoveConsumableDelayedEvent;
+			removeConsumableEvent.consumeAction = this;
+			GameInstance.GetDelaySystem( gameInstance ).DelayEvent( GetExecutor(), removeConsumableEvent, removePoint );
+		}
+		if( GetItemData().HasTag( 'IllegalFood' ) )
+		{
+			ProcessPermanentFood( gameInstance );
+		}
+		NotifyAutocraftSystem( gameInstance );
+	}
+
+	private function ProcessPermanentFood( gameInstance : GameInstance )
+	{
+		var player : PlayerPuppet;
+		var currentBonus : Int32;
+		var modifier : gameConstantStatModifierData;
+		var arrayValues : array< Float >;
+		var tooltipValues : array< Float >;
+		player = GetPlayer( gameInstance );
+		modifier = new gameConstantStatModifierData;
+		modifier.modifierType = gameStatModifierType.Additive;
+		if( GetItemData().GetID() == T"Items.PermanentHealthFood" )
+		{
+			arrayValues = TDB.GetFloatArray( T"Items.PermanentHealthFood.healthIncreasePerUse" );
+			currentBonus = ( ( Int32 )( player.GetPermanentFoodBonus( gamedataStatType.HealthBonusBlackmarket ) ) );
+			modifier.statType = gamedataStatType.Health;
+			modifier.value = arrayValues[ currentBonus ];
+			GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			if( ( currentBonus + 1 ) < arrayValues.Size() )
+			{
+				player.SetPermanentFoodBonus( gamedataStatType.HealthBonusBlackmarket, ( ( Float )( currentBonus ) ) + 1.0 );
+				GameInstance.GetStatsSystem( gameInstance ).RemoveAllModifiers( player.GetEntityID(), gamedataStatType.HealthBonusBlackmarket, true );
+				tooltipValues = TDB.GetFloatArray( T"Items.PermanentHealthFood.healthIncreasePerUse" );
+				modifier.statType = gamedataStatType.HealthBonusBlackmarket;
+				modifier.value = tooltipValues[ ( ( Int32 )( currentBonus + 1 ) ) ];
+				GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			}
+		}
+		else if( GetItemData().GetID() == T"Items.PermanentStaminaRegenFood" )
+		{
+			arrayValues = TDB.GetFloatArray( T"Items.PermanentStaminaRegenFood.staminaRegenRateIncreasePerUse" );
+			currentBonus = ( ( Int32 )( player.GetPermanentFoodBonus( gamedataStatType.StaminaRegenBonusBlackmarket ) ) );
+			modifier.statType = gamedataStatType.StaminaRegenRateAdd;
+			modifier.value = arrayValues[ currentBonus ];
+			GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			if( ( currentBonus + 1 ) < arrayValues.Size() )
+			{
+				player.SetPermanentFoodBonus( gamedataStatType.StaminaRegenBonusBlackmarket, ( ( Float )( currentBonus ) ) + 1.0 );
+				GameInstance.GetStatsSystem( gameInstance ).RemoveAllModifiers( player.GetEntityID(), gamedataStatType.StaminaRegenBonusBlackmarket, true );
+				tooltipValues = TDB.GetFloatArray( T"Items.PermanentStaminaRegenFood.staminaNotificationValues" );
+				modifier.statType = gamedataStatType.StaminaRegenBonusBlackmarket;
+				modifier.value = tooltipValues[ ( ( Int32 )( currentBonus + 1 ) ) ];
+				GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			}
+		}
+		else if( GetItemData().GetID() == T"Items.PermanentMemoryRegenFood" )
+		{
+			arrayValues = TDB.GetFloatArray( T"Items.PermanentMemoryRegenFood.memoryRegenRateIncreasePerUse" );
+			currentBonus = ( ( Int32 )( player.GetPermanentFoodBonus( gamedataStatType.MemoryRegenBonusBlackmarket ) ) );
+			modifier.statType = gamedataStatType.MemoryRegenRateMult;
+			modifier.value = arrayValues[ currentBonus ];
+			GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			if( ( currentBonus + 1 ) < arrayValues.Size() )
+			{
+				player.SetPermanentFoodBonus( gamedataStatType.MemoryRegenBonusBlackmarket, ( ( Float )( currentBonus ) ) + 1.0 );
+				GameInstance.GetStatsSystem( gameInstance ).RemoveAllModifiers( player.GetEntityID(), gamedataStatType.MemoryRegenBonusBlackmarket, true );
+				tooltipValues = TDB.GetFloatArray( T"Items.PermanentMemoryRegenFood.memoryNotificationValues" );
+				modifier.statType = gamedataStatType.MemoryRegenBonusBlackmarket;
+				modifier.value = tooltipValues[ ( ( Int32 )( currentBonus + 1 ) ) ];
+				GameInstance.GetStatsSystem( gameInstance ).AddSavedModifier( player.GetEntityID(), modifier );
+			}
+		}
+	}
+
+	public function RemoveConsumableItem( gameInstance : GameInstance )
+	{
+		var eqs : EquipmentSystem;
+		var blackboardSystem : BlackboardSystem;
+		var blackboard : IBlackboard;
+		GameInstance.GetTransactionSystem( gameInstance ).RemoveItem( GetExecutor(), GetItemData().GetID(), 1 );
+		eqs = ( ( EquipmentSystem )( GameInstance.GetScriptableSystemsContainer( gameInstance ).Get( 'EquipmentSystem' ) ) );
+		if( eqs )
+		{
+		}
+		if( ShouldEquipAnotherConsumable() )
+		{
+			TryToEquipSameTypeConsumable();
+		}
+		blackboardSystem = GameInstance.GetBlackboardSystem( gameInstance );
+		blackboard = blackboardSystem.Get( GetAllBlackboardDefs().UI_QuickSlotsData );
+		blackboard.SetVariant( GetAllBlackboardDefs().UI_QuickSlotsData.consumableBeingUsed, ItemID.None() );
+	}
+
+	private function ShouldEquipAnotherConsumable() : Bool
+	{
+		if( ( GetItemData().GetQuantity() > 0 ) || ShouldRemoveAfterUse() )
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private function TryToEquipSameTypeConsumable()
+	{
+		var inventoryManager : InventoryDataManagerV2;
+		var inventoryItems : array< InventoryItemData >;
+		var currentConsumable : InventoryItemData;
+		var consumableToEquip : InventoryItemData;
+		var consumableType : gamedataConsumableType;
+		var consumableRecord : ConsumableItem_Record;
+		var consumableQuality : Int32;
+		var bestQuality : Int32;
+		var i : Int32;
+		inventoryManager = new InventoryDataManagerV2;
+		inventoryManager.Initialize( ( ( PlayerPuppet )( GetExecutor() ) ) );
+		currentConsumable = inventoryManager.GetInventoryItemData( GetItemData() );
+		consumableType = TweakDBInterface.GetConsumableItemRecord( ItemID.GetTDBID( GetItemData().GetID() ) ).ConsumableType().Type();
+		inventoryItems = inventoryManager.GetPlayerInventoryData( InventoryItemData.GetEquipmentArea( currentConsumable ), true );
+		if( inventoryItems.Size() == 0 )
+		{
+			return;
+		}
+		for( i = 0; i < inventoryItems.Size(); i += 1 )
+		{
+			consumableRecord = TweakDBInterface.GetConsumableItemRecord( ItemID.GetTDBID( InventoryItemData.GetID( inventoryItems[ i ] ) ) );
+			consumableQuality = consumableRecord.Quality().Value();
+			if( consumableRecord.ConsumableType().Type() == consumableType && ( consumableQuality >= bestQuality ) )
+			{
+				bestQuality = consumableQuality;
+				consumableToEquip = inventoryItems[ i ];
+			}
+		}
+		if( !( InventoryItemData.IsEmpty( consumableToEquip ) ) )
+		{
+			inventoryManager.EquipItem( InventoryItemData.GetID( consumableToEquip ), InventoryItemData.GetSlotIndex( currentConsumable ) );
+		}
+	}
+
+	protected override function ProcessStatusEffects( const actionEffects : ref< array< weak< ObjectActionEffect_Record > > >, gameInstance : GameInstance )
+	{
+		var effectInstigator : TweakDBID;
+		var appliedEffects : array< StatusEffect >;
+		var newConsumableTDBID : TweakDBID;
+		var newConsumableName : gamedataConsumableBaseName;
+		var usedConsumableName : gamedataConsumableBaseName;
+		var i : Int32;
+		var actionEffectStatusEffectType : String;
+		var appliedStatusEffectType : String;
+		appliedEffects = StatusEffectHelper.GetAppliedEffects( GetExecutor() );
+		newConsumableTDBID = ItemID.GetTDBID( GetItemData().GetID() );
+		newConsumableName = TweakDBInterface.GetConsumableItemRecord( newConsumableTDBID ).ConsumableBaseName().Type();
+		for( i = 0; i < appliedEffects.Size(); i += 1 )
+		{
+			effectInstigator = appliedEffects[ i ].GetInstigatorStaticDataID();
+			usedConsumableName = TweakDBInterface.GetConsumableItemRecord( effectInstigator ).ConsumableBaseName().Type();
+			actionEffectStatusEffectType = actionEffects[ i ].StatusEffect().StatusEffectType().EnumName();
+			appliedStatusEffectType = appliedEffects[ i ].GetRecord().StatusEffectType().EnumName();
+			if( ( newConsumableName == usedConsumableName && appliedStatusEffectType == actionEffectStatusEffectType ) && ( ( ( Int32 )( appliedEffects[ i ].GetMaxStacks() ) ) == 1 ) )
+			{
+				StatusEffectHelper.RemoveStatusEffect( GetExecutor(), appliedEffects[ i ] );
+				break;
+			}
+		}
+		for( i = 0; i < actionEffects.Size(); i += 1 )
+		{
+			StatusEffectHelper.ApplyStatusEffect( GetExecutor(), actionEffects[ i ].StatusEffect().GetID(), ItemID.GetTDBID( GetItemData().GetID() ) );
+		}
+	}
+
+	protected function NotifyAutocraftSystem( gameInstance : GameInstance )
+	{
+		var autocraftSystem : AutocraftSystem;
+		var autocraftItemUsedRequest : RegisterItemUsedRequest;
+		autocraftSystem = ( ( AutocraftSystem )( GameInstance.GetScriptableSystemsContainer( gameInstance ).Get( 'AutocraftSystem' ) ) );
+		autocraftItemUsedRequest = new RegisterItemUsedRequest;
+		autocraftItemUsedRequest.itemUsed = GetItemData().GetID();
+		autocraftSystem.QueueRequest( autocraftItemUsedRequest );
+	}
+
+	public override function IsVisible( const context : ref< GetActionsContext >, objectActionsCallbackController : weak< gameObjectActionsCallbackController > ) : Bool
+	{
+		if( ( ( PlayerPuppet )( GetExecutor() ) ).IsInCombat() && GetItemData().GetItemType() != gamedataItemType.Con_Skillbook )
+		{
+			return false;
+		}
+		return true;
+	}
+
+}
+
+class RemoveConsumableDelayedEvent extends Event
+{
+	var consumeAction : ConsumeAction;
+}
+

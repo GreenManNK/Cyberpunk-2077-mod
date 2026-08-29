@@ -1,0 +1,22 @@
+class RootMotionCommandHandler extends AICommandHandlerBase
+{
+	protected editable inlined var m_params : AIArgumentMapping;
+
+	protected override function UpdateCommand( context : ScriptExecutionContext, command : AICommand ) : AIbehaviorUpdateOutcome
+	{
+		var typedCommand : AIRootMotionCommand;
+		typedCommand = ( ( AIRootMotionCommand )( command ) );
+		if( !( typedCommand ) )
+		{
+			return AIbehaviorUpdateOutcome.FAILURE;
+		}
+		if( !( m_params ) )
+		{
+			return AIbehaviorUpdateOutcome.FAILURE;
+		}
+		ScriptExecutionContext.SetMappingValue( context, m_params, typedCommand.params );
+		return AIbehaviorUpdateOutcome.SUCCESS;
+	}
+
+}
+

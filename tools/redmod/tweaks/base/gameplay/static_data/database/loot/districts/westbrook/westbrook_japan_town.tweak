@@ -1,0 +1,236 @@
+package Loot
+using RTDB
+
+WestbrookJapanTown : Westbrook
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+}
+
+WestbrookJapanTownAll : WestbrookJapanTown
+{
+	lootTableInclusions = 
+	[
+		"Loot.WestbrookJapanTownClothing", "Loot.WestbrookJapanTownWeapons", "Loot.WestbrookJapanTownConsumables", "Loot.WestbrookJapanTownEdibles", "Loot.WestbrookJapanTownGadgets", "Loot.WestbrookJapanTownJunk", "Loot.WestbrookJapanTownFragments", "Loot.WestbrookJapanTownPrograms"
+	];
+}
+
+WestbrookJapanTownClothing : WestbrookJapanTown
+{
+	queries = 
+	[
+		{
+			dropChance = 0.35;
+			query = "Query.StylishClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.35;
+			query = "Query.PunkClothing";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WestbrookJapanTownWeapons : WestbrookJapanTown
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15;
+			query = "Query.KatanaQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.KnifeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.OneHandBladeQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.HandgunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}, 
+		{
+			dropChance = 0.15;
+			query = "Query.SubmachinegunQuery";
+			fk< StatModifier >[] statModifiers = 
+			[
+				"Quality.MaximumUncommonQuality"
+			];
+		}
+	];
+}
+
+WestbrookJapanTownConsumables : WestbrookJapanTown
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityAlcohol";
+		}
+	];
+	lootTableInclusions = 
+	[
+		"LootTables.BoostersTable", "LootTables.HealingItemsRecipes"
+	];
+}
+
+WestbrookJapanTownEdibles : WestbrookJapanTown
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityFood";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.GoodQualityFood";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityDrink";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.GoodQualityDrink";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.MediumQualityAlcohol";
+		}, 
+		{
+			dropChance = 0.03;
+			query = "Query.GoodQualityAlcohol";
+		}
+	];
+}
+
+WestbrookJapanTownGadgets : WestbrookJapanTown
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 2;
+	lootTableInclusions = 
+	[
+		"LootTables.TechJunkieItemsTable", "LootTables.CraftingMaterialsTable", "LootTables.GrenadeItemsRecipesTable", "LootTables.GrenadePlusRarityItemsTable"
+	];
+}
+
+WestbrookJapanTownJunk : WestbrookJapanTown
+{
+	lootItems = 
+	[
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem1";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem2";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem3";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem4";
+		}, 
+		{
+			dropChance = 0.05;
+			itemID = "Items.GenericRichJunkItem5";
+		}
+	];
+}
+
+WestbrookJapanTownFragments : WestbrookJapanTownJunk
+{
+}
+
+WestbrookJapanTownPrograms : WestbrookJapanTown
+{
+	queries = 
+	[
+		{
+			dropChance = 0.15f;
+			query = "Query.LowQualityShard";
+		}
+	];
+}
+
+WestbrookJapanTownJewellery : WestbrookJapanTown
+{
+	queries = 
+	[
+		{
+			dropChance = 0.1;
+			query = "Query.HighQualityJewellery";
+		}, 
+		{
+			dropChance = 0.1;
+			query = "Query.TygerClawsJewellery";
+		}
+	];
+}
+
+WestbrookJapanTownCraftingMaterials : WestbrookJapanTown
+{
+	lootTableInclusions = 
+	[
+		"LootTables.CraftingMaterialsTable"
+	];
+	queries = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelCommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.CommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelUncommonWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.UncommonRangedWeaponModsQuery";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareWeaponModsPrereq";
+			dropChance = 0.1;
+			query = "Query.RareRangedWeaponModsQuery";
+		}
+	];
+}
+

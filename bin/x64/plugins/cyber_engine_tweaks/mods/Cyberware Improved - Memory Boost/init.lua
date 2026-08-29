@@ -2,7 +2,7 @@
 registerForEvent('onInit', function()
 
 	TweakDB:SetFlat("Items.AdvancedMemoryBoostUncommon_inline3.statPoolValue", 0.5) 			-- 		RAM Recovery per kill | Vanilla = 0.4
-	TweakDB:SetFlat("Items.AdvancedMemoryBoostUncommon_inline4.floatValues", {1.0}) 			-- UI | RAM Recovery per kill
+	TweakDB:SetFlat("Items.AdvancedMemoryBoostUncommon_inline4.floatValues", {0.5}) 			-- UI | RAM Recovery per kill
 	TweakDB:SetFlat("Items.AdvancedMemoryBoostUncommon_inline6.value", 1.0) 					-- 		Max RAM | Vanilla = 1.0
 	TweakDB:SetFlat("Items.AdvancedMemoryBoostUncommon_inline7.floatValues", {1.0}) 			-- UI | Max RAM
 

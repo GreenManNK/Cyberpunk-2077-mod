@@ -1,0 +1,209 @@
+class ApplyStatusEffectEffector extends Effector
+{
+	var m_targetEntityID : EntityID;
+	var m_applicationTarget : CName;
+	var m_record : TweakDBID;
+	var m_removeWithEffector : Bool;
+	var m_inverted : Bool;
+	var m_useCountWhenRemoving : Bool;
+	var m_count : Float;
+	var m_instigator : String;
+
+	protected export override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		m_record = TweakDBInterface.GetApplyStatusEffectEffectorRecord( record ).StatusEffect().GetID();
+		m_applicationTarget = TweakDBInterface.GetCName( record + T".applicationTarget", '' );
+		m_removeWithEffector = TweakDBInterface.GetBool( record + T".removeWithEffector", true );
+		m_inverted = TweakDBInterface.GetBool( record + T".inverted", false );
+		m_count = TweakDBInterface.GetFloat( record + T".count", 1.0 );
+		m_instigator = TweakDBInterface.GetString( record + T".instigator", "" );
+		m_useCountWhenRemoving = TDB.GetBool( record + T".useCountWhenRemoving" );
+		if( m_applicationTarget == 'Weapon' )
+		{
+		}
+	}
+
+	protected export override function Uninitialize( game : GameInstance )
+	{
+		if( m_inverted )
+		{
+			ApplyStatusEffect( game );
+		}
+		else
+		{
+			if( m_removeWithEffector )
+			{
+				RemoveStatusEffect( game );
+			}
+		}
+	}
+
+	private function ProcessAction( owner : GameObject )
+	{
+		if( !( GetApplicationTarget( owner, m_applicationTarget, m_targetEntityID ) ) )
+		{
+			return;
+		}
+		if( m_inverted )
+		{
+			RemoveStatusEffect( owner.GetGame() );
+		}
+		else
+		{
+			ApplyStatusEffect( owner.GetGame() );
+		}
+	}
+
+	protected export override function ActionOn( owner : GameObject )
+	{
+		ProcessAction( owner );
+	}
+
+	protected export override function RepeatedAction( owner : GameObject )
+	{
+		ProcessAction( owner );
+	}
+
+	protected export override function ActionOff( owner : GameObject )
+	{
+		if( m_removeWithEffector )
+		{
+			if( m_inverted )
+			{
+				ApplyStatusEffect( owner.GetGame() );
+			}
+			else
+			{
+				RemoveStatusEffect( owner.GetGame() );
+			}
+		}
+	}
+
+	private function ApplyStatusEffect( gameInstance : GameInstance )
+	{
+		var instigator : weak< GameObject >;
+		var ses : StatusEffectSystem;
+		if( !( EntityID.IsDefined( m_targetEntityID ) ) || !( TDBID.IsValid( m_record ) ) )
+		{
+			return;
+		}
+		instigator = GetInstigator( gameInstance );
+		ses = GameInstance.GetStatusEffectSystem( gameInstance );
+		if( instigator )
+		{
+			ses.ApplyStatusEffect( m_targetEntityID, m_record, , instigator.GetEntityID(), ( ( Uint32 )( m_count ) ) );
+		}
+		else
+		{
+			ses.ApplyStatusEffect( m_targetEntityID, m_record, , , ( ( Uint32 )( m_count ) ) );
+		}
+	}
+
+	private function RemoveStatusEffect( gameInstance : GameInstance )
+	{
+		var ses : StatusEffectSystem;
+		if( !( EntityID.IsDefined( m_targetEntityID ) ) || !( TDBID.IsValid( m_record ) ) )
+		{
+			return;
+		}
+		ses = GameInstance.GetStatusEffectSystem( gameInstance );
+		if( m_useCountWhenRemoving )
+		{
+			ses.RemoveStatusEffect( m_targetEntityID, m_record, ( ( Uint32 )( m_count ) ) );
+		}
+		else
+		{
+			ses.RemoveStatusEffect( m_targetEntityID, m_record );
+		}
+	}
+
+	protected function GetInstigator( gameInstance : GameInstance ) : weak< GameObject >
+	{
+		switch( m_instigator )
+		{
+			case "Player":
+				return GetPlayer( gameInstance );
+			default:
+				return NULL;
+		}
+	}
+
+}
+
+class FinisherEffector extends ApplyStatusEffectEffector
+{
+
+	protected override function Uninitialize( game : GameInstance )
+	{
+		super.Uninitialize( game );
+	}
+
+	protected override function ActionOn( owner : GameObject )
+	{
+		super.ActionOn( owner );
+		if( owner.IsPuppet() )
+		{
+			NPCPuppet.FinisherEffectorActionOn( ( ( NPCPuppet )( owner ) ), GetInstigator( owner.GetGame() ) );
+		}
+	}
+
+}
+
+class ApplyStatusEffectBasedOnDifficultyEffector extends ApplyStatusEffectEffector
+{
+	var m_statusEffectOnStoryDifficulty : TweakDBID;
+	var m_statusEffectOnEasyDifficulty : TweakDBID;
+	var m_statusEffectOnHardDifficulty : TweakDBID;
+	var m_statusEffectOnVeryHardDifficulty : TweakDBID;
+
+	protected export override function Initialize( record : TweakDBID, game : GameInstance, parentRecord : TweakDBID )
+	{
+		var effectorRecord : ApplyStatusEffectBasedOnDifficultyEffector_Record;
+		super.Initialize( record, game, parentRecord );
+		effectorRecord = TweakDBInterface.GetApplyStatusEffectBasedOnDifficultyEffectorRecord( record );
+		m_statusEffectOnStoryDifficulty = effectorRecord.StatusEffectOnStoryDifficulty().GetID();
+		m_statusEffectOnEasyDifficulty = effectorRecord.StatusEffectOnEasyDifficulty().GetID();
+		m_statusEffectOnHardDifficulty = effectorRecord.StatusEffectOnHardDifficulty().GetID();
+		m_statusEffectOnVeryHardDifficulty = effectorRecord.StatusEffectOnVeryHardDifficulty().GetID();
+	}
+
+	protected override function Uninitialize( game : GameInstance )
+	{
+		super.Uninitialize( game );
+	}
+
+	protected export override function ActionOn( owner : GameObject )
+	{
+		SetStatusEffectBasedOnDifficulty( owner );
+		super.ActionOn( owner );
+	}
+
+	protected export override function RepeatedAction( owner : GameObject )
+	{
+		SetStatusEffectBasedOnDifficulty( owner );
+		super.RepeatedAction( owner );
+	}
+
+	private function SetStatusEffectBasedOnDifficulty( owner : GameObject )
+	{
+		var difficulty : gameDifficulty;
+		difficulty = GameInstance.GetStatsDataSystem( owner.GetGame() ).GetDifficulty();
+		switch( difficulty )
+		{
+			case gameDifficulty.Story:
+				m_record = m_statusEffectOnStoryDifficulty;
+			break;
+			case gameDifficulty.Easy:
+				m_record = m_statusEffectOnEasyDifficulty;
+			break;
+			case gameDifficulty.Hard:
+				m_record = m_statusEffectOnHardDifficulty;
+			break;
+			case gameDifficulty.VeryHard:
+				m_record = m_statusEffectOnVeryHardDifficulty;
+			break;
+		}
+	}
+
+}
+

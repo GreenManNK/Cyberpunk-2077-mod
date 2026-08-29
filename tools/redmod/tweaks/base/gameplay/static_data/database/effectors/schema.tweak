@@ -1,0 +1,272 @@
+package RTDB
+using Prereqs
+
+EffectorTimeDilationDriver
+{
+	string enumName = "";
+	string enumComment = "";
+}
+
+Effector
+{
+	fk< IPrereq > prereqRecord = "Prereqs.AlwaysTruePrereq";
+	CName effectorClassName = "";
+	bool removeAfterActionCall = false;
+	bool removeAfterPrereqCheck = false;
+	fk< StatModifierGroup >[] statModifierGroups = [];
+}
+
+ContinuousEffector : Effector
+{
+	float delayTime = 0;
+	fk< EffectorTimeDilationDriver > timeDilationDriver = "Effectors.TDD_World";
+}
+
+ContinuousAttackEffector : ContinuousEffector
+{
+	fk< Attack > attackRecord = "";
+}
+
+StatPoolUpdate
+{
+	fk< StatPool > statPoolType = "";
+	float statPoolValue = 0;
+	fk< StatModifier >[] statModifiers = [];
+}
+
+ApplyStatusEffectEffector : Effector
+{
+	CName effectorClassName = "ApplyStatusEffectEffector";
+	fk< StatusEffect > statusEffect = "";
+	CName applicationTarget = "";
+	bool removeWithEffector = true;
+	bool inverted = false;
+	float count = 1f;
+	string instigator = "";
+	bool useCountWhenRemoving = false;
+}
+
+ApplyStatusEffectByChanceEffector : ApplyStatusEffectEffector
+{
+	CName effectorClassName = "ApplyStatusEffectByChanceEffector";
+	fk< StatModifier >[] effectorChance = 
+	[
+		{
+			statType = "BaseStats.EffectorChance";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+}
+
+ApplyStatusEffectBasedOnDifficultyEffector : ApplyStatusEffectEffector
+{
+	CName effectorClassName = "ApplyStatusEffectBasedOnDifficultyEffector";
+	fk< StatusEffect > statusEffectOnStoryDifficulty = "";
+	fk< StatusEffect > statusEffectOnEasyDifficulty = "";
+	fk< StatusEffect > statusEffectOnHardDifficulty = "";
+	fk< StatusEffect > statusEffectOnVeryHardDifficulty = "";
+}
+
+ApplyStatGroupEffector : Effector
+{
+	CName effectorClassName = "ApplyStatGroupEffector";
+	fk< StatModifierGroup > statGroup = "";
+	CName applicationTarget = "";
+	bool removeWithEffector = true;
+}
+
+RemoveAllModifiersEffector : Effector
+{
+	CName effectorClassName = "RemoveAllModifiersEffector";
+	fk< Stat > statType = "";
+	CName applicationTarget = "";
+}
+
+ModifyStatPoolValueEffector : Effector
+{
+	CName effectorClassName = "ModifyStatPoolValueEffector";
+	fk< StatPoolUpdate >[] statPoolUpdates = [];
+	bool setValue = false;
+	bool usePercent = false;
+	CName applicationTarget = "";
+}
+
+ModifyStatPoolCustomLimitEffector : Effector
+{
+	CName effectorClassName = "ModifyStatPoolCustomLimitEffector";
+	fk< StatPool > statPoolType = "";
+	float value = 0.0f;
+	bool usePercent = false;
+}
+
+ApplyEffectorEffector : Effector
+{
+	CName effectorClassName = "ApplyEffectorEffector";
+	fk< Effector > effectorToApply = "";
+	CName applicationTarget = "";
+}
+
+AddStatusEffectToAttackEffector : Effector
+{
+	CName effectorClassName = "AddStatusEffectToAttackEffector";
+	fk< StatusEffect > statusEffect = "";
+	bool isRandom = true;
+	fk< StatModifier >[] applicationChance = 
+	[
+		{
+			statType = "BaseStats.ApplicationChance";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier
+	];
+	float stacks = 1f;
+}
+
+ModifyStatPoolModifierEffector : Effector
+{
+	CName effectorClassName = "ModifyStatPoolModifierEffector";
+	fk< PoolValueModifier > poolModifier = "";
+	string statPoolType = "";
+	string modificationType = "";
+}
+
+TriggerHackingMinigameEffector : Effector
+{
+	prereqRecord = "Prereqs.AlwaysTruePrereq";
+	CName effectorClassName = "TriggerHackingMinigameEffector";
+	fk< RewardBase > reward = "";
+	string journalEntry = "";
+}
+
+TriggerAttackEffector : Effector
+{
+	CName effectorClassName = "";
+	fk< Attack > attackRecord = "";
+}
+
+ApplyLightPresetEffector : Effector
+{
+	CName effectorClassName = "ApplyLightPresetEffector";
+	fk< LightPreset > lightPreset = "";
+}
+
+ForceDismembermentEffector : Effector
+{
+	CName effectorClassName = "ForceDismembermentEffector";
+	float dismembermentChance = 1.0f;
+	string bodyPart = "LEFT_ARM";
+	string woundType = "CLEAN";
+	bool shouldKillNPC = false;
+	bool isCritical = false;
+	bool skipDeathAnim = false;
+}
+
+UncontrolledMovementEffector : Effector
+{
+	CName effectorClassName = "UncontrolledMovementEffector";
+	CName debugSourceName = "Default_Effector";
+	float ragdollNoGroundThreshold = 0.0f;
+	bool ragdollOnCollision = true;
+}
+
+SpreadEffector : Effector
+{
+	effectorClassName = "SpreadEffector";
+	fk< ObjectAction > objectAction = "";
+	CName effectTag = "spread";
+	bool spreadToAllTargetsInTheArea = false;
+}
+
+SpreadInitEffector : Effector
+{
+	effectorClassName = "SpreadInitEffector";
+	fk< ObjectAction > objectAction = "";
+	int spreadCount = -1;
+	int spreadDistance = -1;
+	int bonusJumps = 0;
+	bool applyOverclock = true;
+}
+
+SpreadAreaEffector : Effector
+{
+	effectorClassName = "SpreadAreaEffector";
+	fk< ObjectAction >[] objectActions = [];
+	int maxTargetNum = -1;
+	float range = -1;
+}
+
+AddItemsEffector : Effector
+{
+	effectorClassName = "AddItemsEffector";
+	fk< InventoryItem >[] itemsToAdd = [];
+}
+
+BroadcastStimEffector : ContinuousEffector
+{
+	effectorClassName = "BroadcastStimEffector";
+	fk< StimType > type = "";
+	float radius = 0.f;
+	float delayTime = 1.f;
+}
+
+ModifyAttackCritChanceEffector : Effector
+{
+	CName effectorClassName = "ModifyAttackCritChanceEffector";
+	fk< StatModifier >[] critChance = [];
+}
+
+OverrideRangedAttackPackageEffector : Effector
+{
+	CName effectorClassName = "OverrideRangedAttackPackageEffector";
+	fk< RangedAttackPackage > attackPackage = "";
+}
+
+SetAttackHitTypeEffector : Effector
+{
+	CName effectorClassName = "SetAttackHitTypeEffector";
+	CName hitType = "";
+}
+
+AddHitFlagToAttackEffector : Effector
+{
+	CName effectorClassName = "AddHitFlagToAttackEffector";
+	string hitFlag = "";
+}
+
+UseConsumableEffector : Effector
+{
+	CName effectorClassName = "UseConsumableEffector";
+}
+
+ConvertDamageToStatPoolEffector : Effector
+{
+	CName effectorClassName = "ConvertDamageToStatPoolEffector";
+	fk< StatPool > statPoolType = "";
+	CName opSymbol = "";
+	float value = 1.f;
+}
+
+PropagateStatusEffectInAreaEffector : Effector
+{
+	CName effectorClassName = "PropagateStatusEffectInAreaEffector";
+	fk< StatusEffect > statusEffect = "";
+	float range = 0.0f;
+	float duration = 0.0f;
+	CName applicationTarget = "";
+	bool propagateToInstigator = false;
+}
+
+AddDevelopmentPointEffector : Effector
+{
+	CName effectorClassName = "AddDevelopmentPointEffector";
+	int amountOfPoints = 0;
+	string pointsType = "";
+}
+
+ModifyStaminaHandlerEffector : Effector
+{
+	CName effectorClassName = "ModifyStaminaHandlerEffector";
+	CName opSymbol = "none";
+}
+

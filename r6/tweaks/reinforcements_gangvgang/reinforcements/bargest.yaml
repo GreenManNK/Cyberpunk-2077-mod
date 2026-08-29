@@ -1,0 +1,412 @@
+# vehicles:
+# bike:
+# Vehicle.GR_kurtz_brennan_apollo_bike
+# Vehicle.GR_v_sportbike3_brennan_apollo_kurtz
+# 2:
+# Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz - armored
+# 4:
+# Vehicle.GR_v_standard2_archer_hella_kurtz
+# Vehicle.GR_v_standard3_mahir_supron_kurtz - armored
+
+# weak:
+# Character.2kurtz_grunt1_ranged1_saratoga_ma - private
+# Character.2kurtz_grunt1_ranged1_saratoga_wa - private
+# Character.2kurtz_rifle_flashlight_ma - private
+# Character.2kurtz_v2_grunt1_ranged1_saratoga_ma - support
+# Character.2kurtz_v2_grunt1_ranged1_saratoga_wa - support
+
+# normal:
+# Character.2kurtz_grunt1_ranged1_handgun_ma - sergant
+# Character.2kurtz_grunt1_ranged1_handgun_wa - sergant
+# Character.2kurtz_rifle_flashlight2_ma - sergant
+# Character.2kurtz_soldier1_ranged2_rifle_ma - sergant
+# Character.2kurtz_soldier1_ranged2_rifle_wa - sergant
+
+# rare:
+# Character.2kurtz_netrunner2_netrunner2_lexington_ma_rare - netrunner
+# Character.2kurtz_recon_sniper2_achilles_ma_rare - sniper
+# Character.2kurtz_rifle_flashlight3_ma - lieutenant
+# Character.2kurtz_soldier1_generic_ranged2_rifle_wa - lieutenant
+# Character.2kurtz_soldier2_generic_ranged3_rifle_ma - lieutanant
+# Character.2kurtz_soldier2_shotgun2_shotgun_ma_rare - punisher
+# Character.2kurtz_tech_franged2_handgun_ma_rare - commando
+
+# elite:
+# Character.2kurtz_elite3_gunner3_HMG_mb_elite - gunner
+# Character.2kurtz_elite3_gunner3_LMG_mb_elite - gunner
+# Character.2kurtz_martial_fmelee3_fists_ma_rare - assassin
+# Character.2kurtz_martial_hmelee3_fists_mb_elite - warrior
+# Character.2kurtz_soldier2_shotgun3_shotgun_ma - enforcer
+# Character.2kurtz_strongarms_hmelee3_fists_mb_elite - warrior
+
+#reinforcements
+
+# weak:
+DynamicSpawnSystem.GRBargestWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_kurtz_brennan_apollo_bike
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestWeakBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestWeakBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+
+# normal:
+DynamicSpawnSystem.GRBargestNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestNormalSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight2_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestNormalSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_pickup_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRBargestRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_wa
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_recon_sniper2_achilles_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_wa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight2_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight2_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight3_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_wa
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight2_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_generic_ranged2_rifle_wa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_generic_ranged3_rifle_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun2_shotgun_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_wa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_wa
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestRareSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_ranged2_rifle_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_tech_franged2_handgun_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_wa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_handgun_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestWeakSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_hella_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_rifle_flashlight_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_grunt1_ranged1_saratoga_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_v2_grunt1_ranged1_saratoga_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_netrunner2_netrunner2_lexington_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_recon_sniper2_achilles_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun2_shotgun_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_LMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_recon_sniper2_achilles_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_netrunner2_netrunner2_lexington_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_tech_franged2_handgun_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_generic_ranged2_rifle_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_generic_ranged3_rifle_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_tech_franged2_handgun_ma_rare
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_martial_fmelee3_fists_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_tech_franged2_handgun_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_martial_hmelee3_fists_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_generic_ranged2_rifle_wa
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_recon_sniper2_achilles_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier1_generic_ranged2_rifle_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_tech_franged2_handgun_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun3_shotgun_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_generic_ranged3_rifle_ma
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad6:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_generic_ranged3_rifle_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun2_shotgun_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_strongarms_hmelee3_fists_mb_elite
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_netrunner2_netrunner2_lexington_ma_rare
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad7:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun3_shotgun_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_strongarms_hmelee3_fists_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_LMG_mb_elite
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad8:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun3_shotgun_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_martial_hmelee3_fists_mb_elite
+          weight: 0.5
+
+DynamicSpawnSystem.GRBargestEliteSquad9:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard3_mahir_supron_kurtz
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_LMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_LMG_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_soldier2_shotgun3_shotgun_ma
+          weight: 0.7
+        - $type: WeightedCharacter
+          character: Character.GR_2kurtz_elite3_gunner3_HMG_mb_elite
+          weight: 0.5

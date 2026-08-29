@@ -1,0 +1,300 @@
+package Items
+using RTDB, BaseStats, KatanaAttacks, Perks, Prereqs
+
+[ notQueryable ]
+Base_Katana : Base_Blade
+{
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 2;
+	} : ConstantStatModifier;
+	fk< ItemType > itemType = "ItemType.Wea_Katana";
+	triggerEffectName = "te_wea_melee_swing_mid";
+	string friendlyName = "w_melee_katana";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Katana";
+	fk< AttachmentSlot >[] placementSlots += 
+	[
+		"AttachmentSlots.ItemSlotSMG"
+	];
+	fk< SlotItemPartListElement >[] slotPartList = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< ItemPartListElement >[] itemPartList = 
+			[
+				{
+					item = "Items.w_katana_grip";
+				}
+			];
+		}
+	];
+	tags += 
+	[
+		"FinisherFront", "Katana", "Melee", "FinisherBack", "DriverCombatBikeWeapon"
+	];
+	fk< WeaponFxPackage > fxPackage = "WeaponFxPackage.KatanaFxPackage";
+	fk< StatModifierGroup >[] statModifierGroups += 
+	[
+		"Items.Base_Katana_RPG_Stats", "Items.Base_Katana_Handling_Stats", "Items.Base_Katana_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Physical", "Items.Base_Melee_Weapon_Damage_Type_Physical_Min_Max", "Items.Base_Katana_Damage_Stats"
+	];
+	fk< Attack >[] attacks += 
+	[
+		"KatanaAttacks.KatanaComboAttack1", "KatanaAttacks.KatanaComboAttack2", "KatanaAttacks.KatanaComboAttack3", "KatanaAttacks.KatanaComboAttack4", "KatanaAttacks.KatanaMountedComboAttack1", "KatanaAttacks.KatanaMountedComboAttack2", "KatanaAttacks.KatanaMountedComboAttack3", "KatanaAttacks.KatanaMountedComboAttack4", "KatanaAttacks.KatanaFinalAttack1", "KatanaAttacks.KatanaFinalAttack2", "KatanaAttacks.KatanaFinalAttack3", "KatanaAttacks.KatanaFinalAttack4", "KatanaAttacks.KatanaFinalAttack5", "KatanaAttacks.KatanaFinalAttack6", "KatanaAttacks.KatanaMountedFinalAttack1", "KatanaAttacks.KatanaMountedFinalAttack2", "KatanaAttacks.KatanaMountedFinalAttack3", "KatanaAttacks.KatanaMountedFinalAttack4", "KatanaAttacks.KatanaMountedFinalAttack5", "KatanaAttacks.KatanaMountedFinalAttack6", "KatanaAttacks.KatanaStrongAttack1", "KatanaAttacks.KatanaStrongAttack2", "KatanaAttacks.KatanaStrongAttack3", "KatanaAttacks.KatanaMountedStrongAttack1", "KatanaAttacks.KatanaMountedStrongAttack2", "KatanaAttacks.KatanaMountedStrongAttack3", "KatanaAttacks.KatanaJumpAttack", "KatanaAttacks.KatanaSprintAttack", "KatanaAttacks.KatanaCrouchAttack", "KatanaAttacks.KatanaBlockAttack", "KatanaAttacks.KatanaSafeAttack", "KatanaAttacks.KatanaEquipAttack", "KatanaAttacks.KatanaDeflectAttack"
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_katana";
+	enableNpcRPGData = true;
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Katana_NPC_Data;
+}
+
+Base_Katana_RPG_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.Weight";
+			modifierType = "Additive";
+			value = 4.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BlockFactor";
+			modifierType = "Additive";
+			value = 4f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationLow"
+	];
+}
+
+Base_Katana_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 73f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Katana_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 67f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Katana_Handling_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.HoldTimeoutDuration";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 3.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttacksNumber";
+			modifierType = "Additive";
+			value = 3;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Multiplier";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 5.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackDuration";
+			modifierType = "Additive";
+			value = 0.45f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.MeleeAttackComboDuration";
+			modifierType = "Additive";
+			value = 0.4725f;
+		} : ConstantStatModifier, 
+		{
+			float value = 15.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 8.f;
+		} : PhysicalImpulseModifier, 
+		{
+			statType = "BaseStats.StaminaCostToBlock";
+			modifierType = "Multiplier";
+			value = 1.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BaseMeleeAttackStaminaCost";
+			modifierType = "Additive";
+			value = 8f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Katana_Misc_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		"BaseStats.EquipDurationModifier", "BaseStats.UnequipDurationModifier", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EquipDuration_First";
+			modifierType = "Additive";
+			value = 0.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.UnequipDuration";
+			modifierType = "Multiplier";
+			value = 2.f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Katana_NPC_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.Range";
+			modifierType = "Additive";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanGuardBreak";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			value = 8.f;
+		} : PhysicalImpulseModifier, 
+		{
+			statType = "BaseStats.StaminaCostToBlock";
+			modifierType = "Additive";
+			value = 20.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Multiplier";
+			value = 5.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitReactionFactor";
+			modifierType = "Additive";
+			value = 2.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitWoundsFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HitDismembermentFactor";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			float value = 15.f;
+		} : KnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseKnockdownImpulseModifier, 
+		{
+			float value = 15.f;
+		} : BaseEvadeImpulseModifier, 
+		{
+			float value = 8.f;
+		} : PhysicalImpulseModifier, 
+		{
+			value = 0.6f;
+		} : EquipItemTime_GangModifier, 
+		{
+			value = 1.667f;
+		} : EquipAnimationDuration_GangModifier, 
+		{
+			value = 2.267f;
+		} : EquipActionDuration_GangModifier, 
+		{
+			value = 2.6f;
+		} : UnequipItemTime_GangModifier, 
+		{
+			value = 3.0f;
+		} : UnequipAnimationDuration_GangModifier, 
+		{
+			value = 3.167f;
+		} : UnequipDuration_GangModifier, 
+		{
+			value = 0.6f;
+		} : EquipItemTime_CorpoModifier, 
+		{
+			value = 1.667f;
+		} : EquipAnimationDuration_CorpoModifier, 
+		{
+			value = 2.267f;
+		} : EquipActionDuration_CorpoModifier, 
+		{
+			value = 2.6f;
+		} : UnequipItemTime_CorpoModifier, 
+		{
+			value = 3.0f;
+		} : UnequipAnimationDuration_CorpoModifier, 
+		{
+			value = 3.167f;
+		} : UnequipDuration_CorpoModifier
+	];
+}
+
+Base_Katana_NPC_Data : Base_Blade_NPC_RPG_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Katana_NPC_Stats", "Items.Base_Katana_NPC_Damage_Stats"
+	];
+}
+
+[ notQueryable ]
+w_melee_001__katana_a : Preset_Katana_Default
+{
+}
+
+w_katana_grip : ItemWeaponRoot
+{
+	string friendlyName = "w_katana_grip";
+	CName appearanceResourceName = "w_katana_grip";
+}
+
+w_katana_blade : ItemWeaponChild
+{
+	string friendlyName = "w_katana_4_blade";
+}
+

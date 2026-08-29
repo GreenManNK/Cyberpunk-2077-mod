@@ -1,0 +1,2113 @@
+package Items
+using RTDB, BaseStats, CyberwareAction, Perks, Prereqs, Effectors
+
+[ notQueryable ]
+EnhancedBloodVesselsCommon : CardiovascularSystemModule
+{
+	displayName = "LocKey#40742";
+	localizedDescription = "LocKey#40743";
+	iconPath = "cw_circulatory_enhancedbloodvessels";
+	quality = "Quality.Common";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 6;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenRateAdd";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+					modifierType = "Additive";
+					value = 20f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					1
+				];
+			} : EnhancedBloodVesselUIData;
+		}
+	];
+	CName cyberwareType = "EnhancedBlood";
+	buyPrice += 
+	[
+		"Price.BloodVessels"
+	];
+	sellPrice += 
+	[
+		"Price.BloodVessels"
+	];
+	deprecated = true;
+}
+
+[ notQueryable ]
+EnhancedBloodVesselsUncommon : EnhancedBloodVesselsCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 8;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenRateAdd";
+					modifierType = "Additive";
+					value = 2f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+					modifierType = "Additive";
+					value = 20f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					2
+				];
+			} : EnhancedBloodVesselUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+EnhancedBloodVesselsRare : EnhancedBloodVesselsCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenRateAdd";
+					modifierType = "Additive";
+					value = 4f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+					modifierType = "Additive";
+					value = 20f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					4
+				];
+			} : EnhancedBloodVesselUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+EnhancedBloodVesselsEpic : EnhancedBloodVesselsCommon
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenRateAdd";
+					modifierType = "Additive";
+					value = 10f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+					modifierType = "Additive";
+					value = 20f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					10
+				];
+			} : EnhancedBloodVesselUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+EnhancedBloodVesselsLegendary : EnhancedBloodVesselsCommon
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 14;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEnabled";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenRateAdd";
+					modifierType = "Additive";
+					value = 50f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealthOutOfCombatRegenEndThreshold";
+					modifierType = "Additive";
+					value = 20f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					50
+				];
+			} : EnhancedBloodVesselUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+IronLungsCommon : CardiovascularSystemModule
+{
+	displayName = "LocKey#3676";
+	localizedDescription = "LocKey#3683";
+	iconPath = "cw_circulatory_ironlungs";
+	quality = "Quality.Common";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 8;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.StaminaRegenRateMult";
+					modifierType = "Additive";
+					value = 0.05f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					5
+				];
+			} : IronLungsUIData;
+		}
+	];
+	CName cyberwareType = "IronLungs";
+	buyPrice += 
+	[
+		"Price.IronLungs"
+	];
+	sellPrice += 
+	[
+		"Price.IronLungs"
+	];
+	deprecated = true;
+}
+
+[ notQueryable ]
+IronLungsUncommon : IronLungsCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.StaminaRegenRateMult";
+					modifierType = "Additive";
+					value = 0.1f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					10
+				];
+			} : IronLungsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+IronLungsRare : IronLungsCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.StaminaRegenRateMult";
+					modifierType = "Additive";
+					value = 0.15f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15
+				];
+			} : IronLungsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+IronLungsEpic : IronLungsCommon
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 14;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.StaminaRegenRateMult";
+					modifierType = "Additive";
+					value = 0.2f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : IronLungsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+IronLungsLegendary : IronLungsCommon
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 16;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.StaminaRegenRateMult";
+					modifierType = "Additive";
+					value = 0.25f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					25
+				];
+			} : IronLungsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+BioConductorsRare : CardiovascularSystemModule
+{
+	displayName = "LocKey#40745";
+	localizedDescription = "LocKey#40746";
+	iconPath = "cw_circulatory_bioconductors";
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.CyberwareCooldownReduction";
+					modifierType = "Additive";
+					value = 0.1f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					10
+				];
+			} : BioConductorsUIData;
+		}
+	];
+	CName cyberwareType = "BioConductors";
+	buyPrice += 
+	[
+		"Price.BioConductors"
+	];
+	sellPrice += 
+	[
+		"Price.BioConductors"
+	];
+	deprecated = true;
+}
+
+[ notQueryable ]
+BioConductorsEpic : BioConductorsRare
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 15;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.CyberwareCooldownReduction";
+					modifierType = "Additive";
+					value = 0.2f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : BioConductorsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+BioConductorsLegendary : BioConductorsRare
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 18;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.CyberwareCooldownReduction";
+					modifierType = "Additive";
+					value = 0.3f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					30
+				];
+			} : BioConductorsUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+SecondHeart : CardiovascularSystemModule
+{
+	string friendlyName = "SecondHeart";
+	displayName = "LocKey#3675";
+	localizedDescription = "LocKey#3682";
+	iconPath = "cw_circulatory_secondheart";
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 16;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HasSecondHeart";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.SecondHeartCooldownDuration";
+					modifierType = "Additive";
+					value = 240f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				iconPath = "ability_silenced";
+				localizedDescription = "LocKey#40762";
+				intValues = 
+				[
+					100, 240
+				];
+			};
+		} : GameplayLogicPackage
+	];
+	CName cyberwareType = "SecondHeart";
+	buyPrice += 
+	[
+		"Price.SecondHeart"
+	];
+	sellPrice += 
+	[
+		"Price.SecondHeart"
+	];
+	counterpart = "Items.AdvancedSecondHeartEpic";
+}
+
+[ notQueryable ]
+BloodPumpCommon : CardiovascularSystemModule
+{
+	string friendlyName = "BloodPump";
+	displayName = "LocKey#3678";
+	localizedDescription = "LocKey#3685";
+	iconPath = "cw_circulatory_bloodpump";
+	itemType = "ItemType.Cyb_HealingAbility";
+	quality = "Quality.Common";
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealingItemsChargesRegenMult";
+					modifierType = "Additive";
+					value = 0.02f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealingItemMaxCharges";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = -1;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 50;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 6;
+				} : CombinedStatModifier
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					50f, 36f, 6f, 2f
+				];
+				intValues = 
+				[
+					1
+				];
+			} : BloodPumpUIData;
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseBloodPump"
+	];
+	CName cyberwareType = "BloodPump";
+	buyPrice += 
+	[
+		"Price.BloodPump"
+	];
+	sellPrice += 
+	[
+		"Price.BloodPump"
+	];
+	counterpart = "Items.AdvancedBloodPumpUncommon";
+}
+
+[ notQueryable ]
+BloodPumpUncommon : BloodPumpCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 8;
+		} : BodyPrereq
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealingItemsChargesRegenMult";
+					modifierType = "Additive";
+					value = 0.04f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealingItemMaxCharges";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = -1;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 65;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 8;
+				} : CombinedStatModifier
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					65f, 48f, 6f, 4f
+				];
+				intValues = 
+				[
+					1
+				];
+			} : BloodPumpUIData;
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseBloodPump"
+	];
+	counterpart = "Items.AdvancedBloodPumpUncommon";
+}
+
+[ notQueryable ]
+BloodPumpRare : BloodPumpCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : BodyPrereq
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealingItemsChargesRegenMult";
+					modifierType = "Additive";
+					value = 0.06f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealingItemMaxCharges";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = -1;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 80;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 10;
+				} : CombinedStatModifier
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					80f, 60f, 6f, 6f
+				];
+				intValues = 
+				[
+					1
+				];
+			} : BloodPumpUIData;
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseBloodPump"
+	];
+	counterpart = "Items.AdvancedBloodPumpUncommon";
+}
+
+[ notQueryable ]
+BloodPumpEpic : BloodPumpCommon
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 13;
+		} : BodyPrereq
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealingItemsChargesRegenMult";
+					modifierType = "Additive";
+					value = 0.08f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealingItemMaxCharges";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = -1;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 90;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 12;
+				} : CombinedStatModifier
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					90f, 72f, 6f, 8f
+				];
+				intValues = 
+				[
+					1
+				];
+			} : BloodPumpUIData;
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseBloodPump"
+	];
+	counterpart = "Items.AdvancedBloodPumpUncommon";
+}
+
+[ notQueryable ]
+BloodPumpLegendary : BloodPumpCommon
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 16;
+		} : BodyPrereq
+	];
+	OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.HealingItemsChargesRegenMult";
+					modifierType = "Additive";
+					value = 0.1f;
+				} : ConstantStatModifier, 
+				{
+					statType = "BaseStats.HealingItemMaxCharges";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = -1;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 100;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "Additive";
+					refStat = "BaseStats.IsHealingItemEquipped";
+					opSymbol = "*(1-x)";
+					value = 14;
+				} : CombinedStatModifier
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					100f, 84f, 6f, 10f
+				];
+				intValues = 
+				[
+					1
+				];
+			} : BloodPumpUIData;
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseBloodPump"
+	];
+	counterpart = "Items.AdvancedBloodPumpUncommon";
+}
+
+[ notQueryable ]
+HealthMonitorCommon : CardiovascularSystemModule
+{
+	string friendlyName = "HealthMonitor";
+	displayName = "LocKey#3681";
+	localizedDescription = "LocKey#3688";
+	iconPath = "cw_circulatory_healthmonitor";
+	quality = "Quality.Common";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.02f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.02f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.02f;
+				} : CombinedStatModifier
+			];
+			effectors = 
+			[
+				"Items.HealthMonitorEffector", "Items.HealthMonitorSFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					30f, 2f
+				];
+			} : HealthMonitorUIData;
+		}
+	];
+	CName cyberwareType = "HealthMonitor";
+	buyPrice += 
+	[
+		"Price.HealthMonitor"
+	];
+	sellPrice += 
+	[
+		"Price.HealthMonitor"
+	];
+	counterpart = "Items.AdvancedBiomonitorCommon";
+}
+
+[ notQueryable ]
+HealthMonitorUncommon : HealthMonitorCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.04f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.04f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.04f;
+				} : CombinedStatModifier
+			];
+			effectors = 
+			[
+				"Items.HealthMonitorEffector", "Items.HealthMonitorSFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					30f, 4f
+				];
+			} : HealthMonitorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedBiomonitorCommon";
+}
+
+[ notQueryable ]
+HealthMonitorRare : HealthMonitorCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.06f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.06f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.06f;
+				} : CombinedStatModifier
+			];
+			effectors = 
+			[
+				"Items.HealthMonitorEffector", "Items.HealthMonitorSFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					30f, 6f
+				];
+			} : HealthMonitorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedBiomonitorCommon";
+}
+
+[ notQueryable ]
+HealthMonitorEpic : HealthMonitorRare
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 15;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.08f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.08f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.08f;
+				} : CombinedStatModifier
+			];
+			effectors = 
+			[
+				"Items.HealthMonitorEffector", "Items.HealthMonitorSFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					30f, 8f
+				];
+			} : HealthMonitorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedBiomonitorCommon";
+}
+
+[ notQueryable ]
+HealthMonitorLegendary : HealthMonitorRare
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 18;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.InhalerBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.1f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.1f;
+				} : CombinedStatModifier, 
+				{
+					statType = "BaseStats.InjectorBaseOverTheTimeHealing";
+					modifierType = "AdditiveMultiplier";
+					refStat = "BaseStats.TechnicalAbility";
+					opSymbol = "*";
+					value = 0.1f;
+				} : CombinedStatModifier
+			];
+			effectors = 
+			[
+				"Items.HealthMonitorEffector", "Items.HealthMonitorSFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					30f, 10f
+				];
+			} : HealthMonitorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedBiomonitorCommon";
+}
+
+[ notQueryable ]
+MicroGeneratorCommon : CardiovascularSystemModule
+{
+	displayName = "LocKey#40760";
+	localizedDescription = "LocKey#40761";
+	iconPath = "cw_circulatory_microgenerator";
+	quality = "Quality.Common";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				"Items.MicroGeneratorEffector", "Items.MicroGeneratorSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15, 20
+				];
+			} : MicroGeneratorBasicUIData;
+		}
+	];
+	CName cyberwareType = "MicroGenerator";
+	buyPrice += 
+	[
+		"Price.MicroGenerator"
+	];
+	sellPrice += 
+	[
+		"Price.MicroGenerator"
+	];
+	deprecated = true;
+}
+
+[ notQueryable ]
+MicroGeneratorUncommon : MicroGeneratorCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 8;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					attackRecord = "Attacks.MicroGeneratorExplosionUncommon";
+				} : MicroGeneratorEffector, 
+				"Items.MicroGeneratorSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15, 30
+				];
+			} : MicroGeneratorBasicUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+MicroGeneratorRare : MicroGeneratorCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					attackRecord = "Attacks.MicroGeneratorExplosionRare";
+				} : MicroGeneratorEffector, 
+				"Items.MicroGeneratorSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15, 40
+				];
+			} : MicroGeneratorBasicUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+MicroGeneratorEpic : MicroGeneratorCommon
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					attackRecord = "Attacks.MicroGeneratorExplosionEpic";
+				} : MicroGeneratorEffector, 
+				"Items.MicroGeneratorSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15, 40
+				];
+			} : MicroGeneratorAdvancedUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+MicroGeneratorLegendary : MicroGeneratorCommon
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 16;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					attackRecord = "Attacks.MicroGeneratorExplosionLegendary";
+				} : MicroGeneratorEffector, 
+				"Items.MicroGeneratorSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					15, 50
+				];
+			} : MicroGeneratorAdvancedUIData;
+		}
+	];
+}
+
+[ notQueryable ]
+StaminaRegenBoosterCommon : CardiovascularSystemModule
+{
+	displayName = "LocKey#40752";
+	localizedDescription = "LocKey#40753";
+	iconPath = "cw_circulatory_staminaregenbooster";
+	quality = "Quality.Common";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				"Items.StaminaRegenBoosterEffector", "Items.StaminaRegenBoosterSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					10
+				];
+			} : StaminaRegenBoosterUIData;
+		}
+	];
+	CName cyberwareType = "StaminaRegenBooster";
+	buyPrice += 
+	[
+		"Price.StaminaRegenBooster"
+	];
+	sellPrice += 
+	[
+		"Price.StaminaRegenBooster"
+	];
+	counterpart = "Items.AdvancedStaminaRegenBoosterCommon";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterUncommon : StaminaRegenBoosterCommon
+{
+	quality = "Quality.Uncommon";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 8;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Stamina";
+							statPoolValue = 20f;
+						} : StatPoolUpdate
+					];
+				} : Items.StaminaRegenBoosterEffector, 
+				"Items.StaminaRegenBoosterSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					20
+				];
+			} : StaminaRegenBoosterUIData;
+		}
+	];
+	counterpart = "Items.AdvancedStaminaRegenBoosterCommon";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterRare : StaminaRegenBoosterCommon
+{
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Stamina";
+							statPoolValue = 30f;
+						} : StatPoolUpdate
+					];
+				} : Items.StaminaRegenBoosterEffector, 
+				"Items.StaminaRegenBoosterSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					30
+				];
+			} : StaminaRegenBoosterUIData;
+		}
+	];
+	counterpart = "Items.AdvancedStaminaRegenBoosterCommon";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterEpic : StaminaRegenBoosterCommon
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 13;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Stamina";
+							statPoolValue = 40f;
+						} : StatPoolUpdate
+					];
+				} : Items.StaminaRegenBoosterEffector, 
+				"Items.StaminaRegenBoosterSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					40
+				];
+			} : StaminaRegenBoosterUIData;
+		}
+	];
+	counterpart = "Items.AdvancedStaminaRegenBoosterCommon";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterLegendary : StaminaRegenBoosterCommon
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 18;
+		} : BodyPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Stamina";
+							statPoolValue = 50f;
+						} : StatPoolUpdate
+					];
+				} : Items.StaminaRegenBoosterEffector, 
+				"Items.StaminaRegenBoosterSFXEffector"
+			];
+			UIData = 
+			{
+				intValues = 
+				[
+					50
+				];
+			} : StaminaRegenBoosterUIData;
+		}
+	];
+	counterpart = "Items.AdvancedStaminaRegenBoosterCommon";
+}
+
+[ notQueryable ]
+DischargeConnectorRare : CardiovascularSystemModule
+{
+	displayName = "LocKey#40755";
+	localizedDescription = "LocKey#40756";
+	iconPath = "cw_circulatory_dischargeconnector";
+	quality = "Quality.Rare";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 10;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				"Items.DischargeConnectorEffector", "Items.DischargeConnectorSFXEffector", "Items.DischargeConnectorVFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					3f
+				];
+			} : DischargeConnectorUIData;
+		}
+	];
+	CName cyberwareType = "DischargeConnector";
+	buyPrice += 
+	[
+		"Price.DischargeConnector"
+	];
+	sellPrice += 
+	[
+		"Price.DischargeConnector"
+	];
+	counterpart = "Items.AdvancedDischargeConnectorRare";
+}
+
+[ notQueryable ]
+DischargeConnectorEpic : DischargeConnectorRare
+{
+	quality = "Quality.Epic";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 12;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Health";
+							statPoolValue = 6;
+						} : StatPoolUpdate
+					];
+				} : Items.DischargeConnectorEffector, 
+				"Items.DischargeConnectorSFXEffector", "Items.DischargeConnectorVFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					6f
+				];
+			} : DischargeConnectorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedDischargeConnectorRare";
+}
+
+[ notQueryable ]
+DischargeConnectorLegendary : DischargeConnectorRare
+{
+	quality = "Quality.Legendary";
+	equipPrereqs = 
+	[
+		{
+			valueToCheck = 15;
+		} : TechnicalAbilityPrereq
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.Health";
+							statPoolValue = 10;
+						} : StatPoolUpdate
+					];
+				} : Items.DischargeConnectorEffector, 
+				"Items.DischargeConnectorSFXEffector", "Items.DischargeConnectorVFXEffector"
+			];
+			UIData = 
+			{
+				floatValues = 
+				[
+					10f
+				];
+			} : DischargeConnectorUIData;
+		}
+	];
+	counterpart = "Items.AdvancedDischargeConnectorRare";
+}
+
+[ notQueryable ]
+TyrosineInjector : CardiovascularSystemModule
+{
+	string friendlyName = "TyrosineInjector";
+	displayName = "LocKey#40757";
+	localizedDescription = "LocKey#40758";
+	iconPath = "cw_circulatory_tyrosineinjector";
+	quality = "Quality.Uncommon";
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			stats = 
+			[
+				{
+					statType = "BaseStats.MinigameTimeLimitExtension";
+					modifierType = "Additive";
+					value = 1f;
+				} : ConstantStatModifier
+			];
+			UIData = 
+			{
+				iconPath = "";
+				localizedDescription = "LocKey#40759";
+				intValues = 
+				[
+					100
+				];
+			};
+		}
+	];
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 125;
+	} : ConstantStatModifier;
+	CName cyberwareType = "TyrosineInjector";
+	buyPrice += 
+	[
+		"Price.TyrosineInjector"
+	];
+	sellPrice += 
+	[
+		"Price.TyrosineInjector"
+	];
+	deprecated = true;
+}
+
+[ notQueryable ]
+EnhancedBloodVesselUIData : GameplayLogicPackageUIData
+{
+	iconPath = "ability_silenced";
+	localizedDescription = "LocKey#40740";
+	intValues = 
+	[
+		20
+	];
+}
+
+[ notQueryable ]
+IronLungsUIData : GameplayLogicPackageUIData
+{
+	iconPath = "ability_silenced";
+	localizedDescription = "LocKey#40741";
+	intValues = 
+	[
+		10
+	];
+}
+
+[ notQueryable ]
+BioConductorsUIData : GameplayLogicPackageUIData
+{
+	iconPath = "ability_silenced";
+	localizedDescription = "LocKey#40744";
+}
+
+[ notQueryable ]
+HealthMonitorUIData : GameplayLogicPackageUIData
+{
+	iconPath = "ability_silenced";
+	localizedDescription = "LocKey#40748";
+	floatValues = 
+	[
+		50f
+	];
+}
+
+[ notQueryable ]
+MicroGeneratorBasicUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#40749";
+}
+
+[ notQueryable ]
+MicroGeneratorAdvancedUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#40750";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#40751";
+}
+
+[ notQueryable ]
+DischargeConnectorUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#40754";
+}
+
+[ notQueryable ]
+IconicDischargeConnectorUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#94475";
+}
+
+[ notQueryable ]
+BloodPumpUIData : GameplayLogicPackageUIData
+{
+	iconPath = "";
+	localizedDescription = "LocKey#40747";
+}
+
+[ notQueryable ]
+HealthMonitorEffector : UseConsumableEffector
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 50.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "LessOrEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "NotEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.HealingItemsCharges";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				comparisonType = "Greater";
+			} : ConsumableChargesPrereq, 
+			{
+				fk< StatusEffect > statusEffect = "BaseStatusEffect.ForceKill";
+			} : StatusEffectAbsentPrereq, 
+			{
+				stateName = "DeathLand";
+				isInState = false;
+			} : DetailedLocomotionPSMPrereq, 
+			{
+				stateName = "groundDeath";
+				isInState = false;
+			} : HighLevelPSMPrereq, 
+			{
+				stateName = "airDeath";
+				isInState = false;
+			} : HighLevelPSMPrereq, 
+			{
+				stateName = "swimDeath";
+				isInState = false;
+			} : HighLevelPSMPrereq, 
+			{
+				statusEffect = "GameplayRestriction.FistFight";
+			} : Prereqs.StatusEffectAbsentPrereq
+		];
+	} : Prereqs.ANDPrereq;
+}
+
+[ notQueryable ]
+HealthMonitorSFXEffector : PlaySFXEffector
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 50.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "LessOrEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "NotEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.HealingItemsCharges";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				comparisonType = "Greater";
+			} : ConsumableChargesPrereq, 
+			{
+				checkType = "CheckType.Category";
+				attachmentSlot = "AttachmentSlots.Consumable";
+				itemCategory = "ItemCategory.Consumable";
+			} : ItemInSlotPrereq, 
+			{
+				fk< StatusEffect > statusEffect = "BaseStatusEffect.ForceKill";
+			} : StatusEffectAbsentPrereq, 
+			{
+				stateName = "DeathLand";
+				isInState = false;
+			} : DetailedLocomotionPSMPrereq
+		];
+	} : Prereqs.ANDPrereq;
+	CName activationSFXName = "vfx_fullscreen_cyberware_heal_activate";
+}
+
+[ notQueryable ]
+MicroGeneratorEffector : SimpleTriggerAttackEffect
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "NotEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 15.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "LessOrEqual";
+			} : StatPoolPrereq, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier3";
+				bool isInState = false;
+			}, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier4";
+				bool isInState = false;
+			}, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier5";
+				bool isInState = false;
+			}, 
+			{
+				statusEffect = "GameplayRestriction.NoDangerousCyberware";
+			} : Prereqs.StatusEffectAbsentPrereq
+		];
+	} : ANDPrereq;
+	shouldDelay = true;
+	attackRecord = "Attacks.MicroGeneratorExplosionCommon";
+}
+
+[ notQueryable ]
+MicroGeneratorSFXEffector : PlaySFXEffector
+{
+	prereqRecord = 
+	{
+		nestedPrereqs = 
+		[
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 0.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "NotEqual";
+			} : StatPoolPrereq, 
+			{
+				valueToCheck = 
+				[
+					{
+						statType = "BaseStats.Health";
+						modifierType = "Additive";
+						value = 15.0f;
+					} : ConstantStatModifier
+				];
+				statPoolType = "Health";
+				comparisonType = "LessOrEqual";
+			} : StatPoolPrereq, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier3";
+				bool isInState = false;
+			}, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier4";
+				bool isInState = false;
+			}, 
+			{
+				prereqClassName = "HighLevelPSMPrereq";
+				string stateName = "SceneTier5";
+				bool isInState = false;
+			}, 
+			{
+				statusEffect = "GameplayRestriction.NoDangerousCyberware";
+			} : Prereqs.StatusEffectAbsentPrereq
+		];
+	} : ANDPrereq;
+	CName activationSFXName = "vfx_fullscreen_micro_generator_emp";
+}
+
+[ notQueryable ]
+StaminaRegenBoosterEffector : ModifyStatPoolValueEffector
+{
+	prereqRecord = "Prereqs.AnyTakedownOrKill";
+	statPoolUpdates = 
+	[
+		{
+			statPoolType = "BaseStatPools.Stamina";
+			statPoolValue = 10f;
+		} : StatPoolUpdate
+	];
+	bool usePercent = true;
+}
+
+[ notQueryable ]
+StaminaRegenBoosterSFXEffector : PlaySFXEffector
+{
+	prereqRecord = "Prereqs.AnyTakedownOrKill";
+	CName activationSFXName = "vfx_fullscreen_stamina_regen_activate";
+	bool fireAndForget = true;
+}
+
+[ notQueryable ]
+DischargeConnectorEffector : ModifyStatPoolValueEffector
+{
+	prereqRecord = 
+	{
+		conditions = 
+		[
+			{
+				hitFlag = "WeaponFullyCharged";
+				onlyOncePerShot = true;
+			} : HitFlagHitPrereqCondition, 
+			{
+				statusEffect = "Defeated";
+				checkType = "CheckType.Type";
+				invert = true;
+			} : StatusEffectPresentHitPrereqCondition, 
+			{
+				objectToCheck = "Target";
+				statPoolToCompare = "Health";
+				comparisonType = "NotEqual";
+				valueToCheck = 0f;
+			} : StatPoolHitPrereqCondition
+		];
+	} : Prereqs.ProcessHitTriggered;
+	statPoolUpdates = 
+	[
+		{
+			statPoolType = "BaseStatPools.Health";
+			statPoolValue = 3;
+		} : StatPoolUpdate
+	];
+	bool usePercent = true;
+}
+
+[ notQueryable ]
+DischargeConnectorSFXEffector : PlaySFXEffector
+{
+	prereqRecord = 
+	{
+		conditions = 
+		[
+			{
+				hitFlag = "WeaponFullyCharged";
+				onlyOncePerShot = true;
+			} : HitFlagHitPrereqCondition
+		];
+	} : Prereqs.ProcessHitTriggered;
+	CName activationSFXName = "vfx_fullscreen_discharge_connector_activate";
+	bool fireAndForget = true;
+}
+
+[ notQueryable ]
+DischargeConnectorVFXEffector : PlayVFXEffector
+{
+	prereqRecord = 
+	{
+		conditions = 
+		[
+			{
+				hitFlag = "WeaponFullyCharged";
+			} : HitFlagHitPrereqCondition
+		];
+	} : Prereqs.ProcessHitTriggered;
+	CName vfxName = "p_discharge_connector";
+	bool fireAndForget = true;
+}
+
+[ notQueryable ]
+BloodPumpEffector : ModifyStatPoolValueEffector
+{
+	prereqRecord = "Prereqs.AlwaysTruePrereq";
+	statPoolUpdates = 
+	[
+		{
+			statPoolType = "BaseStatPools.Health";
+			statPoolValue = 60;
+		} : StatPoolUpdate
+	];
+	bool usePercent = true;
+}
+

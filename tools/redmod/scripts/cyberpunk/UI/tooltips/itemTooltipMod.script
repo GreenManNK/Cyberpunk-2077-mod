@@ -1,0 +1,388 @@
+class ItemTooltipModController extends inkLogicController
+{
+	protected editable var m_dotIndicator : inkWidgetRef;
+	protected editable var m_rarityContainer : inkWidgetRef;
+	protected editable var m_rarityWidget : inkImageRef;
+	protected editable var m_modAbilitiesContainer : inkCompoundRef;
+	protected var m_partIndicatorController : weak< InventoryItemPartDisplay >;
+	protected editable var m_isCrafting : Bool;
+
+	public constexpr static function StaticDefaultColorState() : CName
+	{
+		return 'Default';
+	}
+
+	public constexpr function DefaultColorState() : CName
+	{
+		return ItemTooltipModController.StaticDefaultColorState();
+	}
+
+	protected virtual function EntryWidgetToSpawn() : CName
+	{
+		return 'itemTooltipModEntry';
+	}
+
+	public function SetData( record : weak< GameplayLogicPackageUIData_Record > )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( record, m_isCrafting );
+	}
+
+	public function SetData( record : weak< GameplayLogicPackageUIData_Record >, itemData : weak< gameItemData > )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( record, itemData, m_isCrafting );
+	}
+
+	public function SetData( record : weak< GameplayLogicPackageUIData_Record >, innerItemData : InnerItemData )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( record, innerItemData, m_isCrafting );
+	}
+
+	public function SetData( const ability : ref< InventoryItemAbility > )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( ability, m_isCrafting );
+	}
+
+	public function SetData( attachment : InventoryItemAttachments )
+	{
+		var i : Int32;
+		var abilitiesSize : Int32;
+		var slotName : String;
+		var quality : CName;
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		quality = InventoryItemData.GetQuality( attachment.ItemData );
+		inkWidgetRef.SetVisible( m_dotIndicator, true );
+		inkWidgetRef.SetState( m_dotIndicator, ( ( IsNameValid( quality ) ) ? ( quality ) : ( 'Empty' ) ) );
+		if( InventoryItemData.IsEmpty( attachment.ItemData ) )
+		{
+			slotName = GetLocalizedText( UIItemsHelper.GetEmptySlotName( attachment.SlotID ) );
+			if( !( IsStringValid( slotName ) ) )
+			{
+				slotName = UIItemsHelper.GetEmptySlotName( attachment.SlotID );
+			}
+			SpawnController().Setup( slotName, m_isCrafting );
+			return;
+		}
+		abilitiesSize = InventoryItemData.GetAbilitiesSize( attachment.ItemData );
+		if( abilitiesSize == 0 )
+		{
+			SpawnController().Setup( InventoryItemData.GetName( attachment.ItemData ), m_isCrafting );
+			return;
+		}
+		for( i = 0; i < abilitiesSize; i += 1 )
+		{
+			SpawnController().Setup( InventoryItemData.GetAbility( attachment.ItemData, i ), m_isCrafting );
+		}
+	}
+
+	public function SetData( data : MinimalItemTooltipModData )
+	{
+		if( ( ( MinimalItemTooltipModRecordData )( data ) ) )
+		{
+			SetData( ( ( MinimalItemTooltipModRecordData )( data ) ) );
+		}
+		else
+		{
+			SetData( ( ( MinimalItemTooltipModAttachmentData )( data ) ) );
+		}
+	}
+
+	public function SetData( data : MinimalItemTooltipModRecordData )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( data, m_isCrafting );
+		HideDotIndicator();
+	}
+
+	public function SetData( data : MinimalItemTooltipModAttachmentData )
+	{
+		var i : Int32;
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		inkWidgetRef.SetVisible( m_dotIndicator, true );
+		inkImageRef.SetState( m_rarityWidget, data.qualityName );
+		if( data.isEmpty || ( data.abilitiesSize == 0 ) )
+		{
+			inkWidgetRef.SetState( m_rarityContainer, 'Common' );
+			SpawnController().Setup( data.slotName, m_isCrafting );
+		}
+		else
+		{
+			for( i = 0; i < data.abilitiesSize; i += 1 )
+			{
+				inkWidgetRef.SetState( m_rarityContainer, data.qualityName );
+				SpawnController().Setup( data.abilities[ i ], m_isCrafting );
+			}
+		}
+	}
+
+	public function SetData( data : UIInventoryItemMod )
+	{
+		if( ( ( UIInventoryItemModDataPackage )( data ) ) )
+		{
+			SetData( ( ( UIInventoryItemModDataPackage )( data ) ) );
+		}
+		else
+		{
+			SetData( ( ( UIInventoryItemModAttachment )( data ) ) );
+		}
+	}
+
+	public function SetData( data : UIInventoryItemModDataPackage )
+	{
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		SpawnController().Setup( data, m_isCrafting );
+		HideDotIndicator();
+	}
+
+	public function SetData( data : UIInventoryItemModAttachment )
+	{
+		var i : Int32;
+		inkCompoundRef.RemoveAllChildren( m_modAbilitiesContainer );
+		inkWidgetRef.SetVisible( m_dotIndicator, true );
+		inkImageRef.SetState( m_rarityWidget, UIItemsHelper.QualityEnumToName( data.Quality ) );
+		inkWidgetRef.SetState( m_rarityContainer, UIItemsHelper.QualityEnumToName( data.Quality ) );
+		if( data.IsEmpty || ( data.AbilitiesSize == 0 ) )
+		{
+			SpawnController().Setup( data.SlotName, m_isCrafting );
+		}
+		else
+		{
+			for( i = 0; i < data.AbilitiesSize; i += 1 )
+			{
+				SpawnController().Setup( data.Abilities[ i ], m_isCrafting );
+			}
+		}
+	}
+
+	private function SpawnController() : weak< ItemTooltipModEntryController >
+	{
+		var widget : weak< inkWidget >;
+		widget = SpawnFromLocal( inkCompoundRef.Get( m_modAbilitiesContainer ), EntryWidgetToSpawn() );
+		widget.SetVAlign( inkEVerticalAlign.Top );
+		widget.SetHAlign( inkEHorizontalAlign.Left );
+		return ( ( ItemTooltipModEntryController )( widget.GetController() ) );
+	}
+
+	public function HideDotIndicator()
+	{
+		inkWidgetRef.SetVisible( m_dotIndicator, false );
+	}
+
+	public function GetContext( isCrafting : Bool )
+	{
+		m_isCrafting = isCrafting;
+	}
+
+}
+
+class ItemTooltipModEntryController extends inkLogicController
+{
+	protected editable var m_modName : inkTextRef;
+	protected editable var m_attunementContainer : inkWidgetRef;
+	protected editable var m_attunementText : inkTextRef;
+	protected editable var m_attunementIcon : inkImageRef;
+	protected editable var m_attunementLine : inkWidgetRef;
+	protected var m_settings : UserSettings;
+	protected var m_settingsListener : ItemTooltipModSettingsListener;
+	protected var m_groupPath : CName;
+	default m_groupPath = '/accessibility/interface';
+	protected var m_bigFontEnabled : Bool;
+	protected var m_isCrafting : Bool;
+
+	protected event OnInitialize()
+	{
+		inkWidgetRef.SetVisible( m_attunementContainer, false );
+	}
+
+	public function Setup( const text : ref< String >, isCrafting : Bool )
+	{
+		inkTextRef.SetText( m_modName, text );
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( data : MinimalItemTooltipModRecordData, isCrafting : Bool )
+	{
+		inkTextRef.SetText( m_modName, data.description );
+		if( data.dataPackage.GetParamsCount() )
+		{
+			inkTextRef.SetTextParameters( m_modName, data.dataPackage.GetTextParams() );
+		}
+		if( data.attunementData != NULL )
+		{
+			inkTextRef.SetText( m_attunementText, data.attunementData.name );
+			InkImageUtils.RequestSetImage( this, m_attunementIcon, data.attunementData.icon );
+			inkWidgetRef.SetVisible( m_attunementContainer, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_attunementContainer, false );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( data : UIInventoryItemModDataPackage, isCrafting : Bool )
+	{
+		inkTextRef.SetText( m_modName, data.Description );
+		if( data.DataPackage.GetParamsCount() )
+		{
+			inkTextRef.SetTextParameters( m_modName, data.DataPackage.GetTextParams() );
+		}
+		if( data.AttunementData != NULL )
+		{
+			inkTextRef.SetText( m_attunementText, data.AttunementData.Name );
+			InkImageUtils.RequestSetImage( this, m_attunementIcon, data.AttunementData.Icon );
+			inkWidgetRef.SetVisible( m_attunementContainer, true );
+		}
+		else
+		{
+			inkWidgetRef.SetVisible( m_attunementContainer, false );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( record : weak< GameplayLogicPackageUIData_Record >, isCrafting : Bool )
+	{
+		var dataPackage : UILocalizationDataPackage;
+		inkTextRef.SetText( m_modName, record.LocalizedDescription() );
+		dataPackage = UILocalizationDataPackage.FromLogicUIDataPackage( record );
+		if( dataPackage.GetParamsCount() )
+		{
+			inkTextRef.SetTextParameters( m_modName, dataPackage.GetTextParams() );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( record : weak< GameplayLogicPackageUIData_Record >, itemData : weak< gameItemData >, isCrafting : Bool )
+	{
+		var dataPackage : UILocalizationDataPackage;
+		inkTextRef.SetText( m_modName, record.LocalizedDescription() );
+		dataPackage = UILocalizationDataPackage.FromLogicUIDataPackage( record, itemData );
+		if( dataPackage.GetParamsCount() )
+		{
+			inkTextRef.SetTextParameters( m_modName, dataPackage.GetTextParams() );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( record : weak< GameplayLogicPackageUIData_Record >, partItemData : InnerItemData, isCrafting : Bool )
+	{
+		var dataPackage : UILocalizationDataPackage;
+		inkTextRef.SetText( m_modName, record.LocalizedDescription() );
+		dataPackage = UILocalizationDataPackage.FromLogicUIDataPackage( record, , partItemData );
+		if( dataPackage.GetParamsCount() )
+		{
+			inkTextRef.SetTextParameters( m_modName, dataPackage.GetTextParams() );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function Setup( const ability : ref< InventoryItemAbility >, isCrafting : Bool )
+	{
+		if( ability.Description != "" )
+		{
+			inkTextRef.SetText( m_modName, ability.Description );
+			if( ability.LocalizationDataPackage.GetParamsCount() > 0 )
+			{
+				inkTextRef.SetTextParameters( m_modName, ability.LocalizationDataPackage.GetTextParams() );
+			}
+		}
+		else
+		{
+			inkTextRef.SetText( m_modName, GetLocalizedText( "UI-Labels-EmptySlot" ) );
+		}
+		m_settings = new UserSettings;
+		m_settingsListener = new ItemTooltipModSettingsListener;
+		m_settingsListener.RegisterController( this );
+		m_settingsListener.Register( m_groupPath );
+		m_isCrafting = isCrafting;
+		NewUpdateTooltipSize();
+	}
+
+	public function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		switch( varName )
+		{
+			case 'BigFont':
+				NewUpdateTooltipSize();
+			break;
+			default:
+				break;
+		}
+	}
+
+	private function NewUpdateTooltipSize()
+	{
+		var configVar : ConfigVarBool;
+		configVar = ( ( ConfigVarBool )( m_settings.GetVar( m_groupPath, 'BigFont' ) ) );
+		NewSetTooltipSize( configVar.GetValue() );
+	}
+
+	protected virtual function NewSetTooltipSize( value : Bool )
+	{
+		if( value == true && !( m_isCrafting ) )
+		{
+			inkTextRef.SetWrappingAtPosition( m_modName, 700.0 );
+			inkTextRef.SetWrappingAtPosition( m_attunementText, 700.0 );
+			inkWidgetRef.SetSize( m_attunementLine, 750.0, 2.0 );
+			m_bigFontEnabled = true;
+		}
+		else
+		{
+			inkTextRef.SetWrappingAtPosition( m_modName, 580.0 );
+			inkTextRef.SetWrappingAtPosition( m_attunementText, 580.0 );
+			inkWidgetRef.SetSize( m_attunementLine, 650.0, 2.0 );
+			m_bigFontEnabled = false;
+		}
+	}
+
+}
+
+class ItemTooltipModSettingsListener extends ConfigVarListener
+{
+	private var m_ctrl : weak< ItemTooltipModEntryController >;
+
+	public function RegisterController( ctrl : ItemTooltipModEntryController )
+	{
+		m_ctrl = ctrl;
+	}
+
+	public export override function OnVarModified( groupPath : CName, varName : CName, varType : ConfigVarType, reason : ConfigChangeReason )
+	{
+		m_ctrl.OnVarModified( groupPath, varName, varType, reason );
+	}
+
+}
+

@@ -125,23 +125,22 @@ function miscUtils.shortenText(text, chars)
 end
 
 function miscUtils.getNumUnreadMessages()
-    return Game.GetJournalManager():GetNumberUnreadMessages()
-    -- local unreadMessages = 0
-    -- local context = JournalRequestContext.new({
-    --     stateFilter = JournalRequestStateFilter.new({
-    --         active = true
-    --     })
-    -- })
+    local unreadMessages = 0
+    local context = JournalRequestContext.new({
+        stateFilter = JournalRequestStateFilter.new({
+            active = true
+        })
+    })
 
-    -- local contacts = Game.GetJournalManager():GetContacts(context)
-    -- for _, contact in pairs(contacts) do
-    --     local messages = Game.GetJournalManager():GetFlattenedMessagesAndChoices(contact)
-    --     for _, message in pairs(messages) do
-    --         if not Game.GetJournalManager():IsEntryVisited(message) then unreadMessages = unreadMessages + 1 end
-    --     end
-    -- end
+    local contacts = Game.GetJournalManager():GetContacts(context)
+    for _, contact in pairs(contacts) do
+        local messages = Game.GetJournalManager():GetFlattenedMessagesAndChoices(contact)
+        for _, message in pairs(messages) do
+            if not Game.GetJournalManager():IsEntryVisited(message) then unreadMessages = unreadMessages + 1 end
+        end
+    end
 
-    -- return unreadMessages
+    return unreadMessages
 end
 
 return miscUtils

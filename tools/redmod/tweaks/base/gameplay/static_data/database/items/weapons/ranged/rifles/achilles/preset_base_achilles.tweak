@@ -1,0 +1,725 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks, Effectors
+
+Preset_Achilles_Default : Base_Achilles
+{
+	CName appearanceResourceName = "Preset_Achilles_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_stdr";
+		}, 
+		"Items.RifleScopesPartList", {
+			slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1";
+		} : Tech_PR_SR_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2";
+		} : Tech_PR_SR_ModList_Slot2
+	];
+}
+
+Preset_Achilles_Pimp : Preset_Achilles_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+Preset_Achilles_Neon : Preset_Achilles_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon", "Courier_RareFind"
+	];
+}
+
+Preset_Achilles_Military : Preset_Achilles_Default
+{
+	CName[] visualTags = 
+	[
+		"Military"
+	];
+	tags += 
+	[
+		"Military"
+	];
+}
+
+[ EP1 ]
+Preset_Achilles_Nusa_White : Preset_Achilles_Nusa_Black
+{
+	CName[] visualTags = 
+	[
+		"Nusa_White"
+	];
+}
+
+[ EP1 ]
+Preset_Achilles_Nusa_Black : Preset_Achilles_Default
+{
+	CName[] visualTags = 
+	[
+		"Nusa_Black"
+	];
+	tags += 
+	[
+		"Courier_RareFind"
+	];
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+		];
+	} : Base_Achilles_Nusa_NPC_Data;
+	fk< Attack >[] attacks = 
+	[
+		"Attacks.Bullet_GameEffect", "Attacks.ThermalBulletEffect", "Attacks.ChemicalBulletEffect", "Attacks.ElectricBulletEffect", "Attacks.BurningBulletEffect", "Attacks.SmartBulletLow", "Attacks.SmartBulletMed", "Attacks.SmartBulletHigh", "Attacks.SmartBulletTwoStage", "Attacks.QuickMelee", "Attacks.Bullet_Projectile", "Attacks.ThermalBulletProjectile", "Attacks.ChemicalBulletProjectile", "Attacks.ElectricBulletProjectile", "Attacks.BurningBulletProjectile", "Attacks.PowerRounds_Projectile", "Attacks.PowerBuckshots_Projectile", "Attacks.PowerBullets_Projectile", "Attacks.NPCBulletEffect", "Attacks.NPCThermalBulletEffect", "Attacks.NPCChemicalBulletEffect", "Attacks.NPCElectricBulletEffect", "Attacks.NPCBurningBulletEffect", "Attacks.NPCSmartBullet", "Attacks.NPCBulletProjectile", "Attacks.NPCThermalBulletProjectile", "Attacks.NPCChemicalBulletProjectile", "Attacks.NPCElectricBulletProjectile", "Attacks.NPCBurningBulletProjectile", "NPCAttacks.QuickMelee", "NPCAttacks.StompAttackStagger", "NPCAttacks.StrongAttackStagger", "NPCAttacks.StrongAttackStompKnockdown", "NPCAttacks.StrongAttackStompStun", "NPCAttacks.PushEffect", "NPCAttacks.ParryEffect", "Attacks.ExplosiveBulletEffect", "Attacks.ExplodingBulletProjectile", "Attacks.ReedLaserSight", "Attacks.ReedSniperAttack", "NPCAttacks.QuickMeleeWithKnockdown", "NPCAttacks.KurtTakedownAttack01", "NPCAttacks.KurtTakedownAttack02", "NPCAttacks.KurtTakedownAttackFar02", "Attacks.ChimeraPowerMod_ExplosiveBulletEffect"
+	];
+}
+
+Base_Achilles_Nusa_NPC_Data : Base_Tech_Precision_Rifle_NPC_Data
+{
+	statModifierGroups += 
+	[
+		"Items.Base_Achilles_Nusa_NPC_Technical_Stats", "Items.Base_Achilles_Nusa_NPC_Damage_Stats"
+	];
+}
+
+Base_Achilles_Nusa_NPC_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.2f;
+		} : CycleTimeModifier, 
+		{
+			value = 9.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 1.f;
+		} : ProjectilesPerShotModifier, 
+		{
+			value = 100.f;
+		} : ChargeModifier, 
+		{
+			value = 0.25f;
+		} : ChargeTimeModifier, 
+		{
+			value = 1.f;
+		} : ChargeDischargeTimeModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier", {
+			value = 1.f;
+		} : TechPierceEnabledModifier, 
+		{
+			value = 0.9f;
+		} : TechPierceChargeLevelModifier, 
+		{
+			statType = "BaseStats.Accuracy";
+			modifierType = "Multiplier";
+			value = 3.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.TBHsBaseSourceMultiplierCoefficient";
+			modifierType = "Multiplier";
+			value = 0.8f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Achilles_Nusa_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 80f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Achilles : Preset_Achilles_Default
+{
+	quality = "Quality.Common";
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_stdr";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Achilles : Craftable_Common_Achilles
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Achilles : Craftable_Uncommon_Achilles
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Achilles : Craftable_Uncommon_Achilles
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Legendary_Achilles : Craftable_Uncommon_Achilles
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Achilles_Nash : Preset_Achilles_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "achilles_nash_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint";
+	displayName = "LocKey#40571";
+	visualTags = 
+	[
+		"Nash_Achilles"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40572";
+	triggerModes = 
+	[
+		"TriggerMode.Burst", "TriggerMode.Charge"
+	];
+	primaryTriggerMode = "TriggerMode.Burst";
+	secondaryTriggerMode = "TriggerMode.Charge";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Achilles_NPC_Data;
+	fk< GameplayLogicPackage >[] OnAttach += 
+	[
+		"Items.TechWeaponChargedBurstAbility"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.NashWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Achilles_Nash_Technical_Stats", "Items.Base_Achilles_Handling_Stats", "Items.Base_Achilles_Recoil_Stats", "Items.Base_Achilles_Nash_Spread_Stats", "Items.Base_Achilles_Aim_Stats", "Items.Base_Achilles_Nash_Constant_Stats", "Items.Base_Achilles_Damage_Stats", "Items.Base_Tech_Stats", "Items.Base_Tech_Precision_Rifle_Mult_Stats", "Items.Base_Precision_Rifle_RPG_Stats", "Items.Base_Precision_Rifle_Misc_Stats", "Items.Base_Precision_Rifle_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Precision_Rifle_DeadReckoning_Stats", "Items.Base_Weapon_Status_Effect_Application_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Chemical"
+	];
+}
+
+Base_Achilles_Nash_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.2f;
+		} : CycleTimeModifier, 
+		{
+			value = 0.1f;
+		} : CycleTime_BurstModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstModifier, 
+		{
+			value = 0.1f;
+		} : CycleTime_BurstSecondaryModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstSecondaryModifier, 
+		{
+			value = 10.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 5.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier", {
+			value = 1.f;
+		} : ChargeDischargeTimeModifier, 
+		{
+			value = 0.1f;
+		} : CycleTime_BurstMaxChargeModifier, 
+		{
+			value = 2.f;
+		} : NumShotsInBurstMaxChargeModifier, 
+		{
+			value = 0.0f;
+		} : ChargeMaxTimeInChargedStateModifier, 
+		{
+			value = 0.0f;
+		} : ChargeReadyPercentageModifier, 
+		{
+			value = 2.0f;
+		} : ChargeTimeModifier, 
+		{
+			value = 100.f;
+		} : ChargeModifier, 
+		{
+			statType = "BaseStats.TechPierceEnabled";
+			modifierType = "Additive";
+			value = 1.f;
+		} : ConstantStatModifier, 
+		{
+			value = 0.9f;
+		} : TechPierceChargeLevelModifier
+	];
+}
+
+Base_Achilles_Nash_Spread_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.0f;
+		} : SpreadMinXModifier, 
+		{
+			value = 1.0f;
+		} : SpreadMinYModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseInAdsModifier, 
+		{
+			value = 1.0f;
+		} : SpreadAdsMinXModifier, 
+		{
+			value = 1.0f;
+		} : SpreadAdsMinYModifier, 
+		{
+			value = 1.5f;
+		} : SpreadResetSpeedModifier, 
+		{
+			value = 0.25f;
+		} : SpreadResetTimeThresholdModifier, 
+		{
+			value = 0.f;
+		} : SpreadRandomizeOriginPointModifier, 
+		{
+			value = 1.f;
+		} : SpreadUseCircularSpreadModifier, 
+		{
+			value = 1.f;
+		} : SpreadEvenDistributionRowCountModifier, 
+		{
+			value = -0.25f;
+		} : SpreadChargeMultModifier, 
+		{
+			value = -0.25f;
+		} : SpreadAdsChargeMultModifier
+	];
+}
+
+Base_Achilles_Nash_Constant_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 2.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 1.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 2.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 1.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadZeroOnFirstShot";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 1.6f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 2.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "Multiplier";
+			value = 0.7f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 0.909f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "Multiplier";
+			value = 1.1626f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationMedium", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			value = 0.05f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Achilles_Collectible : Preset_Achilles_Default
+{
+	fk< ItemBlueprint > blueprint = "Items.Collectible_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint";
+	displayName = "LocKey#95294";
+	visualTags = 
+	[
+		"XMOD2"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_Achilles_NPC_Data;
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_precision__militech_achilles__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicWeaponModLegendary";
+			itemPartPreset = "Items.CollectibleIconicWeaponMod";
+		}, 
+		{
+			slot = "AttachmentSlots.Scope";
+			fk< Item > itemPartPreset = "Items.Achilles_scope";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Achilles_Collectible_Technical_Stats", "Items.Base_Achilles_Handling_Stats", "Items.Base_Achilles_Recoil_Collectible_Stats", "Items.Base_Achilles_Spread_Stats", "Items.Base_Achilles_Aim_Stats", "Items.Base_Achilles_Constant_Collectible_Stats", "Items.Base_Achilles_Damage_Stats", "Items.Base_Tech_Stats", "Items.Base_Tech_Precision_Rifle_Mult_Stats", "Items.Base_Precision_Rifle_RPG_Stats", "Items.Base_Precision_Rifle_Misc_Stats", "Items.Base_Precision_Rifle_Sway_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Precision_Rifle_DeadReckoning_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Physical"
+	];
+}
+
+Base_Achilles_Collectible_Technical_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 1.f;
+		} : NumShotsToFireModifier, 
+		{
+			value = 0.18f;
+		} : CycleTimeModifier, 
+		{
+			value = 12.f;
+		} : MagazineCapacityModifier, 
+		{
+			value = 3.f;
+		} : ProjectilesPerShotModifier, 
+		"BaseStats.ProjectilesPerShotCombinedModifier", {
+			value = 100.f;
+		} : ChargeModifier, 
+		{
+			value = 1.5f;
+		} : ChargeTimeModifier, 
+		{
+			value = 1.f;
+		} : ChargeDischargeTimeModifier, 
+		{
+			value = 1.f;
+		} : TechPierceEnabledModifier, 
+		{
+			value = 0.9f;
+		} : TechPierceChargeLevelModifier, 
+		{
+			value = -0.25f;
+		} : TechPierceDamageFactorModifier
+	];
+}
+
+Base_Achilles_Recoil_Collectible_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			value = 0.f;
+		} : RecoilDirModifier, 
+		{
+			value = 20.f;
+		} : RecoilAngleModifier, 
+		{
+			value = 0.066f;
+		} : RecoilHoldDurationModifier, 
+		{
+			value = 0.05f;
+		} : RecoilTimeModifier, 
+		{
+			value = 0.06f;
+		} : RecoilDelayModifier, 
+		{
+			value = 0.15f;
+		} : RecoilRecoveryTimeModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearXADSModifier, 
+		{
+			value = 1.f;
+		} : RecoilEnableLinearYADSModifier
+	];
+}
+
+Base_Achilles_Constant_Collectible_Stats : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.SpreadDefaultX";
+			modifierType = "Additive";
+			value = 0.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsDefaultX";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadMaxX";
+			modifierType = "Additive";
+			value = 0.8f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadAdsMaxX";
+			modifierType = "Additive";
+			value = 0.2f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.SpreadZeroOnFirstShot";
+			modifierType = "Multiplier";
+			value = 0.f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMin";
+			modifierType = "Additive";
+			value = 1.33f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.RecoilKickMax";
+			modifierType = "Additive";
+			value = 1.66f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.DamagePerHit";
+			modifierType = "Additive";
+			value = 1.033f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.HeadshotDamageMultiplier";
+			modifierType = "Additive";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.FirePower";
+			modifierType = "Multiplier";
+			value = 0.873f;
+		} : ConstantStatModifier, 
+		"AttackModifier.WeaponArmorPenetrationMedium", {
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			value = 0.3f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ZoomLevel";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			value = 0.1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.EffectiveRange";
+			modifierType = "AdditiveMultiplier";
+			refStat = "BaseStats.Quality";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier
+	];
+}
+
+[ notQueryable ]
+Achilles_scope : Base_Long_Scope
+{
+	quality = "Quality.Common";
+	visualTags = 
+	[
+		"Default"
+	];
+	CName appearanceResourceName = "w_att__scope_short_07";
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quality";
+			modifierType = "Additive";
+			refStat = "BaseStats.Quality";
+			refObject = "Root";
+			opSymbol = "*";
+			value = 1f;
+		} : CombinedStatModifier
+	];
+	iconPath = "w_att__scope_long_04";
+	tags += 
+	[
+		"DummyPart", "HideInUI", "HideAtVendor"
+	];
+}
+

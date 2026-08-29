@@ -1,0 +1,5957 @@
+package Vendors
+using RTDB, Items
+
+RipperDoc : Vendor
+{
+	vendorType = "VendorType.RipperDoc";
+	string localizedDescription = "LocKey#45140";
+	customerInverseFilterTags += [];
+	itemQueries = 
+	[
+		{
+			query = "Query.CyberwareNextTierArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierUncommonCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwarePlusArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierUncommonPlusCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwareNextTierArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierRareCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwarePlusArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierRarePlusCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwareNextTierArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierEpicCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwarePlusArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierEpicPlusCyberwareAtVendor"
+			];
+		}, 
+		{
+			query = "Query.CyberwareNextTierArrayQuery";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.NextTierLegendaryCyberwareAtVendor"
+			];
+		}
+	];
+	fk< VendorItem >[] itemStock = [];
+}
+
+EarlyGameRipperdoc : AdvancedCollectiveRipperDocGeneral
+{
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+MidGameRipperdoc : AdvancedCollectiveRipperDocGeneral
+{
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+EndGameRipperdoc : AdvancedCollectiveRipperDocGeneral
+{
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+bls_ina_se1_ripperdoc_01 : MidGameRipperdoc
+{
+	string localizedName = "LocKey#45141";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+bls_ina_se1_ripperdoc_02 : bls_ina_se1_ripperdoc_01
+{
+}
+
+wat_nid_ripperdoc_01 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45143";
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.AdvancedYakuzaTattoo";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.WakakoReward"
+			];
+		}
+	];
+}
+
+wat_kab_ripperdoc_01 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45144";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wat_kab_ripperdoc_02 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45145";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wat_kab_ripperdoc_03 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45146";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wat_lch_ripperdoc_01 : AdvancedCollectiveRipperDocVictor
+{
+	string localizedName = "LocKey#45147";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wbr_jpn_ripperdoc_01 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45148";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wbr_jpn_ripperdoc_02 : MidGameRipperdoc
+{
+	string localizedName = "LocKey#45149";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+wbr_hil_ripdoc_01 : EarlyGameRipperdoc
+{
+	string localizedName = "LocKey#45150";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+cct_dtn_ripdoc_01 : EndGameRipperdoc
+{
+	string localizedName = "LocKey#45151";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+hey_spr_ripperdoc_01 : EndGameRipperdoc
+{
+	string localizedName = "LocKey#45152";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+std_arr_ripperdoc_01 : MidGameRipperdoc
+{
+	string localizedName = "LocKey#45153";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+std_rcr_ripperdoc_01 : MidGameRipperdoc
+{
+	string localizedName = "LocKey#45154";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+pac_wwd_ripperdoc_01 : MidGameRipperdoc
+{
+	string localizedName = "LocKey#45155";
+	fk< VendorItem >[] itemStock += 
+	[
+	];
+}
+
+AdvancedRipperDocBase : RipperDoc
+{
+	fk< VendorItem >[] itemStock = 
+	[
+		"Vendors.TierScaledBaseMoney", {
+			item = "Items.BonesMcCoy70VUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.PlayerLevel_Tier_2_Start_Prereq"
+			];
+		}, 
+		{
+			item = "Items.BonesMcCoy70V1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.PlayerLevel_Tier_3_Start_Prereq"
+			];
+		}, 
+		{
+			item = "Items.FirstAidWhiffVUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.PlayerLevel_Tier_2_Start_Prereq"
+			];
+		}, 
+		{
+			item = "Items.FirstAidWhiffV1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.PlayerLevel_Tier_3_Start_Prereq"
+			];
+		}
+	];
+}
+
+AdvancedSkeletalRipperDoc : AdvancedRipperDocBase
+{
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.AdvancedDenseMarrowUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDenseMarrowRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDenseMarrowEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDenseMarrowLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCyberRotorsCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCyberRotorsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCyberRotorsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCyberRotorsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCyberRotorsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPainDistributorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPainDistributorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPainDistributorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNoPainNoGainCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNoPainNoGainUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNoPainNoGainRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNoPainNoGainEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNoPainNoGain_Legendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJenkinsTendonsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJenkinsTendonsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJenkinsTendonsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJenkinsTendonsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatchMeIfYouCanCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatchMeIfYouCanUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatchMeIfYouCanRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatchMeIfYouCanEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatchMeIfYouCanLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAgileJointsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAgileJointsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAgileJointsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAgileJointsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCompilingSkeletonCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCompilingSkeletonUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCompilingSkeletonRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCompilingSkeletonEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCompilingSkeletonLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedShockAbsorberCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedShockAbsorberUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedShockAbsorberRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedShockAbsorberEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedShockAbsorberLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOilDispenserUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOilDispenserRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOilDispenserEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOilDispenserLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoneMarrowCellsCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoneMarrowCellsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoneMarrowCellsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoneMarrowCellsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoneMarrowCellsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedT1000Rare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedT1000Epic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedT1000Legendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTitaniumInfusedBonesCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTitaniumInfusedBonesUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTitaniumInfusedBonesRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTitaniumInfusedBonesEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTitaniumInfusedBonesLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedEndoskeletonEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedEndoskeletonLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}
+	];
+}
+
+AdvancedOSAndSkeletalRipperDoc : AdvancedSkeletalRipperDoc
+{
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.AdvancedBerserkC1MK1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC1MK2";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC1MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC1MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC2MK1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC2MK2";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC2MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC2MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC3MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC3MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC3MK5";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC4MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBerserkC4MK5";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC1MK1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC1MK2";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC1MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC1MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC2MK1";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC2MK2";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC2MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC2MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC3MK3";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC3MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC3MK5";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC4MK4";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanC4MK5";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSandevistanApogee";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTetratronicRipplerMKICommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTetratronicRipplerMKIIUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTetratronicRipplerMKIIIRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTetratronicRipplerMKIVEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTetratronicRipplerMKVLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedArasakaShadowMKICommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedArasakaShadowMKIIUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedArasakaShadowMKIIIRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedArasakaShadowMKIVEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedArasakaShadowMKVLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiotechSigmaMKIUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiotechSigmaMKIIRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiotechSigmaMKIIIEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiotechSigmaMKIVLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMilitechParalineMKICommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMilitechParalineMKIIUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMilitechParalineMKIIIRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMilitechParalineMKIVEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMilitechParalineMKVLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRavenMicrocyberMKIRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRavenMicrocyberMKIIEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRavenMicrocyberMKIIILegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNetwatchNetdriverMKLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}
+	];
+}
+
+AdvancedCollectiveRipperDoc : AdvancedOSAndSkeletalRipperDoc
+{
+	fk< VendorItem >[] itemStock += 
+	[
+		{
+			item = "Items.AdvancedCatPawsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatPawsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatPawsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCatPawsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReinforcedMusclesUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReinforcedMusclesRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReinforcedMusclesEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReinforcedMusclesLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoostedTendonsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoostedTendonsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoostedTendonsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoostedTendonsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesChemicalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesChemicalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesChemicalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesChemicalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesThermalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesThermalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesThermalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesThermalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesElectricUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesElectricRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesElectricEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMantisBladesElectricLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsElectricUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsElectricRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsElectricEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsElectricLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsChemicalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsChemicalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsChemicalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsChemicalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsThermalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsThermalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsThermalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStrongArmsThermalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherChemicalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherChemicalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherChemicalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherChemicalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherThermalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherThermalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherThermalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherThermalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherElectricUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherElectricRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherElectricEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProjectileLauncherElectricLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresThermalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresThermalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresThermalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresThermalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresChemicalUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresChemicalRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresChemicalEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresChemicalLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresElectricUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresElectricRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresElectricEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoWiresElectricLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCamilloRamManagerEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCamilloRamManagerLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedExDiskRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedExDiskEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedExDiskLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedHealOnKillCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedHealOnKillUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedHealOnKillRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedHealOnKillEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedHealOnKillLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMechatronicCoreCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMechatronicCoreUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMechatronicCoreRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMechatronicCoreEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMechatronicCoreLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMemoryBoostUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMemoryBoostRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMemoryBoostEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMemoryBoostLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRamUpgradeCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRamUpgradeUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRamUpgradeRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRamUpgradeEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRamUpgradeLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSelfIceRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSelfIceEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSelfIceLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStaminaRegenBoosterCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStaminaRegenBoosterUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStaminaRegenBoosterRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStaminaRegenBoosterEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedStaminaRegenBoosterLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiomonitorCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiomonitorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiomonitorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiomonitorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBiomonitorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodPumpUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodPumpRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodPumpEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodPumpLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedViralVenomRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedViralVenomEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedViralVenomLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDischargeConnectorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDischargeConnectorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDischargeConnectorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSecondHeartEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSecondHeartLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPainReductorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPainReductorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenzikovUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenzikovRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenzikovEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenzikovLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReflexRecorderCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReflexRecorderUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReflexRecorderRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReflexRecorderEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedReflexRecorderLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSynapticAcceleratorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSynapticAcceleratorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSynapticAcceleratorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSynapticAcceleratorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeoFiberRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeoFiberEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeoFiberLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedVisualCortexSupportCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedVisualCortexSupportUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedVisualCortexSupportRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedVisualCortexSupportEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedVisualCortexSupportLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTyrosineInjectorCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTyrosineInjectorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTyrosineInjectorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTyrosineInjectorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTyrosineInjectorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBioConductorsCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBioConductorsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBioConductorsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBioConductorsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBioConductorsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}
+	];
+}
+
+AdvancedCollectiveRipperDocGeneral : AdvancedCollectiveRipperDoc
+{
+	itemStock += 
+	[
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensor_Uncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsCombinedEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsCombinedLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodDepleterEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodDepleterLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBionicJointsCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBionicJointsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBionicJointsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBionicJointsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBionicJointsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeuroMatrixCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeuroMatrixUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeuroMatrixRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeuroMatrixEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNeuroMatrixLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCogitoFrameCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCogitoFrameUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCogitoFrameRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCogitoFrameEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedCogitoFrameLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}
+	];
+}
+
+AdvancedCollectiveRipperDocVictor : AdvancedCollectiveRipperDoc
+{
+	itemStock += 
+	[
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsPiercingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensor_Uncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsSensorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsHunterLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsWallhackLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsBareLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsCombinedEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKiroshiOpticsCombinedLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPowerGripLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSmartLinkLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedMicroGeneratorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedJointLockLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKnifeSharpenerLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedProximityReducerLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSuddenAidLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodDepleterEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBloodDepleterLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedWeirdTankyPlatingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedKerenziovBoostSystemLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedRapidMuscleNurishLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedNanoTechPlatesLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedPlatingGlitchLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedDetectorRushLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedTroubleFinderLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedSubdermalCoProcessorLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedBoringPlatingLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedChargeSystemLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedOpticalCamoLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedAdaptiveStemCellsLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismCommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.CommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismUncommon";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.UncommonCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismRare";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.RareCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismEpic";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.EpicCWLevelAvailabilityAtVendor"
+			];
+		}, 
+		{
+			item = "Items.AdvancedElectroshockMechanismLegendary";
+			quantity = 
+			[
+				"Vendors.Always_Present"
+			];
+			generationPrereqs = 
+			[
+				"Prereqs.AfterFirstVisitAtVictor", "LootPrereqs.LegendaryCWLevelAvailabilityAtVendor"
+			];
+		}
+	];
+}
+

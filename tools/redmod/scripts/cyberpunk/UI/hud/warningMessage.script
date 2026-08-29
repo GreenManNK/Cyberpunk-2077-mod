@@ -1,0 +1,344 @@
+class WarningMessageGameController extends inkHUDGameController
+{
+	private var m_root : weak< inkWidget >;
+	private editable var m_mainTextWidget : inkTextRef;
+	private editable var m_attencionIcon : inkWidgetRef;
+	private editable var m_neutralIcon : inkWidgetRef;
+	private editable var m_vehicleIcon : inkWidgetRef;
+	private editable var m_apartmentIcon : inkWidgetRef;
+	private editable var m_relicIcon : inkWidgetRef;
+	private editable var m_moneyIcon : inkWidgetRef;
+	private editable var m_twintoneIcon : inkWidgetRef;
+	private editable var m_autodriveIcon : inkWidgetRef;
+	private editable var m_delamainIcon : inkWidgetRef;
+	private var m_blackboard : weak< IBlackboard >;
+	private var m_blackboardDef : UI_NotificationsDef;
+	private var m_warningMessageCallbackId : CallbackHandle;
+	private var m_simpleMessage : SimpleScreenMessage;
+	private var m_blinkingAnim : inkAnimDef;
+	private var m_showAnim : inkAnimDef;
+	private var m_hideAnim : inkAnimDef;
+	private var m_animProxyShow : inkAnimProxy;
+	private var m_animProxyHide : inkAnimProxy;
+	private var m_animProxyTimeout : inkAnimProxy;
+
+	protected event OnInitialize()
+	{
+		var msgVariant : Variant;
+		var message : SimpleScreenMessage;
+		m_root = GetRootWidget();
+		m_root.SetVisible( false );
+		m_blackboardDef = GetAllBlackboardDefs().UI_Notifications;
+		m_blackboard = GetBlackboardSystem().Get( m_blackboardDef );
+		m_warningMessageCallbackId = m_blackboard.RegisterDelayedListenerVariant( m_blackboardDef.WarningMessage, this, 'OnWarningMessageUpdate' );
+		msgVariant = m_blackboard.GetVariant( m_blackboardDef.WarningMessage );
+		message = ( ( SimpleScreenMessage )msgVariant );
+		if( msgVariant.IsValid() && message.type != SimpleMessageType.Police )
+		{
+			m_simpleMessage = message;
+		}
+		CreateAnimations();
+	}
+
+	protected event OnUnitialize()
+	{
+		m_blackboard.UnregisterDelayedListener( m_blackboardDef.WarningMessage, m_warningMessageCallbackId );
+	}
+
+	protected event OnWarningMessageUpdate( value : Variant )
+	{
+		var message : SimpleScreenMessage;
+		message = ( ( SimpleScreenMessage )value );
+		if( message.type != SimpleMessageType.Police )
+		{
+			m_simpleMessage = message;
+			UpdateWidgets();
+		}
+		else
+		{
+			m_root.StopAllAnimations();
+			if( m_animProxyShow )
+			{
+				m_animProxyShow.Stop();
+			}
+			m_root.SetVisible( false );
+		}
+	}
+
+	private function UpdateWidgets()
+	{
+		var playbackOptions : inkAnimOptions;
+		m_root.StopAllAnimations();
+		if( ( m_simpleMessage.isShown && m_simpleMessage.message != "Lorem Ipsum" ) && m_simpleMessage.message != "" )
+		{
+			inkTextRef.SetLetterCase( m_mainTextWidget, textLetterCase.UpperCase );
+			inkTextRef.SetText( m_mainTextWidget, m_simpleMessage.message );
+			if( m_simpleMessage.type == SimpleMessageType.Neutral )
+			{
+				UpdateNeutralType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Apartment )
+			{
+				UpdateApartmentType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Vehicle )
+			{
+				UpdateVehicleType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Relic )
+			{
+				UpdateRelicType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Money )
+			{
+				UpdateMoneyType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Twintone )
+			{
+				UpdateTwintoneType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.TwintoneNegative )
+			{
+				UpdateTwintoneNegativeType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.Autodrive )
+			{
+				UpdateAutodriveType();
+			}
+			else if( m_simpleMessage.type == SimpleMessageType.DelamainTaxi )
+			{
+				UpdateDelamainType();
+			}
+			else
+			{
+				HandleByLocalizationKey();
+			}
+			GameInstance.GetAudioSystem( GetPlayerControlledObject().GetGame() ).Play( 'ui_jingle_chip_malfunction' );
+			if( m_simpleMessage.isInstant )
+			{
+				playbackOptions.fromMarker = 'idle_start';
+			}
+			playbackOptions.toMarker = 'freeze_intro';
+			if( m_animProxyShow )
+			{
+				m_animProxyShow.Stop();
+			}
+			m_animProxyShow = PlayLibraryAnimation( 'warning', playbackOptions );
+			m_animProxyShow.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnShown' );
+			m_root.SetVisible( true );
+			if( m_simpleMessage.type == SimpleMessageType.Vehicle || m_simpleMessage.message == "LocKey#43690" )
+			{
+				m_root.SetVisible( false );
+			}
+		}
+		else
+		{
+			playbackOptions.fromMarker = 'freeze_outro';
+			m_animProxyHide = PlayLibraryAnimation( 'warning', playbackOptions );
+			m_animProxyHide.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnHidden' );
+		}
+	}
+
+	private function SetTimeout( value : Float )
+	{
+		var interpol : inkAnimTransparency;
+		var timeoutAnim : inkAnimDef;
+		if( value > 0.0 )
+		{
+			timeoutAnim = new inkAnimDef;
+			interpol = new inkAnimTransparency;
+			interpol.SetDuration( value );
+			interpol.SetStartTransparency( 1.0 );
+			interpol.SetEndTransparency( 1.0 );
+			interpol.SetIsAdditive( true );
+			timeoutAnim.AddInterpolator( interpol );
+			m_animProxyTimeout = m_root.PlayAnimation( timeoutAnim );
+			m_animProxyTimeout.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnTimeout' );
+		}
+	}
+
+	protected event OnTimeout( anim : inkAnimProxy )
+	{
+		if( anim.IsFinished() )
+		{
+			m_blackboard.SetVariant( m_blackboardDef.WarningMessage, NoScreenMessage() );
+		}
+	}
+
+	protected event OnShown( anim : inkAnimProxy )
+	{
+		if( anim.IsFinished() )
+		{
+			TriggerBlinkAnimation();
+		}
+		if( m_simpleMessage.duration > 0.0 )
+		{
+			SetTimeout( m_simpleMessage.duration );
+		}
+	}
+
+	protected event OnBlinkAnimation( anim : inkAnimProxy )
+	{
+		if( anim.IsFinished() )
+		{
+			TriggerBlinkAnimation();
+		}
+	}
+
+	protected event OnHidden( anim : inkAnimProxy )
+	{
+		m_root.SetVisible( false );
+	}
+
+	private function TriggerBlinkAnimation() {}
+
+	private function CreateAnimations()
+	{
+		var alphaBlinkInInterpol : inkAnimTransparency;
+		var alphaBlinkOutInterpol : inkAnimTransparency;
+		var alphaShowInterpol : inkAnimTransparency;
+		var alphaHideInterpol : inkAnimTransparency;
+		m_blinkingAnim = new inkAnimDef;
+		alphaBlinkOutInterpol = new inkAnimTransparency;
+		alphaBlinkOutInterpol.SetStartTransparency( 1.0 );
+		alphaBlinkOutInterpol.SetEndTransparency( 0.40000001 );
+		alphaBlinkOutInterpol.SetDuration( 0.5 );
+		alphaBlinkOutInterpol.SetType( inkanimInterpolationType.Linear );
+		alphaBlinkOutInterpol.SetMode( inkanimInterpolationMode.EasyOut );
+		alphaBlinkInInterpol = new inkAnimTransparency;
+		alphaBlinkInInterpol.SetStartTransparency( 0.40000001 );
+		alphaBlinkInInterpol.SetEndTransparency( 1.0 );
+		alphaBlinkInInterpol.SetDuration( 0.5 );
+		alphaBlinkInInterpol.SetStartDelay( 0.5 );
+		alphaBlinkInInterpol.SetType( inkanimInterpolationType.Linear );
+		alphaBlinkInInterpol.SetMode( inkanimInterpolationMode.EasyOut );
+		m_blinkingAnim.AddInterpolator( alphaBlinkOutInterpol );
+		m_blinkingAnim.AddInterpolator( alphaBlinkInInterpol );
+		m_showAnim = new inkAnimDef;
+		alphaShowInterpol = new inkAnimTransparency;
+		alphaShowInterpol.SetStartTransparency( 0.0 );
+		alphaShowInterpol.SetEndTransparency( 1.0 );
+		alphaShowInterpol.SetDuration( 0.5 );
+		alphaShowInterpol.SetType( inkanimInterpolationType.Exponential );
+		alphaShowInterpol.SetMode( inkanimInterpolationMode.EasyOut );
+		m_showAnim.AddInterpolator( alphaShowInterpol );
+		m_hideAnim = new inkAnimDef;
+		alphaHideInterpol = new inkAnimTransparency;
+		alphaHideInterpol.SetStartTransparency( 1.0 );
+		alphaHideInterpol.SetEndTransparency( 0.0 );
+		alphaHideInterpol.SetDuration( 1.0 );
+		alphaBlinkInInterpol.SetStartDelay( 0.1 );
+		alphaHideInterpol.SetType( inkanimInterpolationType.Exponential );
+		alphaHideInterpol.SetMode( inkanimInterpolationMode.EasyOut );
+		m_hideAnim.AddInterpolator( alphaHideInterpol );
+	}
+
+	private function UpdateNeutralType()
+	{
+		m_root.SetState( 'Neutral' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_neutralIcon, true );
+	}
+
+	private function UpdateMoneyType()
+	{
+		m_root.SetState( 'Money' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_moneyIcon, true );
+	}
+
+	private function UpdateApartmentType()
+	{
+		m_root.SetState( 'Neutral' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_apartmentIcon, true );
+	}
+
+	private function UpdateVehicleType()
+	{
+		m_root.SetState( 'Neutral' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_vehicleIcon, true );
+	}
+
+	private function UpdateRelicType()
+	{
+		m_root.SetState( 'Relic' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_relicIcon, true );
+	}
+
+	private function UpdateTwintoneType()
+	{
+		m_root.SetState( 'Neutral' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_twintoneIcon, true );
+	}
+
+	private function UpdateTwintoneNegativeType()
+	{
+		m_root.SetState( 'Negative' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_twintoneIcon, true );
+	}
+
+	private function UpdateAutodriveType()
+	{
+		m_root.SetState( 'Autodrive' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_autodriveIcon, true );
+	}
+
+	private function UpdateDelamainType()
+	{
+		m_root.SetState( 'Delamain' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_delamainIcon, true );
+	}
+
+	private function UpdateDefaultType()
+	{
+		m_root.SetState( 'Default' );
+		HideAllIcon();
+		inkWidgetRef.SetVisible( m_attencionIcon, true );
+	}
+
+	private function HideAllIcon()
+	{
+		inkWidgetRef.SetVisible( m_attencionIcon, false );
+		inkWidgetRef.SetVisible( m_neutralIcon, false );
+		inkWidgetRef.SetVisible( m_vehicleIcon, false );
+		inkWidgetRef.SetVisible( m_apartmentIcon, false );
+		inkWidgetRef.SetVisible( m_relicIcon, false );
+		inkWidgetRef.SetVisible( m_moneyIcon, false );
+		inkWidgetRef.SetVisible( m_twintoneIcon, false );
+		inkWidgetRef.SetVisible( m_autodriveIcon, false );
+		inkWidgetRef.SetVisible( m_delamainIcon, false );
+	}
+
+	private function HandleByLocalizationKey()
+	{
+		if( ( ( m_simpleMessage.message == "LocKey#48121" || m_simpleMessage.message == "LocKey#48227" ) || m_simpleMessage.message == "LocKey#48196" ) || m_simpleMessage.message == "LocKey#21959" )
+		{
+			UpdateNeutralType();
+		}
+		else if( m_simpleMessage.message == "LocKey#92076" )
+		{
+			UpdateApartmentType();
+		}
+		else if( m_simpleMessage.message == "LocKey#43690" )
+		{
+			UpdateVehicleType();
+		}
+		else if( m_simpleMessage.message == "LocKey#40529" )
+		{
+			UpdateRelicType();
+		}
+		else
+		{
+			UpdateDefaultType();
+		}
+	}
+
+}
+

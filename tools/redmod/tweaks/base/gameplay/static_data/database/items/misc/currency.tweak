@@ -1,0 +1,127 @@
+package Items
+using RTDB, Price
+
+money : Item
+{
+	fk< ItemCategory > itemCategory = "ItemCategory.General";
+	string friendlyName = "money";
+	entityName = "money";
+	displayName = "LocKey#859";
+	localizedDescription = "LocKey#858";
+	CName[] tags = 
+	[
+		"Currency"
+	];
+	iconPath = "icon_money";
+	dropObject = "smallItemDrop";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 99999899;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+MoneyShard : Item
+{
+	itemType = "ItemType.Gen_MoneyShard";
+	itemCategory = "ItemCategory.General";
+	string friendlyName = "MoneyShard";
+	displayName = "LocKey#93437";
+	localizedDescription = "LocKey#93438";
+	entityName = "money";
+	iconPath = "q003_chip";
+	tags = 
+	[
+		"MoneyShard", "HideInUI", "SkipActivityLog", "HideInBackpackUI"
+	];
+	dropObject = "smallItemDrop";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 99999899;
+		} : ConstantStatModifier
+	];
+}
+
+MoneyShardUncommon : MoneyShard
+{
+	quality = "Quality.Uncommon";
+	sellPrice = 
+	[
+		"Price.MoneyShardUncommon"
+	];
+}
+
+MoneyShardRare : MoneyShard
+{
+	quality = "Quality.Rare";
+	sellPrice = 
+	[
+		"Price.MoneyShardRare"
+	];
+}
+
+MoneyShardEpic : MoneyShard
+{
+	quality = "Quality.Epic";
+	sellPrice = 
+	[
+		"Price.MoneyShardEpic"
+	];
+}
+
+MoneyShardLegendary : MoneyShard
+{
+	quality = "Quality.Legendary";
+	sellPrice = 
+	[
+		"Price.MoneyShardLegendary"
+	];
+}
+
+[ notQueryable ]
+MoneyShardScaling : MoneyShard
+{
+	quality = "Quality.Common";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quality";
+			modifierType = "Additive";
+			id = "quality_curves";
+			column = "level_to_random_range_mult_new_progression_shards";
+			refObject = "Player";
+			refStat = "BaseStats.Level";
+		} : CurveStatModifier
+	];
+	sellPrice = 
+	[
+		"Price.MoneyShardUncommon", {
+			column = "money_shard_quality_to_sell_price_mult";
+			refStat = "BaseStats.Quality";
+			refObject = "Item";
+		} : PriceCurve
+	];
+}
+
+MoneyLootTable : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootGenerationType = "dropChance";
+	lootItems = 
+	[
+		{
+			dropCountMin = 10;
+			dropCountMax = 100;
+			itemID = "Items.money";
+		} : LootItem
+	];
+}
+

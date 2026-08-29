@@ -1,0 +1,93 @@
+package Items
+using RTDB, BaseStats, WeaponFxPackage, Prereqs, Perks
+
+[ notQueryable ]
+Preset_RocketLauncher_Default : Base_RocketLauncher
+{
+	CName appearanceResourceName = "Preset_Grad_Default";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	rangedAttacks = "Attacks.RocketProjectilePackage";
+	attacks += 
+	[
+		"Attacks.RocketProjectile", "Attacks.RocketChargedProjectile"
+	];
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__mag_stdr";
+		}, 
+		{
+			slot = "AttachmentSlots.Scope";
+			itemPartPreset = "Items.w_att_scope_sniper_01";
+		}, 
+		{
+			slot = "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1";
+		} : Power_PR_SR_ModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2";
+		} : Power_PR_SR_ModList_Slot2
+	];
+}
+
+[ notQueryable ]
+Preset_RocketLauncher_Test : Preset_RocketLauncher_Default
+{
+	displayName = "LocKey#40575";
+	visualTags = 
+	[
+		"Buck_Grad"
+	];
+	quality = "Quality.Random";
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40576";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+	} : Items.Base_RocketLauncher_NPC_Data;
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_RocketLauncher_Technical_Stats", "Items.Base_RocketLauncher_Handling_Stats", "Items.Base_RocketLauncher_Recoil_Stats", "Items.Base_RocketLauncher_Spread_Stats", "Items.Base_RocketLauncher_Aim_Stats", "Items.Base_RocketLauncher_Constant_Stats", "Items.Base_RocketLauncher_Damage_Stats", "Items.Base_Power_Stats", "Items.Base_Power_Sniper_Rifle_Mult_Stats", "Items.Base_Power_Sniper_Rifle_Stats", "Items.Base_Sniper_Rifle_Sway_Stats", "Items.Base_Sniper_Rifle_RPG_Stats", "Items.Base_Sniper_Rifle_Misc_Stats", "Items.Base_PlayerState_Spread_Stats", "Items.Base_Weapon_Damage_Type_Min_Max", "Items.Base_Weapon_Damage_Type_Physical"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Receiver";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__rcv1";
+		}, 
+		{
+			slot = "AttachmentSlots.Barrel";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__base1";
+		}, 
+		{
+			slot = "AttachmentSlots.Magazine";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__mag_std";
+		}, 
+		{
+			slot = "AttachmentSlots.MagazineEmpty";
+			fk< Item > itemPartPreset = "Items.w_rifle_sniper__techtronika_grad__mag_stdr";
+		}
+	];
+}
+

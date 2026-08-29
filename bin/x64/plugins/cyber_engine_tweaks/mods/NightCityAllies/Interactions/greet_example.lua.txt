@@ -1,0 +1,12 @@
+local NCA = GetMod("NightCityAllies")
+local blueBackground = gameinteractionsChoiceType.Blueline
+local icon = TweakDBInterface.GetChoiceCaptionIconPartRecord("ChoiceCaptionParts.TalkIcon")
+
+return {
+    { label = NCA:T("Greet"), icon = icon, type = blueBackground, callback = function(npc)
+        npc:Talk()
+        npc:AddFriendship(5)
+    end, condition = function(npc)
+        return not npc:IsMech() and (npc:IsSquad() or npc:IsAcquirable())
+    end },
+}

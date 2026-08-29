@@ -1,0 +1,1145 @@
+package Attacks
+using RTDB, AttackModifier
+
+BaseProjectile : Attack_Projectile
+{
+	attackType = "AttackType.Ranged";
+	range = 200.0f;
+}
+
+BaseBulletExplosion : Attack_GameEffect
+{
+	attackType = "AttackType.Ranged";
+	effectName = "explosions";
+	effectTag = "default_explosion";
+	range = 3.2f;
+	hitFlags = 
+	[
+		"Explosion", "BulletExplosion"
+	];
+}
+
+BaseExplosion : Attack_GameEffect
+{
+	attackType = "AttackType.Explosion";
+	effectName = "explosions";
+	effectTag = "default_explosion";
+	range = 3.2f;
+	hitFlags = 
+	[
+		"Explosion"
+	];
+}
+
+BaseEMPDamage : Attack_GameEffect
+{
+	effectName = "damage_over_time";
+	effectTag = "default";
+	attackType = "AttackType.Direct";
+	hitFlags = 
+	[
+		"CanDamageSelf"
+	];
+	damageType = "DamageTypes.Electric";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 50;
+		} : ConstantStatModifier
+	];
+	attackTag = "Electrocuted";
+}
+
+HackBonusDamage : CombinedStatModifier
+{
+	modifierType = "AdditiveMultiplier";
+	refStat = "BaseStats.BonusQuickHackDamage";
+	opSymbol = "*";
+	refObject = "Root";
+	value = 1;
+}
+
+QuickHackAttack : Attack_GameEffect
+{
+	attackType = "AttackType.Hack";
+	hitFlags = 
+	[
+		"QuickHack"
+	];
+	hitReactionSeverityMax = 2;
+}
+
+BaseOverloadQuickHackAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	hitFlags += 
+	[
+		"CanDamageSelf", "MechanicalDamageBonus", "Nonlethal"
+	];
+	damageType = "DamageTypes.Electric";
+	attackTag = "Electrocuted";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 15;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttack : BaseOverloadQuickHackAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 78;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackLevel1 : BaseOverloadQuickHackAttack
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackLevel2 : BaseOverloadQuickHackAttack
+{
+	hitFlags += 
+	[
+		"CyberwareMalfunctionDamageBonus", "DamageOverTime"
+	];
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	float cyberwareMalfunctionDamageBonus = 0.1f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 136;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackLevel3 : BaseOverloadQuickHackAttack
+{
+	hitFlags += 
+	[
+		"CyberwareMalfunctionDamageBonus"
+	];
+	float cyberwareMalfunctionDamageBonus = 0.1f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 150;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackLevel4 : BaseOverloadQuickHackAttack
+{
+	hitFlags += 
+	[
+		"CyberwareMalfunctionDamageBonus", "NonEliteDamageBonus"
+	];
+	float cyberwareMalfunctionDamageBonus = 0.1f;
+	float nonEliteDamageBonusMultiplier = 0.2f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 260;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackLevel4PlusPlus : BaseOverloadQuickHackAttack
+{
+	hitFlags += 
+	[
+		"CyberwareMalfunctionDamageBonus", "NonEliteDamageBonus"
+	];
+	float cyberwareMalfunctionDamageBonus = 0.25f;
+	float nonEliteDamageBonusMultiplier = 0.2f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 260;
+		} : ConstantStatModifier
+	];
+}
+
+OverloadQuickHackAttackGrisGris : OverloadQuickHackAttackLevel3
+{
+	hitFlags += 
+	[
+		"CyberwareMalfunctionDamageBonus", "NonEliteDamageBonus"
+	];
+	float cyberwareMalfunctionDamageBonus = 0.1f;
+	float nonEliteDamageBonusMultiplier = 0.2f;
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "AdditiveMultiplier";
+			value = 0.3f;
+		} : ConstantStatModifier
+	];
+}
+
+BlackWallMechanical : BaseOverloadQuickHackAttack
+{
+	hitFlags += 
+	[
+		"HauntedGun", "UltimateQuickHack"
+	];
+	fk< StatModifier >[] statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 0.2f;
+		} : ConstantStatModifier
+	];
+}
+
+CyberwareMalfunctionQuickHackAttackLevel3 : QuickHackAttack
+{
+	effectName = "damage_over_time";
+	effectTag = "default";
+	hitFlags += 
+	[
+		"DisableNPCHitReaction", "Nonlethal", "DamageOverTime"
+	];
+	damageType = "DamageTypes.Electric";
+	attackTag = "Electrocuted";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : TargetBaseHealth, 
+		{
+			statType = "BaseStats.ElectricDamage";
+		} : MediumTargetPercentage
+	];
+}
+
+BaseOverheatQuickHackAttack : QuickHackAttack
+{
+	effectName = "damage_over_time";
+	effectTag = "default";
+	hitFlags += 
+	[
+		"Overheat", "DamageOverTime"
+	];
+	damageType = "DamageTypes.Thermal";
+	attackTag = "OverheatHack";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 3;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackAttack : BaseOverheatQuickHackAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 7.15;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackAttackLevel1 : BaseOverheatQuickHackAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 9.15;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackAttackLevel2 : BaseOverheatQuickHackAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 15.625;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackAttackLevel3 : BaseOverheatQuickHackAttack
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 20;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackAttackLevel4 : BaseOverheatQuickHackAttack
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 26.875;
+		} : ConstantStatModifier
+	];
+}
+
+OverheatQuickHackGrisGris : OverheatQuickHackAttackLevel1
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 3;
+		} : ConstantStatModifier
+	];
+}
+
+BaseBrainMeltQuickHackAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	hitFlags += 
+	[
+		"BrainMeltSkipDefeated", "DamageBasedOnMissingMemoryBonus"
+	];
+	damageType = "DamageTypes.Physical";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+		} : Attacks.HackBonusDamage
+	];
+	float damageBasedOnMissingMemoryBonusMultiplier = 0.1f;
+	float damageBasedOnMissingMemoryBonusMax = 3.0f;
+}
+
+BrainMeltHackAttackLevel2 : BaseBrainMeltQuickHackAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 122.f;
+		} : ConstantStatModifier
+	];
+}
+
+BrainMeltHackAttackLevel3 : BaseBrainMeltQuickHackAttack
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 156.f;
+		} : ConstantStatModifier
+	];
+}
+
+BrainMeltHackAttackLevel4 : BaseBrainMeltQuickHackAttack
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 176.f;
+		} : ConstantStatModifier
+	];
+}
+
+BrainMeltHackAttackLevel4PlusPlus : BrainMeltHackAttackLevel4
+{
+	float damageBasedOnMissingMemoryBonusMultiplier = 0.1f;
+	float damageBasedOnMissingMemoryBonusMax = 4.0f;
+}
+
+BrainMeltHackAttackQuestForceKill : BrainMeltHackAttackLevel3
+{
+	hitFlags += 
+	[
+		"Kill"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 100.f;
+		} : ConstantStatModifier
+	];
+}
+
+BlackwallHackAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	hitFlags += 
+	[
+		"Kill", "HauntedKill", "UltimateQuickHack"
+	];
+}
+
+ForceSuicideMeleeAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "forceSuicideMeleeAttack";
+	hitFlags = 
+	[
+		"FriendlyFire", "CanDamageSelf", "QuickHack", "Melee", "UltimateQuickHack"
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			id = "puppet_powerLevelToHealth";
+			refObject = "Root";
+			refStat = "BaseStats.PowerLevel";
+			column = "puppet_powerLevelToHealth_base";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			refObject = "Player";
+		} : Attacks.HackBonusDamage, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 2;
+		} : ConstantStatModifier
+	];
+}
+
+ForceSuicideGunAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "forceSuicideMeleeAttack";
+	hitFlags = 
+	[
+		"FriendlyFire", "CanDamageSelf", "QuickHack", "Melee", "UltimateQuickHack"
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			id = "puppet_powerLevelToHealth";
+			refObject = "Root";
+			refStat = "BaseStats.PowerLevel";
+			column = "puppet_powerLevelToHealth_base";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			refObject = "Player";
+		} : Attacks.HackBonusDamage, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 2;
+		} : ConstantStatModifier
+	];
+}
+
+BossForceSuicideGunAttack : ForceSuicideGunAttack
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			id = "puppet_powerLevelToHealth";
+			refObject = "Root";
+			refStat = "BaseStats.PowerLevel";
+			column = "puppet_powerLevelToHealth_base";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			refObject = "Player";
+		} : Attacks.HackBonusDamage, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 6;
+		} : ConstantStatModifier
+	];
+}
+
+BossBlackwallAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	hitFlags += 
+	[
+		"CanDamageSelf", "Nonlethal", "HauntedCyberdeck", "UltimateQuickHack"
+	];
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			id = "puppet_powerLevelToHealth";
+			refObject = "Root";
+			refStat = "BaseStats.PowerLevel";
+			column = "puppet_powerLevelToHealth_base";
+		} : CurveStatModifier, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			refObject = "Player";
+		} : Attacks.HackBonusDamage, 
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 4;
+		} : ConstantStatModifier
+	];
+}
+
+BaseContagionAttack : QuickHackAttack
+{
+	effectName = "damage_over_time";
+	effectTag = "default";
+	hitFlags += 
+	[
+		"CanDamageSelf", "Nonlethal", "DamageOverTime"
+	];
+	damageType = "DamageTypes.Chemical";
+	attackTag = "ContagionHack";
+}
+
+ContagionPoisonAttack : BaseContagionAttack
+{
+	hitFlags += 
+	[
+		"ForceNoCrit"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 3.25;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackLvl2 : ContagionPoisonAttack
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 5.82;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackLvl3 : ContagionPoisonAttackLvl2
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 7;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackLvl4 : ContagionPoisonAttackLvl3
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 9.4;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackBounce2 : ContagionPoisonAttackLvl4
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 10.8;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackBounce3 : ContagionPoisonAttackBounce2
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 12.4;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionPoisonAttackBounce4 : ContagionPoisonAttackBounce3
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.ChemicalDamage";
+			modifierType = "Additive";
+			value = 14.2;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionBurnCombo : Attack_GameEffect
+{
+	attackType = "AttackType.Explosion";
+	effectName = "explosions";
+	effectTag = "contagion_burn_combo";
+	range = 5f;
+	playerIncomingDamageMultiplier = 0.025f;
+	damageType = "DamageTypes.Thermal";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 600;
+		} : ConstantStatModifier
+	];
+	hitReactionSeverityMin = 2;
+	hitReactionSeverityMax = 3;
+}
+
+ContagionBurnComboBounce2 : ContagionBurnCombo
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 690;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionBurnComboBounce3 : ContagionBurnCombo
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 793;
+		} : ConstantStatModifier
+	];
+}
+
+ContagionBurnComboBounce4 : ContagionBurnCombo
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 912;
+		} : ConstantStatModifier
+	];
+}
+
+BlackWallAttack : QuickHackAttack
+{
+	effectName = "damage_over_time";
+	effectTag = "default";
+	hitFlags += 
+	[
+		"CanDamageSelf", "Nonlethal", "HauntedCyberdeck", "UltimateQuickHack"
+	];
+	damageType = "DamageTypes.Physical";
+	attackTag = "ContagionHack";
+	statModifiers = [];
+}
+
+BaseLaserSight : Attack_GameEffect
+{
+	userDataPath = "Attacks.LaserSight";
+	className = "LaserSight";
+	attackType = "AttackType.Direct";
+	range = 200.0f;
+	float hitCooldown = -1.f;
+	effectName = "targetting";
+	effectTag = "laserSight";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+TechLaserSight : BaseLaserSight
+{
+	effectTag = "laserSightTech";
+}
+
+ReedLaserSight : BaseLaserSight
+{
+	effectTag = "laserSightReed";
+}
+
+VehicleCollision : Attack_GameEffect
+{
+	attackType = "AttackType.Direct";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	effectName = "damage_over_time";
+	effectTag = "default_DOT";
+}
+
+VehicleBump : Attack_GameEffect
+{
+	effectName = "dealDamageGeneric";
+	effectTag = "damage_npc";
+	range = 0.2f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier
+	];
+	hitReactionSeverityMin = -1;
+	hitReactionSeverityMax = -1;
+}
+
+DriverKill : Attack_GameEffect
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	hitFlags += 
+	[
+		"Kill"
+	];
+	attackType = "AttackType.Effect";
+	float chance = 3.f;
+}
+
+VehicleImpact : Attack_GameEffect
+{
+	attackType = "AttackType.Direct";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 10;
+		} : ConstantStatModifier
+	];
+	hitFlags = 
+	[
+		"VehicleImpact"
+	];
+}
+
+CarHitPlayer : Attack_GameEffect
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier
+	];
+	statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.VehicleKnockdown";
+			applyImmediately = true;
+		}
+	];
+}
+
+PlayerCarInCollision : Attack_GameEffect
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier
+	];
+}
+
+NPCCarInCollision : Attack_GameEffect
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.25f;
+		} : CombinedStatModifier
+	];
+}
+
+RagdollBump : Attack_GameEffect
+{
+	effectName = "dealDamageGeneric";
+	effectTag = "damage_npc";
+	attackType = "AttackType.Direct";
+	range = 0.1f;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 0;
+		} : ConstantStatModifier
+	];
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 1;
+}
+
+RagdollImpact : Attack_GameEffect
+{
+	attackType = "AttackType.Direct";
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier
+	];
+	hitFlags = 
+	[
+		"RagdollImpact"
+	];
+}
+
+ThrownNPCImpact : Attack_GameEffect
+{
+	attackType = "AttackType.Explosion";
+	effectName = "explosions";
+	effectTag = "thrown_npc_impact";
+	range = 3.0f;
+	hitReactionSeverityMin = 3;
+	hitFlags += 
+	[
+		"BodyPerksMeleeAttack"
+	];
+	statModifiers = [];
+}
+
+GrenadeImpactOnNPC : Attack_GameEffect
+{
+	effectName = "explosions";
+	effectTag = "grenade_collides_NPC";
+	attackType = "AttackType.Direct";
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 0;
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.PhysicalDamage";
+			modifierType = "Additive";
+			value = 5f;
+		} : ConstantStatModifier
+	];
+}
+
+OzobGrenadeImpactOnNPC : Attack_GameEffect
+{
+	effectName = "explosions";
+	effectTag = "grenade_collides_NPC";
+	attackType = "AttackType.Direct";
+	hitReactionSeverityMin = 3;
+	hitReactionSeverityMax = 3;
+}
+
+BacklashAttack : Attack_GameEffect
+{
+	effectName = "emp";
+	effectTag = "emp";
+	attackType = "AttackType.Direct";
+	hitFlags += 
+	[
+		"CanDamageSelf", "Nonlethal"
+	];
+	damageType = "DamageTypes.Electric";
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			refStat = "BaseStats.Health";
+			refObject = "Target";
+			opSymbol = "*";
+			value = 0.1f;
+		} : CombinedStatModifier
+	];
+	attackTag = "Electrocuted";
+}
+
+EmpGrenadeAdditionalAttackBase : Attack_GameEffect
+{
+	effectName = "explosions";
+	effectTag = "aoe_no_visual_effect";
+	attackType = "AttackType.Explosion";
+	damageType = "DamageTypes.Electric";
+	attackTag = "Electrocuted";
+	hitFlags += 
+	[
+		"Grenade"
+	];
+}
+
+EmpGrenadeCommonAdditional : EmpGrenadeAdditionalAttackBase
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 80f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			refObject = "Player";
+			refStat = "BaseStats.GrenadeExplosionBonusDamage";
+			opSymbol = "*";
+			value = 1;
+		} : CombinedStatModifier
+	];
+}
+
+EmpGrenadeUncommonAdditional : EmpGrenadeCommonAdditional
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.3f;
+		} : ConstantStatModifier
+	];
+}
+
+EmpGrenadeRareAdditional : EmpGrenadeCommonAdditional
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 1.9f;
+		} : ConstantStatModifier
+	];
+}
+
+EmpGrenadeEpicAdditional : EmpGrenadeCommonAdditional
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			value = 3.4f;
+		} : ConstantStatModifier
+	];
+}
+
+EmpGrenadeLegendaryAdditional : EmpGrenadeCommonAdditional
+{
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 70f;
+		} : ConstantStatModifier
+	];
+}
+
+CuttingGrenadeAdditionalAttack : Attack_GameEffect
+{
+	attackType = "AttackType.Direct";
+	effectName = "explosions";
+	effectTag = "aoe_no_visual_effect";
+	attackTag = "Burning";
+	damageType = "DamageTypes.Thermal";
+	hitReactionSeverityMin = 1;
+	hitReactionSeverityMax = 2;
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ThermalDamage";
+			modifierType = "Additive";
+			value = 16f;
+		} : ConstantStatModifier
+	];
+}
+
+BossCuttingGrenadeAttack : CuttingGrenadeAdditionalAttack
+{
+	hitReactionSeverityMin = 0;
+	hitReactionSeverityMax = 1;
+}
+
+ChainLightning : Attack_GameEffect
+{
+	userDataPath = "Attacks.Bullet_GameEffect";
+	attackType = "AttackType.Effect";
+	effectName = "weaponShoot";
+	effectTag = "chain_lightning";
+	hitFlags = 
+	[
+		"ChainLightning"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 60;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier
+	];
+}
+
+ChainLightningTech55 : ChainLightning
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.Burning_Tech_55";
+			applyImmediately = true;
+		}
+	];
+}
+
+ScavChainLightning : Attack_GameEffect
+{
+	userDataPath = "Attacks.Bullet_GameEffect";
+	attackType = "AttackType.Effect";
+	effectName = "weaponShoot";
+	effectTag = "chain_lightning";
+	hitFlags = 
+	[
+		"ChainLightning"
+	];
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Additive";
+			value = 90;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.ElectricDamage";
+			modifierType = "Multiplier";
+			refObject = "Root";
+			id = "quality_curves";
+			column = "effective_tier_to_dps_multiplier_new";
+			refStat = "BaseStats.EffectiveTier";
+		} : CurveStatModifier
+	];
+}
+
+ScavChainLightningTech55 : ScavChainLightning
+{
+	fk< StatusEffectAttackData >[] statusEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.Burning_Tech_55";
+			applyImmediately = true;
+		}
+	];
+}
+
+QuickHackTwitchAttack : QuickHackAttack
+{
+	effectName = "quickHacks";
+	effectTag = "quickHackDirectHit";
+	hitReactionSeverityMax = 2;
+	hitReactionSeverityMin = 2;
+}
+

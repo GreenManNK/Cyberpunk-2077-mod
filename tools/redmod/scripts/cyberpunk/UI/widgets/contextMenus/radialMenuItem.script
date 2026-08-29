@@ -1,0 +1,10 @@
+enum CustomWeaponWheelSlot
+{
+	FreeHands = 0,
+	Fists = 1,
+}
+
+class RadialMenuItem extends inkHUDGameController
+{
+}
+

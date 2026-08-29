@@ -1,0 +1,59 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_standard2_villefort_cortes_delamain : v_standard2_villefort_cortes
+{
+	entityTemplatePath = "base\vehicles\standard\v_standard2_villefort_cortes_02__delamain_01.ent";
+	manufacturer = "Vehicle.Delamain";
+	fk< UIIcon > icon = "UIIcon.villefort_cortes__basic_delamain";
+	displayName = "LocKey#22081";
+	headlightColor = 
+	[
+		255, 255, 255, 255
+	];
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/villefort/villefort_delamain.inkstyle";
+	vehicleUIData = 
+	{
+		info = "LocKey#53563";
+	} : VehicleVillefortCortesUIData;
+}
+
+v_standard2_villefort_cortes_delamain_taxi : v_standard2_villefort_cortes
+{
+	tags += 
+	[
+		"IgnoreImpulses", "Invulnerable"
+	];
+	canBeActiveVehicle = false;
+	canOnlySpawnOnValidRoad = true;
+	entityTemplatePath = "base\vehicles\standard\v_standard2_villefort_cortes_02__delamain_02.ent";
+	manufacturer = "Vehicle.Delamain";
+	fk< UIIcon > icon = "UIIcon.villefort_cortes__basic_delamain";
+	displayName = "LocKey#96870";
+	headlightColor = 
+	[
+		255, 255, 0, 255
+	];
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/villefort/villefort_delamain.inkstyle";
+	enableDestruction = false;
+	destruction = 
+	{
+	};
+	vehicleUIData = 
+	{
+		info = "LocKey#97008";
+	} : VehicleVillefortCortesUIData;
+	objectActions = 
+	[
+		"VehicleActions.DelamainMountBackLeft", "VehicleActions.DelamainMountBackRight"
+	];
+}
+
+v_delamain_taxi_display_override : PlayerVehicleDisplayOverride
+{
+	forcedFavorite = true;
+	icon = "delamain";
+	defaultState = "Delamain";
+	activeState = "DelamainActive";
+}
+

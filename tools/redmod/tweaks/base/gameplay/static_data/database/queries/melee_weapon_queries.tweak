@@ -1,0 +1,55 @@
+package Query
+using RTDB
+
+MeleeWeaponQuery : ItemQuery
+{
+	recordType = "Items.MeleeWeapon";
+	tagsToExclude += 
+	[
+		"Courier_RareFind", "Cyberware"
+	];
+}
+
+KatanaQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Katana";
+}
+
+KnifeQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Knife";
+}
+
+OneHandBluntQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_One_Hand_Blunt";
+}
+
+OneHandBladeQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Machete";
+}
+
+TwoHandBluntQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Two_Hand_Blunt";
+}
+
+TwoHandHammerQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Two_Hand_Hammer";
+}
+
+BatonQuery : MeleeWeaponQuery
+{
+	recordType = "Items.Base_Baton";
+}
+
+ToolWeaponQuery : OneHandBluntQuery
+{
+	tags += 
+	[
+		"Tool_Weapon"
+	];
+}
+

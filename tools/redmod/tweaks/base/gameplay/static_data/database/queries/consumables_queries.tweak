@@ -1,0 +1,187 @@
+package Query
+using RTDB
+
+ConsumableQuery : ItemQuery
+{
+	recordType = "RTDB.ConsumableItem";
+	tags = 
+	[
+		"HasModel"
+	];
+}
+
+FoodQuery : ItemQuery
+{
+	recordType = "Items.Food";
+	tags = 
+	[
+		"HasModel"
+	];
+	tagsToExclude += 
+	[
+		"IllegalFood"
+	];
+}
+
+SmallFoodQuery : FoodQuery
+{
+	tags += 
+	[
+		"Small"
+	];
+}
+
+MediumFoodQuery : FoodQuery
+{
+	tags += 
+	[
+		"Medium"
+	];
+}
+
+LargeFoodQuery : FoodQuery
+{
+	tags += 
+	[
+		"Large"
+	];
+}
+
+LowQualityFood : FoodQuery
+{
+	recordType = "Items.LowQualityFood";
+}
+
+MediumQualityFood : FoodQuery
+{
+	recordType = "Items.MediumQualityFood";
+}
+
+GoodQualityFood : FoodQuery
+{
+	recordType = "Items.GoodQualityFood";
+}
+
+DrinkQuery : ItemQuery
+{
+	recordType = "Items.Drink";
+	tags = 
+	[
+		"HasModel"
+	];
+}
+
+LowQualityDrink : DrinkQuery
+{
+	recordType = "Items.LowQualityDrink";
+}
+
+MediumQualityDrink : DrinkQuery
+{
+	recordType = "Items.MediumQualityDrink";
+}
+
+GoodQualityDrink : DrinkQuery
+{
+	recordType = "Items.GoodQualityDrink";
+}
+
+AlcoholQuery : ItemQuery
+{
+	recordType = "Items.Alcohol";
+}
+
+LowQualityAlcohol : AlcoholQuery
+{
+	recordType = "Items.LowQualityAlcohol";
+}
+
+MediumQualityAlcohol : AlcoholQuery
+{
+	recordType = "Items.MediumQualityAlcohol";
+}
+
+GoodQualityAlcohol : AlcoholQuery
+{
+	recordType = "Items.GoodQualityAlcohol";
+}
+
+TopQualityAlcohol : AlcoholQuery
+{
+	recordType = "Items.TopQualityAlcohol";
+}
+
+IllegalFood : ItemQuery
+{
+	recordType = "Items.IllegalFood";
+	tags = 
+	[
+		"IllegalFood"
+	];
+	tagsToExclude = 
+	[
+		"PermanentFood"
+	];
+}
+
+LongLastingQuery : ItemQuery
+{
+	recordType = "Items.LongLasting";
+	tags = 
+	[
+		"OnlyBaseQuality"
+	];
+}
+
+All_LongLastingQuery : LongLastingQuery
+{
+	tags = [];
+	tagsToExclude += 
+	[
+		"BlackmarketLongLasting"
+	];
+}
+
+BlackmarketLongLastingQuery : ItemQuery
+{
+	recordType = "Items.BlackmarketLongLasting";
+}
+
+FactionConsumable : ItemQuery
+{
+	recordType = "Items.FactionConsumable";
+	tags += 
+	[
+		"FactionItem"
+	];
+}
+
+AnimalsConsumables : Query.FactionConsumable
+{
+	tags += 
+	[
+		"Animals"
+	];
+}
+
+MaelstromConsumables : Query.FactionConsumable
+{
+	tags += 
+	[
+		"Maelstrom"
+	];
+}
+
+VoodooBoysConsumables : Query.FactionConsumable
+{
+	tags += 
+	[
+		"VoodooBoys"
+	];
+}
+
+SkillbookQuery : ItemQuery
+{
+	recordType = "Items.Skillbook";
+}
+

@@ -1,0 +1,90 @@
+package Character
+using RTDB, BaseStats, ArchetypeData
+
+mws_arr_03_naked_run : scavenger_grunt1_melee1_fists_ma
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\santo_domingo\mws_arr_03\characters\mws_arr_03_naked_run.ent";
+	baseAttitudeGroup = "mws_arr_03_runner";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#32034";
+	savable = true;
+	isCrowd = false;
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ScavengerFistsOnlyPool
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+			} : ScavengerFistsOnlyPool
+		];
+	};
+	skipDisplayArchetype = true;
+}
+
+mws_arr_03_cop : arr_ncpd_police_melee2_baton_ma
+{
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mws_arr_03_cop";
+	savable = true;
+	isCrowd = false;
+}
+
+mws_arr_04_valentinos_grunt2_ranged2_nue_ma : valentinos_grunt2_ranged2_nue_ma
+{
+	baseAttitudeGroup = "valentinos_ow";
+	displayName = "LocKey#32168";
+	statModifiers += 
+	[
+	];
+}
+
+mws_arr_05_sixthstreet_patrol2_melee2_baseball_wa : sixthstreet_patrol2_melee2_baseball_wa
+{
+	baseAttitudeGroup = "6thStreet_ow";
+	displayName = "LocKey#47120";
+}
+
+mws_arr_07_lost : animals_bouncer1_melee1_baton_mb
+{
+	entityTemplatePath = "base\open_world\characters\lost__youngster_mb.ent";
+	displayName = "LocKey#95797";
+	fullDisplayName = "LocKey#95796";
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	baseAttitudeGroup = "mws_arr_07_lost";
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Preset_Dildo_SexShop";
+				equipSlot = "AttachmentSlots.WeaponRight";
+				onBodySlot = "AttachmentSlots.ItemSlotGenericMelee";
+				equipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponEquipCondition"
+				];
+				unequipCondition = 
+				[
+					"WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition"
+				];
+			} : NPCEquipmentItem
+		];
+	};
+	savable = true;
+	isCrowd = false;
+	lootDrop = "LootTables.mws_arr_07_loot";
+	dropsWeaponOnDeath = false;
+}
+

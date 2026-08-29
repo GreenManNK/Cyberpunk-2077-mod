@@ -1,0 +1,25 @@
+Character.GR_adelcaldos_quasar_skirmisher_ma:
+    $base: Character.adelcaldos_grunt1_ranged1_nova_ma
+    primaryEquipment: Character.GR_adelcaldos_quasar_skirmisher_ma_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT3
+    rarity: NPCRarity.Rare
+    abilities:
+        - !append-once Ability.CanUseGrenades
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_adelcaldos_quasar_skirmisher_ma_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_adelcaldos_quasar_skirmisher_ma_primary_item
+
+Character.GR_adelcaldos_quasar_skirmisher_ma_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Quasar_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

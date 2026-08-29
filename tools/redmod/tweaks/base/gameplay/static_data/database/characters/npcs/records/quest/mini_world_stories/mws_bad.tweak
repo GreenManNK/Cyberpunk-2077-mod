@@ -1,0 +1,427 @@
+package Character
+using RTDB, BaseStats, ArchetypeData
+
+mws_se1_01_woman : Quest_NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se1\mws_se1_01\characters\mws_se1_01_women.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	savable = true;
+	isCrowd = false;
+	priority = "SpawnableObjectPriority.Regular";
+	fk< Affiliation > affiliation = "Factions.Civilian";
+}
+
+mws_se1_01_man : Quest_NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se1\mws_se1_01\characters\mws_se1_01_men.ent";
+	baseAttitudeGroup = "friendly";
+	reactionPreset = "ReactionPresets.NoReaction";
+	savable = true;
+	isCrowd = false;
+	priority = "SpawnableObjectPriority.Regular";
+	fk< Affiliation > affiliation = "Factions.Civilian";
+}
+
+mws_se5_01_burning_man : Quest_NPC_Base
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_01\characters\burning_man.ent";
+	baseAttitudeGroup = "neutral";
+	reactionPreset = "ReactionPresets.NoReaction";
+	displayName = "LocKey#92069";
+	fullDisplayName = "LocKey#92070";
+	savable = true;
+	isCrowd = false;
+	priority = "SpawnableObjectPriority.Quest";
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	fk< StatModifierGroup >[] statModifierGroups += 
+	[
+		"NPCStatPreset.OneHitToKill"
+	];
+}
+
+mws_se5_02_run_away : generic_shotgun_fshotgun2_palica_ma
+{
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_02\characters\run_away.ent";
+	baseAttitudeGroup = "neutral";
+	quest = "NPCQuestAffiliation.SideQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	displayName = "LocKey#82654";
+	fullDisplayName = "LocKey#82723";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.Unaffiliated";
+	skipDisplayArchetype = true;
+	contentAssignment = "DeviceContentAssignment.sq024";
+}
+
+mws_se5_03_player : Player_Replacer_Puppet_Base
+{
+	priority = "SpawnableObjectPriority.Quest";
+	quest = "NPCQuestAffiliation.MainQuest";
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_03\characters\mws_se5_03_player.ent";
+	CName voiceTag = "johnny";
+	persistentName = "";
+	fk< InventoryItemGroup >[] itemGroups = [];
+	fk< StatPool >[] statPools = 
+	[
+		"BaseStatPools.Player_Health_Base", "BaseStatPools.Player_Stamina_Base", "BaseStatPools.Player_Oxygen_Base", "BaseStatPools.Player_Adrenaline_Base", "BaseStatPools.TutorialMemory", "BaseStatPools.Player_Healing_Charges_Base", "BaseStatPools.Player_Grenades_Charges_Base"
+	];
+	fk< GenderEntity >[] genders = 
+	[
+		{
+			initial = true;
+			gender = "Gender.Male";
+			entity = "base\characters\entities\player\replacer\johnny_silverhand_replacer.ent";
+		}
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.MemoryRegenEnabled";
+			modifierType = "Multiplier";
+			value = 0f;
+		} : ConstantStatModifier
+	];
+}
+
+mws_se5_03_enemy_01 : netwatch_agent_netrunner3_omaha_elite
+{
+	quest = "NPCQuestAffiliation.MainQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_03\characters\mws_se5_03_enemy.ent";
+	displayName = "LocKey#22865";
+	characterType = "NPCType.Android";
+	lootDrop = "LootTables.Empty";
+	dropsWeaponOnDeath = false;
+	dropsAmmoOnDeathChance = 0.0f;
+	dropsMoneyOnDeath = false;
+	fk< ObjectAction >[] objectActions = [];
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Arasaka3DEnemyWeapon";
+				equipSlot = "AttachmentSlots.WeaponRight";
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Arasaka3DEnemyWeapon";
+				equipSlot = "AttachmentSlots.WeaponRight";
+			} : NPCEquipmentItem
+		];
+	};
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseGrenades";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PoisonImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseConsumables";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.Accuracy";
+			modifierType = "Multiplier";
+			value = 1.5f;
+		} : ConstantStatModifier
+	];
+	abilities = 
+	[
+		"Ability.CanShootWhileMoving", "Ability.CanPreciseShoot", "Ability.CanChargedShoot", "Ability.CanSmartShoot", "Ability.CanUseLeftHand", "Ability.CanUseRightHand", "Ability.CanUseLegs"
+	];
+	statPools = 
+	[
+		"BaseStatPools.NonHuman_Puppet_Health_Base", "BaseStatPools.Fear", "BaseStatPools.Puppet_Stamina_Base"
+	];
+	archetypeData = "ArchetypeData.GenericRangedT1";
+	rarity = "NPCRarity.Weak";
+	baseAttitudeGroup = "hostile";
+	reactionPreset = "ReactionPresets.NoReaction";
+}
+
+mws_se5_03_enemy_02 : arasaka_ninja_fmelee3_katana_ma_elite
+{
+	quest = "NPCQuestAffiliation.MainQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_03\characters\mws_se5_03_enemy_2.ent";
+	displayName = "LocKey#22865";
+	characterType = "NPCType.Android";
+	lootDrop = "LootTables.Empty";
+	dropsWeaponOnDeath = false;
+	dropsAmmoOnDeathChance = 0.0f;
+	dropsMoneyOnDeath = false;
+	fk< ObjectAction >[] objectActions = [];
+	primaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Arasaka3DEnemyKatana";
+				equipSlot = "AttachmentSlots.WeaponRight";
+			} : NPCEquipmentItem
+		];
+	};
+	secondaryEquipment = 
+	{
+		equipmentItems = 
+		[
+			{
+				item = "Items.Arasaka3DEnemyKatana";
+				equipSlot = "AttachmentSlots.WeaponRight";
+			} : NPCEquipmentItem
+		];
+	};
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 2.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseGrenades";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PoisonImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseConsumables";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+	abilities = 
+	[
+		"Ability.CanShootWhileMoving", "Ability.CanPreciseShoot", "Ability.CanChargedShoot", "Ability.CanSmartShoot", "Ability.CanUseLeftHand", "Ability.CanUseRightHand", "Ability.CanUseLegs"
+	];
+	statPools = 
+	[
+		"BaseStatPools.NonHuman_Puppet_Health_Base", "BaseStatPools.Fear", "BaseStatPools.Puppet_Stamina_Base"
+	];
+	archetypeData = "ArchetypeData.GenericRangedT1";
+	rarity = "NPCRarity.Weak";
+	baseAttitudeGroup = "hostile";
+	reactionPreset = "ReactionPresets.NoReaction";
+}
+
+mws_se5_03_enemy_boss : arasaka_tank2_gunner2_defender_mb_rare
+{
+	quest = "NPCQuestAffiliation.MainQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_03\characters\mws_se5_03_boss.ent";
+	displayName = "LocKey#22865";
+	lootDrop = "LootTables.Empty";
+	dropsWeaponOnDeath = false;
+	dropsAmmoOnDeathChance = 0.0f;
+	dropsMoneyOnDeath = false;
+	fk< ObjectAction >[] objectActions = [];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 5.5f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseGrenades";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PoisonImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseConsumables";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+	abilities = 
+	[
+		"Ability.CanShootWhileMoving", "Ability.CanPreciseShoot", "Ability.CanChargedShoot", "Ability.CanSmartShoot", "Ability.CanUseLeftHand", "Ability.CanUseRightHand", "Ability.CanUseLegs"
+	];
+	archetypeData = "ArchetypeData.GenericRangedT1";
+	rarity = "NPCRarity.Weak";
+	baseAttitudeGroup = "hostile";
+	reactionPreset = "ReactionPresets.NoReaction";
+}
+
+mws_se5_03_enemy_smasher : arasaka_tank2_gunner2_defender_mb_rare
+{
+	quest = "NPCQuestAffiliation.MainQuest";
+	priority = "SpawnableObjectPriority.Quest";
+	entityTemplatePath = "base\open_world\mini_world_stories\badlands\se5\mws_se5_03\characters\mws_se5_03_smasher.ent";
+	displayName = "LocKey#22865";
+	lootDrop = "LootTables.Empty";
+	dropsWeaponOnDeath = false;
+	dropsAmmoOnDeathChance = 0.0f;
+	dropsMoneyOnDeath = false;
+	fk< ObjectAction >[] objectActions = [];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Health";
+			modifierType = "Multiplier";
+			value = 8.0f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseGrenades";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.PoisonImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingImmunity";
+			modifierType = "Additive";
+			value = 1;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.CanUseConsumables";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+	abilities = 
+	[
+		"Ability.CanShootWhileMoving", "Ability.CanPreciseShoot", "Ability.CanChargedShoot", "Ability.CanSmartShoot", "Ability.CanUseLeftHand", "Ability.CanUseRightHand", "Ability.CanUseLegs"
+	];
+	archetypeData = "ArchetypeData.GenericRangedT1";
+	rarity = "NPCRarity.Weak";
+	baseAttitudeGroup = "hostile";
+	reactionPreset = "ReactionPresets.NoReaction";
+}
+
+mws_se5_06_netwatch_handgun_ma : militech_tech_franged2_omaha_ma_rare
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__netwatch_ma.ent";
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+
+mws_se5_06_netwatch_rifle_ma : militech_ranger2_ranged2_ajax_ma
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__generic_ma.ent";
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+
+mws_se5_06_netwatch_shotgun_ma : militech_enforcer2_shotgun2_tactician_mah_rare
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__generic_ma.ent";
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+
+mws_se5_06_netwatch_handgun_wa : arasaka_guard2_ranged1_yukimura_wa
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__generic_wa.ent";
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+
+mws_se5_06_netwatch_rifle_wa : arasaka_ranger1_ranged2_shingen_wa
+{
+	entityTemplatePath = "base\characters\entities\corpo\corpo__generic_wa.ent";
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+
+mws_se5_06_drone_wyvern : arasaka_base_drone_wyvern
+{
+	baseAttitudeGroup = "neutral";
+	tags += 
+	[
+		"DoNotTriggerSpawningPolice", "DoNotTriggerPrevention"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+	savable = true;
+	isCrowd = false;
+	fk< Affiliation > affiliation = "Factions.NetWatch";
+	skipDisplayArchetype = true;
+}
+

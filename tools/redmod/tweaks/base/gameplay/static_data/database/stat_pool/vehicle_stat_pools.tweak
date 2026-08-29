@@ -1,0 +1,20 @@
+package BaseStatPools
+using RTDB
+
+VehicleHealth : Health
+{
+	regen = "";
+	decay = "BaseStatPools.VehicleHealthDecay";
+}
+
+VehicleHealthDecay : PoolValueModifier
+{
+	bool enabled = true;
+	float rangeBegin = 0;
+	float rangeEnd = 5;
+	float startDelay = 0;
+	bool usingPointValues = false;
+	float valuePerSec = 0.33;
+	bool delayOnChange = false;
+}
+

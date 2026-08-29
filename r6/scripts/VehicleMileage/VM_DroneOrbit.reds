@@ -2,32 +2,42 @@ module VehicleMileage.DroneOrbit
 
 public class VM_DroneOrbitTick extends DelayCallback {
   private let system: wref<VM_DroneOrbitSystem>;
+  private let generation: Int32;
 
-  public static func Create(system: ref<VM_DroneOrbitSystem>) -> ref<VM_DroneOrbitTick> {
+  public static func Create(
+    system: ref<VM_DroneOrbitSystem>,
+    generation: Int32
+  ) -> ref<VM_DroneOrbitTick> {
     let self = new VM_DroneOrbitTick();
     self.system = system;
+    self.generation = generation;
     return self;
   }
 
   public func Call() -> Void {
     if IsDefined(this.system) {
-      this.system.Tick();
+      this.system.Tick(this.generation);
     };
   }
 }
 
 public class VM_DroneOrbitCleanupTick extends DelayCallback {
   private let system: wref<VM_DroneOrbitSystem>;
+  private let generation: Int32;
 
-  public static func Create(system: ref<VM_DroneOrbitSystem>) -> ref<VM_DroneOrbitCleanupTick> {
+  public static func Create(
+    system: ref<VM_DroneOrbitSystem>,
+    generation: Int32
+  ) -> ref<VM_DroneOrbitCleanupTick> {
     let self = new VM_DroneOrbitCleanupTick();
     self.system = system;
+    self.generation = generation;
     return self;
   }
 
   public func Call() -> Void {
     if IsDefined(this.system) {
-      this.system.DoCleanupDrone();
+      this.system.DoCleanupDroneIfCurrent(this.generation);
     };
   }
 }
@@ -45,6 +55,8 @@ public class VM_DroneOrbitSystem extends ScriptableSystem {
 
   private let active: Bool;
   private let ending: Bool;
+  private let sessionReady: Bool;
+  private let tickGeneration: Int32;
 
 	private let orbitAngle: Float;
 	private let wobbleAngle: Float;
@@ -61,22 +73,28 @@ public class VM_DroneOrbitSystem extends ScriptableSystem {
   private func OnAttach() -> Void {
     this.staticSystem = GameInstance.GetStaticEntitySystem();
 
-    this.lastCommand = this.GetTuneFact(n"vm_drone_orbit_cmd");
+    let callbackSystem: wref<CallbackSystem> =
+      GameInstance.GetCallbackSystem();
 
-    GameInstance.GetCallbackSystem()
-      .RegisterCallback(n"Entity/Attached", this, n"OnDroneAttached")
-      .AddTarget(StaticEntityTarget.Tag(n"VM_DroneOrbit.Drone"));
+    if IsDefined(callbackSystem) {
+      callbackSystem
+        .RegisterCallback(n"Entity/Attached", this, n"OnDroneAttached")
+        .AddTarget(StaticEntityTarget.Tag(n"VM_DroneOrbit.Drone"));
 
-    GameInstance.GetCallbackSystem()
-      .RegisterCallback(n"Entity/Detach", this, n"OnDroneDetached")
-      .AddTarget(StaticEntityTarget.Tag(n"VM_DroneOrbit.Drone"));
+      callbackSystem
+        .RegisterCallback(n"Entity/Detach", this, n"OnDroneDetached")
+        .AddTarget(StaticEntityTarget.Tag(n"VM_DroneOrbit.Drone"));
 
-    GameInstance.GetCallbackSystem()
-      .RegisterCallback(n"Session/BeforeEnd", this, n"OnSessionBeforeEnd");
+      callbackSystem
+        .RegisterCallback(n"Session/Ready", this, n"OnSessionReady")
+        .SetLifetime(CallbackLifetime.Forever);
 
-    // LogChannel(n"DEBUG", "[VM Drone Orbit] System attached");
+      callbackSystem
+        .RegisterCallback(n"Session/BeforeEnd", this, n"OnSessionBeforeEnd")
+        .SetLifetime(CallbackLifetime.Forever);
+    };
 
-    this.ArmTick();
+    // Do not run the 33 Hz poller in the main menu or while a save is loading.
   }
 
   private cb func OnDroneAttached(event: ref<EntityLifecycleEvent>) -> Void {
@@ -96,13 +114,33 @@ public class VM_DroneOrbitSystem extends ScriptableSystem {
     // LogChannel(n"DEBUG", "[VM Drone Orbit] Drone detached");
   }
 
+  private cb func OnSessionReady(event: ref<GameSessionEvent>) -> Void {
+    this.tickGeneration += 1;
+    this.ClearReferencesOnly();
+    this.sessionReady = true;
+    this.commandBridgeReady = false;
+    this.startupSyncTicks = 0;
+    this.lastCommand = this.GetTuneFact(n"vm_drone_orbit_cmd");
+    this.ArmTick();
+  }
+
   private cb func OnSessionBeforeEnd(event: ref<GameSessionEvent>) -> Void {
+    this.sessionReady = false;
+    this.tickGeneration += 1;
     this.ClearReferencesOnly();
     // LogChannel(n"DEBUG", "[VM Drone Orbit] Session ending, references cleared");
   }
 
-	public func Tick() -> Void {
+	public func Tick(generation: Int32) -> Void {
+    if generation != this.tickGeneration {
+      return;
+    };
+
 		this.tickArmed = false;
+
+    if !this.sessionReady {
+      return;
+    };
 
 		// On save/load, vm_drone_orbit_cmd may already contain an old saved value.
 		// For the first ticks, only sync the value. Do not treat it as a new command.
@@ -387,14 +425,23 @@ public class VM_DroneOrbitSystem extends ScriptableSystem {
   }
 
   private func ArmTick() -> Void {
-    if this.tickArmed {
+    if this.tickArmed || !this.sessionReady {
+      return;
+    };
+
+    let delaySystem =
+      GameInstance.GetDelaySystem(this.GetGameInstance());
+
+    if !IsDefined(delaySystem) {
       return;
     };
 
     this.tickArmed = true;
-
-    GameInstance.GetDelaySystem(this.GetGameInstance())
-      .DelayCallback(VM_DroneOrbitTick.Create(this), 0.03, false);
+    delaySystem.DelayCallback(
+      VM_DroneOrbitTick.Create(this, this.tickGeneration),
+      0.03,
+      false
+    );
   }
 
   private func RequestCleanupDrone() -> Void {
@@ -407,8 +454,25 @@ public class VM_DroneOrbitSystem extends ScriptableSystem {
     this.tickArmed = false;
     this.car = null;
 
-    GameInstance.GetDelaySystem(this.GetGameInstance())
-      .DelayCallback(VM_DroneOrbitCleanupTick.Create(this), 0.20, false);
+    let delaySystem =
+      GameInstance.GetDelaySystem(this.GetGameInstance());
+
+    if !IsDefined(delaySystem) {
+      this.DoCleanupDrone();
+      return;
+    };
+
+    delaySystem.DelayCallback(
+      VM_DroneOrbitCleanupTick.Create(this, this.tickGeneration),
+      0.20,
+      false
+    );
+  }
+
+  public func DoCleanupDroneIfCurrent(generation: Int32) -> Void {
+    if generation == this.tickGeneration {
+      this.DoCleanupDrone();
+    };
   }
 
   public func DoCleanupDrone() -> Void {

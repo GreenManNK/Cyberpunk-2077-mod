@@ -1,0 +1,314 @@
+class VehiclesManagerDataView extends ScriptableDataView
+{
+
+	public override function SortItem( lhs : IScriptable, rhs : IScriptable ) : Bool
+	{
+		var lhsData : VehicleListItemData;
+		var rhsData : VehicleListItemData;
+		var lhsName : String;
+		var rhsName : String;
+		lhsData = ( ( VehicleListItemData )( lhs ) );
+		rhsData = ( ( VehicleListItemData )( rhs ) );
+		lhsName = GetLocalizedTextByKey( lhsData.m_displayName );
+		rhsName = GetLocalizedTextByKey( rhsData.m_displayName );
+		if( lhsData.m_data.forcedFavorite )
+		{
+			return !( rhsData.m_data.forcedFavorite ) || UnicodeStringLessThan( lhsName, rhsName );
+		}
+		if( rhsData.m_data.forcedFavorite )
+		{
+			return false;
+		}
+		if( lhsData.m_data.uiFavoriteIndex == rhsData.m_data.uiFavoriteIndex )
+		{
+			return UnicodeStringLessThan( lhsName, rhsName );
+		}
+		if( lhsData.m_data.uiFavoriteIndex == -1 )
+		{
+			return false;
+		}
+		if( rhsData.m_data.uiFavoriteIndex == -1 )
+		{
+			return true;
+		}
+		return lhsData.m_data.uiFavoriteIndex < rhsData.m_data.uiFavoriteIndex;
+	}
+
+}
+
+class VehiclesManagerPopupGameController extends BaseModalListPopupGameController
+{
+	private editable var m_repairOverlay : inkWidgetRef;
+	private editable var m_vehicleIconContainer : inkWidgetRef;
+	private editable var m_vehicleIcon : inkImageRef;
+	private editable var m_scrollArea : inkScrollAreaRef;
+	private editable var m_scrollControllerWidget : inkWidgetRef;
+	private editable var m_confirmButton : inkWidgetRef;
+	private editable var m_favoriteInputHint : inkTextRef;
+	private var m_dataView : VehiclesManagerDataView;
+	private var m_dataSource : ScriptableDataSource;
+	private var m_quickSlotsManager : weak< QuickSlotsManager >;
+	private var m_scrollController : weak< inkScrollController >;
+	private var m_selectAnimProxy : inkAnimProxy;
+	private var m_initialIndex : Uint32;
+	default m_initialIndex = 0;
+
+	protected event OnPlayerAttach( player : GameObject )
+	{
+		super.OnPlayerAttach( player );
+		m_quickSlotsManager = ( ( PlayerPuppet )( m_playerPuppet ) ).GetQuickSlotsManager();
+		m_scrollController = ( ( inkScrollController )( inkWidgetRef.GetControllerByType( m_scrollControllerWidget, 'inkScrollController' ) ) );
+		inkScrollAreaRef.RegisterToCallback( m_scrollArea, 'OnScrollChanged', this, 'OnScrollChanged' );
+		if( GameInstance.GetVehicleSystem( player.GetGame() ).IsActivePlayerVehicleOnCooldown( m_quickSlotsManager.GetActiveVehicleType() ) )
+		{
+			SelectActiveVehicle();
+		}
+		player.RegisterInputListener( this, 'secondaryAction' );
+		PlaySound( 'Holocall', 'OnPickingUp' );
+	}
+
+	protected event OnScrollChanged( value : Vector2 )
+	{
+		m_scrollController.UpdateScrollPositionFromScrollArea();
+	}
+
+	protected event OnAction( action : ListenerAction, consumer : ListenerActionConsumer )
+	{
+		if( super.OnAction( action, consumer ) )
+		{
+			return true;
+		}
+		if( ListenerAction.GetName( action ) == 'secondaryAction' && ListenerAction.IsButtonJustPressed( action ) )
+		{
+			ListenerActionConsumer.Consume( consumer );
+			ToggleFavorite();
+		}
+	}
+
+	private function ToggleFavorite()
+	{
+		var selectedVehicle : VehiclesManagerListItemController;
+		var selectedVehicleData : VehicleListItemData;
+		var index : Uint32;
+		selectedVehicle = ( ( VehiclesManagerListItemController )( m_listController.GetSelectedItem() ) );
+		selectedVehicleData = selectedVehicle.GetVehicleData();
+		index = m_listController.GetSelectedIndex();
+		if( m_selectAnimProxy != NULL )
+		{
+			return;
+		}
+		if( GameInstance.GetVehicleSystem( m_playerPuppet.GetGame() ).TogglePlayerFavoriteVehicle( selectedVehicleData.m_data.recordID ) )
+		{
+			m_dataSource.Reset( VehiclesManagerDataHelper.GetVehicles( m_playerPuppet ) );
+			m_listController.SelectItem( index );
+		}
+		PlaySound( 'Holocall', 'Navigation' );
+	}
+
+	protected override function Select( previous : inkVirtualCompoundItemController, next : inkVirtualCompoundItemController )
+	{
+		var selectedVehicle : VehiclesManagerListItemController;
+		var selectedVehicleData : VehicleListItemData;
+		selectedVehicle = ( ( VehiclesManagerListItemController )( next ) );
+		selectedVehicleData = selectedVehicle.GetVehicleData();
+		inkWidgetRef.SetOpacity( m_vehicleIconContainer, ( ( selectedVehicleData.m_repairTimeRemaining == 0.0 ) ? ( 1.0 ) : ( 0.08 ) ) );
+		InkImageUtils.RequestSetImage( this, m_vehicleIcon, selectedVehicleData.m_icon.GetID() );
+		inkWidgetRef.SetVisible( m_repairOverlay, selectedVehicleData.m_repairTimeRemaining > 0.0 );
+		inkWidgetRef.SetVisible( m_confirmButton, selectedVehicleData.m_repairTimeRemaining == 0.0 );
+		inkTextRef.SetLocalizedTextScript( m_favoriteInputHint, ( ( selectedVehicleData.m_data.uiFavoriteIndex >= 0 ) ? ( "LocKey#96331" ) : ( "LocKey#95061" ) ) );
+	}
+
+	protected override function SetupVirtualList()
+	{
+		m_dataView = new VehiclesManagerDataView;
+		m_dataSource = new ScriptableDataSource;
+		m_dataView.SetSource( m_dataSource );
+		m_listController.SetSource( m_dataView );
+	}
+
+	protected event OnShowAnimFinished( proxy : inkAnimProxy )
+	{
+		m_listController.SelectItem( m_initialIndex );
+		m_canPlaySwitchAnimation = true;
+		PlaySound( 'Holocall', 'OnPickingUp' );
+	}
+
+	protected override function CleanVirtualList()
+	{
+		m_dataView.SetSource( NULL );
+		m_listController.SetSource( NULL );
+		m_dataView = NULL;
+		m_dataSource = NULL;
+		PlaySound( 'Holocall', 'OnPickingUp' );
+	}
+
+	protected override function SetupData()
+	{
+		m_dataView.EnableSorting();
+		m_dataSource.Reset( VehiclesManagerDataHelper.GetVehicles( m_playerPuppet ) );
+	}
+
+	protected override function Activate()
+	{
+		var selectedVehicle : VehiclesManagerListItemController;
+		var selectedVehicleData : VehicleListItemData;
+		selectedVehicle = ( ( VehiclesManagerListItemController )( m_listController.GetSelectedItem() ) );
+		selectedVehicleData = selectedVehicle.GetVehicleData();
+		if( ( m_selectAnimProxy != NULL ) || ( selectedVehicleData.m_repairTimeRemaining > 0.0 ) )
+		{
+			return;
+		}
+		if( selectedVehicleData.m_canBeActive )
+		{
+			m_quickSlotsManager.SetActiveVehicle( selectedVehicleData.m_data );
+			m_quickSlotsManager.SummonActiveVehicle( true );
+		}
+		else
+		{
+			m_quickSlotsManager.SummonVehicle( true, selectedVehicleData.m_data.vehicleType, selectedVehicleData.m_data.recordID, selectedVehicleData.m_data.spawnOnlyOnValidRoad );
+		}
+		m_selectAnimProxy = PlayLibraryAnimationOnTargets( 'selected', SelectWidgets( selectedVehicle.GetRootWidget() ) );
+		m_selectAnimProxy.RegisterToCallback( inkanimEventType.OnFinish, this, 'OnSelectAnimFinished' );
+	}
+
+	private function SelectActiveVehicle()
+	{
+		var unlockedVehicle : VehicleListItemData;
+		var vehicle : PlayerVehicle;
+		var i : Uint32;
+		vehicle = GameInstance.GetVehicleSystem( m_playerPuppet.GetGame() ).GetActivePlayerVehicle( m_quickSlotsManager.GetActiveVehicleType() );
+		for( i = 0; i < m_dataSource.GetArraySize(); i += 1 )
+		{
+			unlockedVehicle = ( ( VehicleListItemData )( m_dataView.GetItem( i ) ) );
+			if( unlockedVehicle.m_data.recordID == vehicle.recordID )
+			{
+				m_initialIndex = i;
+				return;
+			}
+		}
+	}
+
+	protected event OnSelectAnimFinished( proxy : inkAnimProxy )
+	{
+		m_selectAnimProxy = NULL;
+		Close();
+		PlaySound( 'Holocall', 'OnHangUp' );
+	}
+
+}
+
+class VehiclesManagerListItemController extends inkVirtualCompoundItemController
+{
+	private editable var m_label : inkTextRef;
+	private editable var m_typeIcon : inkImageRef;
+	private editable var m_customizableIcon : inkImageRef;
+	private editable var m_repairTime : inkTextRef;
+	private var m_vehicleData : VehicleListItemData;
+
+	public function GetVehicleData() : VehicleListItemData
+	{
+		return m_vehicleData;
+	}
+
+	protected event OnInitialize()
+	{
+		RegisterToCallback( 'OnSelected', this, 'OnSelected' );
+		RegisterToCallback( 'OnDeselected', this, 'OnDeselected' );
+	}
+
+	protected event OnDataChanged( value : Variant )
+	{
+		var repairTextParams : inkTextParams;
+		var vehicleRecord : Vehicle_Record;
+		m_vehicleData = ( ( VehicleListItemData )( ( ( IScriptable )value ) ) );
+		vehicleRecord = TweakDBInterface.GetVehicleRecord( m_vehicleData.m_data.recordID );
+		if( m_vehicleData.m_data.overrideDisplay )
+		{
+			inkImageRef.SetTexturePart( m_typeIcon, m_vehicleData.m_data.icon );
+		}
+		else if( m_vehicleData.m_data.vehicleType == gamedataVehicleType.Bike )
+		{
+			inkImageRef.SetTexturePart( m_typeIcon, 'motorcycle' );
+		}
+		else
+		{
+			if( vehicleRecord.VehDataPackageHandle().DriverCombat().Type() == gamedataDriverCombatType.MountedWeapons )
+			{
+				inkImageRef.SetTexturePart( m_typeIcon, 'vehicle_weaponized' );
+			}
+			else
+			{
+				inkImageRef.SetTexturePart( m_typeIcon, 'car' );
+			}
+		}
+		inkImageRef.SetVisible( m_customizableIcon, vehicleRecord.HasVisualCustomization() && !( vehicleRecord.VisualCustomizationTeaser() ) );
+		inkTextRef.SetLocalizedTextScript( m_label, m_vehicleData.m_displayName );
+		if( m_vehicleData.m_repairTimeRemaining > 0.0 )
+		{
+			inkTextRef.SetText( m_repairTime, "{TIME,time,mm:ss}" );
+			repairTextParams = new inkTextParams;
+			repairTextParams.AddTime( "TIME", GameTime.MakeGameTime( 0, 0, 0, ( ( Int32 )( m_vehicleData.m_repairTimeRemaining ) ) ) );
+			inkTextRef.SetTextParameters( m_repairTime, repairTextParams );
+			inkTextRef.SetVisible( m_repairTime, true );
+			GetRootWidget().SetState( 'Disabled' );
+		}
+		else
+		{
+			inkTextRef.SetVisible( m_repairTime, false );
+			if( m_vehicleData.m_data.overrideDisplay )
+			{
+				GetRootWidget().SetState( m_vehicleData.m_data.activeState );
+			}
+			else
+			{
+				GetRootWidget().SetState( ( ( m_vehicleData.m_data.uiFavoriteIndex >= 0 ) ? ( 'Favorite' ) : ( 'Default' ) ) );
+			}
+		}
+	}
+
+	protected event OnSelected( itemController : weak< inkVirtualCompoundItemController >, discreteNav : Bool )
+	{
+		if( m_vehicleData.m_repairTimeRemaining == 0.0 )
+		{
+			if( m_vehicleData.m_data.overrideDisplay )
+			{
+				GetRootWidget().SetState( m_vehicleData.m_data.activeState );
+			}
+			else
+			{
+				GetRootWidget().SetState( ( ( m_vehicleData.m_data.uiFavoriteIndex >= 0 ) ? ( 'FavoriteActive' ) : ( 'Active' ) ) );
+			}
+		}
+		else
+		{
+			GetRootWidget().SetState( 'DisabledActive' );
+		}
+		PlaySound( 'Holocall', 'Navigation' );
+	}
+
+	protected event OnDeselected( itemController : weak< inkVirtualCompoundItemController > )
+	{
+		if( m_vehicleData.m_repairTimeRemaining == 0.0 )
+		{
+			if( m_vehicleData.m_data.overrideDisplay )
+			{
+				GetRootWidget().SetState( m_vehicleData.m_data.defaultState );
+			}
+			else
+			{
+				GetRootWidget().SetState( ( ( m_vehicleData.m_data.uiFavoriteIndex >= 0 ) ? ( 'Favorite' ) : ( 'Default' ) ) );
+			}
+		}
+		else
+		{
+			GetRootWidget().SetState( 'Disabled' );
+		}
+	}
+
+	protected event OnUninitialize()
+	{
+		PlaySound( 'Holocall', 'OnHangUp' );
+	}
+
+}
+

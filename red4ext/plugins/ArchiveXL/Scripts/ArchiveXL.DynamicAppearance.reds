@@ -1,4 +1,4 @@
-// ArchiveXL 1.26.8
+// ArchiveXL 1.27.1
 module ArchiveXL.DynamicAppearance
 
 public func OverrideDynamicAppearanceCondition(app: String, attr: String, value: String) -> String {

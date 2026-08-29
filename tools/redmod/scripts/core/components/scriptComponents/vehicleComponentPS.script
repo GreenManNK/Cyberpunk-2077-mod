@@ -1,0 +1,2847 @@
+class VehicleComponentPS extends ScriptableDeviceComponentPS
+{
+	protected persistent var m_defaultStateSet : Bool;
+	protected persistent var m_stateModifiedByQuest : Bool;
+	protected persistent var m_playerVehicle : Bool;
+	protected var m_npcOccupiedSlots : array< CName >;
+	protected persistent var m_isDestroyed : Bool;
+	protected persistent var m_isStolen : Bool;
+	protected persistent var m_crystalDomeQuestModified : Bool;
+	protected persistent var m_crystalDomeQuestState : Bool;
+	protected persistent var m_crystalDomeState : Bool;
+	protected persistent var m_visualDestructionSet : Bool;
+	protected persistent var m_visualDestructionNeeded : Bool;
+	protected persistent var m_exploded : Bool;
+	protected persistent var m_submerged : Bool;
+	protected persistent var m_sirenOn : Bool;
+	protected persistent var m_sirenSoundOn : Bool;
+	protected persistent var m_sirenLightsOn : Bool;
+	protected persistent var m_isDefaultLightToggleSet : Bool;
+	default m_isDefaultLightToggleSet = false;
+	protected persistent var m_anyDoorOpen : Bool;
+	protected persistent var m_previousInteractionState : array< TemporaryDoorState >;
+	protected persistent var m_thrusterState : Bool;
+	protected persistent var m_uiQuestModified : Bool;
+	protected persistent var m_uiState : Bool;
+	protected var m_vehicleSkillChecks : EngDemoContainer;
+	private var m_controlStimShouldBeActive : Bool;
+	default m_controlStimShouldBeActive = false;
+	private var m_controlStimRunning : Bool;
+	default m_controlStimRunning = false;
+	protected persistent var m_vehicleApperanceCustomizationActive : Bool;
+	protected persistent var m_vehicleApperanceCustomizationInDistanceTermination : Bool;
+	protected persistent var m_vehicleAppearanceCustomizationBlockedByDamage : Bool;
+	protected persistent var m_vehicleVisualCustomizationTemplate : SavedVehicleVisualCustomizationTemplate;
+	protected persistent var m_vehicleApperanceDefinition : vehicleVisualModdingDefinition;
+	var m_ready : Bool;
+	var m_isPlayerPerformingBodyDisposal : Bool;
+	var m_submergedTimestamp : Float;
+	var m_shouldForceExitDelamain : Bool;
+	protected editable persistent var m_customMappin : gamedataMappinVariant;
+	default m_customMappin = gamedataMappinVariant.Invalid;
+	protected editable persistent var m_hornEnabled : Bool;
+	default m_hornEnabled = true;
+	private var m_vehicleControllerPS : vehicleControllerPS;
+
+	private function GetVehicleControllerPS() : vehicleControllerPS
+	{
+		var persistentId : PersistentID;
+		if( m_vehicleControllerPS == NULL )
+		{
+			persistentId = CreatePersistentID( GetMyEntityID(), 'VehicleController' );
+			m_vehicleControllerPS = ( ( vehicleControllerPS )( GetPersistencySystem().GetConstAccessToPSObject( persistentId, 'gamevehicleControllerPS' ) ) );
+		}
+		return m_vehicleControllerPS;
+	}
+
+	private const function GetVehicleControllerPSConst() : vehicleControllerPS
+	{
+		var persistentId : PersistentID;
+		if( m_vehicleControllerPS == NULL )
+		{
+			persistentId = CreatePersistentID( GetMyEntityID(), 'VehicleController' );
+			return ( ( vehicleControllerPS )( GetPersistencySystem().GetConstAccessToPSObject( persistentId, 'gamevehicleControllerPS' ) ) );
+		}
+		else
+		{
+			return m_vehicleControllerPS;
+		}
+	}
+
+	protected override function Initialize()
+	{
+		super.Initialize();
+		InitializeTempDoorStateStruct();
+		InitializeDoorInteractionState();
+		UpdateCustomizationDataToNewSystem();
+	}
+
+	protected override function GameAttached()
+	{
+		RefreshSkillchecks();
+	}
+
+	protected const function GetOwnerEntity() : weak< VehicleObject >
+	{
+		return ( ( VehicleObject )( GameInstance.FindEntityByID( GetGameInstance(), PersistentID.ExtractEntityID( GetID() ) ) ) );
+	}
+
+	public function GetHasDefaultStateBeenSet() : Bool
+	{
+		return m_defaultStateSet;
+	}
+
+	public function SetHasDefaultStateBeenSet( set : Bool )
+	{
+		m_defaultStateSet = set;
+	}
+
+	public function GetHasStateBeenModifiedByQuest() : Bool
+	{
+		return m_stateModifiedByQuest;
+	}
+
+	public function GetNpcOccupiedSlots() : array< CName >
+	{
+		return m_npcOccupiedSlots;
+	}
+
+	public function GetIsDestroyed() : Bool
+	{
+		return m_isDestroyed;
+	}
+
+	public function SetIsDestroyed( value : Bool )
+	{
+		if( value )
+		{
+			GetVehicleControllerPS().SetState( vehicleEState.Destroyed );
+		}
+		m_isDestroyed = value;
+	}
+
+	public function GetIsStolen() : Bool
+	{
+		return m_isStolen;
+	}
+
+	public function SetIsStolen( value : Bool )
+	{
+		m_isStolen = value;
+	}
+
+	public function SetHasStateBeenModifiedByQuest( set : Bool )
+	{
+		m_stateModifiedByQuest = set;
+	}
+
+	public function GetIsPlayerVehicle() : Bool
+	{
+		return m_playerVehicle;
+	}
+
+	public function SetIsPlayerVehicle( set : Bool )
+	{
+		m_playerVehicle = set;
+	}
+
+	public function GetIsCrystalDomeQuestModified() : Bool
+	{
+		return m_crystalDomeQuestModified;
+	}
+
+	public function SetIsCrystalDomeQuestModified( value : Bool )
+	{
+		m_crystalDomeQuestModified = value;
+	}
+
+	public function GetCrystalDomeQuestState() : Bool
+	{
+		return m_crystalDomeQuestState;
+	}
+
+	public function SetCrystalDomeQuestState( value : Bool )
+	{
+		m_crystalDomeQuestState = value;
+	}
+
+	public function GetCrystalDomeState() : Bool
+	{
+		return m_crystalDomeState;
+	}
+
+	public function SetCrystalDomeState( value : Bool )
+	{
+		m_crystalDomeState = value;
+	}
+
+	public function GetIsUiQuestModified() : Bool
+	{
+		return m_uiQuestModified;
+	}
+
+	public function SetIsUiQuestModified( value : Bool )
+	{
+		m_uiQuestModified = value;
+	}
+
+	public function GetUiQuestState() : Bool
+	{
+		return m_uiState;
+	}
+
+	public function SetUiQuestState( value : Bool )
+	{
+		m_uiState = value;
+	}
+
+	public function GetSirenState() : Bool
+	{
+		return m_sirenOn;
+	}
+
+	public function SetSirenState( value : Bool )
+	{
+		m_sirenOn = value;
+	}
+
+	public function GetSirenLightsState() : Bool
+	{
+		return m_sirenLightsOn;
+	}
+
+	public function SetSirenLightsState( value : Bool )
+	{
+		m_sirenLightsOn = value;
+	}
+
+	public function GetIsDefaultLightToggleSet() : Bool
+	{
+		return m_isDefaultLightToggleSet;
+	}
+
+	public function SetIsDefaultLightToggleSet( value : Bool )
+	{
+		m_isDefaultLightToggleSet = value;
+	}
+
+	public function GetSirenSoundsState() : Bool
+	{
+		return m_sirenSoundOn;
+	}
+
+	public function SetSirenSoundsState( value : Bool )
+	{
+		m_sirenSoundOn = value;
+	}
+
+	public function GetHasVisualDestructionBeenSet() : Bool
+	{
+		return m_visualDestructionSet;
+	}
+
+	public function SetHasVisualDestructionBeenSet( set : Bool )
+	{
+		m_visualDestructionSet = set;
+	}
+
+	public function GetHasExploded() : Bool
+	{
+		return m_exploded;
+	}
+
+	public function SetHasExploded( set : Bool )
+	{
+		if( set )
+		{
+			GetOwnerEntity().SetHasExploded();
+		}
+		m_exploded = set;
+	}
+
+	public function GetIsSubmerged() : Bool
+	{
+		return m_submerged;
+	}
+
+	public function SetIsSubmerged( set : Bool )
+	{
+		m_submerged = set;
+		m_submergedTimestamp = ( ( m_submerged ) ? ( EngineTime.ToFloat( GameInstance.GetTimeSystem( GetGameInstance() ).GetSimTime() ) ) : ( 100000000.0 ) );
+	}
+
+	public function GetSubmergedTimestamp() : Float
+	{
+		return m_submergedTimestamp;
+	}
+
+	public function GetHasAnyDoorOpen() : Bool
+	{
+		return m_anyDoorOpen;
+	}
+
+	public function SetHasAnyDoorOpen( set : Bool )
+	{
+		m_anyDoorOpen = set;
+	}
+
+	public function GetThrusterState() : Bool
+	{
+		return m_thrusterState;
+	}
+
+	public function SetThrusterState( set : Bool )
+	{
+		m_thrusterState = set;
+	}
+
+	public function GetIsVehicleVisualCustomizationActive() : Bool
+	{
+		return m_vehicleApperanceCustomizationActive;
+	}
+
+	public function SetVehicleVisualCustomizationActive( set : Bool )
+	{
+		m_vehicleApperanceCustomizationActive = set;
+	}
+
+	public function GetIsVehicleApperanceCustomizationInDistanceTermination() : Bool
+	{
+		return m_vehicleApperanceCustomizationInDistanceTermination;
+	}
+
+	public function SetVehicleApperanceCustomizationInDistanceTermination( set : Bool )
+	{
+		m_vehicleApperanceCustomizationInDistanceTermination = set;
+	}
+
+	public function GetVehicleVisualCustomizationTemplate() : VehicleVisualCustomizationTemplate
+	{
+		return SavedVehicleVisualCustomizationTemplate.ToVehicleVisualCustomizationTemplate( m_vehicleVisualCustomizationTemplate );
+	}
+
+	public function SetVehicleVisualCustomizationTemplate( template : VehicleVisualCustomizationTemplate )
+	{
+		m_vehicleVisualCustomizationTemplate = SavedVehicleVisualCustomizationTemplate.FromVehicleVisualCustomizationTemplate( template );
+	}
+
+	public function SetVehicleVisualCustomizationnBlockedByDamage( value : Bool )
+	{
+		m_vehicleAppearanceCustomizationBlockedByDamage = value;
+	}
+
+	public function GetIsVehicleVisualCustomizationBlockedByDamage() : Bool
+	{
+		return m_vehicleAppearanceCustomizationBlockedByDamage;
+	}
+
+	public function HasCustomMappin() : Bool
+	{
+		return m_customMappin != gamedataMappinVariant.Invalid;
+	}
+
+	public function GetCustomMappin() : gamedataMappinVariant
+	{
+		return m_customMappin;
+	}
+
+	public const function IsHornEnabled() : Bool
+	{
+		return m_hornEnabled;
+	}
+
+	private function UpdateCustomizationDataToNewSystem()
+	{
+		var emptyData : vehicleVisualModdingDefinition;
+		if( ( !( m_vehicleApperanceDefinition.primaryColorDefined ) && !( m_vehicleApperanceDefinition.secondaryColorDefined ) ) && !( m_vehicleApperanceDefinition.lightsColorDefined ) )
+		{
+			return;
+		}
+		m_vehicleVisualCustomizationTemplate = SavedVehicleVisualCustomizationTemplate.FromVehicleVisualCustomizationTemplate( vehicleVisualModdingDefinition.UpdateToNewFormat( m_vehicleApperanceDefinition ) );
+		m_vehicleApperanceDefinition = emptyData;
+	}
+
+	public function ShouldForceExitDelamain() : Bool
+	{
+		return m_shouldForceExitDelamain;
+	}
+
+	public function SetShouldForceExitDelamain( value : Bool )
+	{
+		m_shouldForceExitDelamain = value;
+	}
+
+	public function OnToggleVehicle( evt : ToggleVehicle ) : EntityNotificationType
+	{
+		var controllerPS : vehicleControllerPS;
+		controllerPS = GetVehicleControllerPS();
+		controllerPS.SetState( ( ( evt.GetValue() ) ? ( vehicleEState.On ) : ( vehicleEState.Default ) ) );
+		UseNotifier( evt );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public function OnForceCarAlarm( evt : ForceCarAlarm ) : EntityNotificationType
+	{
+		var controllerPS : vehicleControllerPS;
+		controllerPS = GetVehicleControllerPS();
+		controllerPS.SetAlarm( true );
+		UseNotifier( evt );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnForceDisableCarAlarm( evt : ForceDisableCarAlarm ) : EntityNotificationType
+	{
+		var controllerPS : vehicleControllerPS;
+		controllerPS = GetVehicleControllerPS();
+		controllerPS.SetAlarm( false );
+		QuickhackModule.RequestRefreshQuickhackMenu( GetGameInstance(), evt.GetRequesterID() );
+		UseNotifier( evt );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public function DisableAlarm()
+	{
+		var action : ForceDisableCarAlarm;
+		action = ActionForceDisableCarAlarm();
+		ExecutePSAction( action );
+	}
+
+	private function InitializeTempDoorStateStruct()
+	{
+		var size : Int32;
+		size = ( ( Int32 )( EnumGetMax( 'EVehicleDoor' ) ) ) + 1;
+		m_previousInteractionState.Resize( size );
+	}
+
+	private function InitializeDoorInteractionState()
+	{
+		SetDoorInteractionState( EVehicleDoor.seat_back_left, VehicleDoorInteractionState.Disabled, "InitializeDoorInteractionState" );
+		SetDoorInteractionState( EVehicleDoor.seat_back_right, VehicleDoorInteractionState.Disabled, "InitializeDoorInteractionState" );
+	}
+
+	protected function RefreshSkillchecks()
+	{
+		var demoCheck : DemolitionSkillCheck;
+		var engCheck : EngineeringSkillCheck;
+		var difficultyTDBID : TweakDBID;
+		demoCheck = new DemolitionSkillCheck;
+		engCheck = new EngineeringSkillCheck;
+		m_vehicleSkillChecks = new EngDemoContainer;
+		difficultyTDBID = GetOwnerEntity().GetRecordID();
+		TDBID.Append( difficultyTDBID, T".hijackDifficulty" );
+		demoCheck.SetDifficulty( ( ( EGameplayChallengeLevel )( ( ( Int32 )( EnumValueFromName( 'EGameplayChallengeLevel', StringToName( TDB.GetString( difficultyTDBID, "NONE" ) ) ) ) ) ) ) );
+		demoCheck.SetAlternativeName( T"Interactions.HijackVehicle" );
+		m_vehicleSkillChecks.m_demolitionCheck = demoCheck;
+		difficultyTDBID = GetOwnerEntity().GetRecordID();
+		TDBID.Append( difficultyTDBID, T".crackLockDifficulty" );
+		engCheck.SetDifficulty( ( ( EGameplayChallengeLevel )( ( ( Int32 )( EnumValueFromName( 'EGameplayChallengeLevel', StringToName( TDB.GetString( difficultyTDBID, "NONE" ) ) ) ) ) ) ) );
+		engCheck.SetAlternativeName( T"Interactions.VehicleCrackLock" );
+		m_vehicleSkillChecks.m_engineeringCheck = engCheck;
+		InitializeSkillChecks( m_vehicleSkillChecks, true );
+	}
+
+	public function ToggleReserveSeatDuringUnmounting( const active : Bool, const slotID : CName )
+	{
+		var seatReservationEvent : VehicleSeatReservationEvent;
+		seatReservationEvent = new VehicleSeatReservationEvent;
+		seatReservationEvent.slotID = slotID;
+		seatReservationEvent.reserve = active;
+		GameInstance.GetPersistencySystem( GetOwnerEntity().GetGame() ).QueuePSEvent( GetID(), GetOwnerEntity().GetPSClassName(), seatReservationEvent );
+	}
+
+	protected function ChangeToActionContext( const vehicleContext : ref< VehicleActionsContext > ) : GetActionsContext
+	{
+		var getActionsContext : GetActionsContext;
+		getActionsContext.requestorID = vehicleContext.requestorID;
+		getActionsContext.requestType = vehicleContext.requestType;
+		getActionsContext.interactionLayerTag = vehicleContext.interactionLayerTag;
+		getActionsContext.processInitiatorObject = vehicleContext.processInitiatorObject;
+		return getActionsContext;
+	}
+
+	public function SetDoorState( door : EVehicleDoor, state : VehicleDoorState, immediate : Bool )
+	{
+		GetVehicleControllerPS().SetDoorState( door, state, immediate );
+	}
+
+	public function GetDoorState( door : EVehicleDoor ) : VehicleDoorState
+	{
+		return GetVehicleControllerPS().GetDoorState( door );
+	}
+
+	public function SetWindowState( door : EVehicleDoor, state : EVehicleWindowState )
+	{
+		GetVehicleControllerPS().SetWindowState( door, state );
+	}
+
+	public function GetWindowState( door : EVehicleDoor ) : EVehicleWindowState
+	{
+		return GetVehicleControllerPS().GetWindowState( door );
+	}
+
+	public function SetDoorInteractionState( door : EVehicleDoor, state : VehicleDoorInteractionState, const source : ref< String > )
+	{
+		GetVehicleControllerPS().SetDoorInteractionState( door, state );
+	}
+
+	public function GetDoorInteractionState( door : EVehicleDoor ) : VehicleDoorInteractionState
+	{
+		return GetVehicleControllerPS().GetDoorInteractionState( door );
+	}
+
+	public function SetTempDoorInteractionState( door : EVehicleDoor, state : VehicleDoorInteractionState )
+	{
+		m_previousInteractionState[ ( ( Int32 )( door ) ) ].interactionState = state;
+	}
+
+	public const function GetTempDoorInteractionState( door : EVehicleDoor ) : VehicleDoorInteractionState
+	{
+		return m_previousInteractionState[ ( ( Int32 )( door ) ) ].interactionState;
+	}
+
+	public function GetVehicleDoorEnum( out door : EVehicleDoor, doorName : CName ) : Bool
+	{
+		var res : Int32;
+		res = ( ( Int32 )( EnumValueFromName( 'EVehicleDoor', doorName ) ) );
+		if( res < 0 )
+		{
+			return false;
+		}
+		door = ( ( EVehicleDoor )( res ) );
+		return true;
+	}
+
+	public export function OnVehicleDoorInteraction( evt : VehicleDoorInteraction ) : EntityNotificationType
+	{
+		if( evt.isInteractionSource )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public constexpr function OnVehicleForceOccupantOut( evt : VehicleForceOccupantOut ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public override function OnActionDemolition( evt : ActionDemolition ) : EntityNotificationType
+	{
+		ProcessVehicleHijackTutorialUsed();
+		if( !( evt.WasPassed() ) )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		super.OnActionDemolition( evt );
+		if( evt.IsCompleted() )
+		{
+			m_skillCheckContainer.GetDemolitionSlot().SetIsPassed( false );
+			InitializeSkillChecks( m_vehicleSkillChecks, true );
+			return EntityNotificationType.SendThisEventToEntity;
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public override function OnActionEngineering( evt : ActionEngineering ) : EntityNotificationType
+	{
+		ProcessVehicleCrackLockTutorialUsed();
+		if( !( evt.WasPassed() ) )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		super.OnActionEngineering( evt );
+		if( evt.IsCompleted() )
+		{
+			ResetVehicleInteractionState();
+			return EntityNotificationType.SendThisEventToEntity;
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	protected function ProcessVehicleCrackLockTutorial()
+	{
+		if( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'tutorial_vehicle_crack_lock' ) == 0 )
+		{
+			GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'tutorial_vehicle_crack_lock', 1 );
+		}
+	}
+
+	protected function ProcessVehicleCrackLockTutorialUsed()
+	{
+		if( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'tutorial_vehicle_crack_lock' ) == 1 )
+		{
+			GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'tutorial_vehicle_crack_lock', 2 );
+		}
+	}
+
+	protected function ProcessVehicleHijackTutorial()
+	{
+		if( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'tutorial_vehicle_hijack' ) == 0 )
+		{
+			GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'tutorial_vehicle_hijack', 1 );
+		}
+	}
+
+	protected function ProcessVehicleHijackTutorialUsed()
+	{
+		if( GameInstance.GetQuestsSystem( GetGameInstance() ).GetFact( 'tutorial_vehicle_hijack' ) == 1 )
+		{
+			GameInstance.GetQuestsSystem( GetGameInstance() ).SetFact( 'tutorial_vehicle_hijack', 2 );
+		}
+	}
+
+	public export function OnVehicleDoorOpen( evt : VehicleDoorOpen ) : EntityNotificationType
+	{
+		var doorID : EVehicleDoor;
+		var curDoorState : VehicleDoorState;
+		doorID = ( ( EVehicleDoor )( ( ( Int32 )( EnumValueFromName( 'EVehicleDoor', evt.slotID ) ) ) ) );
+		if( ( ( ( Int32 )( doorID ) ) < ( ( Int32 )( EVehicleDoor.count ) ) ) && ( ( ( Int32 )( doorID ) ) != -1 ) )
+		{
+			curDoorState = GetDoorState( doorID );
+			if( curDoorState != VehicleDoorState.Detached )
+			{
+				SetDoorState( doorID, VehicleDoorState.Open, evt.forceScene );
+			}
+		}
+		else
+		{
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public export function OnVehicleDoorClose( evt : VehicleDoorClose ) : EntityNotificationType
+	{
+		var doorID : EVehicleDoor;
+		var curDoorState : VehicleDoorState;
+		doorID = ( ( EVehicleDoor )( ( ( Int32 )( EnumValueFromName( 'EVehicleDoor', evt.slotID ) ) ) ) );
+		if( ( ( ( Int32 )( doorID ) ) < ( ( Int32 )( EVehicleDoor.count ) ) ) && ( ( ( Int32 )( doorID ) ) != -1 ) )
+		{
+			curDoorState = GetDoorState( doorID );
+			if( curDoorState != VehicleDoorState.Detached )
+			{
+				SetDoorState( doorID, VehicleDoorState.Closed, evt.forceScene );
+			}
+		}
+		else
+		{
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public export function OnVehicleDoorInteractionStateChange( evt : VehicleDoorInteractionStateChange ) : EntityNotificationType
+	{
+		var newState : VehicleDoorInteractionState;
+		newState = evt.newState;
+		if( !( IsStateValidForVehicle( newState ) ) )
+		{
+			newState = VehicleDoorInteractionState.Available;
+		}
+		SetDoorInteractionState( evt.door, newState, evt.source );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public export function OnForceExitDelamainEvent( evt : ForceExitDelamainEvent ) : EntityNotificationType
+	{
+		SetShouldForceExitDelamain( evt.shouldExit );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public function GetQuestLockedActions( actions : ref< array< DeviceAction > >, const context : ref< VehicleActionsContext > )
+	{
+		actions.PushBack( ActionVehicleDoorQuestLocked() );
+	}
+
+	public function IsStateValidForVehicle( state : VehicleDoorInteractionState ) : Bool
+	{
+		if( GetOwnerEntity() == ( ( TankObject )( GetOwnerEntity() ) ) )
+		{
+			if( ( state == VehicleDoorInteractionState.Locked || state == VehicleDoorInteractionState.Reserved ) || state == VehicleDoorInteractionState.QuestLocked )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public function OnVehicleWindowOpen( evt : VehicleWindowOpen ) : EntityNotificationType
+	{
+		var doorID : EVehicleDoor;
+		doorID = ( ( EVehicleDoor )( ( ( Int32 )( EnumValueFromName( 'EVehicleDoor', evt.slotID ) ) ) ) );
+		if( ( ( ( Int32 )( doorID ) ) < ( ( Int32 )( EVehicleDoor.count ) ) ) && ( ( ( Int32 )( doorID ) ) != -1 ) )
+		{
+			SetWindowState( doorID, EVehicleWindowState.Open );
+		}
+		else
+		{
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnVehicleWindowClose( evt : VehicleWindowClose ) : EntityNotificationType
+	{
+		var doorID : EVehicleDoor;
+		doorID = ( ( EVehicleDoor )( ( ( Int32 )( EnumValueFromName( 'EVehicleDoor', evt.slotID ) ) ) ) );
+		if( ( ( ( Int32 )( doorID ) ) < ( ( Int32 )( EVehicleDoor.count ) ) ) && ( ( ( Int32 )( doorID ) ) != -1 ) )
+		{
+			SetWindowState( doorID, EVehicleWindowState.Closed );
+		}
+		else
+		{
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnOpenTrunk( evt : VehicleOpenTrunk ) : EntityNotificationType
+	{
+		SetDoorState( EVehicleDoor.trunk, VehicleDoorState.Open, false );
+		if( evt.GetExecutor() && !( GetOwnerEntity().IsCrowdVehicle() ) )
+		{
+			GetOwnerEntity().GetDeviceLink().TriggerSecuritySystemNotification( GetOwnerEntity().GetWorldPosition(), evt.GetExecutor(), ESecurityNotificationType.ALARM );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnCloseTrunk( evt : VehicleCloseTrunk ) : EntityNotificationType
+	{
+		SetDoorState( EVehicleDoor.trunk, VehicleDoorState.Closed, false );
+		if( evt.GetExecutor() && !( GetOwnerEntity().IsCrowdVehicle() ) )
+		{
+			GetOwnerEntity().GetDeviceLink().TriggerSecuritySystemNotification( GetOwnerEntity().GetWorldPosition(), evt.GetExecutor(), ESecurityNotificationType.DEESCALATE );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnVehicleDumpBody( evt : VehicleDumpBody ) : EntityNotificationType
+	{
+		ProcessBodyDisposalEvent();
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnVehicleTakeBody( evt : VehicleTakeBody ) : EntityNotificationType
+	{
+		ProcessBodyDisposalEvent();
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	private function ProcessBodyDisposalEvent()
+	{
+		var evt : VehicleBodyDisposalPerformedEvent;
+		evt = new VehicleBodyDisposalPerformedEvent;
+		GameInstance.GetDelaySystem( GetGameInstance() ).DelayPSEvent( GetID(), 'VehicleComponentPS', evt, 3.0, true );
+		m_isPlayerPerformingBodyDisposal = true;
+	}
+
+	protected function OnVehicleBodyDisposalPerformedEvent( evt : VehicleBodyDisposalPerformedEvent ) : EntityNotificationType
+	{
+		m_isPlayerPerformingBodyDisposal = false;
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public constexpr function OnVehiclePlayerTrunk( evt : VehiclePlayerTrunk ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function GetTrunkActions( actions : ref< array< DeviceAction > >, const context : ref< VehicleActionsContext > )
+	{
+		var vehDataPackage : weak< VehicleDataPackage_Record >;
+		if( GetOwnerEntity().MatchVisualTag( 'NoTrunk' ) )
+		{
+			return;
+		}
+		if( GetOwnerEntity().IsCrowdVehicle() )
+		{
+			return;
+		}
+		VehicleComponent.GetVehicleDataPackage( GetGameInstance(), GetOwnerEntity(), vehDataPackage );
+		if( GetIsPlayerVehicle() )
+		{
+			actions.PushBack( ActionPlayerTrunk() );
+		}
+		if( GetOwnerEntity() != ( ( CarObject )( GetOwnerEntity() ) ) )
+		{
+			return;
+		}
+		if( GetDoorInteractionState( EVehicleDoor.trunk ) == VehicleDoorInteractionState.Disabled )
+		{
+			return;
+		}
+		if( m_isPlayerPerformingBodyDisposal )
+		{
+			if( GetDoorState( EVehicleDoor.trunk ) == VehicleDoorState.Open )
+			{
+				actions.PushBack( ActionCloseTrunk() );
+			}
+			return;
+		}
+		if( GetDoorState( EVehicleDoor.trunk ) == VehicleDoorState.Detached )
+		{
+			if( ( IsPlayerCarryingBody( false ) && !( VehicleComponent.IsSlotOccupied( GetGameInstance(), GetOwnerEntity().GetEntityID(), 'trunk_body' ) ) ) && vehDataPackage.CanStoreBody() )
+			{
+				actions.PushBack( ActionVehicleDumpBody() );
+			}
+			if( VehicleComponent.IsSlotOccupied( GetGameInstance(), GetOwnerEntity().GetEntityID(), 'trunk_body' ) )
+			{
+				actions.PushBack( ActionVehicleTakeBody() );
+			}
+			return;
+		}
+		if( GetDoorState( EVehicleDoor.trunk ) == VehicleDoorState.Closed )
+		{
+			if( ( IsPlayerCarryingBody( false ) && !( VehicleComponent.IsSlotOccupied( GetGameInstance(), GetOwnerEntity().GetEntityID(), 'trunk_body' ) ) ) && vehDataPackage.CanStoreBody() )
+			{
+				actions.PushBack( ActionVehicleDumpBody() );
+			}
+			else
+			{
+				actions.PushBack( ActionOpenTrunk() );
+			}
+		}
+		if( GetDoorState( EVehicleDoor.trunk ) == VehicleDoorState.Open )
+		{
+			if( ( IsPlayerCarryingBody( false ) && !( VehicleComponent.IsSlotOccupied( GetGameInstance(), GetOwnerEntity().GetEntityID(), 'trunk_body' ) ) ) && vehDataPackage.CanStoreBody() )
+			{
+				actions.PushBack( ActionVehicleDumpBody() );
+				return;
+			}
+			if( ( !( IsPlayerCarryingBody( true ) ) && VehicleComponent.IsSlotOccupied( GetGameInstance(), GetOwnerEntity().GetEntityID(), 'trunk_body' ) ) && !( IsPlayerSwimming() ) )
+			{
+				actions.PushBack( ActionVehicleTakeBody() );
+			}
+			actions.PushBack( ActionCloseTrunk() );
+		}
+		return;
+	}
+
+	public function IsPlayerCarryingBody( includePickupPhase : Bool ) : Bool
+	{
+		var playerPuppet : PlayerPuppet;
+		var playerStateMachineBlackboard : IBlackboard;
+		playerPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerControlledGameObject() ) );
+		playerStateMachineBlackboard = GameInstance.GetBlackboardSystem( GetGameInstance() ).GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		if( includePickupPhase )
+		{
+			return playerStateMachineBlackboard.GetBool( GetAllBlackboardDefs().PlayerStateMachine.Carrying );
+		}
+		else
+		{
+			return playerStateMachineBlackboard.GetInt( GetAllBlackboardDefs().PlayerStateMachine.BodyCarrying ) == ( ( Int32 )( gamePSMBodyCarrying.Carry ) );
+		}
+	}
+
+	public function IsPlayerSwimming() : Bool
+	{
+		var playerPuppet : PlayerPuppet;
+		playerPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject() ) );
+		return PlayerPuppet.IsSwimming( playerPuppet );
+	}
+
+	public function GetPlayerTrunkActions( actions : ref< array< DeviceAction > >, const context : ref< VehicleActionsContext > )
+	{
+		actions.PushBack( ActionPlayerTrunk() );
+		return;
+	}
+
+	public function OnOpenHood( evt : VehicleOpenHood ) : EntityNotificationType
+	{
+		SetDoorState( EVehicleDoor.hood, VehicleDoorState.Open, false );
+		if( evt.GetExecutor() && !( GetOwnerEntity().IsCrowdVehicle() ) )
+		{
+			GetOwnerEntity().GetDeviceLink().TriggerSecuritySystemNotification( GetOwnerEntity().GetWorldPosition(), evt.GetExecutor(), ESecurityNotificationType.ALARM );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function OnCloseHood( evt : VehicleCloseHood ) : EntityNotificationType
+	{
+		SetDoorState( EVehicleDoor.hood, VehicleDoorState.Closed, false );
+		if( evt.GetExecutor() && !( GetOwnerEntity().IsCrowdVehicle() ) )
+		{
+			GetOwnerEntity().GetDeviceLink().TriggerSecuritySystemNotification( GetOwnerEntity().GetWorldPosition(), evt.GetExecutor(), ESecurityNotificationType.DEESCALATE );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public function GetHoodActions( actions : ref< array< DeviceAction > >, const context : ref< VehicleActionsContext > )
+	{
+		if( GetOwnerEntity().MatchVisualTag( 'NoHood' ) )
+		{
+			return;
+		}
+		if( GetOwnerEntity().IsCrowdVehicle() )
+		{
+			return;
+		}
+		if( GetOwnerEntity() != ( ( CarObject )( GetOwnerEntity() ) ) )
+		{
+			return;
+		}
+		if( GetDoorInteractionState( EVehicleDoor.hood ) == VehicleDoorInteractionState.Disabled )
+		{
+			return;
+		}
+		if( GetDoorState( EVehicleDoor.hood ) == VehicleDoorState.Detached )
+		{
+			return;
+		}
+		if( GetDoorState( EVehicleDoor.hood ) == VehicleDoorState.Closed )
+		{
+			actions.PushBack( ActionOpenHood() );
+		}
+		if( GetDoorState( EVehicleDoor.hood ) == VehicleDoorState.Open )
+		{
+			actions.PushBack( ActionCloseHood() );
+		}
+		return;
+	}
+
+	public function DetermineActionsToPush( interaction : InteractionComponent, context : VehicleActionsContext, objectActionsCallbackController : weak< gameObjectActionsCallbackController >, isAutoRefresh : Bool )
+	{
+		var actions : array< DeviceAction >;
+		var actionToExtractChoices : ScriptableDeviceAction;
+		var choices : array< InteractionChoice >;
+		var i : Int32;
+		var actionRecords : array< weak< ObjectAction_Record > >;
+		var doorLayer : CName;
+		var door : EVehicleDoor;
+		var choiceTDBname : String;
+		var uploadingQuickHackIDs : array< TweakDBID >;
+		var playerPuppet : PlayerPuppet;
+		var vehicleID : EntityID;
+		var playerStateMachineBlackboard : IBlackboard;
+		if( GetIsDestroyed() )
+		{
+			PushActionsToInteractionComponent( interaction, choices, context );
+			return;
+		}
+		playerPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject() ) );
+		playerStateMachineBlackboard = GameInstance.GetBlackboardSystem( playerPuppet.GetGame() ).GetLocalInstanced( playerPuppet.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine );
+		vehicleID = playerStateMachineBlackboard.GetEntityID( GetAllBlackboardDefs().PlayerStateMachine.EntityIDVehicleRemoteControlled );
+		if( EntityID.IsDefined( vehicleID ) )
+		{
+			return;
+		}
+		if( playerPuppet.GetTakeOverControlSystem().IsDeviceControlled() )
+		{
+			return;
+		}
+		uploadingQuickHackIDs = ( ( array< TweakDBID > )( playerStateMachineBlackboard.GetVariant( GetAllBlackboardDefs().PlayerStateMachine.UploadingQuickHackIDs ) ) );
+		if( ( ( uploadingQuickHackIDs.Contains( T"DeviceAction.TakeControlVehicleClassHack" ) || uploadingQuickHackIDs.Contains( T"DeviceAction.TakeControlClassHack" ) ) || uploadingQuickHackIDs.Contains( T"DeviceAction.TakeControlCameraClassHack" ) ) || uploadingQuickHackIDs.Contains( T"DeviceAction.VehicleExplodeClassHack" ) )
+		{
+			return;
+		}
+		if( IsDoorLayer( context.interactionLayerTag ) )
+		{
+			if( GetOwnerEntity().GetVehicleType() == gamedataVehicleType.Bike && GetOwnerEntity().IsFlippedOver() )
+			{
+				return;
+			}
+			doorLayer = context.interactionLayerTag;
+			GetVehicleDoorEnum( door, doorLayer );
+			if( GetDoorInteractionState( door ) == VehicleDoorInteractionState.Disabled )
+			{
+				return;
+			}
+			if( GetDoorInteractionState( door ) == VehicleDoorInteractionState.Reserved )
+			{
+				PushActionsToInteractionComponent( interaction, choices, context );
+				return;
+			}
+			if( GetDoorInteractionState( door ) == VehicleDoorInteractionState.QuestLocked )
+			{
+				GetQuestLockedActions( actions, context );
+			}
+		}
+		if( context.interactionLayerTag == 'trunk' )
+		{
+			GetTrunkActions( actions, context );
+		}
+		if( context.interactionLayerTag == 'hood' )
+		{
+			GetHoodActions( actions, context );
+		}
+		if( context.interactionLayerTag == 'Mount' )
+		{
+			return;
+		}
+		context.requestType = gamedeviceRequestType.Direct;
+		GetOwnerEntity().GetRecord().ObjectActions( actionRecords );
+		GetValidChoices( actionRecords, ChangeToActionContext( context ), objectActionsCallbackController, choices, isAutoRefresh );
+		FinalizeGetActions( actions );
+		for( i = 0; i < actions.Size(); i += 1 )
+		{
+			actionToExtractChoices = ( ( ScriptableDeviceAction )( actions[ i ] ) );
+			( ( ScriptableDeviceAction )( actions[ i ] ) ).SetExecutor( context.processInitiatorObject );
+			choices.PushBack( actionToExtractChoices.GetInteractionChoice() );
+		}
+		if( !( isAutoRefresh ) )
+		{
+			for( i = 0; i < choices.Size(); i += 1 )
+			{
+				choiceTDBname = choices[ i ].choiceMetaData.tweakDBName;
+				switch( choiceTDBname )
+				{
+					case "ActionDemolition":
+						ProcessVehicleHijackTutorial();
+					break;
+					case "ActionEngineering":
+						ProcessVehicleCrackLockTutorial();
+					break;
+				}
+			}
+		}
+		PushActionsToInteractionComponent( interaction, choices, context );
+	}
+
+	protected function IsDoorLayer( layer : CName ) : Bool
+	{
+		return ( ( layer == 'seat_front_right' || layer == 'seat_front_left' ) || layer == 'seat_back_left' ) || layer == 'seat_back_right';
+	}
+
+	public function GetValidChoices( const objectActionRecords : ref< array< weak< ObjectAction_Record > > >, const context : ref< GetActionsContext >, objectActionsCallbackController : weak< gameObjectActionsCallbackController >, choices : ref< array< InteractionChoice > >, isAutoRefresh : Bool )
+	{
+		var i, j : Int32;
+		var choice : InteractionChoice;
+		var instigator : weak< GameObject >;
+		var actionRecord : weak< ObjectAction_Record >;
+		var newAction : ScriptableDeviceAction;
+		var compareAction : ScriptableDeviceAction;
+		var maxChoices : Int32;
+		var isRemote : Bool;
+		var actionType : gamedataObjectActionType;
+		var playerInteractionLayer : CName;
+		var objectActionInteractionLayer : CName;
+		var actionName : CName;
+		var vehDataPackage : weak< VehicleDataPackage_Record >;
+		maxChoices = 4;
+		VehicleComponent.GetVehicleDataPackage( GetGameInstance(), GetOwnerEntity(), vehDataPackage );
+		playerInteractionLayer = context.interactionLayerTag;
+		instigator = context.processInitiatorObject;
+		for( i = 0; i < objectActionRecords.Size(); i += 1 )
+		{
+			actionType = objectActionRecords[ i ].ObjectActionType().Type();
+			objectActionInteractionLayer = objectActionRecords[ i ].InteractionLayer();
+			if( objectActionInteractionLayer != playerInteractionLayer )
+			{
+				continue;
+			}
+			switch( actionType )
+			{
+				case gamedataObjectActionType.Direct:
+				case gamedataObjectActionType.Item:
+				case gamedataObjectActionType.Payment:
+					isRemote = false;
+				break;
+				case gamedataObjectActionType.Remote:
+				case gamedataObjectActionType.DeviceQuickHack:
+				case gamedataObjectActionType.VehicleQuickHack:
+				case gamedataObjectActionType.MinigameUpload:
+					isRemote = true;
+				break;
+				default:
+					isRemote = false;
+			}
+			if( ( !( isRemote ) && context.requestType == gamedeviceRequestType.Direct ) || ( isRemote && context.requestType == gamedeviceRequestType.Remote ) )
+			{
+				actionName = objectActionRecords[ i ].ActionName();
+				switch( actionName )
+				{
+					case 'VehicleHijack':
+						newAction = ActionDemolition( context );
+					newAction.SetIllegal( true );
+					break;
+					case 'VehicleMount':
+						newAction = ActionVehicleDoorInteraction( ( ( String )( objectActionRecords[ i ].InteractionLayer() ) ), true );
+					break;
+					case 'VehicleCrackLock':
+						newAction = ActionEngineering( context );
+					newAction.SetIllegal( true );
+					break;
+				}
+				newAction.SetObjectActionID( objectActionRecords[ i ].GetID() );
+				newAction.SetExecutor( instigator );
+				if( objectActionsCallbackController )
+				{
+					if( !( objectActionsCallbackController.HasObjectAction( objectActionRecords[ i ] ) ) )
+					{
+						objectActionsCallbackController.AddObjectAction( objectActionRecords[ i ] );
+					}
+				}
+				if( newAction.IsPossible( GetOwnerEntity(), , objectActionsCallbackController ) )
+				{
+					if( newAction.IsVisible( context, objectActionsCallbackController ) )
+					{
+						actionRecord = objectActionRecords[ i ];
+						choice = newAction.GetInteractionChoice();
+						newAction.prop.name = playerInteractionLayer;
+						choice.data.PushBack( newAction );
+						for( j = 0; j < maxChoices; j += 1 )
+						{
+							compareAction = ( ( ScriptableDeviceAction )( choices[ j ].data[ 0 ] ) );
+							if( compareAction )
+							{
+								if( actionRecord.Priority() >= compareAction.GetObjectActionRecord().Priority() )
+								{
+									choices.Insert( j, choice );
+									break;
+								}
+							}
+							else
+							{
+								choices.PushBack( choice );
+								break;
+							}
+						}
+					}
+					else
+					{
+						newAction.SetInactiveWithReason( false, "LocKey#7009" );
+					}
+				}
+			}
+		}
+		if( choices.Size() > maxChoices )
+		{
+			choices.Resize( maxChoices );
+		}
+	}
+
+	public function PushActionsToInteractionComponent( interaction : InteractionComponent, const choices : ref< array< InteractionChoice > >, const context : ref< VehicleActionsContext > )
+	{
+		if( !( interaction ) )
+		{
+			return;
+		}
+		interaction.SetChoices( choices, context.interactionLayerTag );
+	}
+
+	protected export function OnVehicleFinishedMounting( evt : VehicleFinishedMountingEvent ) : EntityNotificationType
+	{
+		var i : Int32;
+		if( !( evt.isMounting ) )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		if( evt.character.IsPlayer() )
+		{
+			return EntityNotificationType.SendThisEventToEntity;
+		}
+		for( i = 0; i < m_npcOccupiedSlots.Size(); i = i + 1 )
+		{
+			if( m_npcOccupiedSlots[ i ] == evt.slotID )
+			{
+				if( evt.isMounting )
+				{
+					return EntityNotificationType.SendThisEventToEntity;
+				}
+			}
+		}
+		if( evt.isMounting )
+		{
+			m_npcOccupiedSlots.PushBack( evt.slotID );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected export function OnVehicleStartedUnmountingEvent( evt : VehicleStartedUnmountingEvent ) : EntityNotificationType
+	{
+		var i : Int32;
+		if( evt.character.IsPlayer() || evt.isMounting )
+		{
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		for( i = 0; i < m_npcOccupiedSlots.Size(); i = i + 1 )
+		{
+			if( m_npcOccupiedSlots[ i ] == evt.slotID )
+			{
+				m_npcOccupiedSlots.Erase( i );
+				ToggleReserveSeatDuringUnmounting( true, evt.slotID );
+				return EntityNotificationType.SendThisEventToEntity;
+			}
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public const function IsSlotOccupiedByNPC( slotID : CName ) : Bool
+	{
+		var i : Int32;
+		for( i = 0; i < m_npcOccupiedSlots.Size(); i = i + 1 )
+		{
+			if( m_npcOccupiedSlots[ i ] == slotID )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public export override function OnSetExposeQuickHacks( evt : SetExposeQuickHacks ) : EntityNotificationType
+	{
+		super.OnSetExposeQuickHacks( evt );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	public override function GetActions( out outActions : array< DeviceAction >, context : GetActionsContext ) : Bool
+	{
+		SetActionIllegality( outActions, m_illegalActions.regularActions );
+		return true;
+	}
+
+	protected const override function CanCreateAnyQuickHackActions() : Bool
+	{
+		return !( m_isDestroyed );
+	}
+
+	protected override function GetQuickHackActions( out outActions : array< DeviceAction >, const context : ref< GetActionsContext > )
+	{
+		var playerMountedVehicle : weak< VehicleObject >;
+		var controllerPS : vehicleControllerPS;
+		var vehicleState : vehicleEState;
+		var playerPuppet : PlayerPuppet;
+		var currentAction : ScriptableDeviceAction;
+		var maxDistance : Float;
+		var isValidRange : Bool;
+		var isVehicleRemoteControlled : Bool;
+		var areVehicleQuickhacksAvailable : Bool;
+		isValidRange = false;
+		isVehicleRemoteControlled = GetOwnerEntity().IsVehicleRemoteControlled();
+		maxDistance = TDB.GetFloat( T"player.vehicleQuickHacks.maxRange", 0.0 );
+		if( GetOwnerEntity().GetDistanceToPlayerSquared() < ( maxDistance * maxDistance ) )
+		{
+			isValidRange = true;
+		}
+		playerPuppet = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject() ) );
+		if( PlayerDevelopmentSystem.GetData( playerPuppet ).IsNewPerkBoughtAnyLevel( gamedataNewPerkType.Intelligence_Right_Milestone_1 ) )
+		{
+			controllerPS = GetVehicleControllerPS();
+			vehicleState = controllerPS.GetState();
+			areVehicleQuickhacksAvailable = GetOwnerEntity().IsHackable();
+			if( !( GetIsDestroyed() ) )
+			{
+				if( !( VehicleComponent.GetVehicle( playerPuppet.GetGame(), playerPuppet.GetEntityID(), playerMountedVehicle ) ) )
+				{
+					currentAction = ActionToggleTakeOverControl();
+					currentAction.SetObjectActionID( T"DeviceAction.TakeControlVehicleClassHack" );
+					currentAction.SetExecutor( GetPlayer( GetGameInstance() ) );
+					currentAction.SetDurationValue( currentAction.GetDurationTime() );
+					outActions.PushBack( currentAction );
+					if( ( !( isValidRange ) || isVehicleRemoteControlled ) || ( GetOwnerEntity().GetVehicleType() == gamedataVehicleType.Bike && playerPuppet.CheckIsStandingOnVehicle( GetOwnerEntity().GetEntityID() ) ) )
+					{
+						currentAction.SetInactiveWithReason( false, "LocKey#7003" );
+					}
+				}
+				currentAction = ActionVehicleOverrideForceBrakes();
+				currentAction.SetObjectActionID( T"DeviceAction.VehicleForceBrakesClassHack" );
+				currentAction.SetExecutor( GetPlayer( GetGameInstance() ) );
+				currentAction.SetDurationValue( TDB.GetFloat( T"player.vehicleQuickHacks.forceBrakesDuration", 0.0 ) );
+				if( !( isValidRange ) || isVehicleRemoteControlled )
+				{
+					currentAction.SetInactiveWithReason( false, "LocKey#7003" );
+				}
+				else if( GetOwnerEntity().IsVehicleForceBrakesQuickhackActive() )
+				{
+					currentAction.SetInactiveWithReason( false, "LocKey#7004" );
+				}
+				outActions.PushBack( currentAction );
+				currentAction = ActionVehicleOverrideExplode();
+				currentAction.SetObjectActionID( T"DeviceAction.VehicleExplodeClassHack" );
+				currentAction.SetExecutor( GetPlayer( GetGameInstance() ) );
+				currentAction.SetDurationValue( currentAction.GetDurationTime() );
+				outActions.PushBack( currentAction );
+				if( !( isValidRange ) )
+				{
+					currentAction.SetInactiveWithReason( false, "LocKey#7003" );
+				}
+				currentAction = ActionVehicleOverrideAccelerate();
+				currentAction.SetObjectActionID( T"DeviceAction.VehicleAccelerateClassHack" );
+				currentAction.SetExecutor( GetPlayer( GetGameInstance() ) );
+				currentAction.SetDurationValue( TDB.GetFloat( T"player.vehicleQuickHacks.accelerateDuration", 0.0 ) );
+				if( !( isValidRange ) || isVehicleRemoteControlled )
+				{
+					currentAction.SetInactiveWithReason( false, "LocKey#7003" );
+				}
+				else if( GetOwnerEntity().IsVehicleAccelerateQuickhackActive() )
+				{
+					currentAction.SetInactiveWithReason( false, "LocKey#7004" );
+				}
+				outActions.PushBack( currentAction );
+			}
+			if( ( ( !( areVehicleQuickhacksAvailable ) || vehicleState == vehicleEState.Destroyed ) || vehicleState == vehicleEState.Disabled ) || GetOwnerEntity().IsVehicleInsideInnerAreaOfAreaSpeedLimiter() )
+			{
+				SetActionsInactiveAll( outActions, "LocKey#27694" );
+			}
+		}
+		FinalizeGetQuickHackActions( outActions, context );
+	}
+
+	protected override function OnToggleTakeOverControl( evt : ToggleTakeOverControl ) : EntityNotificationType
+	{
+		var triggerVehicleRemoteControlEvent : TriggerVehicleRemoteControlEvent;
+		triggerVehicleRemoteControlEvent = new TriggerVehicleRemoteControlEvent;
+		triggerVehicleRemoteControlEvent.enable = true;
+		triggerVehicleRemoteControlEvent.shouldUnseatPassengers = true;
+		triggerVehicleRemoteControlEvent.shouldModifyInteractionState = true;
+		SendStimsOnVehicleQuickhack( false, true );
+		TakeOverControlSystem.ReleaseControlOfRemoteControlledVehicle( GetGameInstance(), GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerControlledGameObject().GetEntityID() );
+		TakeOverControlSystem.ReleaseControl( GetGameInstance(), triggerVehicleRemoteControlEvent, GetOwnerEntity().GetEntityID() );
+		return super.OnToggleTakeOverControl( evt );
+	}
+
+	protected override function OnVehicleOverrideForceBrakes( evt : VehicleOverrideForceBrakes ) : EntityNotificationType
+	{
+		var controllerPS : vehicleControllerPS;
+		GetOwnerEntity().ActivateNetrunnerQuickhack( VehicleNetrunnerQuickhackType.ForceBrakes );
+		controllerPS = GetVehicleControllerPS();
+		controllerPS.SetAlarm( true );
+		SendStimsOnVehicleQuickhack( false, false );
+		return super.OnVehicleOverrideForceBrakes( evt );
+	}
+
+	protected override function OnVehicleOverrideExplode( evt : VehicleOverrideExplode ) : EntityNotificationType
+	{
+		GetOwnerEntity().ActivateNetrunnerQuickhack( VehicleNetrunnerQuickhackType.Explode );
+		SendStimsOnVehicleQuickhack( true, false );
+		return super.OnVehicleOverrideExplode( evt );
+	}
+
+	protected override function OnVehicleOverrideAccelerate( evt : VehicleOverrideAccelerate ) : EntityNotificationType
+	{
+		GetOwnerEntity().EnableHighPriorityPanicDriving();
+		GetOwnerEntity().ActivateNetrunnerQuickhack( VehicleNetrunnerQuickhackType.Accelerate );
+		SendStimsOnVehicleQuickhack( true, false );
+		return super.OnVehicleOverrideAccelerate( evt );
+	}
+
+	public function OnPreventionVehicleHackedEvent( evt : PreventionVehicleHackedEvent ) : EntityNotificationType
+	{
+		var vehicleId : EntityID;
+		var driverPuppet : ScriptedPuppet;
+		vehicleId = GetOwnerEntity().GetEntityID();
+		driverPuppet = ( ( ScriptedPuppet )( VehicleComponent.GetDriverMounted( GetGameInstance(), vehicleId ) ) );
+		if( driverPuppet )
+		{
+			NPCPuppet.RevealPlayerPositionIfNeeded( driverPuppet, evt.instigatorID, true );
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public function OnCheckVehicleVelocityForStimsEvent( evt : CheckVehicleVelocityForStimsEvent ) : EntityNotificationType
+	{
+		if( m_controlStimShouldBeActive )
+		{
+			CheckVehicleVelocityForStims();
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	private function CheckVehicleVelocityForStims()
+	{
+		var velocity : Float;
+		var shouldRunStims : Bool;
+		var checkVelocityEvent : CheckVehicleVelocityForStimsEvent;
+		velocity = Vector4.Length( GetOwnerEntity().GetLinearVelocity() );
+		shouldRunStims = velocity > 0.1;
+		if( shouldRunStims != m_controlStimRunning )
+		{
+			if( shouldRunStims )
+			{
+				SendVehicleStimsOnVehicleQuickhack( -1.0 );
+			}
+			else
+			{
+				EndVehicleStimsOnVehicleQuickhack();
+			}
+			m_controlStimRunning = shouldRunStims;
+		}
+		checkVelocityEvent = new CheckVehicleVelocityForStimsEvent;
+		QueuePSEventWithDelay( this, checkVelocityEvent, 2.0 );
+	}
+
+	protected function SendStimsOnVehicleQuickhack( shouldTriggerIllegalActionStim : Bool, areHacksIndefiniteDuration : Bool )
+	{
+		var playerBroadcaster : StimBroadcasterComponent;
+		var preventionVehicleHackedEvent : PreventionVehicleHackedEvent;
+		var vehicleHackedEvent : VehicleHackedEvent;
+		var player : PlayerPuppet;
+		var vehicleQuickhackStimVisualRange : Float;
+		var vehicleQuickhackStimDuration : Float;
+		var reevaluateDetectionRange : Float;
+		player = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject() ) );
+		playerBroadcaster = player.GetStimBroadcasterComponent();
+		if( shouldTriggerIllegalActionStim && playerBroadcaster )
+		{
+			vehicleQuickhackStimVisualRange = TDB.GetFloat( T"player.vehicleQuickHacks.vehicleQuickhackStimVisualRange", 15.0 );
+			vehicleQuickhackStimDuration = TDB.GetFloat( T"player.vehicleQuickHacks.vehicleQuickhackIllegalStimDuration", 2.0 );
+			playerBroadcaster.AddActiveStimuli( player, gamedataStimType.IllegalAction, vehicleQuickhackStimDuration, vehicleQuickhackStimVisualRange );
+		}
+		if( areHacksIndefiniteDuration )
+		{
+			StatusEffectHelper.ApplyStatusEffect( player, T"PreventionStatusEffect.PerformingIllegalAction" );
+			if( playerBroadcaster )
+			{
+				reevaluateDetectionRange = TDB.GetFloat( T"player.vehicleQuickHacks.reevaluateDetectionRange", 40.0 );
+				playerBroadcaster.TriggerSingleBroadcast( player, gamedataStimType.ReevaluateDetectionOverwrite, reevaluateDetectionRange );
+			}
+			m_controlStimShouldBeActive = true;
+			m_controlStimRunning = false;
+			CheckVehicleVelocityForStims();
+		}
+		else
+		{
+			vehicleQuickhackStimDuration = TDB.GetFloat( T"player.vehicleQuickHacks.vehicleQuickhackAlarmStimDuration", 6.0 );
+			SendVehicleStimsOnVehicleQuickhack( vehicleQuickhackStimDuration );
+		}
+		if( GetOwnerEntity().IsPrevention() )
+		{
+			preventionVehicleHackedEvent = new PreventionVehicleHackedEvent;
+			preventionVehicleHackedEvent.instigatorID = player.GetEntityID();
+			QueuePSEventWithDelay( this, preventionVehicleHackedEvent, 2.0 );
+			vehicleHackedEvent = new VehicleHackedEvent;
+			VehicleComponent.QueueEventToAllPassengers( GetGameInstance(), GetOwnerEntity().GetEntityID(), vehicleHackedEvent );
+			PreventionSystem.CrimeWitnessRequestToPreventionSystem( GetGameInstance(), player.GetWorldPosition() );
+		}
+		if( IsConnectedToSecuritySystem() )
+		{
+			GetOwnerEntity().GetDeviceLink().TriggerSecuritySystemNotification( GetOwnerEntity().GetWorldPosition(), player, ESecurityNotificationType.DEFAULT );
+		}
+	}
+
+	protected function SendVehicleStimsOnVehicleQuickhack( vehicleQuickhackStimDuration : Float )
+	{
+		var vehicleBroadcaster : StimBroadcasterComponent;
+		var vehicleQuickhackStimVisualRange : Float;
+		var vehicleQuickhackStimAudioRange : Float;
+		vehicleBroadcaster = GetOwnerEntity().GetStimBroadcasterComponent();
+		if( vehicleBroadcaster )
+		{
+			vehicleQuickhackStimAudioRange = TDB.GetFloat( T"player.vehicleQuickHacks.vehicleQuickhackStimAudioRange", 13.0 );
+			vehicleBroadcaster.AddActiveStimuli( GetOwnerEntity(), gamedataStimType.CarAlarm, vehicleQuickhackStimDuration, vehicleQuickhackStimAudioRange );
+			vehicleQuickhackStimVisualRange = TDB.GetFloat( T"player.vehicleQuickHacks.vehicleQuickhackStimVisualRange", 15.0 );
+			vehicleBroadcaster.AddActiveStimuli( GetOwnerEntity(), gamedataStimType.CarAlarm, vehicleQuickhackStimDuration, vehicleQuickhackStimVisualRange, , true );
+		}
+	}
+
+	public function EndStimsOnVehicleQuickhack()
+	{
+		var player : PlayerPuppet;
+		var playerBroadcaster : StimBroadcasterComponent;
+		var reevaluateDetectionRange : Float;
+		player = ( ( PlayerPuppet )( GameInstance.GetPlayerSystem( GetGameInstance() ).GetLocalPlayerMainGameObject() ) );
+		StatusEffectHelper.RemoveStatusEffect( player, T"PreventionStatusEffect.PerformingIllegalAction" );
+		playerBroadcaster = player.GetStimBroadcasterComponent();
+		if( playerBroadcaster )
+		{
+			playerBroadcaster.RemoveActiveStimuliByName( player, gamedataStimType.IllegalAction );
+			reevaluateDetectionRange = TDB.GetFloat( T"player.vehicleQuickHacks.reevaluateDetectionRange", 40.0 );
+			playerBroadcaster.TriggerSingleBroadcast( player, gamedataStimType.ReevaluateDetectionOverwrite, reevaluateDetectionRange );
+		}
+		m_controlStimShouldBeActive = false;
+		m_controlStimRunning = false;
+		EndVehicleStimsOnVehicleQuickhack();
+	}
+
+	public function EndVehicleStimsOnVehicleQuickhack()
+	{
+		var vehicleBroadcaster : StimBroadcasterComponent;
+		vehicleBroadcaster = GetOwnerEntity().GetStimBroadcasterComponent();
+		if( vehicleBroadcaster )
+		{
+			vehicleBroadcaster.RemoveActiveStimuliByName( GetOwnerEntity(), gamedataStimType.CarAlarm );
+			vehicleBroadcaster.RemoveActiveStimuliByName( GetOwnerEntity(), gamedataStimType.CarAlarm );
+		}
+	}
+
+	private function ActionForceCarAlarm() : ForceCarAlarm
+	{
+		var action : ForceCarAlarm;
+		action = new ForceCarAlarm;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( true );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionForceDisableCarAlarm() : ForceDisableCarAlarm
+	{
+		var action : ForceDisableCarAlarm;
+		action = new ForceDisableCarAlarm;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( false );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionToggleVehicle( toggleOn : Bool ) : ToggleVehicle
+	{
+		var action : ToggleVehicle;
+		action = new ToggleVehicle;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( toggleOn );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionOpenTrunk() : VehicleOpenTrunk
+	{
+		var action : VehicleOpenTrunk;
+		action = new VehicleOpenTrunk;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionCloseTrunk() : VehicleCloseTrunk
+	{
+		var action : VehicleCloseTrunk;
+		action = new VehicleCloseTrunk;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionOpenHood() : VehicleOpenHood
+	{
+		var action : VehicleOpenHood;
+		action = new VehicleOpenHood;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionCloseHood() : VehicleCloseHood
+	{
+		var action : VehicleCloseHood;
+		action = new VehicleCloseHood;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionVehicleDumpBody() : VehicleDumpBody
+	{
+		var action : VehicleDumpBody;
+		action = new VehicleDumpBody;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionVehicleTakeBody() : VehicleTakeBody
+	{
+		var action : VehicleTakeBody;
+		action = new VehicleTakeBody;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionPlayerTrunk() : VehiclePlayerTrunk
+	{
+		var action : VehiclePlayerTrunk;
+		action = new VehiclePlayerTrunk;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionVehicleDoorInteraction( const slotName : ref< String >, optional fromInteraction : Bool, optional locked : Bool ) : VehicleDoorInteraction
+	{
+		var action : VehicleDoorInteraction;
+		action = new VehicleDoorInteraction;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( slotName, fromInteraction, locked );
+		action.AddDeviceName( GetDeviceName() );
+		if( !( locked ) )
+		{
+			action.CreateInteraction( , slotName );
+		}
+		else
+		{
+			action.CreateInteraction();
+		}
+		return action;
+	}
+
+	private function ActionVehicleDoorInteractionStateChange( doorToChange : EVehicleDoor, desiredState : VehicleDoorInteractionState, const source : ref< String > ) : VehicleDoorInteractionStateChange
+	{
+		var action : VehicleDoorInteractionStateChange;
+		action = new VehicleDoorInteractionStateChange;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( doorToChange, desiredState, source );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionVehicleDoorOpen( const slotName : ref< String > ) : VehicleDoorOpen
+	{
+		var action : VehicleDoorOpen;
+		action = new VehicleDoorOpen;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( slotName );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction( , slotName );
+		return action;
+	}
+
+	private function ActionVehicleDoorClose( const slotName : ref< String > ) : VehicleDoorClose
+	{
+		var action : VehicleDoorClose;
+		action = new VehicleDoorClose;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( slotName );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction( , slotName );
+		return action;
+	}
+
+	private function ActionVehicleForceOccupantOut( const slotName : ref< String > ) : VehicleForceOccupantOut
+	{
+		var action : VehicleForceOccupantOut;
+		action = new VehicleForceOccupantOut;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties( slotName );
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		return action;
+	}
+
+	private function ActionVehicleDoorQuestLocked() : VehicleQuestDoorLocked
+	{
+		var action : VehicleQuestDoorLocked;
+		action = new VehicleQuestDoorLocked;
+		action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+		action.SetUp( this );
+		action.SetProperties();
+		action.AddDeviceName( GetDeviceName() );
+		action.CreateInteraction();
+		action.SetInactive();
+		return action;
+	}
+
+	protected export function OnVehicleQuestChangeDoorStateEvent( evt : VehicleQuestChangeDoorStateEvent ) : EntityNotificationType
+	{
+		var desiredState : EQuestVehicleDoorState;
+		var doorOpenEvent : VehicleDoorOpen;
+		var doorCloseEvent : VehicleDoorClose;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		desiredState = evt.newState;
+		switch( desiredState )
+		{
+			case EQuestVehicleDoorState.ForceOpen:
+				doorOpenEvent = new VehicleDoorOpen;
+			doorOpenEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int32 )( evt.door ) ) );
+			doorOpenEvent.forceScene = evt.forceScene;
+			QueuePSEvent( this, doorOpenEvent );
+			break;
+			case EQuestVehicleDoorState.ForceClose:
+				doorCloseEvent = new VehicleDoorClose;
+			doorCloseEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int32 )( evt.door ) ) );
+			doorCloseEvent.forceScene = evt.forceScene;
+			QueuePSEvent( this, doorCloseEvent );
+			break;
+			case EQuestVehicleDoorState.OpenAll:
+				OpenAllVehDoors( evt.forceScene );
+			break;
+			case EQuestVehicleDoorState.CloseAll:
+				CloseAllVehDoors( evt.forceScene );
+			break;
+			case EQuestVehicleDoorState.OpenAllRegular:
+				OpenAllRegularVehDoors( evt.forceScene );
+			break;
+			case EQuestVehicleDoorState.ForceLock:
+				InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = evt.door;
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Locked;
+			InteractionStateChangeEvent.source = "QuestForceLock";
+			QueuePSEvent( this, InteractionStateChangeEvent );
+			break;
+			case EQuestVehicleDoorState.ForceUnlock:
+				InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = evt.door;
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Available;
+			InteractionStateChangeEvent.source = "QuestForceUnlock";
+			QueuePSEvent( this, InteractionStateChangeEvent );
+			break;
+			case EQuestVehicleDoorState.LockAll:
+				LockAllVehDoors();
+			break;
+			case EQuestVehicleDoorState.EnableInteraction:
+				InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = evt.door;
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Available;
+			InteractionStateChangeEvent.source = "QuestEnableInteraction";
+			QueuePSEvent( this, InteractionStateChangeEvent );
+			break;
+			case EQuestVehicleDoorState.DisableInteraction:
+				InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = evt.door;
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Disabled;
+			InteractionStateChangeEvent.source = "QuestDisableInteraction";
+			QueuePSEvent( this, InteractionStateChangeEvent );
+			break;
+			case EQuestVehicleDoorState.DisableAllInteractions:
+				DisableAllVehInteractions();
+			break;
+			case EQuestVehicleDoorState.ResetInteractions:
+				ResetVehicleInteractionState();
+			break;
+			case EQuestVehicleDoorState.ResetVehicle:
+				ResetVehicle();
+			break;
+			case EQuestVehicleDoorState.QuestLock:
+				InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = evt.door;
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.QuestLocked;
+			InteractionStateChangeEvent.source = "QuestLock";
+			QueuePSEvent( this, InteractionStateChangeEvent );
+			break;
+			case EQuestVehicleDoorState.QuestLockAll:
+				QuestLockAllVehDoors();
+			break;
+			default:
+				break;
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	protected function OnVehicleQuestChangeWindowStateEvent( evt : vehicleChangeWindowStateEvent ) : EntityNotificationType
+	{
+		var desiredState : EQuestVehicleWindowState;
+		var windowOpenEvent : VehicleWindowOpen;
+		var windowCloseEvent : VehicleWindowClose;
+		desiredState = evt.state;
+		switch( desiredState )
+		{
+			case EQuestVehicleWindowState.OpenAll:
+				OpenAllVehWindows();
+			break;
+			case EQuestVehicleWindowState.CloseAll:
+				CloseAllVehWindows();
+			break;
+			case EQuestVehicleWindowState.ForceOpen:
+				windowOpenEvent = new VehicleWindowOpen;
+			windowOpenEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int32 )( evt.door ) ) );
+			QueuePSEvent( this, windowOpenEvent );
+			break;
+			case EQuestVehicleWindowState.ForceClose:
+				windowCloseEvent = new VehicleWindowClose;
+			windowCloseEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int32 )( evt.door ) ) );
+			QueuePSEvent( this, windowCloseEvent );
+			break;
+			default:
+				break;
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	public export function OnToggleDoorWrapperEvent( evt : vehicleToggleDoorWrapperEvent ) : EntityNotificationType
+	{
+		var newEvt : VehicleQuestChangeDoorStateEvent;
+		newEvt = new VehicleQuestChangeDoorStateEvent;
+		newEvt.door = evt.door;
+		newEvt.newState = evt.action;
+		newEvt.forceScene = evt.forceScene;
+		OnVehicleQuestChangeDoorStateEvent( newEvt );
+		SetHasStateBeenModifiedByQuest( true );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	private function OpenAllVehDoors( forceScene : Bool )
+	{
+		var i : Int32;
+		var size : Int32;
+		var doorOpenEvent : VehicleDoorOpen;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			doorOpenEvent = new VehicleDoorOpen;
+			doorOpenEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int64 )( ( ( EVehicleDoor )( i ) ) ) ) );
+			doorOpenEvent.forceScene = forceScene;
+			QueuePSEvent( this, doorOpenEvent );
+		}
+	}
+
+	public function OpenAllRegularVehDoors( forceScene : Bool )
+	{
+		var i : Int32;
+		var doorOpenEvent : VehicleDoorOpen;
+		var seatSet : array< weak< VehicleSeat_Record > >;
+		seatSet = GetSeats();
+		for( i = 0; i < seatSet.Size(); i += 1 )
+		{
+			doorOpenEvent = new VehicleDoorOpen;
+			doorOpenEvent.slotID = seatSet[ i ].SeatName();
+			doorOpenEvent.forceScene = forceScene;
+			QueuePSEvent( this, doorOpenEvent );
+		}
+	}
+
+	private function CloseAllVehDoors( forceScene : Bool )
+	{
+		var i : Int32;
+		var size : Int32;
+		var doorCloseEvent : VehicleDoorClose;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			if( GetDoorState( ( ( EVehicleDoor )( i ) ) ) == VehicleDoorState.Open )
+			{
+				doorCloseEvent = new VehicleDoorClose;
+				doorCloseEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int64 )( ( ( EVehicleDoor )( i ) ) ) ) );
+				doorCloseEvent.forceScene = forceScene;
+				QueuePSEvent( this, doorCloseEvent );
+			}
+		}
+	}
+
+	private function LockAllVehDoors()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.source = "LockAllVehDoors";
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Locked;
+			QueuePSEvent( this, InteractionStateChangeEvent );
+		}
+	}
+
+	private function UnlockAllVehDoors()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.source = "UnlockAllVehDoors";
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Available;
+			QueuePSEvent( this, InteractionStateChangeEvent );
+		}
+	}
+
+	private function OpenAllVehWindows()
+	{
+		var i : Int32;
+		var size : Int32;
+		var windowOpenEvent : VehicleWindowOpen;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			windowOpenEvent = new VehicleWindowOpen;
+			windowOpenEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int64 )( ( ( EVehicleDoor )( i ) ) ) ) );
+			QueuePSEvent( this, windowOpenEvent );
+		}
+	}
+
+	private function CloseAllVehWindows()
+	{
+		var i : Int32;
+		var size : Int32;
+		var windowCloseEvent : VehicleWindowClose;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			windowCloseEvent = new VehicleWindowClose;
+			windowCloseEvent.slotID = EnumValueToName( 'EVehicleDoor', ( ( Int64 )( ( ( EVehicleDoor )( i ) ) ) ) );
+			QueuePSEvent( this, windowCloseEvent );
+		}
+	}
+
+	private function DisableAllVehInteractions()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.source = "DisableAllVehInteractions";
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Disabled;
+			QueuePSEvent( this, InteractionStateChangeEvent );
+		}
+	}
+
+	private function ResetVehicleInteractionState()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.source = "ResetVehicleInteractionState";
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			if( ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_front_left || ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_front_right )
+			{
+				InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Available;
+				QueuePSEvent( this, InteractionStateChangeEvent );
+			}
+			else if( ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_back_left || ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_back_right )
+			{
+				InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Disabled;
+				QueuePSEvent( this, InteractionStateChangeEvent );
+			}
+		}
+		SetHasStateBeenModifiedByQuest( false );
+	}
+
+	private function ResetVehicle()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			InteractionStateChangeEvent.source = "ResetVehicle";
+			if( ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_front_left || ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_front_right )
+			{
+				InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Available;
+				QueuePSEvent( this, InteractionStateChangeEvent );
+			}
+			else if( ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_back_left || ( ( EVehicleDoor )( i ) ) == EVehicleDoor.seat_back_right )
+			{
+				InteractionStateChangeEvent.newState = VehicleDoorInteractionState.Disabled;
+				QueuePSEvent( this, InteractionStateChangeEvent );
+			}
+		}
+		SetHasStateBeenModifiedByQuest( false );
+	}
+
+	private function QuestLockAllVehDoors()
+	{
+		var i : Int32;
+		var size : Int32;
+		var InteractionStateChangeEvent : VehicleDoorInteractionStateChange;
+		size = ( ( Int32 )( EVehicleDoor.count ) );
+		for( i = 0; i < size; i += 1 )
+		{
+			InteractionStateChangeEvent = new VehicleDoorInteractionStateChange;
+			InteractionStateChangeEvent.source = "QuestLockAllVehDoors";
+			InteractionStateChangeEvent.door = ( ( EVehicleDoor )( i ) );
+			InteractionStateChangeEvent.newState = VehicleDoorInteractionState.QuestLocked;
+			QueuePSEvent( this, InteractionStateChangeEvent );
+		}
+	}
+
+	private export function OnVehicleSeatReservationEvent( evt : VehicleSeatReservationEvent ) : EntityNotificationType
+	{
+		var door : EVehicleDoor;
+		var previousState : VehicleDoorInteractionState;
+		var currentState : VehicleDoorInteractionState;
+		GetVehicleDoorEnum( door, evt.slotID );
+		if( evt.reserve )
+		{
+			currentState = GetDoorInteractionState( door );
+			if( currentState == VehicleDoorInteractionState.Disabled )
+			{
+				return EntityNotificationType.DoNotNotifyEntity;
+			}
+			SetTempDoorInteractionState( door, GetDoorInteractionState( door ) );
+			SetDoorInteractionState( door, VehicleDoorInteractionState.Reserved, "ReservationStart" );
+		}
+		if( !( evt.reserve ) )
+		{
+			previousState = GetTempDoorInteractionState( door );
+			currentState = GetDoorInteractionState( door );
+			if( currentState == VehicleDoorInteractionState.Reserved )
+			{
+				SetDoorInteractionState( door, previousState, "ReservationEnd" );
+			}
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected function GetSeats() : array< weak< VehicleSeat_Record > >
+	{
+		var seatSet : array< weak< VehicleSeat_Record > >;
+		VehicleComponent.GetSeats( GetGameInstance(), GetOwnerEntity(), seatSet );
+		return seatSet;
+	}
+
+	protected function OnVehicleQuestCrystalDomeEvent( evt : VehicleQuestCrystalDomeEvent ) : EntityNotificationType
+	{
+		var toggle : Bool;
+		toggle = evt.toggle;
+		SetCrystalDomeQuestState( toggle );
+		if( evt.removeQuestControl )
+		{
+			SetIsCrystalDomeQuestModified( false );
+		}
+		else
+		{
+			SetIsCrystalDomeQuestModified( true );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected function OnVehicleQuestSirenEvent( evt : VehicleQuestSirenEvent ) : EntityNotificationType
+	{
+		SetSirenLightsState( evt.lights );
+		SetSirenSoundsState( evt.sounds );
+		if( evt.lights || evt.sounds )
+		{
+			SetSirenState( true );
+		}
+		if( !( evt.lights ) && !( evt.sounds ) )
+		{
+			SetSirenState( false );
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr export function OnVehicleLightQuestToggleEvent( evt : VehicleLightQuestToggleEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr export function OnVehicleLightQuestChangeColorEvent( evt : VehicleLightQuestChangeColorEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr function OnVehicleQuestHornEvent( evt : VehicleQuestHornEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr function OnVehicleDelayedQuestHornEvent( evt : VehicleQuestDelayedHornEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr export function OnVehicleQuestVisualDestructionEvent( evt : VehicleQuestVisualDestructionEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr export function OnVehicleDetachPartEvent( evt : VehicleDetachPartEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected function OnVehicleQuestAVThrusterEvent( evt : VehicleQuestAVThrusterEvent ) : EntityNotificationType
+	{
+		SetThrusterState( evt.enable );
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected export function OnVehicleQuestUIEvent( evt : VehicleQuestEnableUIEvent ) : EntityNotificationType
+	{
+		var forwardEvent : ForwardVehicleQuestEnableUIEvent;
+		var uiSystem : UISystem;
+		uiSystem = GameInstance.GetUISystem( GetGameInstance() );
+		forwardEvent = new ForwardVehicleQuestEnableUIEvent;
+		forwardEvent.mode = evt.mode;
+		uiSystem.QueueEvent( forwardEvent );
+		if( evt.mode == vehicleQuestUIEnable.Gameplay )
+		{
+			SetIsUiQuestModified( false );
+			return EntityNotificationType.DoNotNotifyEntity;
+		}
+		else
+		{
+			SetIsUiQuestModified( true );
+		}
+		if( evt.mode == vehicleQuestUIEnable.ForceEnable )
+		{
+			SetUiQuestState( true );
+		}
+		if( evt.mode == vehicleQuestUIEnable.ForceDisable )
+		{
+			SetUiQuestState( false );
+		}
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	protected function OnVehicleQuestUIEffectEvent( evt : VehicleQuestUIEffectEvent ) : EntityNotificationType
+	{
+		var forwardEvent : ForwardVehicleQuestUIEffectEvent;
+		var uiSystem : UISystem;
+		uiSystem = GameInstance.GetUISystem( GetGameInstance() );
+		forwardEvent = new ForwardVehicleQuestUIEffectEvent;
+		forwardEvent.glitch = evt.glitch;
+		forwardEvent.panamVehicleStartup = evt.panamVehicleStartup;
+		forwardEvent.panamScreenType1 = evt.panamScreenType1;
+		forwardEvent.panamScreenType2 = evt.panamScreenType2;
+		forwardEvent.panamScreenType3 = evt.panamScreenType3;
+		forwardEvent.panamScreenType4 = evt.panamScreenType4;
+		uiSystem.QueueEvent( forwardEvent );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	protected constexpr function OnVehicleRadioEvent( evt : VehicleRadioEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected constexpr function OnVehicleQuestWindowDestructionEvent( evt : VehicleQuestWindowDestructionEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected function OnVehicleRaceQuestEvent( evt : VehicleRaceQuestEvent ) : EntityNotificationType
+	{
+		var forwardEvent : ForwardVehicleRaceUIEvent;
+		var uiSystem : UISystem;
+		uiSystem = GameInstance.GetUISystem( GetGameInstance() );
+		forwardEvent = new ForwardVehicleRaceUIEvent;
+		forwardEvent.mode = evt.mode;
+		forwardEvent.maxPosition = evt.maxPosition;
+		forwardEvent.maxCheckpoints = evt.maxCheckpoints;
+		uiSystem.QueueEvent( forwardEvent );
+		switch( evt.mode )
+		{
+			case vehicleRaceUI.PreRaceSetup:
+				uiSystem.PushGameContext( UIGameContext.VehicleRace );
+			break;
+			case vehicleRaceUI.Disable:
+				uiSystem.PopGameContext( UIGameContext.VehicleRace );
+			break;
+		}
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+	protected function OnVehiclePanzerBootupUIQuestEvent( evt : VehiclePanzerBootupUIQuestEvent ) : EntityNotificationType
+	{
+		var forwardEvent : VehiclePanzerBootupUIQuestEvent;
+		var uiSystem : UISystem;
+		uiSystem = GameInstance.GetUISystem( GetGameInstance() );
+		forwardEvent = new VehiclePanzerBootupUIQuestEvent;
+		forwardEvent.mode = evt.mode;
+		uiSystem.QueueEvent( forwardEvent );
+		return EntityNotificationType.DoNotNotifyEntity;
+	}
+
+	protected constexpr function OnVehicleQuestToggleEngineEvent( evt : VehicleQuestToggleEngineEvent ) : EntityNotificationType
+	{
+		return EntityNotificationType.SendThisEventToEntity;
+	}
+
+}
+
+class VehicleQuestChangeDoorStateEvent extends Event
+{
+	instanceeditable var door : EVehicleDoor;
+	instanceeditable var newState : EQuestVehicleDoorState;
+	instanceeditable var forceScene : Bool;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Change Veh Door states";
+	}
+
+}
+
+importonly class vehicleChangeWindowStateEvent extends Event
+{
+	import var door : EVehicleDoor;
+	import var state : EQuestVehicleWindowState;
+}
+
+importonly class vehicleToggleDoorWrapperEvent extends Event
+{
+	import var door : EVehicleDoor;
+	import var action : EQuestVehicleDoorState;
+	import var forceScene : Bool;
+}
+
+import enum EVehicleDoor
+{
+	seat_front_left,
+	seat_front_right,
+	seat_back_left,
+	seat_back_right,
+	trunk,
+	hood,
+	count,
+	invalid,
+}
+
+import enum VehicleDoorState
+{
+	Closed,
+	Open,
+	Detached,
+}
+
+import enum EVehicleWindowState
+{
+	Closed,
+	Open,
+}
+
+import enum VehicleDoorInteractionState
+{
+	Available,
+	Locked,
+	Disabled,
+	QuestLocked,
+	Reserved,
+}
+
+import enum EQuestVehicleDoorState
+{
+	ForceOpen,
+	ForceClose,
+	OpenAll,
+	CloseAll,
+	ForceLock,
+	ForceUnlock,
+	LockAll,
+	EnableInteraction,
+	DisableInteraction,
+	DisableAllInteractions,
+	ResetInteractions,
+	ResetVehicle,
+	OpenAllRegular,
+	QuestLock,
+	QuestLockAll,
+	Count,
+	Invalid,
+}
+
+import enum EQuestVehicleWindowState
+{
+	ForceOpen,
+	ForceClose,
+	OpenAll,
+	CloseAll,
+}
+
+import enum VehicleNetrunnerQuickhackType
+{
+	ForceBrakes,
+	Explode,
+	Accelerate,
+	NONE,
+}
+
+enum VehicleQuestEngineLockState
+{
+	DontToggleIfLocked = 0,
+	Lock = 1,
+	Unlock = 2,
+}
+
+class VehicleQuestToggleEngineEvent extends Event
+{
+	editable var toggle : Bool;
+	editable var lockState : VehicleQuestEngineLockState;
+	default lockState = VehicleQuestEngineLockState.DontToggleIfLocked;
+	[ tooltip = "Set this to True with 'toggle' True to turn on the vehicle, but leave the engine off. Set this to True with 'toggle' false to turn off the engine, but leave vehicle on." ]
+	editable var vehicleOnEngineOff : Bool;
+	default vehicleOnEngineOff = false;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Enable/Disable Vehicle Engine";
+	}
+
+}
+
+class VehicleQuestCrystalDomeEvent extends Event
+{
+	editable var toggle : Bool;
+	editable var removeQuestControl : Bool;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Toggle Crystal Dome on and off";
+	}
+
+}
+
+class VehicleQuestSirenEvent extends Event
+{
+	editable var lights : Bool;
+	editable var sounds : Bool;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Toggle Sirens on and off";
+	}
+
+}
+
+class VehicleLightQuestToggleEvent extends Event
+{
+	editable var toggle : Bool;
+	instanceeditable var lightType : vehicleELightType;
+	default lightType = vehicleELightType.Default;
+
+	public constexpr export function GetFriendlyDescription() : String
+	{
+		return "Toggle lightType ON/OFF";
+	}
+
+}
+
+class VehicleLightQuestChangeColorEvent extends Event
+{
+	editable var color : Color;
+	instanceeditable var lightType : vehicleELightType;
+	default lightType = vehicleELightType.Default;
+	instanceeditable var forceOverrideEmissiveColor : Bool;
+	default forceOverrideEmissiveColor = false;
+
+	public constexpr export function GetFriendlyDescription() : String
+	{
+		return "Change light color";
+	}
+
+}
+
+class VehicleQuestHornEvent extends Event
+{
+	editable var honkTime : Float;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Honk the horn";
+	}
+
+}
+
+class VehicleQuestDelayedHornEvent extends Event
+{
+	editable var honkTime : Float;
+	editable var delayTime : Float;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Delay Honk the horn";
+	}
+
+}
+
+class VehicleHornProbsEvent extends Event
+{
+	var honkMinTime : Float;
+	var honkMaxTime : Float;
+	var probability : Float;
+}
+
+class VehicleQuestVisualDestructionEvent extends Event
+{
+	editable var accumulate : Bool;
+	editable var frontLeft : Float;
+	editable var frontRight : Float;
+	editable var front : Float;
+	editable var right : Float;
+	editable var left : Float;
+	editable var backLeft : Float;
+	editable var backRight : Float;
+	editable var back : Float;
+	editable var roof : Float;
+
+	public constexpr export function GetFriendlyDescription() : String
+	{
+		return "Set Visual Deformation";
+	}
+
+}
+
+class VehicleQuestAVThrusterEvent extends Event
+{
+	editable var enable : Bool;
+
+	public constexpr export function GetFriendlyDescription() : String
+	{
+		return "Enable/Disable AV thruster FX";
+	}
+
+}
+
+class VehicleSeatReservationEvent extends Event
+{
+	var slotID : CName;
+	var reserve : Bool;
+}
+
+class VehicleRadioEvent extends Event
+{
+	editable var toggle : Bool;
+	editable var setStation : Bool;
+	[ tooltip = "0: Aggro Ind   1: Elec Ind   2: HipHop   3: Aggro Techno   4: Downtempo   5: Att Rock   6: Pop   7: Latino   8: Metal   9: Minimal Techno   10: Jazz	11: Growl FM	12: Dark Star	13: Impulse" ]
+	editable var station : Int32;
+
+	public constexpr export function GetFriendlyDescription() : String
+	{
+		return "Toggle radio or set station";
+	}
+
+}
+
+class VehicleQuestEnableUIEvent extends Event
+{
+	editable var mode : vehicleQuestUIEnable;
+	default mode = vehicleQuestUIEnable.Gameplay;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Enable/Disable Vehicle UI";
+	}
+
+}
+
+enum vehicleQuestUIEnable
+{
+	Gameplay = 0,
+	ForceEnable = 1,
+	ForceDisable = 2,
+}
+
+class ForwardVehicleQuestEnableUIEvent extends Event
+{
+	var mode : vehicleQuestUIEnable;
+}
+
+class VehicleQuestUIEffectEvent extends Event
+{
+	editable var glitch : Bool;
+	editable var panamVehicleStartup : Bool;
+	editable var panamScreenType1 : Bool;
+	editable var panamScreenType2 : Bool;
+	editable var panamScreenType3 : Bool;
+	editable var panamScreenType4 : Bool;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Trigger vehicle UI effects";
+	}
+
+}
+
+class ForwardVehicleQuestUIEffectEvent extends Event
+{
+	var glitch : Bool;
+	var panamVehicleStartup : Bool;
+	var panamScreenType1 : Bool;
+	var panamScreenType2 : Bool;
+	var panamScreenType3 : Bool;
+	var panamScreenType4 : Bool;
+}
+
+class VehicleRaceQuestEvent extends Event
+{
+	editable var mode : vehicleRaceUI;
+	default mode = vehicleRaceUI.PreRaceSetup;
+	editable var maxPosition : Int32;
+	editable var maxCheckpoints : Int32;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Manage Race UI";
+	}
+
+}
+
+enum vehicleRaceUI
+{
+	PreRaceSetup = 0,
+	CountdownStart = 1,
+	RaceStart = 2,
+	RaceEnd = 3,
+	Disable = 4,
+}
+
+enum VehicleVisualCustomizationType
+{
+	Generic = 0,
+	Unique = 1,
+}
+
+struct GenericTemplatePersistentData
+{
+	persistent var primaryColorDefined : Bool;
+	default primaryColorDefined = false;
+	persistent var primaryColorR : Uint8;
+	persistent var primaryColorG : Uint8;
+	persistent var primaryColorB : Uint8;
+	persistent var secondaryColorDefined : Bool;
+	default secondaryColorDefined = false;
+	persistent var secondaryColorR : Uint8;
+	persistent var secondaryColorG : Uint8;
+	persistent var secondaryColorB : Uint8;
+	persistent var lightsColorDefined : Bool;
+	default lightsColorDefined = false;
+	persistent var lightsColorHue : Float;
+
+	public static function Equals( dataA : GenericTemplatePersistentData, dataB : GenericTemplatePersistentData ) : Bool
+	{
+		var c_tolerance : Int32;
+		c_tolerance = 2;
+		return ( ( ( ( dataA.primaryColorDefined == dataB.primaryColorDefined && dataA.secondaryColorDefined == dataB.secondaryColorDefined ) && dataA.lightsColorDefined == dataB.lightsColorDefined ) && Color.Equals( GenericTemplatePersistentData.GetPrimaryColor( dataA ), GenericTemplatePersistentData.GetPrimaryColor( dataB ), c_tolerance ) ) && Color.Equals( GenericTemplatePersistentData.GetSecondaryColor( dataA ), GenericTemplatePersistentData.GetSecondaryColor( dataB ), c_tolerance ) ) && ( AbsF( dataA.lightsColorHue - dataB.lightsColorHue ) <= ( ( Float )( c_tolerance ) ) );
+	}
+
+	public static function GetPrimaryColor( data : GenericTemplatePersistentData ) : Color
+	{
+		return Color( data.primaryColorR, data.primaryColorG, data.primaryColorB, 255 );
+	}
+
+	public static function SetPrimaryColor( out data : GenericTemplatePersistentData, color : Color )
+	{
+		data.primaryColorR = color.Red;
+		data.primaryColorG = color.Green;
+		data.primaryColorB = color.Blue;
+	}
+
+	public static function GetSecondaryColor( data : GenericTemplatePersistentData ) : Color
+	{
+		return Color( data.secondaryColorR, data.secondaryColorG, data.secondaryColorB, 255 );
+	}
+
+	public static function SetSecondaryColor( out data : GenericTemplatePersistentData, color : Color )
+	{
+		data.secondaryColorR = color.Red;
+		data.secondaryColorG = color.Green;
+		data.secondaryColorB = color.Blue;
+	}
+
+}
+
+import struct VehicleCustomMultilayer
+{
+	import var onlyForPlayerVehicleAppearances : array< CName >;
+	import var affectedComponents : array< CName >;
+	import var excludedComponents : array< CName >;
+	import var customMlSetup : ResRef;
+	import var customMlMask : ResRef;
+	import var coatLayerMin : Float;
+	import var coatLayerMax : Float;
+
+	public static function FromRecord( record : VehicleCustomMultilayer_Record ) : VehicleCustomMultilayer
+	{
+		var ret : VehicleCustomMultilayer;
+		ret.onlyForPlayerVehicleAppearances = record.OnlyForPlayerVehicleAppearances();
+		ret.affectedComponents = record.AffectedComponents();
+		ret.excludedComponents = record.ExcludedComponents();
+		ret.customMlSetup = record.CustomMlSetup();
+		ret.customMlMask = record.CustomMlMask();
+		ret.coatLayerMin = record.CoatLayerMin();
+		ret.coatLayerMax = record.CoatLayerMax();
+		return ret;
+	}
+
+}
+
+struct UniqueTemplateData
+{
+	var recordId : TweakDBID;
+	var twintoneModelName : CName;
+	var customIcon : UIIcon_Record;
+	var customMultilayers : array< VehicleCustomMultilayer >;
+	var customDecals : array< VehicleDecalAttachmentData >;
+	var globalClearCoatOverrides : VehicleClearCoatOverrides;
+	var partsClearCoatOverrides : array< VehiclePartsClearCoatOverrides >;
+
+	public static function Equals( dataA : UniqueTemplateData, dataB : UniqueTemplateData ) : Bool
+	{
+		return dataA.recordId == dataB.recordId;
+	}
+
+}
+
+struct VehicleVisualCustomizationTemplate
+{
+	var hasUniqueTemplate : Bool;
+	default hasUniqueTemplate = false;
+	var genericData : GenericTemplatePersistentData;
+	var uniqueData : UniqueTemplateData;
+
+	public static function IsValid( template : VehicleVisualCustomizationTemplate ) : Bool
+	{
+		if( template.hasUniqueTemplate )
+		{
+			return template.uniqueData.customMultilayers.Size() > 0;
+		}
+		else
+		{
+			return template.genericData.primaryColorDefined || template.genericData.lightsColorDefined;
+		}
+	}
+
+	public static function IsLightsOnly( template : VehicleVisualCustomizationTemplate ) : Bool
+	{
+		return !( template.genericData.primaryColorDefined || template.hasUniqueTemplate );
+	}
+
+	public static function GetType( template : VehicleVisualCustomizationTemplate ) : VehicleVisualCustomizationType
+	{
+		return ( ( template.hasUniqueTemplate ) ? ( VehicleVisualCustomizationType.Unique ) : ( VehicleVisualCustomizationType.Generic ) );
+	}
+
+	public static function Equals( templateA : VehicleVisualCustomizationTemplate, templateB : VehicleVisualCustomizationTemplate ) : Bool
+	{
+		if( templateA.hasUniqueTemplate && templateB.hasUniqueTemplate )
+		{
+			return UniqueTemplateData.Equals( templateA.uniqueData, templateB.uniqueData );
+		}
+		else if( !( templateA.hasUniqueTemplate ) && !( templateB.hasUniqueTemplate ) )
+		{
+			return GenericTemplatePersistentData.Equals( templateA.genericData, templateB.genericData );
+		}
+		return false;
+	}
+
+	public static function FromRecord( templateRecord : VehicleColorTemplate_Record, twintoneModelName : CName ) : VehicleVisualCustomizationTemplate
+	{
+		var vehicleColorTemplate : VehicleVisualCustomizationTemplate;
+		var i : Int32;
+		if( !( templateRecord ) )
+		{
+			return vehicleColorTemplate;
+		}
+		if( templateRecord.HasCustomPattern() )
+		{
+			vehicleColorTemplate.hasUniqueTemplate = true;
+			vehicleColorTemplate.uniqueData.twintoneModelName = twintoneModelName;
+			vehicleColorTemplate.uniqueData.customIcon = templateRecord.CustomIconHandle();
+			vehicleColorTemplate.uniqueData.recordId = templateRecord.GetRecordID();
+			for( i = 0; i < templateRecord.GetCustomMultilayersCount(); i += 1 )
+			{
+				vehicleColorTemplate.uniqueData.customMultilayers.PushBack( VehicleCustomMultilayer.FromRecord( templateRecord.GetCustomMultilayersItemHandle( i ) ) );
+			}
+			for( i = 0; i < templateRecord.GetCustomDecalsCount(); i += 1 )
+			{
+				vehicleColorTemplate.uniqueData.customDecals.PushBack( VehicleDecalAttachmentData.FromRecord( templateRecord.GetCustomDecalsItemHandle( i ) ) );
+			}
+			vehicleColorTemplate.uniqueData.globalClearCoatOverrides = VehicleClearCoatOverrides.FromRecord( templateRecord.GlobalClearCoatOverridesHandle() );
+			for( i = 0; i < templateRecord.GetPartsClearCoatOverridesCount(); i += 1 )
+			{
+				vehicleColorTemplate.uniqueData.partsClearCoatOverrides.PushBack( VehiclePartsClearCoatOverrides.FromRecord( templateRecord.GetPartsClearCoatOverridesItemHandle( i ) ) );
+			}
+		}
+		else
+		{
+			if( templateRecord.GetMainColorCount() == 3 )
+			{
+				vehicleColorTemplate.genericData.primaryColorDefined = true;
+				GenericTemplatePersistentData.SetPrimaryColor( vehicleColorTemplate.genericData, Color.ToLinear( Color( ( ( Uint8 )( templateRecord.GetMainColorItem( 0 ) ) ), ( ( Uint8 )( templateRecord.GetMainColorItem( 1 ) ) ), ( ( Uint8 )( templateRecord.GetMainColorItem( 2 ) ) ), 255 ) ) );
+			}
+			if( templateRecord.GetSecondaryColorCount() == 3 )
+			{
+				vehicleColorTemplate.genericData.secondaryColorDefined = true;
+				GenericTemplatePersistentData.SetSecondaryColor( vehicleColorTemplate.genericData, Color.ToLinear( Color( ( ( Uint8 )( templateRecord.GetSecondaryColorItem( 0 ) ) ), ( ( Uint8 )( templateRecord.GetSecondaryColorItem( 1 ) ) ), ( ( Uint8 )( templateRecord.GetSecondaryColorItem( 2 ) ) ), 255 ) ) );
+			}
+			if( templateRecord.LightsHue() != -1.0 )
+			{
+				vehicleColorTemplate.genericData.lightsColorDefined = true;
+				vehicleColorTemplate.genericData.lightsColorHue = templateRecord.LightsHue();
+			}
+		}
+		return vehicleColorTemplate;
+	}
+
+}
+
+struct SavedVehicleVisualCustomizationTemplate
+{
+	persistent var hasUniqueTemplate : Bool;
+	default hasUniqueTemplate = false;
+	persistent var genericData : GenericTemplatePersistentData;
+	persistent var uniqueDataID : TweakDBID;
+	persistent var twintoneModelName : CName;
+
+	public static function FromVehicleVisualCustomizationTemplate( template : VehicleVisualCustomizationTemplate ) : SavedVehicleVisualCustomizationTemplate
+	{
+		var savedData : SavedVehicleVisualCustomizationTemplate;
+		savedData.hasUniqueTemplate = template.hasUniqueTemplate;
+		savedData.twintoneModelName = template.uniqueData.twintoneModelName;
+		if( template.hasUniqueTemplate )
+		{
+			savedData.uniqueDataID = template.uniqueData.recordId;
+		}
+		else
+		{
+			savedData.genericData = template.genericData;
+		}
+		return savedData;
+	}
+
+	public static function ToVehicleVisualCustomizationTemplate( savedData : SavedVehicleVisualCustomizationTemplate ) : VehicleVisualCustomizationTemplate
+	{
+		var template : VehicleVisualCustomizationTemplate;
+		if( savedData.hasUniqueTemplate )
+		{
+			template = VehicleVisualCustomizationTemplate.FromRecord( TweakDBInterface.GetVehicleColorTemplateRecord( savedData.uniqueDataID ), savedData.twintoneModelName );
+		}
+		else
+		{
+			template.hasUniqueTemplate = false;
+			template.genericData = savedData.genericData;
+		}
+		return template;
+	}
+
+}
+
+struct vehicleVisualModdingDefinition
+{
+	persistent var primaryColorDefined : Bool;
+	persistent var primaryColorH : Float;
+	persistent var primaryColorS : Float;
+	persistent var primaryColorB : Float;
+	persistent var secondaryColorDefined : Bool;
+	persistent var secondaryColorH : Float;
+	persistent var secondaryColorS : Float;
+	persistent var secondaryColorB : Float;
+	persistent var lightsColorDefined : Bool;
+	persistent var lightsColorH : Float;
+	persistent var decoPreset : Int32;
+	persistent var defaultAppearance : CName;
+
+	public static function UpdateToNewFormat( oldData : vehicleVisualModdingDefinition ) : VehicleVisualCustomizationTemplate
+	{
+		var updatedData : VehicleVisualCustomizationTemplate;
+		if( oldData.primaryColorDefined )
+		{
+			updatedData.genericData.primaryColorDefined = true;
+			GenericTemplatePersistentData.SetPrimaryColor( updatedData.genericData, Color.HSBToColor( Rad2Deg( oldData.primaryColorH ), false, oldData.primaryColorS, oldData.primaryColorB * 0.80000001 ) );
+		}
+		if( oldData.secondaryColorDefined )
+		{
+			updatedData.genericData.secondaryColorDefined = true;
+			GenericTemplatePersistentData.SetSecondaryColor( updatedData.genericData, Color.HSBToColor( Rad2Deg( oldData.secondaryColorH ), false, oldData.secondaryColorS, oldData.secondaryColorB * 0.80000001 ) );
+		}
+		if( oldData.lightsColorDefined )
+		{
+			updatedData.genericData.lightsColorDefined = true;
+			updatedData.genericData.lightsColorHue = Rad2Deg( oldData.lightsColorH );
+		}
+		return updatedData;
+	}
+
+}
+
+class ExecuteVisualCustomizationWithDelay extends Event
+{
+	editable var template : VehicleVisualCustomizationTemplate;
+	editable var reset : Bool;
+	editable var instant : Bool;
+}
+
+class SwitchVehicleVisualCustomizationStateEvent extends Event
+{
+	var on : Bool;
+}
+
+class CheckVehicleVisialCustomizationDistanceTermination extends Event
+{
+}
+
+class ForwardVehicleRaceUIEvent extends Event
+{
+	var mode : vehicleRaceUI;
+	var maxPosition : Int32;
+	var maxCheckpoints : Int32;
+}
+
+struct TemporaryDoorState
+{
+	var door : EVehicleDoor;
+	var interactionState : VehicleDoorInteractionState;
+}
+
+class VehicleQuestWindowDestructionEvent extends Event
+{
+	editable var windowName : CName;
+	editable var window : vehicleQuestWindowDestruction;
+	default window = vehicleQuestWindowDestruction.window_f;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Destroy vehicle windows";
+	}
+
+}
+
+enum vehicleQuestWindowDestruction
+{
+	window_f = 0,
+	window_fl = 1,
+	window_fr = 2,
+	window_bl = 3,
+	window_br = 4,
+	window_b = 5,
+}
+
+class VehiclePanzerBootupUIQuestEvent extends Event
+{
+	editable var mode : panzerBootupUI;
+	default mode = panzerBootupUI.Loop;
+
+	public constexpr function GetFriendlyDescription() : String
+	{
+		return "Manage Panzer Bootup UI";
+	}
+
+}
+
+class VehicleBodyDisposalPerformedEvent extends Event
+{
+}
+
+class PreventionVehicleHackedEvent extends Event
+{
+	var instigatorID : EntityID;
+}
+
+class CheckVehicleVelocityForStimsEvent extends Event
+{
+}
+
+enum panzerBootupUI
+{
+	UnbootedIdle = 0,
+	BootingAttempt = 1,
+	BootingSuccess = 2,
+	Loop = 3,
+}
+

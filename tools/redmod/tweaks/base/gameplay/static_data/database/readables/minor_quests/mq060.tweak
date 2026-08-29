@@ -1,0 +1,39 @@
+package Items
+using RTDB, ItemAction
+
+mq060_showroom_01 : BaseShard
+{
+	displayName = "LocKey#96754";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq060/mq060_shards/mq060_showroom_01";
+	} : ItemAction.Read;
+}
+
+mq060_showroom_02 : BaseShard
+{
+	displayName = "LocKey#96756";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq060/mq060_shards/mq060_showroom_02";
+	} : ItemAction.Read;
+}
+
+mq060_showroom_03 : BaseShard
+{
+	displayName = "LocKey#96758";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq060/mq060_shards/mq060_showroom_03";
+	} : ItemAction.Read;
+}
+
+mq060_container : BaseShard
+{
+	displayName = "LocKey#96760";
+	itemSecondaryAction = 
+	{
+		string journalEntry = "onscreens/emails/quests/minor_quest/mq060/mq060_shards/mq060_container";
+	} : ItemAction.Read;
+}
+

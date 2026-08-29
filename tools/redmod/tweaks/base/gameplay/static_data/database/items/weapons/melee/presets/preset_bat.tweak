@@ -1,0 +1,403 @@
+package Items
+using RTDB, BaseStats, Prereqs, Perks, Effectors
+
+Preset_Baseball_Bat_Default : Base_Two_Hand_Blunt
+{
+	displayName = "LocKey#40177";
+	localizedDescription = "LocKey#40178";
+	CName[] visualTags = 
+	[
+		"Default"
+	];
+	tags += 
+	[
+		"Baseball_Bat"
+	];
+	CName appearanceResourceName = "Preset_Baseball_Bat_Default";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baseball_Bat";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baseball_bat_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.Blunt_WeaponMod1";
+		} : BluntModList_Slot1, 
+		{
+			slot = "AttachmentSlots.Blunt_WeaponMod2";
+		} : BluntModList_Slot2
+	];
+	OnAttach = 
+	[
+		"GLP.HoldingVerySlowMelee"
+	];
+	audioWeaponConfiguration = "audio_melee_metadata_baseballbat";
+	fk< StatModifierGroup >[] statModifierGroups += 
+	[
+		"Items.Baseball_Bat_Damage_Stats"
+	];
+	npcRPGData = 
+	{
+		statModifierGroups += 
+		[
+			"Items.Baseball_Bat_NPC_Damage_Stats"
+		];
+	} : Base_Two_Hand_Blunt_NPC_Data;
+}
+
+Preset_Baseball_Bat_Neon : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Neon"
+	];
+	tags += 
+	[
+		"Neon"
+	];
+}
+
+Preset_Baseball_Bat_Pimp : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Pimp"
+	];
+	tags += 
+	[
+		"Pimp"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Baseball_Bat_Legendary : Preset_Baseball_Bat_Default
+{
+	displayName = "LocKey#93519";
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "baseball_bat_legendary_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Collectible_Blunt_Blueprint";
+	CName[] visualTags = 
+	[
+		"Legendary"
+	];
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baseball_bat_common_grip";
+		}, 
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.CollectibleIconicWeaponMod";
+		}
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+		statModifierGroups += 
+		[
+			"Items.Baseball_Bat_NPC_Damage_Stats"
+		];
+	} : Items.Base_Two_Hand_Blunt_NPC_Data;
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Two_Hand_Blunt_RPG_Stats", "Items.Base_Two_Hand_Blunt_Handling_Stats", "Items.Base_Two_Hand_Blunt_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Physical", "Items.Base_Melee_Weapon_Damage_Type_Physical_Min_Max", "Items.Baseball_Bat_Damage_Stats", "Items.Preset_Baseball_Bat_Stat_Modifiers"
+	];
+}
+
+Preset_Baseball_Bat_Stat_Modifiers : StatModifierGroup
+{
+	statModifiers = 
+	[
+		{
+			statType = "BaseStats.TwoHandBluntStaminaCostReduction";
+			modifierType = "Additive";
+			value = 0.25f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.BleedingApplicationRate";
+			modifierType = "Additive";
+			value = 10f;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Preset_Baseball_Bat_SixStreet : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"6thStreet"
+	];
+}
+
+Preset_Baseball_Bat_Aldecados : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Aldecados"
+	];
+	tags += 
+	[
+		"Courier_RareFind"
+	];
+}
+
+Preset_Baseball_Bat_Mox : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"The_Mox"
+	];
+	tags += 
+	[
+		"Courier_RareFind"
+	];
+}
+
+[ notQueryable ]
+Preset_Baseball_Bat_TygerClaws : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Tyger_Claws"
+	];
+}
+
+[ notQueryable ]
+Preset_Baseball_Bat_Wraiths : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Wraiths"
+	];
+}
+
+[ notQueryable ]
+Preset_Baseball_Bat_Valentinos : Preset_Baseball_Bat_Default
+{
+	CName[] visualTags = 
+	[
+		"Valentinos"
+	];
+}
+
+Baseball_Bat_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 67f;
+		} : ConstantStatModifier
+	];
+}
+
+Baseball_Bat_NPC_Damage_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.DPS";
+			modifierType = "Additive";
+			value = 67f;
+		} : ConstantStatModifier
+	];
+}
+
+Base_Bat_RPG_Stats : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+			statType = "BaseStats.HeadshotDamageMultiplier";
+			modifierType = "Multiplier";
+			value = 0;
+		} : ConstantStatModifier
+	];
+}
+
+[ notQueryable ]
+Craftable_Common_Bat : Preset_Baseball_Bat_Default
+{
+	quality = "Quality.Common";
+	fk< SlotItemPartPreset >[] slotPartListPreset = 
+	[
+		{
+			slot = "AttachmentSlots.Grip";
+			fk< Item > itemPartPreset = "Items.w_baseball_bat_common_grip";
+		}
+	];
+	CraftingData = "Items.Big_Common_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Uncommon_Bat : Craftable_Common_Bat
+{
+	quality = "Quality.Uncommon";
+	CraftingData = "Items.Big_Uncommon_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Rare_Bat : Craftable_Uncommon_Bat
+{
+	quality = "Quality.Rare";
+	CraftingData = "Items.Big_Rare_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Craftable_Epic_Bat : Craftable_Uncommon_Bat
+{
+	quality = "Quality.Epic";
+	CraftingData = "Items.Big_Epic_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Proficiency_Craftable_Epic_Bat : Craftable_Epic_Bat
+{
+}
+
+[ notQueryable ]
+Craftable_Legendary_Bat : Craftable_Uncommon_Bat
+{
+	quality = "Quality.Legendary";
+	CraftingData = "Items.Big_Legendary_Crafting_Materials_Weapon";
+}
+
+[ notQueryable ]
+Preset_Baseball_Bat_Denny : Preset_Baseball_Bat_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "baseball_bat_denny_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Melee_Blueprint";
+	displayName = "LocKey#40587";
+	visualTags = 
+	[
+		"Denny_Bat"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	localizedDescription = "LocKey#40588";
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baseball_Bat";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+		statModifierGroups += 
+		[
+			"Items.Baseball_Bat_NPC_Damage_Stats"
+		];
+	} : Items.Base_Two_Hand_Blunt_NPC_Data;
+	slotPartListPreset += 
+	[
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.DennysBatWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Two_Hand_Blunt_RPG_Stats", "Items.Base_Two_Hand_Blunt_Handling_Stats", "Items.Base_Two_Hand_Blunt_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Physical", "Items.Base_Melee_Weapon_Damage_Type_Physical_Min_Max", "Items.Baseball_Bat_Damage_Stats"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+Preset_Baseball_Bat_Malina : Preset_Baseball_Bat_Default
+{
+	OnLooted += 
+	[
+		{
+			effectors = 
+			[
+				{
+					fact = "baseball_bat_malina_owned";
+					value = 1;
+				} : SetFactEffector
+			];
+		}
+	];
+	fk< ItemBlueprint > blueprint = "Items.Iconic_Melee_Blueprint";
+	displayName = "LocKey#87575";
+	localizedDescription = "LocKey#87576";
+	CName[] visualTags = 
+	[
+		"Malina_Bat"
+	];
+	quality = "Quality.Random";
+	tags += 
+	[
+		"IconicWeapon"
+	];
+	statModifiers += 
+	[
+		"Quality.IconicItem"
+	];
+	fk< UIIcon > hudIcon = "HUDWeaponIcons.Baseball_Bat";
+	npcRPGData = 
+	{
+		statModifiers += 
+		[
+			"Quality.IconicItem"
+		];
+		statModifierGroups += 
+		[
+			"Items.Baseball_Bat_NPC_Damage_Stats"
+		];
+	} : Items.Base_Two_Hand_Blunt_NPC_Data;
+	slotPartListPreset += 
+	[
+		{
+			slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+			itemPartPreset = "Items.MalinaBatWeaponMod";
+		}
+	];
+	statModifierGroups = 
+	[
+		"Items.IconicQualityRandomization", "Items.Base_Melee_Status_Effect_Application_Stats", "Items.Blunts_Stun_Application_Stats", "Items.Base_Two_Hand_Blunt_RPG_Stats", "Items.Base_Two_Hand_Blunt_Handling_Stats", "Items.Base_Two_Hand_Blunt_Misc_Stats", "Items.Base_Melee_Weapon_Damage_Type_Physical", "Items.Base_Melee_Weapon_Damage_Type_Physical_Min_Max", "Items.Baseball_Bat_Damage_Stats"
+	];
+}
+

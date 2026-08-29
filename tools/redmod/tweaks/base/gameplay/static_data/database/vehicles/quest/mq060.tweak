@@ -1,0 +1,129 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+VehicleShowroomUIMinimalistData : VehicleDefaultUIData
+{
+	info = "LocKey#96831";
+}
+
+VehicleShowroomUIShowOffData : VehicleDefaultUIData
+{
+	info = "LocKey#96835";
+}
+
+VehicleShowroomUIDesignerData : VehicleDefaultUIData
+{
+	info = "LocKey#96837";
+}
+
+VehicleShowroomUIBrandData : VehicleDefaultUIData
+{
+	info = "LocKey#96841";
+}
+
+VehicleShowroomUILowKeyData : VehicleDefaultUIData
+{
+	info = "LocKey#96833";
+}
+
+VehicleShowroomUIAggressiveData : VehicleDefaultUIData
+{
+	info = "LocKey#96829";
+}
+
+VehicleShowroomUIJackTradesData : VehicleDefaultUIData
+{
+	info = "LocKey#96839";
+}
+
+mq060_yaiba_muramasa_minimalist : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96830";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_ns";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIMinimalistData";
+}
+
+mq060_yaiba_muramasa_showoff : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96834";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as_nr";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIShowOffData";
+}
+
+mq060_yaiba_muramasa_designerfavorite : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96836";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIDesignerData";
+}
+
+mq060_yaiba_muramasa_yaibabrandclassic : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96840";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as_nr";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIBrandData";
+}
+
+mq060_yaiba_muramasa_lowkeypredator : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96832";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_as_ns";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUILowKeyData";
+}
+
+mq060_yaiba_muramasa_aggresive : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96828";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_regular_nr";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIAggressiveData";
+}
+
+mq060_yaiba_muramasa_jackofalltrades : v_sportbike1_yaiba_muramasa_player
+{
+	savable = true;
+	displayName = "LocKey#96838";
+	priority = "SpawnableObjectPriority.Quest";
+	appearanceName = "yaiba_kusanagi_basic_asm_r250_naked_as";
+	vehDefaultState = 
+	{
+		DisableAllInteractions = true;
+	};
+	vehicleUIData = "Vehicle.VehicleShowroomUIJackTradesData";
+}
+

@@ -1,0 +1,24 @@
+importonly abstract class StatusEffectBase extends IScriptable
+{
+}
+
+importonly class StatusEffect extends StatusEffectBase
+{
+	public import function GetRecord() : weak< StatusEffect_Record >;
+	public import function GetInitialApplicationSimTimestamp() : EngineTime;
+	public import function GetLastApplicationSimTimestamp() : EngineTime;
+	public import function GetRemainingDuration() : Float;
+	public import function GetTotalDuration() : Float;
+	public import function GetMaxStacks() : Uint32;
+	public import function GetStackCount() : Uint32;
+	public import function GetInstigatorStaticDataID() : TweakDBID;
+	public import function GetInstigatorEntityID() : EntityID;
+	public import function GetProxyEntityID() : EntityID;
+	public import function GetDirection() : Vector4;
+}
+
+import struct StatusEffectTDBPicker
+{
+	import var statusEffect : TweakDBID;
+}
+

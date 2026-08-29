@@ -14,18 +14,14 @@ function part_brakes_s2_largediameterrotors.getPart()
 	Modifiers[0] = {}
 	Modifiers[0].RecordType = "FrontWheelSuspension"
 	Modifiers[0].VariableName = "maxBrakingTorque"
-	Modifiers[0].ModifierValue = 1.05
-	Modifiers[0].ModifierType = "Mult"
-
-	--Old system
-	--Modifiers[0].ModifierValue = 500
-	--Modifiers[0].ModifierType = "Add"
+	Modifiers[0].ModifierValue = 500
+	Modifiers[0].ModifierType = "Add"
 	
 	Modifiers[1] = {}
 	Modifiers[1].RecordType = "RearWheelSuspension"
 	Modifiers[1].VariableName = "maxBrakingTorque"
-	Modifiers[1].ModifierValue = 1.05
-	Modifiers[1].ModifierType = "Mult"
+	Modifiers[1].ModifierValue = 500
+	Modifiers[1].ModifierType = "Add"
 	
 	--Part Type
 	Part.Type = "Brakes"

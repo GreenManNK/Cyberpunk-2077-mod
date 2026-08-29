@@ -1,0 +1,3008 @@
+package NetrunnerActions
+using RTDB, Tickets
+
+HackActionSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HackSelectorCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.HackLocomotion", "NetrunnerActions.HackWeaponMalfunction", "NetrunnerActions.HackWeaponJam", "NetrunnerActions.HackCyberware", "NetrunnerActions.HackBlind", "NetrunnerActions.HackDeath", "NetrunnerActions.HackOverload", "NetrunnerActions.HackOverheat"
+	];
+}
+
+HackActionSelector_VeryHard : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsImpossibleGameDifficulty", "Condition.HackSelectorCondition_VeryHard"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.HackLocomotion_VeryHard", "NetrunnerActions.HackWeaponMalfunction_VeryHard", "NetrunnerActions.HackCyberware_VeryHard", "NetrunnerActions.HackBlind_VeryHard", "NetrunnerActions.HackDeath_VeryHard", "NetrunnerActions.HackOverload_VeryHard", "NetrunnerActions.HackOverheat_VeryHard"
+	];
+}
+
+HackActionSelector_Hard : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsHardGameDifficulty", "Condition.HackSelectorCondition_Hard"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.HackLocomotion_Hard", "NetrunnerActions.HackWeaponMalfunction_Hard", "NetrunnerActions.HackCyberware_Hard", "NetrunnerActions.HackBlind_Hard", "NetrunnerActions.HackDeath_Hard", "NetrunnerActions.HackOverload_Hard", "NetrunnerActions.HackOverheat_Hard"
+	];
+}
+
+HackActionSelector_MaxTac : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.AbilityIsAVMaxTac", "Condition.HackSelectorCondition_VeryAggressive"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.HackLocomotion_MaxTac", "NetrunnerActions.HackOverload_MaxTac", "NetrunnerActions.HackOverheat_MaxTac", "NetrunnerActions.HackWeaponMalfunction_MaxTac", "NetrunnerActions.HackWeaponJam_MaxTac", "NetrunnerActions.HackCyberware_MaxTac", "NetrunnerActions.HackBlind_MaxTac", "NetrunnerActions.HackDeath_MaxTac"
+	];
+}
+
+HackActionSelector_MaxTac_Alone : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.HackSelectorCondition_VeryAggressive", "Character.StatusEffecMaxTacAlone", "Condition.AbilityIsAVMaxTac"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.HackDeath_MaxTac"
+	];
+}
+
+CoverHackSelector_MaxTac : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CoverHackSelectorCondition_VeryAggresive", "Condition.AbilityIsAVMaxTac", "GangNetrunner.CoverActivationCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.CoverHackLocomotion_MaxTac", "NetrunnerActions.CoverHackCyberware_MaxTac", "NetrunnerActions.CoverHackBlind_MaxTac", "NetrunnerActions.CoverHackOverheat_MaxTac", "NetrunnerActions.CoverHackOverload_MaxTac", "NetrunnerActions.CoverHackDeath_MaxTac"
+	];
+	defaultAction = "GenericArchetype.Success";
+}
+
+CoverHackSelector_MaxTac_Alone : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Character.StatusEffecMaxTacAlone", "Condition.CoverHackSelectorCondition_VeryAggresive", "Condition.AbilityIsAVMaxTac", "GangNetrunner.CoverActivationCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.CoverHackDeath_MaxTac"
+	];
+	defaultAction = "GenericArchetype.Success";
+}
+
+HackOverheat_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverload_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 10.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetHealthAbove50Perc"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload";
+		} : AISubActionQuickHack
+	];
+}
+
+HackLocomotion_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsNetrunnerArchetype", "Condition.TargetAbove20m", "Condition.TargetHasMeleeWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion";
+		} : AISubActionQuickHack
+	];
+}
+
+HackCyberware_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponMalfunction_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponJam_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponJam";
+			duration = 50.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponJam";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBlind_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind";
+		} : AISubActionQuickHack
+	];
+}
+
+HackDeath_MaxTac : HackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 5.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NotIsStoryGameDifficulty"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_MaxTac";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverheat_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 5.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverload_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 15.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetHealthAbove50Perc"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackLocomotion_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackCyberware_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 15.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBlind_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBlindQuickHack", "Condition.NetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackDeath_MaxTac : CoverHackAction_MaxTac
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NotIsStoryGameDifficulty"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_MaxTac";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackSelector : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CoverHackSelectorCondition", "GangNetrunner.CoverActivationCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.CoverHackLocomotion", "NetrunnerActions.CoverHackWeaponMalfunction", "NetrunnerActions.CoverHackWeaponJam", "NetrunnerActions.CoverHackCyberware", "NetrunnerActions.CoverHackBlind", "NetrunnerActions.CoverHackDeath", "NetrunnerActions.CoverHackOverload", "NetrunnerActions.CoverHackOverheat"
+	];
+	defaultAction = "GenericArchetype.Success";
+}
+
+CoverHackSelector_VeryHard : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsImpossibleGameDifficulty", "Condition.CoverHackSelectorCondition_VeryHard", "GangNetrunner.CoverActivationCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.CoverHackLocomotion_VeryHard", "NetrunnerActions.CoverHackWeaponMalfunction_VeryHard", "NetrunnerActions.CoverHackCyberware_VeryHard", "NetrunnerActions.CoverHackBlind_VeryHard", "NetrunnerActions.CoverHackDeath_VeryHard", "NetrunnerActions.CoverHackOverload_VeryHard", "NetrunnerActions.CoverHackOverheat_VeryHard"
+	];
+	defaultAction = "GenericArchetype.Success";
+}
+
+CoverHackSelector_Hard : AIActionSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.IsHardGameDifficulty", "Condition.CoverHackSelectorCondition_Hard", "GangNetrunner.CoverActivationCondition"
+			];
+		} : AIActionAND;
+	};
+	actions = 
+	[
+		"NetrunnerActions.CoverHackLocomotion_Hard", "NetrunnerActions.CoverHackWeaponMalfunction_Hard", "NetrunnerActions.CoverHackCyberware_Hard", "NetrunnerActions.CoverHackBlind_Hard", "NetrunnerActions.CoverHackDeath_Hard", "NetrunnerActions.CoverHackOverload_Hard", "NetrunnerActions.CoverHackOverheat_Hard"
+	];
+	defaultAction = "GenericArchetype.Success";
+}
+
+CommandCoverHackSelector : CoverHackSelector
+{
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				"Condition.CoverHackSelectorCondition", "Condition.CurrentCoverToTargetAbove9mPrediction", "Condition.CoverIsProtectingHorizontallyAgainstTarget", "Condition.NotDesiredCoverChanged", "Condition.NotAIMoveCommand", "Condition.NotAIUseWorkspotCommand", "Condition.NotGracefulCombatInterruption"
+			];
+		} : AIActionAND;
+	};
+}
+
+HackAppliedCooldown : AIActionCooldown
+{
+	name = "HackApplied";
+	duration = 12.f;
+	activationCondition = 
+	[
+		{
+			condition = 
+			{
+				AND = 
+				[
+					"Condition.AbilityIsTier2Archetype", "Condition.NotAbilityIsTier3Archetype"
+				];
+			} : AIActionAND;
+		}
+	];
+}
+
+HackAppliedT3Cooldown : AIActionCooldown
+{
+	name = "HackApplied";
+	duration = 8.f;
+	activationCondition = 
+	[
+		{
+			condition = 
+			{
+				AND = 
+				[
+					"Condition.AbilityIsTier3Archetype", "Condition.NotAbilityIsTier2Archetype"
+				];
+			} : AIActionAND;
+		}
+	];
+}
+
+HackAction : AIAction
+{
+	tickets = 
+	[
+		"AITicketType.Quickhack"
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetNotPlayerFollower"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 2.f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+		toNextPhaseConditionCheckInterval = 0.25f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.HackingInterruptedStatusEffects", "Condition.TargetBelow5m", {
+							AND = 
+							[
+								"Condition.NotNetrunnerProxyIsBossNPCRarity", "Condition.NotCurrentNetrunnerProxyIsBossNPCRarity", "Condition.CurrentNetrunnerProxyHitTimeout1Severity3"
+							];
+						} : AIActionAND, 
+						{
+							AND = 
+							[
+								{
+									OR = 
+									[
+										"Condition.IsBossNPCRarity", "Condition.NetrunnerProxyIsBossNPCRarity", "Condition.CurrentNetrunnerProxyIsBossNPCRarity"
+									];
+								} : AIActionOR, 
+								{
+									OR = 
+									[
+										"Condition.CurrentNetrunnerProxyHitCount15Timeout5", "Condition.HitCount15Timeout5", {
+											OR = 
+											[
+												{
+													AND = 
+													[
+														"Condition.PlayerHasShotgun", {
+															OR = 
+															[
+																"Condition.HitCount12Timeout5", "Condition.CurrentNetrunnerProxyHitCount12Timeout5"
+															];
+														} : AIActionOR
+													];
+												} : AIActionAND, 
+												{
+													AND = 
+													[
+														"Condition.PlayerHasMeleeWeapon", {
+															OR = 
+															[
+																"Condition.HitCount6Timeout5", "Condition.CurrentNetrunnerProxyHitCount6Timeout5"
+															];
+														} : AIActionOR
+													];
+												} : AIActionAND
+											];
+										} : AIActionOR
+									];
+								} : AIActionOR
+							];
+						} : AIActionAND, 
+						"Condition.NotCurrentNetrunnerProxyIsActive", "Condition.NotCurrentNetrunnerProxyDeviceIsActive", "Condition.NotTargetIsPlayer"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.3f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.Hacking"
+			];
+			remove = false;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect, 
+		{
+			name = "eye_glow_red";
+		} : AISubActionSpawnFX
+	];
+	recoverySubActions = 
+	[
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.Hacking"
+			];
+			remove = true;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect, 
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.HackingInterrupted"
+			];
+			remove = true;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect
+	];
+	subActions = 
+	[
+		{
+			delay = -1.f;
+			cooldowns = 
+			[
+				"NetrunnerActions.HackAppliedCooldown"
+			];
+		} : AISubActionStartCooldown, 
+		{
+			delay = -1.f;
+			cooldowns = 
+			[
+				"NetrunnerActions.HackAppliedT3Cooldown"
+			];
+		} : AISubActionStartCooldown, 
+		{
+			targetListener = "AIActionTarget.CombatTarget";
+			name = "NetrunnerHacking";
+		} : AISubActionQueueCommunicationEvent, 
+		{
+			source = "AIThreatPersistenceSource.QuickhackUpload";
+		} : AISubActionSetTopThreatPersistance
+	];
+	animData = 
+	{
+		animFeature = "QuickHacking";
+		weaponOverride = 1;
+		animSlot = 
+		{
+		};
+	};
+}
+
+HackAction_MaxTac : AIAction
+{
+	tickets = 
+	[
+		"AITicketType.Quickhack"
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetNotPlayerFollower"
+			];
+		} : AIActionAND;
+	};
+	startup = 
+	{
+		duration = 2.f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+		toNextPhaseConditionCheckInterval = 0.25f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.HackingInterruptedStatusEffects", "Condition.TargetBelow5m", {
+							AND = 
+							[
+								{
+									OR = 
+									[
+										"Condition.IsMaxTacNPCRarity"
+									];
+								} : AIActionOR, 
+								{
+									OR = 
+									[
+										"Condition.HitCount15Timeout5", {
+											OR = 
+											[
+												{
+													AND = 
+													[
+														"Condition.PlayerHasShotgun", "Condition.HitCount12Timeout5"
+													];
+												} : AIActionAND, 
+												{
+													AND = 
+													[
+														"Condition.PlayerHasMeleeWeapon", "Condition.HitCount6Timeout5"
+													];
+												} : AIActionAND
+											];
+										} : AIActionOR
+									];
+								} : AIActionOR
+							];
+						} : AIActionAND, 
+						"Condition.NotCurrentNetrunnerProxyIsActive", "Condition.NotCurrentNetrunnerProxyDeviceIsActive", "Condition.NotTargetIsPlayer"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.3f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loopSubActions = 
+	[
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.Hacking"
+			];
+			remove = false;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect, 
+		{
+			name = "eye_glow_red";
+		} : AISubActionSpawnFX
+	];
+	recoverySubActions = 
+	[
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.Hacking"
+			];
+			remove = true;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect, 
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.HackingInterrupted"
+			];
+			remove = true;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect
+	];
+	subActions = 
+	[
+		{
+			delay = -1.f;
+			cooldowns = 
+			[
+				"NetrunnerActions.HackAppliedT3Cooldown"
+			];
+		} : AISubActionStartCooldown, 
+		{
+			targetListener = "AIActionTarget.CombatTarget";
+			name = "NetrunnerHacking";
+		} : AISubActionQueueCommunicationEvent, 
+		{
+			source = "AIThreatPersistenceSource.QuickhackUpload";
+		} : AISubActionSetTopThreatPersistance
+	];
+	animData = 
+	{
+		animFeature = "QuickHacking";
+		weaponOverride = 1;
+		animSlot = 
+		{
+		};
+	};
+}
+
+HackRevealPosition : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackRevealPosition";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsNetrunnerArchetype", "Condition.AbilityCanPingQuickHack", "Condition.NotMinAccuracyValue0dot95", "Condition.NotNetrunnerProxy", "Condition.InStatesAlerted", "Condition.StatusEffectTagBreathing", "Condition.PlayerBelow30m", "Condition.NotPlayerBeingHacked", "Condition.NotPlayerInSafeZone", "Condition.NotStatusEffectPlayerGameplayRestrictionNoCombat", {
+					OR = 
+					[
+						"Condition.PlayerInRestrictedZone", "Condition.PlayerInDangerousZone"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.Player";
+			actionResult = "AIQuickHack.HackReveal";
+		} : AISubActionQuickHack
+	];
+	recoverySubActions += 
+	[
+		{
+			statusEffects += 
+			[
+				"AIQuickHackStatusEffect.HackRevealInterrupted"
+			];
+			remove = true;
+			target = "AIActionTarget.Owner";
+		} : AISubActionStatusEffect
+	];
+}
+
+HackRevealPositionUnarmed : HackRevealPosition
+{
+	animData = 
+	{
+	};
+}
+
+HackOverheat : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverheatQuickHack"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverheat_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverheat_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 35.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverload : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverloadQuickHack", "Condition.TargetHealthAbove50Perc"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverload_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverloadQuickHack"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackOverload_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 35.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverloadQuickHack"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackLocomotion : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsNetrunnerArchetype", "Condition.TargetAbove20m", "Condition.TargetHasMeleeWeapon", "Condition.AbilityCanLocomotionMalfunctionQuickHack", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion";
+		} : AISubActionQuickHack
+	];
+}
+
+HackLocomotion_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsNetrunnerArchetype", "Condition.TargetHasMeleeWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackLocomotion_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsNetrunnerArchetype", "Condition.TargetHasMeleeWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackCyberware : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanCyberwareMalfunctionQuickHack", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware";
+		} : AISubActionQuickHack
+	];
+}
+
+HackCyberware_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackCyberware_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponMalfunction : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanWeaponMalfunctionQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponMalfunction_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponMalfunction_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackWeaponJam : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponJam";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanJamWeaponQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponJam";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBlind : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBlindQuickHack", "Condition.NetrunnerProxy", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBlind_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBlind_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 45.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackDeath : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanDeathQuickHack", "Condition.AbilityIsTier3Archetype", "Condition.NotIsStoryGameDifficulty"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath";
+		} : AISubActionQuickHack
+	];
+}
+
+HackDeath_VeryHard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsTier3Archetype"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackDeath_Hard : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityIsTier3Archetype"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBuffCamo : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBuffCamo";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBuffCamoQuickHack", "Condition.FurthestSquadmate"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.FurthestSquadmate";
+			actionResult = "AIQuickHack.BuffCamo";
+		} : AISubActionQuickHack
+	];
+}
+
+HackBuffICE : HackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBuffICE";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBuffSturdinessQuickHack", "Condition.NearestSquadmate"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.NearestSquadmate";
+			actionResult = "AIQuickHack.BuffICE";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackAction : HackAction
+{
+	startup = 
+	{
+		duration = 2.f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+		toNextPhaseConditionCheckInterval = 0.25f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.HackingInterruptedStatusEffects", "CorpoNetrunner.CoverDeactivationCondition", "Condition.HitTimeout1dot5MinSeverity2", {
+							AND = 
+							[
+								"Condition.NotNetrunnerProxyIsBossNPCRarity", "Condition.NotCurrentNetrunnerProxyIsBossNPCRarity", "Condition.CurrentNetrunnerProxyHitTimeout1Severity3"
+							];
+						} : AIActionAND, 
+						{
+							AND = 
+							[
+								{
+									OR = 
+									[
+										"Condition.IsBossNPCRarity", "Condition.IsMaxTacNPCRarity", "Condition.NetrunnerProxyIsBossNPCRarity", "Condition.NetrunnerProxyIsMaxTacNPCRarity", "Condition.CurrentNetrunnerProxyIsBossNPCRarity", "Condition.CurrentNetrunnerProxyIsMaxTacNPCRarity"
+									];
+								} : AIActionOR, 
+								{
+									OR = 
+									[
+										"Condition.CurrentNetrunnerProxyHitCount15Timeout5", "Condition.HitCount15Timeout5", {
+											AND = 
+											[
+												"Condition.PlayerHasShotgun", {
+													OR = 
+													[
+														"Condition.HitCount8Timeout5", "Condition.CurrentNetrunnerProxyHitCount8Timeout5"
+													];
+												} : AIActionOR
+											];
+										} : AIActionAND, 
+										{
+											AND = 
+											[
+												"Condition.PlayerHasHandgun", {
+													OR = 
+													[
+														"Condition.CurrentNetrunnerProxyHitCount6Timeout5", "Condition.HitCount6Timeout5"
+													];
+												} : AIActionOR
+											];
+										} : AIActionAND, 
+										{
+											AND = 
+											[
+												"Condition.PlayerHasPrecisionRiffle", {
+													OR = 
+													[
+														"Condition.CurrentNetrunnerProxyHitCount3Timeout5", "Condition.HitCount3Timeout5"
+													];
+												} : AIActionOR
+											];
+										} : AIActionAND, 
+										{
+											AND = 
+											[
+												"Condition.PlayerHasMeleeWeapon", {
+													OR = 
+													[
+														"Condition.HitCount3Timeout5", "Condition.CurrentNetrunnerProxyHitCount3Timeout3"
+													];
+												} : AIActionOR
+											];
+										} : AIActionAND
+									];
+								} : AIActionOR
+							];
+						} : AIActionAND, 
+						"Condition.NotCurrentNetrunnerProxyIsActive", "Condition.NotCurrentNetrunnerProxyDeviceIsActive"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.3f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	subActions += 
+	[
+		{
+			coverExposureMethods = [];
+		} : AISubActionCover
+	];
+	animData = 
+	{
+		animFeature = "CoverQuickHacking";
+		weaponOverride = 1;
+		animSlot = 
+		{
+			useRootMotion = false;
+		};
+		animVariationSubAction = 
+		{
+			coverExposureMethods = [];
+		} : AISubActionCover;
+	};
+}
+
+CoverHackAction_MaxTac : HackAction
+{
+	startup = 
+	{
+		duration = 2.f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	loop = 
+	{
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+		toNextPhaseConditionCheckInterval = 0.25f;
+		toNextPhaseCondition = 
+		[
+			{
+				condition = 
+				{
+					OR = 
+					[
+						"Condition.HackingInterruptedStatusEffects", "CorpoNetrunner.CoverDeactivationCondition", "Condition.HitTimeout1dot5MinSeverity2", {
+							AND = 
+							[
+								{
+									OR = 
+									[
+										"Condition.IsMaxTacNPCRarity"
+									];
+								} : AIActionOR, 
+								{
+									OR = 
+									[
+										"Condition.HitCount15Timeout5", {
+											AND = 
+											[
+												"Condition.PlayerHasShotgun", "Condition.HitCount12Timeout5"
+											];
+										} : AIActionAND, 
+										{
+											AND = 
+											[
+												"Condition.PlayerHasMeleeWeapon", "Condition.HitCount6Timeout5"
+											];
+										} : AIActionAND
+									];
+								} : AIActionOR
+							];
+						} : AIActionAND, 
+						"Condition.NotCurrentNetrunnerProxyIsActive", "Condition.NotCurrentNetrunnerProxyDeviceIsActive"
+					];
+				} : AIActionOR;
+			}
+		];
+	};
+	recovery = 
+	{
+		duration = 1.3f;
+		changeNPCState = 
+		{
+			stanceState = "Crouch";
+		};
+	};
+	subActions += 
+	[
+		{
+			coverExposureMethods = [];
+		} : AISubActionCover
+	];
+	animData = 
+	{
+		animFeature = "CoverQuickHacking";
+		weaponOverride = 1;
+		animSlot = 
+		{
+			useRootMotion = false;
+		};
+		animVariationSubAction = 
+		{
+			coverExposureMethods = [];
+		} : AISubActionCover;
+	};
+}
+
+CoverHackOverheat : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverheatQuickHack"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverheat_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverheat_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverheat";
+			duration = 25.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverheat_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverload : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanOverloadQuickHack", "Condition.TargetHealthAbove50Perc"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverload_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackOverload_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackOverload";
+			duration = 25.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackOverload_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackLocomotion : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetAbove20m", "Condition.TargetHasMeleeWeapon", "Condition.AbilityCanLocomotionMalfunctionQuickHack", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackLocomotion_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 20.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetAbove20m", "Condition.TargetHasMeleeWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackLocomotion_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackLocomotion";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetAbove20m", "Condition.TargetHasMeleeWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackLocomotion_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackCyberware : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanCyberwareMalfunctionQuickHack", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackCyberware_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackCyberware_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackCyberware";
+			duration = 35.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackCyberware_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackWeaponMalfunction : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanWeaponMalfunctionQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackWeaponMalfunction_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 30.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanWeaponMalfunctionQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackWeaponMalfunction_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponMalfunction";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanWeaponMalfunctionQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponMalfunction_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackWeaponJam : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponJam";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanJamWeaponQuickHack", "Condition.NetrunnerProxy", "Condition.TargetHasRangedWeapon", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponJam";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackWeaponJam_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackWeaponJam";
+			duration = 90.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.TargetHasRangedWeapon"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackWeaponJam_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBlind : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBlindQuickHack", "Condition.NetrunnerProxy", {
+					OR = 
+					[
+						"Condition.AbilityIsTier2Archetype", "Condition.AbilityIsTier3Archetype"
+					];
+				} : AIActionOR
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBlind_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBlind_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBlind";
+			duration = 45.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackBlind_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackDeath : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanDeathQuickHack", "Condition.AbilityIsTier3Archetype", "Condition.NotIsStoryGameDifficulty"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackDeath_VeryHard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 40.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NotNetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_VeryHard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackDeath_Hard : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackDeath";
+			duration = 45.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.NotNetrunnerProxy"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.CombatTarget";
+			actionResult = "AIQuickHack.HackDeath_Hard";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBuffCamo : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBuffCamo";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBuffCamoQuickHack", "Condition.FurthestSquadmate"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.FurthestSquadmate";
+			actionResult = "AIQuickHack.BuffCamo";
+		} : AISubActionQuickHack
+	];
+}
+
+CoverHackBuffICE : CoverHackAction
+{
+	cooldowns = 
+	[
+		{
+			name = "HackBuffICE";
+			duration = 120.f;
+		}
+	];
+	activationCondition = 
+	{
+		condition = 
+		{
+			AND = 
+			[
+				{
+					OR = 
+					[
+						"Condition.NotTargetInVehicle", "Condition.IsNotHeatStage5Active"
+					];
+				} : AIActionOR, 
+				"Condition.AbilityCanBuffSturdinessQuickHack", "Condition.NearestSquadmate"
+			];
+		} : AIActionAND;
+	};
+	loopSubActions += 
+	[
+		{
+			target = "AIActionTarget.NearestSquadmate";
+			actionResult = "AIQuickHack.BuffICE";
+		} : AISubActionQuickHack
+	];
+}
+

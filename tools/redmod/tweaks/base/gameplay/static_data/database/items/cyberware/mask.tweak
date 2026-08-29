@@ -1,0 +1,168 @@
+package Items
+using RTDB, BaseStats, Attunements, Prereqs
+
+[ notQueryable ]
+[ EP1 ]
+MaskCW_Base : Cyberware
+{
+	friendlyName = "MaskCW";
+	upgradeCostMult = 1.0f;
+	iconPath = "cw_facemask";
+	displayName = "LocKey#91483";
+	localizedDescription = "LocKey#91484";
+	itemType = "ItemType.Cyb_Ability";
+	usesVariants = true;
+	variants = 
+	[
+		"Variants.Humanity0Cost"
+	];
+	equipArea = "EquipmentArea.EyesCW";
+	placementSlots = 
+	[
+		"AttachmentSlots.Eyes"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.IsItemIconic";
+			modifierType = "Additive";
+			value = 1f;
+		} : ConstantStatModifier, 
+		{
+			statType = "BaseStats.AttunementHelper";
+			modifierType = "Additive";
+			refStat = "BaseStats.Intelligence";
+			refObject = "Player";
+			opSymbol = "*";
+			value = 0.05f;
+		} : CombinedStatModifier
+	];
+	fk< GameplayLogicPackage >[] OnEquip = 
+	[
+		{
+			effectors = 
+			[
+				{
+					statPoolUpdates = 
+					[
+						{
+							statPoolType = "BaseStatPools.CWMaskCharges";
+							statPoolValue = 100;
+						} : StatPoolUpdate
+					];
+					bool usePercent = true;
+				} : ModifyStatPoolValueEffector
+			];
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#92355";
+			};
+		} : GameplayLogicPackage, 
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#43472";
+			};
+		}, 
+		"Attunements.IntelligenceAllDamage"
+	];
+	objectActions = 
+	[
+		"CyberwareAction.UseCWMask"
+	];
+	CName cyberwareType = "CWMask";
+	tags += 
+	[
+		"SkipActivityLog", "MaskCW"
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+MaskCW : MaskCW_Base
+{
+	quality = "Quality.Legendary";
+	nextUpgradeItem = "Items.MaskCWPlus";
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93182";
+				floatValues = 
+				[
+					1500
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+MaskCWPlus : MaskCW_Base
+{
+	quality = "Quality.LegendaryPlus";
+	nextUpgradeItem = "Items.MaskCWPlusPlus";
+	tags += 
+	[
+		"MaskCWPlus"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.CWMaskRechargeDuration";
+			modifierType = "Additive";
+			value = -300;
+		} : ConstantStatModifier
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93182";
+				floatValues = 
+				[
+					1200
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+
+[ notQueryable ]
+[ EP1 ]
+MaskCWPlusPlus : MaskCW_Base
+{
+	quality = "Quality.LegendaryPlusPlus";
+	nextUpgradeItem = "";
+	tags += 
+	[
+		"MaskCWPlusPlus"
+	];
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.CWMaskRechargeDuration";
+			modifierType = "Additive";
+			value = -600;
+		} : ConstantStatModifier
+	];
+	OnEquip += 
+	[
+		{
+			UIData = 
+			{
+				localizedDescription = "LocKey#93182";
+				floatValues = 
+				[
+					900
+				];
+			};
+		} : GameplayLogicPackage
+	];
+}
+

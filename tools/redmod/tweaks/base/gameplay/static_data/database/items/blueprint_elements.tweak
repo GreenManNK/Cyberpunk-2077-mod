@@ -1,0 +1,283 @@
+package Items
+using RTDB, Prereqs
+
+UncommonItemBlueprintElement : ItemBlueprintElement
+{
+	prereqID = 
+	{
+		valueToCheck = 1;
+	} : ItemQualityPrereq;
+}
+
+RareItemBlueprintElement : ItemBlueprintElement
+{
+	prereqID = 
+	{
+		valueToCheck = 2;
+	} : ItemQualityPrereq;
+}
+
+CollectibelIconicItemBlueprintElement : ItemBlueprintElement
+{
+}
+
+ScopeElement : ItemBlueprintElement
+{
+	slot = "AttachmentSlots.Scope";
+}
+
+PowerModuleElement : ItemBlueprintElement
+{
+	slot = "AttachmentSlots.PowerModule";
+}
+
+Power_AR_SMG_LMG_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1";
+}
+
+Power_AR_SMG_LMG_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2";
+}
+
+Tech_AR_SMG_LMG_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1";
+}
+
+Tech_AR_SMG_LMG_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2";
+}
+
+Smart_AR_SMG_LMG_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1";
+}
+
+Smart_AR_SMG_LMG_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2";
+}
+
+Power_Handgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Handgun_WeaponMod1";
+}
+
+Power_Handgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Handgun_WeaponMod2";
+}
+
+Tech_Handgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Handgun_WeaponMod1";
+}
+
+Tech_Handgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Handgun_WeaponMod2";
+}
+
+Smart_Handgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Handgun_WeaponMod1";
+}
+
+Smart_Handgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Handgun_WeaponMod2";
+}
+
+Power_Precision_Sniper_Rifle_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1";
+}
+
+Power_Precision_Sniper_Rifle_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2";
+}
+
+Tech_Precision_Sniper_Rifle_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1";
+}
+
+Tech_Precision_Sniper_Rifle_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2";
+}
+
+Smart_Precision_Sniper_Rifle_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1";
+}
+
+Smart_Precision_Sniper_Rifle_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2";
+}
+
+Power_Shotgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Shotgun_WeaponMod1";
+}
+
+Power_Shotgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Shotgun_WeaponMod2";
+}
+
+Tech_Shotgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Shotgun_WeaponMod1";
+}
+
+Tech_Shotgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Shotgun_WeaponMod2";
+}
+
+Smart_Shotgun_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Shotgun_WeaponMod1";
+}
+
+Smart_Shotgun_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Shotgun_WeaponMod2";
+}
+
+Blade_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blade_WeaponMod1";
+}
+
+Blade_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blade_WeaponMod2";
+}
+
+Blunt_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blunt_WeaponMod1";
+}
+
+Blunt_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blunt_WeaponMod2";
+}
+
+Throwable_WeaponMod1Element : UncommonItemBlueprintElement
+{
+	slot = "AttachmentSlots.Throwable_WeaponMod1";
+}
+
+Throwable_WeaponMod2Element : RareItemBlueprintElement
+{
+	slot = "AttachmentSlots.Throwable_WeaponMod2";
+}
+
+IconicRangedWeaponModElement : ItemBlueprintElement
+{
+	slot = "AttachmentSlots.IconicWeaponModLegendary";
+}
+
+IconicMeleeWeaponModElement : ItemBlueprintElement
+{
+	slot = "AttachmentSlots.IconicMeleeWeaponMod1";
+}
+
+Smart_Collectible_Handgun_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible";
+}
+
+Smart_Collectible_Handgun_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible";
+}
+
+Power_Collectible_Handgun_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Handgun_WeaponMod1_Collectible";
+}
+
+Power_Collectible_Handgun_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Handgun_WeaponMod2_Collectible";
+}
+
+Power_Collectible_AR_SMG_LMG_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible";
+}
+
+Power_Collectible_AR_SMG_LMG_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible";
+}
+
+Power_Collectible_Shotgun_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible";
+}
+
+Power_Collectible_Shotgun_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible";
+}
+
+Smart_Collectible_Precision_Sniper_Rifle_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible";
+}
+
+Smart_Collectible_Precision_Sniper_Rifle_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible";
+}
+
+Tech_Collectible_Precision_Sniper_Rifle_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible";
+}
+
+Tech_Collectible_Precision_Sniper_Rifle_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible";
+}
+
+Blade_Collectible_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blade_WeaponMod1_Collectible";
+}
+
+Blade_Collectible_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blade_WeaponMod2_Collectible";
+}
+
+Blunt_Collectible_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blunt_WeaponMod1_Collectible";
+}
+
+Blunt_Collectible_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Blunt_WeaponMod2_Collectible";
+}
+
+Throwable_Collectible_WeaponMod1Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Throwable_WeaponMod1_Collectible";
+}
+
+Throwable_Collectible_WeaponMod2Element : CollectibelIconicItemBlueprintElement
+{
+	slot = "AttachmentSlots.Throwable_WeaponMod2_Collectible";
+}
+

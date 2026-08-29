@@ -1,0 +1,250 @@
+# Bikes:
+# Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+
+# 2car:
+# Vehicle.GR_v_sport2_mizutani_shion_nomad_wraith
+# Vehicle.GR_v_sport2_quadra_type66_nomad_wraith
+# Vehicle.GR_v_standard2_archer_quartz_nomad_wraith
+# Vehicle.GR_v_standard25_thorton_colby_nomad_wraith
+
+# 4car:
+# Vehicle.GR_v_standard2_thorton_galena_nomad
+
+# weak:
+# Character.wraiths_grunt1_ranged1_nova_ma - marauder
+# Character.wraiths_grunt1_ranged1_nova_wa - marauder
+# Character.wraiths_grunt1_ranged1_pulsar_ma - marauder
+# Character.wraiths_grunt1_ranged1_pulsar_wa - maraUDER
+
+# normal:
+# Character.wraiths_grunt2_ranged2_copperhead_ma - hUNTER
+# Character.wraiths_grunt2_ranged2_copperhead_wa - Devil
+# Character.wraiths_grunt2_ranged2_pulsar_ma - hunter
+# Character.wraiths_grunt2_ranged2_pulsar_wa - devil
+# Character.wraiths_warrior3_shotgun3_palica_ma_elite - Bane
+
+# rare:
+# Character.wraiths_ghost2_sniper2_achilles_ma_rare - sniper
+# Character.wraiths_operator3_shotgun2_crusher_ma_rare - ghoul
+# Character.wraiths_warrior3_melee3_hammer_wa_rare - skewer
+# Character.wraiths_warrior3_ranged3_quasar_wa_rare - ghoul
+
+# elite:
+# Character.wraiths_prisoner_fmelee3_fists_ma_elite - revenant
+# Character.wraiths_strong_gunner3_hmg_mb_elite - goliath
+# Character.wraiths_warrior3_shotgun3_satara_ma_elite - bane
+
+#reinforcements
+
+DynamicSpawnSystem.GRWraithWeakBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_nova_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithWeakBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_nova_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithWeakBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_pulsar_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithWeakBike4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_pulsar_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_mizutani_shion_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_nova_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_pulsar_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_nova_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_pulsar_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_quartz_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_pulsar_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_pulsar_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt1_ranged1_pulsar_ma
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_shotgun3_palica_ma_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithRareSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_ghost2_sniper2_achilles_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_shotgun3_palica_ma_elite
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithRareSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_mizutani_shion_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithRareSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_quartz_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_melee3_hammer_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithRareSquad4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard25_thorton_colby_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_ranged3_quasar_wa_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_pulsar_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithEliteSquad1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_mizutani_shion_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_prisoner_fmelee3_fists_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_ghost2_sniper2_achilles_ma_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithEliteSquad2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sport2_quadra_type66_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_strong_gunner3_hmg_mb_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_operator3_shotgun2_crusher_ma_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithEliteSquad3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_archer_quartz_nomad_wraith
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_shotgun3_satara_ma_elite
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_ranged3_quasar_wa_rare
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalBike1:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalBike2:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_copperhead_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalBike3:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_pulsar_ma
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithNormalBike4:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_sportbike3_brennan_apollo_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_grunt2_ranged2_pulsar_wa
+          weight: 1.0
+
+DynamicSpawnSystem.GRWraithRareSquad5:
+    $type: DynamicVehicleData
+    vehicleRecord: Vehicle.GR_v_standard2_thorton_galena_nomad
+    unitRecordsPool:
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_ghost2_sniper2_achilles_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_operator3_shotgun2_crusher_ma_rare
+          weight: 1.0
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_melee3_hammer_wa_rare
+          weight: 0.5
+        - $type: WeightedCharacter
+          character: Character.GR_wraiths_warrior3_ranged3_quasar_wa_rare
+          weight: 0.2

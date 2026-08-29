@@ -1,0 +1,362 @@
+package Ammo
+using RTDB, BaseStats
+
+[ notQueryable ]
+AmmoBase : Item
+{
+	itemCategory = "ItemCategory.General";
+	itemType = "ItemType.Con_Ammo";
+	CName[] tags = 
+	[
+		"Ammo", "ShowStackPrice"
+	];
+	CName dropObject = "ammoDrop";
+	CName entityName = "bullet_drop";
+	buyPrice = 
+	[
+		"Price.Ammo", "Price.BuyPrice_StreetCred_Discount"
+	];
+	sellPrice = 
+	[
+		"Price.Ammo"
+	];
+	fk< CraftingPackage > CraftingData = 
+	{
+		fk< RecipeElement >[] craftingRecipe = 
+		[
+			{
+				ingredient = "Items.CommonMaterial1";
+				amount = 2;
+			}
+		];
+	};
+}
+
+Standard : AmmoBase
+{
+	tags += 
+	[
+		"StandardAmmo"
+	];
+	string friendlyName = "ammo_standard";
+	displayName = "LocKey#50350";
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 1;
+	} : ConstantStatModifier;
+	localizedDescription = "LocKey#50351";
+}
+
+Special : AmmoBase
+{
+	string friendlyName = "ammo_special";
+	displayName = "LocKey#50352";
+	fk< ConstantStatModifier > price = 
+	{
+		statType = "BaseStats.Price";
+		modifierType = "Additive";
+		value = 1;
+	} : ConstantStatModifier;
+	localizedDescription = "LocKey#50353";
+}
+
+HandgunAmmo : AmmoBase
+{
+	string friendlyName = "";
+	displayName = "LocKey#50354";
+	localizedDescription = "LocKey#50355";
+	tags += 
+	[
+		"HandgunAmmo"
+	];
+	buyPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	sellPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	entityName = "ammo_box_handgun";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 899;
+		} : ConstantStatModifier
+	];
+}
+
+RecipeHandgunAmmo : ItemRecipe
+{
+	displayName = "LocKey#50354";
+	entityName = "ammo_box_handgun";
+	craftingResult = 
+	{
+		item = "Ammo.HandgunAmmo";
+		amount = 90;
+	};
+}
+
+ShotgunAmmo : AmmoBase
+{
+	string friendlyName = "";
+	displayName = "LocKey#50356";
+	localizedDescription = "LocKey#50357";
+	tags += 
+	[
+		"ShotgunAmmo"
+	];
+	buyPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	sellPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	entityName = "ammo_box_shotgun";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 100;
+		} : ConstantStatModifier
+	];
+}
+
+RecipeShotgunAmmo : ItemRecipe
+{
+	displayName = "LocKey#50356";
+	entityName = "ammo_box_shotgun";
+	craftingResult = 
+	{
+		item = "Ammo.ShotgunAmmo";
+		amount = 40;
+	};
+}
+
+RifleAmmo : AmmoBase
+{
+	string friendlyName = "";
+	displayName = "LocKey#50358";
+	localizedDescription = "LocKey#50359";
+	tags += 
+	[
+		"RifleAmmo"
+	];
+	buyPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	sellPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	entityName = "ammo_box_rifle";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 899;
+		} : ConstantStatModifier
+	];
+}
+
+RecipeRifleAmmo : ItemRecipe
+{
+	displayName = "LocKey#50358";
+	entityName = "ammo_box_rifle";
+	craftingResult = 
+	{
+		item = "Ammo.RifleAmmo";
+		amount = 90;
+	};
+}
+
+SniperRifleAmmo : AmmoBase
+{
+	string friendlyName = "";
+	displayName = "LocKey#50360";
+	localizedDescription = "LocKey#50361";
+	tags += 
+	[
+		"SniperAmmo"
+	];
+	buyPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	sellPrice += 
+	[
+		"Price.PowerAmmo"
+	];
+	entityName = "ammo_box_sniper";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.Quantity";
+			modifierType = "Additive";
+			value = 75;
+		} : ConstantStatModifier
+	];
+}
+
+RecipeSniperRifleAmmo : ItemRecipe
+{
+	displayName = "LocKey#50360";
+	entityName = "ammo_box_sniper";
+	craftingResult = 
+	{
+		item = "Ammo.SniperRifleAmmo";
+		amount = 20;
+	};
+}
+
+AmmoLootTable : LootTable
+{
+	minItemsToLoot = 1;
+	maxItemsToLoot = 1;
+	lootGenerationType = "dropChance";
+	lootItems = 
+	[
+		{
+			dropChance = 0.25;
+			dropCountMin = 90;
+			dropCountMax = 180;
+			itemID = "Ammo.HandgunAmmo";
+		} : LootItem, 
+		{
+			dropChance = 0.25;
+			dropCountMin = 40;
+			dropCountMax = 80;
+			itemID = "Ammo.ShotgunAmmo";
+		} : LootItem, 
+		{
+			dropChance = 0.25;
+			dropCountMin = 90;
+			dropCountMax = 180;
+			itemID = "Ammo.RifleAmmo";
+		} : LootItem, 
+		{
+			dropChance = 0.25;
+			dropCountMin = 24;
+			dropCountMax = 32;
+			itemID = "Ammo.SniperRifleAmmo";
+		} : LootItem
+	];
+}
+
+HandgunAmmoLootTable : AmmoLootTable
+{
+	lootItems = [];
+	queries = 
+	[
+		"Ammo.HandgunAmmoLoot"
+	];
+}
+
+RifleAmmoLootTable : AmmoLootTable
+{
+	lootItems = [];
+	queries = 
+	[
+		"Ammo.RifleAmmoLoot"
+	];
+}
+
+ShotgunAmmoLootTable : AmmoLootTable
+{
+	lootItems = [];
+	queries = 
+	[
+		"Ammo.ShotgunAmmoLoot"
+	];
+}
+
+SniperAmmoLootTable : AmmoLootTable
+{
+	lootItems = [];
+	queries = 
+	[
+		"Ammo.SniperAmmoLoot"
+	];
+}
+
+HandgunAmmoLoot : ItemQueryElement
+{
+	dropChance = 0.1;
+	dropCountMin = 90;
+	dropCountMax = 180;
+	query = "Query.HandgunAmmo";
+}
+
+ShotgunAmmoLoot : ItemQueryElement
+{
+	dropChance = 0.1;
+	dropCountMin = 40;
+	dropCountMax = 80;
+	query = "Query.ShotgunAmmo";
+}
+
+RifleAmmoLoot : ItemQueryElement
+{
+	dropChance = 0.1;
+	dropCountMin = 90;
+	dropCountMax = 180;
+	query = "Query.RifleAmmo";
+}
+
+SniperAmmoLoot : ItemQueryElement
+{
+	dropChance = 0.1;
+	dropCountMin = 24;
+	dropCountMax = 32;
+	query = "Query.SniperAmmo";
+}
+
+HandicapAmmoList : HandicapLootList
+{
+	loot = 
+	[
+		"Ammo.HandicapHandgunAmmoPreset", "Ammo.HandicapShotgunAmmoPreset", "Ammo.HandicapRifleAmmoPreset", "Ammo.HandicapSniperRifleAmmoPreset"
+	];
+}
+
+HandicapHandgunAmmoPreset : HandicapLootPreset
+{
+	fk< Item > item = "Ammo.HandgunAmmo";
+	int handicapLimit = 120;
+	int handicapMinQty = 90;
+	int handicapMaxQty = 150;
+}
+
+HandicapShotgunAmmoPreset : HandicapLootPreset
+{
+	fk< Item > item = "Ammo.ShotgunAmmo";
+	int handicapLimit = 50;
+	int handicapMinQty = 75;
+	int handicapMaxQty = 125;
+}
+
+HandicapRifleAmmoPreset : HandicapLootPreset
+{
+	fk< Item > item = "Ammo.RifleAmmo";
+	int handicapLimit = 120;
+	int handicapMinQty = 90;
+	int handicapMaxQty = 150;
+}
+
+HandicapSniperRifleAmmoPreset : HandicapLootPreset
+{
+	fk< Item > item = "Ammo.SniperRifleAmmo";
+	int handicapLimit = 40;
+	int handicapMinQty = 40;
+	int handicapMaxQty = 80;
+}
+

@@ -1,0 +1,41 @@
+class Crosshair_Melee_Misc extends gameuiCrosshairBaseGameController
+{
+	private editable var m_targetColorChange : inkWidgetRef;
+
+	public override function GetIntroAnimation( firstEquip : Bool ) : inkAnimProxy
+	{
+		var anim : inkAnimDef;
+		var alphaInterpolator : inkAnimTransparency;
+		anim = new inkAnimDef;
+		alphaInterpolator = new inkAnimTransparency;
+		alphaInterpolator.SetStartTransparency( 0.0 );
+		alphaInterpolator.SetEndTransparency( 1.0 );
+		alphaInterpolator.SetDuration( 0.25 );
+		alphaInterpolator.SetType( inkanimInterpolationType.Linear );
+		alphaInterpolator.SetMode( inkanimInterpolationMode.EasyIn );
+		anim.AddInterpolator( alphaInterpolator );
+		return m_rootWidget.PlayAnimation( anim );
+	}
+
+	public override function GetOutroAnimation() : inkAnimProxy
+	{
+		var anim : inkAnimDef;
+		var alphaInterpolator : inkAnimTransparency;
+		anim = new inkAnimDef;
+		alphaInterpolator = new inkAnimTransparency;
+		alphaInterpolator.SetStartTransparency( 1.0 );
+		alphaInterpolator.SetEndTransparency( 0.0 );
+		alphaInterpolator.SetDuration( 0.25 );
+		alphaInterpolator.SetType( inkanimInterpolationType.Linear );
+		alphaInterpolator.SetMode( inkanimInterpolationMode.EasyIn );
+		anim.AddInterpolator( alphaInterpolator );
+		return m_rootWidget.PlayAnimation( anim );
+	}
+
+	protected override function ApplyCrosshairGUIState( state : CName, aimedAtEntity : Entity )
+	{
+		inkWidgetRef.SetState( m_targetColorChange, state );
+	}
+
+}
+

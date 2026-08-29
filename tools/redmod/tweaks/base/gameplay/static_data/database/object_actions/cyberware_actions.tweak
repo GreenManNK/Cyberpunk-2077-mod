@@ -1,0 +1,597 @@
+package CyberwareAction
+using RTDB, Items, Prereqs, Perks, Effectors, BaseStatusEffect, ItemAction
+
+UseSandevistan : ObjectAction
+{
+	actionName = "UseSandevistan";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "EnteringGrapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Grapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Leap";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Takedown";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 0.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Greater";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Equal";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statusEffect = "GameplayRestriction.CerberusNoSandevistan";
+		} : Prereqs.StatusEffectAbsentPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.SandevistanPlayerBuff";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+DisableSandevistan : ObjectAction
+{
+	actionName = "DisableSandevistan";
+	instigatorPrereqs = 
+	[
+		{
+			string stateName = "Sandevistan";
+			bool isInState = true;
+		} : Prereqs.TimeDilationPSMPrereq
+	];
+}
+
+UseCooldownedSandevistan : ObjectAction
+{
+	actionName = "UseSandevistan";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "EnteringGrapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Grapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Leap";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Takedown";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 0.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Greater";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statusEffect = "GameplayRestriction.CerberusNoSandevistan";
+		} : Prereqs.StatusEffectAbsentPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.CooldownedSandevistanPlayerBuff";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseCorruptedSandevistan : ObjectAction
+{
+	actionName = "UseCorruptedSandevistan";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "EnteringGrapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Grapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Leap";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Takedown";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			prereqClassName = "TakedownPSMPrereq";
+			string stateName = "Grapple";
+			bool isInState = false;
+		} : IPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 0.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Greater";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Equal";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statusEffect = "GameplayRestriction.CerberusNoSandevistan";
+		} : StatusEffectPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.NoSandevistanGlitch";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseCooldownedCorruptedSandevistan : ObjectAction
+{
+	actionName = "UseCorruptedSandevistan";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "EnteringGrapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Grapple";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Leap";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			stateName = "Takedown";
+			isInState = false;
+		} : Prereqs.TakedownPSMPrereq, 
+		{
+			statPoolType = "SandevistanCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.TimeDilationSandevistanDuration";
+					modifierType = "Additive";
+					value = 0.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Greater";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		{
+			statusEffect = "GameplayRestriction.CerberusNoSandevistan";
+		} : StatusEffectPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.NoCooldownedSandevistanGlitch";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+DisableCorruptedSandevistan : ObjectAction
+{
+	actionName = "DisableCorruptedSandevistan";
+	instigatorPrereqs = 
+	[
+		"CyberwareAction.DisableCorruptedSandevistanChecks"
+	];
+}
+
+DisableCorruptedSandevistanChecks : MultiPrereq
+{
+	CName prereqClassName = "gameMultiPrereq";
+	CName aggregationType = "OR";
+	fk< IPrereq >[] nestedPrereqs = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.NoSandevistanGlitch";
+			objectToCheck = "Player";
+		} : StatusEffectPrereq, 
+		{
+			statusEffect = "BaseStatusEffect.NoCooldownedSandevistanGlitch";
+			objectToCheck = "Player";
+		} : StatusEffectPrereq
+	];
+}
+
+UseBerserk : ObjectAction
+{
+	actionName = "UseBerserk";
+	instigatorPrereqs = 
+	[
+		{
+			statPoolType = "BerserkCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.BerserkCooldownBase";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "GreaterOrEqual";
+			comparePercentage = true;
+		} : StatPoolPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.BerserkPlayerBuff";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+	completionEffects = 
+	[
+		{
+			recipient = "ObjectActionReference.Instigator";
+			effectorToTrigger = 
+			{
+				bool usePercent = true;
+				statPoolUpdates = 
+				[
+					{
+						statPoolType = "BaseStatPools.BerserkCharge";
+						statPoolValue = -100;
+					} : StatPoolUpdate
+				];
+			} : ModifyStatPoolValueEffector;
+		} : ObjectActionEffect
+	];
+}
+
+UseCWMask : ObjectAction
+{
+	actionName = "Use";
+	instigatorPrereqs = 
+	[
+		{
+			stateName = "InCombat";
+			isInState = false;
+		} : Prereqs.CombatPSMPrereq, 
+		{
+			statPoolType = "CWMaskCharges";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.CWMaskCharges";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "GreaterOrEqual";
+			comparePercentage = true;
+		} : StatPoolPrereq
+	];
+	startEffects = 
+	[
+		"CyberwareAction.CWMaskSFXObjectActionEffect", "CyberwareAction.CWMaskVFXObjectActionEffect", {
+			recipient = "ObjectActionReference.Instigator";
+			effectorToTrigger = 
+			{
+				CName effectorClassName = "TryDeactivatePreventionByMask";
+			} : Effector;
+		} : ObjectActionEffect
+	];
+	completionEffects = 
+	[
+		{
+			recipient = "ObjectActionReference.Instigator";
+			effectorToTrigger = 
+			{
+				bool usePercent = true;
+				statPoolUpdates = 
+				[
+					{
+						statPoolType = "BaseStatPools.CWMaskCharges";
+						statPoolValue = -100;
+					} : StatPoolUpdate
+				];
+			} : ModifyStatPoolValueEffector;
+		} : ObjectActionEffect
+	];
+}
+
+UseAdvancedBerserk : ObjectAction
+{
+	actionName = "UseBerserk";
+	instigatorPrereqs = 
+	[
+		{
+			statPoolType = "BerserkCharge";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.BerserkCooldownBase";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "GreaterOrEqual";
+			comparePercentage = true;
+		} : StatPoolPrereq, 
+		"Perks.IsPlayerNotInVehicle", {
+			string stateName = "SceneTier3";
+			bool isInState = false;
+		} : HighLevelPSMPrereq, 
+		{
+			string stateName = "SceneTier4";
+			bool isInState = false;
+		} : HighLevelPSMPrereq, 
+		{
+			string stateName = "SceneTier5";
+			bool isInState = false;
+		} : HighLevelPSMPrereq
+	];
+	startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.AdvancedBerserkPlayerBuff";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+DisableAdvancedBerserk : ObjectAction
+{
+	actionName = "DisableBerserk";
+	instigatorPrereqs = 
+	[
+		{
+			checkType = "CheckType.Type";
+			statusEffect = "BaseStatusEffect.AdvancedBerserk";
+		} : StatusEffectPrereq
+	];
+}
+
+UseOpticalCamoRare : ObjectAction
+{
+	actionName = "Use";
+	instigatorPrereqs = 
+	[
+		{
+			statPoolType = "OpticalCamoCharges";
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.OpticalCamoCharges";
+					modifierType = "Additive";
+					value = 100.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "GreaterOrEqual";
+			comparePercentage = true;
+		} : StatPoolPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.OpticalCamoPlayerBuffRare";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseOpticalCamoCommon : UseOpticalCamoRare
+{
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.OpticalCamoPlayerBuffCommon";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseOpticalCamoUncommon : UseOpticalCamoRare
+{
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.OpticalCamoPlayerBuffUncommon";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseOpticalCamoEpic : UseOpticalCamoRare
+{
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.OpticalCamoPlayerBuffEpic";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseOpticalCamoLegendary : UseOpticalCamoRare
+{
+	fk< ObjectActionEffect >[] startEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.OpticalCamoPlayerBuffLegendary";
+			recipient = "ObjectActionReference.Instigator";
+		}
+	];
+}
+
+UseBloodPump : UseHealCharge
+{
+	actionName = "Use";
+	instigatorPrereqs = 
+	[
+		{
+			valueToCheck = 
+			[
+				{
+					statType = "BaseStats.HealingItemsCharges";
+					modifierType = "Additive";
+					value = 0.0f;
+				} : ConstantStatModifier
+			];
+			comparisonType = "Greater";
+		} : ConsumableChargesPrereq
+	];
+	fk< ObjectActionEffect >[] startEffects += 
+	[
+		{
+			effectorToTrigger = 
+			{
+				statPoolUpdates = 
+				[
+					{
+						statPoolType = "BaseStatPools.Health";
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.InhalerBaseHealing";
+								refStat = "BaseStats.InhalerBaseHealing";
+								modifierType = "Additive";
+								opSymbol = "*";
+								value = 1.0f;
+							} : CombinedStatModifier
+						];
+					} : StatPoolUpdate
+				];
+				bool usePercent = false;
+			} : ModifyStatPoolValueEffector;
+		} : BloodPumpObjectActionEffect, 
+		"CyberwareAction.BloodPumpSFXObjectActionEffect", "CyberwareAction.BloodPumpVFXObjectActionEffect"
+	];
+	completionEffects = 
+	[
+		{
+			statusEffect = "BaseStatusEffect.BloodPumpBuff";
+		} : BloodPumpObjectActionEffect, 
+		{
+			effectorToTrigger = 
+			{
+				statPoolUpdates = 
+				[
+					{
+						statPoolType = "BaseStatPools.HealingItemsCharges";
+						statModifiers = 
+						[
+							{
+								statType = "BaseStats.HealingItemsRechargeDuration";
+								refStat = "BaseStats.HealingItemsRechargeDuration";
+								modifierType = "Additive";
+								opSymbol = "*";
+								value = -1.0f;
+							} : CombinedStatModifier
+						];
+					} : StatPoolUpdate
+				];
+			} : ModifyStatPoolValueEffector;
+		} : BloodPumpObjectActionEffect, 
+		{
+			effectorToTrigger = "Effectors.UsedHealingItemOrCyberwareEffector";
+		} : ObjectActionEffect
+	];
+}
+
+BloodPumpObjectActionEffect : ObjectActionEffect
+{
+	recipient = "ObjectActionReference.Instigator";
+}
+
+BloodPumpSFXObjectActionEffect : ObjectActionEffect
+{
+	effectorToTrigger = 
+	{
+		CName activationSFXName = "vfx_fullscreen_cyberware_heal_activate";
+	} : PlaySFXEffector;
+	recipient = "ObjectActionReference.Instigator";
+}
+
+BloodPumpVFXObjectActionEffect : ObjectActionEffect
+{
+	effectorToTrigger = 
+	{
+		CName vfxName = "reflex_buster";
+	} : PlayVFXEffector;
+	recipient = "ObjectActionReference.Instigator";
+}
+
+CWMaskSFXObjectActionEffect : ObjectActionEffect
+{
+	effectorToTrigger = 
+	{
+		CName activationSFXName = "ui_gmpl_perk_facemorph";
+	} : PlaySFXEffector;
+	recipient = "ObjectActionReference.Instigator";
+}
+
+CWMaskVFXObjectActionEffect : ObjectActionEffect
+{
+	effectorToTrigger = 
+	{
+		CName vfxName = "cybermask";
+	} : PlayVFXEffector;
+	recipient = "ObjectActionReference.Instigator";
+}
+

@@ -1,0 +1,172 @@
+struct SStatPoolValue
+{
+	var type : gamedataStatPoolType;
+	var value : Float;
+}
+
+struct SDamageDealt
+{
+	var type : gamedataDamageType;
+	var value : Float;
+	var affectedStatPool : gamedataStatPoolType;
+}
+
+struct SHitFlag
+{
+	replicated var flag : hitFlag;
+	replicated var source : CName;
+}
+
+struct SHitStatusEffect
+{
+	var stacks : Float;
+	var id : TweakDBID;
+}
+
+enum hitFlag
+{
+	None = 0,
+	IgnoreImmortalityModes = 1,
+	FriendlyFire = 2,
+	DisableSounds = 3,
+	DisableVFX = 4,
+	CannotReturnDamage = 5,
+	CanParry = 6,
+	CanCounter = 7,
+	CanDodge = 8,
+	WasBlocked = 9,
+	WasDeflected = 10,
+	WasDodged = 11,
+	WasEvaded = 12,
+	WasMitigated = 13,
+	Kill = 14,
+	DontShowDamageFloater = 15,
+	DealNoDamage = 16,
+	CannotModifyDamage = 17,
+	Headshot = 18,
+	CriticalHit = 19,
+	FinisherTriggered = 20,
+	DamageNullified = 21,
+	Nonlethal = 22,
+	WasKillingBlow = 23,
+	ProcessDefeated = 24,
+	Defeated = 25,
+	SilentKillModifier = 26,
+	DeterministicDamage = 27,
+	WeakspotHit = 28,
+	StealthHit = 29,
+	DoNotTriggerFinisher = 30,
+	DealtDamage = 31,
+	ImmortalTarget = 32,
+	CanDamageSelf = 33,
+	SuccessfulAttack = 34,
+	WeaponFullyCharged = 35,
+	DisableNPCHitReaction = 36,
+	VehicleDamage = 37,
+	VehicleImpact = 38,
+	VehicleImpactWithPlayer = 39,
+	RagdollImpact = 40,
+	IgnoreDifficulty = 41,
+	QuickHack = 42,
+	IgnoreVehicles = 43,
+	DamageOverTime = 44,
+	DotApplied = 45,
+	OverridePlayerDamageWithFixedPercentage = 46,
+	DeviceExplosionAttack = 47,
+	NPCPassengerVehicleCollision = 48,
+	TargetWasAlreadyDeadNoStatPool = 49,
+	PROJECT_SPECIFIC_FLAGS = 100000,
+	UsedKerenzikov = 100001,
+	FragmentationSplinter = 100002,
+	DetonateGrenades = 100003,
+	WeakExplosion = 100004,
+	BulletExplosion = 100005,
+	GrenadeQuickhackExplosion = 100006,
+	FriendlyFireIgnored = 100007,
+	ForceNoCrit = 100008,
+	ReduceDamage = 100009,
+	ForceDismember = 100010,
+	SaburoKatana = 100011,
+	SaburoTanto = 100012,
+	WasBulletParried = 100013,
+	WasBulletDeflected = 100014,
+	WasBulletBlocked = 100015,
+	HauntedCyberdeck = 100016,
+	HauntedGun = 100017,
+	HauntedKill = 100018,
+	BreachHit = 100019,
+	OnePunch = 100020,
+	GrandFinale = 100021,
+	BleedingDot = 100022,
+	AirDropBurningDoT = 100023,
+	BreachExplosion = 100024,
+	RevengeActivatingHit = 100025,
+	GroundSlam = 100026,
+	PerfectlyCharged = 100027,
+	ChainLightning = 100028,
+	CWExplosion = 100029,
+	RelicGoldenNumbers = 100030,
+	CannotKillPlayer = 100031,
+	ExplosionOverride = 100032,
+	Overheat = 100033,
+	HighSpeedMelee = 100034,
+	PlayerWallImpact = 100035,
+	Explosion = 100036,
+	StunApplied = 100037,
+	IgnoreStatPoolCustomLimit = 100038,
+	ForceKnockdown = 100039,
+	DisablePlayerHitReaction = 100040,
+	ReflexesMasterPerk1 = 100041,
+	BodyPerksMeleeAttack = 100042,
+	CriticalHitNoDamageModifier = 100043,
+	Special = 100044,
+	CWMalfunctionEMPExplosion = 100045,
+	UltimateQuickHack = 100046,
+	DamageBasedOnMissingMemoryBonus = 100047,
+	ProjectileLauncherAttack = 100048,
+	ForceHeadshotMult10 = 100049,
+	ForceHeadshotMult25 = 100050,
+	ForceWeakspotMult10 = 100051,
+	ForceWeakspotMult25 = 100052,
+}
+
+operator<( f1 : hitFlag, f2 : hitFlag ) : Bool
+{
+	return ( ( Int32 )( f1 ) ) < ( ( Int32 )( f2 ) );
+}
+
+struct SCachedStat
+{
+	var stat : gamedataStatType;
+	var value : Float;
+}
+
+enum damageSystemLogFlags
+{
+	GENERAL = 1,
+	ASSERT = 2,
+	WEAKSPOTS = 4,
+}
+
+operator|( f1 : damageSystemLogFlags, f2 : damageSystemLogFlags ) : Int64
+{
+	var temp : Int64;
+	temp = ( ( Int64 )( f1 ) ) | ( ( Int64 )( f2 ) );
+	return temp;
+}
+
+operator|( i : Int64, f : damageSystemLogFlags ) : Int64
+{
+	return i | ( ( Int64 )( f ) );
+}
+
+operator|( f : damageSystemLogFlags, i : Int64 ) : Int64
+{
+	return ( ( Int64 )( f ) ) | i;
+}
+
+operator&( i : Int64, f : damageSystemLogFlags ) : Int64
+{
+	return i & ( ( Int64 )( f ) );
+}
+

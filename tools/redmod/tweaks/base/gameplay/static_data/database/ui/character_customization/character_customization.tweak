@@ -1,0 +1,11 @@
+package UICharacterCustomizationResourcePaths
+using RTDB
+
+DefaultPaths : UICharacterCustomizationResourcePaths
+{
+	[ EP1 ]
+	malePath = "ep1\gameplay\gui\fullscreen\main_menu\male_cco_ep1.inkcharcustomization";
+	[ EP1 ]
+	femalePath = "ep1\gameplay\gui\fullscreen\main_menu\female_cco_ep1.inkcharcustomization";
+}
+

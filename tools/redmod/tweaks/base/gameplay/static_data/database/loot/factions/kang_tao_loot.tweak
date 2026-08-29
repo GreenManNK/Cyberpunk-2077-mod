@@ -1,0 +1,49 @@
+package Loot
+using RTDB
+
+KangTaoDrop : LootTable
+{
+	minItemsToLoot = 0;
+	maxItemsToLoot = 1;
+	lootItems = 
+	[
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelNormalTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 50;
+			dropCountMax = 100;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelRareTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 100;
+			dropCountMax = 200;
+			itemID = "Items.money";
+		}, 
+		{
+			playerPrereqID = "LootPrereqs.PlayerLevelEliteTierPrereq";
+			dropChance = 0.1;
+			dropCountMin = 200;
+			dropCountMax = 400;
+			itemID = "Items.money";
+		}
+	];
+}
+
+KangTaoGenericRangedRangerT2 : KangTaoDrop
+{
+}
+
+KangTaoGenericRangedSoldierT3 : KangTaoDrop
+{
+}
+
+KangTaoShotgunSoldierT2 : KangTaoDrop
+{
+}
+
+KangTaoShotgunSoldierT3 : KangTaoDrop
+{
+}
+

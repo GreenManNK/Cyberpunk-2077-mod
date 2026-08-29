@@ -1,0 +1,9 @@
+import class gameNavmeshDetector extends IPlacedComponent
+{
+
+	protected function OnNavmeshStateChanged( onNavmesh : Bool, navmeshDistance : Float, overlapGeometry : Bool )
+	{
+	}
+
+}
+

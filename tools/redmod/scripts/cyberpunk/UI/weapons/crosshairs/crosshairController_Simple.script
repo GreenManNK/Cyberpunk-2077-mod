@@ -1,0 +1,81 @@
+class CrosshairGameController_Simple extends gameuiCrosshairBaseGameController
+{
+	private editable var m_topPart : inkWidgetRef;
+	private editable var m_bottomPart : inkWidgetRef;
+	private editable var m_horiPart : inkWidgetRef;
+	private editable var m_vertPart : inkWidgetRef;
+	private editable var m_leftPart : inkWidgetRef;
+	private editable var m_rightPart : inkWidgetRef;
+	private editable var m_targetColorChange : inkWidgetRef;
+	private var offsetLeftRight : Float;
+	default offsetLeftRight = .8f;
+	private var latchVertical : Float;
+	default latchVertical = 40.0f;
+
+	protected event OnInitialize()
+	{
+		super.OnInitialize();
+	}
+
+	public export override function GetIntroAnimation( firstEquip : Bool ) : inkAnimProxy
+	{
+		var anim : inkAnimDef;
+		var alphaInterpolator : inkAnimTransparency;
+		var crosshairReticleData : gameuiDriverCombatCrosshairReticleData;
+		crosshairReticleData = ( ( gameuiDriverCombatCrosshairReticleData )( GetUIBlackboard().GetVariant( GetAllBlackboardDefs().UIGameData.DriverCombatCrosshairReticle ) ) );
+		anim = new inkAnimDef;
+		alphaInterpolator = new inkAnimTransparency;
+		alphaInterpolator.SetStartTransparency( 0.0 );
+		alphaInterpolator.SetEndTransparency( crosshairReticleData.opacity );
+		alphaInterpolator.SetDuration( 0.25 );
+		alphaInterpolator.SetType( inkanimInterpolationType.Linear );
+		alphaInterpolator.SetMode( inkanimInterpolationMode.EasyIn );
+		anim.AddInterpolator( alphaInterpolator );
+		return m_rootWidget.PlayAnimation( anim );
+	}
+
+	public export override function GetOutroAnimation() : inkAnimProxy
+	{
+		var anim : inkAnimDef;
+		var alphaInterpolator : inkAnimTransparency;
+		var crosshairReticleData : gameuiDriverCombatCrosshairReticleData;
+		crosshairReticleData = ( ( gameuiDriverCombatCrosshairReticleData )( GetUIBlackboard().GetVariant( GetAllBlackboardDefs().UIGameData.DriverCombatCrosshairReticle ) ) );
+		anim = new inkAnimDef;
+		alphaInterpolator = new inkAnimTransparency;
+		alphaInterpolator.SetStartTransparency( crosshairReticleData.opacity );
+		alphaInterpolator.SetEndTransparency( 0.0 );
+		alphaInterpolator.SetDuration( 0.25 );
+		alphaInterpolator.SetType( inkanimInterpolationType.Linear );
+		alphaInterpolator.SetMode( inkanimInterpolationMode.EasyIn );
+		anim.AddInterpolator( alphaInterpolator );
+		return m_rootWidget.PlayAnimation( anim );
+	}
+
+	protected event OnBulletSpreadChanged( spread : Vector2 )
+	{
+		super.OnBulletSpreadChanged( spread );
+		inkWidgetRef.SetMargin( m_leftPart, inkMargin( -( spread.X ) * offsetLeftRight, 0.0, 0.0, 0.0 ) );
+		inkWidgetRef.SetMargin( m_rightPart, inkMargin( spread.X * offsetLeftRight, 0.0, 0.0, 0.0 ) );
+		inkWidgetRef.SetSize( m_vertPart, 3.0, ( spread.Y * 2.0 ) + latchVertical );
+		inkWidgetRef.SetSize( m_horiPart, spread.X * 2.0, 3.0 );
+		inkWidgetRef.SetMargin( m_topPart, inkMargin( 0.0, -( spread.Y ), 0.0, 0.0 ) );
+		inkWidgetRef.SetMargin( m_bottomPart, inkMargin( 0.0, spread.Y, 0.0, 0.0 ) );
+	}
+
+	protected override function ApplyCrosshairGUIState( state : CName, aimedAtEntity : Entity )
+	{
+		inkWidgetRef.SetState( m_targetColorChange, state );
+	}
+
+	protected override function OnState_HipFire()
+	{
+		m_rootWidget.SetVisible( true );
+	}
+
+	protected override function OnState_Aim()
+	{
+		m_rootWidget.SetVisible( false );
+	}
+
+}
+

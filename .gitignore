@@ -13,6 +13,12 @@ session/
 vm_session/
 __pycache__/
 
+# Local mod-management state; not part of the active snapshot
+_disabled_mods/
+_mod_backups/
+_tools/
+4198/
+
 # Windows Explorer noise
 Thumbs.db
 Desktop.ini

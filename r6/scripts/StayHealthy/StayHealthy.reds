@@ -1,11 +1,6 @@
 public class StayHealthySettings {
 	
 	@runtimeProperty("ModSettings.mod", "Stay Healthy")
-	@runtimeProperty("ModSettings.displayName", "Show Notification")
-	@runtimeProperty("ModSettings.description", "ON (default): Show a notification on screen whenever auto consuming feature is activated. OFF: Hide notifications.")
-	public let showNotification: Bool = true;
-	
-	@runtimeProperty("ModSettings.mod", "Stay Healthy")
 	@runtimeProperty("ModSettings.displayName", "Stay Hydrated - Activate")
 	@runtimeProperty("ModSettings.description", "ON: Help V stay Hydrated by automatically consuming drink in inventory. OFF: Do nothing.")
 	public let stayHydrated: Bool = true;
@@ -67,15 +62,6 @@ public class StayHealthySettings {
 	
 }
 
-@addMethod(PlayerPuppet)
-  public final func StayHealthyShowNotification() -> Void {	  
-	let settings = new StayHealthySettings();
-	if settings.showNotification {
-		this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
-	}
-  }
-  
-
 @wrapMethod(PlayerPuppet)
   protected cb func OnStatusEffectApplied(evt: ref<ApplyStatusEffectEvent>) -> Bool {
     let gameplayTags: array<CName> = evt.staticData.GameplayTags();
@@ -86,9 +72,9 @@ public class StayHealthySettings {
 	let settings = new StayHealthySettings();
     if ArrayContains(gameplayTags, n"StayHealthy_Encumbered") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_CarryCapacityBooster") && settings.stayCarryCapacityBoosted && (!settings.stayCarryCapacityBoostedCombatOnly || (settings.stayCarryCapacityBoostedCombatOnly && StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Encumbered"))) {
 	  ArrayPush(tags, n"StayHealthy_CarryCapacityBoosterItem");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-		  this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 	  };
     };	
     wrappedMethod(evt);
@@ -102,18 +88,17 @@ public class StayHealthySettings {
 	let excludedTags: array<CName>;
 	let itemList: array<wref<gameItemData>>;
 	let settings = new StayHealthySettings();
-    if inCombat {
+    if inCombat && !this.m_inCombat {
 	  if !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Drink") && settings.stayHydrated && settings.stayHydratedCombatOnly {
 	    ArrayClear(tags);
 		ArrayClear(excludedTags);
 		ArrayClear(itemList);
 	    ArrayPush(excludedTags, n"IllegalFood");
-	    ArrayPush(excludedTags, n"Alcohol");
 		ArrayPush(tags, n"Drink");
-	    if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		    ItemActionsHelper.DrinkItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
-	    };
+	    if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		    ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+			this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
+	    };	    
 	  };
 	  if !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Food") && settings.stayNourished && settings.stayNourishedCombatOnly {
 	    ArrayClear(tags);
@@ -121,37 +106,37 @@ public class StayHealthySettings {
 		ArrayClear(itemList);
 	    ArrayPush(excludedTags, n"IllegalFood");
 		ArrayPush(tags, n"Food");
-	    if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		    ItemActionsHelper.EatItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
-	    };
+	    if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		    ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+			this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
+	    };	    
 	  };
 	  if !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_HealthBooster") && settings.stayHealthBoosted && settings.stayHealthBoostedCombatOnly {
 	    ArrayClear(tags);
 		ArrayClear(itemList);
 	    ArrayPush(tags, n"StayHealthy_HealthBoosterItem");
-	    if transactionSystem.GetItemListByTags(this, tags, itemList) {
-		    ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
-	    };
+	    if transactionSystem.GetItemListByTags(this as GameObject, tags, itemList) {
+		    ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+			this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
+	    };	    
 	  };
 	  if !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_MemoryBooster") && settings.stayMemoryBoosted && settings.stayMemoryBoostedCombatOnly {
 	    ArrayClear(tags);
 		ArrayClear(itemList);
 	    ArrayPush(tags, n"StayHealthy_MemoryBoosterItem");
-	    if transactionSystem.GetItemListByTags(this, tags, itemList) {
-		    ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
-	    };
+	    if transactionSystem.GetItemListByTags(this as GameObject, tags, itemList) {
+		    ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+			this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
+	    };	    
 	  };
 	  if !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_StaminaBooster") && settings.stayStaminaBoosted && settings.stayStaminaBoostedCombatOnly {
 	    ArrayClear(tags);
 		ArrayClear(itemList);
 	    ArrayPush(tags, n"StayHealthy_StaminaBoosterItem");
-	    if transactionSystem.GetItemListByTags(this, tags, itemList) {
-		    ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
-	    };
+	    if transactionSystem.GetItemListByTags(this as GameObject, tags, itemList) {
+		    ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+			this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
+	    };	    
 	  };
 	};
 	wrappedMethod(newState);
@@ -165,54 +150,53 @@ public class StayHealthySettings {
 	let excludedTags: array<CName>;
 	let itemList: array<wref<gameItemData>>;
 	let settings = new StayHealthySettings();
-    if ArrayContains(gameplayTags, n"StayHealthy_Food") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Food") && settings.stayNourished && (!settings.stayNourishedCombatOnly || (settings.stayNourishedCombatOnly && this.m_inCombat)) {
+    if ArrayContains(gameplayTags, n"StayHealthy_Food") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Food") && settings.stayNourished && (!settings.stayNourishedCombatOnly || (settings.stayHydratedCombatOnly && this.m_inCombat)) {
 	  ArrayPush(tags, n"Food");
 	  ArrayPush(excludedTags, n"IllegalFood");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.EatItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };
     if ArrayContains(gameplayTags, n"StayHealthy_Drink") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Drink") && settings.stayHydrated && (!settings.stayHydratedCombatOnly || (settings.stayHydratedCombatOnly && this.m_inCombat)) {
 	  ArrayPush(tags, n"Drink");
 	  ArrayPush(excludedTags, n"IllegalFood");
-	  ArrayPush(excludedTags, n"Alcohol");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.DrinkItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };
     if ArrayContains(gameplayTags, n"StayHealthy_CarryCapacityBooster") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_CarryCapacityBooster") && settings.stayCarryCapacityBoosted && (!settings.stayCarryCapacityBoostedCombatOnly || (settings.stayCarryCapacityBoostedCombatOnly && StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_Encumbered"))) {
 	  ArrayPush(tags, n"StayHealthy_CarryCapacityBoosterItem");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);		  
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };
     if ArrayContains(gameplayTags, n"StayHealthy_HealthBooster") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_HealthBooster") && settings.stayHealthBoosted && (!settings.stayHealthBoostedCombatOnly || (settings.stayHealthBoostedCombatOnly && this.m_inCombat)) {
 	  ArrayPush(tags, n"StayHealthy_HealthBoosterItem");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };
     if ArrayContains(gameplayTags, n"StayHealthy_MemoryBooster") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_MemoryBooster") && settings.stayMemoryBoosted && (!settings.stayMemoryBoostedCombatOnly || (settings.stayMemoryBoostedCombatOnly && this.m_inCombat)) {
 	  ArrayPush(tags, n"StayHealthy_MemoryBoosterItem");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };
     if ArrayContains(gameplayTags, n"StayHealthy_StaminaBooster") && !StatusEffectHelper.HasStatusEffectWithTagConst(this, n"StayHealthy_StaminaBooster") && settings.stayStaminaBoosted && (!settings.stayStaminaBoostedCombatOnly || (settings.stayStaminaBoostedCombatOnly && this.m_inCombat)) {
 	  ArrayPush(tags, n"StayHealthy_StaminaBoosterItem");
-	  if transactionSystem.GetItemListFilteredByTags(this, tags, excludedTags, itemList) {
-		  ItemActionsHelper.ConsumeItem(this, itemList[ArraySize(itemList) - 1].GetID(), true);
-			this.StayHealthyShowNotification();
+	  if transactionSystem.GetItemListFilteredByTags(this as GameObject, tags, excludedTags, itemList) {
+		  ItemActionsHelper.UseItem(this, itemList[ArraySize(itemList) - 1].GetID());
+		  this.SetWarningMessage("Stay Healthy - Automatic Consume Activated");
 		  return;
 	  };
     };

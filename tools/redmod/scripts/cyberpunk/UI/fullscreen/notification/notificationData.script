@@ -1,0 +1,52 @@
+class LevelUpUserData extends inkGameNotificationData
+{
+	var data : LevelUpData;
+}
+
+class NewAreaDiscoveredUserData extends inkGameNotificationData
+{
+	var data : String;
+}
+
+class ItemLogUserData extends inkGameNotificationData
+{
+	var itemID : ItemID;
+	var itemLogQueueEmpty : Bool;
+	default itemLogQueueEmpty = false;
+}
+
+enum JournalNotificationMode
+{
+	Default = 0,
+	Menu = 1,
+	HUD = 2,
+}
+
+class JournalNotificationData extends inkGameNotificationData
+{
+	var journalEntry : weak< JournalEntry >;
+	var journalEntryState : gameJournalEntryState;
+	var className : CName;
+	var mode : JournalNotificationMode;
+	default mode = JournalNotificationMode.Default;
+	var type : MessengerContactType;
+	var contactNameLocKey : CName;
+	var openedFromPhone : Bool;
+	var source : PhoneScreenType;
+}
+
+class QuestUpdateUserData extends inkGameNotificationData
+{
+	var data : weak< JournalQuest >;
+}
+
+class NewCodexEntryUserData extends inkGameNotificationData
+{
+	var data : String;
+}
+
+class CustomQuestNotificationUserData extends inkGameNotificationData
+{
+	var data : CustomQuestNotificationData;
+}
+

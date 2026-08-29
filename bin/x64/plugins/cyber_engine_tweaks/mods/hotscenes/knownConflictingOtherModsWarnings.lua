@@ -1,6 +1,6 @@
--- Apr 22, 2026 by (c)anygoodname
+-- Aug 12, 2026 by (c)anygoodname
 
-local moduleVer = 'v1.15.0'
+local moduleVer = 'v1.17.0'
 local moduleName = 'Hotscenes known conflicting other mods warning list'
 local modAuthorName = 'anygoodname'
 
@@ -16,8 +16,7 @@ By modifying the mod code or files, you acknowledge I cannot support the modifie
 You're not allowed to publish your modifications to the mod code or files without my consent.
 You're not allowed to publicly propose unauthorized changes to the mod code or files.
 You're not allowed to use any part of the mod code or files for commercial purposes, advertising or promotion of any kind.
-You can use the mod code and files to learn how to code this game mods and improve your skills.
-You can use parts the code or file modifications in your creations only by my consent and on a credit note.
+You may use parts of the code or any original algorithms developed for this mod in your own creations only with my prior consent and proper credit.
 You're not allowed to use parts of the code or files marked as coming from other people without their consent.
 You can create and publish translations of the parts of the mod that are explicitly marked as allowed to translate either in the mod description either in the mod files.
 The translations must follow the Nexusmods translation publishing rules.
@@ -34,6 +33,7 @@ local conflictDescCustomUrmland = "Known to add world edits that conflict with t
 local conflictDescCustomMarina = "Known to add world edits that conflict with the Night City Delights Gold Beach Marina scene location."..worldEditConflictDescSuffix
 local conflictDescCustomArasakaHotel = "Known to add world edits that conflict with the Konpeki Plaza scene location."..worldEditConflictDescSuffix
 local conflictDescCustomPathOfGlory = "Known to add world edits that conflict with Path of Glory Penthouse Hotscenes custom scene locations."..worldEditConflictDescSuffix
+local conflictDescCustomPyramidSong = "Known to add world edits that conflict with Pyramid Song quest romance  scene."..worldEditConflictDescSuffix
 local conflictDescCustomVar = "Known to add world edits that conflict with some of Hotscenes custom scene locations."..worldEditConflictDescSuffix
 local conflictDescDefaultDarkMatter = "Known to add incompatible world edits that conflict with the game's native Dark Matter JoyToy room scene."..worldEditConflictDescSuffix
 
@@ -75,6 +75,22 @@ local knownConflictingOtherMods = {
 		modTitle = "V\'s Mansion Redux - NeoZen",
 		modAuthor = "ProximaDust",
 		modArchiveFileName = "vs_mansion_neozen.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescCustomPathOfGlory,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "PERSONA - H10",
+		modAuthor = "ProximaDust",
+		modArchiveFileName = "PERSONA H10.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptH10,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "PERSONA - Mansion",
+		modAuthor = "ProximaDust",
+		modArchiveFileName = "PERSONA Mansion.archive",
 		hasMultipleAssociatedArchiveFiles = true,
 		reason = conflictDescCustomPathOfGlory,
 		isAddOnRelated = true
@@ -437,6 +453,14 @@ local knownConflictingOtherMods = {
 		isAddOnRelated = true
 	},
 	{
+		modTitle = "Rockerdoll Japantown Apartment With Balcony",
+		modAuthor = "hnovak1",
+		modArchiveFileName = "Rockerdoll Japantown Apartment Alt.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptJpn,
+		isAddOnRelated = true
+	},
+	{
 		modTitle = "H10_BONE",
 		modAuthor = "77reye",
 		modArchiveFileName = "77_h10_bone.archive",
@@ -481,7 +505,7 @@ local knownConflictingOtherMods = {
 		modAuthor = "RoxterFox",
 		modArchiveFileName = "Jungle_v1.4_Evelyn.archive",
 		hasMultipleAssociatedArchiveFiles = true,
-		reason = conflictDescAptGle,
+		reason = conflictDescAptH10,
 		isAddOnRelated = true
 	},
 	{
@@ -489,7 +513,15 @@ local knownConflictingOtherMods = {
 		modAuthor = "RoxterFox",
 		modArchiveFileName = "Jungle_v1.4_No_Evelyn.archive",
 		hasMultipleAssociatedArchiveFiles = true,
-		reason = conflictDescAptGle,
+		reason = conflictDescAptH10,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "TactiCool V\'s H10 Apartment",
+		modAuthor = "RoxterFox",
+		modArchiveFileName = "Tacticool_H10_Apartment.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptH10,
 		isAddOnRelated = true
 	},
 	{
@@ -498,6 +530,102 @@ local knownConflictingOtherMods = {
 		modArchiveFileName = "VsH10Apartment.archive",
 		hasMultipleAssociatedArchiveFiles = true,
 		reason = conflictDescAptH10,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den (Optional Sofa)",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den Sofa Swap.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den (Optional Neon Table)",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den Neon Table.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den (Optional Cross Table)",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den Table.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den (Optional Pole)",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den Pole.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Glen Glass Den (Optional Pole)",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "Glen Glass Den Pole.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "H10 Stripper Den",
+		modAuthor = "LordBLKRamen",
+		modArchiveFileName = "H10 Stripper Den.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptH10,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Panam Waifu - Glen Apartment",
+		modAuthor = "3DxHamster",
+		modArchiveFileName = "Glen_Panam_Waifu.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescAptGle,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "judy\'s lakehouse reno and cleanup - apartment house remodel",
+		modAuthor = "thumbsuckerr",
+		modArchiveFileName = "judy\'s lakehouse cleanup remodel.archive",
+		hasMultipleAssociatedArchiveFiles = true,
+		reason = conflictDescCustomPyramidSong,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Disable Holocall Character Rendering (FPS Fix)",
+		modAuthor = "kronesia",
+		modArchiveFileName = "HoloCallFPSFix.archive",
+		hasMultipleAssociatedArchiveFiles = false,
+		reason = "Known to damage the game\'s Holocall live camera feed system used by the Hotscenes Add-on Performer Preview feature.",
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Messy H10 Apartment (World Builder)",
+		modAuthor = "mildindigestion",
+		modArchiveFileName = "MILD_Locations_H10.archive",
+		hasMultipleAssociatedArchiveFiles = false,
+		reason = conflictDescAptH10,
+		isAddOnRelated = true
+	},
+	{
+		modTitle = "Corpo Plaza - Entropy Den",
+		modAuthor = "OyVaye",
+		modArchiveFileName = "CorpoPlaza_Entropy_Den.archive",
+		hasMultipleAssociatedArchiveFiles = false,
+		reason = conflictDescAptCtc,
 		isAddOnRelated = true
 	},
 }

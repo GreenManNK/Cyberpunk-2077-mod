@@ -1,0 +1,801 @@
+package Vehicle
+using RTDB, BaseStats, Driving
+
+v_sport1_yaiba_semimaru : Vehicle_4w_Default
+{
+	entityTemplatePath = "base\vehicles\sport\v_sport1_yaiba_semimaru__basic_01.ent";
+	visualTags = 
+	[
+		"Premium"
+	];
+	tags += 
+	[
+		"Sport"
+	];
+	manufacturer = "Vehicle.Yaiba";
+	randomPassengers = 
+	[
+		"Passengers.CitizenRichDriverEntry", "Passengers.CitizenRichPassengerFrontEntry"
+	];
+	displayName = "LocKey#96428";
+	destroyedAppearance = "yaiba_semimaru_basic_burnt_01";
+	vehicleUIData = "Vehicle.VehicleYaibaSemimaruUIData";
+	twintoneModelName = "yaiba.semimaru";
+	appearancesToColorTemplate = "Vehicle.VehicleYaibaSemimaruAppearancesToColorTemplate";
+	fxWheelsDecalsFrontOverride = "Vehicle.FxWheels_Sport_M";
+	fxWheelsDecals = "Vehicle.FxWheels_Sport_L";
+	player_audio_resource = "v_car_rayfield_caliburn";
+	traffic_audio_resource = "v_car_rayfield_caliburn_traffic";
+	widgetStyleSheetPath = "base/gameplay/gui/widgets/vehicle/rayfield/rayfield_regular.inkstyle";
+	statModifiers += 
+	[
+		{
+			statType = "BaseStats.PowerLevel";
+			modifierType = "Additive";
+			value = 11;
+		} : ConstantStatModifier
+	];
+	statModifierGroups += 
+	[
+		"VehicleStatPreset.Durable"
+	];
+	enableDestruction = true;
+	destruction = "Vehicle.VehicleDestructionParamsSemimaru";
+	vehDataPackage = 
+	{
+		vehSeatSet = "Vehicle.Vehicle2SeatSetDefault";
+	} : VehicleDataPackageSport1;
+	vehWheelDimensionsSetup = 
+	{
+		frontPreset = 
+		{
+			tireRadius = 0.37f;
+			rimRadius = 0.335f;
+			tireWidth = 0.31f;
+			wheelOffset = 0.11f;
+		} : VehicleWheelDimensionsPreset;
+		backPreset = 
+		{
+			tireRadius = 0.39f;
+			rimRadius = 0.335;
+			tireWidth = 0.4f;
+			wheelOffset = 0.12f;
+		} : VehicleWheelDimensionsPreset;
+	} : VehicleWheelDimensionsSetup;
+	vehDriveModelData = 
+	{
+		total_mass = 1750.0f;
+		chassis_mass = 1750.f;
+		center_of_mass_offset = ( 0.0f, -0.13f, 0.08f );
+		momentOfInertia = ( 3050.0f, 900.0f, 3530.0f );
+		airResistanceFactor = 2.4f;
+		handbrakeBrakingTorque = 1600.f;
+		turnUpdateMidSpeedThreshold = 25.f;
+		turnUpdateMaxSpeedThreshold = 45.f;
+		turnUpdateMidSpeedTurnMul = 0.41f;
+		turnUpdateMidSpeedTurnChangeMul = 1.58f;
+		turnUpdateMaxSpeedTurnMul = 0.16f;
+		turnUpdateMaxSpeedTurnChangeMul = 2.15f;
+		turnUpdateInputDiffProgressionPow = 0.7f;
+		wheelSetup = 
+		{
+			frontPreset = 
+			{
+				maxBrakingTorque = 720.0f;
+				frictionMulLateral = 0.94f;
+				frictionMulLongitudinal = 0.94f;
+				tireLateralSlipEffectsMul = 1.46f;
+				tireLongitudinalSlipEffectsMul = 1.3f;
+				swaybarStiffness = 29.0f;
+				swaybarLengthScalar = 2.3f;
+				swaybarDisplacementLimit = 0.14f;
+				springStiffness = 21.0f;
+				springDamping = 4100;
+				springReboundDamping = 3900;
+				springBoundDampingLowRate = 2200.0f;
+				springReboundDampingLowRate = 2300.0f;
+				springDampingLowRateCompression = 0.20f;
+				springDampingHighRateCompression = 0.30f;
+				extremeCompressionEventScalor = 0.46f;
+				logicalSuspensionCompressionLength = 0.56f;
+				visualSuspensionDroop = 0.09f;
+				visualSuspensionCompressionLength = 0.04f;
+				wheelsVerticalOffset = 0.02f;
+			} : VehicleWheelDrivingPreset_4_MA_Front;
+			backPreset = 
+			{
+				maxBrakingTorque = 790.0f;
+				frictionMulLateral = 1.0f;
+				frictionMulLongitudinal = 0.96f;
+				tireLateralSlipEffectsMul = 1.3f;
+				swaybarStiffness = 20.0f;
+				swaybarLengthScalar = 1.3f;
+				springStiffness = 26.0f;
+				springDamping = 4500;
+				springReboundDamping = 4200;
+				springBoundDampingLowRate = 2500.0f;
+				springReboundDampingLowRate = 2500.0f;
+				springDampingLowRateCompression = 0.20f;
+				springDampingHighRateCompression = 0.30f;
+				extremeCompressionEventScalor = 0.38f;
+				logicalSuspensionCompressionLength = 0.53f;
+				visualSuspensionDroop = 0.05f;
+				visualSuspensionCompressionLength = 0.05f;
+				wheelsVerticalOffset = 0.03f;
+			} : VehicleWheelDrivingPreset_4_MA_Rear;
+		} : VehicleWheelDrivingSetup_4_AWD;
+		driveHelpers = 
+		[
+			{
+				type = "Vehicle.RotationLimiter_HelperType";
+			} : RotationLimiter_Exotic, 
+			{
+				type = "Vehicle.RearWheelsFrictionModifier_HelperType";
+			} : RearWheelsFrictionModifier_Exotic, 
+			{
+				type = "Vehicle.DriveWheelsAccelerateNoise_HelperType";
+			} : DriveWheelsAccelerateNoise_Sport, 
+			{
+				type = "Vehicle.HandbrakeFrictionModifier_HelperType";
+			} : HandbrakeFrictionModifier_Exotic, 
+			{
+				type = "Vehicle.UphillDriveHelper_HelperType";
+			} : UphillDriveHelper_Standard, 
+			{
+				type = "Vehicle.DynamicDownforceHelper_HelperType";
+			} : DynamicDownforceHelper_Exotic, 
+			{
+				type = "Vehicle.InAirGravityModifier_HelperType";
+			} : InAirGravityModifier
+		];
+		burnOut = 
+		{
+			maxSpeedToInitiateBurnOut = 27.f;
+			lateralForceMaxSpeed = 6.8f;
+			lateralForceMaxAcceleration = 0.4f;
+			lateralAccelForwardSpeedMaxDecimation = 0.65f;
+			maxLongFrictionSlipRatioMultipler = 0.7f;
+			maxLateralAccelSlipRatioMultipler = 0.64f;
+			minLongFrictionCoeff = 0.66f;
+			burnOutGripBonus = 6.8f;
+			gripBonusMaxLaunchSpeed = 11.0f;
+			minBrakeForceModifier = 0.01f;
+		} : VehicleBurnOut_SuperSport_AWD;
+	} : VehicleDriveModelData_SuperSport_AWD;
+	vehEngineData = "Vehicle.VehicleEngineData_4_SuperSport";
+	crowdMemberSettings = "Crowds.Sport_DrivingPackage";
+	vehDriver_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		enable_rear_view = true;
+		rear_view_offset = ( 0.0000, -1.0722, 0.8580 );
+	} : VehicleDriverFPPCameraParamsDefault;
+	vehDriverCombat_FPPCameraParams = 
+	{
+		lookat_offset_vertical = 0.05f;
+		is_forward_offset = 1.0f;
+		forward_offset_value = 0.06f;
+	} : VehicleDriverCombatFPPCameraParamsDefault;
+	tppCameraPresets = 
+	[
+		"Camera.VehicleTPP_4w_caliburn_High_Close", "Camera.VehicleTPP_4w_caliburn_High_Medium", "Camera.VehicleTPP_4w_caliburn_High_Far", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatClose", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatMedium", "Camera.VehicleTPP_4w_caliburn_High_DriverCombatFar", "Camera.VehicleTPP_4w_caliburn_Low_Close", "Camera.VehicleTPP_4w_caliburn_Low_Medium", "Camera.VehicleTPP_4w_caliburn_Low_Far", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatClose", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatMedium", "Camera.VehicleTPP_4w_caliburn_Low_DriverCombatFar"
+	];
+	drivingParamsPanic = "Driving.Panic_Sport";
+	trafficSuspension = "Vehicle.TrafficSuspension_Sport";
+}
+
+VehicleYaibaSemimaruUIData : VehicleDefaultUIData
+{
+	productionYear = "LocKey#29071";
+	driveLayout = "LocKey#45372";
+	horsepower = 1690.0f;
+	mass = 1700.0f;
+	info = "LocKey#96431";
+}
+
+VehicleDestructionParamsSemimaru : VehicleDestructionParamsDefault_4w
+{
+	gridDimensions = ( 1.8f, 4.0f, 0.12f );
+	gridLocalOffset = ( 0.0f, 0.0f, 0.6f );
+	chargePortCenter = ( -1.05758667f, -0.872381151f, 0.494365036f );
+	glass = 
+	[
+		{
+			component = "window_f";
+			effect = "damage_windshield";
+			isWindshield = true;
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_back";
+			effect = "damage_glass_b";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				2, 4, 10, 12
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fl_02";
+			effect = "damage_glass_fl";
+			gridCells = 
+			[
+				4, 12
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fr";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				3, 5, 11, 13
+			];
+			threshold = 0.15;
+		}, 
+		{
+			component = "window_fr_02";
+			effect = "damage_glass_fr";
+			gridCells = 
+			[
+				5, 13
+			];
+			threshold = 0.15;
+		}
+	];
+	detachableParts = 
+	[
+		{
+			name = "Trunk";
+			gridCells = 
+			[
+				0, 1, 8, 9
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"hood_a", "hood_a_shadow", "window_back"
+			];
+		}, 
+		{
+			name = "Hood";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"trunk_a", "trunk_a_shadow"
+			];
+		}, 
+		{
+			name = "License_plate";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"license_plate"
+			];
+		}, 
+		{
+			name = "BumperFront";
+			gridCells = 
+			[
+				6, 7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_f_01", "bumper_f_shadow"
+			];
+		}, 
+		{
+			name = "RimFrontLeft";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"wheel_center_fl"
+			];
+		}, 
+		{
+			name = "RimFrontRight";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"wheel_center_fr"
+			];
+		}, 
+		{
+			name = "BumperBack";
+			gridCells = 
+			[
+				0, 1
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"bumper_b_01", "bumper_b_shadow"
+			];
+		}, 
+		{
+			name = "MirrorLeft_01";
+			gridCells = 
+			[
+				4
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"door_mirror_fl", "mirror_l_shadow"
+			];
+		}, 
+		{
+			name = "MirrorRight_01";
+			gridCells = 
+			[
+				5
+			];
+			threshold = 0.07;
+			components = 
+			[
+				"door_mirror_fr", "mirror_r_shadow"
+			];
+		}, 
+		{
+			name = "DoorFrontLeft_A";
+			gridCells = 
+			[
+				2, 4
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fl_a", "door_fl_b", "door_fl_shadow", "window_fl_02", "window_fl"
+			];
+		}, 
+		{
+			name = "DoorFrontRight_A";
+			gridCells = 
+			[
+				3, 5
+			];
+			threshold = 0.7;
+			components = 
+			[
+				"door_fr_a", "door_fr_b", "door_fr_shadow", "window_fr_02", "window_fr"
+			];
+		}
+	];
+	lights = 
+	[
+		{
+			component = "head_light_r_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "head_light_l_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_fr_01";
+			gridCells = 
+			[
+				7
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_fl_01";
+			gridCells = 
+			[
+				6
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_left_03";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "position_light_right_03";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_03";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_01";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_left_02";
+			gridCells = 
+			[
+				0
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_02";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "reverse_light_right_01";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}, 
+		{
+			component = "brake_light_right_03";
+			gridCells = 
+			[
+				1
+			];
+			threshold = 0.1f;
+		}
+	];
+	wheels = 
+	[
+		{
+			name = "FrontLeft";
+			intact = "tire_01_fl_a";
+			flat = "tire_flat_01_fl_a";
+		}, 
+		{
+			name = "FrontRight";
+			intact = "tire_01_fr_a";
+			flat = "tire_flat_01_fr_a";
+		}, 
+		{
+			name = "BackRight";
+			intact = "tire_01_br_a";
+			flat = "tire_flat_01_br_a";
+		}, 
+		{
+			name = "BackLeft";
+			intact = "tire_01_bl_a";
+			flat = "tire_flat_01_bl_a";
+		}
+	];
+	deformableParts = 
+	[
+		{
+			component = "hood_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}
+			];
+		}, 
+		{
+			component = "trunk_a";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0, 1
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_b_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						0, 1, 8, 9
+					];
+				}
+			];
+		}, 
+		{
+			component = "bumper_f_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						0
+					];
+					gridCells = 
+					[
+						6, 7, 14, 15
+					];
+				}
+			];
+		}, 
+		{
+			component = "body_01";
+			zones = 
+			[
+				{
+					shapes = 
+					[
+						1, 9
+					];
+					gridCells = 
+					[
+						6, 7
+					];
+				}, 
+				{
+					shapes = 
+					[
+						10, 12
+					];
+					gridCells = 
+					[
+						0, 1
+					];
+				}
+			];
+		}
+	];
+	doorDetachRules = 
+	[
+		{
+			componentToQuery = "door_fr_a";
+			doorEnumIndex = 1;
+			partsToDetach = 
+			[
+				"DoorFrontRight_A", "MirrorRight_01"
+			];
+		}, 
+		{
+			componentToQuery = "door_fl_a";
+			doorEnumIndex = 0;
+			partsToDetach = 
+			[
+				"DoorFrontLeft_A", "MirrorLeft_01"
+			];
+		}
+	];
+}
+
+vcc_paintjob_yaiba_semimaru_basic_urban_02 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"yaiba_semimaru_basic_urban_02"
+	];
+	matchingColorVariant = 
+	[
+		"urban_02"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_yaiba_semimaru_basic_urban_02";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_02.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_02.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_yaiba_semimaru_basic_urban_03 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"yaiba_semimaru_basic_urban_03"
+	];
+	matchingColorVariant = 
+	[
+		"urban_03"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_yaiba_semimaru_basic_urban_03";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_03.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_03.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_yaiba_semimaru_basic_urban_04 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"yaiba_semimaru_basic_urban_04"
+	];
+	matchingColorVariant = 
+	[
+		"urban_04"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_yaiba_semimaru_basic_urban_04";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_04.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_04.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+vcc_paintjob_yaiba_semimaru_basic_urban_05 : VehicleColorTemplate
+{
+	matchingAppearances = 
+	[
+		"yaiba_semimaru_basic_urban_05"
+	];
+	matchingColorVariant = 
+	[
+		"urban_05"
+	];
+	hasCustomPattern = true;
+	customIcon = "UIIcon.vcc_icons_yaiba_semimaru_basic_urban_05";
+	customMultilayers = 
+	[
+		{
+			excludedComponents = 
+			[
+				"wheel_01_bl_a", "wheel_01_br_a", "wheel_01_fl_a", "wheel_01_fr_a", "wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_05.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_ext_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 2.0f;
+		} : VehicleCustomMultilayer, 
+		{
+			affectedComponents = 
+			[
+				"wheel_center_fl", "wheel_center_fr"
+			];
+			customMlSetup = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_02.mlsetup";
+			customMlMask = "base\vehicles\sport\v_sport1_yaiba_semimaru\entities\meshes\textures\semimaru_rim_01.mlmask";
+			coatLayerMin = 1.0f;
+			coatLayerMax = 1.0f;
+		} : VehicleCustomMultilayer
+	];
+}
+
+VehicleYaibaSemimaruAppearancesToColorTemplate : VehicleAppearancesToColorTemplate
+{
+	colorTemplates = 
+	[
+		"Vehicle.vcc_paintjob_yaiba_semimaru_basic_urban_02", "Vehicle.vcc_paintjob_yaiba_semimaru_basic_urban_03", "Vehicle.vcc_paintjob_yaiba_semimaru_basic_urban_04", "Vehicle.vcc_paintjob_yaiba_semimaru_basic_urban_05"
+	];
+}
+

@@ -1,0 +1,13 @@
+package Vehicle
+using RTDB, BaseStats
+
+mq057_semimaru_car : v_sport1_yaiba_semimaru_player
+{
+	savable = true;
+	tags += 
+	[
+		"DisableTireShooting"
+	];
+	priority = "SpawnableObjectPriority.Quest";
+}
+

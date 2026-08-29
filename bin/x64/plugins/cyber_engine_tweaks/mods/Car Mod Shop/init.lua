@@ -23,7 +23,7 @@ local lang = require("functions/lang")
 local state = { hasBeenLoaded = false, upgradedCarsInState = {}}
 local sessionsFolder = 'external/sessions'
 
-local CMSVersion = 2200
+local CMSVersion = 2000
 
 local PartsFolder = "parts"
 local PartsRequireList = {}
@@ -38,12 +38,6 @@ local CurrentPrice = 0
 local ShouldClearAllOnNextUpgrade = false
 local ShouldCheckForUpgrade = true
 local upgrading = false
-
---Locations
-local LocationsFolder = "locations"
-local LocationsRequireList = {}
-local LocationsList = {}
-local CurrentLocation = nil
 
 --Removal system
 local isDowngrading = false
@@ -91,17 +85,7 @@ end
 registerForEvent("onInit", function()
 	--os.remove(sessionsFolder .. '/' .. 'vortexwhy')
 
-	LoadAllFilesInFolder(LocationsFolder, LocationsRequireList)
-
-	for _, locationPair in pairs(LocationsRequireList) do
-		locationHere = locationPair.getLocation()
-		table.insert(LocationsList, locationHere)
-
-		--Spawn map pin with location
-		ShowMapPin(locationHere.Position)
-	end
-
-	-- This needs to only be ran once since each map pin uses the 'techie' symbol
+	ShowMapPin()
 	RenameMapPin()
 	
 	GameSession.StoreInDir(sessionsFolder)
@@ -129,13 +113,13 @@ registerForEvent("onInit", function()
 	
 	UpgradePartNames = {"Engine", "Ecu", "Transmission", "Suspension", "Tires", "Brakes", "Weight Reduction"}
 	--UpgradePartNames = {lang.getText("Engine"), lang.getText("Ecu"), lang.getText("Transmission"), lang.getText("Suspension"), lang.getText("Tires"), lang.getText("Brakes"), lang.getText("Weight Reduction")}
-	LoadAllFilesInFolder(PartsFolder .. "/engine", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/ecu", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/transmission", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/suspension", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/tires", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/brakes", PartsRequireList)
-	LoadAllFilesInFolder(PartsFolder .. "/weight_reduction", PartsRequireList)
+	LoadAllFilesInFolder(PartsFolder .. "/engine")
+	LoadAllFilesInFolder(PartsFolder .. "/ecu")
+	LoadAllFilesInFolder(PartsFolder .. "/transmission")
+	LoadAllFilesInFolder(PartsFolder .. "/suspension")
+	LoadAllFilesInFolder(PartsFolder .. "/tires")
+	LoadAllFilesInFolder(PartsFolder .. "/brakes")
+	LoadAllFilesInFolder(PartsFolder .. "/weight_reduction")
 	
 	for _, part in pairs(PartsRequireList) do
 		partHere = part.getPart()
@@ -178,11 +162,7 @@ registerForEvent("onInit", function()
 		end
 		state.upgradedCarsInState = {}
 		OnLoad(0)
-
-		-- Re-show map pins
-		for _, locationPair in pairs(LocationsList) do
-			ShowMapPin(locationPair.Position)
-		end
+		ShowMapPin()
 	end)
 	
 	--if ((Game.GetFact("CMS_User_Fact") ~= nil) and (Game.GetFact("CMS_User_Fact") ~= 0)) then
@@ -1013,10 +993,9 @@ registerForEvent("onInit", function()
 								
 							end
 							
-							--Debug printout, only needed for testing if something goes wrong, uncomment it then
-							--for _, part in pairs(PartBasket) do
+							for _, part in pairs(PartBasket) do
 								--print(part)
-							--end
+							end
 						end
 					end
 					end
@@ -1287,28 +1266,20 @@ registerForEvent("onUpdate", function (timeDelta)
 				
 				local vehicleGarageIdCurrent = NewObject('vehicleGarageVehicleID')
 				vehicleGarageIdCurrent.recordID = TweakDBID.new(VehicleTweakDBRecordName)
+				
 
 				Cron.Every(0.05, function(timer1)
 					if inGame then
 						if Game.GetWorkspotSystem():IsActorInWorkspot(player) == false then 
 							timer1:Halt()
-
 							Cron.After(0.1, function()
-								--This doesn't work: Probably because its a defined blackboard in scripts rather than game engine so its only applied in the 'GameSettings'... Seems related only to quickslots.
-								--Doesn't work, defined in scripts thus the issue, someone should have exposed the variable in engine to scripts or at least made it a bool not void function... too bad.
-								--local summonToggle = Game.GetBlackboardSystem():Get(Game.GetAllBlackboardDefs().GameplaySettings):GetBool(Game.GetAllBlackboardDefs().GameplaySettings.EnableVehicleToggleSummonMode)
-
 								Game.GetVehicleSystem():ToggleSummonMode()
 								Game.GetVehicleSystem():DespawnPlayerVehicle(vehicleGarageIdCurrent)
 								--local vehicleGarageId = GetSingleton('vehicleGarageVehicleID'):Resolve(VehicleTweakDBRecordName)
-								--Game.GetVehicleSystem():TogglePlayerActiveVehicle(vehicleGarageIdCurrent, 'Car', true)
-
-								--Maybe this fixes the issue some ppl were having with the car kind of spawning but then teleporting them to the 0,0,0
-								Game.GetVehicleSystem():SpawnPlayerVehicle('Car', TweakDBID.new(VehicleTweakDBRecordName), false)
-
-								--Game.GetVehicleSystem():SpawnActivePlayerVehicle('Car')
+								Game.GetVehicleSystem():TogglePlayerActiveVehicle(vehicleGarageId, 'Car', true)
+								Game.GetVehicleSystem():SpawnPlayerVehicle('Car')
 								Game.GetVehicleSystem():ToggleSummonMode()
-
+								
 								Cron.Every(0.05, function(timer2)
 									local vehicleSummonDef = Game.GetAllBlackboardDefs().VehicleSummonData
 									local vehicleSummonBB = Game.GetBlackboardSystem():Get(vehicleSummonDef)
@@ -1321,8 +1292,7 @@ registerForEvent("onUpdate", function (timeDelta)
 										-- Entity spawned
 										MountVehicle(vehicleEntId)
 										--Game.TeleportPlayerToPosition(pos.x, pos.y, pos.z)
-
-										Game.GetTeleportationFacility():Teleport(Game.GetPlayer(), CurrentLocation.FinalPos, CurrentLocation.FinalRot)
+										Game.GetTeleportationFacility():Teleport(Game.GetPlayer(), Vector4.new(-770.597168, 2972.367676, 26.418839, 0), EulerAngles.new(0,0,Game.GetPlayer():GetWorldYaw()))
 										Cron.After(10.0, function()
 											ShouldCheckForUpgrade = true
 										end)
@@ -1760,15 +1730,15 @@ function roundToDecimalPlace(num, numDecimalPlaces)
   return math.floor(num * mult + 0.5) / mult
 end
 
-function LoadAllFilesInFolder(FilesFolder, ArrayToLoadInto)
+function LoadAllFilesInFolder(FilesFolder)
 	for _, file in pairs(dir(FilesFolder)) do
 		if file.type == "file" and file.name:match("%.lua$") then
 			local name = file.name:match("(.+)%..+")
-			ArrayToLoadInto[name] = require(FilesFolder .. "/" .. name)
+			PartsRequireList[name] = require(FilesFolder .. "/" .. name)
 		end
 	end
 	count = 0
-	for _, filein in pairs(ArrayToLoadInto) do
+	for _, filein in pairs(PartsRequireList) do
 		count = count + 1
 	end
 	--print(count)
@@ -1810,23 +1780,12 @@ function UnMountVehicle()
 end
 
 function CheckCarPosition(CurrentPosition)
-	-- What a slow and silly way to make a bounding box in a game that already has its own collision system
-	-- But I'm not going to fight this game's systems even more than this mod does, I'm just going to waste some processing power every frame
-
-	--Loop of locations position:	
-	for _, locationPair in pairs(LocationsList) do
-		if (CurrentPosition.x > locationPair.PosX1 and CurrentPosition.x < locationPair.PosX2) and
-		   (CurrentPosition.y > locationPair.PosY1 and CurrentPosition.y < locationPair.PosY2) and
-		   (CurrentPosition.z > locationPair.PosZ1 and CurrentPosition.z < locationPair.PosZ2)
-		then 
-			CurrentLocation = locationPair
-			return true
-		end
+	if (CurrentPosition.y > 2965 and CurrentPosition.y < 2977) 
+		and (CurrentPosition.x < -770 and CurrentPosition.x > -780) then
+		return true
+	else
+		return false
 	end
-
-	-- We return false if no location is achieved
-	CurrentLocation = nil
-	return false
 end
 
 local TotalsArray = nil
@@ -2303,8 +2262,8 @@ function AddToMapPinDB(tweakDBToGet, MappinToAdd)
 	TweakDB:SetFlat(tweakDBToGet, MapPinDB)
 end
 
-function ShowMapPin(pos)
-	--local pos = Vector4.new(-773.45, 2968.5, 26.5, 1.0)
+function ShowMapPin()
+	local pos = Vector4.new(-773.45, 2968.5, 26.5, 1.0)
 	
 	-- You may be asking yourself, why am I adding this to every possible map filter?
 	-- Well of course its simple, people who download mods tend to not read absolutely anything

@@ -30,16 +30,10 @@ Items.$(instance):
     placementSlots:
         - !append-once AttachmentSlots.Blade_WeaponMod3
         - !append-once AttachmentSlots.Blade_WeaponMod4
-        - !append-once AttachmentSlots.Blade_WeaponMod5
-        - !append-once AttachmentSlots.Blade_WeaponMod6
         - !append-once AttachmentSlots.Blunt_WeaponMod3
         - !append-once AttachmentSlots.Blunt_WeaponMod4
-        - !append-once AttachmentSlots.Blunt_WeaponMod5
-        - !append-once AttachmentSlots.Blunt_WeaponMod6
         - !append-once AttachmentSlots.Throwable_WeaponMod3
         - !append-once AttachmentSlots.Throwable_WeaponMod4
-        - !append-once AttachmentSlots.Throwable_WeaponMod5
-        - !append-once AttachmentSlots.Throwable_WeaponMod6
 
 # BladeMod=======================================================
 
@@ -66,12 +60,8 @@ Items.$(instance):
     placementSlots:
         - !append-once AttachmentSlots.Blade_WeaponMod3
         - !append-once AttachmentSlots.Blade_WeaponMod4
-        - !append-once AttachmentSlots.Blade_WeaponMod5
-        - !append-once AttachmentSlots.Blade_WeaponMod6
         - !append-once AttachmentSlots.Throwable_WeaponMod3
         - !append-once AttachmentSlots.Throwable_WeaponMod4
-        - !append-once AttachmentSlots.Throwable_WeaponMod5
-        - !append-once AttachmentSlots.Throwable_WeaponMod6
 
 # BluntMod=======================================================
 
@@ -98,8 +88,6 @@ Items.$(instance):
     placementSlots:
         - !append-once AttachmentSlots.Blunt_WeaponMod3
         - !append-once AttachmentSlots.Blunt_WeaponMod4
-        - !append-once AttachmentSlots.Blunt_WeaponMod5
-        - !append-once AttachmentSlots.Blunt_WeaponMod6
 
 # ThrowMod=======================================================
 
@@ -126,5 +114,3 @@ Items.$(instance):
     placementSlots:
         - !append-once AttachmentSlots.Throwable_WeaponMod3
         - !append-once AttachmentSlots.Throwable_WeaponMod4
-        - !append-once AttachmentSlots.Throwable_WeaponMod5
-        - !append-once AttachmentSlots.Throwable_WeaponMod6
