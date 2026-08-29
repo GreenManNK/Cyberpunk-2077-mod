@@ -1,0 +1,18 @@
+# Runtime and generated data
+*.log
+*.tmp
+*.bak
+*.old
+
+logs/
+log/
+cache/
+caches/
+sessions/
+session/
+vm_session/
+__pycache__/
+
+# Windows Explorer noise
+Thumbs.db
+Desktop.ini
