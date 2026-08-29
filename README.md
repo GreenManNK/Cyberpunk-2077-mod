@@ -1,18 +1,26 @@
 # Cyberpunk 2077 Mod Files
 
-This repository contains a filtered manifest for Cyberpunk 2077 mod files found in:
+This repository contains filtered Cyberpunk 2077 mod files found in:
 
 `C:\Program Files\Epic Games\Cyberpunk2077`
 
-The original game files are intentionally excluded. Mod paths are preserved relative to the game directory, so the manifest can be used to compare or restore the same layout.
+The original game files are intentionally excluded. Mod paths are preserved relative to the game directory, so the downloaded folder can be copied back into a Cyberpunk 2077 install.
 
-## Upload Status
+## Large Files
 
-The full mod file upload is currently blocked by GitHub LFS quota:
+GitHub blocks normal repository files over 100 MiB, and Git LFS upload is blocked for this account/repository by quota:
 
 `This repository exceeded its LFS budget.`
 
-The filtered mod set was prepared locally as 3,218 files totaling about 4.98 GiB, but GitHub rejected the LFS upload before accepting the file commit. Only this README, `.gitattributes`, `.gitignore`, and `MOD_MANIFEST.tsv` are pushed right now.
+Because of that, files under 100 MiB are stored directly in their real game paths. Files over 100 MiB are stored as split parts under `_large_files/`.
+
+After downloading or cloning this repository, run:
+
+```powershell
+.\Restore-LargeFiles.ps1
+```
+
+The script rebuilds the split files into their original paths, then verifies their size and SHA-256 hashes.
 
 ## Manifest
 
