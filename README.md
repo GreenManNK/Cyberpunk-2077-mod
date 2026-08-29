@@ -26,6 +26,14 @@ The script rebuilds the split files into their original paths, then verifies the
 
 `MOD_MANIFEST.tsv` lists every included file sorted by relative path, with size and source last-write time.
 
+## F80H Baseline Filter
+
+This package keeps `f80h` as the active NPC/body baseline.
+
+Non-f80h body frameworks, skin/material replacements, and body shape/physics add-ons that commonly overlap with f80h were removed from the repository tree and from the large-file restore manifest.
+
+See `F80_FILTER_REMOVED.tsv` for the exact removed paths and reason.
+
 ## Filtered Areas
 
 - `archive/pc/mod`
