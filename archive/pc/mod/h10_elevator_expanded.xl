@@ -1,0 +1,115 @@
+streaming:
+  blocks:
+  - h10_elevator_expanded_1_3/all.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-6_4_0_2.streamingsector
+      expectedNodes: 3648
+      nodeDeletions:
+        # Exterior    Garage Door Proxy
+        - index: 662
+          type: worldEntityProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-6_5_0_2.streamingsector
+      expectedNodes: 2044
+      nodeDeletions:
+        # Exterior    Elevator Base Collision
+        - index: 1961
+          type:    worldCollisionNode
+        # Exterior    Wall Collision
+        - index: 1918
+          type:    worldCollisionNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-6_5_0_3.streamingsector
+      expectedNodes: 71
+      nodeDeletions:
+        # Exterior   Elevator
+        - index: 59
+          type: worldDeviceNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-44_40_3_0.streamingsector
+      expectedNodes: 1610
+      nodeDeletions:
+        # Exterior    Terminal Apartments
+        - index: 810
+          type: worldDeviceNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-11_10_0_1.streamingsector
+      expectedNodes: 3496
+      nodeDeletions:
+        # Exterior    Metal Floor
+        - index: 642
+          type: worldStaticMeshNode
+        # Exterior    Wall Collision
+        - index: 3419
+          type: worldCollisionNode
+       # Exterior    Basement Sidewalk
+        - index: 2164
+          type: worldInstancedMeshNode
+       # Exterior    Basement Sidewalk
+        - index: 924
+          type: worldStaticMeshNode
+       # Exterior    Basement Sidewalk
+        - index: 925
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-11_10_0_2.streamingsector
+      expectedNodes: 92
+      nodeDeletions:
+        # Exterior    Terminal Garage
+        - index: 64
+          type: worldDeviceNode
+        # Exterior    Gate
+        - index: 63
+          type: worldEntityNode
+        # Exterior    Gate Proxy
+        - index: 36
+          type: worldEntityProxyMeshNode
+        # Exterior    Gate Proxy Apt Level
+        - index: 35
+          type: worldEntityProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-11_10_1_2.streamingsector
+      expectedNodes: 37
+      nodeDeletions:
+        # Exterior    Landing Pad Collision
+        - index: 34
+          type: worldCollisionNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-3_2_0_4.streamingsector
+      expectedNodes: 51
+      nodeDeletions:
+        # Exterior    Elevator Proxy
+        - index: 14
+          type: worldEntityProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-22_19_0_0.streamingsector
+      expectedNodes: 2236
+      nodeDeletions:
+        # Exterior    Garage Door
+        - index: 995
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-22_20_0_0.streamingsector
+      expectedNodes: 1833
+      nodeDeletions:
+        # Exterior    Gate Door
+        - index: 1186
+          type: worldStaticMeshNode
+        # Exterior    Gate Door
+        - index: 1187
+          type: worldStaticMeshNode
+        # Exterior    Gate Door
+        - index: 1189
+          type: worldStaticMeshNode
+        # Exterior    Gate Door
+        - index: 1190
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-22_20_1_1.streamingsector
+      expectedNodes: 775
+      nodeDeletions:
+        # Exterior    Gate Door Apartment Level
+        - index: 175
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-22_20_2_1.streamingsector
+      expectedNodes: 248
+      nodeDeletions:
+        # Exterior    Landing Pad
+        - index: 106
+          type: worldStaticMeshNode
+resource:
+  patch:
+    h10_elevator_expanded_1_3/custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices
+    h10_elevator_expanded_1_3/custom_devices.psrep:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.psrep

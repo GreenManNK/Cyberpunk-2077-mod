@@ -1,0 +1,96 @@
+# MeleeMod=======================================================
+
+Items.$(instance):
+    $instances:
+        - { instance: GenericMod1_Base }
+        - { instance: GenericMod1_Common }
+        - { instance: GenericMod1_Uncommon }
+        - { instance: GenericMod1_Rare }
+        - { instance: GenericMod1_Epic }
+        - { instance: GenericMod1_Legendary }
+        - { instance: ChimeraMeleeMod }
+        - { instance: MeleeMod1_Base }
+        - { instance: MeleeMod1_Common }
+        - { instance: MeleeMod1_Uncommon }
+        - { instance: MeleeMod1_Rare }
+        - { instance: MeleeMod1_Epic }
+        - { instance: MeleeMod1_Legendary }
+        - { instance: MeleeMod2_Base }
+        - { instance: MeleeMod2_Common }
+        - { instance: MeleeMod2_Uncommon }
+        - { instance: MeleeMod2_Rare }
+        - { instance: MeleeMod2_Epic }
+        - { instance: MeleeMod2_Legendary }
+        - { instance: MeleeMod3_Base }
+        - { instance: MeleeMod3_Common }
+        - { instance: MeleeMod3_Uncommon }
+        - { instance: MeleeMod3_Rare }
+        - { instance: MeleeMod3_Epic }
+        - { instance: MeleeMod3_Legendary }
+        - { instance: BladeMod1_Base }
+        - { instance: BladeMod1_Common }
+        - { instance: BladeMod1_Uncommon }
+        - { instance: BladeMod1_Rare }
+        - { instance: BladeMod1_Epic }
+        - { instance: BladeMod1_Legendary }
+        - { instance: BladeMod2_Base }
+        - { instance: BladeMod2_Common }
+        - { instance: BladeMod2_Uncommon }
+        - { instance: BladeMod2_Rare }
+        - { instance: BladeMod2_Epic }
+        - { instance: BladeMod2_Legendary }
+        - { instance: BladeMod3_Base }
+        - { instance: BladeMod3_Common }
+        - { instance: BladeMod3_Uncommon }
+        - { instance: BladeMod3_Rare }
+        - { instance: BladeMod3_Epic }
+        - { instance: BladeMod3_Legendary }
+        - { instance: BluntMod1_Base }
+        - { instance: BluntMod1_Common }
+        - { instance: BluntMod1_Uncommon }
+        - { instance: BluntMod1_Rare }
+        - { instance: BluntMod1_Epic }
+        - { instance: BluntMod1_Legendary }
+        - { instance: BluntMod2_Base }
+        - { instance: BluntMod2_Common }
+        - { instance: BluntMod2_Uncommon }
+        - { instance: BluntMod2_Rare }
+        - { instance: BluntMod2_Epic }
+        - { instance: BluntMod2_Legendary }
+        - { instance: BluntMod3_Base }
+        - { instance: BluntMod3_Common }
+        - { instance: BluntMod3_Uncommon }
+        - { instance: BluntMod3_Rare }
+        - { instance: BluntMod3_Epic }
+        - { instance: BluntMod3_Legendary }
+        - { instance: ThrowMod1_Base }
+        - { instance: ThrowMod1_Common }
+        - { instance: ThrowMod1_Uncommon }
+        - { instance: ThrowMod1_Rare }
+        - { instance: ThrowMod1_Epic }
+        - { instance: ThrowMod1_Legendary }
+        - { instance: ThrowMod2_Base }
+        - { instance: ThrowMod2_Common }
+        - { instance: ThrowMod2_Uncommon }
+        - { instance: ThrowMod2_Rare }
+        - { instance: ThrowMod2_Epic }
+        - { instance: ThrowMod2_Legendary }
+        - { instance: ThrowMod3_Base }
+        - { instance: ThrowMod3_Common }
+        - { instance: ThrowMod3_Uncommon }
+        - { instance: ThrowMod3_Rare }
+        - { instance: ThrowMod3_Epic }
+        - { instance: ThrowMod3_Legendary }
+    placementSlots:
+        - !append-once AttachmentSlots.Blade_WeaponMod1
+        - !append-once AttachmentSlots.Blade_WeaponMod2
+        - !append-once AttachmentSlots.Blunt_WeaponMod1
+        - !append-once AttachmentSlots.Blunt_WeaponMod2
+        - !append-once AttachmentSlots.Throwable_WeaponMod1
+        - !append-once AttachmentSlots.Throwable_WeaponMod2
+        - !append-once AttachmentSlots.Blade_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Blade_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Blunt_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Blunt_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Throwable_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Throwable_WeaponMod2_Collectible

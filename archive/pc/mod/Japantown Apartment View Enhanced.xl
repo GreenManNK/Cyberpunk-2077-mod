@@ -1,0 +1,82 @@
+# Japantown Apartment View Enhanced by (c)Sammmy1036
+# April 12, 2026
+# Mod Version: 1.0.1
+# Based on game v2.3.1 streamingsector files - DO NOT use it with other game versions.
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-4_3_0_2.streamingsector
+      expectedNodes: 855
+      nodeDeletions:
+        - index: 455
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-14_14_0_0.streamingsector
+      expectedNodes: 1198
+      nodeDeletions:
+        - index: 709
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-13_14_0_0.streamingsector
+      expectedNodes: 1533
+      nodeDeletions:
+        - index: 1127
+          type: worldStaticMeshNode
+        - index: 1128
+          type: worldStaticMeshNode
+        - index: 1129
+          type: worldStaticMeshNode
+        - index: 1130
+          type: worldStaticMeshNode
+        - index: 1131
+          type: worldStaticMeshNode
+        - index: 1132
+          type: worldStaticMeshNode
+        - index: 1133
+          type: worldStaticMeshNode
+        - index: 1134
+          type: worldStaticMeshNode
+        - index: 1136
+          type: worldStaticMeshNode
+        - index: 1137
+          type: worldStaticMeshNode
+        - index: 1138
+          type: worldStaticMeshNode
+        - index: 1139
+          type: worldStaticMeshNode
+        - index: 1140
+          type: worldStaticMeshNode
+        - index: 1141
+          type: worldStaticMeshNode
+        - index: 1142
+          type: worldStaticMeshNode
+        - index: 1385
+          type: worldInstancedMeshNode
+        - index: 1386
+          type: worldInstancedMeshNode
+        - index: 1387
+          type: worldInstancedMeshNode
+        - index: 1388
+          type: worldInstancedMeshNode
+        - index: 1389
+          type: worldInstancedMeshNode
+        - index: 1390
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-1_0_0_4.streamingsector
+      expectedNodes: 1597
+      nodeDeletions:
+        - index: 125
+          type: worldGenericProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-7_7_0_1.streamingsector
+      expectedNodes: 1807
+      nodeDeletions:
+        - index: 1159
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-13_15_0_0.streamingsector
+      expectedNodes: 2550
+      nodeDeletions:
+        - index: 2062
+          type: worldInstancedMeshNode
+        - index: 2064
+          type: worldInstancedMeshNode
+        - index: 2123
+          type: worldInstancedMeshNode
+        - index: 2125
+          type: worldInstancedMeshNode

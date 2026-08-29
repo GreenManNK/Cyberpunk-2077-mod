@@ -1,0 +1,35 @@
+Items.Preset_Sor22_Default:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Sor22_Military:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Sor22_Neon:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Sor22_Nusa_Black:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Sor22_Nusa_White:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Sor22_Pimp:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList

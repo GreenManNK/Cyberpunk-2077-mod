@@ -1,0 +1,79 @@
+{
+    "name": "hack_animation",
+    "tag": "hack_animation",
+    "action": [
+        {
+            "name": "show_hack_animation",
+            "value": "Transmitting data to Fixer ...",
+            "helper": "This action will hacking progression bar",
+            "helperTitle": "UI : Show Hacking Progression bar",
+            "context": [
+                {
+                    "trigger": {
+                        "auto": {
+                            "name": "auto"
+                        }
+                    },
+                    "requirement": [
+                        [
+                            "auto"
+                        ]
+                    ],
+                    "prop": {
+                        "value": {
+                            "text": "##variableresult",
+                            "type": "text",
+                            "values": {
+                                "variableresult": {
+                                    "key": "hackfixermsg",
+                                    "type": "variable",
+                                    "variable": "hackfixermsg"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "for",
+            "amount": 200,
+            "action": [
+                {
+                    "name": "change_hack_animation_percent",
+                    "value": 50,
+                    "context": [
+                        {
+                            "trigger": {
+                                "condition01": {
+                                    "name": "auto"
+                                }
+                            },
+                            "requirement": [
+                                [
+                                    "condition01"
+                                ]
+                            ],
+                            "prop": {
+                                "value": {
+                                    "text": "##number",
+                                    "type": "number",
+                                    "values": {
+                                        "number": {
+                                            "key": "Percent",
+                                            "type": "variable",
+                                            "variable": "Hacking"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "hide_hack_animation"
+        }
+    ]
+}

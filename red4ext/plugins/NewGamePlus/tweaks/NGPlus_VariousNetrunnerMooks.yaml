@@ -1,0 +1,56 @@
+$dlc: EP1
+
+# If they also try to frag each other, it'll be hilarious
+
+Character.NGPlus_NetrunnerMook_Nue:
+  $base: Character.tygerclaw_gangster3_netrunner_nue_wa_rare
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+
+Character.NGPlus_NetrunnerMook_Lexington:
+  $base: Character.maelstrom_netrunner_netrunner2_lexington_ma
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+
+Character.NGPlus_NetrunnerMook_Nova:
+  $base: Character.scavenger_netrunner2_netrunner2_nova_wa_rare
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+
+Character.NGPlus_NetrunnerMook_Yukimura:
+  $base: Character.afterlife_netrunner_netrunner2_yukimura_wa_rare
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+
+DynamicSpawnSystem.NewGamePlus_NetrunnerClownCarMooks:
+  $type: DynamicVehicleData
+  vehicleRecord: Vehicle.v_standard25_thorton_merrimac
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_NetrunnerMook_Nue"
+      weight: 1
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_NetrunnerMook_Lexington"
+      weight: 1
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_NetrunnerMook_Nova"
+      weight: 1
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_NetrunnerMook_Yukimura"
+      weight: 1

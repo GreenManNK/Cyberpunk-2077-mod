@@ -1,0 +1,4 @@
+[[SYM_REDEFINITION]]
+id = "DUPLICATE_CLASS_DEFINITIONS"
+line_contains = "class "
+message = "Either the redscript backup is bad (most likely), you have a redscript mod installed twice in different locations (less likely), or two different mods are creating new classes with the same name (unlikely). Check the current redscript log at r6/logs/redscript_rCURRENT.log and check if you're seeing \"symbol with this name is already defined\" error on multiple mods or just one. If it's just one mod, check the file locations and see if you have the mod installed twice or a conflict. If it's lots of mods, try deleting everything in r6/cache and verify/repair files in Steam/Gog/Epic."

@@ -1,0 +1,19 @@
+Items.Preset_Kolac_Default:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Kolac_Tiny_Mike:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+    - !append Items.RiflePossibleScopesList
+    
+Items.Preset_Kolac_Tiny_Mike_Legendary:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+    - !append Items.RiflePossibleScopesList

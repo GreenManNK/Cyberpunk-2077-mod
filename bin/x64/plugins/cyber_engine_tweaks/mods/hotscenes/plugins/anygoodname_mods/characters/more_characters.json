@@ -1,0 +1,1394 @@
+{
+	"_WARNING_": "! DO NOT MODIFY THIS FILE !",
+	"_translation_info_": "If you would like to translate performer names in this file, please refer to the Readme - Character Plugins translations.txt file.",
+
+    "modName": "Hotscenes",
+    "pluginAuthorName": "anygoodname",
+    "pluginVersion": "1.36.0",
+    "femalePerformers": {
+        "ryoko_v2_g": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\ryoko_v2_g1\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Nadezhda Tiurina",
+            "prerequisiteFacts": [
+                "q005_done",
+                "q101_enable_side_content"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\ryoko_v2_g1\\ryoko_v2_g1_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\ryoko_v2_g1\\ryoko_v2_g1_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "sts_ep1_07__nele": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_07__nele\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Nele Springer (PhL)",
+            "prerequisiteFacts": [
+                "sts_ep1_07_finished",
+                "sts_ep1_07_done"
+            ],
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_07__nele\\sts_ep1_07__nele_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_07__nele\\sts_ep1_07__nele_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "cz_stadium_medic_01": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_medic_01\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Saki Seo (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_medic_01\\cz_stadium_medic_01_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_medic_01\\cz_stadium_medic_01_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "daphne_bot_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\daphne_bot_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Daphne's Bartender (PhL)",
+            "prerequisiteFacts": [
+                "q303_v_shows_coin",
+                "q303_alex_bar_guest_chat_ended",
+                "q303_alex_finished_drink"
+            ],
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\daphne_bot_v2\\daphne_bot_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\daphne_bot_v2\\daphne_bot_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "mitzi_v2_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mitzi_v2_g1\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Mitzi Sparks (Fingers' patient)",
+            "prerequisiteFacts": [
+                "q105_05_fingers_clear",
+                "q105_06a_fingers_waited"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mitzi_v2_g1\\mitzi_v2_g1_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mitzi_v2_g1\\mitzi_v2_g1_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "rosie_v2_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\rosie_v2_g1\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Rosie Harper (Fingers' patient)",
+            "prerequisiteFacts": [
+                "q105_05_fingers_clear",
+                "q105_06a_fingers_waited"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\rosie_v2_g1\\rosie_v2_g1_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\rosie_v2_g1\\rosie_v2_g1_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "japantown_v2_no_fishnets": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\japantown_v2_no_fishnets\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Charlene Fox (no fishnets)",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\japantown_v2_no_fishnets\\japantown_v2_no_fishnets_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\japantown_v2_no_fishnets\\japantown_v2_no_fishnets_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ruby_v2_no_fishnets": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_v2_no_fishnets\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Ruby Collins (no fishnets)",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_v2_no_fishnets\\ruby_v2_no_fishnets_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_v2_no_fishnets\\ruby_v2_no_fishnets_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ruby_v2_no_tatts_no_fishnets": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_no_tatts_v2_no_fishnets\\fileinfo.inkatlas",
+            "gender": "female",
+            "isLegacyDataType": true,
+            "performerFullName": "Ruby Collins (no fishnets, no tatts)",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_no_tatts_v2_no_fishnets\\ruby_no_tatts_v2_no_fishnets_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\hotscenes_no_fishnets\\entities\\ruby_no_tatts_v2_no_fishnets\\ruby_no_tatts_v2_no_fishnets_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "bree_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\bree_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Bree Whitney (PhL)",
+            "prerequisiteFacts": [
+                "mq305_04_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\bree_v2\\bree_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\bree_v2\\bree_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "q303_paradise_client_wa_d_11_3": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_11_3\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Leilani Ramsey (PhL)",
+            "prerequisiteFacts": [
+                "q303_07_siblings_asked",
+				"q303_08_paradise_inside_exit_lift"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_11_3\\q303_paradise_client_wa_d_11_3_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_11_3\\q303_paradise_client_wa_d_11_3_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "sts_ep1_13_fiona": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_13_fiona\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Fiona Vargas (PhL)",
+            "prerequisiteFacts": [
+                "sts_ep1_13_done",
+				"sts_ep1_13_finished"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_13_fiona\\sts_ep1_13_fiona_wa_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_13_fiona\\sts_ep1_13_fiona_wa_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "sts_ep1_06__barman": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_06__barman\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Helen Wandoo (PhL)",
+            "prerequisiteFacts": [
+				"codex_q303_heavy_hearts",
+                "dancefloor_heavy_hearts_active"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_06__barman\\sts_ep1_06__barman_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\sts_ep1_06__barman\\sts_ep1_06__barman_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "waitress_pyramid_01": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\waitress_pyramid_01\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Heavy Hearts Waitress (PhL)",
+            "prerequisiteFacts": [
+				"codex_q303_heavy_hearts",
+                "dancefloor_heavy_hearts_active"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\waitress_pyramid_01\\waitress_pyramid_01_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\waitress_pyramid_01\\waitress_pyramid_01_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "q303_paradise_client_wa_d_12": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_12\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Molly Daniels (PhL)",
+            "prerequisiteFacts": [
+                "q303_07_siblings_asked",
+				"q303_08_paradise_inside_exit_lift"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_12\\q303_paradise_client_wa_d_12_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_12\\q303_paradise_client_wa_d_12_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "paradise_wa__q303__model_01": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_01\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Olivia Howell (PhL)",
+            "prerequisiteFacts": [
+                "q303_07_siblings_asked",
+				"q303_08_paradise_inside_exit_lift"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_01\\paradise_wa__q303__model_01_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_01\\paradise_wa__q303__model_01_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "paradise_wa__q303__model_02": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_02\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Amber Nkosi (PhL)",
+            "prerequisiteFacts": [
+                "q303_07_siblings_asked",
+				"q303_08_paradise_inside_exit_lift"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_02\\paradise_wa__q303__model_02_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\paradise_wa__q303__model_02\\paradise_wa__q303__model_02_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_citizen__nightlife_wa_default_06_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_06_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Alexandra Dunn (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_06_v2\\ep1_citizen__nightlife_wa_default_06_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_06_v2\\ep1_citizen__nightlife_wa_default_06_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_citizen__nightlife_wa_default_08_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_08_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Alla Belakova (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_08_v2\\ep1_citizen__nightlife_wa_default_08_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_08_v2\\ep1_citizen__nightlife_wa_default_08_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_prostitute_06_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_06_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Qiang Ji (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_06_1_v2\\ep1_prostitute_06_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_06_1_v2\\ep1_prostitute_06_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ruth_dzeng_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ruth_dzeng_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Ruth Dzeng",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ruth_dzeng_v2\\ruth_dzeng_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ruth_dzeng_v2\\ruth_dzeng_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "wa_rich_24_casual_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_24_casual_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Brooke Lawson",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_24_casual_v2\\wa_rich_24_casual_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_24_casual_v2\\wa_rich_24_casual_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_03_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_03_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Erin Davis (Groupie)",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_03_v2\\queen_of_the_stoop_wa_03_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_03_v2\\queen_of_the_stoop_wa_03_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_14_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_14_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Marya Kapadia (Groupie)",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_14_v2\\queen_of_the_stoop_wa_14_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_14_v2\\queen_of_the_stoop_wa_14_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_12_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_12_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Edith Davey (Groupie)",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_12_v2\\queen_of_the_stoop_wa_12_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_12_v2\\queen_of_the_stoop_wa_12_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "8ug8ear_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\8ug8ear_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "8ug8ear",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\8ug8ear_v2\\8ug8ear_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\8ug8ear_v2\\8ug8ear_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_25": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_25\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Faye Spiegel",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_25\\hood_hottie_wa_25_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_25\\hood_hottie_wa_25_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_citizen__nightlife_wa_default_02_2_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_2_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Rebbeca Vaughn (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_2_v2\\ep1_citizen__nightlife_wa_default_02_2_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_2_v2\\ep1_citizen__nightlife_wa_default_02_2_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "q303_paradise_client_wa_d_02": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_02\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Alexia Chapman (PhL)",
+            "prerequisiteFacts": [
+                "q303_07_siblings_asked",
+				"q303_08_paradise_inside_exit_lift"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_02\\q303_paradise_client_wa_d_02_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q303_paradise_client_wa_d_02\\q303_paradise_client_wa_d_02_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "corpo_wa_faction_hato_02": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\corpo_wa_faction_hato_02\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Hayden Pierce (Corpo Intro)",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\corpo_wa_faction_hato_02\\corpo_wa_faction_hato_02_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\corpo_wa_faction_hato_02\\corpo_wa_faction_hato_02_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "freak_wa_02_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_02_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Kayla Lowe",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_02_v2\\freak_wa_02_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_02_v2\\freak_wa_02_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_10_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_10_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Galina Nazarowa",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_10_v2\\hood_hottie_wa_10_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_10_v2\\hood_hottie_wa_10_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "morning_crowd_wa_07": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\morning_crowd_wa_07_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Jaqueline Cumba",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\morning_crowd_wa_07_v2\\morning_crowd_wa_07_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\morning_crowd_wa_07_v2\\morning_crowd_wa_07_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hottie_wa_13_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_13_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Reina Kai",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_13_v2\\hood_hottie_wa_13_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_13_v2\\hood_hottie_wa_13_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_18_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_18_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Suhani Kala",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_18_v2\\queen_of_the_stoop_wa_18_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_18_v2\\queen_of_the_stoop_wa_18_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_citizen__nightlife_wa_default_02_4_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_4_v2\\fileinfo.inkatlas",
+            "gender": "female",
+			"isEp1": true,
+            "performerFullName": "Kristina Chistyakova (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_4_v2\\ep1_citizen__nightlife_wa_default_04_2_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_02_4_v2\\ep1_citizen__nightlife_wa_default_04_2_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_02_2_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_02_2_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Joaquina Gonzales",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_02_2_v2\\queen_of_the_stoop_wa_02_2_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_02_2_v2\\queen_of_the_stoop_wa_02_2_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "creole_wa_caribbean_06_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_06_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Quinn Norris",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_06_v2\\creole_wa_caribbean_06_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_06_v2\\creole_wa_caribbean_06_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "freak_wa_03_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_03_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Xiurong Man",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_03_v2\\freak_wa_03_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_03_v2\\freak_wa_03_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_09_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_09_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Meiko Omori",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_09_1_v2\\hood_hottie_wa_09_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_09_1_v2\\hood_hottie_wa_09_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_05_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_05_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Tisha Bajaj",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_05_v2\\queen_of_the_stoop_wa_05_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_05_v2\\queen_of_the_stoop_wa_05_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "creole_wa_caribbean_03_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_03_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Natalie Ateak",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_03_v2\\creole_wa_caribbean_03_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\creole_wa_caribbean_03_v2\\creole_wa_caribbean_03_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_08_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_08_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Neelofar Ramesh",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_08_v2\\hood_hottie_wa_08_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_08_v2\\hood_hottie_wa_08_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "aldecaldos_wa_nomad_09_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\aldecaldos_wa_nomad_09_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Layla Green",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\aldecaldos_wa_nomad_09_v2\\aldecaldos_wa_nomad_09_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\aldecaldos_wa_nomad_09_v2\\aldecaldos_wa_nomad_09_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "queen_of_the_stoop_wa_11_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_11_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Alisha Uys",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_11_v2\\queen_of_the_stoop_wa_11_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\queen_of_the_stoop_wa_11_v2\\queen_of_the_stoop_wa_11_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "lowlife_wa_latino_02_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\lowlife_wa_latino_02_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Cerys Hopkins",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\lowlife_wa_latino_02_v2\\lowlife_wa_latino_02_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\lowlife_wa_latino_02_v2\\lowlife_wa_latino_02_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_citizen__nightlife_wa_default_01_4_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_01_4_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Alyona Evdokimova (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_01_4_v2\\ep1_citizen__nightlife_wa_default_01_4_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_citizen__nightlife_wa_default_01_4_v2\\ep1_citizen__nightlife_wa_default_01_4_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hanako_proxy_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hanako_proxy_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Hanako Proxy",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hanako_proxy_v2\\hanako_proxy_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hanako_proxy_v2\\hanako_proxy_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "ep1_prostitute_03_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_03_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Karina Tarasova (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_03_1_v2\\ep1_prostitute_03_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_03_1_v2\\ep1_prostitute_03_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "wa_rich_13_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_13_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Eduarda Mendonça",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_13_v2\\wa_rich_13_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_rich_13_v2\\wa_rich_13_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_22_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_22_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Sydney Berry",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_22_1_v2\\hood_hottie_wa_22_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_22_1_v2\\hood_hottie_wa_22_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "nomad_01_4_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\nomad_01_4_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Vritika Badal",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\nomad_01_4_v2\\nomad_01_4_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\nomad_01_4_v2\\nomad_01_4_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "freak_wa_05_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_05_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Galina Frolova",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_05_1_v2\\freak_wa_05_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\freak_wa_05_1_v2\\freak_wa_05_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "hood_hottie_wa_16_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_16_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Xiaoli Li",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_16_v2\\hood_hottie_wa_16_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\hood_hottie_wa_16_v2\\hood_hottie_wa_16_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "valentinos_wa_grunt__lvl2_03_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\valentinos_wa_grunt__lvl2_03_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Susana Cervantes",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\valentinos_wa_grunt__lvl2_03_v2\\grunt__lvl2_03_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\valentinos_wa_grunt__lvl2_03_v2\\grunt__lvl2_03_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "wa_tube_dancer_09_ground_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Connor Farmer",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_v2\\wa_tube_dancer_09_ground_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_v2\\wa_tube_dancer_09_ground_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "wa_tube_dancer_09_ground_no_tatts_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_no_tatts_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "performerFullName": "Hayden Gilbert",
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_no_tatts_v2\\wa_tube_dancer_09_ground_no_tatts_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\wa_tube_dancer_09_ground_no_tatts_v2\\wa_tube_dancer_09_ground_no_tatts_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "cz_stadium_wa_18_01_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_18_01_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Elsa de la Rosa (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_18_01_v2\\cz_stadium_wa_18_01_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_18_01_v2\\cz_stadium_wa_18_01_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "cz_stadium_wa_16_01_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_16_01_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Janelle Williams (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_16_01_v2\\cz_stadium_wa_16_01_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_16_01_v2\\cz_stadium_wa_16_01_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "cz_stadium_wa_01_03_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_01_03_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Patrícia Nunes (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_01_03_v2\\cz_stadium_wa_01_03_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\cz_stadium_wa_01_03_v2\\cz_stadium_wa_01_03_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        },
+        "orbital_air_wa_stewardess__05_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\orbital_air_wa_stewardess__05_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Jessica Watts (Orbital Air)",
+            "prerequisiteFacts": [
+                "codex_q303_heavy_hearts",
+            ],
+            "sceneSupport": "default",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\orbital_air_wa_stewardess__05_v2\\orbital_air_wa_stewardess__05_v2.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\orbital_air_wa_stewardess__05_v2\\orbital_air_wa_stewardess__05_v2.ent"
+                }
+            }
+        },
+        "ep1_prostitute_07_1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+            "fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_07_1_v2\\fileinfo.inkatlas",
+            "gender": "female",
+            "isEp1": true,
+            "performerFullName": "Tanaka Ikumi (PhL)",
+            "prerequisiteFacts": [
+                "q301_02_done",
+                "q301_03_done",
+                "q302_done"
+            ],
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_07_1_v2\\ep1_prostitute_07_1_v2_hey_gle_prostitute_female.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\ep1_prostitute_07_1_v2\\ep1_prostitute_07_1_v2_wbr_jpn_prostitute_female.ent"
+                }
+            }
+        }
+    },
+    "malePerformers": {
+        "mq012_stud": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mq012_stud\\fileinfo.inkatlas",
+            "gender": "male",
+            "isEp1": false,
+            "performerFullName": "Jesse Johnson (Mr Stud)",
+            "prerequisiteFacts": [
+                "mq012_done"
+            ],
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mq012_stud\\mq012_stud_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mq012_stud\\mq012_stud_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "mq025_twin_01_v2_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_01_v2_g1\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "isEp1": false,
+            "performerFullName": "Certo Esquerdo (Kabuki Twins)",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_01_v2_g1\\mq025_twin_01_v2_g1_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_01_v2_g1\\mq025_twin_01_v2_g1_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "mq025_twin_02_v2_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_02_v2_g1\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "isEp1": false,
+            "performerFullName": "Esquerdo Certo (Kabuki Twins)",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_02_v2_g1\\mq025_twin_02_v2_g1_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\mq025_twin_02_v2_g1\\mq025_twin_02_v2_g1_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "q001_fistfight_robot_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q001_fistfight_robot_g1\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "isEp1": false,
+            "performerFullName": "Training Bot",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q001_fistfight_robot_g1\\q001_fistfight_robot_g1_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q001_fistfight_robot_g1\\q001_fistfight_robot_g1_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "q105_jigjig_braindance_dealer_v2_g1": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q105_jigjig_braindance_dealer_v2_g1\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "isEp1": false,
+            "performerFullName": "Lenny Nero (Jig-Jig St BD dealer)",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q105_jigjig_braindance_dealer_v2_g1\\q105_jigjig_braindance_dealer_v2_g1_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\q105_jigjig_braindance_dealer_v2_g1\\q105_jigjig_braindance_dealer_v2_g1_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "mws_cz_14_robo": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mws_cz_14_robo\\fileinfo.inkatlas",
+            "gender": "male",
+            "isEp1": true,
+            "performerFullName": "1R-0NC-LAD (PhL)",
+            "prerequisiteFacts": [
+                "mws_cz_14_outro_file_1_read",
+                "mws_cz_14_outro_file_2_read",
+                "mws_cz_14_outro_file_3_read"
+            ],
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mws_cz_14_robo\\mws_cz_14_robo_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\mws_cz_14_robo\\mws_cz_14_robo_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+		"q302_jacob": {
+			"archiveFilesRequired": [
+				"game_files"
+			],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_jacob\\fileinfo.inkatlas",
+			"gender": "male",
+			"isEp1": true,
+			"performerFullName": "Jackob Long (PhL)",
+            "prerequisiteFacts": [
+				"q302_done",
+				"q303_started"
+            ],
+			"scenes": {
+				"Glen": {
+					"fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_jacob\\q302_jacob_hey_gle_prostitute_male.ent"
+				},
+				"Japantown": {
+					"fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_jacob\\q302_jacob_wbr_jpn_prostitute_male.ent"
+				}
+			}
+		},
+		"q302_james": {
+			"archiveFilesRequired": [
+				"game_files"
+			],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_james\\fileinfo.inkatlas",
+			"gender": "male",
+			"isEp1": true,
+			"performerFullName": "Taylor Gibbs (PhL)",
+            "prerequisiteFacts": [
+				"q302_done",
+				"q303_started"
+            ],
+			"scenes": {
+				"Glen": {
+					"fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_james\\q302_james_hey_gle_prostitute_male.ent"
+				},
+				"Japantown": {
+					"fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v2\\more_characters\\entities\\q302_james\\q302_james_wbr_jpn_prostitute_male.ent"
+				}
+			}
+		},
+        "sq012_weldon": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\sq012_weldon\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "performerFullName": "Weldon Holt",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\sq012_weldon\\sq012_weldon_holt_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\sq012_weldon\\sq012_weldon_holt_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        },
+        "aaron_mccarlson_g1_v2": {
+            "archiveFilesRequired": [
+                "game_files"
+            ],
+			"fileInfo": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\aaron_mccarlson_g1_v2\\fileinfo.inkatlas",
+            "gender": "male",
+			"isLegacyDataType": true,
+            "performerFullName": "Aaron McCarlson",
+            "scenes": {
+                "Glen": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\aaron_mccarlson_g1_v2\\aaron_mccarlson_g1_v2_hey_gle_prostitute_male.ent"
+                },
+                "Japantown": {
+                    "fullPerformerEntPath": "anygoodname_mods\\hotscenes_mod\\plugins\\game_v1\\more_characters\\entities\\aaron_mccarlson_g1_v2\\aaron_mccarlson_g1_v2_wbr_jpn_prostitute_male.ent"
+                }
+            }
+        }
+    }
+}

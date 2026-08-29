@@ -1,0 +1,164 @@
+# Airdrop loot table extension
+# Adds cyberware capacity shards to the airdrop container loot tables
+
+
+# Prerequirement max base humanity value
+LootPrereqs.VegaCPMods_MaxHumanityPrereq:
+  $type: gamedataStatPrereq_Record
+  comparisonType: Less
+  notifyOnAnyChange: False
+  notifyOnlyOnStateFulfilled: False
+  objectToCheck: Owner
+  statType: Humanity
+  valueToCheck: 450
+  prereqClassName: StatPrereq
+  statModifiers: []
+
+
+LootTables.VegaCPMods_Airdrop_cc_shard:
+  $type: gamedataLootItem_Record
+  itemID: Items.AirdropPermaReward
+  dropChance: 1
+  dropCountMax: 1
+  dropCountMin: 1
+
+
+LootTables.VegaCPMods_Airdrop_cw_shard:
+  $type: gamedataLootItem_Record
+
+# Change the itemID value to one of the values below. Cyberware capacity increase by Uncommon = 2, Rare = 3, Epic = 4, Legendary = 6
+# Items.CWCapacityPermaReward_2_Uncommon
+# Items.CWCapacityPermaReward_2_Rare
+# Items.CWCapacityPermaReward_2_Epic
+# Items.CWCapacityPermaReward_2_Legendary
+
+  itemID: Items.CWCapacityPermaReward_2_Epic
+  dropChance: 1
+  dropCountMax: 1
+  dropCountMin: 1
+  playerPrereqID: LootPrereqs.VegaCPMods_MaxHumanityPrereq
+
+
+# Loot tables
+LootTables.Regular_Airdrop_Loot:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !remove LootTables.Regular_Airdrop_Loot_inline0
+    - !append LootTables.VegaCPMods_Airdrop_cc_shard
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Treasure_Airdrop_Loot:
+  maxItemsToLoot: 2
+  minItemsToLoot: 2
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_3:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_30:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_31:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_32:
+  maxItemsToLoot: 10
+  minItemsToLoot: 10
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_33:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_34:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_35:
+  maxItemsToLoot: 9
+  minItemsToLoot: 9
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_36:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_37:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_38:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_39:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_300:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_301:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_303:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_304:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.Airdrop_sa_ep1_306:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_30_mq304_001:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_31_mq304:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_32_mq304:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_34_mq304:
+  maxItemsToLoot: 7
+  minItemsToLoot: 7
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_35_mq304:
+  maxItemsToLoot: 4
+  minItemsToLoot: 4
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard
+LootTables.sa_ep1_37_mq304_02:
+  maxItemsToLoot: 6
+  minItemsToLoot: 6
+  lootItems:
+    - !append LootTables.VegaCPMods_Airdrop_cw_shard

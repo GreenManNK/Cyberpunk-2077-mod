@@ -1,0 +1,24 @@
+{
+    "developer": {
+        "dump_game_options": false,
+        "enable_imgui_assertions": false,
+        "enable_jit": true,
+        "max_lines_console_history": 1000,
+        "persistent_console": true,
+        "remove_dead_bindings": true
+    },
+    "font": {
+        "base_size": 18.0,
+        "language": "Default",
+        "oversample_horizontal": 3,
+        "oversample_vertical": 1,
+        "path": ""
+    },
+    "patches": {
+        "disable_antialiasing": false,
+        "disable_async_compute": false,
+        "disable_boundary_teleport": false,
+        "disable_vignette": false,
+        "disable_win7_vsync": false
+    }
+}

@@ -1,0 +1,47 @@
+journal:
+  - base\journal\panam_continued.journal
+localization:
+  onscreens:
+    en-us: base\localization\en-us\panam_continued.json
+    ar-ar: base\localization\ar-ar\panam_continued.json
+    cz-cz: base\localization\cz-cz\panam_continued.json
+    de-de: base\localization\de-de\panam_continued.json
+    es-es: base\localization\es-es\panam_continued.json
+    es-mx: base\localization\es-es\panam_continued.json
+    fr-fr: base\localization\fr-fr\panam_continued.json
+    hu-hu: base\localization\hu-hu\panam_continued.json
+    it-it: base\localization\it-it\panam_continued.json
+    jp-jp: base\localization\jp-jp\panam_continued.json
+    kr-kr: base\localization\kr-kr\panam_continued.json
+    pl-pl: base\localization\pl-pl\panam_continued.json
+    pt-br: base\localization\pt-br\panam_continued.json
+    ru-ru: base\localization\ru-ru\panam_continued.json
+    th-th: base\localization\th-th\panam_continued.json
+    tr-tr: base\localization\tr-tr\panam_continued.json
+    zh-cn: base\localization\zh-cn\panam_continued.json
+    zh-tw: base\localization\zh-tw\panam_continued.json
+    ua-ua: base\localization\ua-ua\panam_continued.json
+  lipmaps:
+    en-us: base\localization\en-us\encore_lips.lipmap
+    de-de: base\localization\de-de\encore_lips.lipmap
+    es-es: base\localization\es-es\encore_lips.lipmap
+    fr-fr: base\localization\fr-fr\encore_lips.lipmap
+    it-it: base\localization\it-it\encore_lips.lipmap
+    jp-jp: base\localization\jp-jp\encore_lips.lipmap
+    kr-kr: base\localization\kr-kr\encore_lips.lipmap
+    pl-pl: base\localization\pl-pl\encore_lips.lipmap
+    pt-br: base\localization\pt-br\encore_lips.lipmap
+    ru-ru: base\localization\ru-ru\encore_lips.lipmap
+    zh-cn: base\localization\zh-cn\encore_lips.lipmap
+streaming:
+  blocks:
+    - base\journal\panam_continued.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\interior_-7_-6_0_2.streamingsector #{crowd_ws_chair_}_007
+      expectedNodes: 56
+      nodeMutations:
+        - index: 12
+          type: worldAISpotNode
+          position: [-879.888428, -666.033325, 8.20568848, 0.0]
+          orientation: [0.0, 0.0, 0.707, 0.707]
+          scale: [1.0, 1.0, 1.0]

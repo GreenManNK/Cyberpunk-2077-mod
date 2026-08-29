@@ -1,0 +1,43 @@
+{
+	"fileHeader": {
+		"_1_": "----------------------------------------",
+		"modName": "Native Settings UI Side Menu Add-on",
+		"modAuthorName": "anygoodname",
+		"modVer": "v1.5.1",
+		"_2_": "----------------------------------------",
+		"translationAuthorName": "Put your name here",
+		"translationVer": "Put your file verison here",
+		"_3_": "----------------------------------------"
+	},
+	"uiStrings": {
+		"nativeUiSettingsView": {
+			"modDisplayName": "Native Settings UI Side Menu Add-on",
+			"generalSettingsHeader": "General settings:",
+			"enableSidePanel": {
+				"title": "Show Mods Side Panel",
+				"tooltips": "Enable/disable vertical mods list on the left side panel."
+			},
+			"enableModSorting": {
+				"title": "Sort Mods",
+				"tooltips": "Enable/disable mod lists sorting.\nNote: changes take effect on the next MODS menu visit."
+			},
+			"textOverflowPolicy": {
+				"choices": [
+					"None",
+					"Dotted End",
+					"Ping-Pong Autoscroll"
+				],
+				"title": "Long mod names handling method",
+				"tooltips": "Choose a method to handle long mod names to fit them on the side panel list."
+			},
+			"autoScrollSelectedOnly": {
+				"title": "Autoscroll selected item only",
+				"tooltips": "Limit long names autoscroll to selected item only."
+			},
+			"hideCheckMarkIcon": {
+				"title": "Hide check mark icon",
+				"tooltips": "Hide the leading check mark icon on the side menu list."
+			}
+		}
+	}
+}

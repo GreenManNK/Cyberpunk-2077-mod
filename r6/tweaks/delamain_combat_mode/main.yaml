@@ -1,0 +1,68 @@
+
+Vehicle.v_standard2_villefort_cortes_delamain_player_custom_inline1:
+  $type: gamedataVehicleDataPackage_Record
+  barnDoorsTailgate: False
+  body_dump_close_trunk_delay: 2.5
+  canStoreBody: True
+  combatEntering: 0.670000017
+  disableSwitchSeats: False
+  driverCombat: DriverCombatTypes.MountedWeapons
+  entering: 1.89999998
+  exitDelay: 0
+  fromCombat: 0.800000012
+  hasSpoiler: False
+  hasTurboCharger: False
+  immediate_open_close_duration: 9.99999975E-05
+  interactiveHood: False
+  interactiveTrunk: False
+  knockOffForce: 13
+  normal_open: 1.5
+  open_close_duration: 0.5
+  parkingAngle: 0
+  seatingTemplateOverride: standard2_vehicle
+  slideDuration: 0.300000012
+  slidingRearDoors: False
+  speedToClose: 2
+  spoilerSpeedToDeploy: 20
+  spoilerSpeedToRetract: 10
+  stealing: 3.70000005
+  stealing_open: 3
+  switchSeats: 1.89999998
+  tireOnVehicleDamageImpulseScalor: 30
+  toCombat: 0.699999988
+  useAuxiliary: False
+  vehSeatSet: Vehicle.Vehicle4SeatSetDefault
+  wheelBumperLengthScalor: 1
+  wheelBumperVertOffsetScalor: 1
+  wheelBumperWidthScalor: 1
+  windowsRollDown: True
+  additionalAnimFeatures: []
+  animVars:
+    - standard2_vehicle_seat_front_left
+    - standard2_vehicle_seat_front_right
+    - standard2_vehicle_seat_back_left
+    - standard2_vehicle_seat_back_right
+  boneNames:
+    - seat_front_left
+    - seat_front_right
+    - seat_back_left
+    - seat_back_right
+
+Vehicle.v_standard2_villefort_cortes_delamain_player:
+  $type: gamedataVehicle_Record
+  vehDataPackage: Vehicle.v_standard2_villefort_cortes_delamain_player_custom_inline1
+
+Vehicle.v_standard2_villefort_cortes_delamain_player.appearanceName: custom__delamain_combat_mode
+Vehicle.v_standard2_villefort_cortes_delamain_player.entityTemplatePath: misterchedda\delamain_combat_mode\v_standard2_delamain_combat.ent
+Vehicle.v_standard2_villefort_cortes_delamain_player.weapons:
+  - !append Vehicle.Vehicle_Power_Weapon_Left_A
+  - !append Vehicle.Vehicle_Power_Weapon_Right_A
+  - !append Vehicle.Vehicle_Power_Weapon_Left_B
+  - !append Vehicle.Vehicle_Power_Weapon_Right_B
+  - !append Vehicle.Vehicle_Power_Weapon_Left_C
+  - !append Vehicle.Vehicle_Power_Weapon_Right_C
+  - !append Vehicle.Vehicle_Missile_Launcher_A
+  - !append Vehicle.Vehicle_Missile_Launcher_B
+  - !append Vehicle.Vehicle_Missile_Launcher_C
+
+Vehicle.v_standard2_villefort_cortes_delamain_player.isArmoredVehicle: True

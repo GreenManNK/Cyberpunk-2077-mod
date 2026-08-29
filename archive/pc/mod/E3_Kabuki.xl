@@ -1,0 +1,631 @@
+streaming:
+  sectors:
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-5_5_0_2.streamingsector
+      expectedNodes: 2925
+      nodeDeletions:
+        - index: 1000
+          type: worldStaticDecalNode
+        - index: 1016
+          type: worldStaticDecalNode
+        - index: 1029
+          type: worldStaticDecalNode
+        - index: 1069
+          type: worldStaticDecalNode
+        - index: 1078
+          type: worldStaticDecalNode
+        - index: 1096
+          type: worldStaticDecalNode
+        - index: 1099
+          type: worldStaticDecalNode
+        - index: 1106
+          type: worldStaticDecalNode
+        - index: 1126
+          type: worldStaticDecalNode
+        - index: 1144
+          type: worldStaticDecalNode
+        - index: 1166
+          type: worldStaticDecalNode
+        - index: 1266
+          type: worldStaticDecalNode
+        - index: 1284
+          type: worldStaticDecalNode
+        - index: 1535
+          type: worldEntityNode
+        - index: 2812
+          type: worldCollisionNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-10_11_0_1.streamingsector
+      expectedNodes: 2283
+      nodeDeletions:
+        - index: 521
+          type: worldStaticDecalNode
+        - index: 533
+          type: worldStaticDecalNode
+        - index: 592
+          type: worldStaticDecalNode
+        - index: 608
+          type: worldStaticDecalNode
+        - index: 628
+          type: worldStaticDecalNode
+        - index: 629
+          type: worldStaticDecalNode
+        - index: 630
+          type: worldStaticDecalNode
+        - index: 634
+          type: worldStaticDecalNode
+        - index: 637
+          type: worldStaticDecalNode
+        - index: 638
+          type: worldStaticDecalNode
+        - index: 639
+          type: worldStaticDecalNode
+        - index: 656
+          type: worldStaticDecalNode
+        - index: 661
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-20_23_0_0.streamingsector
+      expectedNodes: 1521
+      nodeDeletions:
+        - index: 289
+          type: worldStaticDecalNode
+        - index: 303
+          type: worldStaticDecalNode
+        - index: 366
+          type: worldStaticDecalNode
+        - index: 438
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-22_15_0_0.streamingsector
+      expectedNodes: 1501
+      nodeDeletions:
+        - index: 811
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-22_16_0_0.streamingsector
+      expectedNodes: 1561
+      nodeDeletions:
+        - index: 1249
+          type: worldStaticDecalNode
+        - index: 1250
+          type: worldStaticDecalNode
+        - index: 1251
+          type: worldStaticDecalNode
+        - index: 1257
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-23_16_0_0.streamingsector
+      expectedNodes: 3430
+      nodeDeletions:
+        - index: 3123
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-12_8_0_1.streamingsector
+      expectedNodes: 2548
+      nodeDeletions:
+        - index: 2468
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-4_6_0_2.streamingsector
+      expectedNodes: 413
+      nodeDeletions:
+        - index: 292
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-8_13_0_1.streamingsector
+      expectedNodes: 2141
+      nodeDeletions:
+        - index: 987
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-8_14_0_1.streamingsector
+      expectedNodes: 1542
+      nodeDeletions:
+        - index: 383
+          type: worldStaticDecalNode
+        - index: 415
+          type: worldStaticDecalNode
+        - index: 422
+          type: worldStaticDecalNode
+        - index: 467
+          type: worldStaticDecalNode
+        - index: 474
+          type: worldStaticDecalNode
+        - index: 475
+          type: worldStaticDecalNode
+        - index: 477
+          type: worldStaticDecalNode
+        - index: 478
+          type: worldStaticDecalNode
+        - index: 480
+          type: worldStaticDecalNode
+        - index: 490
+          type: worldStaticDecalNode
+        - index: 497
+          type: worldStaticDecalNode
+        - index: 501
+          type: worldStaticDecalNode
+        - index: 508
+          type: worldStaticDecalNode
+        - index: 509
+          type: worldStaticDecalNode
+        - index: 510
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-16_28_0_0.streamingsector
+      expectedNodes: 1995
+      nodeDeletions:
+        - index: 659
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-4_7_0_2.streamingsector
+      expectedNodes: 1446
+      nodeDeletions:
+        - index: 425
+          type: worldStaticDecalNode
+        - index: 426
+          type: worldStaticDecalNode
+        - index: 434
+          type: worldStaticDecalNode
+        - index: 501
+          type: worldStaticDecalNode
+        - index: 502
+          type: worldStaticDecalNode
+        - index: 503
+          type: worldStaticDecalNode
+        - index: 504
+          type: worldStaticDecalNode
+        - index: 505
+          type: worldStaticDecalNode
+        - index: 509
+          type: worldStaticDecalNode
+        - index: 525
+          type: worldStaticDecalNode
+        - index: 532
+          type: worldStaticDecalNode
+        - index: 536
+          type: worldStaticDecalNode
+        - index: 571
+          type: worldStaticDecalNode
+        - index: 574
+          type: worldStaticDecalNode
+        - index: 584
+          type: worldStaticDecalNode
+        - index: 636
+          type: worldStaticDecalNode
+        - index: 641
+          type: worldStaticDecalNode
+        - index: 645
+          type: worldStaticDecalNode
+        - index: 647
+          type: worldStaticDecalNode
+        - index: 648
+          type: worldStaticDecalNode
+        - index: 689
+          type: worldStaticDecalNode
+        - index: 692
+          type: worldStaticDecalNode
+        - index: 732
+          type: worldStaticDecalNode
+        - index: 733
+          type: worldStaticDecalNode
+        - index: 749
+          type: worldStaticDecalNode
+        - index: 762
+          type: worldStaticDecalNode
+        - index: 763
+          type: worldStaticDecalNode
+        - index: 809
+          type: worldStaticDecalNode
+        - index: 848
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-5_7_0_2.streamingsector
+      expectedNodes: 2389
+      nodeDeletions:
+        - index: 907
+          type: worldStaticDecalNode
+        - index: 1052
+          type: worldStaticDecalNode
+        - index: 913
+          type: worldStaticDecalNode
+        - index: 995
+          type: worldStaticDecalNode
+        - index: 1068
+          type: worldStaticDecalNode
+        - index: 934
+          type: worldStaticDecalNode
+        - index: 1116
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-9_14_0_1.streamingsector
+      expectedNodes: 3700
+      nodeDeletions:
+        - index: 829
+          type: worldStaticDecalNode
+        - index: 821
+          type: worldStaticDecalNode
+        - index: 822
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-5_6_0_2.streamingsector
+      expectedNodes: 2788
+      nodeDeletions:
+        - index: 1319
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-9_10_0_1.streamingsector
+      expectedNodes: 3599
+      nodeDeletions:
+        - index: 1242
+          type: worldStaticDecalNode
+        - index: 1293
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-5_4_0_2.streamingsector
+      expectedNodes: 1863
+      nodeDeletions:
+        - index: 607
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-10_10_0_1.streamingsector
+      expectedNodes: 3189
+      nodeDeletions:
+        - index: 662
+          type: worldStaticDecalNode
+        - index: 693
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-9_12_0_1.streamingsector
+      expectedNodes: 3106
+      nodeDeletions:
+        - index: 1231
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-7_14_0_1.streamingsector
+      expectedNodes: 729
+      nodeDeletions:
+        - index: 210
+          type: worldEntityProxyMeshNode
+        - index: 281
+          type: worldStaticDecalNode
+        - index: 284
+          type: worldStaticDecalNode
+        - index: 285
+          type: worldStaticDecalNode
+        - index: 286
+          type: worldStaticDecalNode
+        - index: 287
+          type: worldStaticDecalNode
+        - index: 288
+          type: worldStaticDecalNode
+        - index: 289
+          type: worldStaticDecalNode
+        - index: 292
+          type: worldStaticDecalNode
+        - index: 298
+          type: worldStaticDecalNode
+        - index: 299
+          type: worldStaticDecalNode
+        - index: 311
+          type: worldStaticDecalNode
+        - index: 312
+          type: worldStaticDecalNode
+        - index: 317
+          type: worldStaticDecalNode
+        - index: 318
+          type: worldStaticDecalNode
+        - index: 319
+          type: worldStaticDecalNode
+        - index: 320
+          type: worldStaticDecalNode
+        - index: 321
+          type: worldStaticDecalNode
+        - index: 322
+          type: worldStaticDecalNode
+        - index: 324
+          type: worldStaticDecalNode
+        - index: 326
+          type: worldStaticDecalNode
+        - index: 332
+          type: worldStaticDecalNode
+        - index: 333
+          type: worldStaticDecalNode
+        - index: 334
+          type: worldStaticDecalNode
+        - index: 335
+          type: worldStaticDecalNode
+        - index: 336
+          type: worldStaticDecalNode
+        - index: 337
+          type: worldStaticDecalNode
+        - index: 338
+          type: worldStaticDecalNode
+        - index: 342
+          type: worldStaticDecalNode
+        - index: 343
+          type: worldStaticDecalNode
+        - index: 346
+          type: worldStaticDecalNode
+        - index: 362
+          type: worldStaticDecalNode
+        - index: 365
+          type: worldStaticDecalNode
+        - index: 374
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-7_15_0_1.streamingsector
+      expectedNodes: 803
+      nodeDeletions:
+        - index: 193
+          type: worldStaticDecalNode
+        - index: 197
+          type: worldStaticDecalNode
+        - index: 222
+          type: worldStaticDecalNode
+        - index: 223
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-13_28_0_0.streamingsector
+      expectedNodes: 857
+      nodeDeletions:
+        - index: 144
+          type: worldStaticDecalNode
+        - index: 154
+          type: worldStaticDecalNode
+        - index: 155
+          type: worldStaticDecalNode
+        - index: 193
+          type: worldStaticDecalNode
+        - index: 205
+          type: worldStaticDecalNode
+        - index: 635
+          type: worldStaticMeshNode
+        - index: 662
+          type: worldStaticMeshNode
+        - index: 668
+          type: worldStaticMeshNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-14_28_0_0.streamingsector
+      expectedNodes: 989
+      nodeDeletions:
+        - index: 150
+          type: worldStaticDecalNode
+        - index: 157
+          type: worldStaticDecalNode
+        - index: 158
+          type: worldStaticDecalNode
+        - index: 166
+          type: worldStaticDecalNode
+        - index: 167
+          type: worldStaticDecalNode
+        - index: 172
+          type: worldStaticDecalNode
+        - index: 174
+          type: worldStaticDecalNode
+        - index: 204
+          type: worldStaticDecalNode
+        - index: 205
+          type: worldStaticDecalNode
+        - index: 228
+          type: worldStaticDecalNode
+        - index: 236
+          type: worldStaticDecalNode
+        - index: 542
+          type: worldStaticMeshNode
+        - index: 656
+          type: worldStaticMeshNode
+        - index: 657
+          type: worldStaticMeshNode
+        - index: 658
+          type: worldStaticMeshNode
+        - index: 659
+          type: worldStaticMeshNode
+        - index: 660
+          type: worldStaticMeshNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-15_28_0_0.streamingsector
+      expectedNodes: 1902
+      nodeDeletions:
+        - index: 399
+          type: worldStaticDecalNode
+        - index: 412
+          type: worldStaticDecalNode
+        - index: 533
+          type: worldStaticDecalNode
+        - index: 593
+          type: worldStaticDecalNode
+        - index: 603
+          type: worldStaticDecalNode
+        - index: 639
+          type: worldStaticDecalNode
+        - index: 640
+          type: worldStaticDecalNode
+        - index: 647
+          type: worldStaticDecalNode
+        - index: 652
+          type: worldStaticDecalNode
+        - index: 665
+          type: worldStaticDecalNode
+        - index: 674
+          type: worldStaticDecalNode
+        - index: 683
+          type: worldStaticDecalNode
+        - index: 685
+          type: worldStaticDecalNode
+        - index: 690
+          type: worldStaticDecalNode
+        - index: 701
+          type: worldStaticDecalNode
+        - index: 706
+          type: worldStaticDecalNode
+        - index: 707
+          type: worldStaticDecalNode
+        - index: 709
+          type: worldStaticDecalNode
+        - index: 710
+          type: worldStaticDecalNode
+        - index: 1545
+          type: worldStaticMeshNode
+        - index: 1546
+          type: worldStaticMeshNode
+        - index: 1760
+          type: worldInstancedMeshNode
+        - index: 1779
+          type: worldInstancedMeshNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-18_23_0_0.streamingsector
+      expectedNodes: 5648
+      nodeDeletions:
+        - index: 840
+          type: worldStaticDecalNode
+        - index: 859
+          type: worldStaticDecalNode
+        - index: 904
+          type: worldStaticDecalNode
+        - index: 906
+          type: worldStaticDecalNode
+        - index: 907
+          type: worldStaticDecalNode
+        - index: 913
+          type: worldStaticDecalNode
+        - index: 920
+          type: worldStaticDecalNode
+        - index: 925
+          type: worldStaticDecalNode
+        - index: 926
+          type: worldStaticDecalNode
+        - index: 1148
+          type: worldStaticDecalNode
+#        - index: 4859
+#          type: worldStaticDecalNode
+#        - index: 4900
+#          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-19_23_0_0.streamingsector
+      expectedNodes: 2914
+      nodeDeletions:
+        - index: 739
+          type: worldStaticDecalNode
+        - index: 740
+          type: worldStaticDecalNode
+        - index: 790
+          type: worldStaticDecalNode
+        - index: 792
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-17_23_0_0.streamingsector
+      expectedNodes: 5562
+      nodeDeletions:
+        - index: 2300
+          type: worldEntityNode
+        - index: 2469
+          type: worldPhysicalDestructionNode
+        - index: 3304
+          type: worldStaticMeshNode
+        - index: 3307
+          type: worldStaticMeshNode
+        - index: 3308
+          type: worldStaticMeshNode
+        - index: 3318
+          type: worldStaticMeshNode
+        - index: 3323
+          type: worldStaticMeshNode
+        - index: 3332
+          type: worldStaticMeshNode
+        - index: 3337
+          type: worldStaticMeshNode
+        - index: 3339
+          type: worldStaticMeshNode
+        - index: 3340
+          type: worldStaticMeshNode
+        - index: 3341
+          type: worldStaticMeshNode
+        - index: 3345
+          type: worldStaticMeshNode
+        - index: 3348
+          type: worldStaticMeshNode
+        - index: 3858
+          type: worldStaticMeshNode
+        - index: 3859
+          type: worldStaticMeshNode
+        - index: 3860
+          type: worldStaticMeshNode
+        - index: 3861
+          type: worldStaticMeshNode
+        - index: 3862
+          type: worldStaticMeshNode
+        - index: 3863
+          type: worldStaticMeshNode
+        - index: 3864
+          type: worldStaticMeshNode
+        - index: 3865
+          type: worldStaticMeshNode
+        - index: 3866
+          type: worldStaticMeshNode
+        - index: 3867
+          type: worldStaticMeshNode
+        - index: 3868
+          type: worldStaticMeshNode
+        - index: 3869
+          type: worldStaticMeshNode
+        - index: 3870
+          type: worldStaticMeshNode
+        - index: 3871
+          type: worldStaticMeshNode
+        - index: 3872
+          type: worldStaticMeshNode
+        - index: 4727
+          type: worldInstancedMeshNode
+        - index: 4728
+          type: worldInstancedMeshNode
+        - index: 4729
+          type: worldInstancedMeshNode
+        - index: 4730
+          type: worldInstancedMeshNode
+        - index: 4731
+          type: worldInstancedMeshNode
+        - index: 4732
+          type: worldInstancedMeshNode
+        - index: 4733
+          type: worldInstancedMeshNode
+        - index: 4734
+          type: worldInstancedMeshNode
+        - index: 4735
+          type: worldInstancedMeshNode
+        - index: 4736
+          type: worldInstancedMeshNode
+        - index: 4737
+          type: worldInstancedMeshNode
+        - index: 4738
+          type: worldInstancedMeshNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-9_11_0_1.streamingsector
+      expectedNodes: 3311
+      nodeDeletions:
+        - index: 458
+          type: worldGenericProxyMeshNode
+        - index: 679
+          type: worldGenericProxyMeshNode
+        - index: 688
+          type: worldGenericProxyMeshNode
+        - index: 695
+          type: worldGenericProxyMeshNode
+        - index: 696
+          type: worldGenericProxyMeshNode
+        - index: 698
+          type: worldGenericProxyMeshNode
+        - index: 716
+          type: worldGenericProxyMeshNode
+        - index: 731
+          type: worldGenericProxyMeshNode
+        - index: 752
+          type: worldGenericProxyMeshNode
+        - index: 755
+          type: worldGenericProxyMeshNode
+        - index: 761
+          type: worldGenericProxyMeshNode
+        - index: 769
+          type: worldGenericProxyMeshNode
+        - index: 770
+          type: worldGenericProxyMeshNode
+        - index: 1379
+          type: worldStaticDecalNode
+        - index: 1380
+          type: worldStaticDecalNode
+        - index: 3191
+          type: worldCollisionNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-3_2_0_3.streamingsector
+      expectedNodes: 2043
+      nodeDeletions:
+        - index: 700
+          type: worldEntityProxyMeshNode
+        - index: 571
+          type: worldGenericProxyMeshNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-2_3_0_3.streamingsector
+      expectedNodes: 936
+      nodeDeletions:
+        - index: 447
+          type: worldStaticDecalNode
+    - path: base\\worlds\\03_night_city\\_compiled\\default\\exterior_-13_30_0_0.streamingsector
+      expectedNodes: 1872
+      nodeDeletions:
+        - index: 123
+          type: worldDecorationMeshNode
+        - index: 124
+          type: worldDecorationMeshNode
+        - index: 1078
+          type: worldStaticMeshNode

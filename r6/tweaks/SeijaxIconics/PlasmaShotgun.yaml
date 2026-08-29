@@ -1,0 +1,243 @@
+Items.PlasmaShotgun___base1:
+    $base: Items.w_shotgun__budget_carnage_base1
+    appearanceResourceName: destinybu_plasma_carnage_base
+
+Items.PlasmaShotgun_Technical_Stats:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $base: BaseStats.NumShotsToFireModifier
+        value: 1.0
+    -   $base: BaseStats.CycleTimeModifier
+        value: 1.25
+    -   $base: BaseStats.MagazineCapacityModifier
+        value: 1.0
+    -   $base: BaseStats.ReloadAmountModifier
+        value: 1.0
+    -   $base: BaseStats.ProjectilesPerShotModifier
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.KnockdownImpulse
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.HitDismembermentFactor
+        modifierType: Multiplier
+        value: 0.0
+    -   BaseStats.ProjectilesPerShotCombinedModifier
+    -   $type: ConstantStatModifier
+        statType: BaseStats.FirePower
+        modifierType: Multiplier
+        value: 0.3
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ReloadEndTimeBase
+        modifierType: Multiplier
+        value: 0.7
+    -   $type: ConstantStatModifier
+        statType: BaseStats.EmptyReloadEndTime
+        modifierType: Multiplier
+        value: 0.7
+
+BaseStatusEffect.NullArmorDebuff:
+    $base: BaseStatusEffect.DebuffStatusEffect
+    additionalParam: Vulnerable
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 8.0
+    immunityStats:
+    -   !append BaseStats.VulnerableImmunity
+    packages:
+    -   $type: GameplayLogicPackage
+        stats:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.Armor
+            modifierType: Multiplier
+            value: 0.0
+#    uiData:
+#        displayName: Armor Decreased
+#        iconPath: perks_armor
+#        priority: 6.0
+
+Items.PlasmaShotgunWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_PS11A_iconic_description
+
+Items.PlasmaShotgunWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.PlasmaShotgunWeaponModAbility ]
+    statModifiers:
+#    -   $type: ConstantStatModifier
+#        statType: BaseStats.DPS
+#        modifierType: Multiplier
+#        value: 0.1
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ReloadTimeBonus
+        modifierType: Additive
+        value: -0.2
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BurningApplicationRate
+        modifierType: Additive
+        value: 100.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RicochetCount
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RicochetChance
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMin
+        modifierType: Multiplier
+        value: 0.1
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMax
+        modifierType: Multiplier
+        value: 0.1
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMinX
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMinY
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMaxX
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMaxY
+        modifierType: Multiplier
+        value: 0.0
+
+Attacks.PlasmaShotgunAttack:
+    $base: Attacks.SmartBulletHigh
+    projectileTemplateName: player_plasma_projectile
+    explosionAttack: Attacks.PlasmaShotgunSplash
+    statModifiers:
+    -   $type: CombinedStatModifier
+        statType: BaseStats.ThermalDamage
+        refStat: BaseStats.DamagePerHit
+        modifierType: Additive
+        refObject: Owner
+        opSymbol: "*"
+        value: 0.5
+    -   $type: CombinedStatModifier
+        statType: BaseStats.PhysicalDamage
+        refStat: BaseStats.DamagePerHit
+        modifierType: Additive
+        refObject: Owner
+        opSymbol: "*"
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ThermalDamage
+        modifierType: Additive
+        value: -90.0
+
+Attacks.PlasmaShotgunSplash:
+    $base: Attacks.RoyceProjectileExplosion
+    range: 3.0
+    statusEffects:
+    -   $type: StatusEffectAttackData
+        statusEffect: BaseStatusEffect.Burning
+        resistPool: BaseStatPools.BurningTrigger
+        applyImmediately: true
+    -   $type: StatusEffectAttackData
+        statusEffect: BaseStatusEffect.NullArmorDebuff
+        resistPool: BaseStatPools.BurningTrigger
+        applyImmediately: true
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ThermalDamage
+        modifierType: Additive
+        value: 90.0
+
+Attacks.PlasmaProjectileShotgun:
+    $base: Attacks.PlasmaShotDefault
+    playerAttack: Attacks.PlasmaShotgunAttack
+    playerTimeDilated: Attacks.PlasmaShotgunAttack
+    NPCAttack: Attacks.PlasmaProjectileWeak
+    NPCTimeDilated: Attacks.PlasmaProjectileWeak
+
+Attacks.PlayerPlasmaProjectilePackage:
+    $base: Attacks.PlasmaProjectilePackage
+    defaultFire: Attacks.PlasmaProjectileShotgun
+    chargeFire: Attacks.PlasmaProjectileShotgun
+
+Items.Preset_PlasmaShotgun:
+    $base: Items.Preset_Carnage_Default
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    displayName: LocKey#SJ_PS11A_name
+    localizedDescription: LocKey#SJ_PS11A_description
+    appearanceResourceName: destinybu_plasma_carnage
+    triggerModes: [ TriggerMode.SemiAuto, TriggerMode.Charge ]
+    primaryTriggerMode: TriggerMode.SemiAuto
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_plasmashotgun
+    fxPackage: Items.PlasmaFxPackage
+    rangedAttacks: Attacks.PlayerPlasmaProjectilePackage
+    attacks:
+    -   !append-once Attacks.PlasmaShotgunAttack
+    tags:
+    -   !append PlasmaWeapon
+    -   !append ProtectedAttackPackage
+    -   !append IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartList:
+    -   Items.Base_Carnage_inline1
+    -   $base: Items.Base_Carnage_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.PlasmaShotgun___base1
+    -   Items.Base_Carnage_inline5
+    -   Items.Base_Carnage_inline7
+    slotPartListPreset:
+    -   Items.Preset_Carnage_Default_inline0
+    -   $base: Items.Preset_Carnage_Default_inline1
+        itemPartPreset: Items.PlasmaShotgun___base1
+    -   Items.Preset_Carnage_Default_inline2
+    -   Items.Preset_Carnage_Default_inline3
+    -   Items.ShotgunScopesPartList
+#    -   Items.Preset_Carnage_Default_inline4
+#    -   Items.Preset_Carnage_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.PlasmaShotgunWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append Items.PlasmaShotgun_Technical_Stats
+    -   !remove Items.Base_Carnage_Technical_Stats
+    -   !remove Items.Base_Carnage_Constant_Stats
+    -   !append 
+        $base: Items.Base_Carnage_Constant_Stats
+        statModifiers:
+        -   !remove Items.Base_Carnage_Constant_Stats_inline11
+    -   !append-once Items.IconicQualityRandomization
+    divideAttacksByPelletsOnUI: false
+    shootingPatternPackages:
+    -   ShootingPatterns.SemiAutoSniperShootingPackage
+
+Items.SJ_PlasmaShotgun:
+    $base: Items.Preset_PlasmaShotgun
+
+Items.SJ_PlasmaShotgun_Shop:
+    $base: Items.Preset_PlasmaShotgun
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.bls_ina_se1_gunsmith_02:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_PlasmaShotgun_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_4_Start_Prereq

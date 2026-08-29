@@ -1,0 +1,389 @@
+# Iconic Ranged RootElements============================================
+Items.Iconic__Power_AR_SMG_LMG_Blueprint_inline0:
+    $base: Items.Base_Power_AR_SMG_LMG_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Power_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_AR_SMG_LMG_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Power_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint_inline0:
+    $base: Items.Base_Power_AR_SMG_LMG_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Smart_AR_SMG_LMG_Blueprint_inline0:
+    $base: Items.Base_Smart_AR_SMG_LMG_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_AR_SMG_LMG_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_AR_SMG_LMG_NoScope_Blueprint_inline0:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Tech_AR_SMG_LMG_Blueprint_inline0:
+    $base: Items.Base_Tech_AR_SMG_LMG_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_AR_SMG_LMG_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_AR_SMG_LMG_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_AR_SMG_LMG_NoScope_Blueprint_inline0:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Power_Handgun_Blueprint_inline0:
+    $base: Items.Base_Power_Handgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Handgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Power_Handgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Handgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Power_Handgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Handgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Power_Handgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Smart_Handgun_Blueprint_inline0:
+    $base: Items.Base_Smart_Handgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Handgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Smart_Handgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Handgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Smart_Handgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Handgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Smart_Handgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Tech_Handgun_Blueprint_inline0:
+    $base: Items.Base_Tech_Handgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Handgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Tech_Handgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Tech_Handgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Handgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Tech_Handgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Power_Precision_Sniper_Rifle_Blueprint_inline0:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Precision_Sniper_Rifle_NoScope_Blueprint_inline0:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Smart_Precision_Sniper_Rifle_Blueprint_inline0:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoScope_Blueprint_inline0:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Tech_Precision_Sniper_Rifle_Blueprint_inline0:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoScope_Blueprint_inline0:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Power_Shotgun_Blueprint_inline0:
+    $base: Items.Base_Power_Shotgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Shotgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Power_Shotgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Power_Shotgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Power_Shotgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Power_Shotgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Smart_Shotgun_Blueprint_inline0:
+    $base: Items.Base_Smart_Shotgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Shotgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Smart_Shotgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Shotgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Smart_Shotgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Smart_Shotgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Smart_Shotgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+Items.Iconic__Tech_Shotgun_Blueprint_inline0:
+    $base: Items.Base_Tech_Shotgun_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Shotgun_NoAttachments_Blueprint_inline0:
+    $base: Items.Base_Tech_Shotgun_NoAttachments_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Shotgun_NoMuzzle_Blueprint_inline0:
+    $base: Items.Base_Tech_Shotgun_NoMuzzle_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+Items.Iconic__Tech_Shotgun_NoScope_Blueprint_inline0:
+    $base: Items.Base_Tech_Shotgun_NoScope_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicRangedWeaponModElement
+
+# Iconic Ranged BluePrint================================================
+
+Items.Iconic__Power_AR_SMG_LMG_Blueprint:
+    $base: Items.Base_Power_AR_SMG_LMG_Blueprint
+    rootElement: Items.Iconic__Power_AR_SMG_LMG_Blueprint_inline0
+Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint:
+    $base: Items.Base_Power_AR_SMG_LMG_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+Items.Iconic__Power_AR_SMG_LMG_NoMuzzle_Blueprint:
+    $base: Items.Base_Power_AR_SMG_LMG_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Power_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint:
+    $base: Items.Base_Power_AR_SMG_LMG_NoScope_Blueprint
+    rootElement: Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint_inline0
+    
+Items.Iconic__Smart_AR_SMG_LMG_Blueprint:
+    $base: Items.Base_Smart_AR_SMG_LMG_Blueprint
+    rootElement: Items.Iconic__Smart_AR_SMG_LMG_Blueprint_inline0
+Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+Items.Iconic__Smart_AR_SMG_LMG_NoMuzzle_Blueprint:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Smart_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+Items.Iconic__Smart_AR_SMG_LMG_NoScope_Blueprint:
+    $base: Items.Base_Smart_AR_SMG_LMG_NoScope_Blueprint
+    rootElement: Items.Iconic__Smart_AR_SMG_LMG_NoScope_Blueprint_inline0
+    
+Items.Iconic__Tech_AR_SMG_LMG_Blueprint:
+    $base: Items.Base_Tech_AR_SMG_LMG_Blueprint
+    rootElement: Items.Iconic__Tech_AR_SMG_LMG_Blueprint_inline0
+Items.Iconic__Tech_AR_SMG_LMG_NoAttachments_Blueprint:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Tech_AR_SMG_LMG_NoAttachments_Blueprint_inline0
+Items.Iconic__Tech_AR_SMG_LMG_NoMuzzle_Blueprint:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Tech_AR_SMG_LMG_NoMuzzle_Blueprint_inline0
+Items.Iconic__Tech_AR_SMG_LMG_NoScope_Blueprint:
+    $base: Items.Base_Tech_AR_SMG_LMG_NoScope_Blueprint
+    rootElement: Items.Iconic__Tech_AR_SMG_LMG_NoScope_Blueprint_inline0
+    
+Items.Iconic__Power_Handgun_Blueprint:
+    $base: Items.Base_Power_Handgun_Blueprint
+    rootElement: Items.Iconic__Power_Handgun_Blueprint_inline0
+Items.Iconic__Power_Handgun_NoAttachments_Blueprint:
+    $base: Items.Base_Power_Handgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Power_Handgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Power_Handgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Power_Handgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Power_Handgun_NoScope_Blueprint:
+    $base: Items.Base_Power_Handgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Power_Handgun_NoScope_Blueprint_inline0
+    
+Items.Iconic__Smart_Handgun_Blueprint:
+    $base: Items.Base_Smart_Handgun_Blueprint
+    rootElement: Items.Iconic__Smart_Handgun_Blueprint_inline0
+Items.Iconic__Smart_Handgun_NoAttachments_Blueprint:
+    $base: Items.Base_Smart_Handgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Smart_Handgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Smart_Handgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Smart_Handgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Smart_Handgun_NoScope_Blueprint:
+    $base: Items.Base_Smart_Handgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Smart_Handgun_NoScope_Blueprint_inline0
+    
+Items.Iconic__Tech_Handgun_Blueprint:
+    $base: Items.Base_Tech_Handgun_Blueprint
+    rootElement: Items.Iconic__Tech_Handgun_Blueprint_inline0
+Items.Iconic__Tech_Handgun_NoAttachments_Blueprint:
+    $base: Items.Base_Tech_Handgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Tech_Handgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Tech_Handgun_NoScope_Blueprint:
+    $base: Items.Base_Tech_Handgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Tech_Handgun_NoScope_Blueprint_inline0
+    
+Items.Iconic__Power_Precision_Sniper_Rifle_Blueprint:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+    rootElement: Items.Iconic__Power_Precision_Sniper_Rifle_Blueprint_inline0
+Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+Items.Iconic__Power_Precision_Sniper_Rifle_NoScope_Blueprint:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_NoScope_Blueprint
+    rootElement: Items.Iconic__Power_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    
+Items.Iconic__Smart_Precision_Sniper_Rifle_Blueprint:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_Blueprint
+    rootElement: Items.Iconic__Smart_Precision_Sniper_Rifle_Blueprint_inline0
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoMuzzle_Blueprint:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Smart_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+Items.Iconic__Smart_Precision_Sniper_Rifle_NoScope_Blueprint:
+    $base: Items.Base_Smart_Precision_Sniper_Rifle_NoScope_Blueprint
+    rootElement: Items.Iconic__Smart_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    
+Items.Iconic__Tech_Precision_Sniper_Rifle_Blueprint:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_Blueprint
+    rootElement: Items.Iconic__Tech_Precision_Sniper_Rifle_Blueprint_inline0
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint_inline0
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0
+Items.Iconic__Tech_Precision_Sniper_Rifle_NoScope_Blueprint:
+    $base: Items.Base_Tech_Precision_Sniper_Rifle_NoScope_Blueprint
+    rootElement: Items.Iconic__Tech_Precision_Sniper_Rifle_NoScope_Blueprint_inline0
+    
+Items.Iconic__Power_Shotgun_Blueprint:
+    $base: Items.Base_Power_Shotgun_Blueprint
+    rootElement: Items.Iconic__Power_Shotgun_Blueprint_inline0
+Items.Iconic__Power_Shotgun_NoAttachments_Blueprint:
+    $base: Items.Base_Power_Shotgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Power_Shotgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Power_Shotgun_NoScope_Blueprint:
+    $base: Items.Base_Power_Shotgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Power_Shotgun_NoScope_Blueprint_inline0
+    
+Items.Iconic__Smart_Shotgun_Blueprint:
+    $base: Items.Base_Smart_Shotgun_Blueprint
+    rootElement: Items.Iconic__Smart_Shotgun_Blueprint_inline0
+Items.Iconic__Smart_Shotgun_NoAttachments_Blueprint:
+    $base: Items.Base_Smart_Shotgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Smart_Shotgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Smart_Shotgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Smart_Shotgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Smart_Shotgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Smart_Shotgun_NoScope_Blueprint:
+    $base: Items.Base_Smart_Shotgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Smart_Shotgun_NoScope_Blueprint_inline0
+    
+Items.Iconic__Tech_Shotgun_Blueprint:
+    $base: Items.Base_Tech_Shotgun_Blueprint
+    rootElement: Items.Iconic__Tech_Shotgun_Blueprint_inline0
+Items.Iconic__Tech_Shotgun_NoAttachments_Blueprint:
+    $base: Items.Base_Tech_Shotgun_NoAttachments_Blueprint
+    rootElement: Items.Iconic__Tech_Shotgun_NoAttachments_Blueprint_inline0
+Items.Iconic__Tech_Shotgun_NoMuzzle_Blueprint:
+    $base: Items.Base_Tech_Shotgun_NoMuzzle_Blueprint
+    rootElement: Items.Iconic__Tech_Shotgun_NoMuzzle_Blueprint_inline0
+Items.Iconic__Tech_Shotgun_NoScope_Blueprint:
+    $base: Items.Base_Tech_Shotgun_NoScope_Blueprint
+    rootElement: Items.Iconic__Tech_Shotgun_NoScope_Blueprint_inline0
+
+# Iconic Melee RootElements============================================
+
+Items.Iconic__Blade_Blueprint_inline0:
+    $base: Items.Base_Blade_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicMeleeWeaponModElement
+Items.Iconic__Blunt_Blueprint_inline0:
+    $base: Items.Base_Blunt_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicMeleeWeaponModElement
+Items.Iconic__Throwable_Blueprint_inline0:
+    $base: Items.Base_Throwable_Blueprint_inline0
+    childElements:
+        - !append-once Items.IconicMeleeWeaponModElement
+
+# Iconic Melee Blueprint===============================================
+
+Items.Iconic__Blade_Blueprint:
+    $base: Items.Base_Blade_Blueprint
+    rootElement: Items.Iconic__Blade_Blueprint_inline0
+Items.Iconic__Blunt_Blueprint:
+    $base: Items.Base_Blunt_Blueprint
+    rootElement: Items.Iconic__Blunt_Blueprint_inline0
+Items.Iconic__Throwable_Blueprint:
+    $base: Items.Base_Throwable_Blueprint
+    rootElement: Items.Iconic__Throwable_Blueprint_inline0

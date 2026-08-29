@@ -1,0 +1,166 @@
+Items.SJ_NetRam__rcv:
+    $base: Items.w_rifle_sniper__tsunami_ashura__rcv1
+    appearanceResourceName: destinybu_netram_app_rcv
+
+Items.SJ_NetRam__base:
+    $base: Items.w_rifle_sniper__tsunami_ashura__base1
+    appearanceResourceName: destinybu_netram_app_base
+
+Prereqs.AimedHeadshotStun:
+    $base: Prereqs.ANDPrereq
+    nestedPrereqs:
+    -   $base: Prereqs.IsAttackRangedHeadshot
+        conditions:
+        -   !append
+            $base: Prereqs.StatusEffectPresentHitPrereqCondition
+            statusEffect: Stunned
+            checkType: CheckType.Type
+            invert: true
+    -   Perks.PlayerIsAiming
+
+Prereqs.AimedHeadshotPing:
+    $base: Prereqs.ANDPrereq
+    nestedPrereqs:
+    -   $base: Prereqs.IsAttackRangedHeadshot
+        conditions:
+        -   !append
+            $base: Prereqs.StatusEffectPresentHitPrereqCondition
+            checkType: CheckType.Tag
+            tagToCheck: Ping
+            invert: true
+    -   Perks.PlayerIsAiming
+    
+Items.NetRamWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    effectors:
+    -   $type: AddHitFlagToAttackEffector
+        prereqRecord: Prereqs.AimedHeadshotStun
+        hitFlag: DealNoDamage
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.AimedHeadshotStun
+        statusEffect: 
+            $base: BaseStatusEffect.Stun
+            packages:
+            -   !append
+                $type: GameplayLogicPackage
+                effectors:
+                -   $base: Effectors.PlayVFXEffector
+                    prereqRecord: Prereqs.AlwaysTruePrereq
+                    vfxName: status_electrocuted
+                -   $base: Effectors.PlayVFXEffector
+                    prereqRecord: Prereqs.AlwaysTruePrereq
+                    vfxName: hacks_cyberware_malfunction
+                -   $base: Effectors.PlaySFXEffector
+                    prereqRecord: Prereqs.NPCIsHuman
+                    activationSFXName: quickhack_shortcircuit
+        isRandom: false
+    -   $base: Effectors.ApplyQuickhackEffector
+        prereqRecord: Prereqs.AimedHeadshotPing
+        objectAction: QuickHack.PingLvl2Hack
+        uploadChance: 1.0
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_NetRam_iconic_description
+
+Items.NetRamWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.NetRamWeaponModAbility ]
+
+Items.Preset_NetRam:
+    $base: Items.Preset_Ashura_Default
+    displayName: LocKey#SJ_NetRam_name
+    localizedDescription: LocKey#SJ_NetRam_description
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    appearanceResourceName: destinybu_netram_app
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_netram
+    visualTags: [ Rusty ]
+    tags:
+    -   !append-once IconicWeapon
+    slotPartListPreset:
+    -   !append
+        $type: SlotItemPartPreset
+        itemPartPreset: Items.NetRamWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_NetRam:
+    $base: Items.Preset_NetRam
+    slotPartList:
+    -   $base: Items.Base_Ashura_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetRam__rcv
+    -   $base: Items.Base_Ashura_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetRam__base
+    -   Items.Base_Ashura_inline5
+    -   Items.Base_Ashura_inline7
+    slotPartListPreset:
+    -   $base: Items.Preset_Ashura_Default_inline0
+        itemPartPreset: Items.SJ_NetRam__rcv
+    -   $base: Items.Preset_Ashura_Default_inline1
+        itemPartPreset: Items.SJ_NetRam__base
+    -   Items.Preset_Ashura_Default_inline2
+    -   Items.Preset_Ashura_Default_inline3
+#    -   Items.Preset_Ashura_Default_inline4
+#    -   Items.Preset_Ashura_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.NetRamWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+        
+Items.SJ_NetRam_Pickup:
+    $base: Items.Preset_NetRam
+    slotPartList:
+    -   $base: Items.Base_Ashura_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetRam__rcv
+    -   $base: Items.Base_Ashura_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetRam__base
+    -   Items.Base_Ashura_inline5
+    -   Items.Base_Ashura_inline7
+    slotPartListPreset:
+    -   $base: Items.Preset_Ashura_Default_inline0
+        itemPartPreset: Items.SJ_NetRam__rcv
+    -   $base: Items.Preset_Ashura_Default_inline1
+        itemPartPreset: Items.SJ_NetRam__base
+    -   Items.Preset_Ashura_Default_inline2
+    -   Items.Preset_Ashura_Default_inline3
+#    -   Items.Preset_Ashura_Default_inline4
+#    -   Items.Preset_Ashura_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.NetRamWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+LootTables.Loot_ma_bls_ina_se5_19:
+  lootItems:
+    -   !append
+        $type: gamedataLootItem_Record
+        itemID: Items.SJ_NetRam_Pickup
+        dropChance: 1
+        dropCountMax: 1
+        dropCountMin: 1
+        quantityModifiers: []
+        statModifiers: []
+  maxItemsToLoot: 5
+
+Vendors.BlackMarketer_HUB:
+    $dlc: EP1
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_NetRam_Pickup
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_3_Start_Prereq

@@ -1,0 +1,116 @@
+Items.lizzies_bds_item_strapon_${name}:
+  $instances:
+    - { placementSlot: Legs, name: legs, base: Leg }
+    #- { placementSlot: Eyes, name: face, base: Face }
+    #- { placementSlot: Head, name: head, base: Head }
+    #- { placementSlot: Feet, name: feet, base: Foot }
+  $base: Items.Generic${base}Clothing
+  placementSlots:
+    - AttachmentSlots.${placementSlot}
+    - OutfitSlots.Waist
+  entityName: lizzies_bds_item_ext03
+  appearanceName: strapon
+  quality: Quality.Legendary
+  appearanceSuffixes: []
+
+#---------------------------------------------------------------------
+
+Items.lizzies_bds_item_strapon_dildo_${name}:
+  $instances:
+    - { placementSlot: Legs, name: legs, base: Leg }
+    #- { placementSlot: Eyes, name: face, base: Face }
+    #- { placementSlot: Head, name: head, base: Head }
+    #- { placementSlot: Feet, name: feet, base: Foot }
+  $base: Items.Generic${base}Clothing
+  placementSlots:
+    - AttachmentSlots.${placementSlot}
+    - OutfitSlots.Waist
+  entityName: lizzies_bds_item_ext03
+  appearanceName: strapon_dildo
+  quality: Quality.Legendary
+  appearanceSuffixes: []
+
+#---------------------------------------------------------------------
+
+#Items.lizzies_bds_item_fishnet_${name}:
+#  $instances:
+#    - { placementSlot: Legs, name: legs, base: Leg }
+#    - { placementSlot: Eyes, name: face, base: Face }
+#    - { placementSlot: Head, name: head, base: Head }
+#    - { placementSlot: Feet, name: feet, base: Foot }
+#  $base: Items.Generic${base}Clothing
+#  placementSlots:
+#    - AttachmentSlots.${placementSlot}
+#    - OutfitSlots.LegsInner
+#  entityName: lizzies_bds_item_ext03
+#  appearanceName: fishnet!black_large
+#  displayName: "fishnet_${name}"
+#  quality: Quality.Legendary
+#  appearanceSuffixes: []
+#
+#Items.lizzies_bds_item_fishnet_smaller_${name}:
+#  $instances:
+#    - { placementSlot: Legs, name: legs, base: Leg }
+#    - { placementSlot: Eyes, name: face, base: Face }
+#    - { placementSlot: Head, name: head, base: Head }
+#    - { placementSlot: Feet, name: feet, base: Foot }
+#  $base: Items.Generic${base}Clothing
+#  placementSlots:
+#    - AttachmentSlots.${placementSlot}
+#    - OutfitSlots.LegsInner
+#  entityName: lizzies_bds_item_ext03
+#  appearanceName: fishnet_smaller!fish_net
+#  displayName: "fishnet_smaller_${name}"
+#  quality: Quality.Legendary
+#  appearanceSuffixes: []
+
+#---------------------------------------------------------------------
+
+Items.lizzies_bds_item_choker_${name}:
+  $instances:
+    - { placementSlot: Eyes, name: face, base: Face }
+    #- { placementSlot: Head, name: head, base: Head }
+    #- { placementSlot: Legs, name: legs, base: Leg }
+    #- { placementSlot: Feet, name: feet, base: Foot }
+  $base: Items.Generic${base}Clothing
+  placementSlots:
+    - AttachmentSlots.${placementSlot}
+    - OutfitSlots.NecklaceTight
+  entityName: lizzies_bds_item_ext03
+  appearanceName: choker
+  quality: Quality.Legendary
+  appearanceSuffixes: []
+
+#Items.lizzies_bds_item_choker_spikes_${name}:
+#  $instances:
+#    - { placementSlot: Eyes, name: face, base: Face }
+#    - { placementSlot: Head, name: head, base: Head }
+#    - { placementSlot: Legs, name: legs, base: Leg }
+#    - { placementSlot: Feet, name: feet, base: Foot }
+#  $base: Items.Generic${base}Clothing
+#  placementSlots:
+#    - AttachmentSlots.${placementSlot}
+#    - OutfitSlots.NecklaceTight
+#  entityName: lizzies_bds_item_ext03
+#  appearanceName: choker_spikes
+#  displayName: "choker_spikes_${name}"
+#  quality: Quality.Legendary
+#  appearanceSuffixes: []
+#
+#Items.lizzies_bds_item_choker_high_${name}:
+#  $instances:
+#    - { placementSlot: Eyes, name: face, base: Face }
+#    - { placementSlot: Head, name: head, base: Head }
+#    - { placementSlot: Legs, name: legs, base: Leg }
+#    - { placementSlot: Feet, name: feet, base: Foot }
+#  $base: Items.Generic${base}Clothing
+#  placementSlots:
+#    - AttachmentSlots.${placementSlot}
+#    - OutfitSlots.NecklaceTight
+#  entityName: lizzies_bds_item_ext03
+#  appearanceName: choker_high
+#  displayName: "choker_high_${name}"
+#  quality: Quality.Legendary
+#  appearanceSuffixes: []
+
+#---------------------------------------------------------------------

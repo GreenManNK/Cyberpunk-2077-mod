@@ -1,0 +1,31 @@
+Items.Tech_60_EMP_To_Durability_MitigationChance:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline8
+    value: 20.0
+
+Items.Tech_60_EMP_To_Durability_MitigationStrength:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline9
+    value: 15.0
+
+Items.Tech_60_EMP_To_Durability_ThermalResistance:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline10
+    value: 50.0
+
+Items.Tech_60_EMP_To_Durability_ChemicalResistance:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline11
+    value: 50.0
+
+Items.Tech_60_EMP_To_Durability_ElectricResistance:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline12
+    value: 50.0
+
+Items.Tech_60_EMP_To_Durability_StatGroup:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline7
+    statModifiers: [ Items.Tech_60_EMP_To_Durability_MitigationChance, Items.Tech_60_EMP_To_Durability_MitigationStrength, Items.Tech_60_EMP_To_Durability_ThermalResistance, Items.Tech_60_EMP_To_Durability_ChemicalResistance, Items.Tech_60_EMP_To_Durability_ElectricResistance ]
+
+Items.Tech_60_EMP_To_Durability_Effector:
+    $base: Items.AdvancedSandevistanC3MK5PlusPlus_inline5
+    prereqRecord: BaseStatusEffect.Tech_Master_Perk_3_Buff_inline8
+    statGroup: Items.Tech_60_EMP_To_Durability_StatGroup
+
+BaseStatusEffect.Tech_Master_Perk_3_Buff_inline3:
+    effectors: [ BaseStatusEffect.Tech_Master_Perk_3_Buff_inline6, Items.Tech_60_EMP_To_Durability_Effector, BaseStatusEffect.Tech_Master_Perk_3_Buff_inline14 ]

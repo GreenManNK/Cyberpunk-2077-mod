@@ -1,0 +1,30 @@
+journal:
+  - base\journal\stayatyourhouse_all.journal
+  - base\journal\stayatyourhouse_judy.journal
+  - base\journal\stayatyourhouse_panam.journal
+  - base\journal\stayatyourhouse_river.journal
+  - base\journal\stayatyourhouse_kerry.journal
+localization:
+  onscreens:
+    en-us: base\localization\en-us\stayatyourhouse_All.json
+    ar-ar: base\localization\ar-ar\stayatyourhouse_All.json
+    cz-cz: base\localization\cz-cz\stayatyourhouse_All.json
+    de-de: base\localization\de-de\stayatyourhouse_All.json
+    es-es: base\localization\es-es\stayatyourhouse_All.json
+    es-mx: base\localization\es-es\stayatyourhouse_All.json
+    fr-fr: base\localization\fr-fr\stayatyourhouse_All.json
+    hu-hu: base\localization\hu-hu\stayatyourhouse_All.json
+    it-it: base\localization\it-it\stayatyourhouse_All.json
+    jp-jp: base\localization\jp-jp\stayatyourhouse_All.json
+    kr-kr: base\localization\kr-kr\stayatyourhouse_All.json
+    pl-pl: base\localization\pl-pl\stayatyourhouse_All.json
+    pt-br: base\localization\pt-br\stayatyourhouse_All.json
+    ru-ru: base\localization\ru-ru\stayatyourhouse_All.json
+    th-th: base\localization\th-th\stayatyourhouse_All.json
+    tr-tr: base\localization\tr-tr\stayatyourhouse_All.json
+    ua-ua: base\localization\ua-ua\stayatyourhouse_All.json
+    zh-cn: base\localization\zh-cn\stayatyourhouse_All.json
+    zh-tw: base\localization\zh-tw\stayatyourhouse_All.json
+streaming:
+  blocks:
+    - base\journal\stayatyourhouse.streamingblock

@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Basilisk",
+        "tweakdb_id": "Vehicle.v_militech_basilisk_fly",
+        "display_name_lockey": 53243,
+        "logo_inkatlas_path" : "base\\gameplay\\gui\\common\\icons\\weapon_manufacturers.inkatlas",
+        "logo_inkatlas_part_name" : "militech_l",
+        "type": [
+            "militech_basilisk__basic_nomad_01"
+        ],
+        "actual_allocated_door": ["seat_front_left"],
+        "active_seat": ["Front Left Seat"],
+        "actual_allocated_seat": ["seat_front_left"],
+        "up_down_speed": 1,
+        "pitch_speed": 0.1,
+        "reset_pitch_speed": 0.03
+    },
+    {
+        "name": "Basilisk Militech",
+        "tweakdb_id": "Vehicle.v_militech_basilisk_militech_fly",
+        "display_name_lockey": 53174,
+        "logo_inkatlas_path" : "base\\gameplay\\gui\\common\\icons\\weapon_manufacturers.inkatlas",
+        "logo_inkatlas_part_name" : "militech_l",
+        "type": [
+            "militech_basilisk__basic_militech_01"
+        ],
+        "actual_allocated_door": ["seat_front_left"],
+        "active_seat": ["Front Left Seat"],
+        "actual_allocated_seat": ["seat_front_left"],
+        "up_down_speed": 1,
+        "pitch_speed": 0.1,
+        "reset_pitch_speed": 0.03
+    }
+]

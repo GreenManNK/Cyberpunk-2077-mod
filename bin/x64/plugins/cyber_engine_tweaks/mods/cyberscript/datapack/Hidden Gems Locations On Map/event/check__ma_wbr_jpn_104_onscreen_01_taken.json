@@ -1,0 +1,91 @@
+{
+    "tag": "check_ ma_wbr_jpn_104_onscreen_01_taken",
+    "trigger": {
+        "mappin_exist": {
+            "tag": "ma_wbr_jpn_104_onscreen_01",
+            "helperTitle": "Map : Mappin exist",
+            "name": "mappin_exist",
+            "helper": "This trigger will be triggered if the mappin exist"
+        },
+        "shard_get": {
+            "helper": "This trigger will be triggered if player get the shard by Lockey",
+            "helperTitle": "Misc : Have Shard",
+            "name": "have_shard",
+            "value": "LocKey#51477"
+        }
+    },
+    "header": {
+        "version": 1
+    },
+    "action": [
+        {
+            "tag": "ma_wbr_jpn_104_onscreen_01",
+            "name": "delete_mappin",
+            "helperTitle": "Map : Delete Point",
+            "helper": "This action will delete a specific mapPin"
+        },
+        {
+            "helper": "This action will set a value for a key of a Variable ",
+            "variable": "hackfixermsg",
+            "name": "set_variable",
+            "key": "hackfixermsg",
+            "value": "Transmitting data to Wakako Okada ...",
+            "helperTitle": "Variable : Set Variable"
+        },
+        {
+            "name": "set_variable",
+            "variable": "Hacking",
+            "key": "Percent",
+            "value": 0
+        },
+        {
+            "name": "do_function",
+            "value": "hack_animation",
+            "parallele": true
+        },
+        {
+            "name": "for",
+            "amount": 200,
+            "action": [
+                {
+                    "name": "operate_score",
+                    "score": "Hacking",
+                    "key": "Percent",
+                    "value": 0.5,
+                    "operator": "+",
+                    "min": 0,
+                    "max": 5
+                }
+            ]
+        },
+        {
+            "name": "wait_second",
+            "value": 8,
+            "helper": "This action will set a value for a key of a Variable ",
+            "helperTitle": "Variable : Set Variable"
+        },
+        {
+            "duration": 10,
+            "name": "phone_notification",
+            "helperTitle": "UI : Phone Notification",
+            "helper": "This action will make display a phone message notification. conversation is optional (leave empty if not need, if not empty it will load an custom conversation in the popup)",
+            "conversation": "myphoneconvtag",
+            "desc": "Effort is always rewarded.",
+            "title": "Wakako Okada\nMissing Person (No. 42)"
+        },
+        {
+            "name": "do_function",
+            "value": "reward",
+            "parallele": false
+        }
+    ],
+    "name": "check_ ma_wbr_jpn_104_onscreen_01_taken",
+    "context": [],
+    "way": "world",
+    "requirement": [
+        [
+            "shard_get",
+            "mappin_exist"
+        ]
+    ]
+}

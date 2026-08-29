@@ -1,0 +1,245 @@
+streaming:
+  sectors:
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 1035
+      debugName: None
+    expectedNodes: 1040
+    path: base\worlds\03_night_city\_compiled\default\exterior_-1_-1_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 831
+      debugName: None
+    expectedNodes: 882
+    path: base\worlds\03_night_city\_compiled\default\exterior_-2_-2_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 1517
+      debugName: None
+    - type: worldInstancedOccluderNode
+      index: 1553
+      debugName: None
+    expectedNodes: 1639
+    path: base\worlds\03_night_city\_compiled\default\exterior_-2_0_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 411
+      debugName: None
+    expectedNodes: 432
+    path: base\worlds\03_night_city\_compiled\default\exterior_-3_0_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 119
+      debugName: None
+    expectedNodes: 124
+    path: base\worlds\03_night_city\_compiled\default\exterior_0_0_-1_6.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 281
+      debugName: None
+    expectedNodes: 283
+    path: base\worlds\03_night_city\_compiled\default\exterior_0_0_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 301
+      debugName: None
+    expectedNodes: 302
+    path: base\worlds\03_night_city\_compiled\default\exterior_0_1_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 133
+      debugName: None
+    expectedNodes: 136
+    path: base\worlds\03_night_city\_compiled\default\exterior_0_2_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldStaticParticleNode
+      index: 81
+      debugName: e_steam_column_3x3x20m_directional
+    - type: worldCollisionNode
+      actorDeletions:
+      - 79
+      - 93
+      - 96
+      - 111
+      - 112
+      - 113
+      - 114
+      expectedActors: 128
+      index: 147
+      debugName: VariantCollisionNode_003
+    - type: worldCollisionNode
+      actorDeletions:
+      - 12
+      - 18
+      - 62
+      - 63
+      expectedActors: 94
+      index: 148
+      debugName: VariantCollisionNode_004
+    expectedNodes: 149
+    path: base\worlds\03_night_city\_compiled\default\exterior_13_17_1_1.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 193
+      debugName: None
+    expectedNodes: 204
+    path: base\worlds\03_night_city\_compiled\default\exterior_1_-1_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 104
+      debugName: None
+    expectedNodes: 105
+    path: base\worlds\03_night_city\_compiled\default\exterior_1_1_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldStaticDecalNode
+      index: 101
+      debugName: decals
+    - type: worldStaticDecalNode
+      index: 103
+      debugName: d_aldecaldos_a
+    - type: worldStaticDecalNode
+      index: 108
+      debugName: d_aldecaldos_g_001
+    - type: worldStaticDecalNode
+      index: 117
+      debugName: d_rust_a_001
+    - type: worldStaticDecalNode
+      index: 118
+      debugName: d_rust_a
+    - type: worldStaticDecalNode
+      index: 121
+      debugName: d_aldecaldos_g
+    - type: worldStaticMeshNode
+      index: 142
+      debugName: attachment_antenna_1_a
+    - type: worldStaticMeshNode
+      index: 156
+      debugName: pipes_lab_boiler_a
+    - type: worldStaticParticleNode
+      index: 165
+      debugName: e_electicity_fizzle_small_concentric_015
+    - type: worldStaticDecalNode
+      index: 181
+      debugName: d_dirt_f_dark_001
+    - type: worldStaticDecalNode
+      index: 182
+      debugName: d_dirt_f_dark_002
+    - type: worldStaticDecalNode
+      index: 183
+      debugName: d_rust_leak_a
+    - type: worldStaticDecalNode
+      index: 184
+      debugName: d_dirt_u_dark
+    - type: worldStaticDecalNode
+      index: 196
+      debugName: d_nfpa_dmd_020_a_d
+    - type: worldStaticDecalNode
+      index: 199
+      debugName: d_dirt_l_001
+    - type: worldStaticDecalNode
+      index: 205
+      debugName: d_dirt_f_dark_003
+    - type: worldStaticDecalNode
+      index: 206
+      debugName: decals_004
+    - type: worldStaticDecalNode
+      index: 207
+      debugName: decals_003
+    - type: worldStaticDecalNode
+      index: 208
+      debugName: decals_002
+    - type: worldStaticDecalNode
+      index: 222
+      debugName: d_dirt_l
+    - type: worldStaticDecalNode
+      index: 223
+      debugName: d_rust_leak_c_001
+    - type: worldStaticDecalNode
+      index: 224
+      debugName: d_dirt_f_dark_006
+    - type: worldStaticDecalNode
+      index: 225
+      debugName: decals_007
+    - type: worldStaticDecalNode
+      index: 230
+      debugName: decals_001
+    - type: worldStaticMeshNode
+      index: 391
+      debugName: gas_pump_a_hose_d
+    - type: worldStaticMeshNode
+      index: 398
+      debugName: gas_pump_a_pipes_c90_a
+    - type: worldStaticDecalNode
+      index: 424
+      debugName: d_dirt_f_dark_007
+    - type: worldStaticDecalNode
+      index: 425
+      debugName: d_dirt_f_dark_008
+    - type: worldStaticDecalNode
+      index: 426
+      debugName: d_dirt_g_dark_001
+    - type: worldStaticDecalNode
+      index: 427
+      debugName: d_dirt_g_dark
+    - type: worldStaticDecalNode
+      index: 430
+      debugName: d_rust_leak_c
+    - type: worldStaticDecalNode
+      index: 431
+      debugName: d_oil_trail_asphalt_a_001
+    - type: worldStaticDecalNode
+      index: 432
+      debugName: d_oil_trail_asphalt_a_002
+    - type: worldStaticDecalNode
+      index: 434
+      debugName: d_dirt_f_dark
+    - type: worldStaticDecalNode
+      index: 435
+      debugName: d_rust_a_002
+    - type: worldStaticDecalNode
+      index: 436
+      debugName: d_dirt_f_dark_004
+    - type: worldStaticDecalNode
+      index: 437
+      debugName: d_dirt_f_dark_005
+    - type: worldStaticMeshNode
+      index: 513
+      debugName: gas_pump_a_pipes_a
+    - type: worldStaticMeshNode
+      index: 607
+      debugName: gas_pump_a_pipes_b
+    - type: worldStaticMeshNode
+      index: 608
+      debugName: attachment_antenna_1_n_roof_pipes_a
+    - type: worldStaticMeshNode
+      index: 609
+      debugName: gas_pump_a_pipes_b_002
+    - type: worldStaticMeshNode
+      index: 610
+      debugName: gas_pump_a_pipes_b_001
+    - type: worldStaticMeshNode
+      index: 614
+      debugName: pac_wwd_trailerhouse_b_tech_shell_frame_above_door_001
+    - type: worldStaticMeshNode
+      index: 615
+      debugName: pac_wwd_trailerhouse_b_tech_shell_frame_above_door
+    - type: worldStaticMeshNode
+      index: 622
+      debugName: pac_wwd_trailerhouse_b_tech_shell_l_002
+    expectedNodes: 632
+    path: base\worlds\03_night_city\_compiled\default\exterior_27_35_2_0.streamingsector
+  - nodeDeletions:
+    - type: worldInstancedOccluderNode
+      index: 129
+      debugName: None
+    expectedNodes: 132
+    path: base\worlds\03_night_city\_compiled\default\exterior_2_2_0_4.streamingsector
+  - nodeDeletions:
+    - type: worldCollisionNode
+      actorDeletions:
+      - 5
+      expectedActors: 64
+      index: 225
+      debugName: NormalCollisionNode_052
+    expectedNodes: 241
+    path: base\worlds\03_night_city\_compiled\default\exterior_6_8_0_2.streamingsector

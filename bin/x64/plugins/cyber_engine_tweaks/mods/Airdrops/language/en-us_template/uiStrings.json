@@ -1,0 +1,75 @@
+{
+	"fileHeader": {
+		"_1_": "----------------------------------------",
+		"modName": "Airdrops",
+		"modAuthorName": "anygoodname",
+		"modVer": "v1.3.0",
+		"_2_": "----------------------------------------",
+		"translationAuthorName": "Put your name here",
+		"translationVer": "Put your file verison here",
+		"_3_": "----------------------------------------"
+	},
+	"uiStrings": {
+		"cetUiStrings": {
+			"hiddenAirdropDiscoveryNotification": "##COUNT## out of ##TOTAL## hidden Airdrops discovered.",
+			"modDisplayName": "Airdrops",
+			"settingsView": {
+				"questStatus": {
+					"titleActive": "Airdrops quest is active now.",
+					"titleInactive": "Airdrops quest is inactive now.",
+					"titlePaused": "Airdrops quest is paused now."
+				},
+				"clickButtonHeader": {
+					"title": "Click a button to change settings:"
+				},
+				"enableModFeatures": {
+					"title": "Enable Mod",
+					"titleIsDisabled": "Mod is Disabled",
+					"titleIsEnabled": "Mod is Enabled",
+					"tooltips": "Enable or disable the functionality of this mod."
+				},
+				"showMappins": {
+					"title": "Show Markers",
+					"titleIsDisabled": "Show Markers is OFF",
+					"titleIsEnabled": "Show Markers is ON",
+					"tooltips": "Enable or disable showing navigation markers."
+				},
+				"showHiddenAirdropDiscoveryNotifications": {
+					"title": "Show Discovery Notifications",
+					"titleIsDisabled": "Show Discovery Notifications is OFF",
+					"titleIsEnabled": "Show Discovery Notifications is ON",
+					"tooltips": "Show hidden Airdrop discovery on-screen notifications."
+				},
+				"fixDOAairdrops": {
+					"title": "Fix DOA Airdrops",
+					"titleIsDisabled": "Fix DOA Airdrops is OFF",
+					"titleIsEnabled": "Fix DOA Airdrops is ON",
+					"tooltips": "Enable or disable DOA Airdrops fix."
+				}
+			}
+		},
+		"nuiUiStrings": {
+			"hiddenAirdropDiscoveryNotification": "##COUNT##/##TOTAL## hidden Airdrops discovered.",
+			"modDisplayName": "Airdrops",
+			"settingsView": {
+				"generalSettingsHeader": "General settings:",
+				"enableModFeatures": {
+					"title": "Enable Mod",
+					"tooltips": "Enable or disable the functionality of this mod."
+				},
+				"showMappins": {
+					"title": "Show Markers",
+					"tooltips": "Enable or disable showing navigation markers."
+				},
+				"showHiddenAirdropDiscoveryNotifications": {
+					"title": "Show Discovery Notifications",
+					"tooltips": "Show hidden Airdrop discovery on-screen notifications."
+				},
+				"fixDOAairdrops": {
+					"title": "Fix DOA Airdrops",
+					"tooltips": "Enable or disable DOA Airdrops fix."
+				}
+			}
+		}
+	}
+}

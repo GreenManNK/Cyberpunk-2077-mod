@@ -1,0 +1,32 @@
+{
+	"comment_0": "Fields marked as comments are FYI only - they will not be used in the game.",
+	"comment_1": "You can add other text fields here too. Like your name, version, date, etc. They will not be used in the mod but serve as your creation identification here.",
+
+	"comment_2": "The isTranslation field is mandatory to identify this file as a translation.",
+	"isTranslation": true,
+
+	"comment_3": "The translatedFileName field is mandatory to identify the base character plugin file, which should reside in the same folder as this file.",
+	"comment_4": "If the base file does not exist or is located in a different folder, the data in this translation file will be ignored.",
+	"translatedFileName": "character_plugin_template.json",
+
+	"comment_5": "This table should contain at least one performers group entry: femalePerformers and/or malePerformers. If missing or empty, it will be ignored.",
+	"femalePerformers": {
+		"comment_0": "This table should contain your performers metadata entries. If empty, it will be ignored.",
+		"comment_1": "It could contain a single performer, or multiple performers - it's all up to you.",
+		"comment_2": "The performer entry key names should match the entry key names in the base character plugin file. If there is no match, they will be ignored.",
+
+		"performer_female_01": {
+			"comment_0": "The performerFullNameTranslations table should contain your translations.",
+			"comment_1": "While it is possible to include multiple languages, it is recommended to limit each translation file to a single language.",
+			"comment_2": "If some characters in the base plugin file do not require translation, you can simply skip them.",
+			"comment_3": "If the performerFullNameTranslations table or its entries are missing, empty, or invalid, they will be ignored, and the mod will use the base plugin data instead.",
+			"comment_4": "Please keep in mind that cetUi strings are used in the CET interface which is limited on displayed character sets.",
+			"performerFullNameTranslations": {
+				"de-de": {"cetUi": "German translation of the performer name for display in the CET UI", "nativeUi" : "German translation of the performer name for display in the Native UI"}
+			}
+		}
+	},
+	"malePerformers": {
+		"comment_0": "If needed, just follow the femalePerformers table structure here"
+	}
+}

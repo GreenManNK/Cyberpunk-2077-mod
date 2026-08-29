@@ -1,0 +1,35 @@
+Items.Preset_Osprey_Default:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Osprey_Military:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Osprey_Neon:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Osprey_Legendary:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Osprey_Prototype:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Osprey_Pimp:
+  blueprint: Items.Iconic_Ranged_Weapon_NoScope_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList

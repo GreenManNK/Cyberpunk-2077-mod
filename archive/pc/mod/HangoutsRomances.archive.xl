@@ -1,0 +1,38 @@
+streaming:
+  blocks:
+    - mod\arman3_hangout_romances\worlds\hangout_romances.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\interior_-13_15_0_1.streamingsector
+      expectedNodes: 201
+      nodeDeletions:
+        - type: worldStaticMeshNode
+          index: 200
+
+localization:
+  subtitles:
+    en-us: mod\arman3_hangout_romances\localization\en-us\subtitles\hangout_romances_subtitles.json
+    cz-cz: mod\arman3_hangout_romances\localization\cz-cz\subtitles\hangout_romances_subtitles.json
+    de-de: mod\arman3_hangout_romances\localization\de-de\subtitles\hangout_romances_subtitles.json
+    zh-tw: mod\arman3_hangout_romances\localization\zh-tw\subtitles\hangout_romances_subtitles.json
+    ru-ru: mod\arman3_hangout_romances\localization\ru-ru\subtitles\hangout_romances_subtitles.json
+#  onscreens:
+#    en-us: mod\arman3_hangout_romances\localization\en-us\onscreens\hangout_romances_onscreens.json
+#    cz-cz: mod\arman3_hangout_romances\localization\cz-cz\onscreens\hangout_romances_onscreens.json
+
+quest:
+  phases:
+    - path: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_heywood.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_heywood.questphase
+      connection: [13]
+    - path: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_megabuilding.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_megabuilding.questphase
+      connection: [7]
+    - path: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_downtown.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_downtown.questphase
+      connection: [15]
+    - path: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_northside.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_northside.questphase
+      connection: [10]
+    - path: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_japantown.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_japantown.questphase
+      connection: [13]

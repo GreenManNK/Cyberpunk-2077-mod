@@ -1,0 +1,95 @@
+{
+  "tag": "check_ no_item_68_taken",
+  "trigger": {
+    "mappin_exist": {
+      "tag": "no_item_68",
+      "helperTitle": "Map : Mappin exist",
+      "name": "mappin_exist",
+      "helper": "This trigger will be triggered if the mappin exist"
+    },
+    "player_position": {
+      "name": "entity_at_position",
+      "x": -219.036,
+      "y": -1003.644,
+      "z": 36.117,
+      "range": 2,
+      "tag": "player"
+    }
+  },
+  "header": {
+    "version": 1
+  },
+  "action": [ {
+    "tag": "no_item_68",
+    "name": "delete_mappin",
+    "helperTitle": "Map : Delete Point",
+    "helper": "This action will delete a specific mapPin"
+  },
+  {
+    "value": "1",
+    "type": "number",
+    "key": "var_no_item_68",
+    "variable": "var_hiddengems",
+    "name": "set_variable",
+    "helperTitle": "Variable : Set Variable",
+    "helper": "This action will set a value for a key of a Variable "
+  },
+  {
+    "helper": "This action will set a value for a key of a Variable ",
+    "variable": "hackfixermsg",
+    "name": "set_variable",
+    "key": "hackfixermsg",
+    "value": "Transmitting data to Muamar Reyes ...",
+    "helperTitle": "Variable : Set Variable"
+  },
+        {
+            "name": "set_variable",
+            "variable": "Hacking",
+            "key": "Percent",
+            "value": 0
+        },
+        {
+            "name": "do_function",
+            "value": "hack_animation",
+            "parallele": true
+        },
+        {
+            "name": "for",
+            "amount": 200,
+            "action": [
+                {
+                    "name": "operate_score",
+                    "score": "Hacking",
+                    "key": "Percent",
+                    "value": 0.5,
+                    "operator": "+",
+                    "min": 0,
+                    "max": 5
+                }
+            ]
+        },
+  {
+    "name": "wait_second",
+    "value": 8,
+    "helper": "This action will set a value for a key of a Variable ",
+    "helperTitle": "Variable : Set Variable"
+  },
+  {
+    "duration": 10,
+    "name": "phone_notification",
+    "helperTitle": "UI : Phone Notification",
+    "helper": "This action will make display a phone message notification. conversation is optional (leave empty if not need, if not empty it will load an custom conversation in the popup)",
+    "conversation": "myphoneconvtag",
+    "desc": "Good to know though. Thanks again V !",
+    "title": "Muamar Reyes\nMissing Person (No. 68)"
+  },
+  {
+    "name": "do_function",
+    "value": "reward",
+    "parallele": false
+  }],
+  "name": "check_ no_item_68_taken",
+  "context": [],
+  "way": "world",
+  "requirement": [ [ "player_position", "mappin_exist" ] ]
+}

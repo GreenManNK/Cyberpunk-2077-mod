@@ -1,0 +1,307 @@
+$dlc: EP1
+
+Items.NGPlus_FastSoloMantisBlades:
+  $base: Items.MaxTac_2nd_wave_Mantis_Blades
+  statModifiers:
+    - !append 
+      $type: ConstantStatModifier
+      statType: BaseStats.AttacksNumber
+      modifierType: Additive
+      value: 7
+
+    - !append 
+      $type: ConstantStatModifier
+      statType: BaseStats.MeleeAttackDuration
+      modifierType: Multiplier
+      value: 0.3
+
+    - !append 
+      $type: ConstantStatModifier
+      statType: BaseStats.MeleeAttackComboDuration
+      modifierType: Multiplier
+      value: 0.3
+
+Items.NGPlus_FastSoloKatana:
+  $base: Items.Preset_Katana_Arasaka_2020
+  statModifiers:
+    - !append Quality.BrokenItem
+    - !append AttackModifier.WeaponArmorPenetrationFull
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.CanBlock
+      modifierType: Multiplier
+      value: 0
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.StaminaCostToBlock
+      modifierType: Multiplier
+      value: 3
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.AttacksNumber
+      modifierType: Additive
+      value: 15
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.NPCDamage
+      modifierType: Multiplier
+      value: 1.5
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.MeleeAttackDuration
+      modifierType: Multiplier
+      value: 0.15
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.MeleeAttackComboDuration
+      modifierType: Multiplier
+      value: 0.15
+
+# Yes, I know Ayumi was Asian... But who gives a shit?
+Character.NGPlus_EncounterFastSoloBoss:
+  $base: t"Character.afterlife_rare_fmelee3_katana_wa_elite"
+  tags: ["Cyberpsycho", "ImmuneToTakedown", "NGPlusBoss"]
+
+  baseAttitudeGroup: n"hostile"
+  rarity: NPCRarity.Boss
+  quest: NPCQuestAffiliation.StreetStory
+
+  entityTemplatePath: r"mod\quest\newgameplus\newNpc\ayumi.ent"
+  appearanceName: woman_average_ayumi_default
+
+  displayName: l"NewGamePlus_BossEncounter_FastSoloDisplayName"
+  fullDisplayName: l"NewGamePlus_BossEncounter_FastSoloDisplayName"
+
+  savable: true
+  dropsWeaponOnDeath: false
+  # I think Mantis Blades actually work better for NPCs? Whatever, let's try katana for once lol...
+  primaryEquipment:
+    $type: NPCEquipmentGroup
+    equipmentItems:
+      -
+        $type: NPCEquipmentItem
+        item: Items.NGPlus_FastSoloMantisBlades
+        equipSlot: AttachmentSlots.WeaponRight
+        equipCondition:
+          - WeaponConditions.BaseMeleePrimaryWeaponEquipCondition
+        unequipCondition:
+          - WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition
+
+  secondaryEquipment:
+    $type: NPCEquipmentGroup
+    equipmentItems:
+      - Character.MilitechSecondaryHandgunPool # She doesn't like Arasaka's guns?
+  
+  affiliation: Factions.Unknown
+  priority: SpawnableObjectPriority.Quest
+  bountyDrawTable: BountyDrawTable.ProjectGhostMember
+
+  statModifierGroups:
+    - !append Character.Boss_Poise_Primary_Stat_ModGroup
+    - !append Character.Cyberpsycho_ModGroup
+    - !append Character.Cyberpsycho_HitReaction_Resistance
+
+  effectors:
+    - !append Character.NGPlus_TechDodgeEffector
+    - !append Character.NGPlus_AnyDirDodgeEffector
+  
+  abilities:
+    - !append t"Ability.HasChargeJump"
+    - !append t"Ability.HasDodge"
+    - !append t"Ability.HasKerenzikov"
+    - !append t"Ability.HasSandevistanTier3"
+    - !append t"Ability.CanParry"
+    - !append t"Ability.CanUseFlashbangGrenades"
+    - !append t"Ability.CanUseSmokeGrenades"
+    - !append t"Ability.HasMajorQuickhackResistance"
+    - !append t"Ability.CanThrowWeapon"
+    - !append t"Ability.CanGuardBreak"
+    - !append t"Ability.CanRegenInCombat"
+    - !append t"Ability.CanShootWhileMoving"
+    - !append t"Ability.IsReckless"
+    - !append t"Ability.HasWeakHealthRegeneration"
+    - !append t"Ability.HasICELevelBooster"
+    - !append t"Ability.HasGraphiteTissue"
+    - !append t"Ability.HasBoostedCortex"
+    - !append t"Ability.CanUseOpticalCamo"
+    - !append t"Ability.CanDash"
+    - !append t"Ability.CanCharge"
+    - !append t"Ability.HasSubdermalArmorLow"
+    - !append t"Ability.HasPainEditor"
+    - !append t"Ability.HasLoweredHitReactions"
+    - !append t"Ability.CanPreciseShoot"
+    - !append t"Ability.CanChargedShoot"
+
+    - !append Ability.IsAggressive
+    - !append Ability.CanUseLegs
+    - !append Ability.CanBlock
+    - !append Ability.CanShareThreatsWithPlayer
+    - !append Ability.NGPlus_RandomEncounterBossMarker
+
+  objectActions: ["QuickHack.BossBaseBlindHack", "QuickHack.BossSuicideHackBase", "QuickHack.BossBaseWeaponMalfunctionHack", "QuickHack.BossBaseLocomotionMalfunctionHack", "QuickHack.BossBaseOverheatHack", "QuickHack.BossOverloadBaseHack", "QuickHack.BossBrainMeltBaseHack", "QuickHack.BossBaseCyberwareMalfunctionHack", "QuickHack.BossSystemCollapseHackBase", "QuickHack.BossGrenadeHackBase", "QuickHack.BossMadnessHackBase", "QuickHack.BossMemoryWipeHackBase", "QuickHack.BossBaseBlackWallHack", "QuickHack.BaseCommsCallInHack", "QuickHack.BaseCommsNoiseHack", "QuickHack.BasePingHack", "QuickHack.BaseContagionHack", "QuickHack.BaseWhistleHack", "QuickHack.RemoteBreach", "Takedown.NewPerkFinisher", "Takedown.NewPerkFinisherBlunt"]
+
+  visualTags:
+    - !append "Fast"
+
+  statModifiers:
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.Health
+      modifierType: Multiplier
+      value: 1.2 # With reduced evasion, she has too little HP to be threatening - increase it...
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.IsTier4Archetype
+      modifierType: Additive
+      value: 1
+    
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.Accuracy
+      modifierType: Multiplier
+      value: 9999
+    
+    - !append
+      $type: CombinedStatModifier
+      statType: BaseStats.NPCDamage
+      modifierType: Additive
+      refStat: BaseStats.Health
+      refObject: "Player"
+      opSymbol: "*"
+      value: 0.25
+    
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.Evasion
+      modifierType: Additive
+      value: 0.1
+    
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.MaxPercentDamageTakenPerHit
+      modifierType: Additive
+      value: 20 # So you can't just queue up several Synapse Burnouts
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.StunImmunity
+      modifierType: Additive
+      value: 1
+    
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.HitReactionFactor
+      modifierType: Additive
+      value: 1
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.WoundLArmDamageThreshold
+      modifierType: Multiplier
+      value: 0
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.WoundRArmDamageThreshold
+      modifierType: Multiplier
+      value: 0
+
+Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick:
+  $base: Character.arasaka_netrunner_netrunner2_yukimura_wa_rare
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+  abilities:
+    - !append Ability.CanUseOpticalCamo
+
+Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick:
+  $base: Character.arasaka_agent_fmelee2rare_knife_wa_rare
+  baseAttitudeGroup: n"hostile"
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+
+DynamicSpawnSystem.NewGamePlus_FastSoloBossEncounter:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Outlaw"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+
+DynamicSpawnSystem.NewGamePlus_FastSoloBossSupport:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Outlaw"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick"
+      weight: 1.0
+
+DynamicSpawnSystem.NewGamePlus_FastSoloBossSupport2:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Outlaw"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_NetrunnerSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterFastSoloBoss_KnifeSidekick"
+      weight: 1.0
+
+Character.NGPlus_FastSoloBossFocusClue1:
+  $type: npc_scanning_data
+  friendlyName: "NGPlus_FastSoloBossFocusClue1"
+  localizedName: l"NewGamePlus_BossEncounter_AyumiClue_Name"
+  localizedDescription: l"NewGamePlus_BossEncounter_AyumiClue_Desc"
+
+Character.NGPlus_FastSoloBossConclusionClue:
+  $type: npc_scanning_data
+  friendlyName: "NGPlus_FastSoloBossConclusionClue"
+  localizedName: l"NewGamePlus_BossEncounter_AyumiConclusion_Name"
+  localizedDescription: l"NewGamePlus_BossEncounter_AyumiConclusion_Desc"

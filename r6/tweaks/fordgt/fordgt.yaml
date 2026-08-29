@@ -1,0 +1,144 @@
+fordgt_gear_inline0:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline10
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.6
+ minSpeed: 0
+ maxSpeed: 10
+ minEngineRPM: 700
+ maxEngineRPM: 5000
+
+fordgt_gear_inline1:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline11
+# $type: VehicleGear_Record
+ torqueMultiplier: 1
+ minSpeed: 0
+ maxSpeed: 11
+ minEngineRPM: 700
+ maxEngineRPM: 8300
+
+fordgt_gear_inline2:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline12
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.55
+ minSpeed: 18
+ maxSpeed: 27
+ minEngineRPM: 3300
+ maxEngineRPM: 8150
+
+fordgt_gear_inline3:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline13
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.39
+ minSpeed: 25
+ maxSpeed: 34
+ minEngineRPM: 3400
+ maxEngineRPM: 8200
+
+fordgt_gear_inline4:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline14
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.34
+ minSpeed: 34
+ maxSpeed: 42
+ minEngineRPM: 3700
+ maxEngineRPM: 8250
+
+fordgt_gear_inline5:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline15
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.31
+ minSpeed: 40
+ maxSpeed: 48
+ minEngineRPM: 3900
+ maxEngineRPM: 8300
+
+fordgt_gear_inline6:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline16
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.295
+ minSpeed: 46
+ maxSpeed: 55
+ minEngineRPM: 4100
+ maxEngineRPM: 8400
+
+fordgt_gear_inline7:
+ $base: Vehicle.v_sport1_quadra_turbo_r_inline17
+# $type: VehicleGear_Record
+ torqueMultiplier: 0.275
+ minSpeed: 52
+ maxSpeed: 71
+ minEngineRPM: 4100
+ maxEngineRPM: 9000
+ 
+UIIcon.Fordgt_Logo:
+  $type: UIIcon_Record
+  atlasPartName: ford_logo
+  atlasResourcePath: cast\fordgt\gui\common\icons\manufacturers\fordgt_manufacturers.inkatlas
+    
+Vehicle.Fordgt:
+  $type: VehicleManufacturer_Record
+  enumName: Fordgt_Logo
+
+Vehicle.Fordgt_data:
+  $type: VehicleUIData
+  horsepower: 550
+  mass: 1580
+  productionYear: 2005
+  info: LocKey#fordgt_info
+    
+UIIcon.fordgt_icon:
+    $type: UIIcon_Record
+    atlasResourcePath: cast\fordgt\gui\common\icons\fordgt_icon.inkatlas
+    atlasPartName: fordgt_icon
+    
+Vehicle.fordgt_base:
+   $base: Vehicle.v_sport2_porsche_911turbo
+   appearanceName: fordgt_base
+   displayName: fordgt_name
+   entityTemplatePath: cast\fordgt\cast_fordgt.ent
+   player_audio_resource: v_car_quadra_type_66_avenger
+   icon: UIIcon.fordgt_icon
+   manufacturer: Vehicle.Ford
+   vehDriveModelData:
+    $base: Vehicle.v_sport1_rayfield_caliburn_inline0
+    center_of_mass_offset: { x: 0.0, y: 0.0, z: -0.00 }
+    chassis_mass: 1085
+    total_mass: 1085
+    airResistanceFactor: 2.0
+    turningRollFactor: 0.5
+    wheelTurnMaxAddPerSecond: 100
+    wheelTurnMaxSubPerSecond: 130
+   vehEngineData:
+    $base: Vehicle.VehicleEngineData_4_SuperSport
+    gears:
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline0
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline1
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline2
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline3
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline4
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline5
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline6
+    - !remove Vehicle.VehicleEngineData_4_SuperSport_inline7
+    - !append fordgt_gear_inline0
+    - !append fordgt_gear_inline1
+    - !append fordgt_gear_inline2
+    - !append fordgt_gear_inline3
+    - !append fordgt_gear_inline4
+    - !append fordgt_gear_inline5
+    - !append fordgt_gear_inline6
+    - !append fordgt_gear_inline7
+   vehicleUIData: Vehicle.Fordgt_data
+
+Vehicle.fordgt_purchasable:
+  $base: Vehicle.fordgt_base
+Vehicle.fordgt_purchasable.dealerAtlasPath: "cast/fordgt/gui/common/icons/cardealer/dealer_fordgt.inkatlas"
+Vehicle.fordgt_purchasable.dealerPartName: "fordgt_dealer"
+     
+Vehicle.fordgt_purchasable.dealerPrice: 155000
+Vehicle.fordgt_purchasable.dealerCred: 50
+
+Vehicle.vehicle_list.list:
+  - !append Vehicle.fordgt_purchasable 
+    
+Vehicle.vehicle_list.list:
+  - !append Vehicle.fordgt_base

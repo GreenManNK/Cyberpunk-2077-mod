@@ -1,0 +1,122 @@
+Items.TzijimuraWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Tzijimura_iconic_description
+
+Items.TzijimuraWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.TzijimuraWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsDefaultX
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsDefaultY
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsMaxX
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsMaxY
+        modifierType: Multiplier
+        value: 0.5
+    -   $base: Items.IsAimingDependant
+        statType: BaseStats.ShouldIgnoreSmartUI
+    -   $base: Items.IsAimingDependant
+        statType: BaseStats.TechPierceEnabled
+    -   $base: Items.IsAimingDependant
+        statType: BaseStats.SmartGunPlayerProjectileVelocity
+        value: 200.0
+
+Items.Preset_Tzijimura:
+    $base: Items.Preset_Shingen_Pimp
+    displayName: LocKey#SJ_Tzijimura_name
+    localizedDescription: LocKey#SJ_Tzijimura_description
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    triggerModes: [ TriggerMode.FullAuto ]
+    primaryTriggerMode: TriggerMode.FullAuto
+    previewEffectName: weaponPreview
+    previewEffectTag: pierce
+    icon:
+        atlasResourcePath: base\gameplay\gui\common\icons\items\item_icons1.inkatlas
+        atlasPartName: weapon_Preset_Shingen_Default_None__Pimp
+    appearanceName: pimp2
+    tags:
+    -   !append Tzijimura
+    -   !append-once IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartListPreset:
+    -   !append
+        $type: SlotItemPartPreset
+        itemPartPreset: Items.TzijimuraWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !remove Items.Base_Shingen_Technical_Stats
+    -   !append
+        $base: Items.Base_Shingen_Technical_Stats
+        statModifiers:
+        -   !append
+            $type: ConstantStatModifier
+            statType: BaseStats.Range
+            value: 2.0
+    -   !remove Items.Base_Shingen_Damage_Stats
+    -   !append
+        $base: Items.Base_Shingen_Damage_Stats
+        statModifiers:
+        -   !remove Items.Base_Shingen_Damage_Stats_inline0
+        -   !append
+            $base: Items.Base_Shingen_Damage_Stats_inline0
+            value: 60
+    -   !remove Items.Base_Shingen_SmartGun_Stats
+    -   !append
+        $base: Items.Base_Shingen_SmartGun_Stats
+        statModifiers:
+        -   !remove Items.Base_Shingen_SmartGun_Stats_inline12
+        -   !append
+            $type: ConstantStatModifier
+            statType: BaseStats.SmartGunAdsMaxLockedTargetsModifier
+            modifierType: Multiplier
+            value: 0.0
+        -   !append
+            $type: ConstantStatModifier
+            statType: BaseStats.SmartGunAdsMaxLockedTargets
+            modifierType: Multiplier
+            value: 0.0
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_Tzijimura:
+    $base: Items.Preset_Tzijimura
+
+Items.SJ_Tzijimura_Shop:
+    $base: Items.Preset_Tzijimura
+    quality: Quality.Random
+    slotPartListPreset:
+    -   Items.Preset_Shingen_Default_inline0
+    -   Items.Preset_Shingen_Default_inline1
+    -   Items.Preset_Shingen_Default_inline2
+    -   Items.Preset_Shingen_Default_inline3
+    -   Items.HandgunAndRevolverScopesPartList
+#    -   $base: Items.Preset_Shingen_Default_inline4
+#        itemPartList:
+#        -   !remove Items.GenericRangedModList_Slot1_inline0
+#    -   Items.Preset_Shingen_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.TzijimuraWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.wat_nid_gunsmith_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_Tzijimura_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_2_Start_Prereq

@@ -1,0 +1,27 @@
+Vehicle.vehicle_list.list:
+  - !append Vehicle.Mech_Minotaur_Arasaka
+  - !append Vehicle.Mech_Minotaur_Kurtz
+  - !append Vehicle.Mech_Minotaur_Militech
+  - !append Vehicle.Mech_Minotaur_Police
+
+
+
+Vehicle.Mech_Minotaur_Arasaka.dealerAtlasPath: "base/icons/ArasakaStore.inkatlas"
+Vehicle.Mech_Minotaur_Arasaka.dealerPartName: "arasakastore"
+Vehicle.Mech_Minotaur_Arasaka.dealerPrice: 20000
+Vehicle.Mech_Minotaur_Arasaka.dealerCred: 10
+
+Vehicle.Mech_Minotaur_Kurtz.dealerAtlasPath: "base/icons/kurtzstore.inkatlas"
+Vehicle.Mech_Minotaur_Kurtz.dealerPartName: "kurtzstore"
+Vehicle.Mech_Minotaur_Kurtz.dealerPrice: 20000
+Vehicle.Mech_Minotaur_Kurtz.dealerCred: 10
+
+Vehicle.Mech_Minotaur_Militech.dealerAtlasPath: "base/icons/militechstore.inkatlas"
+Vehicle.Mech_Minotaur_Militech.dealerPartName: "militechstore"
+Vehicle.Mech_Minotaur_Militech.dealerPrice: 20000
+Vehicle.Mech_Minotaur_Militech.dealerCred: 10
+
+Vehicle.Mech_Minotaur_Police.dealerAtlasPath: "base/icons/PoliceStore.inkatlas"
+Vehicle.Mech_Minotaur_Police.dealerPartName: "policestore"
+Vehicle.Mech_Minotaur_Police.dealerPrice: 20000
+Vehicle.Mech_Minotaur_Police.dealerCred: 10

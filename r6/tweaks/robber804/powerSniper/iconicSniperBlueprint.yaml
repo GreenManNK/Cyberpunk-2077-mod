@@ -1,0 +1,7 @@
+Items.Iconic_Sniper_Blueprint:
+    $base: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+    rootElement:
+        $base: Items.Base_Power_Precision_Sniper_Rifle_Blueprint_inline0
+        childElements:
+        - !remove Items.Power_Precision_Sniper_Rifle_WeaponMod1Element
+        - !remove Items.Power_Precision_Sniper_Rifle_WeaponMod2Element

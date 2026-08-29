@@ -1,0 +1,34 @@
+streaming:
+  sectors:
+    - nodeMutations: []
+      expectedNodes: 1179
+      nodeDeletions:
+        - debugName: industrial_curtain_d_clh
+          orientation:
+            i: 0
+            r: 0.77502888441086
+            j: 0
+            k: -0.63192588090897
+          type: worldClothMeshNode
+          index: 105
+          nodeRef: ''
+          resource: base\environment\decoration\textiles\curtains\industrial_curtain\industrial_curtain_dx_clh.mesh
+          position:
+            x: 1812.8000488281
+            'y': 2227.5270996094
+            z: 180.19241333008
+        - index: 1102
+          type: worldStaticMeshNode
+        - index: 1103
+          type: worldStaticMeshNode
+        - index: 106
+          type: worldClothMeshNode
+        - index: 107
+          type: worldClothMeshNode
+        - index: 1105
+          type: worldStaticMeshNode
+        - index: 1101
+          type: worldStaticMeshNode
+        - index: 108
+          type: worldClothMeshNode
+      path: base\worlds\03_night_city\_compiled\default\exterior_28_34_2_0.streamingsector

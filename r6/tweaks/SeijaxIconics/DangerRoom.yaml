@@ -1,0 +1,155 @@
+Items.SJ_DangerRoom__rcv:
+    $base: Items.w_submachinegun__militech_saratoga__rcv1
+    appearanceResourceName: seijax_dangerroom_appfile_rcv
+
+Items.SJ_DangerRoom__base:
+    $base: Items.w_submachinegun__militech_saratoga__base1
+    appearanceResourceName: seijax_dangerroom_appfile_base
+
+Items.SJ_DangerRoomWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_DangerRoom_iconic_description
+    effectors:
+    -   $type: ModifyAttackCritChanceEffector
+        prereqRecord: Prereqs.HitIsMultipleRicochetPrereq
+        critChance:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.CritChance
+            modifierType: Additive
+            value: 1.0
+
+Items.SJ_DangerRoomWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_DangerRoomWeaponModAbility ]
+    statModifiers:
+    -   $base: BaseStats.CycleTimeModifier
+        value: 0.2
+    -   $base: BaseStats.ProjectilesPerShotModifier
+        value: 6.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMinX
+        modifierType: Multiplier
+        value: 2.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMinY
+        modifierType: Multiplier
+        value: 2.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMin
+        modifierType: Multiplier
+        value: 1.3
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMax
+        modifierType: Multiplier
+        value: 1.3
+
+Items.SJ_DangerRoom:
+    $base: Items.Preset_Saratoga_Arasaka_2077
+    displayName: LocKey#SJ_DangerRoom_name
+    localizedDescription: LocKey#SJ_DangerRoom_description
+    blueprint: Items.Iconic_Ranged_Weapon_Blueprint
+    appearanceResourceName: seijax_dangerroom_appfile
+    visualTags: [ Default ]
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_dangerroom
+    crosshair: Crosshairs.Hex
+    fxPackage: WeaponFxPackage.PowerShotgun
+    tags:
+    -   !append DangerRoom
+    -   !append IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartList:
+    -   $base: Items.Base_Saratoga_inline2
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DangerRoom__rcv
+    -   $base: Items.Base_Saratoga_inline4
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DangerRoom__base
+    -   Items.Base_Saratoga_inline6
+    -   Items.Base_Saratoga_inline8
+    -   Items.HandgunPossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.RiflePossibleMuzzleBrakeList
+    slotPartListPreset:
+    -   $base: Items.Preset_Saratoga_Arasaka_2020_inline0
+        itemPartPreset: Items.SJ_DangerRoom__rcv
+    -   $base: Items.Preset_Saratoga_Arasaka_2020_inline1
+        itemPartPreset: Items.SJ_DangerRoom__base
+    -   Items.Preset_Saratoga_Arasaka_2020_inline2
+    -   Items.Preset_Saratoga_Arasaka_2020_inline3
+    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Saratoga_Arasaka_2020_inline4
+#    -   Items.Preset_Saratoga_Arasaka_2020_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_DangerRoomWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !remove Items.Base_Power_Submachinegun_Stats
+    -   !remove Items.Base_Saratoga_Spread_Stats
+    -   !append
+        $type: StatModifierGroup
+        statModifiers:
+        -   $base: BaseStats.RicochetChanceModifier
+            value: 1.0
+        -   $base: BaseStats.RicochetCountModifier
+            value: 3.0
+        -   $base: BaseStats.RicochetMinAngleModifier
+            value: 0.0
+        -   $base: BaseStats.RicochetMaxAngleModifier
+            value: 75.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.RicochetTargetSearchAngle
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.CanSeeRicochetVisuals
+            modifierType: Multiplier
+            value: 0.0
+    -   !append
+        $type: StatModifierGroup
+        statModifiers:
+        -   $base: BaseStats.SpreadMinXModifier
+            value: 5.0
+        -   $base: BaseStats.SpreadMinYModifier
+            value: 5.0
+        -   $base: BaseStats.SpreadUseInAdsModifier
+            value: 1.0
+        -   $base: BaseStats.SpreadAdsMinXModifier
+            value: 1.0
+        -   $base: BaseStats.SpreadAdsMinYModifier
+            value: 1.0
+        -   $base: BaseStats.SpreadResetSpeedModifier
+            value: 1.25
+        -   $base: BaseStats.SpreadResetTimeThresholdModifier
+            value: 0.3
+        -   $base: BaseStats.SpreadRandomizeOriginPointModifier
+            value: 0.0
+        -   $base: BaseStats.SpreadChangePerShotModifier
+            value: 0.5
+        -   $base: BaseStats.SpreadAdsChangePerShotModifier
+            value: 0.0
+        -   $base: BaseStats.SpreadUseCircularSpreadModifier
+            value: 1.0
+
+Items.SJ_DangerRoom_Shop:
+    $base: Items.SJ_DangerRoom
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.wat_kab_gunsmith_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_DangerRoom_Shop
+        quantity:
+        -   !append-once Vendors.Always_Present
+        generationPrereqs:
+        -   !append-once LootPrereqs.PlayerLevel_Tier_1_Start_Prereq

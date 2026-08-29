@@ -1,0 +1,230 @@
+WeaponFxPackage.PowerDiceFxPackage:
+    $base: WeaponFxPackage.PowerHandgun
+#    vfx_impact_add_enable: true
+#    vfx_impact_add: base\fx\weapons\impacts\_elemental\electric\imp_add_on_electric_shotgun.effect
+    vfx_hitscan_trail: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    NPC_vfx_hitscan_trail: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    vfx_hitscan_trail_slowmo: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    vfx_hitscan_trail_ricochet: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+
+QuickHack.DiceOverload:
+    $base: QuickHack.CovertHack
+    hackCategory: HackCategory.DamageHack
+    actionName: Overload
+    objectActionUI: Interactions.EMPOverloadHack
+    costs: []
+    activationTime: 
+    -   $type: ConstantStatModifier
+        statType: BaseStats.QuickHackUpload
+        modifierType: Additive
+        value: 0.0
+    instigatorPrereqs: []
+    startEffects: []
+    completionEffects:
+    -   !append
+        $type: ObjectActionEffect
+        statusEffect: 
+            $base: BaseStatusEffect.OverloadLevel2
+            gameplayTags:
+            -   !append-once Stealth
+        recipient: ObjectActionReference.Target
+    -   !append-once QuickHack.OverloadControlQuickhackExtension
+    -   !append 
+        $type: ObjectActionEffect
+        recipient: ObjectActionReference.Target
+        effectorToTrigger: 
+            $type: ApplyStatusEffectEffector
+            prereqRecord:
+                $type: StatusEffectPrereq
+                objectToCheck: Target
+                checkType: CheckType.Tag
+                tagToCheck: PrimedWeakpoints
+            statusEffect: BaseStatusEffect.WeakspotDestructionStatusEffect
+    -   !append 
+        $type: ObjectActionEffect
+        recipient: ObjectActionReference.Target
+        effectorToTrigger:
+            $type: Effector
+            prereqRecord:
+                $base: Prereqs.ANDPrereq
+                nestedPrereqs:
+                -   BaseStatusEffect.NotJustDestroyedWeakspotPrereq
+                -   $type: StatusEffectPrereq
+                    objectToCheck: Target
+                    checkType: CheckType.Tag
+                    tagToCheck: PrimedWeakpoints
+            effectorClassName: DestroyBreachEffector
+
+Items.SND_DiceWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Dice_iconic_description
+    effectors:
+    -   $type: ModifyStatPoolValueEffector
+        prereqRecord:
+            $type: StatusEffectPrereq
+            objectToCheck: Player
+            statusEffect: BaseStatusEffect.SJ_SwapFromSlice
+        statPoolUpdates:
+        -   $type: StatPoolUpdate
+            statPoolType: BaseStatPools.Stamina
+            statPoolValue: 50.0
+        usePercent: true
+    -   $base: Effectors.ApplyQuickhackEffector
+        prereqRecord: Prereqs.SJ_ChargedShotHitOrMiss
+        objectAction: QuickHack.DiceOverload
+        uploadChance: 1.0
+    -   $base: Effectors.TriggerAttackOnTargetEffect
+        prereqRecord: Prereqs.SJ_ChargedShotHitOrMiss
+        isRandom: true
+        applicationChance: 1.0     
+        attackRecord:
+            $base: Attacks.BulletExplosion
+            attackType: AttackType.Direct
+            effectName: sj_iconic_effects
+            effectTag: electric_hit
+            hitFlags: [ Nonlethal ]
+            range: 0.1
+            hitReactionSeverityMin: 1
+            hitReactionSeverityMax: 3
+            statModifiers:
+            -   Attacks.NullPhysicalDamage
+#            -   $type: CombinedStatModifier
+#                opSymbol: '*'
+#                refObject: Owner
+#                refStat: BaseStats.DamagePerHit
+#                value: 1.0
+#                modifierType: Additive
+#                statType: BaseStats.ElectricDamage
+
+Items.SND_DiceWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SND_DiceWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BleedingApplicationRate
+        modifierType: Additive
+        value: 3.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BurningApplicationRate
+        modifierType: Additive
+        value: 3.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.PoisonedApplicationRate
+        modifierType: Additive
+        value: 3.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ElectrocutedApplicationRate
+        modifierType: Additive
+        value: 3.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BulletMagnetismDefaultAngle
+        modifierType: Multiplier
+        value: 2.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BulletMagnetismHighVelocityAngle
+        modifierType: Multiplier
+        value: 2.0
+
+Items.SND_Dice__rcv1:
+    $base: Items.w_handgun_militech_lexington__rcv1
+    appearanceResourceName: destinybu_lexington_app_rcv
+
+Items.SND_Dice__base1:
+    $base: Items.w_handgun_militech_lexington__base1
+    appearanceResourceName: destinybu_lexington_app_base
+
+Items.SND_Dice_Tech_Stats:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $base: BaseStats.ChargeDischargeTimeModifier
+        value: 1.0
+    -   $base: BaseStats.ChargeMaxTimeInChargedStateModifier
+        value: 0.0
+    -   $base: BaseStats.ChargeReadyPercentageModifier
+        value: 0.0
+    -   $base: BaseStats.ChargeTimeModifier
+        value: 1.0
+    -   $base: BaseStats.ChargeModifier
+        value: 100.0
+#    -   $base: BaseStats.TechPierceEnabledModifier
+#        value: 1.0
+#    -   $base: BaseStats.TechPierceChargeLevelModifier
+#        value: 0.9
+#    -   $base: BaseStats.TechPierceDamageFactorModifier
+#        value: -0.4
+
+Items.SND_Dice:
+    $base: Items.Preset_Lexington_Default
+    blueprint: Items.Iconic_Ranged_Weapon_Blueprint
+    displayName: LocKey#SJ_Dice_name
+    localizedDescription: LocKey#SJ_Dice_description
+    appearanceResourceName: destinybu_lexington_app
+    visualTags: [ Premium ]
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_dice
+    triggerModes: [ TriggerMode.FullAuto, TriggerMode.Charge ]
+    primaryTriggerMode: TriggerMode.FullAuto
+    secondaryTriggerMode: TriggerMode.Charge
+    fxPackage: WeaponFxPackage.PowerDiceFxPackage
+    evolution: WeaponEvolution.Tech
+    crosshair: Crosshairs.Tech_Simple
+    statPools:
+    -   !append-once BaseStatPools.WeaponCharge
+    tags:
+    -   !append-once IconicWeapon
+    slotPartList:
+    -   $base: Items.Base_Lexington_inline2
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SND_Dice__rcv1
+    -   $base: Items.Base_Lexington_inline4
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SND_Dice__base1
+    -   Items.Base_Lexington_inline6
+    -   Items.Base_Lexington_inline8
+    -   Items.HandgunPossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.HandgunPossibleMuzzleBraksList
+    slotPartListPreset:
+    -   $base: Items.Preset_Base_Lexington_inline0
+        itemPartPreset: Items.SND_Dice__rcv1
+    -   $base: Items.Preset_Base_Lexington_inline1
+        itemPartPreset: Items.SND_Dice__base1
+    -   Items.Preset_Base_Lexington_inline2
+    -   Items.Preset_Base_Lexington_inline3
+    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Base_Lexington_inline4
+#    -   Items.Preset_Base_Lexington_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SND_DiceWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !append-once Items.Base_Tech_Stats
+    -   !append-once Items.SND_Dice_Tech_Stats
+    -   !append-once Items.HalfSpreadStatModifierGroup
+
+Items.SJ_Dice:
+    $base: Items.SND_Dice
+
+Items.SJ_Dice_Shop:
+    $base: Items.SND_Dice
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.pac_wwd_gunsmith_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_Dice_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_4_Start_Prereq

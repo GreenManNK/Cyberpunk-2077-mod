@@ -1,0 +1,71 @@
+# Hotscenes mod add-on by (c)anygoodname
+# Feb 9, 2025
+# File version: 1.0.0
+# Game version dependant edits.
+# Currently supporting game versions 2.12 - 2.21
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-51_-74_1_0.streamingsector
+      expectedNodes: 3036
+      nodeDeletions:
+        - index: 1591
+          type: worldStaticMeshNode
+        - index: 1615
+          type: worldStaticMeshNode
+        - index: 1629
+          type: worldStaticMeshNode
+        - index: 1634
+          type: worldStaticMeshNode
+        - index: 1635
+          type: worldStaticMeshNode
+        - index: 1636
+          type: worldStaticMeshNode
+        - index: 1643
+          type: worldStaticMeshNode
+        - index: 1644
+          type: worldStaticMeshNode
+        - index: 1646
+          type: worldStaticMeshNode
+        - index: 1647
+          type: worldStaticMeshNode
+        - index: 1649
+          type: worldStaticMeshNode
+        - index: 1660
+          type: worldStaticMeshNode
+        - index: 1724
+          type: worldStaticMeshNode
+        - index: 2284
+          type: worldInstancedMeshNode
+        - index: 2317
+          type: worldInstancedMeshNode
+        - index: 2336
+          type: worldInstancedMeshNode
+        - index: 2338
+          type: worldInstancedMeshNode
+        - index: 2358
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-50_-74_1_0.streamingsector
+      expectedNodes: 3840
+      nodeDeletions:
+        - index: 1767
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-51_-74_1_0.streamingsector
+      expectedNodes: 3036
+      nodeDeletions:
+        - index: 1561
+          type: worldStaticMeshNode
+        - index: 1596
+          type: worldStaticMeshNode
+        - index: 2299
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-26_-37_0_1.streamingsector
+      expectedNodes: 477
+      nodeDeletions:
+        - index: 147
+          type: worldStaticMeshNode
+        - index: 238
+          type: worldStaticMeshNode
+        - index: 316
+          type: worldInstancedMeshNode
+        - index: 342
+          type: worldInstancedMeshNode

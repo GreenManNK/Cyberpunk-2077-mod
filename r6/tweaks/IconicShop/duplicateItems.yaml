@@ -1,0 +1,779 @@
+### Iconic Ranged Weapons ###
+  ## Iconic Pistols
+    # Her Majesty
+      Items.Preset_Unity_Agent_IS:
+        $base: Items.Preset_Unity_Agent
+    # Cheetah
+      Items.Preset_Unity_Angelica_IS:
+        $base: Items.Preset_Unity_Angelica
+    # Dying Night
+      Items.Preset_Lexington_Wilson_Legendary_IS:
+        $base: Items.Preset_Lexington_Wilson_Legendary
+    # Lexington x-MOD2
+      Items.Preset_Lexington_Shooting_Competition_IS:
+        $base: Items.Preset_Lexington_Shooting_Competition
+    # Rook
+      Items.Preset_Lexington_Rook_IS:
+        $base: Items.Preset_Lexington_Rook
+    # Kongou
+      Items.Preset_Liberty_Yorinobu_IS:
+        $base: Items.Preset_Liberty_Yorinobu
+    #Plan B
+      Items.Preset_Liberty_Dex_IS:
+        $base: Items.Preset_Liberty_Dex
+    # Pride
+      Items.Preset_Liberty_Rogue_IS:
+        $base: Items.Preset_Liberty_Rogue
+    # Seraph
+      Items.Preset_Liberty_Padre_IS:
+        $base: Items.Preset_Liberty_Padre
+    # Death and Taxes
+      Items.Preset_Nue_Maiko_IS:
+        $base: Items.Preset_Nue_Maiko
+    # La Chingona Dorada
+      Items.Preset_Nue_Jackie_IS:
+        $base: Items.Preset_Nue_Jackie
+    # Riskit
+      Items.Preset_Nue_Bree_IS:
+        $base: Items.Preset_Nue_Bree
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Malorian Arms 3516
+      Items.Preset_Silverhand_3516_IS:
+        $base: Items.Preset_Silverhand_3516
+    # Genjiroh
+      Items.Preset_Yukimura_Kiji_IS:
+        $base: Items.Preset_Yukimura_Kiji
+    # Skippy
+      Items.Preset_Yukimura_Skippy_IS:
+        $base: Items.Preset_Yukimura_Skippy
+    # Crimestopper
+      Items.Preset_Kappa_George_IS:
+        $base: Items.Preset_Kappa_George
+    # Kappa x-MOD2
+      Items.Preset_Kappa_Legendary_IS:
+        $base: Items.Preset_Kappa_Legendary
+    # Ogou
+      Items.Preset_Chao_VooDoo_IS:
+        $base: Items.Preset_Chao_VooDoo
+    # Apparition
+      Items.Preset_Kenshin_Frank_IS:
+        $base: Items.Preset_Kenshin_Frank
+    # Chaos
+      Items.Preset_Kenshin_Royce_IS:
+        $base: Items.Preset_Kenshin_Royce
+    # Ambition
+      Items.Preset_Kenshin_Spy_IS:
+        $base: Items.Preset_Kenshin_Spy
+    # Catahoula
+      Items.Preset_Grit_Amazon_IS:
+        $base: Items.Preset_Grit_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Lizzie
+      Items.Preset_Omaha_Suzie_IS:
+        $base: Items.Preset_Omaha_Suzie
+    # Pariah
+      Items.Preset_Ticon_Reed_IS:
+        $base: Items.Preset_Ticon_Reed
+    # Scorch
+      Items.Preset_Ticon_Gwent_IS:
+        $base: Items.Preset_Ticon_Gwent
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+  ## Iconic Revolvers
+    # Doom Doom
+      Items.Preset_Nova_Doom_Doom_IS:
+        $base: Items.Preset_Nova_Doom_Doom
+    # Mancinella
+      Items.Preset_Nova_Hitman_IS:
+        $base: Items.Preset_Nova_Hitman
+    # Amnesty
+      Items.Preset_Overture_Cassidy_IS:
+        $base: Items.Preset_Overture_Cassidy
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Archangel
+      Items.Preset_Overture_Kerry_IS:
+        $base: Items.Preset_Overture_Kerry
+    # Crash
+      Items.Preset_Overture_River_IS:
+        $base: Items.Preset_Overture_River
+    # Overture x-MOD2
+      Items.Preset_Overture_Dodger_IS:
+        $base: Items.Preset_Overture_Dodger
+    # Ol` Reliable
+      Items.Preset_Overture_Dante_IS:
+        $base: Items.Preset_Overture_Dante
+    # Taigan
+      Items.Preset_Metel_AirDrop_IS:
+        $base: Items.Preset_Metel_AirDrop
+    # Bald Eagle
+      Items.Preset_Metel_Kurt_IS:
+        $base: Items.Preset_Metel_Kurt
+    # Comrade's Hammer
+      Items.Preset_Burya_Comrade_IS:
+        $base: Items.Preset_Burya_Comrade
+    # Laika
+      Items.Preset_Burya_AirDrop_IS:
+        $base: Items.Preset_Burya_AirDrop
+    # Gris-Gris
+      Items.Preset_Quasar_Baron_IS:
+        $base: Items.Preset_Quasar_Baron
+  ## Iconic Shotguns
+    # The Headsman
+      Items.Preset_Tactician_Headsman_IS:
+        $base: Items.Preset_Tactician_Headsman
+    # Bloody Maria
+      Items.Preset_Tactician_Dino_IS:
+        $base: Items.Preset_Tactician_Dino
+    # Mox
+      Items.Preset_Carnage_Mox_IS:
+        $base: Items.Preset_Carnage_Mox
+    # Guts
+      Items.Preset_Carnage_Edgerunners_IS:
+        $base: Items.Preset_Carnage_Edgerunners
+    # Amstaff
+      Items.Preset_Crusher_Amazon_IS:
+        $base: Items.Preset_Crusher_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Dezerter  
+      Items.Preset_Testera_Nicolas_IS:
+        $base: Items.Preset_Testera_Nicolas
+    # Sovereign
+      Items.Preset_Igla_Sovereign_IS:
+        $base: Items.Preset_Igla_Sovereign
+    # Alabai
+      Items.Preset_Pozhar_AirDrop_IS:
+        $base: Items.Preset_Pozhar_AirDrop
+    # Pozhar x-MOD2 
+      Items.Preset_Pozhar_Legendary_IS:
+        $base: Items.Preset_Pozhar_Legendary
+    # Ba Xing Chong    
+      Items.Preset_Zhuo_Eight_Star_IS:
+        $base: Items.Preset_Zhuo_Eight_Star
+    # Order      
+      Items.Preset_Satara_Brick_IS:
+        $base: Items.Preset_Satara_Brick
+  ## Iconic Submachine Guns
+    # Fenrir
+      Items.Preset_Saratoga_Maelstrom_IS:
+        $base: Items.Preset_Saratoga_Maelstrom
+    # Problem Solver
+      Items.Preset_Saratoga_Raffen_IS:
+        $base: Items.Preset_Saratoga_Raffen
+    # Guillotine x-MOD2
+      Items.Preset_Guillotine_Collectible_IS:
+        $base: Items.Preset_Guillotine_Collectible
+    # Buzzsaw
+      Items.Preset_Pulsar_Buzzsaw_IS:
+        $base: Items.Preset_Pulsar_Buzzsaw
+    # Midnight Arms Erebus
+      Items.Preset_Borg4a_HauntedGun_IS:
+        $base: Items.Preset_Borg4a_HauntedGun
+    # Prototype: Shingen Mark V
+      Items.Preset_Shingen_Prototype_IS:
+        $base: Items.Preset_Shingen_Prototype
+    # Yinglong
+      Items.Preset_Dian_Yinglong_IS:
+        $base: Items.Preset_Dian_Yinglong
+    # Pizdets
+      Items.Preset_Warden_Boris_IS:
+        $base: Items.Preset_Warden_Boris
+    # Chesapeake
+      Items.Preset_Warden_Amazon_IS:
+        $base: Items.Preset_Warden_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Raiju
+      Items.Preset_Senkoh_Prototype_IS:
+        $base: Items.Preset_Senkoh_Prototype
+  ## Iconic Assault Rifles
+    # Prejudice
+      Items.Preset_Masamune_Rogue_IS:
+        $base: Items.Preset_Masamune_Rogue
+    # Carmen  
+      Items.Preset_Umbra_Bebe_IS:
+        $base: Items.Preset_Umbra_Bebe
+    # Umbra x-MOD2
+      Items.Preset_Umbra_Collectible_IS:
+        $base: Items.Preset_Umbra_Collectible
+    # Kyubi x-MOD2
+      Items.Preset_Kyubi_Legendary_IS:
+        $base: Items.Preset_Kyubi_Legendary
+    # Hawk
+      Items.Preset_Kyubi_Myers_IS:
+        $base: Items.Preset_Kyubi_Myers
+    # Chinook
+      Items.Preset_Kyubi_Amazon_IS:
+        $base: Items.Preset_Kyubi_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Moron Labe
+      Items.Preset_Ajax_Moron_IS:
+        $base: Items.Preset_Ajax_Moron
+    # Pit Bull
+      Items.Preset_Ajax_Amazon_IS:
+        $base: Items.Preset_Ajax_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Psalm 11:6
+      Items.Preset_Copperhead_Genesis_IS:
+        $base: Items.Preset_Copperhead_Genesis
+    # Divided We Stand
+      Items.Preset_Sidewinder_Divided_IS:
+        $base: Items.Preset_Sidewinder_Divided
+    # Militech Hercules 3AX
+      Items.Preset_Hercules_Prototype_IS:
+        $base: Items.Preset_Hercules_Prototype
+  ## Iconic Machine Guns
+    # Wild Dog
+      Items.Preset_Defender_Kurt_IS:
+        $base: Items.Preset_Defender_Kurt
+    # MA70 HB x-MOD2
+      Items.Preset_MA70_Collectible_IS:
+        $base: Items.Preset_MA70_Collectible
+  ## Iconic Precision Rifles
+    # Hypercritical
+      Items.Preset_Kolac_Tiny_Mike_IS:
+        $base: Items.Preset_Kolac_Tiny_Mike
+    # Widow Maker
+      Items.Preset_Achilles_Nash_IS:
+        $base: Items.Preset_Achilles_Nash
+    # Achilles x-MOD2
+      Items.Preset_Achilles_Collectible_IS:
+        $base: Items.Preset_Achilles_Collectible
+  ## Iconic Sniper Rifles
+    # O'Five
+      Items.Preset_Grad_Buck_IS:
+        $base: Items.Preset_Grad_Buck
+    # Overwatch
+      Items.Preset_Grad_Panam_IS:
+        $base: Items.Preset_Grad_Panam
+    # Sparky
+      Items.Preset_Grad_Scav_IS:
+        $base: Items.Preset_Grad_Scav
+    # Borzaya
+      Items.Preset_Grad_AirDrop_IS:
+        $base: Items.Preset_Grad_AirDrop
+    # Osprey
+      Items.Preset_Osprey_Prototype_IS:
+        $base: Items.Preset_Osprey_Prototype
+    # Yasha
+      Items.Preset_Ashura_Twitch_IS:
+        $base: Items.Preset_Ashura_Twitch
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Breakthrough
+      Items.Preset_Nekomata_Breakthrough_IS:
+        $base: Items.Preset_Nekomata_Breakthrough
+    # Foxhound
+      Items.Preset_Nekomata_Amazon_IS:
+        $base: Items.Preset_Nekomata_Amazon
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+    # Tsunami Rasetsu
+      Items.Preset_Rasetsu_Prototype_IS:
+        $base: Items.Preset_Rasetsu_Prototype
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+### Iconic Melee Weapons ###
+  # Iconic 2H Clubs and Hammers
+    # Gold-plated baseball bat
+      Items.Preset_Baseball_Bat_Denny_IS:
+        $base: Items.Preset_Baseball_Bat_Denny
+    # Baby Boomer
+      Items.Preset_Baseball_Bat_Malina_IS:
+        $base: Items.Preset_Baseball_Bat_Malina
+    # Baseball Bat x-MOD2
+      Items.Preset_Baseball_Bat_Legendary_IS:
+        $base: Items.Preset_Baseball_Bat_Legendary
+    # Caretaker's Spade
+      Items.Preset_Shovel_Caretaker_IS:
+        $base: Items.Preset_Shovel_Caretaker
+    # Sasquatch's Hammer
+      Items.w_melee_boss_hammer_IS:
+        $base: Items.w_melee_boss_hammer
+  # Iconic 1H Clubs and Hammers
+    # Cottonmouth
+      Items.Preset_Cane_Fingers_IS:
+        $base: Items.Preset_Cane_Fingers
+    # Sir John Phallustiff
+      Items.Preset_Dildo_Stout_IS:
+        $base: Items.Preset_Dildo_Stout
+    # BFC 9000
+      Items.Preset_Dildo_SexShop_IS:
+        $base: Items.Preset_Dildo_SexShop
+    # Tinker Bell
+      Items.Preset_Baton_Tinker_Bell_IS:
+        $base: Items.Preset_Baton_Tinker_Bell
+    # Murphy's Law
+      Items.Preset_Baton_Murphy_IS:
+        $base: Items.Preset_Baton_Murphy
+    # Crowbar
+      Items.Preset_Crowbar_Bunker_IS:
+        $base: Items.Preset_Crowbar_Bunker
+  # Iconic Katana
+    # Byakko
+      Items.Preset_Katana_Wakako_IS:
+        $base: Items.Preset_Katana_Wakako
+    # Cocktail Stick
+      Items.Preset_Katana_Cocktail_IS:
+        $base: Items.Preset_Katana_Cocktail
+    # Jinchu-Maru
+      Items.Preset_Katana_Takemura_IS:
+        $base: Items.Preset_Katana_Takemura
+    # Satori
+      Items.Preset_Katana_Saburo_IS:
+        $base: Items.Preset_Katana_Saburo
+    # Scalpel
+      Items.Preset_Katana_Surgeon_IS:
+        $base: Items.Preset_Katana_Surgeon
+    # Tsumetogi
+      Items.Preset_Katana_Hiromi_IS:
+        $base: Items.Preset_Katana_Hiromi
+    # Errata
+      Items.Preset_Katana_E3_IS:
+        $base: Items.Preset_Katana_E3
+    # Black Unicorn
+      Items.Preset_Katana_GoG_IS:
+        $base: Items.Preset_Katana_GoG
+  # Iconic Knives
+    # Butcher's Cleaver
+      Items.Preset_Butchers_Knife_Iconic_IS:
+        $base: Items.Preset_Butchers_Knife_Iconic
+    # Blue Fang
+      Items.Preset_Neurotoxin_Knife_Iconic_IS:
+        $base: Items.Preset_Neurotoxin_Knife_Iconic
+    # Headhunter
+      Items.Preset_Punk_Knife_Iconic_IS:
+        $base: Items.Preset_Punk_Knife_Iconic
+    # Stinger
+      Items.Preset_Knife_Stinger_IS:
+        $base: Items.Preset_Knife_Stinger
+    # Fang
+      Items.Preset_Knife_Kurtz_1_IS:
+        $base: Items.Preset_Knife_Kurtz_1
+    # Nehan
+      Items.Preset_Tanto_Saburo_IS:
+        $base: Items.Preset_Tanto_Saburo
+  # Other iconic melee weapons
+    # VB_Axe
+      Items.Preset_VB_Axe_IS:
+        $base: Items.Preset_VB_Axe
+    # Claw x-MOD2
+      Items.Preset_Fanged_Axe_Collectible_IS:
+        $base: Items.Preset_Fanged_Axe_Collectible
+    # Cut-o-Matic x-MOD2
+      Items.Preset_Chainsword_Legendary_IS:
+        $base: Items.Preset_Chainsword_Legendary
+    # Volkodav
+      Items.Preset_Machete_Borg_AirDrop_IS:
+        $base: Items.Preset_Machete_Borg_AirDrop
+    # Gwynbleidd
+      Items.Preset_Sword_Witcher_IS:
+        $base: Items.Preset_Sword_Witcher
+        statModifiers:
+        - !remove Character.ScaleToPlayerLevel
+        - !remove Character.ScaleToPlayerPowerLevel
+        scaleToPlayer: false
+        scaleToPlayerInStash: false
+### Iconic Cyberware ###
+  ## Iconic Circulatory System
+    # Electromag Recycler
+      Items.IconicDischargeConnectorLegendary_IS:
+        $base: Items.IconicDischargeConnectorLegendary
+        nextUpgradeItem: Items.IconicDischargeConnectorLegendaryPlus
+      Items.IconicDischargeConnectorLegendaryPlusPlus_IS:
+        $base: Items.IconicDischargeConnectorLegendaryPlusPlus
+    # Isometric Stabilizer
+      Items.IconicShockAbsorberLegendary_IS:
+        $base: Items.IconicShockAbsorberLegendary
+        nextUpgradeItem: Items.IconicShockAbsorberLegendaryPlus
+      Items.IconicShockAbsorberLegendaryPlusPlus_IS:
+        $base: Items.IconicShockAbsorberLegendaryPlusPlus
+  ## Iconic Face Implants
+    # Behavioral Imprint-synced Faceplate
+      Items.MaskCW_IS:
+        $base: Items.MaskCW
+        nextUpgradeItem: Items.MaskCWPlus
+      Items.MaskCWPlusPlus_IS:
+        $base: Items.MaskCWPlusPlus
+    # Kiroshi 'Cockatrice' Optics
+      Items.Iconic_AdvancedKiroshiOpticsBareLegendary_IS:
+        $base: Items.Iconic_AdvancedKiroshiOpticsBareLegendary
+        nextUpgradeItem: Items.Iconic_AdvancedKiroshiOpticsBareLegendaryPlus
+      Items.Iconic_AdvancedKiroshiOpticsBareLegendaryPlusPlus_IS:
+        $base: Items.Iconic_AdvancedKiroshiOpticsBareLegendaryPlusPlus
+  ## Iconic Frontal Cortex
+    # Axolotl
+      Items.IconicAdvancedSubdermalCoProcessorLegendary_IS:
+        $base: Items.IconicAdvancedSubdermalCoProcessorLegendary
+        nextUpgradeItem: Items.IconicAdvancedSubdermalCoProcessorLegendaryPlus
+      Items.IconicAdvancedSubdermalCoProcessorLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedSubdermalCoProcessorLegendaryPlusPlus
+    # COX-2 Cybersomatic Optimizer
+      Items.IconicBioConductorsLegendary_IS:
+        $base: Items.IconicBioConductorsLegendary
+        nextUpgradeItem: Items.IconicBioConductorsLegendaryPlus
+      Items.IconicBioConductorsLegendaryPlusPlus_IS:
+        $base: Items.IconicBioConductorsLegendaryPlusPlus
+    # RAM Reallocator
+      Items.IconicCamilloRamManagerLegendary_IS:
+        $base: Items.IconicCamilloRamManagerLegendary
+        nextUpgradeItem: Items.IconicCamilloRamManagerLegendaryPlus_1
+      Items.IconicCamilloRamManagerLegendaryPlusPlus_IS:
+        $base: Items.IconicCamilloRamManagerLegendaryPlusPlus
+    # Quantum Tuner
+      Items.AdvancedTimeBankLegendary_IS:
+        $base: Items.AdvancedTimeBankLegendary
+        nextUpgradeItem: Items.AdvancedTimeBankLegendaryPlus  
+      Items.AdvancedTimeBankLegendaryPlusPlus_IS:
+        $base: Items.AdvancedTimeBankLegendaryPlusPlus    
+  ## Iconic Hands Implants
+    # Immovable Force
+      Items.IconicGunStabilizerCommon_IS:
+        $base: Items.IconicGunStabilizerCommon
+        nextUpgradeItem: Items.IconicGunStabilizerCommonPlus
+      Items.IconicGunStabilizerLegendary_IS:
+        $base: Items.IconicGunStabilizerLegendary
+        nextUpgradeItem: Items.IconicGunStabilizerLegendaryPlus
+      Items.IconicGunStabilizerLegendaryPlusPlus_IS:
+        $base: Items.IconicGunStabilizerLegendaryPlusPlus
+  ## Iconic Integumentary System
+    # Chitin
+      Items.IconicAdvancedChitonCommon_IS:
+        $base: Items.IconicAdvancedChitonCommon
+        nextUpgradeItem: Items.IconicAdvancedChitonCommonPlus
+      Items.IconicAdvancedChitonLegendary_IS:
+        $base: Items.IconicAdvancedChitonLegendary
+        nextUpgradeItem: Items.IconicAdvancedChitonLegendaryPlus
+      Items.IconicAdvancedChitonLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedChitonLegendaryPlusPlus
+    # Peripheral Inverse
+      Items.IconicAdvancedProximityReducerLegendary_IS:
+        $base: Items.IconicAdvancedProximityReducerLegendary
+        nextUpgradeItem: Items.IconicAdvancedProximityReducerLegendaryPlus
+      Items.IconicAdvancedProximityReducerLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedProximityReducerLegendaryPlusPlus
+  ## Iconic Legs Implants
+    # Leeroy Ligament System
+      Items.IconicJenkinsTendonsLegendary_IS:
+        $base: Items.IconicJenkinsTendonsLegendary
+        nextUpgradeItem: Items.IconicJenkinsTendonsLegendaryPlus
+      Items.IconicJenkinsTendonsLegendaryPlusPlus_IS:
+        $base: Items.IconicJenkinsTendonsLegendaryPlusPlus
+  ## Iconic Nervous System
+    # Adreno-trigger
+      Items.IconicAdvancedDetectorRushLegendary_IS:
+        $base: Items.IconicAdvancedDetectorRushLegendary
+        nextUpgradeItem: Items.IconicAdvancedDetectorRushLegendaryPlus
+      Items.IconicAdvancedDetectorRushLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedDetectorRushLegendaryPlusPlus
+    # Deep-field Visual Interface
+      Items.IconicAdvancedVisualCortexSupportCommon_IS:
+        $base: Items.IconicAdvancedVisualCortexSupportCommon
+        nextUpgradeItem: Items.IconicAdvancedVisualCortexSupportCommonPlus
+      Items.IconicAdvancedVisualCortexSupportLegendary_IS:
+        $base: Items.IconicAdvancedVisualCortexSupportLegendary
+        nextUpgradeItem: Items.IconicAdvancedVisualCortexSupportLegendaryPlus
+      Items.IconicAdvancedVisualCortexSupportLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedVisualCortexSupportLegendaryPlusPlus
+    # Revulsor 
+      Items.IconicAdvancedReflexRecorderLegendary_IS:
+        $base: Items.IconicAdvancedReflexRecorderLegendary
+        nextUpgradeItem: Items.IconicAdvancedReflexRecorderLegendaryPlus
+      Items.IconicAdvancedReflexRecorderLegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedReflexRecorderLegendaryPlusPlus
+  ## Iconic Operating System
+    # Chrome Compressor
+      Items.CapacityBoosterLegendary_IS:
+        $base: Items.CapacityBoosterLegendary
+        nextUpgradeItem: Items.CapacityBoosterLegendaryPlus
+      Items.CapacityBoosterLegendaryPlusPlus_IS:
+        $base: Items.CapacityBoosterLegendaryPlusPlus
+    # Militech Canto
+      Items.HauntedCyberdeck_Legendary_IS:
+        $base: Items.HauntedCyberdeck_Legendary
+        nextUpgradeItem: Items.HauntedCyberdeck_LegendaryPlus
+      Items.HauntedCyberdeck_LegendaryPlusPlus_IS:
+        $base: Items.HauntedCyberdeck_LegendaryPlusPlus
+  ## Iconic Skeleton Implants
+    # Rara Avis
+      Items.IconicAdvancedT1000Common_IS:
+        $base: Items.IconicAdvancedT1000Common
+        nextUpgradeItem: Items.IconicAdvancedT1000Uncommon
+        sideUpgradeItem: Items.IconicAdvancedT1000Common2
+      Items.IconicAdvancedT1000Legendary_IS:
+        $base: Items.IconicAdvancedT1000Legendary
+        nextUpgradeItem: Items.IconicAdvancedT1000LegendaryPlus
+      Items.IconicAdvancedT1000LegendaryPlusPlus_IS:
+        $base: Items.IconicAdvancedT1000LegendaryPlusPlus
+  ## Iconic Arms Implants
+    # Max TacMantis Blades
+      Items.AdvancedMaxTacMantisBladesLegendary_IS:
+        $base: Items.AdvancedMaxTacMantisBladesLegendary
+        nextUpgradeItem: Items.AdvancedMaxTacMantisBladesLegendaryPlus
+      Items.AdvancedMaxTacMantisBladesLegendaryPlusPlus_IS:
+        $base: Items.AdvancedMaxTacMantisBladesLegendaryPlusPlus
+### Iconic Quickhacks ###
+  ## Combat Iconic Quickhack
+    # Overheat
+      Items.OverheatLvl4PlusPlusProgram_IS:
+        $base: Items.OverheatLvl4PlusPlusProgram
+    # Short Circuit
+      Items.EMPOverloadLvl4PlusPlusProgram_IS:
+        $base: Items.EMPOverloadLvl4PlusPlusProgram
+    # Contagion
+      Items.ContagionLvl4PlusPlusProgram_IS:
+        $base: Items.ContagionLvl4PlusPlusProgram
+    # Synapse Burnout
+      Items.BrainMeltLvl4PlusPlusProgram_IS:
+        $base: Items.BrainMeltLvl4PlusPlusProgram
+  ## Control Iconic Quickhack
+    # Reboot Optics
+      Items.BlindLvl4PlusPlusProgram_IS:
+        $base: Items.BlindLvl4PlusPlusProgram
+    # Cyberware Malfunction
+      Items.DisableCyberwareLvl4PlusPlusProgram_IS:
+        $base: Items.DisableCyberwareLvl4PlusPlusProgram
+    # Cripple Movement
+      Items.LocomotionMalfunctionLvl4PlusPlusProgram_IS:
+        $base: Items.LocomotionMalfunctionLvl4PlusPlusProgram
+    # Weapon Glitch
+      Items.WeaponMalfunctionLvl4PlusPlusProgram_IS:
+        $base: Items.WeaponMalfunctionLvl4PlusPlusProgram
+  ## Covert Iconic Quickhack
+    # Ping
+      Items.PingLvl4PlusPlusProgram_IS:
+        $base: Items.PingLvl4PlusPlusProgram
+    # Bait
+      Items.WhistleLvl4PlusPlusProgram_IS:
+        $base: Items.WhistleLvl4PlusPlusProgram
+    # Request Backup
+      Items.CommsCallInLvl4PlusPlusProgram_IS:
+        $base: Items.CommsCallInLvl4PlusPlusProgram
+    # Memory Wipe
+      Items.MemoryWipeLvl4PlusPlusProgram_IS:
+        $base: Items.MemoryWipeLvl4PlusPlusProgram
+    # Sonic Shock
+      Items.CommsNoiseLvl4PlusPlusProgram_IS:
+        $base: Items.CommsNoiseLvl4PlusPlusProgram
+  ## Ultimate Iconic Quickhack
+    # Cyberpsychosis
+      Items.MadnessLvl4PlusPlusProgram_IS:
+        $base: Items.MadnessLvl4PlusPlusProgram
+    # Suicide
+      Items.SuicideLvl4PlusPlusProgram_IS:
+        $base: Items.SuicideLvl4PlusPlusProgram
+    # System Collapse
+      Items.SystemCollapseLvl4PlusPlusProgram_IS:
+        $base: Items.SystemCollapseLvl4PlusPlusProgram
+    # DetonateGrenade
+      Items.GrenadeExplodeLvl4PlusPlusProgram_IS:
+        $base: Items.GrenadeExplodeLvl4PlusPlusProgram
+    # Blackwall Gateway
+      Items.BlackWallProgramLvl4Slot_IS:
+        $base: Items.BlackWallProgramLvl4
+        tags:
+        - !remove HideInUI
+        - !remove DummyPart
+        statModifiers:
+        - !append Quality.IconicItem
+### Iconic Mods ###
+    # Severance
+      Items.ChimeraMeleeMod_IS:
+        $base: Items.ChimeraMeleeMod
+    # Firecracker
+      Items.ChimeraPowerMod_IS:
+        $base: Items.ChimeraPowerMod
+    # Wallpuncher
+      Items.ChimeraTechMod_IS:
+        $base: Items.ChimeraTechMod
+    # Hackatomy
+      Items.ChimeraSmartMod_IS:
+        $base: Items.ChimeraSmartMod
+### Iconic Clothes ###
+    # Twitch set
+      Items.Twitch_Drop_Specs_IS:
+        $base: Items.Twitch_Drop_Specs
+      Items.Twitch_Drop_Vest_IS:
+        $base: Items.Twitch_Drop_Vest
+      Items.Twitch_Drop_Pants_IS:
+        $base: Items.Twitch_Drop_Pants
+      Items.Twitch_Drop_Boots_IS:
+        $base: Items.Twitch_Drop_Boots
+    # Johnny`s set
+      Items.Q005_Johnny_Glasses_IS:
+        $base: Items.Q005_Johnny_Glasses
+      Items.SQ031_Samurai_Jacket_IS:
+        $base: Items.SQ031_Samurai_Jacket
+      Items.Q005_Johnny_Shirt_IS:
+        $base: Items.Q005_Johnny_Shirt
+      Items.Q005_Johnny_Pants_IS:
+        $base: Items.Q005_Johnny_Pants
+      Items.Q005_Johnny_Shoes_IS:
+        $base: Items.Q005_Johnny_Shoes
+    # Techie set
+      Items.Techie_01_Set_Cap_IS:
+        $base: Items.Techie_01_Set_Cap
+      Items.Techie_01_Set_Tech_IS:
+        $base: Items.Techie_01_Set_Tech
+      Items.Techie_01_Set_Vest_IS:
+        $base: Items.Techie_01_Set_Vest
+      Items.Techie_01_Set_TShirt_IS:
+        $base: Items.Techie_01_Set_TShirt
+      Items.Techie_01_Set_Pants_IS:
+        $base: Items.Techie_01_Set_Pants
+      Items.Techie_01_Set_Shoes_IS:
+        $base: Items.Techie_01_Set_Shoes
+    # Solo set
+      Items.Solo_01_Set_Visor_IS:
+        $base: Items.Solo_01_Set_Visor
+      Items.Solo_01_Set_Jacket_IS:
+        $base: Items.Solo_01_Set_Jacket
+      Items.Solo_01_Set_TShirt_IS:
+        $base: Items.Solo_01_Set_TShirt
+      Items.Solo_01_Set_Pants_IS:
+        $base: Items.Solo_01_Set_Pants
+      Items.Solo_01_Set_Boots_IS:
+        $base: Items.Solo_01_Set_Boots
+    # Rockerboy set
+      Items.Rockerboy_01_Set_Glasses_IS:
+        $base: Items.Rockerboy_01_Set_Glasses
+      Items.Rockerboy_01_Set_Jacket_IS:
+        $base: Items.Rockerboy_01_Set_Jacket
+      Items.Rockerboy_01_Set_TShirt_IS:
+        $base: Items.Rockerboy_01_Set_TShirt
+      Items.Rockerboy_01_Set_Pants_IS:
+        $base: Items.Rockerboy_01_Set_Pants
+      Items.Rockerboy_01_Set_Boots_IS:
+        $base: Items.Rockerboy_01_Set_Boots
+    # Cop set
+      Items.Cop_01_Set_Glasses_IS:
+        $base: Items.Cop_01_Set_Glasses
+      Items.Cop_01_Set_Jacket_IS:
+        $base: Items.Cop_01_Set_Jacket
+      Items.Cop_01_Set_Pants_IS:
+        $base: Items.Cop_01_Set_Pants
+      Items.Cop_01_Set_Boots_IS:
+        $base: Items.Cop_01_Set_Boots
+    # Nomad set
+      Items.Nomad_01_Set_Mask_IS:
+        $base: Items.Nomad_01_Set_Mask
+      Items.Nomad_01_Set_Jacket_IS:
+        $base: Items.Nomad_01_Set_Jacket
+      Items.Nomad_01_Set_TShirt_IS:
+        $base: Items.Nomad_01_Set_TShirt
+      Items.Nomad_01_Set_Pants_IS:
+        $base: Items.Nomad_01_Set_Pants
+      Items.Nomad_01_Set_Boots_IS:
+        $base: Items.Nomad_01_Set_Boots
+    # Netrunner set
+      Items.Netrunner_01_Set_Visor_IS:
+        $base: Items.Netrunner_01_Set_Visor
+      Items.Netrunner_01_Set_Jumpsuit_IS:
+        $base: Items.Netrunner_01_Set_Jumpsuit
+      Items.Netrunner_01_Set_Pants_IS:
+        $base: Items.Netrunner_01_Set_Pants
+      Items.Netrunner_01_Set_Shoes_IS:
+        $base: Items.Netrunner_01_Set_Shoes
+    # Media set
+      Items.Media_01_Set_Cap_IS:
+        $base: Items.Media_01_Set_Cap
+      Items.Media_01_Set_Tech_IS:
+        $base: Items.Media_01_Set_Tech
+      Items.Media_01_Set_Vest_IS:
+        $base: Items.Media_01_Set_Vest
+      Items.Media_01_Set_Shirt_IS:
+        $base: Items.Media_01_Set_Shirt
+      Items.Media_01_Set_Pants_IS:
+        $base: Items.Media_01_Set_Pants
+      Items.Media_01_Set_Shoes_IS:
+        $base: Items.Media_01_Set_Shoes
+    # Fixer set
+      Items.Fixer_01_Set_Glasses_IS:
+        $base: Items.Fixer_01_Set_Glasses
+      Items.Fixer_01_Set_Coat_IS:
+        $base: Items.Fixer_01_Set_Coat
+      Items.Fixer_01_Set_TShirt_IS:
+        $base: Items.Fixer_01_Set_TShirt
+      Items.Fixer_01_Set_Pants_IS:
+        $base: Items.Fixer_01_Set_Pants
+      Items.Fixer_01_Set_FormalShoes_IS:
+        $base: Items.Fixer_01_Set_FormalShoes
+    # Corporate set
+      Items.Corporate_01_Set_Glasses_IS:
+        $base: Items.Corporate_01_Set_Glasses
+      Items.Corporate_01_Set_FormalJacket_IS:
+        $base: Items.Corporate_01_Set_FormalJacket
+      Items.Corporate_01_Set_FormalShirt_IS:
+        $base: Items.Corporate_01_Set_FormalShirt
+      Items.Corporate_01_Set_Pants_IS:
+        $base: Items.Corporate_01_Set_Pants
+      Items.Corporate_01_Set_FormalShoes_IS:
+        $base: Items.Corporate_01_Set_FormalShoes
+    # MaxTac set
+      Items.SQ030_MaxTac_Helmet_IS:
+        $base: Items.SQ030_MaxTac_Helmet
+      Items.SQ030_MaxTac_Chest_IS:
+        $base: Items.SQ030_MaxTac_Chest
+      Items.SQ030_MaxTac_Pants_IS:
+        $base: Items.SQ030_MaxTac_Pants
+    # GOG set
+      Items.GOG_DLC_Jacket_IS:
+        $base: Items.GOG_DLC_Jacket
+      Items.GOG_Galaxy_TShirt_IS:
+        $base: Items.GOG_Galaxy_TShirt
+      Items.GOG_DLC_TShirt_IS:
+        $base: Items.GOG_DLC_TShirt
+      Items.Red_Play_Jacket_IS:
+        $base: Items.Red_Play_Jacket
+      Items.Red_Play_Vest_IS:
+        $base: Items.Red_Play_Vest
+      Items.Red_Play_TShirt_IS:
+        $base: Items.Red_Play_TShirt
+    # Edgerunner set
+      Items.MQ049_martinez_jacket_IS:
+        $base: Items.MQ049_martinez_jacket
+    # The Heist set
+      Items.Q005_Steel_Dragons_Coat_IS:
+        $base: Items.Q005_Steel_Dragons_Coat
+      Items.Q005_Yorinobu_FormalShirt_IS:
+        $base: Items.Q005_Yorinobu_FormalShirt
+      Items.Q005_Yorinobu_FormalPants_IS:
+        $base: Items.Q005_Yorinobu_FormalPants

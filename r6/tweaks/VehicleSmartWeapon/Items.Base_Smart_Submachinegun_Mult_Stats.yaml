@@ -1,0 +1,12 @@
+Items.Base_Smart_Vehicle_Mult_Stats:
+  $type: gamedataStatModifierGroup_Record
+  drawBasedOnStatType: False
+  optimiseCombinedModifiers: False
+  saveBasedOnStatType: False
+  statModsLimit: -1
+  relatedModifierGroups: []
+  statModifiers:
+    - AttackModifier.SmartWeaponDPSReduction
+    - Items.Base_Smart_Submachinegun_Mult_Stats_inline0
+    - Items.Base_Smart_Vehicle_Mult_Stats_inline1
+    - Items.Base_Smart_Submachinegun_Mult_Stats_inline2

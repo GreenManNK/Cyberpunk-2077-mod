@@ -1,0 +1,15 @@
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_28_34_2_0.streamingsector
+      expectedNodes: 1179
+      nodeMutations:
+        - index: 105 #industrial_curtain_d_clh 1834.58655 2238.02954 181.727371
+          type: worldClothMeshNode
+          position: [1812.80005,2227.5271,180.192413, 0.0]
+          orientation: [0.0, 0.0, -0.631925881,0.775028884]
+          scale: [1.0, 1.0, 1.0]
+        - index: 1101 #industrial_curtain_d_railing 1826.51025 2237.14746 181.727371
+          type: worldStaticMeshNode 
+          position: [1812.80005,2227.5271,180.192413, 0.0]
+          orientation: [0.0, 0.0, -0.631925881,0.775028884]
+          scale: [1.0, 1.0, 1.0]

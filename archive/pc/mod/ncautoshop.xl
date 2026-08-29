@@ -1,0 +1,87 @@
+quest:
+  phases:
+    - path: quest\ncautoshopi.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: quest\ncautoshopi.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: quest\ncautoshopi.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: quest\ncautoshopi.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: quest\ncautoshopi.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+    - path: quest\ncautoshopii.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: quest\ncautoshopii.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: quest\ncautoshopii.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: quest\ncautoshopii.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: quest\ncautoshopii.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+    - path: quest\ncautoshopiii_t.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: quest\ncautoshopiii_t.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: quest\ncautoshopiii_t.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: quest\ncautoshopiii_t.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: quest\ncautoshopiii_t.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+    - path: quest\center_autoshop.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: quest\center_autoshop.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: quest\center_autoshop.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: quest\center_autoshop.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: quest\center_autoshop.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+    - path: quest\jig.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: quest\jig.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: quest\jig.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: quest\jig.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: quest\jig.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+journal:
+    - journal\autoshop.journal
+localization:
+  onscreens:
+    ar-ar: localization\ar-ar\onscreens\autoshop.json
+    cz-cz: localization\cz-cz\onscreens\autoshop.json
+    de-de: localization\de-de\onscreens\autoshop.json
+    en-us: localization\en-us\onscreens\autoshop.json
+    es-es: localization\es-es\onscreens\autoshop.json
+    es-mx: localization\es-mx\onscreens\autoshop.json
+    fr-fr: localization\fr-fr\onscreens\autoshop.json
+    hu-hu: localization\hu-hu\onscreens\autoshop.json
+    it-it: localization\it-it\onscreens\autoshop.json
+    jp-jp: localization\jp-jp\onscreens\autoshop.json
+    kr-kr: localization\kr-kr\onscreens\autoshop.json
+    pl-pl: localization\pl-pl\onscreens\autoshop.json
+    pt-br: localization\pt-br\onscreens\autoshop.json
+    ru-ru: localization\ru-ru\onscreens\autoshop.json
+    th-th: localization\th-th\onscreens\autoshop.json
+    tr-tr: localization\tr-tr\onscreens\autoshop.json
+    ua-ua: localization\ua-ua\onscreens\autoshop.json
+    zh-cn: localization\zh-cn\onscreens\autoshop.json
+    zh-tw: localization\zh-tw\onscreens\autoshop.json
+streaming:
+  blocks:
+  - ncautoshop/all.streamingblock
+resource:
+  patch:
+    ncautoshop/custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices

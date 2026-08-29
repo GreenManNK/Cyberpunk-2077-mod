@@ -1,0 +1,22 @@
+streaming:
+  sectors:
+  - nodeDeletions:
+    - type: worldCollisionNode
+      index: 324
+      actorDeletions:
+      - 26
+      expectedActors: 128
+    - type: worldCollisionNode
+      index: 327
+      actorDeletions:
+      - 20
+      expectedActors: 128
+    - type: worldCollisionNode
+      index: 322
+      actorDeletions:
+      - 67
+      - 97
+      - 98
+      expectedActors: 128
+    expectedNodes: 435
+    path: base\worlds\03_night_city\_compiled\default\exterior_14_17_1_1.streamingsector

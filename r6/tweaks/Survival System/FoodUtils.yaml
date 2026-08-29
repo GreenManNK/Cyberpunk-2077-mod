@@ -1,0 +1,152 @@
+Items.EatUncommon:
+  $base: Items.Food_inline0
+  completionEffects:
+  - $base: Items.Food_inline1
+    statusEffect: BaseStatusEffect.WellFedUncommon
+
+Items.EatRare:
+  $base: Items.Food_inline0
+  completionEffects:
+  - $base: Items.Food_inline1
+    statusEffect: BaseStatusEffect.WellFedRare
+
+Items.EatEpic:
+  $base: Items.Food_inline0
+  completionEffects:
+  - $base: Items.Food_inline1
+    statusEffect: BaseStatusEffect.WellFedEpic
+
+Items.FoodOnEquipUncommon:
+  $base: Items.Food_inline2
+  UIData:
+    $base: Items.Food_inline3
+    floatValues:
+      - 0.6
+    intValues:
+      - 6
+
+Items.FoodOnEquipRare:
+  $base: Items.Food_inline2
+  UIData:
+    $base: Items.Food_inline3
+    floatValues:
+      - 0.8
+    intValues:
+      - 8
+
+Items.FoodOnEquipEpic:
+  $base: Items.Food_inline2
+  UIData:
+    $base: Items.Food_inline3
+    floatValues:
+      - 1.0
+    intValues:
+      - 10
+
+Items.WellFedDurationUncommon:
+  $base: Items.WellFedDuration
+  statModifiers:
+  - $base: Items.WellFedDuration_inline0
+    value: 600
+
+Items.WellFedDurationRare:
+  $base: Items.WellFedDuration
+  statModifiers:
+  - $base: Items.WellFedDuration_inline0
+    value: 900
+    
+Items.WellFedDurationEpic:
+  $base: Items.WellFedDuration
+  statModifiers:
+  - $base: Items.WellFedDuration_inline0
+    value: 1200
+
+BaseStatusEffect.WellFedUncommon:
+  $base: BaseStatusEffect.WellFed
+  duration: Items.WellFedDurationUncommon
+  uiData: BaseStatusEffect.WellFedUIdataUncommon
+  packages:
+  - BaseStatusEffect.WellFedPackagesUncommon
+  
+BaseStatusEffect.WellFedRare:
+  $base: BaseStatusEffect.WellFed
+  duration: Items.WellFedDurationRare
+  uiData: BaseStatusEffect.WellFedUIdataRare
+  packages:
+  - BaseStatusEffect.WellFedPackagesRare
+  
+BaseStatusEffect.WellFedEpic:
+  $base: BaseStatusEffect.WellFed
+  duration: Items.WellFedDurationEpic
+  uiData: BaseStatusEffect.WellFedUIdataEpic
+  packages:
+  - BaseStatusEffect.WellFedPackagesEpic
+
+BaseStatusEffect.WellFedPackagesUncommon:
+  $base: BaseStatusEffect.WellFed_inline0
+  stats:
+    - $base: BaseStatusEffect.WellFed_inline1
+      value: 0.06
+      modifierType: AdditiveMultiplier
+      statType: BaseStats.Health
+    - $base: BaseStatusEffect.WellFed_inline2
+      value: 0.6
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenRate
+    - $base: BaseStatusEffect.WellFed_inline3
+      value: 40
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenEndThreshold
+
+BaseStatusEffect.WellFedPackagesRare:
+  $base: BaseStatusEffect.WellFed_inline0
+  stats:
+    - $base: BaseStatusEffect.WellFed_inline1
+      value: 0.08
+      modifierType: AdditiveMultiplier
+      statType: BaseStats.Health
+    - $base: BaseStatusEffect.WellFed_inline2
+      value: 0.8
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenRate
+    - $base: BaseStatusEffect.WellFed_inline3
+      value: 40
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenEndThreshold
+
+BaseStatusEffect.WellFedPackagesEpic:
+  $base: BaseStatusEffect.WellFed_inline0
+  stats:
+    - $base: BaseStatusEffect.WellFed_inline1
+      value: 0.10
+      modifierType: AdditiveMultiplier
+      statType: BaseStats.Health
+    - $base: BaseStatusEffect.WellFed_inline2
+      value: 1.0
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenRate
+    - $base: BaseStatusEffect.WellFed_inline3
+      value: 40
+      modifierType: Additive
+      statType: BaseStats.HealthOutOfCombatRegenEndThreshold
+
+BaseStatusEffect.WellFedUIdataUncommon:
+  $base: BaseStatusEffect.WellFed_inline4
+  floatValues:
+    - 0.6
+  intValues:
+    - 6
+
+BaseStatusEffect.WellFedUIdataRare:
+  $base: BaseStatusEffect.WellFed_inline4
+  floatValues:
+    - 0.8
+  intValues:
+    - 8
+
+BaseStatusEffect.WellFedUIdataEpic:
+  $base: BaseStatusEffect.WellFed_inline4
+  floatValues:
+    - 1.0
+  intValues:
+    - 10

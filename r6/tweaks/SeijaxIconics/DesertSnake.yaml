@@ -1,0 +1,243 @@
+Items.SJ_DesertSnake__rcv1:
+    $base: Items.w_handgun__tsunami_nue__rcv1
+    appearanceResourceName: seijax_tamayura_appfile_rcv
+
+Items.SJ_DesertSnake__base1:
+    $base: Items.w_handgun__tsunami_nue__base1
+    appearanceResourceName: seijax_tamayura_appfile_base
+
+Items.SJ_DesertSnake__std1:
+    $base: Items.w_handgun__tsunami_nue__mag_std
+    appearanceResourceName: seijax_tamayura_appfile_std
+
+Items.SJ_DesertSnake__stdr1:
+    $base: Items.w_handgun__tsunami_nue__mag_stdr
+    appearanceResourceName: seijax_tamayura_appfile_stdr
+
+UIIcon.sj_snakemuzzle:
+    $type: UIIcon
+    atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+    atlasPartName: sj_seyes
+
+WeaponFxPackage.PowerSnakeFxPackage:
+    $base: WeaponFxPackage.PowerLargeCaliber
+    vfx_hitscan_trail: base\fx\weapons\trails\power\chemical\w_trail_chemical_power_hmg.effect
+    NPC_vfx_hitscan_trail: base\fx\weapons\trails\power\chemical\w_trail_chemical_power_hmg_npc.effect
+    vfx_hitscan_trail_slowmo: base\fx\weapons\trails\power\chemical\w_trail_chemical_power_hmg.effect
+    vfx_hitscan_trail_ricochet: base\fx\weapons\trails\power\chemical\w_trail_chemical_power_hmg.effect
+
+Attacks.SJ_DesertSnakeExplosiveBullet:
+    $base: Attacks.Bullet_GameEffect
+    hitFlags: [ Nonlethal ]
+    explosionAttack: #Attacks.BaseBiotechExplosion
+        $base: Attacks.BaseBiotechExplosion
+        effectName: sj_iconic_effects
+        effectTag: snake_aoe_explosion
+        range: 4.0
+        hitFlags:
+        -   Explosion
+        -   Nonlethal
+        statusEffects:
+        -   $type: StatusEffectAttackData
+            applyImmediately: true
+            statusEffect:
+                $base: BaseStatusEffect.HeavyPoision
+                packages:
+                -   !append
+                    $type: GameplayLogicPackage
+                    effectors:
+                    -   $base: Effectors.RemoveStatusEffectsEffector
+                        prereqRecord:
+                            $base: Prereqs.PreProcessHitReceived
+                            conditions:
+                            -   $base: Prereqs.AttackTagHitPrereqCondition
+                                attackTag: Poisoned
+                        effectTags: [ InhalerBuff, InjectorBuff, Regeneration ]
+        statModifiers:
+        -   $type: CombinedStatModifier
+            opSymbol: '*'
+            refObject: Owner
+            refStat: BaseStats.HitDismembermentFactor
+            value: 0.0
+            modifierType: Multiplier
+            statType: BaseStats.HitDismembermentFactor
+        hitReactionSeverityMin: 1
+        hitReactionSeverityMax: 1
+
+Attacks.SJ_DesertSnakeBulletFire:
+    $base: Attacks.PhysicalBullet
+    secondaryPlayerAttack: Attacks.SJ_DesertSnakeExplosiveBullet
+    secondaryPlayerTimeDilated: Attacks.SJ_DesertSnakeExplosiveBullet
+
+Attacks.SJ_DesertSnakeAttackPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.SJ_DesertSnakeBulletFire
+    chargeFire: Attacks.SJ_DesertSnakeBulletFire
+    
+Attacks.SJ_DesertSnakePrimaryHit:
+    $base: Attacks.BulletExplosion
+    attackType: AttackType.Direct
+    effectName: sj_iconic_effects
+    effectTag: snake_projectile_hit
+    range: 0.1
+    hitReactionSeverityMin: 2
+    hitReactionSeverityMax: 3
+    hitFlags: [ Nonlethal ]
+    statModifiers:
+    -   Attacks.NullPhysicalDamage
+
+Items.SJ_DesertSnakeWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_DesertSnake_iconic_description
+    effectors:
+    -   $base: Perks.ApplyStatGroupOnWeapon
+        prereqRecord: Prereqs.IsPrimaryTrigger
+        statGroup:
+            statModifiers:
+            -   $base: BaseStats.HitDismembermentFactorModifier
+                value: 999.0
+            -   $type: ConstantStatModifier
+                statType: BaseStats.ChemicalDamage
+                modifierType: Additive
+                value: 15.0
+    -   $base: Effectors.TriggerAttackOnTargetEffect
+        prereqRecord:
+            $base: Prereqs.ANDPrereq
+            nestedPrereqs:
+            -   Prereqs.IsPrimaryTrigger
+            -   $base: Prereqs.PostProcessHitTriggered
+                conditions:
+                -   $base: Prereqs.AttackTypeHitPrereqCondition
+                    attackType: Ranged
+                    onlyOncePerShot: true
+        attackRecord: Attacks.SJ_DesertSnakePrimaryHit
+        isRandom: true
+        applicationChance: 1.0
+    -   $base: Perks.ApplyStatGroupOnWeapon
+        prereqRecord: Prereqs.IsSecondaryTrigger
+        statGroup:
+            statModifiers:
+            -   $type: ConstantStatModifier
+                statType: BaseStats.DamagePerHit
+                modifierType: Multiplier
+                value: 0.2
+            -   $type: ConstantStatModifier
+                statType: BaseStats.RicochetCount
+                modifierType: Multiplier
+                value: 0.0
+            -   $type: ConstantStatModifier
+                statType: BaseStats.HitDismembermentFactor
+                modifierType: Multiplier
+                value: 0.0
+
+Items.SJ_DesertSnakeWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_DesertSnakeWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilCycleTime
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.EffectiveDamagePerHit
+        modifierType: Additive
+        value: 15.0
+
+Items.SJ_SnakeMuzzle:
+    $base: Items.w_silencer_03_legendary
+    appearanceResourceName: seijax_tamayura_appfile_muzzle
+    iconPath: "sj_snakemuzzle"
+    displayName: LocKey#SJ_SnakeEyes_name
+    statModifiers:
+    -   !append Quality.IconicItem
+
+Items.SJ_Desert_Snake:
+    $base: Items.Preset_Nue_Arasaka_2020
+    blueprint: Items.Iconic_Ranged_Weapon_Blueprint
+    displayName: LocKey#SJ_DesertSnake_name
+    localizedDescription: LocKey#SJ_DesertSnake_description
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_deserts
+    appearanceResourceName: seijax_tamayura_appfile
+    visualTags: [ Default ]
+    triggerModes: [ TriggerMode.SemiAuto, TriggerMode.SemiAuto ]
+    primaryTriggerMode: TriggerMode.SemiAuto
+    secondaryTriggerMode: TriggerMode.SemiAuto 
+    fxPackage: WeaponFxPackage.PowerSnakeFxPackage
+    rangedAttacks: Attacks.SJ_DesertSnakeAttackPackage
+    attacks:
+    -   !append Attacks.SJ_DesertSnakeExplosiveBullet
+    tags:
+    -   !append ManualTriggerSwap
+    -   !append ProtectedAttackPackage
+    -   !append IconicWeapon
+    slotPartList:
+    -   $base: Items.Base_Nue_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DesertSnake__rcv1
+    -   $base: Items.Base_Nue_inline5
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DesertSnake__base1
+    -   $base: Items.Base_Nue_inline7
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DesertSnake__std1
+    -   $base: Items.Base_Nue_inline9
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_DesertSnake__stdr1
+    -   Items.HandgunPossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.HandgunPossibleMuzzleBraksList
+    slotPartListPreset:
+    -   $base: Items.Preset_Nue_Arasaka_2020_inline0
+        itemPartPreset: Items.SJ_DesertSnake__rcv1
+    -   $base: Items.Preset_Nue_Arasaka_2020_inline1
+        itemPartPreset: Items.SJ_DesertSnake__base1
+    -   $base: Items.Preset_Nue_Arasaka_2020_inline2
+        itemPartPreset: Items.SJ_DesertSnake__std1
+    -   $base: Items.Preset_Nue_Arasaka_2020_inline3
+        itemPartPreset: Items.SJ_DesertSnake__stdr1
+    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Nue_Arasaka_2020_inline4
+#    -   Items.Preset_Nue_Arasaka_2020_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_DesertSnakeWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_SnakeMuzzle
+        slot: AttachmentSlots.PowerModule
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_DesertSnake:
+    $base: Items.SJ_Desert_Snake
+
+Items.SJ_DesertSnake_Shop:
+    $base: Items.SJ_Desert_Snake
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.std_rcr_gunsmith_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_DesertSnake_Shop
+        quantity:
+        -   !append-once Vendors.Always_Present
+        generationPrereqs:
+        -   !append-once LootPrereqs.PlayerLevel_Tier_4_Start_Prereq
+
+Items.RangedWeaponPossibleMuzzleList:
+    itemPartList:
+    -   !append
+        $type: ItemPartListElement
+        item: Items.SJ_SnakeMuzzle

@@ -1,0 +1,243 @@
+{
+	"fileHeader": {
+		"_1_": "----------------------------------------",
+		"modName": "Hotscenes",
+		"modAuthorName": "anygoodname",
+		"modVer": "v5.38.1",
+		"_2_": "----------------------------------------",
+		"translationAuthorName": "Put your name here",
+		"translationVer": "Put your file verison here",
+		"_3_": "----------------------------------------"
+	},
+	"uiStrings": {
+		"nativeUiMenuView": {
+			"menuWindowTitle": "Hotscenes Collection",
+			"menuWindowTitleWithAddOn": "Hotscenes Collection Plus",
+			"buttons": {
+				"settings": {
+					"title": "Settings",
+					"tooltips": "Open Native Settings.'"
+				}
+			}
+		},
+		"nativeUiPanelView": {
+			"fullSceneNames": {
+				"female": {
+					"Glen": "Dark Matter Female",
+					"Japantown": "Jig-Jig St Female"
+				},
+				"male": {
+					"Glen": "Dark Matter Male",
+					"Japantown": "Jig-Jig St Male"
+				}
+			},
+			"buttons": {
+				"action_unavailable": {
+					"title": "Action unavailable",
+					"tooltips": ""
+				},
+				"cancel": {
+					"title": "Cancel",
+					"tooltips": ""
+				},
+				"cue": {
+					"title": "Cue scene",
+					"tooltips": ""
+				},
+				"destination": {
+					"title": "scene default",
+					"tooltips": ""
+				},
+				"fast_playback": {
+					"title": "Fast Playback",
+					"tooltips": ""
+				},
+				"override": {
+					"title": "(Override mode)",
+					"tooltips": ""
+				},
+				"play": {
+					"title": "Play scene",
+					"tooltips": ""
+				},
+				"play_on_resume": {
+					"title": "Play on game resume",
+					"tooltips": ""
+				},
+				"play_pending": {
+					"title": "Play pending...",
+					"tooltips": ""
+				},
+				"reload_last_save": {
+					"title": "Reload last save",
+					"tooltips": ""
+				},
+				"reload_last_save_reloading": {
+					"title": "Reloading...",
+					"tooltips": ""
+				},
+				"reset": {
+					"title": "Reset",
+					"tooltips": ""
+				}
+			}
+		},
+		"nativeUiSelectionListView": {
+			"fullSceneNames": {
+				"female": {
+					"Glen": "Dark Matter Female",
+					"Japantown": "Jig-Jig St Female"
+				},
+				"male": {
+					"Glen": "Dark Matter Male",
+					"Japantown": "Jig-Jig St Male"
+				}
+			},
+			"buttons": {
+				"cancel": {
+					"title": "Cancel",
+					"tooltips": ""
+				},
+				"use_selected_item": {
+					"title": "Use selected",
+					"tooltips": ""
+				}
+			},
+			"buttonHints": {
+				"hidePreview": {
+					"title": "Hide Preview"
+				},
+				"showPreview": {
+					"title": "Show Preview"
+				}
+			}
+		},
+		"nativeUiSettingsView": {
+			"modDisplayName": "Hotscenes",
+			"isModDisabledHeader": "This mod is disabled now. Please check the mod's CET window and the mod's log for more details.",
+			"openModMenuHeader": "Open Hotscenes menu:",
+			"openModMenu": {
+				"title": "Open Hotscenes menu",
+				"tooltips": "Click to exit Settings menu and open the Hotscenes menu."
+			},
+			"generalSettingsHeader": "General settings:",
+			"extendHotscenes": {
+				"title": "Longer hotscenes playback",
+				"tooltips": "This option extends playback time and adds more variety to hotscenes."
+			},
+			"sortByDisplayName": {
+				"title": "Sort performers by custom/translated names",
+				"tooltips": "Sort performer lists preferring custom or translated names if available.\nPlease note that results may not be accurate in non-Latin languages."
+			},
+			"hideNpcSpecs": {
+				"title": "Take off glasses.",
+				"tooltips": "When this option is enabled, engaged performers will take off glasses too.\nThis applies to the main menu scenes and the Night City Delights scenes (if Add-on is installed)."
+			},
+			"hideNpcFishnetTights": {
+				"title": "Take off fishnet tights",
+				"tooltips": "When this option is enabled, engaged performers will take off fishnet tights too.\nThis applies to the main menu scenes and the Night City Delights scenes (if Add-on is installed)."
+			},
+			"hideNpcSpikedChokers": {
+				"title": "Take off spiked chokers",
+				"tooltips": "When this option is enabled, engaged performers will take off spiked chokers too.\nThis applies to the main menu scenes and the Night City Delights scenes (if Add-on is installed)."
+			},
+			"spycamSettingsHeader": "Spycam settings:",
+			"spycamOrbitPitchWithMouse": {
+				"title": "Spycam orbit mode uses mouse for vertical control",
+				"tooltips": "In the Spycam orbit mode:\n-If enabled: use mouse up/down to control the spycam vertical position,\n use keyboard for forward/backward movement.\n-If disabled: use keyboard forward/backward to control the spycam vertical position,\n use mouse up/down for forward/backward movement."
+			},
+			"enableSpycamFreezeFrameToggleMode": {
+				"title": "Spycam Freeze Frame button is a toggle",
+				"tooltips": "With this option enabled, the left mouse button toggles the Freeze Frame on and off.\nIf the option is disabled, the left mouse button freezes time only while pressed.\nNote: for safety reasons, the Freeze Frame will automatically toggle back\nin 60 seconds if you forget to switch it off."
+			},
+			"invertMouseVertically": {
+				"title": "Invert Spycam mouse control vertically.",
+				"tooltips": "Inverts Spycam mouse control vertically."
+			},
+			"enableHotscenesButtonInHubMenu": {
+				"title": "Enable Hotscenes Button in Hub Menu.",
+				"tooltips": "This option adds the Hotscenes button to the game's Hub menu, allowing you to open the Hotscenes main menu window.\nIf disabled, the Hotscenes menu is still accessible either through the CET overlay or via a keyboard shortcut, if defined in the CET Bindings window."
+			},
+			"enableNativeSettingsIntegration": {
+				"title": "Enable Native Settings integration.",
+				"tooltips": "This option allows to open the mod's settings page in the Native Settings UI right from the mod Hotscenes Native UI menu."
+			},
+			"addonSettingsHeader": "Add-on settings:",
+			"hotscenesAddOnNotDetected": "Hotscenes Add-on is not detected. Extra features are not avaliable.",
+			"hotscenesUnsupportedAddOnDetected": "Unsupported Hotscenes Add-on is detected. Extra features are not avaliable. Please update the add-on.",
+			"enableHotscenesAddon": {
+				"title": "Enable Hotscenes Add-on",
+				"tooltips": "Enables extra features provided by Hotscenes Add-on.\nPlease note that the final feature set may vary depending on game versions\nand other mods that may affect the add-on."
+			},
+			"enableSceneAvaliabilityOverride": {
+				"title": "Enable Hotscenes availability override",
+				"tooltips": "This feature allows playing scenes that the game has not yet made available.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough."
+			},
+			"enablePerformerPreviewSupport": {
+				"title": "Enable Performer Preview",
+				"tooltips": "This option enables the Performer Preview feature in the Native UI menu.\n\nPlease note that this feature requires the Add-on to be activated."
+			},
+			"noGameReloads": {
+				"title": "Prefer no game reloads.",
+				"tooltips": "This option speeds up main menu scene startups and completions by skipping game reloads if the add-on is activated.\nPlease note that a recovery manual save will still be created."
+			},
+			"enableSceneAvaliabilityOverrideNotSupported": {
+				"title": "Hotscenes availability override (Disabled)",
+				"tooltips": "The currently installed add-on version does not support scenes availability overrides. Please update the add-on plugin."
+			},
+			"enable_mq055_integration": {
+				"title": "Enable Hangouts quests integration",
+				"tooltips": "This feature allows to integrate hotscenes playback with the game Hangouts quest scenes.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough."
+			},
+			"mq055_integration_prefer_vanilla_appearances": {
+				"title": "Prefer vanilla partner appearances in Hangouts",
+				"tooltips": "If this option is enabled, the mod will try to use vanilla appearances\nfor your partner if available, instead of Hotscenes exclusive appearances.\nThis option is designed to allow other mods change your partner's appearance."
+			},
+			"enableNCDelightsFeature": {
+				"title": "Enable Night City Delights add-on",
+				"tooltips": "Enables Night City Delights scenes provided by the add-on."
+			},
+			"enableNCDelightsDynamicMappins": {
+				"title": "Night City Delights: reveal nearby performers",
+				"tooltips": "When this option is enabled, nearby active performers will be indicated with markers."
+			},
+			"enableNcSceneExtensions": {
+				"title": "Night City Delights: enable scene extensions",
+				"tooltips": "This option enables additional scene extensions if avaliable."
+			},
+			"restoreNpcDefaults": {
+				"title": "Night City Delights: restore NPC defaults",
+				"tooltips": "This option aims to restore NPCs handled by this feature if their internal data is found affected or corrupted, possibly by other mods.\n\nFor the best results, please reload your game after enabling it.\n\nPlease note that enabling this option may prevent other mods from modifying these NPCs."
+			}
+		},
+		"onscreenWarnings": {
+			"hotscenesUnavailable": {
+				"header": "Hotscenes not available at the moment.",
+				"isAnyPerformerAvailable": "No active Performers found.",
+				"isCensored": "The game is set to censored mode.",
+				"isEnding": "Not allowed in game Endings.",
+				"journalManagerMissing": "Code execution exception.",
+				"totalPerformersCount": "Performers not found.",
+				"unknown": "Unknown reason."
+			},
+			"actionUnavailable": {
+				"header": "Hotscenes - Action unavailable.",
+				"inCombat": "Not allowed in Combat.",
+				"inRestrictedArea": "This area is restricted.",
+				"inVehicle": "Not allowed in vehicles.",
+				"inWorkspot": "Not allowed in workspots.",
+				"isHangoutsScene": "Not available in quest scenes.",
+				"isJohnnyReplacer": "Not allowed as Johnny.",
+				"isModDisabled": "The mod is disabled now.",
+				"isPlayerPossessedByJohnny": "Posssesed by Johnny.",
+				"isRestrictedState": "Prevented by game restrictions.",
+				"isSavingLocked": "Game saving is currently prohibited.",
+				"isWanted": "You're wanted by Police.",
+				"unknown": "Unknown reason."
+			},
+			"playback": {
+				"timeout": "Hotscene playback could not be started."
+			}
+		}
+	}
+}

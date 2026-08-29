@@ -1,0 +1,120 @@
+Items.SJ_Mistifier__base:
+    $base: Items.w_rifle_assault__militech_ajax__base1
+    appearanceResourceName: seijax_mistifier_appfile_base
+
+Attacks.SJ_ShockwaveExplosion:
+    $base: Attacks.CommonFragGrenade
+    effectName: sj_iconic_effects
+    effectTag: concussive_blast
+    attackType: AttackType.PressureWave
+    hitReactionSeverityMin: 3
+    hitReactionSeverityMax: 3
+    explosionDamageVSVehicles: 0
+    statModifiers: []
+
+BaseStatusEffect.SJ_ShockwaveExplosionCooldown:
+    $type: StatusEffect
+    statusEffectType: BaseStatusEffectTypes.PassiveDebuff
+    gameplayTags:
+    -   !append Knockdown
+    -   !append KnockdownCooldown
+    immunityStats:
+    -   !append-once BaseStats.KnockdownImmunity
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 3.0
+
+Items.SJ_MistifierWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    effectors:
+    -   $base: Effectors.TriggerAttackOnTargetEffect
+        prereqRecord: 
+            $base: Prereqs.ANDPrereq
+            nestedPrereqs:
+            -   Prereqs.HitHasPiercedSurfacePrereq
+            -   $type: StatusEffectPrereq
+                checkType: CheckType.Tag
+                tagToCheck: KnockdownCooldown
+                objectToCheck: Player
+                invert: true
+        attackRecord: Attacks.SJ_ShockwaveExplosion
+        isRandom: true
+        applicationChance: 1.0
+    -   $base: Perks.ApplyStatusEffectOnPlayer
+        prereqRecord: Prereqs.HitHasPiercedSurfacePrereq
+        statusEffect: BaseStatusEffect.SJ_ShockwaveExplosionCooldown
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Mistifier_iconic_description
+
+Items.SJ_MistifierWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_MistifierWeaponModAbility ]
+    #statModifiers:
+
+Items.SJ_Mistifier:
+    $base: Items.Preset_Senkoh_Default
+    displayName: LocKey#SJ_Mistifier_name
+    localizedDescription: LocKey#SJ_Mistifier_description
+    appearanceResourceName: seijax_mistifier_appfile
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_mistifier
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    tags:
+    -   !append IconicWeapon
+    -   !append ForceAutoPrimary
+    npcRPGData:
+        $base: Items.Base_Senkoh_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    slotPartList:
+    -   Items.Base_Senkoh_inline1
+    -   $base: Items.Base_Senkoh_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Mistifier__base
+    -   Items.Base_Senkoh_inline5
+    -   Items.Base_Senkoh_inline7
+    -   Items.HandgunPossibleScopesList
+    slotPartListPreset:
+    -   Items.Preset_Senkoh_Default_inline0
+    -   $base: Items.Preset_Senkoh_Default_inline1
+        itemPartPreset: Items.SJ_Mistifier__base
+    -   Items.Preset_Senkoh_Default_inline2
+    -   Items.Preset_Senkoh_Default_inline3
+    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Senkoh_Default_inline4
+#    -   Items.Preset_Senkoh_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_MistifierWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    -   !append
+        $base: BaseStats.IsSecondaryDependantStatModifier
+        statType: BaseStats.CycleTimeBonus
+        modifierType: Additive
+        value: -0.5
+    -   !append
+        $base: BaseStats.CycleTime_BurstSecondaryModifier
+        value: -0.03
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_Mistifier_Pickup:
+    $base: Items.SJ_Mistifier
+    #quality: Quality.Random
+    #tags:
+    #-   !append-once IconicWeapon
+    #statModifiers:
+    #-   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !remove Items.QualityRandomization

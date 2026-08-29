@@ -1,0 +1,10 @@
+streaming:
+  blocks:
+    - base\journal\somi_hangout.streamingblock
+journal:
+  - base\journal\somi_hangout.journal
+localization:
+  onscreens:
+    en-us: base\journal\somi_hangout.json
+    pt-br: base\localization\pt-br\somi_hangout_pt-br.json
+    fr-fr: base\localization\fr-fr\somi_hangout_fr-fr.json

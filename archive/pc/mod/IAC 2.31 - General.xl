@@ -1,0 +1,98 @@
+{
+  "streaming": {
+    "sectors": [
+      {
+        "nodeDeletions": [
+          {
+            "actorDeletions": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "expectedActors": 4,
+            "type": "worldCollisionNode",
+            "index": 280
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 310,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_7_8_0_2.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "actorDeletions": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "expectedActors": 5,
+            "type": "worldCollisionNode",
+            "index": 152
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 153,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_3_4_0_3.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "actorDeletions": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "expectedActors": 4,
+            "type": "worldCollisionNode",
+            "index": 233
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 241,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_6_8_0_2.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "actorDeletions": [
+              0
+            ],
+            "expectedActors": 1,
+            "type": "worldCollisionNode",
+            "index": 82
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 83,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_6_9_0_2.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldVehicleForbiddenAreaNode",
+            "index": 198
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 204,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_1_2_0_4.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldStaticMeshNode",
+            "index": 214
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 2967,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_28_35_2_0.streamingsector"
+      }
+    ]
+  }
+}

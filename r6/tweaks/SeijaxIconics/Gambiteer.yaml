@@ -1,0 +1,131 @@
+Items.SJ_Gambiteer__rcv:
+    $base: Items.w_shotgun_dual__rostovic_palica__rcv1
+    appearanceResourceName: seijax_gambiteer_appfile_rcv
+
+Items.SJ_Gambiteer__base:
+    $base: Items.w_shotgun_dual__rostovic_palica__base1
+    appearanceResourceName: seijax_gambiteer_appfile_base
+
+Items.SJ_GambiteerWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Gambiteer_iconic_description
+    effectors:
+    -   $type: AddHitFlagToAttackEffector
+        prereqRecord:
+            $base: Prereqs.ANDPrereq
+            nestedPrereqs:
+            -   $base: Perks.IsAttackRanged
+                pipelineStage: PreProcess
+                conditions:
+                -   !append 
+                    $base: Prereqs.BodyPartHitPrereqCondition
+                    bodyPart: Leg
+            -   $base: Prereqs.NPCRarityPrereq
+                rarity: Boss
+                invert: true
+        hitFlag: ForceKnockdown
+    -   $type: AddHitFlagToAttackEffector
+        prereqRecord:
+            $base: Perks.IsAttackRanged
+            pipelineStage: PreProcess
+            conditions:
+            -   !append 
+                $base: Prereqs.BodyPartHitPrereqCondition
+                bodyPart: Leg
+        hitFlag: Nonlethal
+
+
+Items.SJ_GambiteerWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_GambiteerWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.HitDismembermentFactor
+        modifierType: Multiplier
+        value: 0.0
+    -   $base: BaseStats.HitWoundsFactorModifier
+        value: 100.0
+    -   $base: BaseStats.SmartGunTrackLegComponentsModifier
+        value: 80.0
+    -   $base: BaseStats.SmartLinkDependentStatModifier
+        statType: BaseStats.SmartGunAdsLockingAnglePitch
+        value: -6.0
+
+Attacks.SJ_GambiteerSemiAuto:
+    $base: Attacks.SmartBulletLow
+    hitReactionSeverityMin: 0
+    hitReactionSeverityMax: 3
+
+Attacks.SJ_GambiteerBulletFire:
+    $type: RangedAttack
+    playerAttack: Attacks.SJ_GambiteerSemiAuto
+    secondaryPlayerAttack: Attacks.SJ_GambiteerSemiAuto
+    playerTimeDilated: Attacks.SJ_GambiteerSemiAuto
+    secondaryPlayerTimeDilated: Attacks.SJ_GambiteerSemiAuto
+
+Attacks.SJ_GambiteerAttackPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.SJ_GambiteerBulletFire
+    chargeFire: Attacks.SJ_GambiteerBulletFire
+
+Items.SJ_Gambiteer:
+    $base: Items.Preset_Palica_Default
+    displayName: LocKey#SJ_Gambiteer_name
+    localizedDescription: LocKey#SJ_Gambiteer_description
+    gameplayDescription: ""
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    appearanceResourceName: seijax_gambiteer_appfile
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_gambiteer
+    rangedAttacks: Attacks.SJ_GambiteerAttackPackage
+    attacks:
+    -   !append-once Attacks.SJ_GambiteerSemiAuto
+    npcRPGData:
+        $base: Items.Base_Palica_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    tags:
+    -   !append Gambiteer
+    -   !append IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartList:
+    -   $base: Items.Base_Palica_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Gambiteer__rcv
+    -   $base: Items.Base_Palica_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Gambiteer__base
+    -   Items.Base_Palica_inline5
+    -   Items.Base_Palica_inline7
+    slotPartListPreset:
+    -   $base: Items.Preset_Palica_Default_inline0
+        itemPartPreset: Items.SJ_Gambiteer__rcv
+    -   $base: Items.Preset_Palica_Default_inline1
+        itemPartPreset: Items.SJ_Gambiteer__base
+    -   Items.Preset_Palica_Default_inline2
+    -   Items.Preset_Palica_Default_inline3
+    -   Items.ShotgunScopesPartList
+#    -   Items.Preset_Palica_Default_inline4
+#    -   Items.Preset_Palica_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_GambiteerWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_Gambiteer_Pickup:
+    $base: Items.SJ_Gambiteer
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+

@@ -1,0 +1,173 @@
+# This one should be more brute-force than the Fast Solo, though speed is still a benefit
+# Maybe take some HMG guy as the base?
+# Or have the guy with gorilla arms/a hammer/the like and a few HMG guys as the backdrop jobbers
+
+# FIX: EP1 tweaks crashing non-EP1 builds
+
+$dlc: EP1
+
+Character.NGPlus_EncounterStrongSoloBoss:
+  $base: t"Character.militech_enforcer3_gunner3_HMG_mb_elite"
+
+  entityTemplatePath: r"mod\quest\newgameplus\newNpc\cross.ent"
+  appearanceName: man_big_q111_cross
+
+  tags: ["Cyberpsycho", "ImmuneToTakedown", "NGPlusBoss"]
+  baseAttitudeGroup: n"hostile"
+  affiliation: Factions.Unknown
+  rarity: NPCRarity.Boss
+  savable: true
+
+  displayName: l"Story-base-quest-tertiary_characters-cross_displayName"
+  fullDisplayName: l"Story-base-quest-tertiary_characters-cross_displayName"
+
+  quest: NPCQuestAffiliation.StreetStory
+  priority: t"SpawnableObjectPriority.Quest"
+
+  bountyDrawTable: t"BountyDrawTable.ProjectGhostMember"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  
+  statModifierGroups:
+    - !append t"Character.Boss_Poise_Primary_Stat_ModGroup"
+    - !append t"Character.Cyberpsycho_ModGroup"
+    - !append t"Character.Cyberpsycho_HitReaction_Resistance"
+
+  primaryEquipment:
+    $type: NPCEquipmentGroup
+    equipmentItems:
+      -
+        $type: NPCEquipmentItem
+        item: t"Items.Preset_HMG_Default"
+        equipSlot: "AttachmentSlots.WeaponRight"
+
+  effectors:
+    - !append Character.NGPlus_TechDodgeEffector
+    - !append Character.NGPlus_AnyDirDodgeEffector
+
+  archetypeData: ArchetypeData.HeavyRangedT3
+  
+  abilities:
+    - !append t"Ability.HasDodge"
+    - !append t"Ability.HasKerenzikov"
+    - !append t"Ability.HasSandevistanTier3"
+    - !append t"Ability.CanParry"
+    - !append t"Ability.CanUseFlashbangGrenades"
+    - !append t"Ability.CanUseSmokeGrenades"
+    - !append t"Ability.HasMajorQuickhackResistance"
+    - !append t"Ability.CanThrowWeapon"
+    - !append t"Ability.CanGuardBreak"
+    - !append t"Ability.CanRegenInCombat"
+    - !append t"Ability.CanShootWhileMoving"
+    - !append t"Ability.HasMidHealthRegeneration"
+    - !append t"Ability.HasLoweredHitReactions"
+    - !append t"Ability.HasICELevelBooster"
+    - !append t"Ability.HasGraphiteTissue"
+    - !append t"Ability.HasBoostedCortex"
+    - !append t"Ability.CanDash"
+    - !append t"Ability.CanCharge"
+    - !append t"Ability.HasBerserk"
+    - !append t"Ability.IsStrongMeleeArchetype"
+    - !append t"Ability.CanCatchUpDistance"
+    - !append t"Ability.CanCatchUp"
+    - !append Ability.CanShareThreatsWithPlayer
+    - !append Ability.NGPlus_RandomEncounterBossMarker
+  
+  objectActions: ["QuickHack.BossBaseBlindHack", "QuickHack.BossSuicideHackBase", "QuickHack.BossBaseWeaponMalfunctionHack", "QuickHack.BossBaseLocomotionMalfunctionHack", "QuickHack.BossBaseOverheatHack", "QuickHack.BossOverloadBaseHack", "QuickHack.BossBrainMeltBaseHack", "QuickHack.BossBaseCyberwareMalfunctionHack", "QuickHack.BossSystemCollapseHackBase", "QuickHack.BossGrenadeHackBase", "QuickHack.BossMadnessHackBase", "QuickHack.BossMemoryWipeHackBase", "QuickHack.BossBaseBlackWallHack", "QuickHack.BaseCommsCallInHack", "QuickHack.BaseCommsNoiseHack", "QuickHack.BasePingHack", "QuickHack.BaseContagionHack", "QuickHack.BaseWhistleHack", "QuickHack.RemoteBreach", "Takedown.NewPerkFinisher", "Takedown.NewPerkFinisherBlunt"]
+
+  visualTags:
+    - !append "Fast"
+
+  statModifiers:
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.Health
+      modifierType: Multiplier
+      value: 1.2
+    
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.Accuracy
+      modifierType: Multiplier
+      value: 9999
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.MaxSpeed
+      modifierType: Multiplier
+      value: 4.0
+
+    - !append
+      $type: ConstantStatModifier
+      statType: BaseStats.MaxPercentDamageTakenPerHit
+      modifierType: Additive
+      value: 18
+
+Character.NGPlus_StrongSoloBoss_GameplayClue:
+  $type: npc_scanning_data
+  friendlyName: "NGPlus_StrongSoloBoss_GameplayClue"
+  localizedName: l"NewGamePlus_BossEncounter_CrossClue_Name"
+  localizedDescription: l"NewGamePlus_BossEncounter_CrossClue_Desc"
+
+Character.NGPlus_StrongSoloBoss_ThreatClue:
+  $type: npc_scanning_data
+  friendlyName: "NGPlus_StrongSoloBoss_GameplayClue"
+  localizedName: l"NewGamePlus_BossEncounter_CrossConclusion_Name"
+  localizedDescription: l"NewGamePlus_BossEncounter_CrossConclusion_Desc"
+
+Character.NGPlus_EncounterStrongSoloBoss_SideKick_Fist:
+  $base: t"Character.militech_strongarms_hmelee3_fists_mb_elite"
+  quest: NPCQuestAffiliation.StreetStory
+  baseAttitudeGroup: "hostile"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+  statModifierGroups:
+    - !append-once NPCStatPreset.LowerHealth
+
+Character.NGPlus_EncounterStrongSoloBoss_SideKick_Sniper:
+  $base: t"Character.militech_recon_sniper2_achilles_ma_rare"
+  quest: NPCQuestAffiliation.StreetStory
+  baseAttitudeGroup: "hostile"
+  reactionPreset: ReactionPresets.Ganger_Aggressive
+  savable: true
+  statModifierGroups:
+    - !append-once NPCStatPreset.LowerHealth
+
+DynamicSpawnSystem.NewGamePlus_StrongSoloBossEncounter:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Hellhound"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss_SideKick_Fist"
+      weight: 1.0
+
+DynamicSpawnSystem.NewGamePlus_StrongSoloBossSupport:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Hellhound"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss_SideKick_Sniper"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss_SideKick_Sniper"
+      weight: 1.0
+
+DynamicSpawnSystem.NewGamePlus_StrongSoloBossSupport1:
+  $type: DynamicVehicleData
+  vehicleRecord: t"Vehicle.NGPlus_Encounter_Hellhound"
+  unitRecordsPool:
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss_SideKick_Fist"
+      weight: 1.0
+    -
+      $type: WeightedCharacter
+      character: t"Character.NGPlus_EncounterStrongSoloBoss_SideKick_Fist"
+      weight: 1.0
+

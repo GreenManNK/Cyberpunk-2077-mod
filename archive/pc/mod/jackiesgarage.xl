@@ -1,0 +1,7 @@
+streaming:
+  blocks:
+  - garage/all.streamingblock
+resource:
+  patch:
+    garage/custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices

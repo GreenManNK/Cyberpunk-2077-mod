@@ -1,0 +1,38 @@
+streaming:
+  blocks:
+    - base\worlds\nightmare.streamingblock
+    - base\worlds\sogo_curtain.streamingblock
+    - base\worlds\riot_audio_fix.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-10_-4_0_0.streamingsector
+      expectedNodes: 1629
+      nodeMutations:
+        - index: 1460 #e_candle_fire_idle -604.707153 -200.759079 16.885355
+          type: worldEffectNode
+          position: [-604.707,-200.759,17.08, 0.0]
+          orientation: [0.0, 0.0, 0.0, 1]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-33_44_0_0.streamingsector
+      expectedNodes: 256
+      nodeDeletions:
+        - index: 213 #vs_bathroom_curtain_sequin
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-28_-15_0_0.streamingsector
+      expectedNodes: 2137
+      nodeDeletions:
+        - index: 2099 #{cs_riots_crowd}
+          type: worldAmbientAreaNode
+        - index: 2123 #{cs_riots_crowd}
+          type: worldAmbientAreaNode
+quest:
+  phases:
+    - path: base\dbf\phases\dbf_1.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: base\dbf\phases\dbf_1.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: base\dbf\phases\dbf_1.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: base\dbf\phases\dbf_1.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: base\dbf\phases\dbf_1.questphase
+      parent: mod\quest\newgameplus_standalone.quest

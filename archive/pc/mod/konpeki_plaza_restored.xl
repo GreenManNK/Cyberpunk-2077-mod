@@ -1,0 +1,82 @@
+quest:
+  phases:
+    - path: konpeki_scenes.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_scenes.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_devices.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_devices.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_lifts.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_lifts.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_light.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_light.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_outside.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_outside.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_garage.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_garage.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_scenes.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_scenes.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_scenes.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_devices.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_devices.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_devices.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_lifts.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_lifts.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_lifts.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_light.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_light.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_light.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_outside.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_outside.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_outside.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_garage.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_garage.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_garage.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_fixes.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_fixes.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_fixes.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_fixes.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_fixes.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: konpeki_no_tell_motel_fix.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: konpeki_no_tell_motel_fix.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: konpeki_no_tell_motel_fix.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: konpeki_no_tell_motel_fix.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: konpeki_no_tell_motel_fix.questphase
+      parent: mod\quest\newgameplus_standalone.quest

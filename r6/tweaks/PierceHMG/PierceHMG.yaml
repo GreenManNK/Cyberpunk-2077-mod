@@ -1,0 +1,15 @@
+Items.PierceHMG_inline0:
+    $type: ConstantStatModifier
+    statType: BaseStats.TechPierceEnabled
+    modifierType: Additive
+    value: 1.0
+
+Items.Preset_HMG_Chopper.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Default.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Invisible.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Military.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Neon.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Pimp.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_Sasquatch.statModifiers: [!append Items.PierceHMG_inline0]
+Items.Preset_HMG_turret_car_attach.statModifiers: [!append Items.PierceHMG_inline0]
+Items.w_special_flak.statModifiers: [!append Items.PierceHMG_inline0]

@@ -1,0 +1,23 @@
+{
+	"name": "Switch to another mod",
+	"tag": "default_open_datapack_group_ui",
+	"timer": 0,
+	"display":"event_interact",
+	"sorttag": "tools",
+	"trigger": {
+		"inbuyed": {
+			"name": "auto"
+		}
+	},
+	"requirement": [
+		[
+			"inbuyed"
+		]
+	],
+	"action": [
+		
+		{
+			"name": "open_datapack_group_ui"
+		}
+	]
+}

@@ -1,0 +1,154 @@
+kawasaki_h2r_gear_inline0:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.0
+  minSpeed: 0
+  maxSpeed: 5
+  minEngineRPM: 1300
+  maxEngineRPM: 13600
+
+kawasaki_h2r_gear_inline1:
+  $type: VehicleGear_Record
+  torqueMultiplier: 2.8
+  minSpeed: 0
+  maxSpeed: 28
+  minEngineRPM: 1300
+  maxEngineRPM: 12000
+
+kawasaki_h2r_gear_inline2:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.6
+  minSpeed: 27
+  maxSpeed: 37
+  minEngineRPM: 5200
+  maxEngineRPM: 10800
+
+kawasaki_h2r_gear_inline3:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.4
+  minSpeed: 36
+  maxSpeed: 40
+  minEngineRPM: 6200
+  maxEngineRPM: 11300
+
+kawasaki_h2r_gear_inline4:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.3
+  minSpeed: 39
+  maxSpeed: 43
+  minEngineRPM: 6900
+  maxEngineRPM: 12000
+
+kawasaki_h2r_gear_inline5:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.2
+  minSpeed: 42
+  maxSpeed: 51
+  minEngineRPM: 7600
+  maxEngineRPM: 12700
+
+kawasaki_h2r_gear_inline6:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.2
+  minSpeed: 50
+  maxSpeed: 61
+  minEngineRPM: 8300
+  maxEngineRPM: 13400
+
+kawasaki_h2r_gear_inline7:
+  $type: VehicleGear_Record
+  torqueMultiplier: 1.3
+  minSpeed: 60
+  maxSpeed: 80
+  minEngineRPM: 9000
+  maxEngineRPM: 15000
+
+Vehicle.kawasaki:
+  $type: VehicleManufacturer_Record
+  enumName: ducati_Logo
+
+Vehicle.kawasaki_h2r_data:
+  $type: VehicleUIData
+  productionYear: 2022
+  horsepower: 755
+  mass: 129
+  info: LocKey#kawasaki_h2r_info
+  driveLayout: LocKey#45371
+
+UIIcon.kawasaki_h2r_icon:
+  $type: UIIcon_Record
+  atlasResourcePath: base\assets\ninja_icon.inkatlas
+  atlasPartName: ninja_icon
+  
+Vehicle.kawasaki_h2r:
+  manufacturer: Vehicle.kawasaki
+  $base: Vehicle.v_sportbike2_arch
+  appearanceName: kawasaki_h2r_ninja
+  entityTemplatePath: base\vehicles\sportbike\v_sportbike2_kawasaki_h2r.ent
+  displayName: kawasaki_h2r_name
+  bikeDriveModelData:
+    $base: Vehicle.VehicleDriveModelDataDefaultYaibaKusanagi
+    center_of_mass_offset: { x: 0.0, y: 0.02, z: -0.15 }
+    chassis_mass: 550
+    total_mass: 550
+    airResistanceFactor: 0.32
+    wheelTurnMaxAddPerSecond: 130
+    wheelTurnMaxSubPerSecond: 130
+    bikeMaxTilt: 55
+    bikeTiltSpeed: 80
+    bikeTiltReturnSpeed: 90
+    bikeTiltCustomSpeed: 85
+    brakingFrictionFactor: 0.01
+    handbrakeBrakingTorque: 9500
+    lowVelStoppingDeceleration: 0.01
+    wheelSetup:
+      $base: Vehicle.VehicleWheelDrivingSetup_2_Default
+      frontPreset:
+        $base: Vehicle.VehicleWheelDrivingPresetKusanagi_Front
+        frictionMulLongitudinal: 1.5
+        frictionMulLateral: 1.4
+      backPreset:
+        $base: Vehicle.VehicleWheelDrivingPresetKusanagi_Rear
+        frictionMulLongitudinal: 1.6
+        frictionMulLateral: 1.5
+  vehEngineData:
+    $base: Vehicle.VehicleEngineData_2_Default
+    engineMaxTorque: 960.0
+    resistanceTorque: 200.0
+    wheelsResistanceRatio: 0.7
+    flyWheelMomentOfInertia: 0.05
+    finalGearTorqueDecimationScalor: 1.0
+    minRPM: 1300.0
+    maxRPM: 15000.0
+    gears:
+    - !remove Vehicle.VehicleEngineData_2_Default_inline0
+    - !remove Vehicle.VehicleEngineData_2_Default_inline1
+    - !remove Vehicle.VehicleEngineData_2_Default_inline2
+    - !remove Vehicle.VehicleEngineData_2_Default_inline3
+    - !remove Vehicle.VehicleEngineData_2_Default_inline4
+    - !remove Vehicle.VehicleEngineData_2_Default_inline5
+    - !remove Vehicle.VehicleEngineData_2_Default_inline6
+    - !append kawasaki_h2r_gear_inline0
+    - !append kawasaki_h2r_gear_inline1
+    - !append kawasaki_h2r_gear_inline2
+    - !append kawasaki_h2r_gear_inline3
+    - !append kawasaki_h2r_gear_inline4
+    - !append kawasaki_h2r_gear_inline5
+    - !append kawasaki_h2r_gear_inline6
+    - !append kawasaki_h2r_gear_inline7
+  player_audio_resource: v_mbike_yaiba_asmx_kusanagi_misfit
+  icon: UIIcon.kawasaki_h2r_icon
+  vehicleUIData: Vehicle.kawasaki_h2r_data
+  
+Vehicle.kawasaki_h2r_purchasable:
+  $base: Vehicle.kawasaki_h2r
+Vehicle.kawasaki_h2r_purchasable.dealerAtlasPath: "base/assets/dealer_ninja.inkatlas"
+Vehicle.kawasaki_h2r_purchasable.dealerPartName: "dealer_ninja"
+
+Vehicle.kawasaki_h2r_purchasable.dealerPrice: 100000
+Vehicle.kawasaki_h2r_purchasable.dealerCred: 18
+
+Vehicle.vehicle_list.list:
+  - !append t"Vehicle.kawasaki_h2r_purchasable"
+
+Vehicle.vehicle_list.list:
+  - !append Vehicle.kawasaki_h2r

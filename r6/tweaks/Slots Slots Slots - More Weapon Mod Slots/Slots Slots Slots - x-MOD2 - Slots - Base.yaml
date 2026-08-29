@@ -1,0 +1,84 @@
+Items.Collectible_Blade_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Blade_WeaponMod1Element
+        - !append-once Items.Blade_WeaponMod2Element
+        - !append-once Items.Blade_WeaponMod3Element
+        - !append-once Items.Blade_WeaponMod4Element
+        - !append-once Items.Blade_WeaponMod5Element
+        - !append-once Items.Blade_WeaponMod6Element
+
+Items.Collectible_Blunt_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Blunt_WeaponMod1Element
+        - !append-once Items.Blunt_WeaponMod2Element
+        - !append-once Items.Blunt_WeaponMod3Element
+        - !append-once Items.Blunt_WeaponMod4Element
+        - !append-once Items.Blunt_WeaponMod5Element
+        - !append-once Items.Blunt_WeaponMod6Element
+
+Items.Collectible_Throwable_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Throwable_WeaponMod1Element
+        - !append-once Items.Throwable_WeaponMod2Element
+        - !append-once Items.Throwable_WeaponMod3Element
+        - !append-once Items.Throwable_WeaponMod4Element
+        - !append-once Items.Throwable_WeaponMod5Element
+        - !append-once Items.Throwable_WeaponMod6Element
+
+Items.Collectible_Power_AR_SMG_LMG$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod1Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod2Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod3Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod4Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod5Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod6Element
+
+Items.Collectible_Power_Handgun_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Power_Handgun_WeaponMod1Element
+        - !append-once Items.Power_Handgun_WeaponMod2Element
+        - !append-once Items.Power_Handgun_WeaponMod3Element
+        - !append-once Items.Power_Handgun_WeaponMod4Element
+        - !append-once Items.Power_Handgun_WeaponMod5Element
+        - !append-once Items.Power_Handgun_WeaponMod6Element
+
+Items.Collectible_Power_Shotgun_NoAttachments_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Power_Shotgun_WeaponMod1Element
+        - !append-once Items.Power_Shotgun_WeaponMod2Element
+        - !append-once Items.Power_Shotgun_WeaponMod3Element
+        - !append-once Items.Power_Shotgun_WeaponMod4Element
+        - !append-once Items.Power_Shotgun_WeaponMod5Element
+        - !append-once Items.Power_Shotgun_WeaponMod6Element
+
+Items.Collectible_Smart_Handgun_NoAttachments_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Smart_Handgun_WeaponMod1Element
+        - !append-once Items.Smart_Handgun_WeaponMod2Element
+        - !append-once Items.Smart_Handgun_WeaponMod3Element
+        - !append-once Items.Smart_Handgun_WeaponMod4Element
+        - !append-once Items.Smart_Handgun_WeaponMod5Element
+        - !append-once Items.Smart_Handgun_WeaponMod6Element
+
+Items.Collectible_Smart_Sniper_NoAttachments_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod1Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod2Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod3Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod4Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod5Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod6Element
+
+Items.Collectible_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod1Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod2Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod3Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod4Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod5Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod6Element

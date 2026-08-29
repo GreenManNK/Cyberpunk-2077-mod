@@ -1,0 +1,263 @@
+Items.High_Doom__rcv1:
+    $base: Items.w_revolver__malorian_overture__rcv1
+    appearanceResourceName: seijax_highdoom_rcv
+
+Items.High_Doom__base1:
+    $base: Items.w_revolver__malorian_overture__base1
+    appearanceResourceName: seijax_highdoom_base
+
+Items.HighDoomWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_HighDoom_iconic_description
+    effectors:
+    -   $base: Perks.ApplyStatGroupOnWeapon
+        prereqRecord: Perks.PlayerIsAiming
+        statGroup:
+            statModifiers:
+            -   $type: ConstantStatModifier
+                statType: BaseStats.CycleTimeBonus
+                modifierType: Additive
+                value: -0.5
+            -   $type: ConstantStatModifier
+                statType: BaseStats.RicochetCount
+                modifierType: Multiplier
+                value: 0.0
+            -   $base: BaseStats.SmartGunTrackHeadComponentsModifier
+                value: -2.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunHipLockingAnglePitch
+                value: 6.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunHipLockingAngleYaw
+                value: 15.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunHipTargetableAnglePitch
+                value: 6.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunHipTargetableAngleYaw
+                value: 15.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunAdsLockingAnglePitch
+                value: 6.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunAdsLockingAngleYaw
+                value: 15.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunAdsTargetableAnglePitch
+                value: 6.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunAdsTargetableAngleYaw
+                value: 15.0
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunHipTimeToUnlock
+                value: 1.2
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunAdsTimeToUnlock
+                value: 1.2
+            -   $base: BaseStats.SmartLinkDependentStatModifier
+                statType: BaseStats.SmartGunTimeToRemoveOccludedTarget
+                value: 1.2
+            -   $type: ConstantStatModifier
+                statType: BaseStats.RecoilKickMin
+                modifierType: Multiplier
+                value: 0.0
+            -   $type: ConstantStatModifier
+                statType: BaseStats.RecoilKickMax
+                modifierType: Multiplier
+                value: 0.0
+    -   $base: Perks.ApplyStatGroupOnWeapon
+        prereqRecord: Perks.PlayerIsNotAiming
+        statGroup:
+            statModifiers:
+            -   $type: ConstantStatModifier
+                statType: BaseStats.ShouldIgnoreSmartUI
+                modifierType: Additive
+                value: 1.0
+            -   $base: BaseStats.HitDismembermentFactorModifier
+                value: 999.0
+            -   $base: BaseStats.PhysicalImpulseModifier
+                value: 20.0
+            -   $base: BaseStats.KnockdownImpulseModifier
+                value: 20.0
+            -   $type: ConstantStatModifier
+                statType: BaseStats.CycleTimeBonus
+                modifierType: Additive
+                value: -0.1
+
+Items.HighDoomWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.HighDoomWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.MagazineCapacityBonus
+        modifierType: Additive
+        value: 0.34
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ZoomLevel
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: CombinedStatModifier
+        statType: BaseStats.AimFOV
+        modifierType: Multiplier
+        refStat: BaseStats.AimFOV
+        refObject: Root
+        opSymbol: "inv"
+        value: 40.0
+
+Items.High_Doom_SmartGun_Stats:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $base: BaseStats.SmartGunUseEvenDistributionTargetingModifier
+        value: 1.0
+    -   $base: BaseStats.SmartGunTrackMultipleEntitiesInADSModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunEvenDistributionPeriodModifier
+        value: 0.15
+    -   $base: BaseStats.SmartGunHipLockingAnglePitchModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunHipLockingAngleYawModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsLockingAnglePitchModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsLockingAngleYawModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunHipTargetableAnglePitchModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunHipTargetableAngleYawModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsTargetableAnglePitchModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsTargetableAngleYawModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunHipMaxLockedTargetsModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsMaxLockedTargetsModifier
+        value: 1.0
+    -   $base: BaseStats.SmartGunHipTimeToLockModifier
+        value: 1.0
+    -   $base: BaseStats.SmartGunAdsTimeToLockModifier
+        value: 1.0
+    -   $base: BaseStats.SmartGunHipTimeToUnlockModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunAdsTimeToUnlockModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunTimeToRemoveOccludedTargetModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunUseTimeBasedAccuracyModifier
+        value: 1.0
+    -   $base: BaseStats.SmartGunTimeToMaxAccuracyModifier
+        value: 0.1
+    -   $base: BaseStats.SmartGunStartingAccuracyModifier
+        value: 0.0
+    -   $base: BaseStats.SmartGunSpreadMultiplierModifier
+        value: 0.1
+    -   $base: BaseStats.SmartGunPlayerProjectileVelocityModifier
+        value: 80.0
+    -   $base: BaseStats.SmartGunHitProbabilityModifier
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.ItemRequiresSmartLink
+        modifierType: Additive
+        value: 1.0
+
+Attacks.HighDoomExplosiveBullet:
+    $base: Attacks.ExplosiveBulletEffect
+    explosionAttack:
+        $base: Attacks.BulletExplosion
+        hitReactionSeverityMin: 2
+        hitReactionSeverityMax: 3
+
+Attacks.HighDoomBulletFire:
+    $type: RangedAttack
+    playerAttack: Attacks.HighDoomExplosiveBullet
+    secondaryPlayerAttack: Attacks.SmartBulletLow
+    playerTimeDilated: Attacks.HighDoomExplosiveBullet
+    secondaryPlayerTimeDilated: Attacks.SmartBulletLow
+
+Attacks.HighDoomPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.HighDoomBulletFire
+    chargeFire: Attacks.HighDoomBulletFire
+
+Items.Preset_High_Doom:
+    $base: Items.Preset_Overture_Default
+#    audioName: wea_set_pozhar
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    displayName: LocKey#SJ_HighDoom_name
+    localizedDescription: LocKey#SJ_HighDoom_description
+    appearanceResourceName: seijax_highdoom_appfile
+    visualTags: [ HighDoom ]
+    quality: Quality.Common
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_highdoom
+    tags:
+    -   !append HighDoom
+    -   !append ProtectedAttackPackage
+    -   !append IconicWeapon
+    crosshair: Crosshairs.SmartGun
+    evolution: WeaponEvolution.Smart
+    OnAttach:
+    -   !append Items.SmartWeaponTargetsPriorityQueues
+    triggerModes: [ TriggerMode.SemiAuto, TriggerMode.FullAuto ]
+    primaryTriggerMode: TriggerMode.SemiAuto
+    secondaryTriggerMode: TriggerMode.FullAuto
+    rangedAttacks: Attacks.HighDoomPackage
+    attacks:
+    -   !append Attacks.HighDoomExplosiveBullet
+    slotPartList:
+    -   $base: Items.Base_Overture_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.High_Doom__rcv1
+    -   $base: Items.Base_Overture_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.High_Doom__base1
+    -   Items.Base_Overture_inline5
+    -   Items.Base_Overture_inline7
+#    -   Items.HandgunPossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.HandgunPossibleMuzzleBraksList
+    slotPartListPreset:
+    -   $base: Items.Preset_Overture_Default_inline0
+        itemPartPreset: Items.High_Doom__rcv1
+    -   $base: Items.Preset_Overture_Default_inline1
+        itemPartPreset: Items.High_Doom__base1
+    -   Items.Preset_Overture_Default_inline2
+    -   Items.Preset_Overture_Default_inline3
+#    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Overture_Default_inline4
+#    -   Items.Preset_Overture_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.HighDoomWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.Base_Smart_Stats
+    -   !append-once Items.High_Doom_SmartGun_Stats
+    -   !append-once Items.Base_Chao_SmartGun_Projectile_Stats
+    -   !append-once Items.IconicQualityRandomization
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    -   !append-once Items.RRExplosivesControl
+
+Items.SJ_HighDoom:
+    $base: Items.Preset_High_Doom
+
+Items.SJ_HighDoom_Shop:
+    $base: Items.Preset_High_Doom
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.wat_kab_junkshop_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_HighDoom_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_3_Start_Prereq

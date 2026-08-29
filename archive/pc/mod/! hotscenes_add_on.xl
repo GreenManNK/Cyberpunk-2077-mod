@@ -1,0 +1,141 @@
+# Hotscenes mod add-on by (c)anygoodname
+# https://www.nexusmods.com/cyberpunk2077/mods/11772
+# Oct 27, 2025
+# File version: 5.23.7
+streaming:
+  blocks:
+    - base\hotscenes_overrides\archive_xl\mod_hotscenes.streamingblock
+localization:
+  subtitles:
+    en-us: base\hotscenes_overrides\archive_xl\localization\en-us\subtitles\subtitles.json
+  lipmaps:
+    en-us: base\hotscenes_overrides\archive_xl\localization\en-us.lipmap
+    ar-ar: base\hotscenes_overrides\archive_xl\localization\ar-ar.lipmap
+    cz-cz: base\hotscenes_overrides\archive_xl\localization\cz-cz.lipmap
+    de-de: base\hotscenes_overrides\archive_xl\localization\de-de.lipmap
+    es-es: base\hotscenes_overrides\archive_xl\localization\es-es.lipmap
+    es-mx: base\hotscenes_overrides\archive_xl\localization\es-mx.lipmap
+    fr-fr: base\hotscenes_overrides\archive_xl\localization\fr-fr.lipmap
+    hu-hu: base\hotscenes_overrides\archive_xl\localization\hu-hu.lipmap
+    it-it: base\hotscenes_overrides\archive_xl\localization\it-it.lipmap
+    jp-jp: base\hotscenes_overrides\archive_xl\localization\jp-jp.lipmap
+    kr-kr: base\hotscenes_overrides\archive_xl\localization\kr-kr.lipmap
+    pl-pl: base\hotscenes_overrides\archive_xl\localization\pl-pl.lipmap
+    pt-br: base\hotscenes_overrides\archive_xl\localization\pt-br.lipmap
+    ru-ru: base\hotscenes_overrides\archive_xl\localization\ru-ru.lipmap
+    th-th: base\hotscenes_overrides\archive_xl\localization\th-th.lipmap
+    tr-tr: base\hotscenes_overrides\archive_xl\localization\tr-tr.lipmap
+    ua-ua: base\hotscenes_overrides\archive_xl\localization\ua-ua.lipmap
+    zh-cn: base\hotscenes_overrides\archive_xl\localization\zh-cn.lipmap
+    zh-tw: base\hotscenes_overrides\archive_xl\localization\zh-tw.lipmap
+quest:
+  phases:
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\holocalls\victor\victor_holocall.questphase
+      connection: [21]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\holocalls\victor\victor_holocall.questphase
+      connection: [10]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\holocalls\victor\victor_holocall.questphase
+      connection: [12]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\minor_quests\mq000\mq000.questphase
+      connection: [13, 103, 2]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\open_world\scenes\prostitutes\prostitutes.questphase
+      connection: [137, 6]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\open_world\scenes\prostitutes\prostitutes.questphase
+      connection: [140, 6]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\open_world\scenes\prostitutes\prostitutes.questphase
+      connection: [142, 6]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\open_world\scenes\prostitutes\prostitutes.questphase
+      connection: [145, 6]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_hey_gle\quest\phases\dlc6_apart_hey_gle.questphase
+      connection: [2, 12]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_hey_gle\quest\phases\dlc6_apart_hey_gle.questphase
+      connection: [3, 34]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_wbr_jpn\quest\phases\dlc6_apart_wbr_jpn.questphase
+      connection: [1, 3]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_wbr_jpn\quest\phases\dlc6_apart_wbr_jpn.questphase
+      connection: [2, 21]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_cct_dtn\quest\phases\dlc6_apart_cct_dtn.questphase
+      connection: [2, 3]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_cct_dtn\quest\phases\dlc6_apart_cct_dtn.questphase
+      connection: [3, 29]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_wat_nid\quest\phases\dlc6_apart_wat_nid.questphase
+      connection: [2, 3]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: dlc\dlc6_apart\loc_dlc6_apart_wat_nid\quest\phases\dlc6_apart_wat_nid.questphase
+      connection: [3, 41]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\default_dialogs.questphase
+      connection: [4, 21, 51]
+    - path: base\hotscenes_overrides\archive_xl\quest\mod_hotscenes_prostitutes_activator.questphase
+      parent: base\quest\default_dialogs.questphase
+      connection: [7, 33, 12]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_rq_01.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_megabuilding.questphase
+      connection: [7]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_lb_01.questphase
+      parent: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_megabuilding.questphase
+      input:
+        node: [7]
+        socket: "Out"
+      output:
+        node: [8]
+        socket: "In"
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_rq_01.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_northside.questphase
+      connection: [10]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_lb_01.questphase
+      parent: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_northside.questphase
+      input:
+        node: [7]
+        socket: "Out"
+      output:
+        node: [8]
+        socket: "In"
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_rq_01.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_japantown.questphase
+      connection: [13]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_lb_01.questphase
+      parent: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_japantown.questphase
+      input:
+        node: [7]
+        socket: "Out"
+      output:
+        node: [8]
+        socket: "In"
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_rq_01.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_heywood.questphase
+      connection: [13]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_lb_01.questphase
+      parent: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_heywood.questphase
+      input:
+        node: [7]
+        socket: "Out"
+      output:
+        node: [8]
+        socket: "In"
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_rq_01.questphase
+      parent: base\quest\minor_quests\mq055\phases\mq055_apartment_downtown.questphase
+      connection: [15]
+    - path: base\hotscenes_overrides\archive_xl\quest\destinations\hangouts\rogue_lb_01.questphase
+      parent: mod\arman3_hangout_romances\quest\phases\a3_hangout_romances_downtown.questphase
+      input:
+        node: [7]
+        socket: "Out"
+      output:
+        node: [8]
+        socket: "In"

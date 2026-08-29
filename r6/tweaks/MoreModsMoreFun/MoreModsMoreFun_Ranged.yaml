@@ -1,0 +1,206 @@
+# RangedMod======================================================
+
+Items.$(instance):
+    $instances:
+        - { instance: GenericMod1_Base }
+        - { instance: GenericMod1_Common }
+        - { instance: GenericMod1_Uncommon }
+        - { instance: GenericMod1_Rare }
+        - { instance: GenericMod1_Epic }
+        - { instance: GenericMod1_Legendary }
+        - { instance: RangedMod1_Base }
+        - { instance: RangedMod1_Common }
+        - { instance: RangedMod1_Uncommon }
+        - { instance: RangedMod1_Rare }
+        - { instance: RangedMod1_Epic }
+        - { instance: RangedMod1_Legendary }
+        - { instance: RangedMod2_Base }
+        - { instance: RangedMod2_Common }
+        - { instance: RangedMod2_Uncommon }
+        - { instance: RangedMod2_Rare }
+        - { instance: RangedMod2_Epic }
+        - { instance: RangedMod2_Legendary }
+        - { instance: RangedMod3_Base }
+        - { instance: RangedMod3_Common }
+        - { instance: RangedMod3_Uncommon }
+        - { instance: RangedMod3_Rare }
+        - { instance: RangedMod3_Epic }
+        - { instance: RangedMod3_Legendary }
+        - { instance: ChimeraPowerMod }
+        - { instance: PowerMod1_Base }
+        - { instance: PowerMod1_Common }
+        - { instance: PowerMod1_Uncommon }
+        - { instance: PowerMod1_Rare }
+        - { instance: PowerMod1_Epic }
+        - { instance: PowerMod1_Legendary }
+        - { instance: PowerMod2_Base }
+        - { instance: PowerMod2_Common }
+        - { instance: PowerMod2_Uncommon }
+        - { instance: PowerMod2_Rare }
+        - { instance: PowerMod2_Epic }
+        - { instance: PowerMod2_Legendary }
+        - { instance: PowerMod3_Base }
+        - { instance: PowerMod3_Common }
+        - { instance: PowerMod3_Uncommon }
+        - { instance: PowerMod3_Rare }
+        - { instance: PowerMod3_Epic }
+        - { instance: PowerMod3_Legendary }
+        - { instance: ChimeraSmartMod }
+        - { instance: SmartMod1_Base }
+        - { instance: SmartMod1_Common }
+        - { instance: SmartMod1_Uncommon }
+        - { instance: SmartMod1_Rare }
+        - { instance: SmartMod1_Epic }
+        - { instance: SmartMod1_Legendary }
+        - { instance: SmartMod2_Base }
+        - { instance: SmartMod2_Common }
+        - { instance: SmartMod2_Uncommon }
+        - { instance: SmartMod2_Rare }
+        - { instance: SmartMod2_Epic }
+        - { instance: SmartMod2_Legendary }
+        - { instance: SmartMod3_Base }
+        - { instance: SmartMod3_Common }
+        - { instance: SmartMod3_Uncommon }
+        - { instance: SmartMod3_Rare }
+        - { instance: SmartMod3_Epic }
+        - { instance: SmartMod3_Legendary }
+        - { instance: ChimeraTechMod }
+        - { instance: TechMod1_Base }
+        - { instance: TechMod1_Common }
+        - { instance: TechMod1_Uncommon }
+        - { instance: TechMod1_Rare }
+        - { instance: TechMod1_Epic }
+        - { instance: TechMod1_Legendary }
+        - { instance: TechMod2_Base }
+        - { instance: TechMod2_Common }
+        - { instance: TechMod2_Uncommon }
+        - { instance: TechMod2_Rare }
+        - { instance: TechMod2_Epic }
+        - { instance: TechMod2_Legendary }
+        - { instance: TechMod3_Base }
+        - { instance: TechMod3_Common }
+        - { instance: TechMod3_Uncommon }
+        - { instance: TechMod3_Rare }
+        - { instance: TechMod3_Epic }
+        - { instance: TechMod3_Legendary }
+        - { instance: ARSMGLMGMod1_Base }
+        - { instance: ARSMGLMGMod1_Common }
+        - { instance: ARSMGLMGMod1_Uncommon }
+        - { instance: ARSMGLMGMod1_Rare }
+        - { instance: ARSMGLMGMod1_Epic }
+        - { instance: ARSMGLMGMod1_Legendary }
+        - { instance: ARSMGLMGMod2_Base }
+        - { instance: ARSMGLMGMod2_Common }
+        - { instance: ARSMGLMGMod2_Uncommon }
+        - { instance: ARSMGLMGMod2_Rare }
+        - { instance: ARSMGLMGMod2_Epic }
+        - { instance: ARSMGLMGMod2_Legendary }
+        - { instance: ARSMGLMGMod3_Base }
+        - { instance: ARSMGLMGMod3_Common }
+        - { instance: ARSMGLMGMod3_Uncommon }
+        - { instance: ARSMGLMGMod3_Rare }
+        - { instance: ARSMGLMGMod3_Epic }
+        - { instance: ARSMGLMGMod3_Legendary }
+        - { instance: HGMod1_Base }
+        - { instance: HGMod1_Common }
+        - { instance: HGMod1_Uncommon }
+        - { instance: HGMod1_Rare }
+        - { instance: HGMod1_Epic }
+        - { instance: HGMod1_Legendary }
+        - { instance: HGMod2_Base }
+        - { instance: HGMod2_Common }
+        - { instance: HGMod2_Uncommon }
+        - { instance: HGMod2_Rare }
+        - { instance: HGMod2_Epic }
+        - { instance: HGMod2_Legendary }
+        - { instance: HGMod3_Base }
+        - { instance: HGMod3_Common }
+        - { instance: HGMod3_Uncommon }
+        - { instance: HGMod3_Rare }
+        - { instance: HGMod3_Epic }
+        - { instance: HGMod3_Legendary }
+        - { instance: PRSRMod1_Base }
+        - { instance: PRSRMod1_Common }
+        - { instance: PRSRMod1_Uncommon }
+        - { instance: PRSRMod1_Rare }
+        - { instance: PRSRMod1_Epic }
+        - { instance: PRSRMod1_Legendary }
+        - { instance: PRSRMod2_Base }
+        - { instance: PRSRMod2_Common }
+        - { instance: PRSRMod2_Uncommon }
+        - { instance: PRSRMod2_Rare }
+        - { instance: PRSRMod2_Epic }
+        - { instance: PRSRMod2_Legendary }
+        - { instance: PRSRMod3_Base }
+        - { instance: PRSRMod3_Common }
+        - { instance: PRSRMod3_Uncommon }
+        - { instance: PRSRMod3_Rare }
+        - { instance: PRSRMod3_Epic }
+        - { instance: PRSRMod3_Legendary }
+        - { instance: ShotgunMod1_Base }
+        - { instance: ShotgunMod1_Common }
+        - { instance: ShotgunMod1_Uncommon }
+        - { instance: ShotgunMod1_Rare }
+        - { instance: ShotgunMod1_Epic }
+        - { instance: ShotgunMod1_Legendary }
+        - { instance: ShotgunMod2_Base }
+        - { instance: ShotgunMod2_Common }
+        - { instance: ShotgunMod2_Uncommon }
+        - { instance: ShotgunMod2_Rare }
+        - { instance: ShotgunMod2_Epic }
+        - { instance: ShotgunMod2_Legendary }
+        - { instance: ShotgunMod3_Base }
+        - { instance: ShotgunMod3_Common }
+        - { instance: ShotgunMod3_Uncommon }
+        - { instance: ShotgunMod3_Rare }
+        - { instance: ShotgunMod3_Epic }
+        - { instance: ShotgunMod3_Legendary }
+    placementSlots:
+        - !append-once AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1
+        - !append-once AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2
+        - !append-once AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1
+        - !append-once AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2
+        - !append-once AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1
+        - !append-once AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2
+        - !append-once AttachmentSlots.Power_Handgun_WeaponMod1
+        - !append-once AttachmentSlots.Power_Handgun_WeaponMod2
+        - !append-once AttachmentSlots.Smart_Handgun_WeaponMod1
+        - !append-once AttachmentSlots.Smart_Handgun_WeaponMod2
+        - !append-once AttachmentSlots.Tech_Handgun_WeaponMod1
+        - !append-once AttachmentSlots.Tech_Handgun_WeaponMod2
+        - !append-once AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1
+        - !append-once AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2
+        - !append-once AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1
+        - !append-once AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2
+        - !append-once AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1
+        - !append-once AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2
+        - !append-once AttachmentSlots.Power_Shotgun_WeaponMod1
+        - !append-once AttachmentSlots.Power_Shotgun_WeaponMod2
+        - !append-once AttachmentSlots.Smart_Shotgun_WeaponMod1
+        - !append-once AttachmentSlots.Smart_Shotgun_WeaponMod2
+        - !append-once AttachmentSlots.Tech_Shotgun_WeaponMod1
+        - !append-once AttachmentSlots.Tech_Shotgun_WeaponMod2
+        - !append-once AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Power_Handgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Power_Handgun_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Smart_Handgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Smart_Handgun_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Tech_Handgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Tech_Handgun_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Power_Shotgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Power_Shotgun_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Smart_Shotgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Smart_Shotgun_WeaponMod2_Collectible
+        - !append-once AttachmentSlots.Tech_Shotgun_WeaponMod1_Collectible
+        - !append-once AttachmentSlots.Tech_Shotgun_WeaponMod2_Collectible

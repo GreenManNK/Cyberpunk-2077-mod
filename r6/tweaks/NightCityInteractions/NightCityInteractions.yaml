@@ -1,0 +1,26 @@
+ChoiceIcons.NCIedgeIcon:
+  $type: gamedataUIIcon_Record
+  atlasPartName: invalid
+  atlasResourcePath: base\gameplay\gui\common\icons\mappin_icons_nci.inkatlas
+ChoiceCaptionParts.NCIedge:
+  $type: gamedataChoiceCaptionIconPart_Record
+  comment: ''
+  enumName: NCIedge
+  mappinVariant: Mappins.InvalidVariant
+  texturePartID: ChoiceIcons.NCIedgeIcon
+  partType: ChoiceCaptionPartType.Icon
+Props.q302_squat_beer:
+  $type: gamedataProp_Record
+  friendlyName: q302_squat_beer
+  entityTemplatePath: ep1\quest\main_quests\q302\entities\q302_squat_beer.ent
+  priority: SpawnableObjectPriority.Regular
+  savable: False
+  multiplayerTemplatePaths: []
+  tags: []
+  visualTags: []
+  effectors: []
+  objectActions: []
+  statModifierGroups: []
+  statModifiers: []
+  statPools: []
+  weakspots: []

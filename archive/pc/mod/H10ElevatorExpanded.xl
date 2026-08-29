@@ -1,0 +1,213 @@
+streaming:
+  blocks:
+  - h10elevatorexpanded/all.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\interior_-3_2_0_4.streamingsector
+      expectedNodes: 51
+      nodeDeletions:
+        # Elevator Proxy
+        - index: 14
+          type: worldEntityProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-6_4_0_2.streamingsector
+      expectedNodes: 3648
+      nodeDeletions:
+        # Garage Door Proxy
+        - index: 662
+          type: worldEntityProxyMeshNode
+        # Garage Lower Entrance Wall
+        - index: 2771
+          type: worldInstancedMeshNode
+        # Garage Lower Entrance Wall
+        - index: 1518
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-6_5_0_2.streamingsector
+      expectedNodes: 2044
+      nodeDeletions:
+        # CriticalCollisionNode_027
+        - index: 1918
+          type: worldCollisionNode
+          actorDeletions:
+          - 59
+          - 62
+          expectedActors: 128
+        # CriticalCollisionNode_079
+        - index: 1968
+          type: worldCollisionNode
+          actorDeletions:
+          - 33
+          - 46
+          - 51
+          expectedActors: 128
+        # CriticalCollisionNode_021
+        - index: 1961
+          type: worldCollisionNode
+          actorDeletions:
+          - 25
+          - 79
+          - 112
+          expectedActors: 128
+        # NormalCollisionNode_287
+        - index: 1897
+          type: worldCollisionNode
+          actorDeletions:
+          - 0
+          - 2
+          - 4
+          - 6
+          - 8
+          - 10
+          - 12
+          - 14
+          - 16
+          - 18
+          - 20
+          - 22
+          - 24
+          - 26
+          - 29
+          - 31
+          - 45
+          - 47
+          expectedActors: 64
+    - path: base\worlds\03_night_city\_compiled\default\interior_-6_5_0_3.streamingsector
+      expectedNodes: 71
+      nodeDeletions:
+        # Exterior Elevator
+        - index: 59
+          type: worldDeviceNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-11_10_0_1.streamingsector
+      expectedNodes: 3496
+      nodeDeletions:
+        # Metal Floor
+        - index: 642
+          type: worldStaticMeshNode
+       # Basement Sidewalk
+        - index: 2164
+          type: worldInstancedMeshNode
+       # Basement Sidewalk
+        - index: 924
+          type: worldStaticMeshNode
+       # Basement Sidewalk
+        - index: 925
+          type: worldStaticMeshNode
+        # NormalCollisionNode_089
+        - index: 3419
+          type: worldCollisionNode
+          actorDeletions:
+          - 36
+          - 49
+          expectedActors: 64
+        # brick warehouse wall garage ext
+        - index: 1959
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-11_10_0_2.streamingsector
+      expectedNodes: 92
+      nodeDeletions:
+        # Terminal Garage
+        - index: 64
+          type: worldDeviceNode
+        # Gate
+        - index: 63
+          type: worldEntityNode
+        # Gate Proxy
+        - index: 36
+          type: worldEntityProxyMeshNode
+        # Gate Proxy Apt Level
+        - index: 35
+          type: worldEntityProxyMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-11_10_1_2.streamingsector
+      expectedNodes: 37
+      nodeDeletions:
+        # NormalCollisionNode_564
+        - index: 
+          type: worldCollisionNode
+          actorDeletions:
+          - 6
+          expectedActors: 64
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-22_19_0_0.streamingsector
+      expectedNodes: 2236
+      nodeDeletions:
+        # Garage Door
+        - index: 995
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-22_20_0_0.streamingsector
+      expectedNodes: 1833
+      nodeDeletions:
+        # Gate Door
+        - index: 1186
+          type: worldStaticMeshNode
+        # Gate Door
+        - index: 1187
+          type: worldStaticMeshNode
+        # Gate Door
+        - index: 1189
+          type: worldStaticMeshNode
+        # Gate Door
+        - index: 1190
+          type: worldStaticMeshNode
+        # planter large 01
+        - index: 1072
+          type: worldStaticMeshNode
+        # planter large 01 b
+        - index: 1515
+          type: worldInstancedMeshNode
+        # planter large 01 c
+        - index: 1069
+          type: worldStaticMeshNode
+        # planter large 01 ground
+        - index: 1510
+          type: worldInstancedMeshNode
+        # planter large 01 a
+        - index: 1517
+          type: worldInstancedMeshNode
+        # planter large 01 b
+        - index: 1516
+          type: worldInstancedMeshNode
+        # planter large 01 c
+        - index: 1068
+          type: worldStaticMeshNode
+        # planter large 01 d
+        - index: 1070
+          type: worldStaticMeshNode
+        # garage_a_ext_open_a_l600
+        - index: 1788
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-22_20_1_1.streamingsector
+      expectedNodes: 775
+      nodeDeletions:
+        # Gate Door Apartment Level
+        - index: 175
+          type: worldEntityNode
+        # Gate Door Right Apartment Level
+        - index: 409
+          type: worldStaticMeshNode
+        # Gate Door Left Apartment Level
+        - index: 410
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-22_20_2_1.streamingsector
+      expectedNodes: 248
+      nodeDeletions:
+        # Landing Pad
+        - index: 106
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-23_20_0_1.streamingsector
+      expectedNodes: 169
+      nodeMutations:
+        # Main Entrance Gate
+        - index: 91
+          type: worldEntityNode
+          position: [-1435.300,1308.270,27.073,1.0]
+          orientation: [-0.0, 0.0, 0.739, -0.674]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-44_40_3_0.streamingsector
+      expectedNodes: 1610
+      nodeDeletions:
+        # Terminal Apartments
+        - index: 810
+          type: worldDeviceNode
+resource:
+  patch:
+    h10elevatorexpanded/custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices
+    h10elevatorexpanded/custom_devices.psrep:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.psrep

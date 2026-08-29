@@ -1,0 +1,229 @@
+Items.SJ_NetHound__rcv:
+    $base: Items.w_rifle_sniper__tsunami_ashura__rcv1
+    appearanceResourceName: destinybu_nethound_app_rcv
+
+Items.SJ_NetHound__base:
+    $base: Items.w_rifle_sniper__tsunami_ashura__base1
+    appearanceResourceName: destinybu_nethound_app_base
+
+BaseStatusEffect.NetHoundRemoteBreachCooldown:
+    $base: BaseStatusEffect.RemoteBreachCooldown
+    gameplayTags:
+    -   !append NetHoundBreachCooldown
+
+BaseStatusEffect.NetHoundRemoteBreachCooldown_Remover:
+    $type: StatusEffect
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 0.1
+    packages:
+    -   $type: GameplayLogicPackage
+        effectors:
+        -   $base: Effectors.RemoveStatusEffectsEffector
+            prereqRecord: Prereqs.AlwaysTruePrereq
+            statusEffects: [ BaseStatusEffect.NetHoundRemoteBreachCooldown, BaseStatusEffect.NetHoundRemoteBreachEffect ]
+
+BaseStatusEffect.NetHoundRemoteBreachEffect:
+    $base: BaseStatusEffect.RemoteBreachCooldown
+    gameplayTags:
+    -   !append NetHoundBreachCooldown
+    packages:
+    -   $type: GameplayLogicPackage
+        effectors:
+        -   $type: ApplyStatusEffectEffector
+            prereqRecord: Prereqs.AnyTakedownOrKill
+            statusEffect: BaseStatusEffect.NetHoundRemoteBreachCooldown_Remover
+            applicationTarget: Player
+    uiData: None
+
+QuickHack.NetHoundRemoteBreach:
+    $base: QuickHack.QuickHack
+    actionName: RemoteBreach
+    gameplayCategory: ActionCategories.TakeControl
+    instigatorPrereqs:
+    -   !append
+        $base: Prereqs.StatusEffectAbsentPrereq
+        statusEffect: BaseStatusEffect.NetHoundRemoteBreachCooldown
+    targetActivePrereqs:
+    -   !append Prereqs.NetworkNotBreachedActive
+    -   !append Prereqs.ConnectedToBackdoorActive
+    -   !append Prereqs.ChimeraNoQuickHackPrereq
+    costs: []
+    objectActionUI: Interactions.RemoteBreach
+    activationTime: []
+    startEffects:
+    -   !append
+        $type: ObjectActionEffect
+        recipient: ObjectActionReference.Instigator
+        statusEffect: BaseStatusEffect.NetHoundRemoteBreachCooldown
+    -   !append
+        $type: ObjectActionEffect
+        recipient: ObjectActionReference.Instigator
+        statusEffect: BaseStatusEffect.NetHoundRemoteBreachEffect
+    rewards: []
+
+Prereqs.AimedHeadshotFromStealthCanBreach:
+    $base: Prereqs.ANDPrereq
+    nestedPrereqs:
+    -   $base: Prereqs.IsAttackRangedHeadshot
+        prereqClassName: HitIsTargetBreachedPrereq
+        invert: true
+    -   $type: StatusEffectPrereq
+        objectToCheck: Player
+        statusEffect: BaseStatusEffect.NetHoundRemoteBreachCooldown
+        invert: true
+    -   $type: StatPrereq
+        statType: HasCyberdeck
+        valueToCheck: 1.0
+        comparisonType: GreaterOrEqual
+    -   Perks.PlayerIsAiming
+    -   Perks.IsPlayerOutOfCombatOrInStealthPSMState
+
+Prereqs.AimedHeadshotFromStealthPing:
+    $base: Prereqs.ANDPrereq
+    nestedPrereqs:
+    -   $base: Prereqs.IsAttackRangedHeadshot
+        conditions:
+        -   $base: Prereqs.StatusEffectPresentHitPrereqCondition
+            checkType: CheckType.Tag
+            tagToCheck: Ping
+            invert: true
+    -   Perks.PlayerIsAiming
+    -   Perks.IsPlayerOutOfCombatOrInStealthPSMState
+
+Items.SnifferDartWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    effectors:
+    -   $base: Effectors.ApplyQuickhackEffector
+        prereqRecord: Prereqs.AimedHeadshotFromStealthCanBreach
+        objectAction: QuickHack.NetHoundRemoteBreach
+        uploadChance: 1.0
+    -   $type: AddHitFlagToAttackEffector
+        prereqRecord: Prereqs.AimedHeadshotFromStealthPing
+        hitFlag: DealNoDamage
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.AimedHeadshotFromStealthPing
+        statusEffect:
+            $base: BaseStatusEffect.MemoryWipeLevel2
+            duration:
+                statModifiers:
+                -   $type: ConstantStatModifier
+                    statType: BaseStats.MaxDuration
+                    modifierType: Additive
+                    value: 1.0
+        applicationChance: 
+        -   BaseStats.AlwaysApplyChance
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.AimedHeadshotFromStealthPing
+        statusEffect: BaseStatusEffect.PingLevel4PlusPlus
+        applicationChance: 
+        -   BaseStats.AlwaysApplyChance
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_NetHound_iconic_description
+
+Items.SnifferDartWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SnifferDartWeaponModAbility ]
+    tags:
+    -   !append Silenced
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.WeaponNoise
+        modifierType: Additive
+        value: -10.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanSilentKill
+        modifierType: Additive
+        value: 1.0
+
+Items.Preset_NetHound:
+    $base: Items.Preset_Ashura_Default
+    displayName: LocKey#SJ_NetHound_name
+    localizedDescription: LocKey#SJ_NetHound_description
+    blueprint: Items.Iconic_Ranged_Weapon_NoAttachments_Blueprint
+    appearanceResourceName: destinybu_nethound_app
+    audioName: wea_set_grad_panam
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_nethound
+    visualTags: [ Tracer ]
+    tags:
+    -   !append-once IconicWeapon
+    -   !append-once Silenced
+    slotPartListPreset:
+    -   !append
+        $type: SlotItemPartPreset
+        itemPartPreset: Items.SnifferDartWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_NetHound:
+    $base: Items.Preset_NetHound
+    slotPartList:
+    -   $base: Items.Base_Ashura_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetHound__rcv
+    -   $base: Items.Base_Ashura_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetHound__base
+    -   Items.Base_Ashura_inline5
+    -   Items.Base_Ashura_inline7
+    slotPartListPreset:
+    -   $base: Items.Preset_Ashura_Default_inline0
+        itemPartPreset: Items.SJ_NetHound__rcv
+    -   $base: Items.Preset_Ashura_Default_inline1
+        itemPartPreset: Items.SJ_NetHound__base
+    -   Items.Preset_Ashura_Default_inline2
+    -   Items.Preset_Ashura_Default_inline3
+#    -   Items.Preset_Ashura_Default_inline4
+#    -   Items.Preset_Ashura_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SnifferDartWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+
+Items.SJ_NetHound_Shop:
+    $base: Items.Preset_NetHound
+    slotPartList:
+    -   $base: Items.Base_Ashura_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetHound__rcv
+    -   $base: Items.Base_Ashura_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_NetHound__base
+    -   Items.Base_Ashura_inline5
+    -   Items.Base_Ashura_inline7
+    slotPartListPreset:
+    -   $base: Items.Preset_Ashura_Default_inline0
+        itemPartPreset: Items.SJ_NetHound__rcv
+    -   $base: Items.Preset_Ashura_Default_inline1
+        itemPartPreset: Items.SJ_NetHound__base
+    -   Items.Preset_Ashura_Default_inline2
+    -   Items.Preset_Ashura_Default_inline3
+#    -   Items.Preset_Ashura_Default_inline4
+#    -   Items.Preset_Ashura_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SnifferDartWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.wbr_jpn_netrunner_01:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_NetHound_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_4_Start_Prereq

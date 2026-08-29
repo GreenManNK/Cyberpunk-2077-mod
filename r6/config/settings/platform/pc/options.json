@@ -1,0 +1,2723 @@
+{
+    "version": 140,
+    "groups": [
+        {
+            "group_name": "/controls/fppcamerapad",
+            "display_name": "UI-Settings-Interface-CameraControls-FPP_Pad-Title",
+            "order": 3
+        },
+        {
+            "group_name": "/controls/tppcamerapad",
+            "display_name": "UI-Settings-Interface-CameraControls-TPP_Pad-Title",
+            "order": 4
+        },
+        {
+            "group_name": "/key_bindings",
+            "display_name": "UI-Settings-KeyBindings",
+            "order": 7
+        },
+        {
+            "group_name": "/key_bindings/SettingsGeneral",
+            "display_name": "LocKey#77865",
+            "order": 0
+        },
+        {
+            "group_name": "/key_bindings/SettingsLocomotion",
+            "display_name": "LocKey#77759",
+            "order": 1
+        },
+        {
+            "group_name": "/key_bindings/SettingsVehicle",
+            "display_name": "LocKey#77761",
+            "order": 2
+        },
+        {
+            "group_name": "/key_bindings/SettingsUI",
+            "display_name": "LocKey#77833",
+            "order": 3
+        },
+        {
+            "group_name": "/key_bindings/SettingsBraindance",
+            "display_name": "LocKey#77760",
+            "order": 4
+        },
+		{
+            "group_name": "/interface/hudSafezones",
+            "display_name": "HUD_Safe_Zones",
+            "order": 2
+        },
+        {
+            "group_name": "/utilities",
+            "display_name": "UI-Settings-Utilities-Title",
+            "order": 9
+        }
+    ],
+    "options": [
+        {
+            "group_name": "/audio/misc",
+            "options": [
+                {
+                    "name": "NoSpatialAudio",
+                    "display_name": "UI-Settings-Audio-Misc-NoSpatialAudio",
+                    "description": "LocKey#78761",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": false,
+                    "update_policy": "require_restart",
+                    "type": "bool",
+                    "default_value": false,
+                    "value": false
+                },
+                {
+                    "name": "UseXAudio",
+                    "display_name": "UI-Settings-Audio-Misc-UseXAudio",
+                    "description": "LocKey#78759",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": false,
+                    "update_policy": "require_restart",
+                    "type": "bool",
+                    "default_value": false,
+                    "value": false
+                },
+                {
+                    "name": "MuteInBackground",
+                    "display_name": "UI-Settings-Audio-Misc-MuteInBackground",
+                    "description": "LocKey#96932",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "default_value": false,
+                    "value": false
+                }
+            ]
+        },
+        {
+            "group_name": "/audio/dynamicrange",
+            "options": [
+                {
+                    "name": "EnableControllerSpeaker",
+                    "display_name": "UI-Settings-Audio-DynamicRange-EnableControllerSpeaker",
+                    "description": "LocKey#79434",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "default_value": true,
+                    "value": true
+                }
+            ]
+        },
+        {
+            "group_name": "/gameplay/misc",
+            "options": [
+                {
+                    "name": "EnableCloudSaves",
+                    "display_name": "UI-Settings-Gameplay-Misc-EnableCloudSaves",
+                    "description": "UI-Settings-Gameplay-Misc-EnableCloudSavesDescription",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": true,
+                    "default_value": true
+                }            
+            ]
+        },
+
+        {
+            "group_name": "/controls",
+            "options": [
+                {
+                    "name": "SteeringSensitivity",
+                    "display_name": "UI-Settings-SteeringSensitivity",
+                    "description": "UI-Settings-SteeringSensitivityDescription",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 100.0,
+                    "default_value": 100.0,
+                    "min_value": 1.0,
+                    "max_value": 100.0,
+                    "step_value": 5.0
+                },
+                {
+                    "name": "Axis_DeadzoneInner",
+                    "display_name": "UI-Settings-Interface-Controls-DeadzoneInnerPC",
+                    "description": "UI-Settings-Interface-Controls-DeadzoneInnerDescriptionPC",
+                    "order": 1,
+                    "is_visible": false,
+                    "in_pre_game": false,
+                    "in_game": false,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 0.35,
+                    "default_value": 0.35,
+                    "min_value": 0.0,
+                    "max_value": 0.49,
+                    "step_value": 0.01
+                },
+                {
+                    "name": "Axis_DeadzoneInnerFix",
+                    "display_name": "UI-Settings-Interface-Controls-DeadzoneInnerPC",
+                    "description": "UI-Settings-Interface-Controls-DeadzoneInnerDescriptionPC",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 0.35,
+                    "default_value": 0.35,
+                    "min_value": 0.0,
+                    "max_value": 0.49,
+                    "step_value": 0.01
+                },
+                {
+                    "name": "Axis_DeadzoneOuter",
+                    "display_name": "UI-Settings-Interface-Controls-DeadzoneOuterPC",
+                    "description": "UI-Settings-Interface-Controls-DeadzoneOuterDescriptionPC",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 0.9,
+                    "default_value": 0.9,
+                    "min_value": 0.5,
+                    "max_value": 1.0,
+                    "step_value": 0.01
+                },
+                {
+                    "name": "MovementDodge",
+                    "display_name": "LocKey#78520",
+                    "description": "LocKey#78521",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false,
+                    "can_be_restored_to_default": true
+                },
+                {
+                    "name": "ToggleAim",
+                    "display_name": "UI-Settings-Gameplay-Misc-ToggleAiming",
+                    "description": "UI-Settings-Gameplay-Misc-ToggleAimingDesc",
+                    "order": 5,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                }
+            ]
+        },
+        {
+            "group_name": "/controls/fppcameramouse",
+            "options": [
+                {
+                    "name": "FPP_MouseX",
+                    "order": 0,
+                    "display_name": "UI-Settings-Interface-CameraControls-SensitivityX",
+                    "description": "UI-Settings-Interface-CameraControls-SensitivityXDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 5.0,
+                    "default_value": 5.0,
+                    "min_value": 1.0,
+                    "max_value": 30.0,
+                    "step_value": 1.0
+                },
+                {
+                    "name": "FPP_MouseInvertX",
+                    "order": 1,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertX",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertXDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "FPP_MouseY",
+                    "order": 2,
+                    "display_name": "UI-Settings-Interface-CameraControls-SensitivityY",
+                    "description": "UI-Settings-Interface-CameraControls-SensitivityYDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 5.0,
+                    "default_value": 5.0,
+                    "min_value": 1.0,
+                    "max_value": 30.0,
+                    "step_value": 1.0
+                },
+                {
+                    "name": "FPP_MouseInvertY",
+                    "order": 3,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertY",
+                    "description": "LocKey#54189",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "FPP_MouseZoomFactor",
+                    "order": 4,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Mouse-ZoomFactor",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Mouse-ZoomFactorDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 1.0,
+                    "default_value": 1.0,
+                    "min_value": 0.0,
+                    "max_value": 2.0,
+                    "step_value": 0.05
+                }
+            ]
+        },
+        {
+            "group_name": "/controls/tppcameramouse",
+            "options": [
+                {
+                    "name": "TPP_MouseX",
+                    "order": 0,
+                    "display_name": "UI-Settings-Interface-CameraControls-SensitivityX",
+                    "description": "UI-Settings-Interface-CameraControls-SensitivityXDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 3.0,
+                    "default_value": 3.0,
+                    "min_value": 1.0,
+                    "max_value": 30.0,
+                    "step_value": 1.0
+                },
+                {
+                    "name": "TPP_MouseInvertX",
+                    "order": 1,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertX",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertXDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "TPP_MouseY",
+                    "order": 2,
+                    "display_name": "UI-Settings-Interface-CameraControls-SensitivityY",
+                    "description": "UI-Settings-Interface-CameraControls-SensitivityYDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 3.0,
+                    "default_value": 3.0,
+                    "min_value": 1.0,
+                    "max_value": 30.0,
+                    "step_value": 1.0
+                },
+                {
+                    "name": "TPP_MouseInvertY",
+                    "order": 3,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertY",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Mouse-InvertYDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                }
+            ]
+        },
+        {
+            "group_name": "/controls/fppcamerapad",
+            "options": [
+                {
+                    "name": "FPP_ResponseCurve",
+                    "order": 6,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurve",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "string_list",
+                    "index": 0,
+                    "default_index": 0,
+                    "display_values": [
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveRecommended",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveRaw",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveSensitive",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveDynamic"
+                    ],
+                    "values": [
+                        "CameraMovementA",
+                        "CameraMovementLinear",
+                        "CameraMovementSensitive",
+                        "CameraMovementDynamic"
+                    ]
+                }
+            ]
+        },
+        {
+            "group_name": "/controls/tppcamerapad",
+            "options": [
+                {
+                    "name": "TPP_ResponseCurve",
+                    "order": 4,
+                    "display_name": "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurve",
+                    "description": "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveDescription",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "string_list",
+                    "index": 0,
+                    "default_index": 0,
+                    "display_values": [
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveRecommended",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveRaw",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveSensitive",
+                        "UI-Settings-Interface-CameraControls-FPP_Pad-ResponseCurveDynamic"
+                    ],
+                    "values": [
+                        "CameraMovementA",
+                        "CameraMovementLinear",
+                        "CameraMovementSensitive",
+                        "CameraMovementDynamic"
+                    ]
+                }
+            ]
+        },
+        {
+            "group_name": "/gameplay/difficulty",
+            "options": []
+        },
+        {
+            "group_name": "/gameplay/performance",
+            "options": [
+                {
+                    "name": "CrowdDensity",
+                    "display_name": "UI-Settings-Gameplay-Misc-CrowdDensity",
+                    "description": "UI-Settings-Gameplay-Misc-CrowdDensityDesc",
+                    "order": 0,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "name_list",
+                    "index": 2,
+                    "can_be_restored_to_default": true,
+                    "default_index": 2,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High",
+                        "Psycho"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Gameplay-Misc-CrowdDensityLow",
+                        "UI-Settings-Gameplay-Misc-CrowdDensityMedium",
+                        "UI-Settings-Gameplay-Misc-CrowdDensityHigh",
+                        "UI-Settings-Gameplay-Misc-CrowdDensityPsycho"
+                    ]
+                },
+                {
+                    "name": "SlowHDD",
+                    "display_name": "UI-Settings-Gameplay-Performance-SlowHDDMode",
+                    "description": "UI-Settings-Gameplay-Performance-SlowHDDModeDesc",
+                    "order": 1,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": true,
+                    "default_value": false
+                },
+                {
+                    "name": "HDDMode",
+                    "display_name": "UI-Settings-Gameplay-Performance-HDDMode",
+                    "description": "UI-Settings-Gameplay-Performance-HDDModeDesc",
+                    "order": 2,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "name_list",
+                    "index": 2,
+                    "can_be_restored_to_default": true,
+                    "default_index": 2,
+                    "values": [
+                      "Off",
+                      "On",
+                      "Auto"
+                    ],
+                    "display_values": [
+                      "UI-Settings-Gameplay-Performance-HDDModeOff",
+                      "UI-Settings-Gameplay-Performance-HDDModeOn",
+                      "UI-Settings-Gameplay-Performance-HDDModeAuto"
+                    ]
+                }
+            ]
+        },
+        {
+            "group_name": "/graphics/presets",
+            "options": [
+                {
+                    "name": "QuickPresets",
+                    "display_name": "UI-Settings-Video-Basic-QuickPreset",
+                    "description": "LocKey#54170",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "string_list",
+                    "index": 4,
+                    "default_index": 4,
+                    "is_dynamic": true
+                },
+				{
+                    "name": "ResolutionScaling",
+                    "display_name": "UI-Settings-Video-Advanced-ResolutionScaling",
+                    "description": "UI-Settings-Video-Advanced-ResolutionScaling_Desc",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": true,
+                    "order": 1,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0
+                },
+				{
+					"name": "DLSS_UNSUPPORTED",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_SuperResolution",
+					"description": "UI-Settings-Video-Advanced-FeatureUnsupported",
+					"order": 2,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "immediately",
+					"type": "bool",
+					"value": false,
+					"can_be_restored_to_default": false,
+					"default_value": false
+				},
+                {
+                    "name": "FSR4_UNSUPPORTED",
+					"display_name": "UI-Settings-Video-Advanced-FSR4",
+					"description": "UI-Settings-Video-Advanced-FeatureUnsupported",
+					"order": 2,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "immediately",
+					"type": "bool",
+					"value": false,
+					"can_be_restored_to_default": false,
+					"default_value": false
+                },
+				{
+					"name": "XESS_UNSUPPORTED",
+					"display_name": "UI-Settings-Video-Advanced-XeSS",
+					"description": "UI-Settings-Video-Advanced-FeatureUnsupported",
+					"order": 2,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "immediately",
+					"type": "bool",
+					"value": false,
+					"can_be_restored_to_default": false,
+					"default_value": false
+				},
+                {
+					"name": "DLSS_BackendPreset",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_BackendPreset",
+					"description": "UI-Settings-Video-Advanced-DLSS_BackendPreset_Desc",
+					"order": 3,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "require_confirmation",
+					"type": "string_list",
+					"index": 0,
+					"can_be_restored_to_default": false,
+					"default_index": 0,
+                    "values": [
+                        "Transformer",
+                        "Legacy"
+                      ],
+                      "display_values": [
+                        "UI-Settings-Video-Advanced-DLSS_BackendPreset_Transformer",
+                        "UI-Settings-Video-Advanced-DLSS_BackendPreset_Legacy"
+                      ]
+				},
+				{
+					"name": "DLSS",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_SuperResolution",
+					"description": "LocKey#87353",
+					"order": 4,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+                    "is_dynamic": true,
+					"update_policy": "require_confirmation",
+					"type": "string_list",
+					"index": 0,
+					"can_be_restored_to_default": false,
+					"default_index": 0
+				},
+				{
+					"name": "DLSS_NewSharpness",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_Sharpness",
+					"description": "LocKey#81483",
+					"order": 5,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "require_confirmation",
+					"type": "float",
+					"value": 0.0,
+					"default_value": 0.0,
+					"min_value": 0.0,
+					"max_value": 1.0,
+					"step_value": 0.05
+				},
+				{
+					"name": "DLAA_NewSharpness",
+					"display_name": "UI-Settings-Video-Advanced-DLAA_Sharpness",
+					"description": "LocKey#92460",
+					"order": 6,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "require_confirmation",
+					"type": "float",
+					"value": 0.0,
+					"default_value": 0.0,
+					"min_value": 0.0,
+					"max_value": 1.0,
+					"step_value": 0.05
+				},
+				{
+					"name": "DLSS_D",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_D",
+					"description": "LocKey#94486",
+					"order": 7,
+					"is_visible": true,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : true,
+					"update_policy": "require_confirmation",
+					"type": "bool",
+					"value": false,
+					"can_be_restored_to_default": false,
+					"default_value": false
+				},				
+				{
+                    "name": "FSR2",
+                    "display_name": "UI-Settings-Video-Advanced-FSR2",
+                    "description": "UI-Settings-Video-Advanced-FSR2_Desc",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "is_dynamic": true,
+                    "order": 20,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0
+                },
+                {
+                    "name": "FSR2_Sharpness",
+                    "display_name": "UI-Settings-Video-Advanced-FSR2_Sharpness",
+                    "description": "UI-Settings-Video-Advanced-FSR2_Sharpness_Desc",
+                    "order": 21,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "float",
+                    "value": 0.50,
+                    "default_value": 0.50,
+                    "min_value": 0.0,
+                    "max_value": 1.0,
+                    "step_value": 0.05
+                },
+                {
+                    "name": "FSR3",
+                    "display_name": "UI-Settings-Video-Advanced-FSR3",
+                    "description": "UI-Settings-Video-Advanced-FSR3_Desc",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "is_dynamic": true,
+                    "order": 25,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0
+                },
+                {
+                    "name": "FSR3_Sharpness",
+                    "display_name": "UI-Settings-Video-Advanced-FSR3_Sharpness",
+                    "description": "UI-Settings-Video-Advanced-FSR3_Sharpness_Desc",
+                    "order": 26,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "float",
+                    "value": 0.50,
+                    "default_value": 0.50,
+                    "min_value": 0.0,
+                    "max_value": 1.0,
+                    "step_value": 0.05
+                },
+                {
+                    "name": "FSR3_FrameGeneration",
+                    "display_name": "UI-Settings-Video-Advanced-FSR3_FrameGeneration",
+                    "description": "UI-Settings-Video-Advanced-FSR3_FrameGeneration_Desc",
+                    "order": 27,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "FSR4",
+                    "display_name": "UI-Settings-Video-Advanced-FSR4",
+                    "description": "UI-Settings-Video-Advanced-FSR4_Desc",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "is_dynamic": true,
+                    "order": 25,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0
+                },
+                {
+                    "name": "FSR4_Sharpness",
+                    "display_name": "UI-Settings-Video-Advanced-FSR4_Sharpness",
+                    "description": "UI-Settings-Video-Advanced-FSR4_Sharpness_Desc",
+                    "order": 26,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "float",
+                    "value": 0.50,
+                    "default_value": 0.50,
+                    "min_value": 0.0,
+                    "max_value": 1.0,
+                    "step_value": 0.05
+                },
+				{
+                	"name": "XESS",
+                	"display_name": "UI-Settings-Video-Advanced-XeSS",
+                	"description": "UI-Settings-Video-Advanced-XeSS_Desc",
+                	"order": 30,
+                	"is_visible": true,
+                	"in_pre_game": true,
+                	"in_game": true,
+					"is_sub_option" : true,
+                    "is_dynamic": true,
+                	"update_policy": "require_confirmation",
+                	"type": "string_list",
+                	"index": 0,
+                	"can_be_restored_to_default": false,
+                	"default_index": 0
+                },
+                {
+                    "name": "XESS_Sharpness",
+                    "display_name": "UI-Settings-Video-Advanced-XeSS_Sharpness",
+                    "description": "UI-Settings-Video-Advanced-XeSS_Sharpness_Desc",
+                    "order": 31,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "float",
+                    "value": 0.50,
+                    "default_value": 0.50,
+                    "min_value": 0.0,
+                    "max_value": 1.0,
+                    "step_value": 0.05
+                },
+                {
+                    "name": "XESS_FrameGeneration",
+                    "display_name": "UI-Settings-Video-Advanced-XeSS_FrameGeneration",
+                    "description": "UI-Settings-Video-Advanced-XeSS_FrameGeneration_Desc",
+                    "order": 32,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option" : true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+				{
+                    "name": "DynamicResolutionScaling",
+                    "display_name": "UI-Settings-Video-Advanced-DynamicCAS",
+                    "description": "LocKey#72039",
+                    "order": 40,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "DRS_TargetFPS",
+                    "display_name": "UI-Settings-Video-Advanced-TargetFPS",
+                    "description": "LocKey#78356",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "order": 41,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "int",
+                    "value": 30,
+                    "default_value": 30,
+                    "min_value": 10,
+                    "max_value": 240,
+                    "step_value": 1
+                },
+                {
+                    "name": "DRS_MinResolution",
+                    "display_name": "UI-Settings-Video-Advanced-MinimalResolution",
+                    "description": "LocKey#78358",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "order": 42,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "int",
+                    "value": 65,
+                    "default_value": 65,
+                    "min_value": 50,
+                    "max_value": 100,
+                    "step_value": 1
+                },
+                {
+                    "name": "DRS_MaxResolution",
+                    "display_name": "UI-Settings-Video-Advanced-MaximalResolution",
+                    "description": "LocKey#78360",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "order": 43,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "int",
+                    "value": 85,
+                    "default_value": 85,
+                    "min_value": 50,
+                    "max_value": 100,
+                    "step_value": 1
+                },
+                {
+                    "name": "FrameGeneration",
+                    "display_name": "UI-Settings-Video-Advanced-FrameGeneration",
+                    "description": "UI-Settings-Video-Advanced-XeSS_FrameGeneration_Desc",
+                    "warning": "UI-Settings-UpscalerIncompatibilityWarning",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": true,
+                    "order": 45,
+                    "update_policy": "require_restart",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0
+                },
+                {
+                    "name": "DLSS_MultiFrameGeneration",
+                    "display_name": "UI-Settings-Video-Advanced-DLSS_MultiFrameGeneration",
+                    "description": "UI-Settings-Video-Advanced-DLSS_MultiFrameGeneration_Desc",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "order": 46,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "x2",
+                        "x3",
+                        "x4"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-Advanced-DLSS_MultiFrameGeneration_X2",
+                        "UI-Settings-Video-Advanced-DLSS_MultiFrameGeneration_X3",
+                        "UI-Settings-Video-Advanced-DLSS_MultiFrameGeneration_X4"
+                    ]
+                },
+				{
+					"name": "DLSSFrameGen",
+					"display_name": "UI-Settings-Video-Advanced-DLSS_FrameGeneration",
+					"description": "LocKey#87349",
+					"order": 50,
+					"is_visible": false,
+					"in_pre_game": true,
+					"in_game": true,
+					"is_sub_option" : false,
+					"update_policy": "require_confirmation",
+					"type": "bool",
+					"value": false,
+					"can_be_restored_to_default": false,
+					"default_value": false
+				},
+				{
+                    "name": "TextureQuality",
+                    "display_name": "UI-Settings-Video-Advanced-TextureQuality",
+                    "description": "LocKey#95044",
+                    "order": 60,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": false,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 2,
+                    "default_index": 2,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                }
+            ]
+        },
+        {
+            "group_name": "/graphics/advanced",
+            "options": [
+                {
+                    "name": "ContactShadows",
+                    "display_name": "UI-Settings-Video-Advanced-ContactShadows",
+                    "description": "LocKey#71478",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "FacialTangentUpdates",
+                    "display_name": "UI-Settings-Video-Advanced-FacialTangentUpdates",
+                    "description": "LocKey#71208",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "Anisotropy",
+                    "display_name": "UI-Settings-Video-Advanced-Anisotropy",
+                    "description": "LocKey#70537",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "int_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        1,
+                        4,
+                        8,
+                        16
+                    ]
+                },
+                {
+                    "name": "ShadowMeshQuality",
+                    "display_name": "UI-Settings-Video-Advanced-ShadowMeshQuality",
+                    "description": "LocKey#70034",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "LocalShadowsQuality",
+                    "display_name": "UI-Settings-Video-Advanced-LocalShadowsQuality",
+                    "description": "LocKey#74357",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Off",
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "CascadedShadowsRange",
+                    "display_name": "UI-Settings-Video-Advanced-CascadedShadowsRange",
+                    "description": "LocKey#68099",
+                    "order": 5,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "CascadedShadowsResolution",
+                    "display_name": "UI-Settings-Video-Advanced-CascadedShadowsResolution",
+                    "description": "LocKey#67593",
+                    "order": 6,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "DistantShadowsResolution",
+                    "display_name": "UI-Settings-Video-Advanced-DistantShadowsResolution",
+                    "description": "LocKey#67230",
+                    "order": 7,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Low",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "VolumetricFogResolution",
+                    "display_name": "UI-Settings-Video-Advanced-VolumetricFogResolution",
+                    "description": "LocKey#66791",
+                    "order": 8,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High",
+                        "Ultra"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High",
+                        "UI-Settings-Video-QualitySetting-Ultra"
+                    ]
+                },
+                {
+                    "name": "VolumetricCloudsQuality",
+                    "display_name": "UI-Settings-Video-Advanced-VolumetricCloudsQuality",
+                    "description": "LocKey#78353",
+                    "order": 9,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Off",
+                        "Medium",
+                        "High",
+                        "Ultra"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High",
+                        "UI-Settings-Video-QualitySetting-Ultra"
+                    ]
+                },
+                {
+                    "name": "MaxDynamicDecals",
+                    "display_name": "UI-Settings-Video-Advanced-MaxDynamicDecals",
+                    "description": "LocKey#72823",
+                    "order": 10,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "default_index": 1,
+                    "can_be_restored_to_default": false,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High",
+                        "Ultra"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High",
+                        "UI-Settings-Video-QualitySetting-Ultra"
+                    ]
+                },
+                {
+                    "name": "ScreenSpaceReflectionsQuality",
+                    "display_name": "UI-Settings-Video-Advanced-ScreenSpaceReflectionsQuality",
+                    "description": "LocKey#65769",
+                    "order": 11,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Off",
+                        "Low",
+                        "Medium",
+                        "High",
+                        "Ultra",
+                        "Insane"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High",
+                        "UI-Settings-Video-QualitySetting-Ultra",
+                        "UI-Settings-Video-QualitySetting-Insane"
+                    ]
+                },
+                {
+                    "name": "SubsurfaceScatteringQuality",
+                    "display_name": "UI-Settings-Video-Advanced-SubsurfaceScatteringQuality",
+                    "description": "LocKey#65398",
+                    "order": 12,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "AmbientOcclusion",
+                    "display_name": "UI-Settings-Video-Advanced-AmbientOcclusion",
+                    "description": "LocKey#54173",
+                    "order": 13,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Off",
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "ColorPrecision",
+                    "display_name": "UI-Settings-Video-Advanced-ColorPrecision",
+                    "description": "LocKey#65397",
+                    "order": 14,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "GlobaIlluminationRange",
+                    "display_name": "UI-Settings-Video-Advanced-GlobaIlluminationRange",
+                    "description": "LocKey#73662",
+                    "order": 15,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "High",
+                        "Ultra"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-High",
+                        "UI-Settings-Video-QualitySetting-Ultra"
+                    ]
+                },
+                {
+                    "name": "MirrorQuality",
+                    "display_name": "UI-Settings-Video-Advanced-MirrorQuality",
+                    "description": "LocKey#65396",
+                    "order": 16,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Low",
+                        "Medium",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                  "name": "LODPreset",
+                  "display_name": "UI-Settings-Video-Basic-LODPreset",
+                  "description": "LocKey#78413",
+                  "order": 17,
+                  "is_visible": true,
+                  "in_pre_game": true,
+                  "in_game": true,
+                  "update_policy": "require_confirmation",
+                  "type": "string_list",
+                  "index": 1,
+                  "can_be_restored_to_default": false,
+                  "default_index": 1,
+                  "values": [
+                    "Low",
+                    "Medium",
+                    "High"
+                  ],
+                  "display_values": [
+                    "UI-Settings-Video-QualitySetting-Low",
+                    "UI-Settings-Video-QualitySetting-Medium",
+                    "UI-Settings-Video-QualitySetting-High"
+                  ]
+                },
+                {
+                    "name": "AntiAliasing",
+                    "display_name": "UI-Settings-Video-Advanced-AntiAliasing",
+                    "description": "LocKey#72353",
+                    "order": 19,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "is_dynamic": true
+                }
+            ]
+        },
+        {
+            "group_name": "/graphics/raytracing",
+            "options": [
+                {
+                    "name": "RayTracing",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracing",
+                    "description": "LocKey#78346",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "RayTracedReflections",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedReflections",
+                    "description": "LocKey#71756",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "RayTracedSunShadows",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedSunShadows",
+                    "description": "LocKey#78350",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "RayTracedLocalShadows",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedLocalShadows",
+                    "description": "LocKey#81468",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "RayTracedLighting",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedLighting",
+                    "description": "LocKey#78348",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 0,
+                    "can_be_restored_to_default": false,
+                    "default_index": 0,
+                    "values": [
+                        "Off",
+                        "Medium",
+                        "Ultra",
+                        "Psycho"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Medium",
+                        "UI-Settings-Video-QualitySetting-Ultra",
+                        "UI-Settings-Video-QualitySetting-Insane"
+                    ]
+                },
+                {
+                    "name": "RayTracedPathTracing",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedPathTracing",
+                    "description": "LocKey#92071",
+                    "order": 5,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_sub_option": false,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                },
+                {
+                    "name": "RayTracedPathTracingForPhotoMode",
+                    "display_name": "UI-Settings-Video-Advanced-RayTracedPathTracingPhotoMode",
+                    "description": "LocKey#92179",
+                    "order": 6,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+					"is_sub_option" : false,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "can_be_restored_to_default": false,
+                    "default_value": false
+                }
+            ]
+        },
+		{
+            "group_name": "/graphics/performance",
+            "options": [
+              {
+                "name": "CrowdDensity",
+                "display_name": "UI-Settings-Gameplay-Misc-CrowdDensity",
+                "description": "UI-Settings-Gameplay-Misc-CrowdDensityDesc",
+                "order": 0,
+                "is_visible": true,
+                "in_pre_game": true,
+                "in_game": true,
+                "update_policy": "immediately",
+                "type": "name_list",
+                "index": 2,
+                "can_be_restored_to_default": true,
+                "default_index": 2,
+                "values": [
+                  "Low",
+                  "Medium",
+                  "High",
+                  "Psycho"
+                ],
+                "display_values": [
+                  "UI-Settings-Gameplay-Misc-CrowdDensityLow",
+                  "UI-Settings-Gameplay-Misc-CrowdDensityMedium",
+                  "UI-Settings-Gameplay-Misc-CrowdDensityHigh",
+                  "UI-Settings-Gameplay-Misc-CrowdDensityPsycho"
+                ]
+              }
+            ]
+        },
+        {
+            "group_name": "/video/display",
+            "options": [
+                {
+                    "name": "OutputMonitor",
+                    "display_name": "UI-Settings-Video-Display-Monitor",
+                    "description": "LocKey#77277",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "int_list",
+                    "is_dynamic": true
+                },
+                {
+                    "name": "VSync",
+                    "display_name": "UI-Settings-Video-Advanced-VSync",
+                    "description": "LocKey#77279",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "is_dynamic": true
+                },
+                {
+                    "name": "MaximumFPS_OnOff",
+                    "display_name": "UI-Settings-Video-Advanced-MaximumFPS",
+                    "description": "LocKey#78361",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "MaximumFPS_Value",
+                    "display_name": "UI-ResourceExports-Value",
+                    "description": "LocKey#78361",
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "is_sub_option": true,
+                    "order": 4,
+                    "update_policy": "require_confirmation",
+                    "type": "int",
+                    "value": 30,
+                    "default_value": 30,
+                    "min_value": 10,
+                    "max_value": 240,
+                    "step_value": 1
+                },
+                {
+                    "name": "WindowMode",
+                    "display_name": "UI-Settings-Video-Display-WindowMode",
+                    "description": "LocKey#77278",
+                    "order": 5,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "is_dynamic": true
+                },
+                {
+                    "name": "Resolution",
+                    "display_name": "UI-Settings-Video-Display-Resolution",
+                    "description": "LocKey#77281",
+                    "order": 6,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "is_dynamic": true
+                },
+                {
+                    "name": "HDRModes",
+                    "display_name": "UI-Settings-Video-Display-HDRModes",
+                    "description": "LocKey#77280",
+                    "order": 7,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "is_dynamic": true
+                },
+				{
+                    "name": "HDR10PlusGaming",
+                    "display_name": "UI-Settings-Video-Display-HDR10PlusGaming",
+                    "description": "LocKey#95240",
+                    "order": 8,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                },
+                {
+                    "name": "ReflexMode",
+                    "display_name": "UI-Settings-Video-Display-Reflex",
+                    "description": "LocKey#87355",
+                    "order": 9,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                      "Disabled",
+                      "Enabled",
+                      "Enabled + Boost"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-Display-ReflexSetting_Off",
+                        "UI-Settings-Video-Display-ReflexSetting_On",
+                        "UI-Settings-Video-Display-ReflexSetting_Boost"
+                    ]
+                },
+                {
+                    "name": "XellMode",
+                    "display_name": "UI-Settings-Video-Display-Xell",
+                    "description": "LocKey#96377",
+                    "order": 10,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                      "Disabled",
+                      "Enabled"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-Display-ReflexSetting_Off",
+                        "UI-Settings-Video-Display-ReflexSetting_On"
+                    ]
+                },
+                {
+                    "name": "XellFrameCap",
+                    "display_name": "UI-Settings-Video-Display-Xell_FrameCap",
+                    "description": "LocKey#96382",
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": false,
+                    "is_sub_option": true,
+                    "order": 11,
+                    "update_policy": "require_confirmation",
+                    "type": "int",
+                    "value": 0,
+                    "default_value": 0,
+                    "min_value": 0,
+                    "max_value": 400,
+                    "step_value": 1
+                }
+            ]
+        },
+		{
+            "group_name": "/graphics/basic",
+            "options": [
+                {
+                    "name": "FieldOfView",
+                    "display_name": "UI-Settings-Video-Basic-FieldOfView",
+                    "description": "UI-Settings-Video-Basic-FieldOfView_Desc",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "can_be_restored_to_default": true,
+                    "type": "float",
+                    "value": 80.0,
+                    "default_value": 80.0,
+                    "min_value": 70.0,
+                    "max_value": 100.0,
+                    "step_value": 5.0
+                },
+                {
+                    "name": "FilmGrain",
+                    "display_name": "UI-Settings-Video-Basic-FilmGrain",
+                    "description": "LocKey#54169",
+                    "order": 3,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "ChromaticAberration",
+                    "display_name": "UI-Settings-Video-Basic-ChromaticAberration",
+                    "description": "LocKey#54176",
+                    "order": 4,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "DepthOfField",
+                    "display_name": "UI-Settings-Video-Basic-DepthOfField",
+                    "description": "LocKey#54172",
+                    "order": 5,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "LensFlares",
+                    "display_name": "UI-Settings-Video-Basic-LensFlares",
+                    "description": "LocKey#54177",
+                    "order": 6,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                },
+                {
+                    "name": "MotionBlur",
+                    "display_name": "UI-Settings-Video-Basic-MotionBlur",
+                    "description": "LocKey#54171",
+                    "order": 7,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "string_list",
+                    "index": 1,
+                    "can_be_restored_to_default": false,
+                    "default_index": 1,
+                    "values": [
+                        "Off",
+                        "Low",
+                        "High"
+                    ],
+                    "display_values": [
+                        "UI-Settings-Video-QualitySetting-Off",
+                        "UI-Settings-Video-QualitySetting-Low",
+                        "UI-Settings-Video-QualitySetting-High"
+                    ]
+                },
+                {
+                    "name": "Vignette",
+                    "display_name": "UI-Settings-Video-Basic-Vignette",
+                    "description": "LocKey#97379",
+                    "order": 8,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_confirmation",
+                    "type": "bool",
+                    "value": true,
+                    "can_be_restored_to_default": false,
+                    "default_value": true
+                }
+            ]
+        },
+        {
+            "group_name": "/language",
+            "options": [
+                {
+                    "name": "Platform",
+                    "display_name": "UI-SETTINGS-ONSCREEN",
+                    "description": "LocKey#54183",
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": false,
+                    "is_dynamic": true,
+                    "update_policy": "require_confirmation",
+                    "type": "name_list",
+                    "order": 3
+                }
+            ]
+        },
+        {
+            "group_name": "/interface",
+            "options": [
+                {
+                    "name": "CrowdsOnMinimap",
+                    "display_name": "UI-Settings-Interface-CrowdsOnMinimap",
+                    "description": "UI-Settings-Interface-CrowdsOnMinimapDescription",
+                    "order": 7,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "can_be_restored_to_default": true,
+                    "type": "bool",
+                    "value": false,
+                    "default_value": false
+                }
+            ]
+        },
+		{
+            "group_name": "/interface/hudSafezones",
+            "options": [
+                {
+                    "name": "HudSafezoneHor",
+                    "display_name": "hud_safezone_horizontal",
+                    "description": "hud_safezones_horizontal",
+                    "order": 0,
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 0.00,
+                    "default_value": 0.00,
+                    "min_value": 0.0,
+                    "max_value": 1.0,
+                    "step_value": 0.05
+                }
+			]
+		},
+        {
+            "group_name": "/key_bindings/SettingsGeneral",
+            "options": [
+                {
+                    "name": "zoomIn",
+                    "display_name": "LocKey#77795",
+                    "order": 0,
+                    "is_input": true
+                },
+                {
+                    "name": "zoomOut",
+                    "display_name": "LocKey#77796",
+                    "order": 1,
+                    "is_input": true
+                },
+                {
+                    "name": "tag",
+                    "display_name": "LocKey#77794",
+                    "order": 2,
+                    "is_input":  true
+                },
+                {
+                    "name": "quickSave",
+                    "display_name": "LocKey#77764",
+                    "order": 3,
+                    "is_input":  true
+                },
+                {
+                    "name": "quickLoad",
+                    "display_name": "LocKey#77923",
+                    "order": 4,
+                    "is_input":  true
+                }
+            ]
+        },
+        {
+            "group_name": "/key_bindings/SettingsLocomotion",
+            "options": [
+                {
+                    "name": "forward",
+                    "display_name": "LocKey#77762",
+                    "order": 0,
+                    "is_input": true
+                },
+                {
+                    "name": "back",
+                    "display_name": "LocKey#78161",
+                    "order": 1,
+                    "is_input": true
+                },
+                {
+                    "name": "left",
+                    "display_name": "LocKey#77765",
+                    "order": 2,
+                    "is_input": true
+                },
+                {
+                    "name": "right",
+                    "display_name": "LocKey#77763",
+                    "order": 3,
+                    "is_input": true
+                },
+                {
+                    "name": "jump",
+                    "display_name": "% / %",
+                    "display_name_keys": [
+                    "LocKey#77766",
+                    "LocKey#40158"
+                    ],
+                    "order": 4,
+                    "is_input": true
+                },
+                {
+                    "name": "sprintHold",
+                    "display_name": "% / %",
+                    "display_name_keys": [
+                    "LocKey#77767",
+                    "LocKey#40155"
+                    ],
+                    "order": 5,
+                    "is_input": true
+                },
+                {
+                    "name": "sprintToggle",
+                    "display_name": "% / %",
+                    "display_name_keys": [
+                    "LocKey#77768",
+                    "LocKey#40155"
+                    ],
+                    "order": 6,
+                    "is_input": true
+                },
+                {
+                    "name": "walkToggle",
+                    "display_name": "LocKey#79469",
+                    "order": 7,
+                    "is_input": true
+                },
+                {
+                    "name": "crouchHold",
+                    "display_name": "% / %",
+                    "display_name_keys": [
+                    "LocKey#77769",
+                    "LocKey#40157"
+                    ],
+                    "order": 8,
+                    "is_input": true
+                },
+                {
+                    "name": "crouchToggle",
+                    "display_name": "% / %",
+                    "display_name_keys": [
+                    "LocKey#77770",
+                    "LocKey#40157"
+                    ],
+                    "order": 9,
+                    "is_input": true
+                },
+				{
+                    "name": "dodgeDash",
+                    "display_name": "LocKey#87591",
+                    "order": 10,
+                    "is_input": true
+                },
+                {
+                    "name": "switchItem",
+                    "display_name": "LocKey#77771",
+                    "order": 11,
+                    "is_input": true
+                },
+                {
+                    "name": "nextWeapon",
+                    "display_name": "LocKey#77784",
+                    "order": 12,
+                    "is_input": true
+                },
+                {
+                    "name": "previousWeapon",
+                    "display_name": "LocKey#77785",
+                    "order": 13,
+                    "is_input": true
+                },
+                {
+                    "name": "holsterWeapon",
+                    "display_name": "LocKey#79486",
+                    "order": 14,
+                    "is_input": true
+                },
+                {
+                    "name": "weapon1",
+                    "display_name": "LocKey#77788",
+                    "order": 15,
+                    "is_input": true
+                },
+                {
+                    "name": "weapon2",
+                    "display_name": "LocKey#77789",
+                    "order": 16,
+                    "is_input": true
+                },
+                {
+                    "name": "weapon3",
+                    "display_name": "LocKey#77790",
+                    "order": 17,
+                    "is_input": true
+                },
+                {
+                    "name": "weapon4",
+                    "display_name": "LocKey#77791",
+                    "order": 18,
+                    "is_input": true
+                },
+                {
+                    "name": "attack",
+                    "display_name": "LocKey#77773",
+                    "order": 19,
+                    "is_input": true
+                },
+                {
+                    "name": "aim",
+                    "display_name": "LocKey#77774",
+                    "order": 20,
+                    "is_input": true
+                },
+                {
+                    "name": "quickmelee",
+                    "display_name": "LocKey#77779",
+                    "order": 21,
+                    "is_input": true
+                },
+                {
+                    "name": "dropCarriedObject",
+                    "display_name": "LocKey#43673",
+                    "order": 22,
+                    "is_input": true
+                },
+                {
+                    "name": "reload",
+                    "display_name": "LocKey#77780",
+                    "order": 23,
+                    "is_input": true
+                },
+                {
+                    "name": "iconic",
+                    "display_name": "LocKey#77787",
+                    "order": 24,
+                    "is_input": true
+                },
+                {
+                    "name": "combatGadget",
+                    "display_name": "LocKey#77783",
+                    "order": 25,
+                    "is_input": true
+                },
+                {
+                    "name": "useConsumable",
+                    "display_name": "LocKey#77786",
+                    "order": 26,
+                    "is_input": true
+                },
+                {
+                    "name": "visionHold",
+                    "display_name": "LocKey#77793",
+                    "order": 27,
+                    "is_input": true
+                },
+                {
+                    "name": "visionToggle",
+                    "display_name": "LocKey#77792",
+                    "order": 28,
+                    "is_input": true
+                },
+                {
+                    "name": "openPhone",
+                    "display_name": "LocKey#77805",
+                    "order": 29,
+                    "is_input": true
+                },
+				{
+                    "name": "pocketRadio",
+                    "display_name": "LocKey#77871",
+                    "order": 30,
+                    "is_input": true
+                },
+                {
+                    "name": "openNotifiation",
+                    "display_name": "LocKey#77807",
+                    "order": 31,
+                    "is_input": true
+                },
+                {
+                    "name": "fastForward",
+                    "display_name": "LocKey#77896",
+                    "order": 32,
+                    "is_input": true
+                },
+                {
+                    "name": "photoMode",
+                    "display_name": "LocKey#77941",
+                    "order": 33,
+                    "is_input": true
+                },
+                {
+                    "name": "hub",
+                    "display_name": "LocKey#78527",
+                    "order": 34,
+                    "is_input": true
+                },
+                {
+                    "name": "map",
+                    "display_name": "LocKey#77899",
+                    "order": 35,
+                    "is_input": true
+                },
+                {
+                    "name": "journal",
+                    "display_name": "LocKey#77900",
+                    "order": 36,
+                    "is_input": true
+                },
+                {
+                    "name": "perks",
+                    "display_name": "LocKey#78529",
+                    "order": 37,
+                    "is_input": true
+                },
+                {
+                    "name": "crafting",
+                    "display_name": "LocKey#78528",
+                    "order": 38,
+                    "is_input": true
+                },
+                {
+                    "name": "inventory",
+                    "display_name": "LocKey#77901",
+                    "order": 39,
+                    "is_input": true
+                },
+                {
+                    "name": "selectChoice",
+                    "display_name": "LocKey#77797",
+                    "order": 40,
+                    "is_input": true
+                }
+            ]
+        },
+        {
+            "group_name": "/key_bindings/SettingsVehicle",
+            "options": [
+                {
+                    "name": "vehicleAccelerate",
+                    "display_name": "LocKey#77853",
+                    "order": 0,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleDecelrate",
+                    "display_name": "LocKey#77854",
+                    "order": 1,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleSteerLeft",
+                    "display_name": "LocKey#77856",
+                    "order": 2,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleSteerRight",
+                    "display_name": "LocKey#77855",
+                    "order": 3,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleAccelerate2",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#77853",
+                      "LocKey#78783"
+                    ],
+                    "order": 4,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleDecelerate2",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#77854",
+                      "LocKey#78783"
+                    ],
+                    "order": 5,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleSteerLeft2",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#77856",
+                      "LocKey#78783"
+                    ],
+                    "order": 6,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleSteerRight2",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#77855",
+                      "LocKey#78783"
+                    ],
+                    "order": 7,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleLeanForward",
+                    "display_name": "LocKey#95846",
+                    "order": 8,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleLeanBackward",
+                    "display_name": "LocKey#95847",
+                    "order": 9,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleToggleCam",
+                    "display_name": "LocKey#77857",
+                    "order": 10,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleReverseCam",
+                    "display_name": "LocKey#77858",
+                    "order": 11,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleCameraReset",
+                    "display_name": "LocKey#93152",
+                    "order": 12,
+                    "is_input": true
+                },
+                {
+                    "name": "exitVehicle",
+                    "display_name": "LocKey#77881",
+                    "order": 13,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleCycleLights",
+                    "display_name": "LocKey#77859",
+                    "order": 14,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleHandbrake",
+                    "display_name": "LocKey#77869",
+                    "order": 15,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleHorn",
+                    "display_name": "LocKey#77870",
+                    "order": 16,
+                    "is_input": true
+                },
+                {
+                    "name": "radio",
+                    "display_name": "LocKey#77871",
+                    "order": 17,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleShootPrimary",
+                    "display_name": "LocKey#77886",
+                    "order": 18,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleShootSecondary",
+                    "display_name": "LocKey#77887",
+                    "order": 19,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleShootTertiary",
+                    "display_name": "LocKey#77888",
+                    "order": 20,
+                    "is_input": true
+                },
+                {
+                    "name": "callVehicle",
+                    "display_name": "LocKey#77804",
+                    "order": 21,
+                    "is_input": true
+                },
+                {
+                    "name": "crystalCoat",
+                    "display_name": "LocKey#96055",
+                    "order": 22,
+                    "is_input": true
+                },
+                {
+                    "name": "vehicleAutodrive",
+                    "display_name": "LocKey#96519",
+                    "order": 23,
+                    "is_input": true
+                }							
+            ]
+        },
+        {
+            "group_name": "/key_bindings/SettingsUI",
+            "options": [
+                {
+                    "name": "quickhackInfo",
+                    "display_name": "LocKey#77906",
+                    "order": 0,
+                    "is_input": true
+                },
+                {
+                    "name": "selectChoiceUI",
+                    "display_name": "LocKey#77797",
+                    "order": 1,
+                    "is_input": true
+                },
+		{
+                    "name": "secondaryChoiceUI",
+                    "display_name": "LocKey#95867",
+                    "order": 2,
+                    "is_input": true
+                },
+                {
+                    "name": "prevItem",
+                    "display_name": "LocKey#77776",
+                    "order": 3,
+                    "is_input": true
+                },
+                {
+                    "name": "nextItem",
+                    "display_name": "LocKey#77775",
+                    "order": 4,
+                    "is_input": true
+                },
+                {
+                    "name": "prevItemSecondary",
+                    "display_name": "LocKey#78530",
+                    "order": 5,
+                    "is_input": true
+                },
+                {
+                    "name": "nextItemSecondary",
+                    "display_name": "LocKey#78531",
+                    "order": 6,
+                    "is_input": true
+                },
+                {
+                    "name": "previousOption",
+                    "display_name": "LocKey#78533",
+                    "order": 7,
+                    "is_input": true
+                },
+                {
+                    "name": "nextOption",
+                    "display_name": "LocKey#78534",
+                    "order": 8,
+                    "is_input": true
+                },
+                {
+                    "name": "selectUp",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                        "LocKey#77776",
+                        "LocKey#78783"
+                      ],
+                    "order": 9,
+                    "is_input": true
+                },
+                {
+                    "name": "selectDown",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                        "LocKey#77775",
+                        "LocKey#78783"
+                      ],
+                    "order": 10,
+                    "is_input": true
+                },
+                {
+                    "name": "selectUpSecondary",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#78530",
+                      "LocKey#78783"
+                    ],
+                    "order": 11,
+                    "is_input": true
+                },
+                {
+                    "name": "selectDownSecondary",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                      "LocKey#78531",
+                      "LocKey#78783"
+                    ],
+                    "order": 12,
+                    "is_input": true
+                },
+                {
+                    "name": "selectLeftSecondary",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                        "LocKey#78533",
+                        "LocKey#78783"
+                      ],
+                    "order": 13,
+                    "is_input": true
+                },
+                {
+                    "name": "selectRightSecondary",
+                    "display_name": "% (%)",
+                    "display_name_keys": [
+                        "LocKey#78534",
+                        "LocKey#78783"
+                      ],
+                    "order": 14,
+                    "is_input": true
+                }
+            ]
+        },
+        {
+            "group_name": "/key_bindings/SettingsBraindance",
+            "options": [
+                {
+                    "name": "braindancePause",
+                    "display_name": "LocKey#77846",
+                    "order": 0,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceForward",
+                    "display_name": "LocKey#77847",
+                    "order": 1,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceBackward",
+                    "display_name": "LocKey#77848",
+                    "order": 2,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceLayer",
+                    "display_name": "LocKey#77850",
+                    "order": 3,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceMode",
+                    "display_name": "LocKey#77851",
+                    "order": 4,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceRestart",
+                    "display_name": "LocKey#77849",
+                    "order": 5,
+                    "is_input": true
+                },
+                {
+                    "name": "braindanceExit",
+                    "display_name": "LocKey#77852",
+                    "order": 5,
+                    "is_input": true
+                }
+            ]
+        },
+		{
+			"group_name": "/accessibility/difficulty",
+			"options" : [
+				{
+                    "name": "GamepadLayout",
+                    "order": 7,
+                    "display_name": "UI-Settings-Accessibility-GamepadLayout",
+                    "description": "UI-Settings-Accessibility-GamepadLayoutDescription",
+                    "is_visible": false,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "import_policy": "ignore",
+                    "update_policy": "require_confirmation",
+                    "type": "int_list",
+                    "index": 0,
+                    "default_index": 0,
+                    "values": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "display_values": [
+                        "UI-Settings-Accessibility-GamepadLayouts-Default",
+                        "UI-Settings-Accessibility-GamepadLayouts-Legacy",
+                        "UI-Settings-Accessibility-GamepadLayouts-LegacySouthpaw",
+                        "UI-Settings-Accessibility-GamepadLayouts-Southpaw"
+                    ]
+                }
+			]
+		},
+		{
+			"group_name": "/accessibility/controls",
+			"options" : [
+				{
+                    "name": "PadVibration",
+                    "display_name": "UI-Settings-PadVibration",
+                    "description": "UI-Settings-PadVibrationDescription",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "int",
+                    "value": 100,
+                    "default_value": 100,
+                    "min_value": 0,
+                    "max_value": 100,
+                    "step_value": 10
+                },
+                {
+                    "name": "AdaptiveTriggersIntensity",
+                    "display_name": "UI-Settings-Interface-Controls-AdaptiveTriggersIntensityPS5",
+                    "description": "UI-Settings-Interface-Controls-AdaptiveTriggersIntensityDescriptionPS5",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": true,
+                    "update_policy": "immediately",
+                    "type": "float",
+                    "value": 1.0,
+                    "default_value": 1.0,
+                    "min_value": 0.2,
+                    "max_value": 1.0,
+                    "step_value": 0.01
+                },
+                {
+                    "name": "EnableAdaptiveTriggerEffects",
+                    "display_name": "UI-Settings-Interface-Controls-EnableAdaptiveTriggerEffectsPS5",
+                    "description": "UI-Settings-Interface-Controls-EnableAdaptiveTriggerEffectsPS5",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "is_dynamic": true,
+                    "update_policy": "immediately",
+                    "type": "bool",
+                    "value": true,
+                    "default_value": true
+                }
+			]
+		},
+        {
+            "group_name": "/utilities",
+            "options": [
+                {
+                    "name": "HDDMode2",
+                    "display_name": "UI-Settings-Gameplay-Performance-HDDMode",
+                    "description": "UI-Settings-Gameplay-Performance-HDDModeDesc",
+                    "order": 0,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "immediately",
+                    "type": "name_list",
+                    "index": 2,
+                    "can_be_restored_to_default": true,
+                    "default_index": 2,
+                    "values": [
+                      "Off",
+                      "On",
+                      "Auto"
+                    ],
+                    "display_values": [
+                      "UI-Settings-Gameplay-Performance-HDDModeOff",
+                      "UI-Settings-Gameplay-Performance-HDDModeOn",
+                      "UI-Settings-Gameplay-Performance-HDDModeAuto"
+                    ]
+                },
+                {
+                    "name": "RyzenSMTUtilization",
+                    "display_name": "UI-Settings-Gameplay-Performance-RyzenSMTUtilization",
+                    "description": "UI-Settings-Gameplay-Performance-RyzenSMTUtilizationDesc",
+                    "order": 1,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_restart",
+                    "type": "name_list",
+                    "index": 0,
+                    "default_index": 0,
+                    "values": [
+                      "Auto",
+                      "On",
+                      "Off"
+                    ],
+                    "display_values": [
+                      "UI-Settings-Gameplay-Performance-RyzenSMTUtilizationAuto",
+                      "UI-Settings-Gameplay-Performance-RyzenSMTUtilizationOn",
+                      "UI-Settings-Gameplay-Performance-RyzenSMTUtilizationOff"
+                    ]
+                  },
+                  {
+                    "name": "HybridUtilization",
+                    "display_name": "UI-Settings-Gameplay-Performance-HybridUtilization",
+                    "description": "UI-Settings-Gameplay-Performance-HybridUtilizationDesc",
+                    "order": 2,
+                    "is_visible": true,
+                    "in_pre_game": true,
+                    "in_game": true,
+                    "update_policy": "require_restart",
+                    "type": "name_list",
+                    "index": 0,
+                    "default_index": 0,
+                    "values": [
+                      "Auto",
+                      "PrioritizePCores"
+                    ],
+                    "display_values": [
+                      "UI-Settings-Gameplay-Performance-HybridUtilizationAuto",
+                      "UI-Settings-Gameplay-Performance-HybridUtilizationPrioritizePCores"
+                    ]
+                  }
+                ]
+            }
+    ]
+}

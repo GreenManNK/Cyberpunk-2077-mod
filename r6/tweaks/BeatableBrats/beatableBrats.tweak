@@ -1,0 +1,72 @@
+package Character
+using RTDB, BaseStats, Crowds
+
+CreoleChild : Crowd_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";	
+	items = [];
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	crowdMemberSettings = "Crowds.WomanCivilianSettings";
+    isChild = false;
+    baseAttitudeGroup = "neutral";
+    despawnChildCommunityWhenPlayerInVehicle = false;
+}
+
+ChildAverage : Crowd_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";
+	visualTags = 
+	[
+		"Tennant"
+	];
+	items = [];
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	crowdMemberSettings = "Crowds.WomanCivilianSettings";
+    isChild = false;
+    baseAttitudeGroup = "neutral";
+    despawnChildCommunityWhenPlayerInVehicle = false;
+}
+
+ChildPoor : Crowd_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";
+	visualTags = 
+	[
+		"Lowlife"
+	];
+	items = [];
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	crowdMemberSettings = "Crowds.WomanCivilianSettings";
+    isChild = false;
+    baseAttitudeGroup = "neutral";
+    despawnChildCommunityWhenPlayerInVehicle = false;
+}
+
+ChildRich : Crowd_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";
+	visualTags = 
+	[
+		"Posh"
+	];
+	items = [];
+	fk< Affiliation > affiliation = "Factions.Civilian";
+	crowdMemberSettings = "Crowds.WomanCivilianSettings";
+    isChild = false;
+    baseAttitudeGroup = "neutral";
+    despawnChildCommunityWhenPlayerInVehicle = false;
+}
+
+ChildPoorDE : ChildPoor
+{
+	canHaveGenericTalk = false;
+	savable = true;
+	priority = "SpawnableObjectPriority.Regular";
+}
+
+CreoleChildDE : CreoleChild
+{
+	canHaveGenericTalk = false;
+	savable = true;
+	priority = "SpawnableObjectPriority.Regular";
+}

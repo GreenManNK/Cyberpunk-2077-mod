@@ -1,0 +1,205 @@
+Items.SJ_Firestorm__rcv1:
+    $base: Items.w_rifle_assault__militech_ajax__rcv1
+    appearanceResourceName: seijax_firestorm_app_rvc
+
+Items.SJ_Firestorm__base1:
+    $base: Items.w_rifle_assault__militech_ajax__base1
+    appearanceResourceName: seijax_firestorm_app_base
+    
+Items.SJ_Firestorm__mag_std:
+    $base: Items.w_rifle_assault__militech_ajax__mag_std
+    appearanceResourceName: seijax_firestorm_app_mag_std
+
+Items.SJ_Firestorm__mag_stdr:
+    $base: Items.w_rifle_assault__militech_ajax__mag_stdr
+    appearanceResourceName: seijax_firestorm_app_mag_stdr
+
+WeaponFxPackage.SJ_FirestormFxPackage:
+    $base: WeaponFxPackage.PowerRifleAssault
+    vfx_hitscan_trail: base\fx\weapons\trails\power\thermal\w_trail_thermal_power_hmg.effect
+    NPC_vfx_hitscan_trail: base\fx\weapons\trails\power\thermal\w_trail_thermal_power_hmg.effect
+    vfx_hitscan_trail_slowmo: base\fx\weapons\trails\power\thermal\w_trail_thermal_power_hmg.effect
+    vfx_hitscan_trail_ricochet: base\fx\weapons\trails\power\thermal\w_trail_thermal_power_hmg.effect
+    vfx_impact_damage_thermal: base\fx\weapons\impacts\_elemental\thermal\imp_add_on_thermal.effect
+    vfx_impact_damage_electric: base\fx\weapons\impacts\_elemental\thermal\imp_add_on_thermal.effect
+    vfx_impact_damage_chemical: base\fx\weapons\impacts\_elemental\thermal\imp_add_on_thermal.effect
+    vfx_impact_add_enable: true
+    vfx_impact_add: base\fx\weapons\impacts\_elemental\thermal\imp_add_on_thermal.effect
+
+Items.SJ_FirestormWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Firestorm_iconic_description
+
+Items.SJ_FirestormWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_FirestormWeaponModAbility ]
+    statModifiers:
+    -   $base: BaseStats.IsSecondaryDependantStatModifier
+        statType: BaseStats.CycleTimeBonus
+        modifierType: Additive
+        value: 2.0
+
+Attacks.SJ_FirestormFullAuto:
+    $base: Attacks.Bullet_GameEffect
+    statusEffects:
+    -   $type: StatusEffectAttackData
+        statusEffect:
+            $base: BaseStatusEffect.Vulnerable
+            maxStacks:
+                statModifiers:
+                -   $type: ConstantStatModifier
+                    statType: BaseStats.MaxStacks
+                    modifierType: Additive
+                    value: 5.0
+            reapplyPackagesOnMaxStacks: false
+            removeAllStacksWhenDurationEnds: false
+            packages:
+            -   $base: BaseStatusEffect.Vulnerable_inline2
+                stackable: true
+        resistPool: BaseStatPools.BurningTrigger
+        applyImmediately: true
+
+Attacks.SJ_FirestormSemiAuto:
+    $base: Attacks.Bullet_GameEffect
+    explosionAttack:
+        $base: Attacks.BaseExplosion
+        playerIncomingDamageMultiplier: 0.20
+        effectName: effects_perks
+        effectTag: bullet_explosion_light
+        range: 3.0
+        statModifiers:
+        -   $type: CombinedStatModifier
+            refStat: BaseStats.DamagePerHit
+            statType: BaseStats.ThermalDamage
+            modifierType: Additive
+            refObject: Owner
+            opSymbol: "*"
+            value: 3.0
+        hitFlags:
+        -   !append-once DetonateGrenades
+        -   !append-once BulletExplosion
+        hitReactionSeverityMin: 2
+        explosionDamageVSVehicles: 50.0
+        statusEffects:
+        -   $type: StatusEffectAttackData
+            statusEffect: BaseStatusEffect.Burning
+            resistPool: BaseStatPools.BurningTrigger
+            applyImmediately: true
+
+Attacks.SJ_FirestormBulletFire:
+    $type: RangedAttack
+    playerAttack: Attacks.SJ_FirestormFullAuto
+    secondaryPlayerAttack: Attacks.SJ_FirestormSemiAuto
+    playerTimeDilated: Attacks.SJ_FirestormFullAuto
+    secondaryPlayerTimeDilated: Attacks.SJ_FirestormSemiAuto
+
+Attacks.SJ_FirestormAttackPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.SJ_FirestormBulletFire
+    chargeFire: Attacks.SJ_FirestormBulletFire
+
+Items.SJ_Preset_Firestorm:
+    $base: Items.Preset_Ajax_Default
+    displayName: LocKey#SJ_Firestorm_name
+    localizedDescription: LocKey#SJ_Firestorm_description
+    blueprint: Items.Iconic_Ranged_Weapon_Blueprint
+    appearanceResourceName: seijax_firestorm_appfile
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_firestorm
+    fxPackage: WeaponFxPackage.SJ_FirestormFxPackage
+    triggerModes: [ TriggerMode.FullAuto, TriggerMode.SemiAuto]
+    primaryTriggerMode: TriggerMode.FullAuto
+    secondaryTriggerMode: TriggerMode.SemiAuto 
+    rangedAttacks: Attacks.SJ_FirestormAttackPackage
+    attacks:
+    -   !append Attacks.SJ_FirestormFullAuto
+    -   !append Attacks.SJ_FirestormSemiAuto
+    tags:
+    -   !append ManualTriggerSwap
+    -   !append TriggerBoundAttacks
+    -   !append ProtectedAttackPackage
+    -   !append IconicWeapon
+    slotPartList:
+    -   $base: Items.Base_Ajax_inline2
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Firestorm__rcv1
+    -   $base: Items.Base_Ajax_inline4
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Firestorm__base1
+    -   $base: Items.Base_Ajax_inline6
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Firestorm__mag_std
+    -   $base: Items.Base_Ajax_inline8
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Firestorm__mag_stdr
+    -   Items.RiflePossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.RiflePossibleMuzzleBrakeList
+    slotPartListPreset:
+    -   $base: Items.Preset_Ajax_Default_inline0
+        itemPartPreset: Items.SJ_Firestorm__rcv1
+    -   $base: Items.Preset_Ajax_Default_inline1
+        itemPartPreset: Items.SJ_Firestorm__base1
+    -   $base: Items.Preset_Ajax_Default_inline2
+        itemPartPreset: Items.SJ_Firestorm__mag_std
+    -   $base: Items.Preset_Ajax_Default_inline3
+        itemPartPreset: Items.SJ_Firestorm__mag_stdr
+    -   Items.RifleScopesPartList
+#    -   Items.Preset_Ajax_Default_inline4
+#    -   Items.Preset_Ajax_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_FirestormWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifiers:
+    -   !append-once Items.RRExplosivesControl
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !append-once Items.HalfSpreadStatModifierGroup
+
+Items.SJ_Firestorm:
+    $base: Items.SJ_Preset_Firestorm
+
+Items.SJ_Firestorm_Shop:
+    $base: Items.SJ_Preset_Firestorm
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Vendors.wat_nid_foodshop_02:
+    itemStock:
+    -   !append
+        $type: VendorItem
+        item: Items.SJ_Firestorm_Shop
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_3_Start_Prereq
+    -   !append
+        $type: VendorItem
+        item: Items.Preset_Nova_Default
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_1_Start_Prereq
+    -   !append
+        $type: VendorItem
+        item: Items.Preset_Saratoga_Neon
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_1_Start_Prereq
+    -   !append
+        $type: VendorItem
+        item: Items.Preset_Satara_Neon
+        quantity:
+        -   Vendors.Always_Present
+        generationPrereqs:
+        -   LootPrereqs.PlayerLevel_Tier_1_Start_Prereq

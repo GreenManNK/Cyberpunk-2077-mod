@@ -1,0 +1,23 @@
+Vehicle.Mech_Minotaur_Arasaka_inline9:
+  $type: gamedataVehicleEngineData_Record
+  engineMaxTorque: 480
+  fastR1GearChange: False
+  finalGearTorqueDecimationScalor: 1
+  flyWheelMomentOfInertia: 0.300000012
+  forceReverseRPMToMin: False
+  gearChangeCooldown: 0.300000012
+  gearChangeTime: 0.400000006
+  gearCurvesPath: base\gameplay\vehicles\curves\engine_torque\large_torquey_na.curveset
+  maxRPM: 3300
+  minRPM: 800
+  resistanceTorque: 100
+  reverseDirDelay: 0.400000006
+  wheelsResistanceRatio: 25
+  gears:
+    - Vehicle.MechEngineData_4_Truck_inline0
+    - Vehicle.MechEngineData_4_Truck_inline1
+    - Vehicle.MechEngineData_4_Truck_inline2
+    - Vehicle.MechEngineData_4_Truck_inline3
+    - Vehicle.MechEngineData_4_Truck_inline4
+    - Vehicle.MechEngineData_4_Truck_inline5
+    - Vehicle.MechEngineData_4_Truck_inline6

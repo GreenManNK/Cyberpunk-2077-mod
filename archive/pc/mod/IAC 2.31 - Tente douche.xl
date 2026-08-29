@@ -1,0 +1,48 @@
+{
+  "streaming": {
+    "sectors": [
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldStaticMeshNode",
+            "index": 186
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 97
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 147
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 125
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 124
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 126
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 197,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_27_34_2_0.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldBuildingProxyMeshNode",
+            "index": 236
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 241,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_6_8_0_2.streamingsector"
+      }
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+{
+	"fileHeader": {
+		"_1_": "----------------------------------------",
+		"modName": "Autoloot",
+		"modAuthorName": "keanuWheeze and anygoodname",
+		"modVer": "v3.10.3",
+		"_2_": "----------------------------------------",
+		"translationAuthorName": "Put your name here",
+		"translationVer": "Put your file verison here",
+		"_3_": "----------------------------------------"
+	},
+	"uiStrings": {
+		"cetUiStrings": {
+			"cetKeyBindings": {
+				"autolootMonitorKey": "AutoLoot Monitor",
+				"autolootTriggerKey": "AutoLoot"
+			},
+			"settings": {
+				"windowTitle": "AutoLoot",
+				"general_settings": "General settings:",
+				"tooltipsHeader": "Hover your mouse over a menu item on the left to see its tooltip displayed here.",
+				"range": {
+					"title": "Range:",
+					"tooltips": "This sets the maximum range for the auto loot."
+				},
+				"useDefaultActionKey": {
+					"title": "Use the game default action key.",
+					"tooltips": "This enables the autoloot on the game default action key press.\nWarning: beware of the Midas golden touch syndrome!"
+				},
+				"enableTakedownLoot": {
+					"title": "Autoloot NPCs on Takedowns.",
+					"tooltips": "This option enables automatic looting of NPCs defeated by performing takedowns.\nPlease note that quest-related items and iconic weapons will not be looted."
+				},
+				"enableBurstTrigger": {
+					"title": "Enable Burst mode",
+					"tooltips": "The Burst mode allows you to toggle continuous autolooting on a loot trigger double-tap for a period of time.\n\nBursts last up to the defined maximum duration and can be stopped by double-tapping again, entering combat, entering vehicles, pausing the game, or other game state changes that require breaking autolooting for some reason.\n\nFor better control of the autolooting state, please consider turning on the Looting Monitor."
+				},
+				"burstTriggerCooldownTime": {
+					"title": "Max. Burst duration (mm:ss):",
+					"tooltips": "This option sets the maximum duration for a looting burst.\nNote: changes will be applied on the next burst."
+				},
+				"monitor_settings": "Looting Monitor settings:",
+				"showDebugMonitorWindow": {
+					"title": "Show Monitor window.",
+					"tooltips": "This enables a small monitor window showing the current autolooting state.\nPlease note that the monitor window may be hidden when visiting the game Settings menu."
+				},
+				"monitorType": {
+					"choices": [
+						"CET window",
+						"Minimap indicator",
+						"CET window and Minimap indicator"
+					],
+					"title": "Select Monitor type:",
+					"tooltips": "Select the type of the Looting Monitor to display."
+				},
+				"showMonitorWindowOnlyWhenTriggerActive": {
+					"title": "Show Monitor only if looting trigger active.",
+					"tooltips": "Show the monitor only when the looting trigger is active (key/button pressed or Burst mode active)."
+				},
+				"autohideMonitorWindow": {
+					"title": "Autohide Monitor window.",
+					"tooltips": "When enabled, it will automatically hide and show the monitor window following the game cinematic state."
+				}
+			},
+			"monitor": {
+				"idleStr": "Idle.",
+				"lootingStr": "Looting "
+			},
+			"warnings": {
+				"modDisabled": "This mod is disabled due to corrupted mod files or incompatibility with the current game version."
+			}
+		},
+		"nuiUiStrings": {
+			"monitor": {
+				"idleStr": "Autoloot is idle",
+				"lootingStr": "Autolooting "
+			},
+			"settings": {
+				"windowTitle": "AutoLoot",
+				"general_settings": "General settings:",
+				"range": {
+					"title": "Range",
+					"tooltips": "This sets the maximum range for the auto loot."
+				},
+				"useDefaultActionKey": {
+					"title": "Use the game default action key",
+					"tooltips": "This enables the auto loot on the game default action key press.\nWarning: beware of the Midas golden touch syndrome!"
+				},
+				"enableTakedownLoot": {
+					"title": "Autoloot NPCs on Takedowns",
+					"tooltips": "This option enables automatic looting of NPCs defeated by performing takedowns.\nPlease note that quest-related items and iconic weapons will not be looted."
+				},
+				"enableBurstTrigger": {
+					"title": "Enable Burst mode",
+					"tooltips": "The Burst mode allows you to toggle continuous autolooting on a loot trigger double-tap for a period of time.\n\nBursts last up to the defined maximum duration and can be stopped by double-tapping again, entering combat, entering vehicles, pausing the game, or other game state changes that require breaking autolooting for some reason.\n\nFor better control of the autolooting state, please consider turning on the Looting Monitor."
+				},
+				"burstTriggerCooldownTime": {
+					"title": "Max. Burst duration (mm:ss)",
+					"tooltips": "This option sets the maximum duration for a looting burst.\nNote: changes will be applied on the next burst."
+				},
+				"monitor_settings": "Looting Monitor settings:",
+				"showDebugMonitorWindow": {
+					"title": "Show Monitor window",
+					"tooltips": "This enables a small monitor window showing the current autolooting state.\nPlease note that the monitor window may be hidden when visiting the game Settings menu."
+				},
+				"monitorType": {
+					"choices": [
+						"CET window",
+						"Minimap indicator",
+						"CET window and Minimap indicator"
+					],
+					"title": "Select Monitor type",
+					"tooltips": "Select the type of the Looting Monitor to display."
+				},
+				"showMonitorWindowOnlyWhenTriggerActive": {
+					"title": "Show Monitor only if looting trigger active",
+					"tooltips": "Show the monitor only when the looting trigger is active (key/button pressed or Burst mode active)."
+				},
+				"autohideMonitorWindow": {
+					"title": "Autohide Monitor window",
+					"tooltips": "When enabled, it will automatically hide and show the monitor window following the game cinematic state."
+				}
+			}
+		}
+	}
+}

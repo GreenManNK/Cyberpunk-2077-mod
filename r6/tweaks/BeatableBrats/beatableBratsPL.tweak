@@ -1,0 +1,21 @@
+package Character
+using RTDB, BaseStats, Crowds
+
+ep1_combat_zone_citizen_stacks_child : Crowd_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";
+	baseAttitudeGroup = "neutral";
+	isChild = false;
+	despawnChildCommunityWhenPlayerInVehicle = false;
+}
+
+ep1_combat_zone_citizen_stacks_child_savable : ep1_combat_zone_citizen_stacks_child
+{
+	isCrowd = true;
+}
+
+sts_ep1_03_gunfight_citizen_stacks_child : Quest_NPC_Base
+{
+	entityTemplatePath = "base\characters\entities\citizen\citizen__children_mc.ent";
+	isChild = false;
+}

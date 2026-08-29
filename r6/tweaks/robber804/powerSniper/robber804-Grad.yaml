@@ -1,0 +1,73 @@
+Items.Scav_scope:
+  appearanceResourceName: w_att__scope_long_05
+  iconPath: w_att__scope_long_05
+  itemType: ItemType.Prt_LongScope
+  localizedDescription: LocKey#91970
+
+Items.AirDrop_scope:
+  appearanceResourceName: w_att__scope_long_04
+  displayName: LocKey#52612
+  iconPath: w_att__scope_long_04
+  itemType: ItemType.Prt_LongScope
+  localizedDescription: LocKey#52613
+
+Items.Buck_scope:
+  appearanceResourceName: w_att__scope_long_01
+  displayName: LocKey#3797
+  iconPath: grandstand_default
+  itemType: ItemType.Prt_LongScope
+  localizedDescription: LocKey#3806
+
+Items.Panam_scope:
+  appearanceResourceName: w_att__scope_sniper_01
+  displayName: LocKey#3800
+  itemType: ItemType.Prt_PowerSniperScope
+  localizedDescription: LocKey#3809
+
+Items.Preset_Grad_Default:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Buck:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Buck_Legendary:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Military:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Neon:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Pimp:
+  blueprint: Items.Base_Power_Precision_Sniper_Rifle_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_Scav:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList
+
+Items.Preset_Grad_AirDrop:
+  blueprint: Items.Iconic_Sniper_Blueprint
+  slotPartList:
+    - !append Items.RiflePossibleMuzzleBrakeList
+    - !append Items.RangedWeaponPossibleMuzzleList

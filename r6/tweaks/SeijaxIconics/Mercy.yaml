@@ -1,0 +1,240 @@
+Items.SJ_Mercy__rcv:
+    $base: Items.w_handgun__tsunami_nue__rcv1
+    appearanceResourceName: seijax_mercy_appfile_rcv
+
+Items.SJ_Mercy__base:
+    $base: Items.w_handgun__tsunami_nue__base1
+    appearanceResourceName: seijax_mercy_appfile_base
+
+Items.SJ_Mercy__std:
+    $base: Items.w_handgun__tsunami_nue__mag_std
+    appearanceResourceName: seijax_mercy_appfile_std
+
+Items.SJ_Mercy__stdr:
+    $base: Items.w_handgun__tsunami_nue__mag_stdr
+    appearanceResourceName: seijax_mercy_appfile_stdr
+
+Items.SJ_MercyWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Mercy_iconic_description
+
+Items.SJ_MercyWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_MercyWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.HeadshotDamageMultiplier
+        modifierType: Additive
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.PoisonedApplicationRate
+        modifierType: Additive
+        value: 100.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMin
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.RecoilKickMax
+        modifierType: Multiplier
+        value: 0.5
+
+BaseStatusEffect.SJ_DartExplosionCooldown:
+    $type: StatusEffect
+    duration: BaseStats.InfiniteDuration
+    gameplayTags:
+    -   !append DartExplosionCooldown
+
+BaseStatusEffect.SJ_TranquilizerDart:
+    $base: BaseStatusEffect.RareBioGrenade
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 12.0
+    packages:
+    -   !append
+        $type: GameplayLogicPackage
+        effectors:
+        -   $base: Effectors.TriggerAttackOnOwnerEffect
+            prereqRecord:
+                $base: Prereqs.ANDPrereq
+                nestedPrereqs:
+                -   Prereqs.SJ_IsDefeated
+                -   $base: Prereqs.StatusEffectAbsentPrereq
+                    statusEffect: BaseStatusEffect.SJ_DartExplosionCooldown
+            attackRecord:
+                $base: Attacks.RareBiotechGrenade
+                attackType: AttackType.Explosion
+                hitFlags: [ Nonlethal ]   
+            playerAsInstigator: true
+        -   $type: ApplyStatusEffectEffector
+            prereqRecord: Prereqs.SJ_IsDefeated
+            statusEffect: BaseStatusEffect.SJ_DartExplosionCooldown
+            applicationTarget: Onwer
+            removeWithEffector: false
+            instigator: Player
+        stats:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxSpeed
+            modifierType: Multiplier
+            value: 0.5
+        -   $type: ConstantStatModifier
+            statType: BaseStats.CanSprint
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.CanSprintHarass
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.HasBerserk
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.HasSandevistan
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.HasKerenzikov
+            modifierType: Multiplier
+            value: 0.0
+        -   $type: ConstantStatModifier
+            statType: BaseStats.Accuracy
+            modifierType: Multiplier
+            value: 0.5
+
+Attacks.SJ_MercyDartAttack:
+    $base: Attacks.Bullet_Projectile
+    projectileTemplateName: seijax_tranq_dart_projectile
+    hitFlags: [ Nonlethal ]
+    statusEffects:
+    -   $type: StatusEffectAttackData
+        statusEffect: BaseStatusEffect.SJ_TranquilizerDart
+        resistPool: BaseStatPools.PoisonTrigger
+
+Attacks.SJ_MercyBulletFire:
+    $type: RangedAttack
+    playerAttack: Attacks.SJ_MercyDartAttack
+    secondaryPlayerAttack: Attacks.SJ_MercyDartAttack
+    playerTimeDilated: Attacks.SJ_MercyDartAttack
+    secondaryPlayerTimeDilated: Attacks.SJ_MercyDartAttack
+
+Attacks.SJ_MercyAttackPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.SJ_MercyBulletFire
+    chargeFire: Attacks.SJ_MercyBulletFire
+
+Items.SJ_Mercy_Technical_Stats:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $base: BaseStats.NumShotsToFireModifier
+        value: 1.0
+    -   $base: BaseStats.CycleTimeModifier
+        value: 0.25
+    -   $base: BaseStats.NumShotsInBurstModifier
+        value: 1.0
+    -   $base: BaseStats.CycleTime_BurstSecondaryModifier
+        value: 0.08
+    -   $base: BaseStats.NumShotsInBurstSecondaryModifier
+        value: 3.0
+    -   $base: BaseStats.MagazineCapacityModifier
+        value: 21.0
+    -   $base: BaseStats.ProjectilesPerShotModifier
+        value: 1.0
+    -   BaseStats.ProjectilesPerShotCombinedModifier
+
+Items.SJ_Mercy:
+    $base: Items.Preset_Masamune_Arasaka_2020
+    displayName: LocKey#SJ_Mercy_name
+    localizedDescription: LocKey#SJ_Mercy_description
+    blueprint: Items.Iconic_Ranged_Weapon_Blueprint
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_mercy
+    appearanceResourceName: seijax_mercy_appfile
+    visualTags: [ Default ]
+    audioName: wea_set_dian
+    triggerModes: [ TriggerMode.Burst, TriggerMode.Burst ]
+    primaryTriggerMode: TriggerMode.Burst
+    secondaryTriggerMode: TriggerMode.Burst
+    rangedAttacks: Attacks.SJ_MercyAttackPackage
+    evolution: WeaponEvolution.None
+    attacks:
+    -   !append-once Attacks.SJ_MercyDartAttack
+    npcRPGData:
+        $base: Items.Base_Masamune_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    tags:
+    -   !append Mercy
+    -   !append ProtectedAttackPackage
+    -   !remove ManualTriggerSwap
+    -   !append SimpleTriggerLabels
+    -   !append-once ForceAutoPrimary
+    -   !append IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    -   !append
+        $base: BaseStats.WeaponNoiseModifier
+        value: -10.0
+    -   !append
+        $base: BaseStats.SmartGunPlayerProjectileVelocityModifier
+        value: 90.0
+    -   !append
+        $type: ConstantStatModifier
+        statType: BaseStats.ItemRequiresSmartLink
+        modifierType: Multiplier
+        value: 0.0
+    slotPartList:
+    -   $base: Items.Base_Masamune_inline2
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Mercy__rcv
+    -   $base: Items.Base_Masamune_inline4
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Mercy__base
+    -   $base: Items.Base_Masamune_inline6
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Mercy__std
+    -   $base: Items.Base_Masamune_inline8
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Mercy__stdr
+    -   Items.RiflePossibleScopesList
+    -   Items.RangedWeaponPossibleMuzzleList
+    -   Items.RiflePossibleMuzzleBrakeList
+    slotPartListPreset:
+    -   $base: Items.Preset_Masamune_Arasaka_2020_inline0
+        itemPartPreset: Items.SJ_Mercy__rcv
+    -   $base: Items.Preset_Masamune_Arasaka_2020_inline1
+        itemPartPreset: Items.SJ_Mercy__base
+    -   $base: Items.Preset_Masamune_Arasaka_2020_inline2
+        itemPartPreset: Items.SJ_Mercy__std
+    -   $base: Items.Preset_Masamune_Arasaka_2020_inline3
+        itemPartPreset: Items.SJ_Mercy__stdr
+    -   Items.RifleScopesPartList
+#    -   Items.Preset_Masamune_Arasaka_2020_inline4
+#    -   Items.Preset_Masamune_Arasaka_2020_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_MercyWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !remove Items.Base_Masamune_Arasaka_2020_Technical_Stats
+    -   !append Items.SJ_Mercy_Technical_Stats
+
+Items.SJ_Mercy_Pickup:
+    $base: Items.SJ_Mercy
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization

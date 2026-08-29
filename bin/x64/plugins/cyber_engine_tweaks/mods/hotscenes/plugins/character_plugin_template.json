@@ -1,0 +1,47 @@
+{
+	"comment_0": "This table should contain at least one performers group entry: femalePerformers and/or malePerformers. If missing or empty, it will be ignored.",
+	"comment_1": "Fields marked as comments are FYI only - they will not be used in the game.",
+	"comment_3": "You can add other text fields here too. Like your name, version, date, etc. They will not be used in the mod but serve as your creation identification here.",
+
+	"femalePerformers": {
+		"comment_0": "This table should contain your performers metadata entries. If empty, it will be ignored.",
+		"comment_1": "It could contain a single performer, or multiple performers - it's all up to you.",
+		"comment_2": "Each performer in this table should have an unique entry key name. Duplicated entries will be replaced with the last valid entry found matching the name.",
+
+		"performer_female_01": {
+			"comment_0": "If not stated otherwise, all fields below are mandatory.",
+
+			"archiveFilesRequired": [
+				"At least one valid archive file name that stores the required ENT and APP character files is required here. E.g. hotscenes_mod_my_custom_content.archive",
+				"All entries must be resolved as valid and loaded archive files at runtime. If anything is invalid here, the performer will be disabled. E.g. this text line is invalid - it will effectively disable this performer."
+			],
+
+			"gender": "female",
+
+			"comment_1": "Very important: if using game files provided by the Phantom Liberty DLC, set isEp1 flag below to true to prevent issues when the DLC is not installed on the user end.",
+			"isEp1": false,
+
+			"performerFullName": "A performer display name is required here. The best unique one so users don't get confused. Use English language names here as this will be used for sorting and other internal processing when combined with other performers data.",
+			"comment_2": "If you would like to add translations of your custom character name to other languages, please see the Readme - Character Plugins translations.txt file.",
+
+			"comment_3": "For the base game characters (isEp1 = false), the prerequisiteFacts table is optional - if you would like your character to be available conditionally, put expected game fact names here.",
+			"comment_4": "Any fact on this list found set to value greater than 0 in the game will enable this character on the mod's character selecton lists.",
+			"comment_5": "If this table is missing or empty, the performer will be enabled unconditionally.",
+			"comment_6": "For the Phantom Liberty DLC dependent characters (isEp1 = true), you must provide at least one name of a game fact that will enable it when its value is set to 1 or greater by the game.",
+			"prerequisiteFacts": [
+			],
+
+			"scenes": {
+				"Glen": {
+					"fullPerformerEntPath": "a full path to your custom ENT file for this scene is required here. Use double backslash in file paths. E.g: my_mods\\hotscenes_mod\\my_characters\\this_fabulous_girl_in_glen.ent"
+				},
+				"Japantown": {
+					"fullPerformerEntPath": "a full path to your custom ENT file for this scene is required here. Use double backslash in file paths. E.g: my_mods\\hotscenes_mod\\my_characters\\this_fabulous_girl_in_japantown.ent"
+				}
+			}
+		}
+	},
+	"malePerformers": {
+		"comment_0": "just follow the femalePerformers table structure here, but please remember to specify the performers gender as male in the gender field"
+	}
+}

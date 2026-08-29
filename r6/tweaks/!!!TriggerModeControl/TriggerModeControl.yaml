@@ -1,0 +1,133 @@
+BaseStats.IsSecondaryFireMode:
+    $base: BaseStats.StatFlag
+    enumName: IsSecondaryFireMode
+    enumComment: "If true, player is using the secondary fire of the current gun"
+
+BaseStats.IsSecondaryDependantStatModifier:
+    $type: CombinedStatModifier
+    refObject: Player
+    refStat: BaseStats.IsSecondaryFireMode
+    opSymbol: "*"
+    modifierType: Additive
+    value: 1.0
+
+BaseStats.SecondaryDependantStatModifier:
+    $base: BaseStats.IsSecondaryDependantStatModifier
+
+BaseStatusEffect.PlayerSecondaryTrigger:
+    $base: BaseStatusEffect.PlayerAiming
+    packages:
+    -   $type: GameplayLogicPackage
+        stats:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.IsSecondaryFireMode
+            modifierType: Additive
+            value: 1.0
+    gameplayTags:
+    -   !append SecondaryTrigger
+#    uiData:
+#        displayName: "Secondary trigger"
+#        iconPath: perks_aim
+
+
+Prereqs.IsPrimaryTrigger:
+    $type: StatusEffectPrereq
+    statusEffect: BaseStatusEffect.PlayerSecondaryTrigger
+    objectToCheck: Player
+    invert: true
+
+Prereqs.IsSecondaryTrigger:
+    $type: StatusEffectPrereq
+    statusEffect: BaseStatusEffect.PlayerSecondaryTrigger
+    objectToCheck: Player
+
+
+## Fixes
+Items.Preset_Nue_Maiko: &BurstFix
+    triggerModes: [ TriggerMode.Burst ]
+    secondaryTriggerMode: None
+
+Items.Preset_Igla_Sovereign: *BurstFix
+
+#Items.Base_Hercules:
+#    triggerModes: [ TriggerMode.FullAuto, TriggerMode.FullAuto ]
+
+Items.Preset_Grad_Panam:
+    tags:
+    -   !append Silenced
+
+
+## Un-silenced Silencers
+
+Items.w_silencer_01_${rarity}_BaseAudio:
+    $instances:
+    -   { rarity: Common }
+    -   { rarity: Uncommon }
+    -   { rarity: Rare }
+    -   { rarity: Epic }
+    $base: Items.w_silencer_01
+    quality: Quality.$(rarity)
+    tags:
+    -   !remove Silenced
+
+Items.w_silencer_02_${rarity}_BaseAudio:
+    $instances:
+    -   { rarity: Rare }
+    -   { rarity: Epic }
+    $base: Items.w_silencer_02
+    quality: Quality.$(rarity)
+    tags:
+    -   !remove Silenced
+
+Items.w_silencer_03_Epic_BaseAudio:
+    $base: Items.w_silencer_03
+    quality: Quality.Epic
+    tags:
+    -   !remove Silenced
+    
+Items.w_silencer_03_Legendary_BaseAudio:
+    $base: Items.w_silencer_03_legendary
+    tags:
+    -   !remove Silenced
+
+Items.w_silencer_04_${rarity}_BaseAudio:
+    $instances:
+    -   { rarity: Rare }
+    -   { rarity: Epic }
+    $base: Items.w_silencer_02
+    quality: Quality.$(rarity)
+    tags:
+    -   !remove Silenced
+
+Items.RangedWeaponPossibleMuzzleList:
+    itemPartList:
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_01_Common_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_01_Uncommon_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_01_Rare_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_01_Epic_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_02_Rare_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_02_Epic_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_03_Epic_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_03_Legendary_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_04_Rare_BaseAudio
+    -   !append
+        $type: ItemPartListElement
+        item: Items.w_silencer_04_Epic_BaseAudio

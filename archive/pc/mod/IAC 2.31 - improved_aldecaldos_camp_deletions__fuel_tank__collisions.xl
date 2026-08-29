@@ -1,0 +1,31 @@
+streaming:
+  sectors:
+  - nodeDeletions:
+    - type: worldCollisionNode
+      index: 147
+      actorDeletions:
+      - 79
+      - 93
+      - 96
+      - 111
+      - 112
+      - 113
+      - 114
+      - 119
+      expectedActors: 128
+    - type: worldCollisionNode
+      index: 148
+      actorDeletions:
+      - 12
+      - 18
+      - 62
+      - 63
+      expectedActors: 94
+    - type: worldStaticParticleNode
+      index: 81
+    - type: worldAISpotNode
+      index: 8
+    nodeMutations: []
+    expectedNodes: 149
+    path: base\worlds\03_night_city\_compiled\default\exterior_13_17_1_1.streamingsector
+...

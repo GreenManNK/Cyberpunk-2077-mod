@@ -1,0 +1,51 @@
+streaming:
+  sectors:
+  - nodeDeletions:
+    - type: worldCollisionNode
+      actorDeletions:
+      - 84
+      - 85
+      expectedActors: 128
+      index: 147
+      debugName: VariantCollisionNode_003
+    - type: worldCollisionNode
+      actorDeletions:
+      - 46
+      expectedActors: 128
+      index: 146
+      debugName: VariantCollisionNode_001
+    expectedNodes: 149
+    path: base\worlds\03_night_city\_compiled\default\exterior_13_17_1_1.streamingsector
+  - nodeDeletions:
+    - type: worldCollisionNode
+      actorDeletions:
+      - 118
+      expectedActors: 128
+      index: 285
+      debugName: VariantCollisionNode_024
+    expectedNodes: 310
+    path: base\worlds\03_night_city\_compiled\default\exterior_7_8_0_2.streamingsector
+  - nodeDeletions:
+    - type: worldCollisionNode
+      actorDeletions:
+      - 23
+      expectedActors: 128
+      index: 323
+      debugName: VariantCollisionNode_022
+    - type: worldCollisionNode
+      actorDeletions:
+      - 11
+      expectedActors: 128
+      index: 327
+      debugName: VariantCollisionNode_023
+    expectedNodes: 435
+    path: base\worlds\03_night_city\_compiled\default\exterior_14_17_1_1.streamingsector
+  - nodeDeletions:
+    - type: worldCollisionNode
+      actorDeletions:
+      - 30
+      expectedActors: 128
+      index: 277
+      debugName: VariantCollisionNode_027
+    expectedNodes: 2967
+    path: base\worlds\03_night_city\_compiled\default\exterior_28_35_2_0.streamingsector

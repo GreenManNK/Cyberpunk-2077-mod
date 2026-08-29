@@ -1,0 +1,145 @@
+Prereqs.ProcessBlockAttack:
+    $base: Prereqs.ProcessHitTriggered
+    conditions:
+    -   !append-once
+        $base: Prereqs.AttackSubtypeHitPrereqCondition
+        attackSubtype: BlockAttack
+
+BaseStatusEffect.SJ_PrimedStun:
+    $base: BaseStatusEffect.Stun
+    gameplayTags:
+    -   !append-once CyberwareMalfunction
+    -   !append-once HackInterrupt
+    -   !append-once CyberwareBreachTrigger
+    -   !append-once DoNotApplyOnPlayer
+    -   !append-once PrimedWeakpoints
+
+BaseStatusEffect.SJ_SwapFromSlice:
+    $base: BaseStatusEffect.BuffStatusEffect
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 0.1
+#    uiData: 
+#        $type: StatusEffectUIData
+#        displayName: LocKey#40978
+#        iconPath: perks_armor
+#        priority: 8.0
+
+Items.SND_SliceWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Slice_iconic_description
+    effectors:
+    -   $type: ApplyStatusEffectEffector
+        statusEffect: 
+            $base: BaseStatusEffect.BuffStatusEffect
+            duration: BaseStats.InfiniteDuration
+            packages:
+            -   $type: GameplayLogicPackage
+                effectors:
+                -   $type: ApplyStatusEffectEffector
+                    inverted: true
+                    statusEffect: BaseStatusEffect.SJ_SwapFromSlice
+                    applicationTarget: Owner
+                    removeWithEffector: false
+        applicationTarget: Owner
+        removeWithEffector: true
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.ProcessBlockAttack
+        statusEffect: BaseStatusEffect.SJ_PrimedStun
+        applicationChance: [ BaseStats.AlwaysApplyChance ]
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.HitIsLeapAttackPrereq
+        statusEffect:
+            $base: BaseStatusEffect.Weak
+            gameplayTags:
+            -   !append-once Debuff
+            packages:
+            -   $type: GameplayLogicPackage
+                stats:
+                -   $type: ConstantStatModifier
+                    statType: BaseStats.Armor
+                    modifierType: Multiplier
+                    value: 0.5
+            uiData:
+                displayName: Armor Decreased
+                iconPath: perks_armor
+                priority: -8.0
+        applicationChance: [ BaseStats.AlwaysApplyChance ]
+
+Items.SND_SliceWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SND_SliceWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.Range
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanMeleeLeap
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanMeleeInfinitelyCombo
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanWeaponInfinitlyCombo
+        modifierType: Additive
+        value: 1.0
+
+Items.SND_Slice:
+    $base: Items.Preset_Machete_Valentinos
+    blueprint: Items.Iconic_Melee_Blueprint
+    displayName: LocKey#SJ_Slice_name
+    localizedDescription: LocKey#SJ_Slice_description
+    appearanceResourceName: destinybu_machete_app
+    visualTags: [ Premium ]
+    npcRPGData:
+        $base: Items.Base_Machete_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_slice
+    tags:
+    -   !append-once IconicWeapon 
+    slotPartListPreset:
+    -   Items.Preset_Machete_Default_inline0
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SND_SliceWeaponMod
+        slot: AttachmentSlots.IconicMeleeWeaponMod1
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !append-once Items.QuickSwapStatModifierGroup
+
+Items.SJ_Slice:
+    $base: Items.SND_Slice
+
+Items.SJ_Slice_Pickup:
+    $base: Items.SND_Slice
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+BaseStatusEffect.OverloadWeakspotEnabled_inline7:
+    nestedPrereqs:
+    -   !append-once
+        $type: StatusEffectPrereq
+        statusEffect: BaseStatusEffect.SJ_PrimedStun
+
+BaseStatusEffect.OverloadWeakspotEnabledBoss_inline7:
+    nestedPrereqs:
+    -   !append-once
+        $type: StatusEffectPrereq
+        statusEffect: BaseStatusEffect.SJ_PrimedStun

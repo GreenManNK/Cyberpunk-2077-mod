@@ -1,0 +1,68 @@
+
+
+registerForEvent("onInit", function()
+
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline0.statType", "BaseStats.NumShotsToFire")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline0.value", 1)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline1.statType", "BaseStats.CycleTimeBase")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline1.value", 0.133)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline6.statType", "BaseStats.MagazineCapacityBase")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline6.value", 36)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline7.statType", "BaseStats.ProjectilesPerShotBase")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline7.value", 7)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline13.statType", "BaseStats.BaseChargeTime")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline13.value", 1.5)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline8.statType", "BaseStats.ChargeDischargeTime")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline8.value", 0.01)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline10.statType", "BaseStats.FullAutoOnFullCharge")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline10.value", 1)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline14.statType", "BaseStats.Charge")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline14.value", 1)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline2.statType", "BaseStats.CycleTime_Burst")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline2.value", 0.133)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline3.statType", "BaseStats.NumShotsInBurst")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline3.value", 1)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline4.statType", "BaseStats.CycleTime_BurstSecondary")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline4.value", 0.133)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline5.statType", "BaseStats.NumShotsInBurstSecondary")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline5.value", 1)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline9.statType", "BaseStats.CycleTime_BurstMaxCharge")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Technical_Stats_inline9.value", 0.133)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Spread_Stats_inline7.statType", "BaseStats.SpreadUseEvenDistribution")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Spread_Stats_inline7.value", 1)
+
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline5.statType", "BaseStats.RecoilKickMin")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline5.value", 1.6)
+
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline6.statType", "BaseStats.RecoilKickMax")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline6.value", 2)
+
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash.itemType", "ItemType.Wea_AssaultRifle")
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash_Epic.itemType", "ItemType.Wea_AssaultRifle")
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash_Legendary.itemType", "ItemType.Wea_AssaultRifle")
+
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash.primaryTriggerMode", "TriggerMode.SemiAuto")
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash_Epic.primaryTriggerMode", "TriggerMode.SemiAuto")
+	TweakDB:SetFlat("Items.Preset_Achilles_Nash_Legendary.primaryTriggerMode", "TriggerMode.SemiAuto")
+
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline0.statType", "BaseStats.SpreadDefaultX")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline0.value", 1)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline1.statType", "BaseStats.SpreadAdsDefaultX")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline1.value", 0.33)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline2.statType", "BaseStats.SpreadMaxX")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline2.value", 1)
+    TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline3.statType", "BaseStats.SpreadAdsMaxX")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline3.value", 0.33)
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Spread_Stats_inline9.statType", "BaseStats.SpreadEvenDistributionRowCount")
+	TweakDB:SetFlat("Items.Base_Achilles_Nash_Spread_Stats_inline9.value", 2)
+	-- TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline8.statType", "BaseStats.FirePower")
+	-- TweakDB:SetFlat("Items.Base_Achilles_Nash_Constant_Stats_inline8.value", 1.225) --0.727
+	TweakDB:SetFlat("Items.Base_Achilles_Damage_Stats_inline0.statType", "BaseStats.DPS")
+	TweakDB:SetFlat("Items.Base_Achilles_Damage_Stats_inline0.value", 72) --44
+    TweakDB:SetFlat("Items.Base_Achilles_Recoil_Stats_inline1.statType", "BaseStats.RecoilAngle")
+	TweakDB:SetFlat("Items.Base_Achilles_Recoil_Stats_inline1.value", 30) --30
+    -- TweakDB:SetFlat("Items.Preset_Achilles_Nash.blueprint", "Items.Base_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint")
+    -- TweakDB:SetFlat("Items.Preset_Achilles_Nash_Epic.blueprint", "Items.Base_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint")
+    -- TweakDB:SetFlat("Items.Preset_Achilles_Nash_Legendary.blueprint", "Items.Base_Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint")
+
+end)

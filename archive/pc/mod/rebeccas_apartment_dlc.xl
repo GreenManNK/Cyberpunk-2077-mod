@@ -1,0 +1,11 @@
+localization:
+  onscreens:
+    en-us: base\localization\en-us\rebecca_loc.json
+streaming:
+  blocks:
+   - rebecca_lighting_fix\all.streamingblock
+   - rebeccas_apartment_dlc\all.streamingblock
+resource:
+  patch:
+    rebecca_lighting_fix/custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices

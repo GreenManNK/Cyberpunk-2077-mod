@@ -1,0 +1,503 @@
+# AR_SMG_LMG==================================================
+
+AttachmentSlots.Power_AR_SMG_LMG_WeaponMod3:
+    $base: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod1
+    
+AttachmentSlots.Power_AR_SMG_LMG_WeaponMod4:
+    $base: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod2
+        
+AttachmentSlots.Power_AR_SMG_LMG_WeaponMod5:
+    $base: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod3
+    
+AttachmentSlots.Power_AR_SMG_LMG_WeaponMod6:
+    $base: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod4
+
+Items.Power_AR_SMG_LMG_WeaponMod3Element:
+    $base: Items.Power_AR_SMG_LMG_WeaponMod1Element
+    slot: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod3
+    
+Items.Power_AR_SMG_LMG_WeaponMod4Element:
+    $base: Items.Power_AR_SMG_LMG_WeaponMod2Element
+    slot: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod4
+
+Items.Power_AR_SMG_LMG_WeaponMod5Element:
+    $base: Items.Power_AR_SMG_LMG_WeaponMod3Element
+    slot: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod5
+
+Items.Power_AR_SMG_LMG_WeaponMod6Element:
+    $base: Items.Power_AR_SMG_LMG_WeaponMod4Element
+    slot: AttachmentSlots.Power_AR_SMG_LMG_WeaponMod6
+
+Items.Base_Power_AR_SMG_LMG$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod3Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod4Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod5Element
+        - !append-once Items.Power_AR_SMG_LMG_WeaponMod6Element
+
+# AR_SMG_LMG==================================================
+
+AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod3:
+    $base: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod1
+    
+AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod4:
+    $base: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod2
+
+AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod5:
+    $base: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod3
+
+AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod6:
+    $base: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod4
+
+Items.Smart_AR_SMG_LMG_WeaponMod3Element:
+    $base: Items.Smart_AR_SMG_LMG_WeaponMod1Element
+    slot: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod3
+    
+Items.Smart_AR_SMG_LMG_WeaponMod4Element:
+    $base: Items.Smart_AR_SMG_LMG_WeaponMod2Element
+    slot: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod4
+
+Items.Smart_AR_SMG_LMG_WeaponMod5Element:
+    $base: Items.Smart_AR_SMG_LMG_WeaponMod3Element
+    slot: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod5
+
+Items.Smart_AR_SMG_LMG_WeaponMod6Element:
+    $base: Items.Smart_AR_SMG_LMG_WeaponMod4Element
+    slot: AttachmentSlots.Smart_AR_SMG_LMG_WeaponMod6
+
+Items.Base_Smart_AR_SMG_LMG$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Smart_AR_SMG_LMG_WeaponMod3Element
+        - !append-once Items.Smart_AR_SMG_LMG_WeaponMod4Element
+        - !append-once Items.Smart_AR_SMG_LMG_WeaponMod5Element
+        - !append-once Items.Smart_AR_SMG_LMG_WeaponMod6Element
+
+# AR_SMG_LMG==================================================
+
+AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod3:
+    $base: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod1
+    
+AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod4:
+    $base: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod2
+
+AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod5:
+    $base: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod3
+
+AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod6:
+    $base: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod4
+
+Items.Tech_AR_SMG_LMG_WeaponMod3Element:
+    $base: Items.Tech_AR_SMG_LMG_WeaponMod1Element
+    slot: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod3
+    
+Items.Tech_AR_SMG_LMG_WeaponMod4Element:
+    $base: Items.Tech_AR_SMG_LMG_WeaponMod2Element
+    slot: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod4
+
+Items.Tech_AR_SMG_LMG_WeaponMod5Element:
+    $base: Items.Tech_AR_SMG_LMG_WeaponMod3Element
+    slot: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod5
+
+Items.Tech_AR_SMG_LMG_WeaponMod6Element:
+    $base: Items.Tech_AR_SMG_LMG_WeaponMod4Element
+    slot: AttachmentSlots.Tech_AR_SMG_LMG_WeaponMod6
+
+Items.Base_Tech_AR_SMG_LMG$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Tech_AR_SMG_LMG_WeaponMod3Element
+        - !append-once Items.Tech_AR_SMG_LMG_WeaponMod4Element
+        - !append-once Items.Tech_AR_SMG_LMG_WeaponMod5Element
+        - !append-once Items.Tech_AR_SMG_LMG_WeaponMod6Element
+
+# Handgun==================================================
+
+AttachmentSlots.Power_Handgun_WeaponMod3:
+    $base: AttachmentSlots.Power_Handgun_WeaponMod1
+    
+AttachmentSlots.Power_Handgun_WeaponMod4:
+    $base: AttachmentSlots.Power_Handgun_WeaponMod2
+
+AttachmentSlots.Power_Handgun_WeaponMod5:
+    $base: AttachmentSlots.Power_Handgun_WeaponMod3
+
+AttachmentSlots.Power_Handgun_WeaponMod6:
+    $base: AttachmentSlots.Power_Handgun_WeaponMod4
+
+Items.Power_Handgun_WeaponMod3Element:
+    $base: Items.Power_Handgun_WeaponMod1Element
+    slot: AttachmentSlots.Power_Handgun_WeaponMod3
+    
+Items.Power_Handgun_WeaponMod4Element:
+    $base: Items.Power_Handgun_WeaponMod2Element
+    slot: AttachmentSlots.Power_Handgun_WeaponMod4
+
+Items.Power_Handgun_WeaponMod5Element:
+    $base: Items.Power_Handgun_WeaponMod3Element
+    slot: AttachmentSlots.Power_Handgun_WeaponMod5
+
+Items.Power_Handgun_WeaponMod6Element:
+    $base: Items.Power_Handgun_WeaponMod4Element
+    slot: AttachmentSlots.Power_Handgun_WeaponMod6
+
+Items.Base_Power_Handgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Power_Handgun_WeaponMod3Element
+        - !append-once Items.Power_Handgun_WeaponMod4Element
+        - !append-once Items.Power_Handgun_WeaponMod5Element
+        - !append-once Items.Power_Handgun_WeaponMod6Element
+
+# Handgun==================================================
+
+AttachmentSlots.Smart_Handgun_WeaponMod3:
+    $base: AttachmentSlots.Smart_Handgun_WeaponMod1
+    
+AttachmentSlots.Smart_Handgun_WeaponMod4:
+    $base: AttachmentSlots.Smart_Handgun_WeaponMod2
+
+AttachmentSlots.Smart_Handgun_WeaponMod5:
+    $base: AttachmentSlots.Smart_Handgun_WeaponMod3
+
+AttachmentSlots.Smart_Handgun_WeaponMod6:
+    $base: AttachmentSlots.Smart_Handgun_WeaponMod4
+
+Items.Smart_Handgun_WeaponMod3Element:
+    $base: Items.Smart_Handgun_WeaponMod1Element
+    slot: AttachmentSlots.Smart_Handgun_WeaponMod3
+    
+Items.Smart_Handgun_WeaponMod4Element:
+    $base: Items.Smart_Handgun_WeaponMod2Element
+    slot: AttachmentSlots.Smart_Handgun_WeaponMod4
+
+Items.Smart_Handgun_WeaponMod5Element:
+    $base: Items.Smart_Handgun_WeaponMod3Element
+    slot: AttachmentSlots.Smart_Handgun_WeaponMod5
+
+Items.Smart_Handgun_WeaponMod6Element:
+    $base: Items.Smart_Handgun_WeaponMod4Element
+    slot: AttachmentSlots.Smart_Handgun_WeaponMod6
+
+Items.Base_Smart_Handgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Smart_Handgun_WeaponMod3Element
+        - !append-once Items.Smart_Handgun_WeaponMod4Element
+        - !append-once Items.Smart_Handgun_WeaponMod5Element
+        - !append-once Items.Smart_Handgun_WeaponMod6Element
+
+# Handgun==================================================
+
+AttachmentSlots.Tech_Handgun_WeaponMod3:
+    $base: AttachmentSlots.Tech_Handgun_WeaponMod1
+    
+AttachmentSlots.Tech_Handgun_WeaponMod4:
+    $base: AttachmentSlots.Tech_Handgun_WeaponMod2
+
+AttachmentSlots.Tech_Handgun_WeaponMod5:
+    $base: AttachmentSlots.Tech_Handgun_WeaponMod3
+
+AttachmentSlots.Tech_Handgun_WeaponMod6:
+    $base: AttachmentSlots.Tech_Handgun_WeaponMod4
+
+Items.Tech_Handgun_WeaponMod3Element:
+    $base: Items.Tech_Handgun_WeaponMod1Element
+    slot: AttachmentSlots.Tech_Handgun_WeaponMod3
+    
+Items.Tech_Handgun_WeaponMod4Element:
+    $base: Items.Tech_Handgun_WeaponMod2Element
+    slot: AttachmentSlots.Tech_Handgun_WeaponMod4
+
+Items.Tech_Handgun_WeaponMod5Element:
+    $base: Items.Tech_Handgun_WeaponMod3Element
+    slot: AttachmentSlots.Tech_Handgun_WeaponMod5
+
+Items.Tech_Handgun_WeaponMod6Element:
+    $base: Items.Tech_Handgun_WeaponMod4Element
+    slot: AttachmentSlots.Tech_Handgun_WeaponMod6
+
+Items.Base_Tech_Handgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Tech_Handgun_WeaponMod3Element
+        - !append-once Items.Tech_Handgun_WeaponMod4Element
+        - !append-once Items.Tech_Handgun_WeaponMod5Element
+        - !append-once Items.Tech_Handgun_WeaponMod6Element
+
+# Precision_Sniper_Rifle==================================================
+
+AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod3:
+    $base: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod1
+    
+AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod4:
+    $base: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod2
+
+AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod5:
+    $base: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod3
+
+AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod6:
+    $base: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Power_Precision_Sniper_Rifle_WeaponMod3Element:
+    $base: Items.Power_Precision_Sniper_Rifle_WeaponMod1Element
+    slot: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod3
+    
+Items.Power_Precision_Sniper_Rifle_WeaponMod4Element:
+    $base: Items.Power_Precision_Sniper_Rifle_WeaponMod2Element
+    slot: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Power_Precision_Sniper_Rifle_WeaponMod5Element:
+    $base: Items.Power_Precision_Sniper_Rifle_WeaponMod3Element
+    slot: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod5
+
+Items.Power_Precision_Sniper_Rifle_WeaponMod6Element:
+    $base: Items.Power_Precision_Sniper_Rifle_WeaponMod4Element
+    slot: AttachmentSlots.Power_Precision_Sniper_Rifle_WeaponMod6
+
+Items.Base_Power_Precision_Sniper_Rifle$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Power_Precision_Sniper_Rifle_WeaponMod3Element
+        - !append-once Items.Power_Precision_Sniper_Rifle_WeaponMod4Element
+        - !append-once Items.Power_Precision_Sniper_Rifle_WeaponMod5Element
+        - !append-once Items.Power_Precision_Sniper_Rifle_WeaponMod6Element
+
+# Precision_Sniper_Rifle==================================================
+
+AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod3:
+    $base: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod1
+    
+AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod4:
+    $base: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod2
+
+AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod5:
+    $base: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod3
+
+AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod6:
+    $base: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Smart_Precision_Sniper_Rifle_WeaponMod3Element:
+    $base: Items.Smart_Precision_Sniper_Rifle_WeaponMod1Element
+    slot: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod3
+    
+Items.Smart_Precision_Sniper_Rifle_WeaponMod4Element:
+    $base: Items.Smart_Precision_Sniper_Rifle_WeaponMod2Element
+    slot: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Smart_Precision_Sniper_Rifle_WeaponMod5Element:
+    $base: Items.Smart_Precision_Sniper_Rifle_WeaponMod3Element
+    slot: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod5
+
+Items.Smart_Precision_Sniper_Rifle_WeaponMod6Element:
+    $base: Items.Smart_Precision_Sniper_Rifle_WeaponMod4Element
+    slot: AttachmentSlots.Smart_Precision_Sniper_Rifle_WeaponMod6
+
+Items.Base_Smart_Precision_Sniper_Rifle$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod3Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod4Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod5Element
+        - !append-once Items.Smart_Precision_Sniper_Rifle_WeaponMod6Element
+
+# Precision_Sniper_Rifle==================================================
+
+AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod3:
+    $base: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod1
+    
+AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod4:
+    $base: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod2
+
+AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod5:
+    $base: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod3
+
+AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod6:
+    $base: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Tech_Precision_Sniper_Rifle_WeaponMod3Element:
+    $base: Items.Tech_Precision_Sniper_Rifle_WeaponMod1Element
+    slot: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod3
+    
+Items.Tech_Precision_Sniper_Rifle_WeaponMod4Element:
+    $base: Items.Tech_Precision_Sniper_Rifle_WeaponMod2Element
+    slot: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod4
+
+Items.Tech_Precision_Sniper_Rifle_WeaponMod5Element:
+    $base: Items.Tech_Precision_Sniper_Rifle_WeaponMod3Element
+    slot: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod5
+
+Items.Tech_Precision_Sniper_Rifle_WeaponMod6Element:
+    $base: Items.Tech_Precision_Sniper_Rifle_WeaponMod4Element
+    slot: AttachmentSlots.Tech_Precision_Sniper_Rifle_WeaponMod6
+
+Items.Base_Tech_Precision_Sniper_Rifle$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod3Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod4Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod5Element
+        - !append-once Items.Tech_Precision_Sniper_Rifle_WeaponMod6Element
+
+# Shotgun==================================================
+
+AttachmentSlots.Power_Shotgun_WeaponMod3:
+    $base: AttachmentSlots.Power_Shotgun_WeaponMod1
+    
+AttachmentSlots.Power_Shotgun_WeaponMod4:
+    $base: AttachmentSlots.Power_Shotgun_WeaponMod2
+
+AttachmentSlots.Power_Shotgun_WeaponMod5:
+    $base: AttachmentSlots.Power_Shotgun_WeaponMod3
+
+AttachmentSlots.Power_Shotgun_WeaponMod6:
+    $base: AttachmentSlots.Power_Shotgun_WeaponMod4
+
+Items.Power_Shotgun_WeaponMod3Element:
+    $base: Items.Power_Shotgun_WeaponMod1Element
+    slot: AttachmentSlots.Power_Shotgun_WeaponMod3
+    
+Items.Power_Shotgun_WeaponMod4Element:
+    $base: Items.Power_Shotgun_WeaponMod2Element
+    slot: AttachmentSlots.Power_Shotgun_WeaponMod4
+
+Items.Power_Shotgun_WeaponMod5Element:
+    $base: Items.Power_Shotgun_WeaponMod3Element
+    slot: AttachmentSlots.Power_Shotgun_WeaponMod5
+
+Items.Power_Shotgun_WeaponMod6Element:
+    $base: Items.Power_Shotgun_WeaponMod4Element
+    slot: AttachmentSlots.Power_Shotgun_WeaponMod6
+
+Items.Base_Power_Shotgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Power_Shotgun_WeaponMod3Element
+        - !append-once Items.Power_Shotgun_WeaponMod4Element
+        - !append-once Items.Power_Shotgun_WeaponMod5Element
+        - !append-once Items.Power_Shotgun_WeaponMod6Element
+
+# Shotgun==================================================
+
+AttachmentSlots.Smart_Shotgun_WeaponMod3:
+    $base: AttachmentSlots.Smart_Shotgun_WeaponMod1
+    
+AttachmentSlots.Smart_Shotgun_WeaponMod4:
+    $base: AttachmentSlots.Smart_Shotgun_WeaponMod2
+
+AttachmentSlots.Smart_Shotgun_WeaponMod5:
+    $base: AttachmentSlots.Smart_Shotgun_WeaponMod3
+
+AttachmentSlots.Smart_Shotgun_WeaponMod6:
+    $base: AttachmentSlots.Smart_Shotgun_WeaponMod4
+
+Items.Smart_Shotgun_WeaponMod3Element:
+    $base: Items.Smart_Shotgun_WeaponMod1Element
+    slot: AttachmentSlots.Smart_Shotgun_WeaponMod3
+    
+Items.Smart_Shotgun_WeaponMod4Element:
+    $base: Items.Smart_Shotgun_WeaponMod2Element
+    slot: AttachmentSlots.Smart_Shotgun_WeaponMod4
+
+Items.Smart_Shotgun_WeaponMod5Element:
+    $base: Items.Smart_Shotgun_WeaponMod3Element
+    slot: AttachmentSlots.Smart_Shotgun_WeaponMod5
+
+Items.Smart_Shotgun_WeaponMod6Element:
+    $base: Items.Smart_Shotgun_WeaponMod4Element
+    slot: AttachmentSlots.Smart_Shotgun_WeaponMod6
+
+Items.Base_Smart_Shotgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Smart_Shotgun_WeaponMod3Element
+        - !append-once Items.Smart_Shotgun_WeaponMod4Element
+        - !append-once Items.Smart_Shotgun_WeaponMod5Element
+        - !append-once Items.Smart_Shotgun_WeaponMod6Element
+
+# Shotgun==================================================
+
+AttachmentSlots.Tech_Shotgun_WeaponMod3:
+    $base: AttachmentSlots.Tech_Shotgun_WeaponMod1
+    
+AttachmentSlots.Tech_Shotgun_WeaponMod4:
+    $base: AttachmentSlots.Tech_Shotgun_WeaponMod2
+
+AttachmentSlots.Tech_Shotgun_WeaponMod5:
+    $base: AttachmentSlots.Tech_Shotgun_WeaponMod3
+
+AttachmentSlots.Tech_Shotgun_WeaponMod6:
+    $base: AttachmentSlots.Tech_Shotgun_WeaponMod4
+
+Items.Tech_Shotgun_WeaponMod3Element:
+    $base: Items.Tech_Shotgun_WeaponMod1Element
+    slot: AttachmentSlots.Tech_Shotgun_WeaponMod3
+    
+Items.Tech_Shotgun_WeaponMod4Element:
+    $base: Items.Tech_Shotgun_WeaponMod2Element
+    slot: AttachmentSlots.Tech_Shotgun_WeaponMod4
+
+Items.Tech_Shotgun_WeaponMod5Element:
+    $base: Items.Tech_Shotgun_WeaponMod3Element
+    slot: AttachmentSlots.Tech_Shotgun_WeaponMod5
+
+Items.Tech_Shotgun_WeaponMod6Element:
+    $base: Items.Tech_Shotgun_WeaponMod4Element
+    slot: AttachmentSlots.Tech_Shotgun_WeaponMod6
+
+Items.Base_Tech_Shotgun$(instance)Blueprint_inline0:
+    $instances:
+        - { instance: _ }
+        - { instance: _NoAttachments_ }
+        - { instance: _NoMuzzle_ }
+        - { instance: _NoScope_ }
+    childElements:
+        - !append-once Items.Tech_Shotgun_WeaponMod3Element
+        - !append-once Items.Tech_Shotgun_WeaponMod4Element
+        - !append-once Items.Tech_Shotgun_WeaponMod5Element
+        - !append-once Items.Tech_Shotgun_WeaponMod6Element

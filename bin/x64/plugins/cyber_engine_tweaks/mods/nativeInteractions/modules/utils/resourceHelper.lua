@@ -1,0 +1,332 @@
+local utils = require("modules/utils/utils")
+local Cron = require("modules/utils/Cron")
+
+local helper = {
+    patches = {},
+    journalPatches = {},
+    endEvents = {}
+}
+
+function helper.init()
+    Observe('PlayerPuppet', 'OnNIFSceneEvent', function (_, event)
+        if helper.endEvents[event.eventAction.value] then
+            helper.endEvents[event.eventAction.value](Game.GetQuestsSystem():GetFactStr("nif_scene_active"))
+            helper.endEvents[event.eventAction.value] = nil
+            Game.GetQuestsSystem():SetFactStr("nif_scene_active", 0)
+        end
+    end)
+
+    Observe('NativeInteractions', 'ProcessScene', function(_, event)
+        local path = ResRef.FromHash(event:GetPath():GetHash()):ToString()
+        if not helper.patches[path] then return end
+
+        local scene = event:GetResource()
+
+        helper.patchChoiceNodes(scene, path)
+        helper.patchTDBIDs(scene, path)
+        helper.patchOffsets(scene, path)
+        helper.patchNodeRefs(scene, path)
+        helper.patchLocalization(scene, path)
+        helper.patchRemovals(scene, path)
+    end)
+
+    Observe('NativeInteractions', 'ProcessJournal', function(_, event)
+        local journal = event:GetResource().entry
+
+        for _, patch in pairs(helper.journalPatches) do
+            if patch.getID() ~= "" then
+                for _, entry in pairs(journal.entries) do
+                    local patchEntry = patch.patches[entry.id]
+
+                    if patchEntry then
+                        local entries = entry.entries
+                        table.insert(entries, patchEntry.getEntry())
+                        entry.entries = entries
+                    end
+                end
+            end
+        end
+    end)
+end
+
+-- Patch nodeIDs of choice hubs
+function helper.patchChoiceNodes(scene, path)
+    if not helper.patches[path].choiceID then return end
+
+    local choiceIDs = {}
+    local graph = scene.sceneGraph.graph
+
+    for _, node in pairs(graph) do
+        if node:IsA("scnChoiceNode") then
+            table.insert(choiceIDs, node.nodeId.id)
+            node.nodeId = scnNodeId.new({ id = node.nodeId.id + helper.patches[path].choiceID }) --node.nodeId.id + helper.patches[path].choiceID
+        end
+    end
+
+    table.sort(graph, function (a, b)
+        return a.nodeId.id < b.nodeId.id
+    end)
+    scene.sceneGraph.graph = graph
+
+    -- Patch destination nodeIDs of nodes connected to choiceHubs
+    for _, node in pairs(scene.sceneGraph.graph) do
+        local sockets = node.outputSockets
+
+        for _, socket in pairs(sockets) do
+            local destinations = socket.destinations
+
+            for key, destination in pairs(destinations) do
+                if utils.has_value(choiceIDs, destination.nodeId.id) then
+                    destinations[key].nodeId = scnNodeId.new({ id = destination.nodeId.id + helper.patches[path].choiceID }) --destination.nodeId.id + helper.patches[path].choiceID
+                end
+            end
+
+            socket.destinations = destinations
+        end
+
+        node.outputSockets = sockets
+    end
+end
+
+function helper.patchTDBIDs(scene, path)
+    if not helper.patches[path].tdbidMap then return end
+
+    local graph = scene.sceneGraph.graph
+
+    for _, node in pairs(graph) do
+        if node:IsA("scnChoiceNode") then
+            for _, option in pairs(node.options) do
+                if option.bluelineCondition and option.bluelineCondition.type and option.bluelineCondition.type.scriptCondition then
+                    local condition = option.bluelineCondition.type.scriptCondition
+                    if condition:IsA("PaymentBalanced_ScriptConditionType") and helper.patches[path].tdbidMap[condition.questAssignment.value] then
+                        condition.questAssignment = helper.patches[path].tdbidMap[condition.questAssignment.value]
+                    end
+                end
+            end
+        end
+    end
+
+    scene.sceneGraph.graph = graph
+end
+
+function helper.patchOffsets(scene, path)
+    if not helper.patches[path].animationPosition or not helper.patches[path].animationRotation then return end
+
+    -- Patch animation offsets
+    for _, node in pairs(scene.sceneGraph.graph) do
+        if node:IsA("scnSectionNode") then
+            for _, event in pairs(node.events) do
+                if event:IsA("scnPlaySkAnimEvent") then
+                    local data = event.rootMotionData
+                    -- Some animation events have an offset defined in the scene file, so use that additionally
+                    local pos = utils.addVector(helper.patches[path].animationPosition, helper.patches[path].animationRotation:ToQuat():Transform(data.originOffset:GetPosition()))
+                    local rot = utils.addEuler(helper.patches[path].animationRotation, data.originOffset:GetOrientation():ToEulerAngles())
+                    data.originOffset = Transform.new({ position = pos, orientation = rot:ToQuat() })
+                    event.rootMotionData = data
+                end
+            end
+        end
+    end
+
+    local workspots = scene.workspotInstances
+    for _, workspot in pairs(workspots) do
+        local pos = utils.addVector(helper.patches[path].animationPosition, helper.patches[path].animationRotation:ToQuat():Transform(workspot.localTransform:GetPosition()))
+        local rot = utils.addEuler(helper.patches[path].animationRotation, workspot.localTransform:GetOrientation():ToEulerAngles())
+        workspot.localTransform = Transform.new({ position = pos, orientation = rot:ToQuat() })
+    end
+    scene.workspotInstances = workspots
+end
+
+function helper.patchNodeRefs(scene, path)
+    if not helper.patches[path].propMap then return end
+
+    -- NodeRefs in props
+    local props = scene.props
+    for _, prop in pairs(props) do
+        local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(prop.findEntityInNodeParams.nodeRef)]
+
+        if replacement then
+            local params = prop.findEntityInNodeParams
+            params.nodeRef = CreateNodeRef(replacement)
+            prop.findEntityInNodeParams = params
+        end
+    end
+    scene.props = props
+
+    -- NodeRefs in actors
+    local actors = scene.actors
+    for _, actor in pairs(actors) do
+        local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(actor.spawnerParams.reference)]
+
+        if replacement then
+            local params = actor.spawnerParams
+            params.reference = CreateNodeRef(replacement)
+            actor.spawnerParams = params
+        end
+    end
+    scene.actors = actors
+
+    -- NodeRefs graph
+    for _, node in pairs(scene.sceneGraph.graph) do
+        if node:IsA("scnSectionNode") then
+            for _, event in pairs(node.events) do
+                if event:IsA("scneventsVFXEvent") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(event.nodeRef)]
+
+                    if replacement then
+                        event.nodeRef = CreateNodeRef(replacement)
+                    end
+                end
+            end
+        end
+
+        if node:IsA("scnQuestNode") then
+            if node.questNode and node.questNode.type then
+                if node.questNode.type:IsA("questDeviceManager_NodeType") then
+                    local params = node.questNode.type.params
+
+                    for _, param in pairs(params) do
+                        local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(param.objectRef)]
+
+                        if replacement then
+                            param.objectRef = CreateNodeRef(replacement)
+                        end
+                    end
+
+                    node.questNode.type.params = params
+                elseif node.questNode.type:IsA("questPlayerLookAt_NodeType") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.type.objectRef.reference)]
+
+                    if replacement then
+                        local objectRef = node.questNode.type.objectRef
+                        objectRef.reference = CreateNodeRef(replacement)
+                        node.questNode.type.objectRef = objectRef
+                    end
+                elseif node.questNode.type:IsA("questShowWorldNode_NodeType") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.type.objectRef)]
+
+                    if replacement then
+                        node.questNode.type.objectRef = CreateNodeRef(replacement)
+                    end
+                elseif node.questNode.type:IsA("questEntityManagerToggleComponent_NodeType") then
+                    local params = node.questNode.type.params or {}
+
+                    for _, param in pairs(params) do
+                        local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(param.objectRef.reference)]
+
+                        if replacement then
+                            local objectRef = param.objectRef
+                            objectRef.reference = CreateNodeRef(replacement)
+                            param.objectRef = objectRef
+                        end
+                    end
+
+                    node.questNode.type.params = params
+                elseif node.questNode.type:IsA("questPrefetchStreaming_NodeTypeV2") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.type.prefetchPositionRef)]
+
+                    if replacement then
+                        node.questNode.type.prefetchPositionRef = CreateNodeRef(replacement)
+                    end
+                end
+            elseif node.questNode then
+                if node.questNode:IsA("questEventManagerNodeDefinition") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.objectRef.reference)]
+
+                    if replacement then
+                        local objectRef = node.questNode.objectRef
+                        objectRef.reference = CreateNodeRef(replacement)
+                        node.questNode.objectRef = objectRef
+                    end
+                elseif node.questNode.condition and node.questNode.condition.type and node.questNode.condition.type:IsA("questDevice_ConditionType") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.condition.type.objectRef)]
+
+                    if replacement then
+                        node.questNode.condition.type.objectRef = CreateNodeRef(replacement)
+                    end
+                elseif node.questNode:IsA("questTeleportPuppetNodeDefinition") then
+                    local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(node.questNode.params.destinationRef.entityReference.reference)]
+
+                    if replacement then
+                        local entityReference = node.questNode.params.destinationRef.entityReference
+                        entityReference.reference = CreateNodeRef(replacement)
+                        node.questNode.params.destinationRef.entityReference = entityReference
+                    end
+                end
+            end
+        end
+    end
+
+    -- Not really needed
+    local performers = scene.debugSymbols.performersDebugSymbols
+    for _, performer in pairs(performers) do
+        local replacement = helper.patches[path].propMap[utils.nodeRefToHashString(performer.entityRef.reference)]
+
+        if replacement then
+            local entityRef = performer.entityRef
+            entityRef.reference = CreateNodeRef(replacement)
+            performer.entityRef = entityRef
+        end
+    end
+    scene.debugSymbols.performersDebugSymbols = performers
+end
+
+function helper.patchLocalization(scene, path)
+    if not helper.patches[path].locMap then return end
+
+    local store = scene.screenplayStore
+    local options = store.options
+
+    for key, option in pairs(options or {}) do
+        local replacement = helper.patches[path].locMap[option.itemId.id]
+
+        if replacement then
+            options[key].locstringId = scnlocLocstringId.new({ ruid = replacement})
+        end
+    end
+
+    store.options = options
+    scene.screenplayStore = store
+end
+
+function helper.patchRemovals(scene, path)
+    if not helper.patches[path].removals then return end
+
+    Cron.NextTick(function ()
+        Game.GetResourceDepot():RemoveResourceFromCache(path)
+    end)
+
+    -- Patch out any unwanted choice nodes
+    for _, node in pairs(scene.sceneGraph.graph) do
+        if node:IsA("scnChoiceNode") then
+            if utils.has_value(helper.patches[path].removals, node.nodeId.id) then
+                node.options = {}
+            end
+        end
+    end
+end
+
+function helper.registerPatch(scenePath, patchData)
+    helper.patches[scenePath] = patchData
+end
+
+function helper.registerSceneEnd(eventName, callback)
+    if helper.endEvents[eventName] then
+        print("[NativeInteractions] Scene end event already registered: " .. eventName)
+        return false
+    end
+
+    helper.endEvents[eventName] = callback
+
+    return true
+end
+
+function helper.registerJournalPatch(patch, id)
+    helper.journalPatches[id] = patch
+end
+
+function helper.removeJournalPatch(id)
+    helper.journalPatches[id] = nil
+end
+
+return helper

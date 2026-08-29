@@ -1,0 +1,197 @@
+BaseStats.CannotBlockBullets:
+    $type: Stat
+    enumName: CannotBlockBullets
+    flags: [ EquipOnPlayer, EquipOnNPC ]
+    min: 0.0
+    max: 1.0
+
+BaseStats.CannotDischargeConnector:
+    $type: Stat
+    enumName: CannotDischargeConnector
+    flags: [ EquipOnPlayer, EquipOnNPC ]
+    min: 0.0
+    max: 1.0
+
+BaseStats.AlwaysApplyChance:
+    $type: ConstantStatModifier
+    statType: BaseStats.ApplicationChance
+    modifierType: Additive
+    value: 1.0
+
+Items.RRExplosivesControl:
+    $type: ConstantStatModifier
+    statType: BaseStats.RicochetCount
+    modifierType: Multiplier
+    value: 0.0
+
+Items.IsAimingDependant:
+    $type: CombinedStatModifier
+    refObject: Player
+    refStat: BaseStats.IsAimingWithWeapon
+    opSymbol: "*"
+    modifierType: Additive
+    value: 1.0
+
+Items.QuickSwapStatModifierGroup:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.EquipDuration
+        modifierType: AdditiveMultiplier
+        value: -0.15
+    -   $type: ConstantStatModifier
+        statType: BaseStats.UnequipDuration
+        modifierType: AdditiveMultiplier
+        value: -0.15
+    -   $type: ConstantStatModifier
+        statType: BaseStats.WeaponSwapDuration
+        modifierType: Additive
+        value: -15.0
+
+Items.HalfSpreadStatModifierGroup:
+    $type: StatModifierGroup
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadDefaultX
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadDefaultY
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMaxX
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadMaxY
+        modifierType: Multiplier
+        value: 0.5
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsDefaultX
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsDefaultY
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsMaxX
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.SpreadAdsMaxY
+        modifierType: Multiplier
+        value: 0.0
+
+Prereqs.SJ_IsDefeated:
+    $base: Prereqs.ORPrereq
+    nestedPrereqs:
+    -   $type: StatusEffectPrereq
+        statusEffect: BaseStatusEffect.Defeated
+        checkType: CheckType.Type
+    -   $type: StatusEffectPrereq
+        statusEffect: BaseStatusEffect.Unconscious
+        checkType: CheckType.Type
+    -   $type: StatusEffectPrereq
+        statusEffect: BaseStatusEffect.SystemCollapse
+        checkType: CheckType.Type
+    -   $type: StatPoolPrereq
+        statPoolType: Health
+        comparisonType: Equal
+        valueToCheck:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.Health
+            modifierType: Additive
+            value: 0.0
+
+Prereqs.IsAttackRangedHeadshot:
+    $base: Perks.IsAttackRanged
+    conditions:
+    -   !append
+        $base: Prereqs.BodyPartHitPrereqCondition
+        bodyPart: Head
+
+Prereqs.SJ_ChargedShotHitOrMiss: 
+    $base: Prereqs.ORPrereq
+    nestedPrereqs:
+    -   $base: Prereqs.MicroGeneratorShotPrereq
+        conditions:
+        -   !append
+            $base: Prereqs.HitFlagHitPrereqCondition
+            hitFlag: WeaponFullyCharged
+    -   $base: Prereqs.MicroGeneratorShotPrereq
+        conditions:
+        -   !append
+            $base: Prereqs.HitFlagHitPrereqCondition
+            hitFlag: PerfectlyCharged
+
+Prereqs.SJ_ChargedShotHit: 
+    $base: Prereqs.ORPrereq
+    nestedPrereqs:
+    -   $base: Perks.IsAttackRanged
+        conditions:
+        -   !append
+            $base: Prereqs.HitFlagHitPrereqCondition
+            hitFlag: WeaponFullyCharged
+    -   $base: Perks.IsAttackRanged
+        conditions:
+        -   !append
+            $base: Prereqs.HitFlagHitPrereqCondition
+            hitFlag: PerfectlyCharged
+
+Prereqs.HitHasPiercedSurfacePrereq:
+    $base: Prereqs.ProcessHitTriggered
+    prereqClassName: HitHasPiercedSurfacePrereq
+    conditions:
+    -   $base: Prereqs.AttackTypeHitPrereqCondition
+        attackType: Ranged
+#    -   $base: Prereqs.WeaponTypeHitPrereqCondition
+#        attackType: Ranged
+
+Prereqs.HitIsMultipleRicochetPrereq:
+    $base: Prereqs.ProcessHitTriggered
+#    $props: AutoFlats
+    prereqClassName: HitIsMultipleRicochetPrereq
+    conditions:
+    -   $base: Prereqs.AttackTypeHitPrereqCondition
+        attackType: Ranged
+#    -   $base: Prereqs.WeaponTypeHitPrereqCondition
+#        attackType: Ranged
+#    minBounces: 1
+#    maxBounces: 0
+
+Prereqs.HitIsLeapAttackPrereq:
+    $base: Prereqs.ProcessHitTriggered
+    prereqClassName: HitIsLeapAttackPrereq
+    conditions:
+    -   $base: Prereqs.AttackTypeHitPrereqCondition
+        attackType: StrongMelee
+
+Prereqs.ReloadStartPrereq:
+    $type: IPrereq
+    prereqClassName: ReloadStartPrereq
+
+Effectors.RemoveStatusEffectInAreaEffector:
+    $base: Effectors.RefreshQhWithTagInAreaEffector
+    effectorClassName: RemoveStatusEffectInAreaEffector
+
+Attacks.NullPhysicalDamage:
+    $type: CombinedStatModifier
+    opSymbol: '*'
+    refObject: Owner
+    refStat: BaseStats.DamagePerHit
+    value: 0.0
+    modifierType: Multiplier
+    statType: BaseStats.PhysicalDamage
+
+Items.DischargeConnectorEffector:
+    prereqRecord:
+        $base: Prereqs.ANDPrereq
+        nestedPrereqs:
+        -   Items.DischargeConnectorEffector_inline0
+        -   $type: StatPrereq
+            statType: CannotDischargeConnector
+            objectToCheck: Player
+            valueToCheck: 1.0
+            comparisonType: Less

@@ -1,0 +1,421 @@
+{
+    "name": "Reset the Mod (for new playthrough only !)",
+    "tag": "interact_reset_vars",
+    "display": "event_interact",
+    "style": {
+        "textcolor": {
+            "red": 255,
+            "green": 0,
+            "blue": 0
+        },
+        "bgcolor": {
+            "red": 255,
+            "green": 0,
+            "blue": 0
+        },
+        "iconcolor": {
+            "red": 255,
+            "green": 0,
+            "blue": 0
+        }
+    },
+    "type": "interact",
+    "sorttag": "B",
+    "icon": "IllegalIcon",
+    "trigger": {
+        "reset_trigger": {
+            "name": "auto"
+        }
+    },
+    "requirement": [
+        [
+            "reset_trigger"
+        ]
+    ],
+    "action": [
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_ma_wat_nid_34_onscreen_01",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_ma_std_arr_13_onscreen_01",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_ma_wbr_nok_102_onscreen_01",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_mws_pac_01_shard",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_.no_item_195",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_no_item_54",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_no_item_120",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_.no_item_174",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_no_item_183",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_ma_cct_cpz_103_onscreen_01",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_loc_ma_hey_rey_110_onscreen_01",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_bls_ina_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_bls_ina_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_bls_ina_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_ctc_cpz_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_ctc_dtn_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_ctc_dtn_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_hey_gle_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_hey_gle_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_hey_gle_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_hey_rey_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_pac_cvi_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_pac_cvi_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_pac_cvi_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_std_arr_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_std_arr_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_std_rcr_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_std_rcr_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_std_rcr_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_kab_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_kab_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_kab_tier_5",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_kab_tier_8",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_lch_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_nid_tier_6",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_nid_tier_7",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wat_nid_tier_8",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wbr_hil_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wbr_hil_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wbr_jap_tier_2",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wbr_jap_tier_3",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "",
+            "type": "number",
+            "key": "var_unlock_sts_wbr_jap_tier_4",
+            "variable": "var_hiddengems",
+            "name": "set_variable",
+            "helperTitle": "Variable : Set Variable",
+            "helper": "This action will set a value for a key of a Variable "
+        },
+        {
+            "value": "Hidden Gems Locations on Map has been reset !",
+            "name": "simple_message",
+            "helperTitle": "UI : Message",
+            "helper": "This action will make display a in game message"
+        }
+    ]
+}

@@ -1,0 +1,177 @@
+Effectors.SJ_GhostBladeVFXOnHit:
+    $type: AddStatusEffectToAttackEffector
+    prereqRecord: Prereqs.ProcessHitTriggered
+    statusEffect: 
+        $base: BaseStatusEffect.DebuffStatusEffect
+        duration:
+            statModifiers:
+            -   $type: ConstantStatModifier
+                statType: BaseStats.MaxDuration
+                modifierType: Additive
+                value: 0.1
+        gameplayTags:
+        -   !append BrainMeltDeathAnimation
+        packages:
+        -   $type: GameplayLogicPackage
+            effectors:
+            -   $base: Effectors.PlayVFXEffector
+                vfxName: status_electrocuted
+    isRandom: false
+
+
+Items.SJ_GhostBladeWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_GhostBlade_iconic_description
+    effectors:
+    -   $type: AddHitFlagToAttackEffector
+        effectorClassName: RemoveHitFlagFromAttackEffector
+        prereqRecord: 
+            $base: Prereqs.HitReceivedPrereq
+            conditions:
+            -   !append 
+                $base: Prereqs.HitFlagHitPrereqCondition
+                hitFlag: WasBlocked
+        hitFlag: WasBlocked
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: 
+            $base: Prereqs.ANDPrereq
+            nestedPrereqs:
+            -   $base: Prereqs.ProcessHitTriggered
+                conditions:
+                -   $base: Prereqs.WeaponTypeHitPrereqCondition
+                    weaponType: Melee
+            -   $type: IPrereq
+                prereqClassName: CurrentHighLevelNPCStatePrereq
+                stateName: Block
+        statusEffect: BaseStatusEffect.BlockBroken
+        isRandom: false
+    -   Effectors.SJ_GhostBladeVFXOnHit
+
+Items.SJ_GhostBladeWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_GhostBladeWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanMeleeInfinitelyCombo
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanWeaponInfinitlyCombo
+        modifierType: Additive
+        value: 1.0
+    -   $type: CombinedStatModifier
+        statType: BaseStats.PhysicalDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: -1.0
+    -   $type: CombinedStatModifier
+        statType: BaseStats.ElectricDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: 0.33
+    -   $type: CombinedStatModifier
+        statType: BaseStats.ChemicalDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: 0.34
+    -   $type: CombinedStatModifier
+        statType: BaseStats.ThermalDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: 0.33
+    -   $type: ConstantStatModifier
+        statType: BaseStats.DealsThermalDamage
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.DealsChemicalDamage
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.DealsElectricDamage
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanWeaponIgnoreArmor
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BlockFactor
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BlockReduction
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CanWeaponDeflect
+        modifierType: Multiplier
+        value: 0.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.CannotBlockBullets
+        modifierType: Additive
+        value: 1.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.HitDismembermentFactor
+        modifierType: Multiplier
+        value: 0.0
+        
+#Items.SJ_GhostBlade_grip:
+#    $base: Items.w_katana_grip
+#    appearanceResourceName: seijax_ghostblade_app_grip
+
+WeaponFxPackage.SJ_GhostBladeFxPackage:
+    $type: WeaponFxPackage
+
+Items.SJ_GhostBlade:
+    $base: Items.Preset_Katana_Default
+    displayName: LocKey#SJ_GhostBlade_name
+    localizedDescription: LocKey#SJ_GhostBlade_description
+    appearanceResourceName: seijax_ghostblade_app
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_ghostblade
+    blueprint: Items.Iconic_Melee_Blueprint
+    fxPackage: WeaponFxPackage.SJ_GhostBladeFxPackage
+    tags:
+    -   !append-once IconicWeapon
+    -   !remove ForceDismember
+    npcRPGData:
+        $base: Items.Base_Katana_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    slotPartListPreset:
+    -   Items.Preset_Katana_Default_inline0
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_GhostBladeWeaponMod
+        slot: AttachmentSlots.IconicMeleeWeaponMod1
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !remove Items.Base_Melee_Status_Effect_Application_Stats
+
+Items.SJ_GhostBlade_Pickup:
+    $base: Items.SJ_GhostBlade
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization
+
+Items.SJ_GhostBlade_Off:
+    $base: Items.SJ_GhostBlade
+    visualTags: [ Off ]
+

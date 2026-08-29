@@ -1,0 +1,116 @@
+Items.DrinkUncommon:
+  $base: Items.Drink_inline3
+  completionEffects:
+  - $base: Items.Drink_inline4
+    statusEffect: BaseStatusEffect.SatedUncommon
+
+Items.DrinkRare:
+  $base: Items.Drink_inline3
+  completionEffects:
+  - $base: Items.Drink_inline4
+    statusEffect: BaseStatusEffect.SatedRare
+
+Items.DrinkEpic:
+  $base: Items.Drink_inline3
+  completionEffects:
+  - $base: Items.Drink_inline4
+    statusEffect: BaseStatusEffect.SatedEpic
+
+Items.DrinkOnEquipUncommon:
+  $base: Items.Drink_inline0
+  UIData:
+    $base: Items.Drink_inline1
+    floatValues:
+      - 6
+
+Items.DrinkOnEquipRare:
+  $base: Items.Drink_inline0
+  UIData:
+    $base: Items.Drink_inline1
+    floatValues:
+      - 8
+
+Items.DrinkOnEquipEpic:
+  $base: Items.Drink_inline0
+  UIData:
+    $base: Items.Drink_inline1
+    floatValues:
+      - 10
+
+Items.SatedDurationUncommon:
+  $base: Items.SatedDuration
+  statModifiers:
+  - $base: Items.SatedDuration_inline0
+    value: 600
+
+Items.SatedDurationRare:
+  $base: Items.SatedDuration
+  statModifiers:
+  - $base: Items.SatedDuration_inline0
+    value: 900
+    
+Items.SatedDurationEpic:
+  $base: Items.SatedDuration
+  statModifiers:
+  - $base: Items.SatedDuration_inline0
+    value: 1200
+
+BaseStatusEffect.SatedUncommon:
+  $base: BaseStatusEffect.Sated
+  duration: Items.SatedDurationUncommon
+  uiData: BaseStatusEffect.SatedUIdataUncommon
+  packages:
+  - BaseStatusEffect.SatedPackagesUncommon
+  
+BaseStatusEffect.SatedRare:
+  $base: BaseStatusEffect.Sated
+  duration: Items.SatedDurationRare
+  uiData: BaseStatusEffect.SatedUIdataRare
+  packages:
+  - BaseStatusEffect.SatedPackagesRare
+  
+BaseStatusEffect.SatedEpic:
+  $base: BaseStatusEffect.Sated
+  duration: Items.SatedDurationEpic
+  uiData: BaseStatusEffect.SatedUIdataEpic
+  packages:
+  - BaseStatusEffect.SatedPackagesEpic
+
+BaseStatusEffect.SatedPackagesUncommon:
+  $base: BaseStatusEffect.Sated_inline0
+  stats:
+    - $base: BaseStatusEffect.Sated_inline1
+      value: 0.06
+      modifierType: Additive
+      statType: BaseStats.StaminaRegenRateMult
+
+BaseStatusEffect.SatedPackagesRare:
+  $base: BaseStatusEffect.Sated_inline0
+  stats:
+    - $base: BaseStatusEffect.Sated_inline1
+      value: 0.08
+      modifierType: Additive
+      statType: BaseStats.StaminaRegenRateMult
+
+BaseStatusEffect.SatedPackagesEpic:
+  $base: BaseStatusEffect.Sated_inline0
+  stats:
+    - $base: BaseStatusEffect.Sated_inline1
+      value: 0.1
+      modifierType: Additive
+      statType: BaseStats.StaminaRegenRateMult
+
+BaseStatusEffect.SatedUIdataUncommon:
+  $base: BaseStatusEffect.Sated_inline2
+  floatValues:
+    - 6
+
+BaseStatusEffect.SatedUIdataRare:
+  $base: BaseStatusEffect.Sated_inline2
+  floatValues:
+    - 8
+
+BaseStatusEffect.SatedUIdataEpic:
+  $base: BaseStatusEffect.Sated_inline2
+  floatValues:
+    - 10

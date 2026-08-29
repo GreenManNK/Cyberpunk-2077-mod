@@ -1,0 +1,8 @@
+resource:
+    patch:        
+        base\characters\main_npc\us_cracks\photomode_blue_moon.ent:
+            - base\characters\entities\player\photo_mode\blue_moon\bmuc_photomode.ent
+        base\characters\main_npc\us_cracks\photomode_purple_force.ent:
+            - base\characters\entities\player\photo_mode\purple_force\pfuc_photomode.ent       
+        base\characters\main_npc\us_cracks\photomode_red_menace.ent:
+            - base\characters\entities\player\photo_mode\red_menace\rmuc_photomode.ent

@@ -1,0 +1,597 @@
+Items.TouristBrochureTemplate:
+  $base: Items.MiscItem
+  quality: Quality.Rare
+  displayName: LocKey#96221
+  localizedDescription: LocKey#1884
+  upgradeCostMult: 5566
+  mass: 0
+Items.TouristBrochure_bls_nth:
+  $base: Items.TouristBrochureTemplate
+  iconPath: n_outskirts
+  displayName: LocKey#1348494389
+  localizedDescription: LocKey#1990043709
+  friendlyName: brochure_bls_nth
+  tags:
+    - bls_nth_dataterm_01
+    - bls_nth_dataterm_02
+    - bls_nth_dataterm_04
+    - bls_nth_dataterm_05
+    - bls_nth_dataterm_07
+    - bls_nth_dataterm_08
+    - bls_nth_dataterm_09
+    - bls_nth_dataterm_10
+    - bls_nth_dataterm_11
+    - bls_nth_dataterm_12
+    - bls_nth_dataterm_13
+    - bls_nth_dataterm_14
+    - bls_nth_dataterm_15
+    - bls_nth_dataterm_16
+    - bls_nth_dataterm_17
+Items.TouristBrochure_bls_sth:
+  $base: Items.TouristBrochureTemplate
+  iconPath: s_outskirts
+  displayName: LocKey#4278659265
+  localizedDescription: LocKey#2523199091
+  friendlyName: brochure_bls_sth
+  tags:
+    - bls_sth_dataterm_01
+    - bls_sth_dataterm_02
+    - bls_sth_dataterm_03
+    - bls_sth_dataterm_04
+    - bls_sth_dataterm_05
+    - bls_sth_dataterm_06
+    - bls_sth_dataterm_08
+    - bls_sth_dataterm_09
+    - bls_sth_dataterm_10
+    - bls_sth_dataterm_11
+    - bls_sth_dataterm_12
+Items.TouristBrochure_cct:
+  $base: Items.TouristBrochureTemplate
+  iconPath: city_centre
+  displayName: LocKey#1426310548
+  localizedDescription: LocKey#2808009987
+  friendlyName: brochure_cct
+  tags:
+    - cct_cpz_dataterm_01
+    - cct_cpz_dataterm_02
+    - cct_cpz_dataterm_03
+    - cct_dtn_dataterm_01
+    - cct_dtn_dataterm_02
+    - cct_dtn_dataterm_03
+    - cct_dtn_dataterm_04
+    - cct_dtn_dataterm_05
+    - cct_dtn_dataterm_07
+    - dlc6_apart_cct_dtn_dataterm
+Items.TouristBrochure_hey:
+  $base: Items.TouristBrochureTemplate
+  iconPath: heywood
+  displayName: LocKey#2992828554
+  localizedDescription: LocKey#646535615
+  friendlyName: brochure_hey
+  tags:
+    - hey_gle_dataterm_01
+    - hey_gle_dataterm_02
+    - hey_gle_dataterm_03
+    - hey_gle_dataterm_04
+    - hey_gle_dataterm_05
+    - hey_gle_dataterm_06
+    - hey_gle_dataterm_07
+    - hey_gle_dataterm_08
+    - hey_rey_dataterm_01
+    - hey_rey_dataterm_02
+    - hey_rey_dataterm_03
+    - hey_rey_dataterm_04
+    - hey_rey_dataterm_05
+    - hey_rey_dataterm_06
+    - hey_rey_dataterm_07
+    - hey_spr_dataterm_01
+    - hey_spr_dataterm_02
+    - hey_spr_dataterm_03
+    - hey_spr_dataterm_04
+    - hey_spr_dataterm_05
+    - hey_spr_dataterm_06
+    - hey_spr_dataterm_07
+    - dlc6_apart_hey_gle_dataterm
+Items.TouristBrochure_pac:
+  $base: Items.TouristBrochureTemplate
+  iconPath: pacifica
+  displayName: LocKey#2825131961
+  localizedDescription: LocKey#2781259598
+  friendlyName: brochure_pac
+  tags:
+    - pac_cvi_dataterm_01
+    - pac_cvi_dataterm_02
+    - pac_cvi_dataterm_03
+    - pac_cvi_dataterm_04
+    - pac_cvi_dataterm_05
+    - pac_wwd_dataterm_03
+Items.TouristBrochure_std:
+  $base: Items.TouristBrochureTemplate
+  iconPath: santo
+  displayName: LocKey#3874717795
+  localizedDescription: LocKey#2716585685
+  friendlyName: brochure_std
+  tags:
+    - std_arr_dataterm_01
+    - std_arr_dataterm_02
+    - std_arr_dataterm_03
+    - std_arr_dataterm_04
+    - std_arr_dataterm_05
+    - std_arr_dataterm_06
+    - std_arr_dataterm_07
+    - std_arr_dataterm_08
+    - std_arr_dataterm_09
+    - std_rcr_dataterm_01
+    - std_rcr_dataterm_02
+    - std_rcr_dataterm_03
+    - std_rcr_dataterm_05
+    - std_rcr_dataterm_06
+    - std_rcr_dataterm_07
+    - std_rcr_dataterm_08
+    - std_rcr_dataterm_09
+    - std_rcr_dataterm_10
+    - std_rcr_dataterm_11
+Items.TouristBrochure_wbr:
+  $base: Items.TouristBrochureTemplate
+  iconPath: westbrook
+  displayName: LocKey#327713855
+  localizedDescription: LocKey#3542819455
+  friendlyName: brochure_wbr
+  tags:
+    - wbr_hil_dataterm_01
+    - wbr_hil_dataterm_02
+    - wbr_hil_dataterm_03
+    - wbr_hil_dataterm_04
+    - wbr_hil_dataterm_05
+    - wbr_jpn_dataterm_01
+    - wbr_jpn_dataterm_02
+    - wbr_jpn_dataterm_03
+    - wbr_jpn_dataterm_04
+    - wbr_jpn_dataterm_05
+    - wbr_jpn_dataterm_06
+    - wbr_jpn_dataterm_07
+    - wbr_jpn_dataterm_08
+    - wbr_jpn_dataterm_09
+    - wbr_jpn_dataterm_10
+    - wbr_jpn_dataterm_11
+    - wbr_jpn_dataterm_12
+    - wbr_nok_dataterm_01
+    - wbr_nok_dataterm_02
+    - wbr_nok_dataterm_03
+    - wbr_nok_dataterm_04
+    - wbr_nok_dataterm_05
+    - dlc6_apart_wbr_jpn_dataterm
+Items.TouristBrochure_wat:
+  $base: Items.TouristBrochureTemplate
+  iconPath: watson
+  displayName: LocKey#865277424
+  localizedDescription: LocKey#2077443689
+  friendlyName: brochure_wat
+  tags:
+    - wat_awf_dataterm_01
+    - wat_awf_dataterm_03
+    - wat_kab_dataterm_01
+    - wat_kab_dataterm_02
+    - wat_kab_dataterm_03
+    - wat_kab_dataterm_04
+    - wat_kab_dataterm_05
+    - wat_kab_dataterm_06
+    - wat_kab_dataterm_07
+    - wat_kab_dataterm_08
+    - wat_kab_dataterm_10
+    - wat_kab_dataterm_11
+    - wat_kab_dataterm_12
+    - wat_lch_dataterm_01
+    - wat_lch_dataterm_02
+    - wat_lch_dataterm_03
+    - wat_lch_dataterm_04
+    - wat_lch_dataterm_05
+    - wat_lch_dataterm_07
+    - wat_lch_dataterm_09
+    - wat_lch_dataterm_10
+    - wat_lch_dataterm_11
+    - wat_nid_dataterm_01
+    - wat_nid_dataterm_02
+    - wat_nid_dataterm_03
+    - wat_nid_dataterm_04
+    - wat_nid_dataterm_05
+    - wat_nid_dataterm_06
+    - wat_nid_dataterm_07
+    - wat_nid_dataterm_08
+    - wat_nid_dataterm_09
+    - dlc6_apart_wat_nid_dataterm
+UIIcon.s_outskirts:
+  $type: gamedataUIIcon_Record
+  atlasPartName: s_outskirts
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.n_outskirts:
+  $type: gamedataUIIcon_Record
+  atlasPartName: n_outskirts
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.westbrook:
+  $type: gamedataUIIcon_Record
+  atlasPartName: westbrook
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.santo:
+  $type: gamedataUIIcon_Record
+  atlasPartName: santo
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.city_centre:
+  $type: gamedataUIIcon_Record
+  atlasPartName: city_centre
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.watson:
+  $type: gamedataUIIcon_Record
+  atlasPartName: watson
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.pacifica:
+  $type: gamedataUIIcon_Record
+  atlasPartName: pacifica
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+UIIcon.heywood:
+  $type: gamedataUIIcon_Record
+  atlasPartName: heywood
+  atlasResourcePath: base\gameplay\gui\common\icons\items\brochure_icons.inkatlas
+Vendors.no_brochure_bls_nth:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_bls_nth
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_sth:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_bls_sth
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_cct:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_cct
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_hey:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_hey
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_pac:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_pac
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_std:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_std
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_wbr:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_wbr
+  value: 0
+  repeated: False
+Vendors.no_brochure_bls_wat:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Equal
+  fact: brochure_wat
+  value: 0
+  repeated: False
+Vendors.no_brochure_act2:
+  $type: gamedataIPrereq_Record
+  prereqClassName: FactValuePrereq
+  comparisonType: Greater
+  fact: q101_enable_side_content
+  value: 0
+  repeated: False
+Vendors.TouristBrochure_bls_nth:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_bls_nth
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_nth 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_bls_sth:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_bls_sth
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_sth 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_cct:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_cct
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_cct 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_hey:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_hey
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_hey 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_pac:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_pac
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_pac 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_std:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_std
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_std 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_wbr:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_wbr
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_wbr 
+    - Vendors.no_brochure_act2
+  quantity:
+    - Vendors.Always_Present
+Vendors.TouristBrochure_wat:
+  $type: gamedataVendorItem_Record
+  item: Items.TouristBrochure_wat
+  generationPrereqs: 
+    - Vendors.no_brochure_bls_wat
+  quantity:
+    - Vendors.Always_Present
+Vendors.bls_ina_se1_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_std
+Vendors.bls_ina_se5_junkshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.bls_ina_se5_gunsmith_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_sth
+Vendors.bls_ina_se1_junkshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.bls_ina_se1_medicstore_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+Vendors.bls_ina_se1_foodshop_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.pac_cvi_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+Vendors.pac_cvi_medicstore_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+Vendors.pac_wwd_gunsmith_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+Vendors.std_arr_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.std_arr_foodshop_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.std_arr_foodshop_03:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.std_arr_foodshop_04:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.std_rcr_gunsmith_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+Vendors.wbr_hil_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wbr_jpn_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wbr_jpn_foodshop_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_wbr
+Vendors.wbr_jpn_foodshop_03:
+  itemStock:
+    - !append Vendors.TouristBrochure_wbr
+Vendors.wbr_jpn_foodshop_04:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wbr_jpn_foodshop_05:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wbr_jpn_jig_bar_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_wbr
+Vendors.wbr_jpn_junkshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.hey_gle_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.hey_rey_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+Vendors.hey_spr_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+Vendors.hey_rey_foodshop_04:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+Vendors.cct_cpz_food_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+Vendors.cct_cpz_food_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+Vendors.cct_dtn_food_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+Vendors.cct_dtn_food_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+Vendors.cct_cpz_medic_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.cct_dtn_medic_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wat_kab_medicstore_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wat_lch_medicstore_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+    - !append Vendors.TouristBrochure_hey
+Vendors.wat_nid_medicstore_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+    - !append Vendors.TouristBrochure_hey
+Vendors.wat_nid_medicstore_02:
+  itemStock:
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+    - !append Vendors.TouristBrochure_hey
+Vendors.wat_kab_junkshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_bls_sth
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_pac
+    - !append Vendors.TouristBrochure_std
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat
+Vendors.wat_kab_foodshop_01:
+  itemStock:
+    - !append Vendors.TouristBrochure_bls_nth
+    - !append Vendors.TouristBrochure_cct
+    - !append Vendors.TouristBrochure_hey
+    - !append Vendors.TouristBrochure_wbr
+    - !append Vendors.TouristBrochure_wat

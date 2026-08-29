@@ -1,0 +1,17 @@
+version: 1.0.0
+sfx:
+  refuel:
+    file: refuel1.wav
+    settings:
+      volume: 0.3
+      loop: true
+      # start_time: 1s
+      # duration: 1s
+  warning:
+    file: warning1.wav
+    settings:
+      volume: 0.4
+      loop: false
+      # start_time: 1s
+      # duration: 1s    
+# GameInstance.GetAudioSystem():Play("refuel");

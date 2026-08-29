@@ -1,0 +1,12 @@
+Items.w_att_scope_short_05_inline0:
+  value: 0.899999976
+
+Items.w_att_scope_short_05:
+  statModifiers:
+    - Items.Base_Long_Scope_inline0
+    - Items.Base_Long_Scope_inline1
+    - Items.w_att_scope_short_05_inline0
+
+Items.HandgunPossibleScopesList:
+  itemPartList:
+    - !remove Items.HandgunPossibleScopesList_inline4

@@ -1,0 +1,48 @@
+Items.LowQualityDrink3:
+    tags:
+    - !append-once Food
+    - !remove Drink
+
+BaseStatusEffect.WellFed:
+    gameplayTags:
+    - !append-once StayHealthy_Food
+
+BaseStatusEffect.Sated:
+    gameplayTags:
+    - !append-once StayHealthy_Drink
+
+Items.CarryCapacityBooster:
+    tags:
+    - !append-once StayHealthy_CarryCapacityBoosterItem
+
+BaseStatusEffect.CarryCapacityBooster:
+    gameplayTags:
+    - !append-once StayHealthy_CarryCapacityBooster
+
+Items.HealthBooster:
+    tags:
+    - !append-once StayHealthy_HealthBoosterItem
+
+BaseStatusEffect.HealthBooster:
+    gameplayTags:
+    - !append-once StayHealthy_HealthBooster
+
+Items.MemoryBooster:
+    tags:
+    - !append-once StayHealthy_MemoryBoosterItem
+
+BaseStatusEffect.MemoryBooster:
+    gameplayTags:
+    - !append-once StayHealthy_MemoryBooster
+
+Items.StaminaBooster:
+    tags:
+    - !append-once StayHealthy_StaminaBoosterItem
+
+BaseStatusEffect.StaminaBooster:
+    gameplayTags:
+    - !append-once StayHealthy_StaminaBooster
+
+BaseStatusEffect.Encumbered:
+    gameplayTags:
+    - !append-once StayHealthy_Encumbered

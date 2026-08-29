@@ -1,0 +1,46 @@
+journal:
+  - base\deceptious\rita_romanced.journal
+localization:
+  onscreens:
+    en-us: base\localization\en-us\rita_romanced.json
+    ar-ar: base\localization\ar-ar\rita_romanced.json
+    cz-cz: base\localization\cz-cz\rita_romanced.json
+    de-de: base\localization\de-de\rita_romanced.json
+    es-es: base\localization\es-es\rita_romanced.json
+    es-mx: base\localization\es-es\rita_romanced.json
+    fr-fr: base\localization\fr-fr\rita_romanced.json
+    hu-hu: base\localization\hu-hu\rita_romanced.json
+    it-it: base\localization\it-it\rita_romanced.json
+    jp-jp: base\localization\jp-jp\rita_romanced.json
+    kr-kr: base\localization\kr-kr\rita_romanced.json
+    pl-pl: base\localization\pl-pl\rita_romanced.json
+    pt-br: base\localization\pt-br\rita_romanced.json
+    ru-ru: base\localization\ru-ru\rita_romanced.json
+    th-th: base\localization\th-th\rita_romanced.json
+    tr-tr: base\localization\tr-tr\rita_romanced.json
+    zh-cn: base\localization\zh-cn\rita_romanced.json
+    zh-tw: base\localization\zh-tw\rita_romanced.json
+  lipmaps:
+    en-us: base\localization\en-us\rita_lips.lipmap
+    de-de: base\localization\de-de\rita_lips.lipmap
+    es-es: base\localization\es-es\rita_lips.lipmap
+    fr-fr: base\localization\fr-fr\rita_lips.lipmap
+    it-it: base\localization\it-it\rita_lips.lipmap
+    jp-jp: base\localization\jp-jp\rita_lips.lipmap
+    kr-kr: base\localization\kr-kr\rita_lips.lipmap
+    pl-pl: base\localization\pl-pl\rita_lips.lipmap
+    pt-br: base\localization\pt-br\rita_lips.lipmap
+    ru-ru: base\localization\ru-ru\rita_lips.lipmap
+    zh-cn: base\localization\zh-cn\rita_lips.lipmap
+streaming:
+  blocks:
+    - base\deceptious\rita_romanced.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-10_40_0_0.streamingsector
+      expectedNodes: 628
+      nodeDeletions:
+        - index: 76 #{ceiling_lamp}_001
+          type: worldStaticLightNode
+resource:
+  patch:
+    base\quest\tertiary_characters\lizzies_bouncer_romance.ent: base\quest\tertiary_characters\lizzies_bouncer.ent

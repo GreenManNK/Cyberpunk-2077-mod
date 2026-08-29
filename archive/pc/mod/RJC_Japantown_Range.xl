@@ -1,0 +1,41 @@
+# Sammmy1036
+# June 02, 2025
+# Mod Version: 1.0.0
+# Based on game v2.21 streamingsector files - DO NOT use it with other game versions.
+streaming:
+  blocks:
+  - realjoncross/japantown_range.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\interior_-15_44_1_0.streamingsector
+      expectedNodes: 25
+      nodeDeletions:
+        - index: 22
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-14_45_1_0.streamingsector
+      expectedNodes: 162
+      nodeDeletions:
+        - index: 95
+          type: worldStaticMeshNode
+        - index: 142
+          type: worldInstancedMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-15_45_1_0.streamingsector
+      expectedNodes: 419
+      nodeDeletions:
+        - index: 291
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-8_22_0_0.streamingsector
+      expectedNodes: 872
+      nodeDeletions:
+        - index: 488
+          type: worldEntityNode
+        - index: 492
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-4_11_0_1.streamingsector
+      expectedNodes: 1881
+      nodeDeletions:
+        - index: 61
+          type: worldInteriorAreaNode
+        - index: 99
+          type: worldEntityProxyMeshNode
+        - index: 100
+          type: worldEntityProxyMeshNode

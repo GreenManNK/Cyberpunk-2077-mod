@@ -1,0 +1,88 @@
+{
+  "streaming": {
+    "sectors": [
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldStaticMeshNode",
+            "index": 558
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 241
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 441
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 488
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 500
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 254
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 258
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 256
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 255
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 246
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 243
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 244
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 250
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 245
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 252
+          },
+          {
+            "type": "worldInstancedDestructibleMeshNode",
+            "index": 257
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 632,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_27_35_2_0.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldBuildingProxyMeshNode",
+            "index": 237
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 241,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_6_8_0_2.streamingsector"
+      }
+    ]
+  }
+}

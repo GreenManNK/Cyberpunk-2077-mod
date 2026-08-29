@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<bindings>
+
+    <context name="VehAutoDrive">
+        <action name="ToggleVehAutoDrive" map="ToggleVehAutoDrive_Button" />
+    </context>
+
+    <context name="BaseVehicleDriverCombat" append="true">
+        <include name="VehAutoDrive" />
+    </context>
+
+    <context name="VehicleDriveBase" append="true">
+        <include name="VehAutoDrive" />
+    </context>
+
+    <mapping name="ToggleVehAutoDrive_Button" type="Button">
+        <button id="IK_V" overridableUI="AutoDrive_ToggleVehAutoDrive_Key" />
+        <button id="IK_Pad_DigitLeft" />
+        <!-- <button id="IK_Pad_DigitLeft_IK_Pad_X_SQUARE" /> -->
+    </mapping>
+
+    <buttonGroup id="IK_Pad_DigitLeft_IK_Pad_X_SQUARE" timeWindow="0.1f" >
+        <button id="IK_Pad_DigitLeft" />
+        <button id="IK_Pad_X_SQUARE" />
+    </buttonGroup>
+
+</bindings>

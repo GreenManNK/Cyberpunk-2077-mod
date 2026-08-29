@@ -1,0 +1,10 @@
+factories:  
+  - seijax\iconic_weapons\factory.csv
+streaming:
+  blocks:
+    - seijax\iconic_weapons\streaming\extra_iconics.streamingblock
+localization:
+  onscreens:
+    en-us: seijax\iconic_weapons\localization\en-us.json
+    kr-kr: seijax\iconic_weapons\localization\kr-kr.json
+#    es-es: seijax\iconic_weapons\localization\es-es.json

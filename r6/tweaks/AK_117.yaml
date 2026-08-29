@@ -1,0 +1,122 @@
+Items.AK_117:
+  $base: Items.Preset_Copperhead_Default
+  tags:
+    - !append-once IconicWeapon 
+  statModifiers: 
+    - !append-once Quality.IconicItem
+    - !append-once Items.ak117stats_rof 
+    - !append-once Items.ak117stats_damage
+    - !append-once Items.ak117stats_firstequip      
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  appearanceResourceName: ak_117_app
+  audioName: wea_set_ajax
+  quality: Quality.Legendary
+  displayName: ak_117_gun_name
+  localizedDescription: ak_117_gun_description
+  visualTags:
+    - Default
+  hudIcon:
+    atlasResourcePath: ak_117\icon\ak_117_hud.inkatlas
+    atlasPartName: slot_01
+  icon:  
+    atlasResourcePath: ak_117\icon\ak_117.inkatlas
+    atlasPartName: slot_01
+  slotPartList:
+      Items.Base_ak117_inline2
+    - Items.Base_ak117_inline4
+    - Items.Base_ak117_inline6
+    - Items.Base_ak117_inline8
+  slotPartListPreset:
+    - Items.Preset_ak117_inline0
+    - Items.Preset_ak117_inline1
+    - Items.Preset_ak117_inline2
+    - Items.Preset_ak117_inline3
+  
+Items.Base_ak117_inline2:
+  $base: Items.Base_Copperhead_inline2
+  itemPartList:
+    - Items.Base_ak117_inline3
+Items.Base_ak117_inline3:
+  $base: Items.Base_Copperhead_inline3
+  item: Items.ak_117_rcv_prt
+Items.ak_117_rcv_prt:
+  $base: Items.w_rifle_assault__nokota_copperhead__rcv1
+  appearanceResourceName: ak_117_rcv
+#base
+Items.Base_ak117_inline4:
+  $base: Items.Base_Copperhead_inline4
+  itemPartList:
+    - Items.Base_ak117_inline5
+Items.Base_ak117_inline5:
+  $base: Items.Base_Copperhead_inline5
+  item: Items.ak_117_base_prt
+Items.ak_117_base_prt:
+  $base: Items.w_rifle_assault__nokota_copperhead__base1
+  appearanceResourceName: ak_117_base
+#mag
+Items.Base_ak117_inline6:
+  $base: Items.Base_Copperhead_inline6
+  itemPartList:
+    - Items.Base_ak117_inline7
+Items.Base_ak117_inline7:
+  $base: Items.Base_Copperhead_inline7
+  item: Items.ak_117_mag_std_prt
+Items.ak_117_mag_std_prt:
+  $base: Items.w_rifle_assault__nokota_copperhead__mag_std
+  appearanceResourceName: ak_117_mag_std
+#reload
+Items.Base_ak117_inline8:
+  $base: Items.Base_Copperhead_inline8
+  itemPartList:
+    - Items.Base_ak117_inline9
+Items.Base_ak117_inline9:
+  $base: Items.Base_Copperhead_inline9
+  item: Items.ak_117_mag_stdr_prt
+Items.ak_117_mag_stdr_prt:
+  $base: Items.w_rifle_assault__nokota_copperhead__mag_stdr
+  appearanceResourceName: ak_117_mag_stdr
+#preset
+Items.Preset_ak117_inline0:
+  $base: Items.Preset_Base_Copperhead_inline0
+  itemPartPreset: Items.ak_117_rcv_prt
+Items.Preset_ak117_inline1:
+  $base: Items.Preset_Base_Copperhead_inline1
+  itemPartPreset: Items.ak_117_base_prt
+Items.Preset_ak117_inline2:
+  $base: Items.Preset_Base_Copperhead_inline2
+  itemPartPreset: Items.ak_117_mag_std_prt
+Items.Preset_ak117_inline3:
+  $base: Items.Preset_Base_Copperhead_inline3
+  itemPartPreset: Items.ak_117_mag_stdr_prt
+  
+Items.ak117stats_rof:
+  $type: gamedataConstantStatModifier_Record
+  value: -0.04
+  modifierType: Additive
+  statType: BaseStats.CycleTimeBase
+  
+Items.ak117stats_damage:
+  $type: gamedataConstantStatModifier_Record
+  value: 70
+  modifierType: Additive
+  statType: BaseStats.DPS
+  
+Items.ak117stats_firstequip:
+  $type: gamedataConstantStatModifier_Record
+  value: -4.4
+  modifierType: Additive
+  statType: BaseStats.EquipDuration_First
+  
+Vendors.pac_wwd_gunsmith_01:
+  itemStock:
+    - !append Items.ak117_stock
+
+Items.ak117_stock:
+  $type: VendorItem
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_3_Start_Prereq
+  item: Items.AK_117
+  quantity:
+    - !append Vendors.Always_Present
+  

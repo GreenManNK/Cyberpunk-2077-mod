@@ -1,0 +1,94 @@
+{
+    "tag": "check_ ma_wbr_jpn_17_onscreen_01",
+    "trigger": {
+        "fact_ok": {
+            "helper": "This trigger will be triggered when you has complete a quest of the game (by the fact)",
+            "help": " gameaffinity.json",
+            "helperTitle": "Quest : Game Quest is completed",
+			"_comment": "REPLACE q000_done with q000_done",
+            "value": "q000_done",
+            "name": "quest_fact"
+        },
+        "not_shard_get": {
+            "expected": false,
+            "value": "LocKey#14838",
+            "name": "have_shard",
+            "helperTitle": "Misc : Have Shard",
+            "helper": "This trigger will be triggered if player get the shard by Lockey"
+        }
+    },
+    "header": {
+        "version": 1
+    },
+    "action": [
+        {
+            "position_range": 50,
+            "title": "Missing Person (No. 48)",
+            "position_house_way": "default",
+            "position_poi_search": "type|subdistrict|district|tag",
+            "desc": "Gig : Find Oriana\nFixer : Wakako Okada",
+            "position_poi_searchdistance": "near|far|random",
+            "active": true,
+            "icon": "ClueIcon",
+            "wall": true,
+            "name": "set_mappin",
+            "position_poi_from_position_y": 0,
+            "position_poi_from_position_z": 0,
+            "typemap": "ExclamationMarkVariant",
+            "mapgroup": "",
+            "x": -798.84,
+            "y": 1281.124,
+            "position_poi_use_location_tag": false,
+            "range": 0,
+            "position_poi_from_position_x": 0,
+            "z": 47.761,
+            "position_tag": "judy01",
+            "position_way": "normal",
+            "position_distance": 5,
+            "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room",
+            "color": {
+                "1": {
+                    "blue": 255,
+                    "green": 255,
+                    "red": 255
+                },
+                "blue": 100,
+                "green": 243,
+                "red": 7
+            },
+            "position_house_tag": "playerhouse01",
+            "helperTitle": "Map : Set Mappin",
+            "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+            "position": "at",
+            "position_node_usegameplay": false,
+            "position_lookatdistance": 0,
+            "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+            "position_poi_type": 1,
+            "tag": "ma_wbr_jpn_17_onscreen_01",
+            "helper": "This action will summon a custom mappin with several custom parameter. Range 0 means always visible, instead range X means visible when in range ",
+            "position_poi_district": "",
+            "position_poi_subdistrict": "",
+            "position_poi_from_position": false,
+            "help": "This action will summon a custom npc with several custom parameter ",
+            "position_house_way_helper": "default||enter||exit",
+            "position_way_helper": "normal||behind||forward",
+            "position_spawnlocation": false,
+            "position_poi_is_for_car": false
+        },
+        {
+    	"value": "[Hidden Gems Locations On Map] Hidden Gems No. 48 not found by the player.",
+    	"helper": "This action will display a log in CET log ",
+    	"helperTitle": "UI : CET log",
+    	"name": "consolelog"
+        }
+    ],
+    "name": "",
+    "context": [],
+    "way": "init",
+    "requirement": [
+        [	
+			"fact_ok",
+            "not_shard_get"
+        ]
+    ]
+}

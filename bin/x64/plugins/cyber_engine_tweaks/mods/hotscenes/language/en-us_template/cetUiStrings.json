@@ -1,0 +1,228 @@
+{
+	"fileHeader": {
+		"_1_": "----------------------------------------",
+		"modName": "Hotscenes",
+		"modAuthorName": "anygoodname",
+		"modVer": "v5.38.1",
+		"_2_": "----------------------------------------",
+		"translationAuthorName": "Put your name here",
+		"translationVer": "Put your file verison here",
+		"_3_": "----------------------------------------"
+	},
+	"uiStrings": {
+		"cetKeyBindings": {
+			"openNativeUImenu": "Open NativeUI Menu",
+			"nanoDroneSpawn": "Activate Spycam",
+			"nanoDroneW": "Fly Forward",
+			"nanoDroneS": "Fly Backwards",
+			"nanoDroneA": "Fly Left",
+			"nanoDroneD": "Fly Right",
+			"hotscenesSlowMoToggle": "Slow Motion Toggle"
+		},
+		"cetWindowName": "Hotscenes Collection",
+		"cetWindowMainView": {
+			"headerScenesNotFound": "Hotscenes collection is empty.",
+			"headerScenesNotAvailable": "Hotscenes not available at the moment.",
+			"gameIsLoading": "The game is loading, please hold on...",
+			"headerLeft": "Hotscenes Collection:",
+			"headerLeftAddOnEnabled": "Hotscenes Collection Plus:",
+			"headerRight": "Settings",
+			"panelListHeaderLeft": "Hotscene",
+			"panelListHeaderRight": "Performer"
+		},
+		"cetScenePanel": {
+			"fullSceneNames": {
+				"female": {
+					"Glen": "Dark Matter Female",
+					"Japantown": "Jig-Jig St Female"
+				},
+				"male": {
+					"Glen": "Dark Matter Male",
+					"Japantown": "Jig-Jig St Male"
+				}
+			},
+			"female": "Female",
+			"male": "Male",
+			"fastPlayback": {
+				"title": "Fast playback",
+				"tooltips": "Skip introduction dialogues and automatically return to the starting point\nonce completed.\n\nNote: This feature is enabled only if you are outside the scene active area."
+			},
+			"sceneOverride": {
+				"title": "(Override mode)",
+				"tooltips": "Override mode allows you to play the scene before it's made available\nby the game.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough.\nIn case it failed to load it, please make sure to load the last known good save manually."
+			},
+			"customSceneLocationCombo": {
+				"defaultLocationList": [
+					"scene default"
+				],
+				"title": "Scene destination",
+				"tooltips": "Select custom destination for the scene playback.\nNote: this feature is only available in Fast Playback/Override modes."
+			},
+			"cueButton": {
+				"activeButtonLabel": "Cue",
+				"inactiveButtonLabel": "Cue",
+				"unavailableButtonLabel": "Action unavailable"
+			},
+			"reloadButton": {
+				"activeButtonLabel": "Reload",
+				"inactiveButtonLabel": "Reload"
+			},
+			"playbackButton": {
+				"cueScene": "Cue scene",
+				"playOnGameResume": "Play scene on game resume",
+				"playPending": "Play pending...",
+				"playScene": "Play scene",
+				"reloadSave": "Reload last save"
+			},
+			"cancelButton": {
+				"activeButtonLabel": "Cancel",
+				"inactiveButtonLabel": "Cancel"
+			},
+			"resetButton": {
+				"activeButtonLabel": "Reset",
+				"inactiveButtonLabel": "Reset"
+			}
+		},
+		"cetWindowSettingsView": {
+			"headerLeft": "Settings:",
+			"headerRight": "Back to Hotscenes collection",
+			"extendHotscenes": {
+				"title": "Longer hotscenes playback.",
+				"tooltips": "This option extends playback time and adds more variety to hotscenes."
+			},
+			"sortByDisplayName": {
+				"title": "Sort performers by custom/translated names.",
+				"tooltips": "Sort performer lists preferring custom or translated names if available.\nPlease note that results may not be accurate in non-Latin languages."
+			},
+			"hideNpcSpecs": {
+				"title": "Take off glasses.",
+				"tooltips": "When this option is enabled, engaged performers will take off glasses too.\nThis applies to the main menu scenes and the Night City Delights scenes\n(if Add-on is installed)."
+			},
+			"hideNpcFishnetTights": {
+				"title": "Take off fishnet tights.",
+				"tooltips": "When this option is enabled, engaged performers will take off fishnet tights too.\nThis applies to the main menu scenes and the Night City Delights scenes\n(if Add-on is installed)."
+			},
+			"hideNpcSpikedChokers": {
+				"title": "Take off spiked chokers.",
+				"tooltips": "When this option is enabled, engaged performers will take off spiked chokers too.\nThis applies to the main menu scenes and the Night City Delights scenes\n(if Add-on is installed)."
+			},
+			"spycamOrbitPitchWithMouse": {
+				"title": "Spycam orbit mode uses mouse for vertical control.",
+				"tooltips": "In the Spycam orbit mode:\n-If enabled: use mouse up/down to control the spycam vertical position,\n use keyboard for forward/backward movement.\n-If disabled: use keyboard forward/backward to control the spycam vertical position,\n use mouse up/down for forward/backward movement."
+			},
+			"enableSpycamFreezeFrameToggleMode": {
+				"title": "Spycam Freeze Frame button is a toggle.",
+				"tooltips": "With this option enabled, the left mouse button toggles the Freeze Frame on and off.\nIf the option is disabled, the left mouse button freezes time only while pressed.\nNote: for safety reasons, the Freeze Frame will automatically toggle back\nin 60 seconds if you forget to switch it off."
+			},
+			"invertMouseVertically": {
+				"title": "Invert Spycam mouse control vertically.",
+				"tooltips": "Inverts Spycam mouse control vertically."
+			},
+			"enableHotscenesButtonInHubMenu": {
+				"title": "Enable Hotscenes Button in Hub Menu.",
+				"tooltips": "This option adds the Hotscenes button to the game's Hub menu,\nallowing you to open the Hotscenes main menu window.\nIf disabled, the Hotscenes menu is still accessible either through the CET\noverlay or via a keyboard shortcut, if defined in the CET Bindings window."
+			},
+			"enableNativeSettingsIntegration": {
+				"title": "Enable Native Settings integration.",
+				"tooltips": "This option allows to opend the mod's settings page\nin the Native Settings UI right from the Hotscenes Native UI menu."
+			},
+			"hotscenesAddOnNotDetected": "Hotscenes Add-on is not detected.\nIf you would like to use extra features provided by the add-on, please copy this link to download it from its website:",
+			"hotscenesUnsupportedAddOnDetected": "Unsupported Hotscenes Add-on is detected.\nIf you would like to use extra features provided by the add-on, please copy this link to download a supported version from its website:",
+			"hotscenesAddOnSceneOverrideNotSupported": "The currently installed add-on version does not support scenes availability overrides. Please update the add-on plugin:",
+			"enableHotscenesAddon": {
+				"title": "Enable Hotscenes Add-on.",
+				"tooltips": "Enables extra features provided by Hotscenes Add-on.\nPlease note that the final feature set may vary depending on game versions\nand other mods that may affect the add-on."
+			},
+			"addOnActivationButton": {
+				"archiveXLNotActive": {
+					"title": "Archive-XL not found. The Add-on feature set is limited.\nPlease install Archive-XL to enable full functionality.",
+					"tooltips": "Add-on features require Archive-XL to work.\nPlease install it to enable full Add-on functionality."
+				},
+				"cancelDeactivation": {
+					"title": "Cancel",
+					"tooltips": "Exit without deactivating the Add-on."
+				},
+				"confirmDeactivation": {
+					"title": "Are you sure?",
+					"tooltips": "Do you really want to request Add-on deactivation?"
+				},
+				"deactivationPrompt": {
+					"title": "Please confirm your Add-on deactivation request:",
+					"tooltips": "Please confirm your deactivation request.\nPlease note that normally you don't need to deactivate it.\nDo it only if requested by the mod authors or if you believe it may be causing issues."
+				},
+				"isActive": {
+					"title": "The Add-on is activated now.",
+					"tooltips": "The Add-on quest launcher is active now, enabling the full feature set.\n\nBy clicking this button, you can request to deactivate it.\nDo this only if requested by the mod authors or if you believe it may be causing issues.\nPlease note that deactivating it will limit the Add-on's feature set.\nAdditionally, it may be automatically reactivated if you visit activation trigger locations."
+				},
+				"isDeactivating": {
+					"title": "Waiting for deactivation to complete..."
+				},
+				"isDeactivatingWhileGamePaused": {
+					"title": "Deactivation requested. Please unpause the game to complete deactivation...",
+					"tooltips": "The requested deactivation is pending, but it cannot continue while the game is paused.\nPlease unpause the game."
+				},
+				"isInactive": {
+					"title": "The Add-on is not activated. Please visit any of V's apartments to activate.",
+					"tooltips": "The Add-on is not active in the loaded game.\nYou can activate it by visiting any of V's apartments.\nPlease note that you must enter the apartment from outside."
+				},
+				"statusUnavailable": {
+					"title": "The Add-on activation status is not available at the moment...",
+					"tooltips": "The Add-on activation status cannot be determined\nuntil the game is fully loaded and resumed."
+				}
+			},
+			"enableSceneAvaliabilityOverride": {
+				"title": "Enable Hotscenes availability override.",
+				"tooltips": "This feature allows playing scenes that the game has not yet made available.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough."
+			},
+			"enablePerformerPreviewSupport": {
+				"title": "Enable Performer Preview.",
+				"tooltips": "This option enables the Performer Preview feature in the Native UI menu.\n\nPlease note that this feature requires the Add-on to be activated."
+			},
+			"noGameReloads": {
+				"title": "Prefer no game reloads.",
+				"tooltips": "This option speeds up main menu scene startups and completions\nby skipping game reloads if the add-on is activated.\nPlease note that a recovery manual save will still be created."
+			},
+			"enableSceneAvaliabilityOverrideTriggerQuestActive": {
+				"title": "Enable Hotscenes availability override.",
+				"tooltips": "This feature allows playing scenes that the game has not yet made available.\nThe highlight color indicates that a scene launch acceleration is active.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough."
+			},
+			"enable_mq055_integration": {
+				"title": "Enable Hangouts quests integration.",
+				"tooltips": "This feature allows to integrate hotscenes playback with the game Hangouts quest scenes.\nNote: this feature will try to load the last game save upon scene playback completion\nto revert changes that could negatively affect your playthrough."
+			},
+			"mq055_integration_prefer_vanilla_appearances": {
+				"title": "Prefer vanilla partner appearances in Hangouts.",
+				"tooltips": "If this option is enabled, the mod will try to use vanilla appearances\nfor your partner if available, instead of Hotscenes exclusive appearances.\nThis option is designed to allow other mods change your partner's appearance."
+			},
+			"enableNCDelightsFeature": {
+				"title": "Enable Night City Delights add-on.",
+				"tooltips": "Enables Night City Delights scenes provided by the add-on."
+			},
+			"enableNCDelightsDynamicMappins": {
+				"title": "Night City Delights: reveal nearby performers.",
+				"tooltips": "When this option is enabled, nearby active performers will be indicated with markers."
+			},
+			"enableNcSceneExtensions": {
+				"title": "Night City Delights: enable scene extensions.",
+				"tooltips": "This option enables additional scene extensions if avaliable."
+			},
+			"restoreNpcDefaults": {
+				"title": "Night City Delights: restore NPC defaults.",
+				"tooltips": "This option aims to restore NPCs handled by this feature if their internal data\nis found affected or corrupted, possibly by other mods.\nFor the best results, please reload your game after enabling it.\nPlease note that enabling this option may prevent other mods from modifying these NPCs."
+			},
+			"underwearManagementDisabled": "V's underwear management in scenes is not included in this mod.\nIf you need such a feature, you can use the Underwear Removal Extended mod\n(select the link below with mouse, press Ctrl+C to copy, and paste into a web browser):",
+			"screenScale": {
+				"title": "UI scaling:",
+				"tooltips": "Select the mod window scaling to match your sceen size and resolution."
+			}
+		},
+		"cetWarnings": {
+			"mandatoryRefFileMissing": "Ref.lua file is missing or corrupted.",
+			"scenesFileMissingOrCorruptedOrOutdated": "Hotscenes collection file is missing or unsupported version or corrupted.",
+			"unsupportedGameVersion": "Unsupported game version detected.",
+			"unsupportedCetVersion": "Unsupported CET version detected: ##CET_VER##.\nPlease update your CET to a stable version.",
+			"autosaveSystemDamaged": "Your game's autosave system seems to be severely affected by other mods.\nThis mod cannot continue to function in this state.",
+			"mandatoryArchiveFileMissing": "The mod archive file is missing or unsupported version or corrupted."
+		}
+	}
+}

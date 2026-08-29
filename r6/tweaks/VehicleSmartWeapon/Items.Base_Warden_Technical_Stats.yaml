@@ -1,0 +1,14 @@
+Items.Base_Vehicle_Technical_Stats:
+  $type: gamedataStatModifierGroup_Record
+  drawBasedOnStatType: False
+  optimiseCombinedModifiers: False
+  saveBasedOnStatType: False
+  statModsLimit: -1
+  relatedModifierGroups: []
+  statModifiers:
+    - Items.Base_Warden_Technical_Stats_inline0
+    - Items.Base_Vehicle_Technical_Stats_inline1
+    - Items.Base_Warden_Technical_Stats_inline2
+    - Items.Base_Vehicle_Technical_Stats_inline3
+    - Items.Base_Warden_Technical_Stats_inline4
+    - BaseStats.ProjectilesPerShotCombinedModifier

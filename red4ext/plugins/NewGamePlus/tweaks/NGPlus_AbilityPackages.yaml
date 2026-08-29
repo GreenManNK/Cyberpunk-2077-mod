@@ -1,0 +1,54 @@
+ArchetypeData.NGPlusAbilityGroup_Fast:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.HasDodge
+    - Ability.HasChargeJump
+    - Ability.HasSandevistan
+    - Ability.CanCatchUpDistance
+    - Ability.CanCatchUp
+    - Ability.SandevistanDashShoot
+    - Ability.CanSprintHarass
+    - Ability.HasPainEditor
+
+ArchetypeData.NGPlusAbilityGroup_Tanky:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.HasMidHealthRegeneration
+    - Ability.CanCatchUpDistance
+    - Ability.CanCatchUp
+    - Ability.HasPainEditor
+    - Ability.HasBerserk
+
+ArchetypeData.NGPlusAbilityGroup_Regen:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.HasStrongHealthRegeneration
+    - Ability.HasLoweredHitReactions
+    - Ability.HasPainEditor
+
+ArchetypeData.NGPlusAbilityGroup_Netrunner:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.CanUseCovers
+    - Ability.CanCatchUpDistance
+    - Ability.HasChargeJump
+    - Ability.CanCatchUp
+    - Ability.HasSandevistan
+    - Ability.HasDodge
+    - Ability.CanOverheatQuickHack
+    - Ability.CanDeathQuickHack
+    - Ability.CanLocomotionMalfunctionQuickHack
+    - Ability.CanCyberwareMalfunctionQuickHack
+    - Ability.CanPingQuickHack
+
+ArchetypeData.NGPlusAbilityGroup_Sneaky:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.CanUseOpticalCamo
+
+ArchetypeData.NGPlusAbilityGroup_Dodger:
+  $type: GameplayAbilityGroup
+  abilities:
+    - Ability.HasKerenzikov
+    - Ability.HasDodge
+    - Ability.NGPlus_SuperDodge

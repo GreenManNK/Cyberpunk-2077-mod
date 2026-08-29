@@ -1,0 +1,827 @@
+# Iconic Assign Blueprint==============================================
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_VB_Axe }
+        - { instance: VHard_50_BodyCool_Weapon14 }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Pozhar_AirDrop }
+    blueprint: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kenshin_Spy }
+        - { instance: VHard_50_CoolRef_Weapon8 }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Overture_Cassidy_Legendary }
+        - { instance: Preset_Overture_Cassidy }
+        - { instance: q114_cassidy_revolver }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Crusher_Amazon }
+    blueprint: Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kenshin_Frank_Legendary }
+        - { instance: Preset_Kenshin_Frank }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Overture_Kerry_Epic }
+        - { instance: Preset_Overture_Kerry_Legendary }
+        - { instance: Preset_Overture_Kerry }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Zhuo_Eight_Star }
+        - { instance: Common_Zhuo_Eight_Star }
+        - { instance: Uncommon_Zhuo_Eight_Star }
+        - { instance: Rare_Zhuo_Eight_Star }
+        - { instance: Epic_Zhuo_Eight_Star }
+        - { instance: Legendary_Zhuo_Eight_Star }
+        - { instance: VHard_50_IntTech_Weapon3 }
+        - { instance: VHard_50_BodyCool_Weapon18 }
+    blueprint: Items.Iconic__Smart_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Baseball_Bat_Malina }
+        - { instance: VHard_50_RefTech_Weapon14 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Metel_Kurt }
+        - { instance: VHard_50_BodyCool_Weapon3 }
+    blueprint: Items.Iconic__Power_Handgun_NoAttachments_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Baseball_Bat_Legendary }
+        # - { instance: VHard_50_BodyCool_Weapon4 }
+        # - { instance: VHard_50_RefTech_Weapon3 }
+    # blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Dildo_SexShop }
+        - { instance: Preset_Dildo_SexShop_NPC }
+        - { instance: VHard_50_RefTech_Weapon15 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_GoG_Epic }
+        - { instance: Preset_Katana_GoG }
+        - { instance: Preset_Katana_GoG_Crafted }
+        - { instance: Preset_Katana_GoG_Legendary }
+        - { instance: Hard_30_Reflex_Weapon4 }
+        - { instance: VHard_50_IntRef_Weapon7 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Tactician_Dino_Legendary }
+        - { instance: Preset_Tactician_Dino }
+    blueprint: Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Neurotoxin_Knife_Iconic_Epic }
+        - { instance: Preset_Neurotoxin_Knife_Iconic_Legendary }
+        - { instance: Preset_Neurotoxin_Knife_Iconic }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Grad_AirDrop }
+        - { instance: VHard_50_TechCool_Weapon8 }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nekomata_Breakthrough_Legendary }
+        - { instance: Preset_Nekomata_Breakthrough }
+        - { instance: Common_Nekomata_Breakthrough }
+        - { instance: Uncommon_Nekomata_Breakthrough }
+        - { instance: Rare_Nekomata_Breakthrough }
+        - { instance: Epic_Nekomata_Breakthrough }
+        - { instance: Legendary_Nekomata_Breakthrough }
+    blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Butchers_Knife_Iconic_Epic }
+        - { instance: Preset_Butchers_Knife_Iconic_Legendary }
+        - { instance: Preset_Butchers_Knife_Iconic }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Pulsar_Buzzsaw_Epic }
+        - { instance: Preset_Pulsar_Buzzsaw_Legendary }
+        - { instance: Preset_Pulsar_Buzzsaw }
+        - { instance: Common_Pulsar_Buzzsaw }
+        - { instance: Uncommon_Pulsar_Buzzsaw }
+        - { instance: Rare_Pulsar_Buzzsaw }
+        - { instance: Epic_Pulsar_Buzzsaw }
+        - { instance: Legendary_Pulsar_Buzzsaw }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Wakako_Legendary }
+        - { instance: Preset_Katana_Wakako }
+        - { instance: VHard_50_IntRef_Weapon1 }
+        - { instance: VHard_50_RefTech_Weapon2 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Shovel_Caretaker }
+        - { instance: w_melee_shovel }
+        - { instance: Preset_Shovel_Caretaker_Stash }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Umbra_Bebe }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Grit_Amazon }
+    blueprint: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kenshin_Royce_Epic }
+        - { instance: Preset_Kenshin_Royce_Legendary }
+        - { instance: Preset_Kenshin_Royce }
+        - { instance: Weak_20_Cool_Weapon4 }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Unity_Angelica }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Warden_Amazon }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kyubi_Amazon }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Fanged_Axe_Collectible }
+    # blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Cocktail_Epic }
+        - { instance: Preset_Katana_Cocktail_Legendary }
+        - { instance: Preset_Katana_Cocktail }
+        - { instance: Normal_20_Melee_Weapon4 }
+        - { instance: VHard_50_CoolRef_Weapon6 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Burya_Comrade_Legendary }
+        - { instance: Preset_Burya_Comrade }
+    blueprint: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Common_Burya_Comrade }
+        - { instance: Uncommon_Burya_Comrade }
+        - { instance: Rare_Burya_Comrade }
+        - { instance: Epic_Burya_Comrade }
+        - { instance: Legendary_Burya_Comrade }
+        - { instance: VHard_50_RefTech_Weapon6 }
+    blueprint: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Cane_Fingers_Epic }
+        - { instance: Preset_Cane_Fingers_Legendary }
+        - { instance: Preset_Cane_Fingers }
+        - { instance: w_melee_cane }
+        - { instance: VHard_50_BodyCool_Weapon10 }
+        - { instance: VHard_50_RefTech_Weapon13 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Overture_River_Legendary }
+        - { instance: Preset_Overture_River }
+        - { instance: sq029_rivers_gun }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kappa_George }
+        - { instance: VHard_50_CoolRef_Weapon7 }
+        - { instance: VHard_50_IntTech_Weapon7 }
+    blueprint: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Crowbar_Bunker }
+        - { instance: VHard_50_BodyCool_Weapon9 }
+        - { instance: VHard_50_RefTech_Weapon16 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Chainsword_Legendary }
+        # - { instance: VHard_50_RefTech_Weapon8 }
+    # blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nue_Maiko_Epic }
+        - { instance: Preset_Nue_Maiko_Legendary }
+        - { instance: Preset_Nue_Maiko }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Testera_Nicolas }
+        - { instance: VHard_50_RefBody_Weapon6 }
+        - { instance: VHard_50_BodyCool_Weapon17 }
+    blueprint: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: mq008_golden_knuckledusters }
+        - { instance: Preset_Sidewinder_Divided_Epic }
+        - { instance: Preset_Sidewinder_Divided_Legendary }
+        - { instance: Preset_Sidewinder_Divided }
+        - { instance: Avg_10_Int_Netrunner_Weapon5 }
+        - { instance: VHard_50_IntRef_Weapon2 }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nova_Doom_Doom_Epic }
+        - { instance: Preset_Nova_Doom_Doom_Legendary }
+        - { instance: Preset_Nova_Doom_Doom }
+        - { instance: VHard_50_BodyCool_Weapon11 }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: mq011_wilson_gun }
+        - { instance: Preset_Lexington_Wilson_Epic }
+        - { instance: Preset_Lexington_Wilson_Legendary }
+        - { instance: Preset_Lexington_Wilson_Rare }
+        - { instance: Preset_Lexington_Wilson }
+        - { instance: Preset_Q001_Lexington }
+        - { instance: Avg_10_Int_Netrunner_Weapon4 }
+        - { instance: Normal_20_Melee_Weapon5 }
+        - { instance: Normal_20_Netrunner_Weapon4 }
+        - { instance: Weak_10_Weapon2 }
+        - { instance: Weak_30_Weapon2 }
+        - { instance: VHard_50_TechCool_Weapon5 }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Borg4a_HauntedGun }
+        - { instance: Common_Borg4a_HauntedGun }
+        - { instance: Uncommon_Borg4a_HauntedGun }
+        - { instance: Rare_Borg4a_HauntedGun }
+        - { instance: Epic_Borg4a_HauntedGun }
+        - { instance: Legendary_Borg4a_HauntedGun }
+        - { instance: VHard_50_IntRef_Weapon6 }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_E3 }
+        - { instance: Hard_20_Reflex_Weapon3 }
+        - { instance: VHard_50_CoolRef_Weapon10 }
+        - { instance: VHard_50_RefTech_Weapon5 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Knife_Kurtz_1 }
+        - { instance: VHard_50_BodyCool_Weapon2 }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Saratoga_Maelstrom_Epic }
+        - { instance: Preset_Saratoga_Maelstrom_Legendary }
+        - { instance: Preset_Saratoga_Maelstrom }
+        - { instance: VHard_50_IntTech_Weapon5 }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nekomata_Amazon }
+    blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Yukimura_Kiji_Legendary }
+        - { instance: Preset_Yukimura_Kiji }
+        - { instance: Hard_30_IntBody_Weapon4 }
+    blueprint: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Baseball_Bat_Denny_Epic }
+        - { instance: Preset_Baseball_Bat_Denny_Legendary }
+        - { instance: Preset_Baseball_Bat_Denny }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Quasar_Baron }
+        - { instance: VHard_50_IntTech_Weapon2 }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Guillotine_Collectible }
+    # blueprint: Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: VHard_50_RefBody_Weapon5 }
+    blueprint: Items.Iconic__Power_Shotgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Carnage_Edgerunners_Legendary }
+        - { instance: Preset_Carnage_Edgerunners }
+    blueprint: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Sword_Witcher }
+        - { instance: Hard_30_Reflex_Weapon3 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kyubi_Myers }
+        - { instance: VHard_50_RefBody_Weapon3 }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Punk_Knife_Iconic_Epic }
+        - { instance: Preset_Punk_Knife_Iconic_Legendary }
+        - { instance: Preset_Punk_Knife_Iconic }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Unity_Agent }
+        - { instance: VHard_50_CoolRef_Weapon1 }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Hercules_Prototype }
+        - { instance: VHard_50_IntRef_Weapon4 }
+        - { instance: VHard_50_IntTech_Weapon10 }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Kolac_Tiny_Mike_Legendary }
+        - { instance: Preset_Kolac_Tiny_Mike }
+        - { instance: VHard_50_BodyCool_Weapon12 }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Takemura_Legendary }
+        - { instance: Preset_Katana_Takemura }
+        - { instance: VHard_50_CoolRef_Weapon2 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Kappa_Legendary }
+    # blueprint: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Liberty_Yorinobu_Epic }
+        - { instance: Preset_Liberty_Yorinobu_Legendary }
+        - { instance: Preset_Liberty_Yorinobu }
+        - { instance: Weak_20_Cool_Weapon1 }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Kyubi_Legendary }
+    # blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nue_Jackie_Epic }
+        - { instance: Preset_Nue_Jackie_Legendary }
+        - { instance: Preset_Nue_Jackie }
+        - { instance: Preset_Nue_Jackie_Left_Hand }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Burya_AirDrop }
+        - { instance: VHard_50_TechCool_Weapon7 }
+    blueprint: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Lexington_Shooting_Competition }
+    # blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Omaha_Suzie_Epic }
+        - { instance: Preset_Omaha_Suzie_Legendary }
+        - { instance: Preset_Omaha_Suzie }
+        - { instance: VHard_50_TechCool_Weapon3 }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Achilles_Collectible }
+    # blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_MA70_Collectible }
+    # blueprint: Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: VHard_50_BodyCool_Weapon1 }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Silverhand_3516 }
+    blueprint: Items.Iconic__Power_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: VHard_50_CoolRef_Weapon11 }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nova_Hitman }
+        - { instance: VHard_50_CoolRef_Weapon9 }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Ajax_Moron_Legendary }
+        - { instance: Preset_Ajax_Moron }
+        - { instance: Common_Ajax_Moron }
+        - { instance: Uncommon_Ajax_Moron }
+        - { instance: Rare_Ajax_Moron }
+        - { instance: Epic_Ajax_Moron }
+        - { instance: Legendary_Ajax_Moron }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Carnage_Mox_Epic }
+        - { instance: Preset_Carnage_Mox_Legendary }
+        - { instance: Preset_Carnage_Mox }
+        - { instance: VHard_50_RefBody_Weapon2 }
+    blueprint: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Baton_Murphy }
+        - { instance: VHard_50_TechCool_Weapon12 }
+        - { instance: VHard_50_RefTech_Weapon12 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Osprey_Prototype }
+        - { instance: VHard_50_BodyCool_Weapon15 }
+        - { instance: VHard_50_RefBody_Weapon7 }
+        - { instance: VHard_50_RefTech_Weapon10 }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Tanto_Saburo_Retrofix }
+        - { instance: Preset_Tanto_Saburo }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: mq025_buck_gun }
+        - { instance: Preset_Grad_Buck_Legendary }
+        - { instance: Preset_Grad_Buck }
+        - { instance: Preset_RocketLauncher_Test }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Chao_VooDoo }
+    blueprint: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Overture_Dante }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Satara_Brick }
+        - { instance: VHard_50_IntTech_Weapon8 }
+        - { instance: VHard_50_TechCool_Weapon11 }
+    blueprint: Items.Iconic__Tech_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Grad_Panam_Epic }
+        - { instance: Preset_Grad_Panam_Legendary }
+        - { instance: Preset_Grad_Panam }
+        - { instance: VHard_50_CoolRef_Weapon4 }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Ticon_Reed }
+        - { instance: VHard_50_CoolRef_Weapon13 }
+    blueprint: Items.Iconic__Tech_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Ajax_Amazon }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Warden_Boris }
+        - { instance: VHard_50_CoolRef_Weapon12 }
+        - { instance: VHard_50_IntRef_Weapon8 }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Liberty_Dex_Epic }
+        - { instance: Preset_Liberty_Dex_Legendary }
+        - { instance: Preset_Liberty_Dex }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Pozhar_Legendary }
+    # blueprint: Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Masamune_Rogue }
+        - { instance: Preset_Masamune_Rogue_Stash }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Liberty_Rogue }
+        - { instance: Preset_Liberty_Rogue_Stash }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Saratoga_Raffen_Epic }
+        - { instance: Preset_Saratoga_Raffen_Legendary }
+        - { instance: Preset_Saratoga_Raffen }
+        - { instance: Hard_30_Reflex_Weapon5 }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Shingen_Prototype }
+        - { instance: Hard_30_IntBody_Weapon5 }
+        - { instance: VHard_50_IntTech_Weapon11 }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Copperhead_Genesis_Epic }
+        - { instance: Preset_Copperhead_Genesis_Legendary }
+        - { instance: Preset_Copperhead_Genesis }
+        - { instance: Common_Copperhead_Genesis }
+        - { instance: Uncommon_Copperhead_Genesis }
+        - { instance: Rare_Copperhead_Genesis }
+        - { instance: Epic_Copperhead_Genesis }
+        - { instance: Legendary_Copperhead_Genesis }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Senkoh_Prototype }
+    blueprint: Items.Iconic__Tech_AR_SMG_LMG_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Rasetsu_Prototype }
+        - { instance: Sniper_Nest_Version_Tech_Sniper_Rifle }
+        - { instance: VHard_50_TechCool_Weapon1 }
+    blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Nue_Bree }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Lexington_Rook }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Overture_Dodger }
+        - { instance: VHard_50_BodyCool_Weapon13 }
+    blueprint: Items.Iconic__Power_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: w_melee_boss_hammer }
+        - { instance: VHard_50_BodyCool_Weapon8 }
+        - { instance: VHard_50_RefTech_Weapon11 }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Saburo_Epic }
+        - { instance: Preset_Katana_Saburo_Legendary }
+        - { instance: Preset_Katana_Saburo }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Surgeon_Epic }
+        - { instance: Preset_Katana_Surgeon_Legendary }
+        - { instance: Preset_Katana_Surgeon }
+        - { instance: VHard_50_RefTech_Weapon4 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Ticon_Gwent }
+        - { instance: Normal_20_Netrunner_Weapon3 }
+        - { instance: VHard_50_TechCool_Weapon6 }
+    blueprint: Items.Iconic__Tech_Handgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Liberty_Padre_Legendary }
+        - { instance: Preset_Liberty_Padre }
+    blueprint: Items.Iconic__Power_Handgun_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Dildo_Stout_Epic }
+        - { instance: Preset_Dildo_Stout_Legendary }
+        - { instance: Preset_Dildo_Stout }
+        - { instance: w_melee_dildo }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: mq007_skippy }
+        - { instance: mq007_skippy_post_quest }
+        - { instance: Preset_Yukimura_Skippy }
+        - { instance: Preset_Yukimura_Skippy_PostQuest }
+    blueprint: Items.Iconic__Smart_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Igla_Sovereign_Legendary }
+        - { instance: Preset_Igla_Sovereign }
+        - { instance: Common_Igla_Sovereign }
+        - { instance: Uncommon_Igla_Sovereign }
+        - { instance: Rare_Igla_Sovereign }
+        - { instance: Epic_Igla_Sovereign }
+        - { instance: Legendary_Igla_Sovereign }
+        - { instance: VHard_50_BodyCool_Weapon16 }
+    blueprint: Items.Iconic__Power_Shotgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Grad_Scav }
+    blueprint: Items.Iconic__Power_Precision_Sniper_Rifle_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: mq001_scorpions_knife }
+        - { instance: Preset_Knife_Stinger_Epic }
+        - { instance: Preset_Knife_Stinger_Legendary }
+        - { instance: Preset_Knife_Stinger }
+    blueprint: Items.Iconic__Throwable_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Metel_AirDrop }
+        - { instance: VHard_50_TechCool_Weapon9 }
+        - { instance: VHard_50_RefTech_Weapon9 }
+    blueprint: Items.Iconic__Power_Handgun_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Tactician_Headsman_Legendary }
+        - { instance: Preset_Tactician_Headsman }
+        - { instance: Common_Tactician_Headsman }
+        - { instance: Uncommon_Tactician_Headsman }
+        - { instance: Rare_Tactician_Headsman }
+        - { instance: Epic_Tactician_Headsman }
+        - { instance: Legendary_Tactician_Headsman }
+        - { instance: VHard_50_RefBody_Weapon4 }
+    blueprint: Items.Iconic__Power_Shotgun_NoMuzzle_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Baton_Tinker_Bell_Epic }
+        - { instance: Preset_Baton_Tinker_Bell_Legendary }
+        - { instance: Preset_Baton_Tinker_Bell }
+        - { instance: sq021_peter_pan_baton }
+    blueprint: Items.Iconic__Blunt_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Katana_Hiromi_Epic }
+        - { instance: Preset_Katana_Hiromi_Legendary }
+        - { instance: Preset_Katana_Hiromi }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Umbra_Collectible }
+        # - { instance: VHard_50_IntRef_Weapon5 }
+    # blueprint: Items.Iconic__Power_AR_SMG_LMG_NoScope_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Machete_Borg_AirDrop }
+        - { instance: VHard_50_RefTech_Weapon7 }
+    blueprint: Items.Iconic__Blade_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Achilles_Nash_Epic }
+        - { instance: VHard_50_IntTech_Weapon6 }
+        - { instance: VHard_50_TechCool_Weapon10 }
+    blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Achilles_Nash_Legendary }
+        - { instance: Preset_Achilles_Nash }
+    blueprint: Items.Iconic__Tech_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Defender_Kurt }
+    blueprint: Items.Iconic__Power_AR_SMG_LMG_NoAttachments_Blueprint
+
+# Items.$(instance):
+    # $instances:
+        # - { instance: Preset_Ashura_Twitch }
+        # - { instance: VHard_50_IntRef_Weapon9 }
+        # - { instance: VHard_50_IntTech_Weapon9 }
+    # blueprint: Items.Iconic__Smart_Precision_Sniper_Rifle_NoAttachments_Blueprint
+
+Items.$(instance):
+    $instances:
+        - { instance: Preset_Dian_Yinglong }
+        - { instance: Common_Dian_Yinglong }
+        - { instance: Uncommon_Dian_Yinglong }
+        - { instance: Rare_Dian_Yinglong }
+        - { instance: Epic_Dian_Yinglong }
+        - { instance: Legendary_Dian_Yinglong }
+        - { instance: VHard_50_IntTech_Weapon4 }
+    blueprint: Items.Iconic__Smart_AR_SMG_LMG_NoAttachments_Blueprint

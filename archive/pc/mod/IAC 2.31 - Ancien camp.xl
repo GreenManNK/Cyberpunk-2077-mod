@@ -1,0 +1,48 @@
+{
+  "streaming": {
+    "sectors": [
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldVehicleForbiddenAreaNode",
+            "index": 222
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 226,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_3_-1_0_4.streamingsector"
+      },
+      {
+        "nodeDeletions": [
+          {
+            "type": "worldStaticMeshNode",
+            "index": 627
+          },
+          {
+            "type": "worldClothMeshNode",
+            "index": 82
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 625
+          },
+          {
+            "type": "worldClothMeshNode",
+            "index": 80
+          },
+          {
+            "type": "worldStaticMeshNode",
+            "index": 628
+          },
+          {
+            "type": "worldClothMeshNode",
+            "index": 83
+          }
+        ],
+        "nodeMutations": [],
+        "expectedNodes": 1184,
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_53_-7_2_0.streamingsector"
+      }
+    ]
+  }
+}

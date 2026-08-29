@@ -1,0 +1,62 @@
+Vehicle.v_sport2_mizutani_shion_nomad_technical_inline1:
+  driverCombat: DriverCombatTypes.Standard
+
+Vehicle.v_sport2_mizutani_shion_nomad_technical.dealerPrice: 115000
+Vehicle.v_sport2_mizutani_shion_nomad_technical.dealerCred: 25
+Vehicle.v_sport2_mizutani_shion_nomad_technical.dealerAtlasPath: "aabdii/blackbird/blackbird_banner.inkatlas"
+Vehicle.v_sport2_mizutani_shion_nomad_technical.dealerPartName: "v_standard25_thorton_colby_nomad_player_full"
+
+Vehicle.v_sport2_mizutani_shion_nomad_player.dealerPrice: 155000
+Vehicle.v_sport2_mizutani_shion_nomad_player.dealerCred: 30
+Vehicle.v_sport2_mizutani_shion_nomad_player.dealerAtlasPath: "aabdii/blackbird/blackbird_banner.inkatlas"
+Vehicle.v_sport2_mizutani_shion_nomad_player.dealerPartName: "v_standard25_thorton_colby_pickup_player_full"
+
+Vehicle.v_sport2_mizutani_shion_nomad_technical:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad__technical_01
+  vehDataPackage: Vehicle.v_sport2_mizutani_shion_nomad_technical_inline1
+  icon:
+   atlasResourcePath: aabdii\blackbird\blackbird_icon.inkatlas
+   atlasPartName: mahir_supron__basic_player_01
+   
+Vehicle.v_sport2_mizutani_shion_nomad_player.displayName: LocKey#Blackbird-MK2-Key
+Vehicle.v_sport2_mizutani_shion_nomad_technical.displayName: LocKey#Blackbird-MK1-Key
+Vehicle.mizutani_shion_nomad_offer.name: LocKey#Blackbird-MK2-Key
+Vehicle.mizutani_shion_nomad_offer.description: LocKey#Blackbird-MK2-Desc-Key
+
+UIIcon.mizutani_shion_nomad_player_01:
+  $type: gamedataUIIcon_Record
+  atlasPartName: mahir_supron__basic_player_01
+  atlasResourcePath: base\vehicles\icons\blackbird_icon.inkatlas
+  
+UIJournalIcons.vehicle_metaquest_mizutani_shion_nomad_player_full:
+  $type: gamedataJournalIcon_Record
+  atlasPartName: v_sport2_mizutani_shion_nomad_player_full
+  atlasResourcePath: base\vehicles\icons\blackbird_vehicle_website.inkatlas
+  
+EconomicAssignment.v_sport2_mizutani_shion_nomad_player.overrideValue: 155000
+EconomicAssignment.v_sport2_mizutani_shion_nomad_technical:
+  $base: EconomicAssignment.v_sport2_mizutani_shion_nomad_player
+  overrideValue: 115000
+   
+UIJournalIcons.vehicle_metaquest_mizutani_shion_nomad_technical:
+  $type: gamedataJournalIcon_Record
+  atlasPartName: v_sport2_quadra_type66_ncu_player_full
+  atlasResourcePath: base\vehicles\icons\blackbird_vehicle_website.inkatlas
+
+Vehicle.mizutani_shion_nomad_technical_offer:
+  $base: Vehicle.mizutani_shion_nomad_offer
+  availabilityFact: mizutani_shion_nomad_available
+  brandName: Mizutani
+  description: LocKey#Blackbird-MK1-Desc_Key
+  discountApplicable: True
+  hasMachineGun: False
+  hasRocketLauncher: False
+  ownershipFact: mizutani_shion_nomad_technical_owned
+  unlockType: Vehicle.StreetCred
+  name: LocKey#Blackbird-MK1-Key
+  previewImage: UIJournalIcons.vehicle_metaquest_mizutani_shion_nomad_technical
+  price: EconomicAssignment.v_sport2_mizutani_shion_nomad_technical
+ 
+Vehicle.vehicle_list.list:
+  - !append-once Vehicle.v_sport2_mizutani_shion_nomad_technical

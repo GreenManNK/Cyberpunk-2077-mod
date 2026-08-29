@@ -1,0 +1,65 @@
+{
+    "name": "Refresh All Map Pins",
+    "tag": "interact_refresh",
+    "display": "event_interact",
+    "style": {
+        "textcolor": {
+            "red": 0,
+            "green": 255,
+            "blue": 0
+        },
+        "bgcolor": {
+            "red": 0,
+            "green": 255,
+            "blue": 0
+        },
+        "iconcolor": {
+            "red": 0,
+            "green": 255,
+            "blue": 0
+        }
+    },
+    "type": "interact",
+    "sorttag": "A",
+    "icon": "LootIcon",
+    "trigger": {
+        "refresh_trigger": {
+            "name": "auto"
+        }
+    },
+    "requirement": [
+        [
+            "refresh_trigger"
+        ]
+    ],
+    "action": [
+        {
+            "value": "Refreshing Map Pins...",
+            "name": "simple_message",
+            "helperTitle": "UI : Message",
+            "helper": "This action will make display a in game message"
+        },
+        {
+            "name": "do_function",
+            "value": "func_delete_all_pins",
+            "parallele": false
+        },
+        {
+            "name": "wait_second",
+            "value": 5,
+            "helper": "This action will set a value for a key of a Variable ",
+            "helperTitle": "Variable : Set Variable"
+        },
+        {
+            "name": "do_function",
+            "value": "func_init_all_pins",
+            "parallele": false
+        },
+        {
+            "value": "Map Pins Refreshed !",
+            "name": "simple_message",
+            "helperTitle": "UI : Message",
+            "helper": "This action will make display a in game message"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+journal:
+  - base\journal\hotel_cali.journal
+  - base\journal\hotel_cali_base.journal
+localization:
+  onscreens:
+    en-us: base\localization\en-us\hotel_cali.json
+    ar-ar: base\localization\ar-ar\hotel_cali.json
+    cz-cz: base\localization\cz-cz\hotel_cali.json
+    de-de: base\localization\de-de\hotel_cali.json
+    es-es: base\localization\es-es\hotel_cali.json
+    es-mx: base\localization\es-es\hotel_cali.json
+    fr-fr: base\localization\fr-fr\hotel_cali.json
+    hu-hu: base\localization\hu-hu\hotel_cali.json
+    it-it: base\localization\it-it\hotel_cali.json
+    jp-jp: base\localization\jp-jp\hotel_cali.json
+    kr-kr: base\localization\kr-kr\hotel_cali.json
+    pl-pl: base\localization\pl-pl\hotel_cali.json
+    pt-br: base\localization\pt-br\hotel_cali.json
+    ru-ru: base\localization\ru-ru\hotel_cali.json
+    th-th: base\localization\th-th\hotel_cali.json
+    tr-tr: base\localization\tr-tr\hotel_cali.json
+    ua-ua: base\localization\ua-ua\hotel_cali.json
+    zh-cn: base\localization\zh-cn\hotel_cali.json
+    zh-tw: base\localization\zh-tw\hotel_cali.json
+streaming:
+  blocks:
+    - ep1\hotel_cali.streamingblock

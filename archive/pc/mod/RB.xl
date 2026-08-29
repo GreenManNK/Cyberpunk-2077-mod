@@ -1,0 +1,15 @@
+resource:
+    patch:        
+        base\vtk\femv_seamfix.app:
+            - base\characters\common\player_base_bodies\appearances\t0_000_base__full.app
+            - base\characters\common\player_base_bodies\appearances\t0_000_base__full_censored.app
+        base\vtk\femv_seamfix_fpp.app:
+            - base\characters\common\player_base_bodies\appearances\t0_000_fpp__full.app
+            - base\characters\common\player_base_bodies\appearances\t0_000_fpp__full_censored.app
+overrides:
+  tags:
+    hide_vtk_seamfix:
+      t0_000_pwa_base__vtk_seamfix: {hide: [0, 1, 2, 3]}
+
+player:
+  bodyTypes: [RB]

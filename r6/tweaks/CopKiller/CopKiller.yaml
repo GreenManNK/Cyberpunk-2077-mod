@@ -1,0 +1,441 @@
+
+# Vanilla Bug Fix: Some Beat Cops and Patrol Officers had missing archetype names
+# (MOVED TO REDSCRIPT / MOD SETTINGS)
+
+# ArchetypeData.GenericRangedT2.type: ArchetypeType.GenericRangedT2
+# ArchetypeType.GenericRangedT2.localizedName: LocKey#42635 # "Patrol Officer"
+
+# ArchetypeData.ShotgunnerT2.type: ArchetypeType.ShotgunnerT2
+# ArchetypeType.ShotgunnerT2.localizedName: LocKey#42635 # "Patrol Officer"
+
+# ArchetypeData.GenericRangedT3.type: ArchetypeType.GenericRangedT3
+# ArchetypeType.GenericRangedT3.localizedName: LocKey#22675 # "Beat Cop"
+
+# ArchetypeData.ShotgunnerT3.type: ArchetypeType.ShotgunnerT3
+# ArchetypeType.ShotgunnerT3.localizedName: LocKey#22675 # "Beat Cop"
+
+# Vanilla Bug Fix: Some Tactical Officers had the incorrect archetype name of "MaxTac Enforcer"
+# (MOVED TO REDSCRIPT / MOD SETTINGS)
+
+# Character.ncpd_enforcer_shotgun2_tactician_ma_rare_inline5.localizedName: LocKey#22682 # "Tactical Officer"
+
+# Vanilla Bug Fix: Some Border Guards were not considered Police (causing NPCPuppet::IsCharacterPolice() to return false)
+# (MOVED TO REDSCRIPT / MOD SETTINGS)
+
+# Character.max_border_guards.reactionPreset: ReactionPresets.Police_Aggressive
+# Character.max_border_guards_shotgun.reactionPreset: ReactionPresets.Police_Aggressive
+# Character.max_border_guards_baton.reactionPreset: ReactionPresets.Police_Aggressive
+# Character.max_border_minotaur.reactionPreset: ReactionPresets.Police_Aggressive
+# Character.max_border_drone_octant.reactionPreset: ReactionPresets.Police_Aggressive
+
+# Character.max_border_guards.threatTrackingPreset: TargetTracking.PreventionUnitPreset
+# Character.max_border_guards_shotgun.threatTrackingPreset: TargetTracking.PreventionUnitPreset
+# Character.max_border_guards_baton.threatTrackingPreset: TargetTracking.PreventionUnitPreset
+# Character.max_border_minotaur.threatTrackingPreset: TargetTracking.PreventionUnitPreset
+# Character.max_border_drone_octant.threatTrackingPreset: TargetTracking.PreventionUnitPreset
+
+# Character.max_border_guards.sensePreset: Senses.PreventionRelaxed
+# Character.max_border_guards_shotgun.sensePreset: Senses.PreventionRelaxed
+# Character.max_border_guards_baton.sensePreset: Senses.PreventionRelaxed
+# Character.max_border_minotaur.sensePreset: Senses.PreventionRelaxed
+# Character.max_border_drone_octant.sensePreset: Senses.PreventionRelaxed
+
+# Character.max_border_guards.alertedSensesPreset: PreventionAlerted
+# Character.max_border_guards_shotgun.alertedSensesPreset: PreventionAlerted
+# Character.max_border_guards_baton.alertedSensesPreset: PreventionAlerted
+# Character.max_border_minotaur.alertedSensesPreset: PreventionAlerted
+# Character.max_border_drone_octant.alertedSensesPreset: PreventionAlerted
+
+# Character.max_border_guards.combatSensesPreset: PreventionCombat
+# Character.max_border_guards_shotgun.combatSensesPreset: PreventionCombat
+# Character.max_border_guards_baton.combatSensesPreset: PreventionCombat
+# Character.max_border_minotaur.combatSensesPreset: PreventionCombat
+# Character.max_border_drone_octant.combatSensesPreset: PreventionCombat
+
+# Character.max_border_guards.relaxedSensesPreset: PreventionRelaxed
+# Character.max_border_guards_shotgun.relaxedSensesPreset: PreventionRelaxed
+# Character.max_border_guards_baton.relaxedSensesPreset: PreventionRelaxed
+# Character.max_border_minotaur.relaxedSensesPreset: PreventionRelaxed
+# Character.max_border_drone_octant.relaxedSensesPreset: PreventionRelaxed
+
+# Vanilla Bug Fix: Some NCPD names in scanner contain duplicates (eg. "Patrol Officer Patrol Officer")
+# (MOVED TO REDSCRIPT / MOD SETTINGS)
+
+# Character.prevention_police_rifle_ma.skipDisplayArchetype: True
+# Character.prevention_police_rifle_wa.skipDisplayArchetype: True
+
+# Vanilla Bug Fix: Some characters had the depreciated "Officer" rarity [NOT strictly a police fix]
+# (MOVED TO REDSCRIPT / MOD SETTINGS)
+
+# Character.arr_03_officer.rarity: NPCRarity.Normal
+# Character.cpz_security_netrunner_m_hard.rarity: NPCRarity.Normal
+# Character.gle_01_tucker.rarity: NPCRarity.Normal
+# Character.gle_04_valentinos_officer.rarity: NPCRarity.Normal
+# Character.gle_sixthstreet_hooligan_ranged1_saratoga_wa.rarity: NPCRarity.Normal
+# Character.ina_04_militech_officer.rarity: NPCRarity.Normal
+# Character.kab_06_Blake.rarity: NPCRarity.Normal
+# Character.kabuki_tyger_claw_officer_rifle_fast.rarity: NPCRarity.Normal
+# Character.ma_cct_dtn_01_John_Lipczynsky.rarity: NPCRarity.Normal
+# Character.maelstrom_officer_officer_lexington_ma.rarity: NPCRarity.Normal
+# Character.militech_officer_officer_omaha_ma.rarity: NPCRarity.Normal
+# Character.mq002_scavenger_leader.rarity: NPCRarity.Normal
+# Character.mws_hey_07_tyger_claws_officergangster_officer_nue_ma.rarity: NPCRarity.Normal
+# Character.nid_03_enemy_offices.rarity: NPCRarity.Normal
+# Character.nid_101_maelstrom_rfle.rarity: NPCRarity.Normal
+# Character.q003_meat_factory_officer_maelstrom_grunt2_ranged2_ajax_ma.rarity: NPCRarity.Normal
+# Character.q104_arasaka_operator_leader.rarity: NPCRarity.Normal
+# Character.q104_arasaka_operator_smg_officer.rarity: NPCRarity.Normal
+# Character.q105_bds_officer_scavenger_grunt3_netrunner2_nova_ma_rare.rarity: NPCRarity.Normal
+# Character.q105_dollhouse_officer_tyger_claws_martial_fmelee2_katana_ma_rare.rarity: NPCRarity.Normal
+# Character.q110_animals_mall_west_wing_zone_officer.rarity: NPCRarity.Normal
+# Character.q110_esc_officer_voodooboys_grunt1coat_shotgun2_palica_ma.rarity: NPCRarity.Normal
+# Character.q110_netwatch_agent.rarity: NPCRarity.Normal
+# Character.q112_arasaka_agent_officer.rarity: NPCRarity.Normal
+# Character.q112_arasaka_agent_rifle_flashlight_officer.rarity: NPCRarity.Normal
+# Character.q112_arasaka_sniper_01_officer.rarity: NPCRarity.Normal
+# Character.q112_infiltration_arasaka_guard_officer.rarity: NPCRarity.Normal
+# Character.q112_infiltration_arasaka_guard_officer_ninja.rarity: NPCRarity.Normal
+# Character.q112_parade_officer_soldier1_ranged3_masamune_mah_rare.rarity: NPCRarity.Normal
+# Character.q113_arasaka_jungle_terminator_officer.rarity: NPCRarity.Normal
+# Character.q113_ceo_floor_officer.rarity: NPCRarity.Normal
+# Character.q113_estate_mansion_guard_officer.rarity: NPCRarity.Normal
+# Character.q113_estate_mansion_netrunner.rarity: NPCRarity.Normal
+# Character.q113_jungle_guard_friendly.rarity: NPCRarity.Normal
+# Character.q113_jungle_guard_friendly_female.rarity: NPCRarity.Normal
+# Character.q114_arasaka_manufacturing_officer.rarity: NPCRarity.Normal
+# Character.q114_militech_broadcast.rarity: NPCRarity.Normal
+# Character.q114_militech_guard_officer.rarity: NPCRarity.Normal
+# Character.q114_militech_response_officer.rarity: NPCRarity.Normal
+# Character.q115_arasaka_atrium_officer.rarity: NPCRarity.Normal
+# Character.q115_arasaka_jungle_officer.rarity: NPCRarity.Normal
+# Character.q115_arasaka_nest_officer.rarity: NPCRarity.Normal
+# Character.rcr_sixthstreet_hooligan_ranged1_saratoga_wa.rarity: NPCRarity.Normal
+# Character.rcr_sixthstreet_patrol2_melee2_baton_wa.rarity: NPCRarity.Normal
+# Character.security_officer_officer_nue_ma.rarity: NPCRarity.Normal
+# Character.sq004_raffen_shiv_boss_alpha.rarity: NPCRarity.Normal
+# Character.sq004_raffen_shiv_boss_gamma.rarity: NPCRarity.Normal
+# Character.sq006_maelstrom_officer.rarity: NPCRarity.Normal
+# Character.sq011_maelstrom_officer.rarity: NPCRarity.Normal
+# Character.sq012_animal_officer.rarity: NPCRarity.Normal
+# Character.sq012_animal_officer_beta_female.rarity: NPCRarity.Normal
+# Character.sq018_rey_01_gustavo.rarity: NPCRarity.Normal
+# Character.sq021_wraith_handgun_officer.rarity: NPCRarity.Normal
+# Character.sq026_hiromis_officer_tyger_claws_officergangster_officer_nue_ma.rarity: NPCRarity.Normal
+# Character.sq027_militech_escort_officer.rarity: NPCRarity.Normal
+# Character.sq031_maelstrom_standard_melee.rarity: NPCRarity.Normal
+# Character.sq031_maelstrom_standard_melee_beta.rarity: NPCRarity.Normal
+# Character.sq031_maelstrom_strong_LMG.rarity: NPCRarity.Normal
+# Character.sts_bls_ina_101_arden_bentzen.rarity: NPCRarity.Normal
+# Character.sts_cct_dtn_02_dozy.rarity: NPCRarity.Normal
+# Character.sts_hey_gle_06_6th_street_officer.rarity: NPCRarity.Normal
+# Character.sts_hey_rey_01_gustavo.rarity: NPCRarity.Normal
+# Character.sts_hey_rey_02_valentinos_officer_officer_overture_ma.rarity: NPCRarity.Normal
+# Character.sts_hey_rey_08_karubo.rarity: NPCRarity.Normal
+# Character.sts_hey_rey_09_officer.rarity: NPCRarity.Normal
+# Character.sts_hey_rey_101_mark_fayard.rarity: NPCRarity.Normal
+# Character.sts_hey_spr_01_jose.rarity: NPCRarity.Normal
+# Character.sts_hey_spr_06_rebeca_price.rarity: NPCRarity.Normal
+# Character.sts_std_arr_01_sixthstreet_officer_officer_overture_ma.rarity: NPCRarity.Normal
+# Character.sts_std_rcr_01_vic_vega.rarity: NPCRarity.Normal
+# Character.sts_wat_kab_07_jotaro.rarity: NPCRarity.Normal
+# Character.sts_wat_kab_08_dave_hamill.rarity: NPCRarity.Normal
+# Character.sts_wat_kab_101_enemy_scav_officer_shotgun2.rarity: NPCRarity.Normal
+# Character.sts_wat_kab_107_taki_kenmochi.rarity: NPCRarity.Normal
+# Character.sts_wat_nid_02_tygerclaw_officer.rarity: NPCRarity.Normal
+# Character.sts_wat_nid_06_enemy_officer.rarity: NPCRarity.Normal
+# Character.sts_wat_nid_07_enemy_strong_shotgun.rarity: NPCRarity.Normal
+# Character.sts_wat_nid_102_tygerclaw_officer.rarity: NPCRarity.Normal
+# Character.sts_wbr_hil_06_wyatt_alken.rarity: NPCRarity.Normal
+# Character.sts_wbr_hil_101_enemy_security_officer.rarity: NPCRarity.Normal
+# Character.sts_wbr_jpn_05_tygerclaw_officer.rarity: NPCRarity.Normal
+# Character.tyger_claws_officerbiker_officer_nue_ma.rarity: NPCRarity.Normal
+# Character.tyger_claws_officergangster_officer_nue_ma.rarity: NPCRarity.Normal
+# Character.wst_ep1_ctz_107_mausser.rarity: NPCRarity.Normal
+# TEST.OfficerEnemy.rarity: NPCRarity.Normal
+
+# Vanilla Bug Work-Around: Ammo Loot Icons do not appear on Corpses with only Ammo
+
+Items.NCPD_HandgunMag_Chao: &NCPD_HandgunMag
+  $base: Ammo.HandgunAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_handgun ]
+  statModifiers: []
+
+#Items.NCPD_HandgunMag_Chao: *NCPD_HandgunMag # Kang Tao A-22B Chao - 21 rounds, 5-16
+Items.NCPD_HandgunMag_Chao.displayName: LocKey#CopKiller_NCPD_HandgunMag_Chao_name
+Items.NCPD_HandgunMag_Chao.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Chao_desc
+Items.NCPD_HandgunMag_Grit: *NCPD_HandgunMag # Hansen Armory HA-4 Grit - 30 rounds, 8-23
+Items.NCPD_HandgunMag_Grit.displayName: LocKey#CopKiller_NCPD_HandgunMag_Grit_name
+Items.NCPD_HandgunMag_Grit.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Grit_desc
+Items.NCPD_HandgunMag_Kappa: *NCPD_HandgunMag # Tsunami Kappa - 30 rounds, 8-23
+Items.NCPD_HandgunMag_Kappa.displayName: LocKey#CopKiller_NCPD_HandgunMag_Kappa_name
+Items.NCPD_HandgunMag_Kappa.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Kappa_desc
+Items.NCPD_HandgunMag_Kenshin: *NCPD_HandgunMag # Arasaka JKE-X2 Kenshin - 20 rounds, 5-15
+Items.NCPD_HandgunMag_Kenshin.displayName: LocKey#CopKiller_NCPD_HandgunMag_Kenshin_name
+Items.NCPD_HandgunMag_Kenshin.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Kenshin_desc
+Items.NCPD_HandgunMag_Lexington: *NCPD_HandgunMag # Militech M-10AF Lexington - 20 rounds, 5-15
+Items.NCPD_HandgunMag_Lexington.displayName: LocKey#CopKiller_NCPD_HandgunMag_Lexington_name
+Items.NCPD_HandgunMag_Lexington.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Lexington_desc
+Items.NCPD_HandgunMag_Liberty: *NCPD_HandgunMag # Constitutional Arms Liberty - 14 rounds, 4-11
+Items.NCPD_HandgunMag_Liberty.displayName: LocKey#CopKiller_NCPD_HandgunMag_Liberty_name
+Items.NCPD_HandgunMag_Liberty.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Liberty_desc
+Items.NCPD_HandgunMag_Nue: *NCPD_HandgunMag # Tsunami Nue - 10 rounds, 3-8
+Items.NCPD_HandgunMag_Nue.displayName: LocKey#CopKiller_NCPD_HandgunMag_Nue_name
+Items.NCPD_HandgunMag_Nue.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Nue_desc
+Items.NCPD_HandgunMag_Omaha: *NCPD_HandgunMag # Militech M-76e Omaha - 9 rounds, 2-7
+Items.NCPD_HandgunMag_Omaha.displayName: LocKey#CopKiller_NCPD_HandgunMag_Omaha_name
+Items.NCPD_HandgunMag_Omaha.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Omaha_desc
+Items.NCPD_HandgunMag_Slaughtomatic: *NCPD_HandgunMag # Budget Arms Slaught-O-Matic - 1 common materials
+Items.NCPD_HandgunMag_Slaughtomatic.displayName: LocKey#CopKiller_NCPD_HandgunMag_Slaughtomatic_name
+Items.NCPD_HandgunMag_Slaughtomatic.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Slaughtomatic_desc
+Items.NCPD_HandgunMag_Tamayura: *NCPD_HandgunMag # Arasaka Tamayura - 8 rounds, 2-6
+Items.NCPD_HandgunMag_Tamayura.displayName: LocKey#CopKiller_NCPD_HandgunMag_Tamayura_name
+Items.NCPD_HandgunMag_Tamayura.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Tamayura_desc
+Items.NCPD_HandgunMag_Ticon: *NCPD_HandgunMag # Militech Ticon - 21 rounds, 5-16
+Items.NCPD_HandgunMag_Ticon.displayName: LocKey#CopKiller_NCPD_HandgunMag_Ticon_name
+Items.NCPD_HandgunMag_Ticon.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Ticon_desc
+Items.NCPD_HandgunMag_Unity: *NCPD_HandgunMag # Constitutional Arms Unity - 12 rounds, 3-9
+Items.NCPD_HandgunMag_Unity.displayName: LocKey#CopKiller_NCPD_HandgunMag_Unity_name
+Items.NCPD_HandgunMag_Unity.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Unity_desc
+Items.NCPD_HandgunMag_Yukimura: *NCPD_HandgunMag # Arasaka HJKE-11 Yukimura - 30 rounds, 8-23
+Items.NCPD_HandgunMag_Yukimura.displayName: LocKey#CopKiller_NCPD_HandgunMag_Yukimura_name
+Items.NCPD_HandgunMag_Yukimura.localizedDescription: LocKey#CopKiller_NCPD_HandgunMag_Yukimura_desc
+
+Items.NCPD_RevolverMag_Burya: &NCPD_RevolverMag
+  $base: Ammo.HandgunAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_handgun ]
+  statModifiers: []
+
+#Items.NCPD_RevolverMag_Burya: *NCPD_RevolverMag # Techtronika RT-46 Burya - 4 rounds, 1-3
+Items.NCPD_RevolverMag_Burya.displayName: LocKey#CopKiller_NCPD_RevolverMag_Burya_name
+Items.NCPD_RevolverMag_Burya.localizedDescription: LocKey#CopKiller_NCPD_RevolverMag_Burya_desc
+Items.NCPD_RevolverMag_Metel: *NCPD_RevolverMag # Techtronika Metel - 8 rounds, 2-6
+Items.NCPD_RevolverMag_Metel.displayName: LocKey#CopKiller_NCPD_RevolverMag_Metel_name
+Items.NCPD_RevolverMag_Metel.localizedDescription: LocKey#CopKiller_NCPD_RevolverMag_Metel_desc
+Items.NCPD_RevolverMag_Nova: *NCPD_RevolverMag # Darra Polytechnic DR-5 Nova - 6 rounds, 2-5
+Items.NCPD_RevolverMag_Nova.displayName: LocKey#CopKiller_NCPD_RevolverMag_Nova_name
+Items.NCPD_RevolverMag_Nova.localizedDescription: LocKey#CopKiller_NCPD_RevolverMag_Nova_desc
+Items.NCPD_RevolverMag_Overture: *NCPD_RevolverMag # Malorian Overture - 6 rounds, 2-5
+Items.NCPD_RevolverMag_Overture.displayName: LocKey#CopKiller_NCPD_RevolverMag_Overture_name
+Items.NCPD_RevolverMag_Overture.localizedDescription: LocKey#CopKiller_NCPD_RevolverMag_Overture_desc
+Items.NCPD_RevolverMag_Quasar: *NCPD_RevolverMag # Darra Polytechnic DR-12 Quasar - 16 rounds, 4-12
+Items.NCPD_RevolverMag_Quasar.displayName: LocKey#CopKiller_NCPD_RevolverMag_Quasar_name
+Items.NCPD_RevolverMag_Quasar.localizedDescription: LocKey#CopKiller_NCPD_RevolverMag_Quasar_desc
+
+Items.NCPD_SMGMag_Dian: &NCPD_SMGMag
+  $base: Ammo.RifleAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_rifle ]
+  statModifiers: []
+
+#Items.NCPD_SMGMag_Dian: *NCPD_SMGMag # Kang Tao G-58 Dian - 45 rounds, 11-34
+Items.NCPD_SMGMag_Dian.displayName: LocKey#CopKiller_NCPD_SMGMag_Dian_name
+Items.NCPD_SMGMag_Dian.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Dian_desc
+Items.NCPD_SMGMag_Guillotine: *NCPD_SMGMag # Budget Arms Guillotine - 45 rounds, 11-34
+Items.NCPD_SMGMag_Guillotine.displayName: LocKey#CopKiller_NCPD_SMGMag_Guillotine_name
+Items.NCPD_SMGMag_Guillotine.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Guillotine_desc
+Items.NCPD_SMGMag_Pulsar: *NCPD_SMGMag # Darra Polytechnic DS1 Pulsar - 40 rounds, 10-30
+Items.NCPD_SMGMag_Pulsar.displayName: LocKey#CopKiller_NCPD_SMGMag_Pulsar_name
+Items.NCPD_SMGMag_Pulsar.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Pulsar_desc
+Items.NCPD_SMGMag_Saratoga: *NCPD_SMGMag # Militech M221 Saratoga - 40 rounds, 10-30
+Items.NCPD_SMGMag_Saratoga.displayName: LocKey#CopKiller_NCPD_SMGMag_Saratoga_name
+Items.NCPD_SMGMag_Saratoga.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Saratoga_desc
+Items.NCPD_SMGMag_Senkoh: *NCPD_SMGMag # Arasaka Senkoh LX - 30 rounds, 8-23
+Items.NCPD_SMGMag_Senkoh.displayName: LocKey#CopKiller_NCPD_SMGMag_Senkoh_name
+Items.NCPD_SMGMag_Senkoh.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Senkoh_desc
+Items.NCPD_SMGMag_Shigure: *NCPD_SMGMag # Arasaka Shigure - 50 rounds, 13-38
+Items.NCPD_SMGMag_Shigure.displayName: LocKey#CopKiller_NCPD_SMGMag_Shigure_name
+Items.NCPD_SMGMag_Shigure.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Shigure_desc
+Items.NCPD_SMGMag_Shingen: *NCPD_SMGMag # Arasaka TKI-20 Shingen - 30 rounds, 8-23
+Items.NCPD_SMGMag_Shingen.displayName: LocKey#CopKiller_NCPD_SMGMag_Shingen_name
+Items.NCPD_SMGMag_Shingen.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Shingen_desc
+Items.NCPD_SMGMag_Warden: *NCPD_SMGMag # Hansen Armory HA-7 Warden - 40 rounds, 10-30
+Items.NCPD_SMGMag_Warden.displayName: LocKey#CopKiller_NCPD_SMGMag_Warden_name
+Items.NCPD_SMGMag_Warden.localizedDescription: LocKey#CopKiller_NCPD_SMGMag_Warden_desc
+
+Items.NCPD_RifleMag_Ajax: &NCPD_RifleMag
+  $base: Ammo.RifleAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_rifle ]
+  statModifiers: []
+
+#Items.NCPD_RifleMag_Ajax: *NCPD_RifleMag # Militech M251s Ajax - 30 rounds, 8-23
+Items.NCPD_RifleMag_Ajax.displayName: LocKey#CopKiller_NCPD_RifleMag_Ajax_name
+Items.NCPD_RifleMag_Ajax.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Ajax_desc
+Items.NCPD_RifleMag_Copperhead: *NCPD_RifleMag # Nokota D5 Copperhead - 30 rounds, 8-23
+Items.NCPD_RifleMag_Copperhead.displayName: LocKey#CopKiller_NCPD_RifleMag_Copperhead_name
+Items.NCPD_RifleMag_Copperhead.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Copperhead_desc
+Items.NCPD_RifleMag_Kyubi: *NCPD_RifleMag # Tsunami Kyubi - 20 rounds, 5-15
+Items.NCPD_RifleMag_Kyubi.displayName: LocKey#CopKiller_NCPD_RifleMag_Kyubi_name
+Items.NCPD_RifleMag_Kyubi.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Kyubi_desc
+Items.NCPD_RifleMag_Masamune: *NCPD_RifleMag # Arasaka HJSH-18 Masamune - 24 rounds, 6-18
+Items.NCPD_RifleMag_Masamune.displayName: LocKey#CopKiller_NCPD_RifleMag_Masamune_name
+Items.NCPD_RifleMag_Masamune.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Masamune_desc
+Items.NCPD_RifleMag_Nowaki: *NCPD_RifleMag # Arasaka Nowaki - 21 rounds, 5-16
+Items.NCPD_RifleMag_Nowaki.displayName: LocKey#CopKiller_NCPD_RifleMag_Nowaki_name
+Items.NCPD_RifleMag_Nowaki.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Nowaki_desc
+Items.NCPD_RifleMag_Sidewinder: *NCPD_RifleMag # Nokota D5 Sidewinder - 30 rounds, 8-23
+Items.NCPD_RifleMag_Sidewinder.displayName: LocKey#CopKiller_NCPD_RifleMag_Sidewinder_name
+Items.NCPD_RifleMag_Sidewinder.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Sidewinder_desc
+Items.NCPD_RifleMag_Umbra: *NCPD_RifleMag # Darra Polytechnic DA8 Umbra - 40 rounds, 10-30
+Items.NCPD_RifleMag_Umbra.displayName: LocKey#CopKiller_NCPD_RifleMag_Umbra_name
+Items.NCPD_RifleMag_Umbra.localizedDescription: LocKey#CopKiller_NCPD_RifleMag_Umbra_desc
+
+Items.NCPD_LMGMag_Defender: &NCPD_LMGMag
+  $base: Ammo.RifleAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_rifle ]
+  statModifiers: []
+
+#Items.NCPD_LMGMag_Defender: *NCPD_LMGMag # Constitutional Arms M2067 Defender - 80 rounds, 20-60
+Items.NCPD_LMGMag_Defender.displayName: LocKey#CopKiller_NCPD_LMGMag_Defender_name
+Items.NCPD_LMGMag_Defender.localizedDescription: LocKey#CopKiller_NCPD_LMGMag_Defender_desc
+Items.NCPD_LMGMag_MA70HB: *NCPD_LMGMag # Midnight Arms MA70 HB - 60 rounds, 15-45
+Items.NCPD_LMGMag_MA70HB.displayName: LocKey#CopKiller_NCPD_LMGMag_MA70HB_name
+Items.NCPD_LMGMag_MA70HB.localizedDescription: LocKey#CopKiller_NCPD_LMGMag_MA70HB_desc
+
+Items.NCPD_ShotgunMag_Carnage: &NCPD_ShotgunMag
+  $base: Ammo.ShotgunAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_shotgun ]
+  statModifiers: []
+
+#Items.NCPD_ShotgunMag_Carnage: *NCPD_ShotgunMag # Budget Arms Carnage - 4 rounds, 1-3
+Items.NCPD_ShotgunMag_Carnage.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Carnage_name
+Items.NCPD_ShotgunMag_Carnage.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Carnage_desc
+Items.NCPD_ShotgunMag_Crusher: *NCPD_ShotgunMag # Militech Crusher - 12 rounds, 3-9
+Items.NCPD_ShotgunMag_Crusher.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Crusher_name
+Items.NCPD_ShotgunMag_Crusher.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Crusher_desc
+Items.NCPD_ShotgunMag_Igla: *NCPD_ShotgunMag # Rostovic DB-4 Igla - 2 rounds, 1-2
+Items.NCPD_ShotgunMag_Igla.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Igla_name
+Items.NCPD_ShotgunMag_Igla.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Igla_desc
+Items.NCPD_ShotgunMag_Palica: *NCPD_ShotgunMag # Rostovic DB-4 Palica - 2 rounds, 1-2
+Items.NCPD_ShotgunMag_Palica.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Palica_name
+Items.NCPD_ShotgunMag_Palica.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Palica_desc
+Items.NCPD_ShotgunMag_Pozhar: *NCPD_ShotgunMag # Techtronika VST-37 Pozhar - 12 rounds, 3-9
+Items.NCPD_ShotgunMag_Pozhar.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Pozhar_name
+Items.NCPD_ShotgunMag_Pozhar.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Pozhar_desc
+Items.NCPD_ShotgunMag_Satara: *NCPD_ShotgunMag # Rostovic DB-2 Satara - 2 rounds, 1-2
+Items.NCPD_ShotgunMag_Satara.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Satara_name
+Items.NCPD_ShotgunMag_Satara.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Satara_desc
+Items.NCPD_ShotgunMag_Tactician: *NCPD_ShotgunMag # Constitutional Arms M2038 Tactician - 8 rounds, 2-6
+Items.NCPD_ShotgunMag_Tactician.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Tactician_name
+Items.NCPD_ShotgunMag_Tactician.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Tactician_desc
+Items.NCPD_ShotgunMag_Testera: *NCPD_ShotgunMag # Rostovic DB-2 Testera - 2 rounds, 1-2
+Items.NCPD_ShotgunMag_Testera.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Testera_name
+Items.NCPD_ShotgunMag_Testera.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Testera_desc
+Items.NCPD_ShotgunMag_Zhuo: *NCPD_ShotgunMag # Kang Tao L-69 Zhuo - 4 rounds, 1-3
+Items.NCPD_ShotgunMag_Zhuo.displayName: LocKey#CopKiller_NCPD_ShotgunMag_Zhuo_name
+Items.NCPD_ShotgunMag_Zhuo.localizedDescription: LocKey#CopKiller_NCPD_ShotgunMag_Zhuo_desc
+
+Items.NCPD_PrecisionMag_Achilles: &NCPD_PrecisionMag
+  $base: Ammo.SniperRifleAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_sniper ]
+  statModifiers: []
+
+#Items.NCPD_PrecisionMag_Achilles: *NCPD_PrecisionMag # Militech M-179 Achilles - 9 rounds, 2-7
+Items.NCPD_PrecisionMag_Achilles.displayName: LocKey#CopKiller_NCPD_PrecisionMag_Achilles_name
+Items.NCPD_PrecisionMag_Achilles.localizedDescription: LocKey#CopKiller_NCPD_PrecisionMag_Achilles_desc
+Items.NCPD_PrecisionMag_Kolac: *NCPD_PrecisionMag # Rostovic Kolac - 6 rounds, 2-5
+Items.NCPD_PrecisionMag_Kolac.displayName: LocKey#CopKiller_NCPD_PrecisionMag_Kolac_name
+Items.NCPD_PrecisionMag_Kolac.localizedDescription: LocKey#CopKiller_NCPD_PrecisionMag_Kolac_desc
+Items.NCPD_PrecisionMag_SOR22: *NCPD_PrecisionMag # Midnight Arms SOR-22 - 10 rounds, 3-8
+Items.NCPD_PrecisionMag_SOR22.displayName: LocKey#CopKiller_NCPD_PrecisionMag_SOR22_name
+Items.NCPD_PrecisionMag_SOR22.localizedDescription: LocKey#CopKiller_NCPD_PrecisionMag_SOR22_desc
+
+Items.NCPD_SniperMag_Ashura: &NCPD_SniperMag
+  $base: Ammo.SniperRifleAmmo
+  buyPrice: []
+  CraftingData: {}
+  itemType: ItemType.Gen_Misc
+  OnLooted: [ Items.NCPD_MagazineLootedLogic ]
+  sellPrice: []
+  tags: [ PoliceMag, DontShowLooted, SkipActivityLog, SkipActivityLogOnRemove, LootIconsExt_Part_ammo_sniper ]
+  statModifiers: []
+
+#Items.NCPD_SniperMag_Ashura: *NCPD_SniperMag # Tsunami Ashura - 1 round, 1
+Items.NCPD_SniperMag_Ashura.displayName: LocKey#CopKiller_NCPD_SniperMag_Ashura_name
+Items.NCPD_SniperMag_Ashura.localizedDescription: LocKey#CopKiller_NCPD_SniperMag_Ashura_desc
+Items.NCPD_SniperMag_Grad: *NCPD_SniperMag # Techtronika SPT32 Grad - 4 rounds, 1-3
+Items.NCPD_SniperMag_Grad.displayName: LocKey#CopKiller_NCPD_SniperMag_Grad_name
+Items.NCPD_SniperMag_Grad.localizedDescription: LocKey#CopKiller_NCPD_SniperMag_Grad_desc
+Items.NCPD_SniperMag_Nekomata: *NCPD_SniperMag # Tsunami Nekomata - 4 rounds, 1-3
+Items.NCPD_SniperMag_Nekomata.displayName: LocKey#CopKiller_NCPD_SniperMag_Nekomata_name
+Items.NCPD_SniperMag_Nekomata.localizedDescription: LocKey#CopKiller_NCPD_SniperMag_Nekomata_desc
+
+Items.NCPD_MagazineLootedLogic:
+  $type: gamedataGameplayLogicPackage_Record
+  stackable: True
+  animationWrapperOverrides: []
+  effectors:
+    - $type: gamedataEffector_Record
+      effectorClassName: CopKiller.AddMagEffector
+      prereqRecord: Prereqs.AlwaysTruePrereq
+      removeAfterActionCall: True
+      removeAfterPrereqCheck: False
+      statModifierGroups: []
+  items: []
+  prereq: Prereqs.AlwaysTruePrereq
+  statPools: []
+  stats: []
+
+Items.i1_100_ma_slot__radio_left_player_black: # Game.AddToInventory("Items.i1_100_ma_slot__radio_left_player_black")
+  $base: Items.GenericOuterChestClothing # OutfitSlots.TorsoOuter
+  placementSlots:
+    - !append OutfitSlots.ShoulderLeft
+  entityName: i1_100_ma_slot__radio_left_player_factory_name
+  appearanceName: i1_100_ma_slot__radio_left_player_black_app
+  displayName: i1_100_ma_slot__radio_left_player_black_name
+  localizedDescription: i1_100_ma_slot__radio_left_player_desc
+  quality: Quality.Random
+  buyPrice:
+    - Price.Beat_Cop_Radio
+    - Price.ItemQualityMultiplier
+    - Price.BuyPrice_StreetCred_Discount
+  sellPrice:
+    - Price.Beat_Cop_Radio
+    - Price.ItemQualitySellMultiplier
+    - Price.SellMultiplier
+  appearanceSuffixes: [ itemsFactoryAppearanceSuffix.Camera ]
+  icon:
+    atlasResourcePath: demon9ne\copkiller\item\i1_100_ma_slot__radio\ops\preview_icons.inkatlas
+    atlasPartName: beat_cop_radio
+  tags:
+    - !append-once LootIconsExt_Part_loot_jacket
+    - !append-once Threadscape_Blacklist
+
+Price.Beat_Cop_Radio:
+  $type: gamedataConstantStatModifier_Record
+  value: 2500
+  modifierType: Additive
+  statType: BaseStats.Price

@@ -1,0 +1,13 @@
+streaming:
+  blocks:
+    - mod\improved_aldecaldos_camp\iac_0.2.0\all.streamingblock
+    - mod\improved_aldecaldos_camp\iac_0.3.0\all.streamingblock
+    - mod\improved_aldecaldos_camp\iac_0.3.0_new_truck_generator_workspot\all.streamingblock
+resource:
+  patch:
+    mod\improved_aldecaldos_camp\iac_0.2.0\custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices
+    mod\improved_aldecaldos_camp\iac_0.2.0\custom_devices.psrep:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.psrep
+    mod\improved_aldecaldos_camp\iac_0.3.0\custom_devices.devices:
+    - base\worlds\03_night_city\_compiled\default\03_night_city.devices

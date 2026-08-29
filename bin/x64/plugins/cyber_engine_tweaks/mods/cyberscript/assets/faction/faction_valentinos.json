@@ -1,0 +1,85 @@
+{
+	"name": "Valentinos",
+	"logo": "logo_valentinos",
+	"tag": "faction_valentinos",
+	"attitude_group": [
+		"valentinos_ow",
+		"valentinos"
+	],
+	"rivals": [
+		"faction_sixthstreet", "faction_ncpd", "faction_militech", "faction_maelstrom", "faction_tygerclaws", "faction_scavengers"
+	],
+	"keyword": [
+		"valentinos"
+	],
+	"spawnable_npc": [
+		"Character.ma_hey_spr_02_enemy_001",
+		"Character.ma_hey_spr_03_enemy_001",
+		 "Character.ma_hey_spr_12_enemy_001",
+		  "Character.sts_hey_rey_06_enemy_rifle",
+		   "Character.sts_hey_rey_06_enemy_shotgun",
+		   "Character.sts_hey_rey_08_officer",
+		    "Character.sts_hey_spr_01_officer",
+			"Character.sts_hey_rey_06_enemy_knife_wa",
+			"Character.sts_hey_rey_06_enemy_rifle_wa",
+			"Character.sts_hey_rey_06_enemy_ajax"
+		
+	],
+	"spawnable_vehicle": [
+		"Vehicle.v_sport2_villefort_alvarado_cabrio",
+		"Vehicle.v_sport2_villefort_alvarado_valentinos",
+		"Vehicle.cs_savable_thorton_colby_valentinos",
+		"Vehicle.cs_savable_mizutani_shion",
+		"Vehicle.cs_savable_thorton_mackinaw_valentinos"
+	],
+	"district_tag": "district_heywood",
+	"vip": [{
+			"name": "Mama_Welles",
+			"score": 0
+		},
+		{
+			"name": "Camilo Castilla",
+			"score": 5
+		},
+		{
+			"name": "Daniel Duarte",
+			"score": 5
+		},
+		{
+			"name": "Gustav",
+			"score": 10
+		},
+		{
+			"name": "Isabella Fuscino",
+			"score": 10
+		},
+		{
+			"name": "Micaela Ruiz",
+			"score": 15
+		},
+		{
+			"name": "Pepe Najarro",
+			"score": 15
+		},
+		{
+			"name": "Irene Hermoso",
+			"score": 15
+		},
+		{
+			"name": "Martha Young Funeral",
+			"score": 20
+		},
+		{
+			"name": "Sofia Rossil",
+			"score": 20
+		},
+		{
+			"name": "Zoe Alonzo",
+			"score": 30
+		},
+		{
+			"name": "Misty",
+			"score": 40
+		}
+	]
+}

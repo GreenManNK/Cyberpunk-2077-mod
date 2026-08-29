@@ -1,0 +1,4074 @@
+{
+  "play_entity_facial": {
+    "tag": "blue01",
+    "value": "Smile",
+    "helperTitle": "Entity : Play facial expression",
+    "helper": "This action will change the facial expression of a custom entity ",
+    "name": "play_entity_facial"
+  },
+  "add_entity_to_group": {
+    "tag": "grouptag",
+    "name": "add_entity_to_group",
+    "helper": "This action will add entity to a group of entity ",
+    "entities": [ "blue01", "red01" ],
+    "helperTitle": "Group : add a entity"
+  },
+  "move": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Entity : Move To",
+    "helper": "This action will move an entity with several custom parameter ",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "move",
+    "roll": 0,
+    "pitch": 0,
+    "position_poi_searchdistance": "near|far|random",
+    "distance": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "moveV2": true,
+    "distancetolerance": 0,
+    "ignorenavigation": true,
+    "stoponobstacle": false,
+    "outofway": false,
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_house_way": "default",
+    "position_poi_use_location_tag": false,
+    "position": "at",
+    "help": "This action will move an entity with several custom parameter ",
+    "position_spawnlocation": false,
+    "group": false,
+    "move": "Walk",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_node_usegameplay": false
+  },
+  "do_math": {
+    "value": 5,
+    "operator": "+",
+    "helperTitle": "Score : Do Math",
+    "store": {
+      "key": "mykey",
+      "score": "myscore"
+    },
+    "name": "do_math",
+    "helper": "This action will check the targeted data. Can be number, boolean or text \n Operator can be + | -| * | / | positive | negative | random (who take min and max value) | ceil | floor \n store section is optionnal, remove it if no use",
+    "modifier": 5
+  },
+  "teleport_player": {
+    "z": 0,
+    "name": "teleport_player",
+    "helper": "This action will teleport the player to XYZ",
+    "y": 0,
+    "x": 0,
+    "helperTitle": "Player : Teleport at position"
+  },
+  "teleport": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Entity : Teleport To",
+    "position_node_usegameplay": false,
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_searchdistance": "near|far|random",
+    "distance": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "position_spawnlocation": false,
+    "roll": 0,
+    "group": false,
+    "pitch": 0,
+    "help": "This action will teleport an entity with several custom parameter ",
+    "helper": "This action will teleport an entity with several custom parameter ",
+    "position": "at",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "name": "teleport"
+  },
+  "attitude_group_against_entity": {
+    "attitude": "hostile",
+    "name": "attitude_group_against_entity",
+    "helper": "This action will change attitude from a group to a entity(friendly||hostile||companion||passive||psycho)",
+    "tag": "gangteam",
+    "entity": "judy01||player",
+    "helperTitle": "Group : change attitude against another entity"
+  },
+  "play_anim_entity": {
+    "tag": "myshardtag",
+    "name": "play_anim_entity",
+    "helperTitle": "Entity : Play Animation",
+    "helper": "This action will play animation to entity",
+    "pitch": 0,
+    "roll": 0,
+    "yaw": 0
+  },
+  "play_custom_anim_entity": {
+    "tag": "lookatnpc",
+    "isinstant": false,
+    "ent": "base\\cyberscript\\entity\\workspot_anim.ent",
+    "helperTitle": "Anim : Play Anim to Entity",
+    "roll": 0,
+    "unlockcamera": true,
+    "workspot": "cyberscript_workspot_custom_base",
+    "name": "play_custom_anim_entity",
+    "anim": "add__stand__2h_front__01__dynamic",
+    "angle": true,
+    "helper": "This action will apply animation to entity",
+    "pitch": 0,
+    "yaw": 0
+  },
+  "delete_mappin": {
+    "helper": "This action will delete a specific mapPin",
+    "name": "delete_mappin",
+    "tag": "mymappintag",
+    "helperTitle": "Map : Delete Point"
+  },
+  "clean_all_loaded_interact": {
+    "helper": "This action will clean any force loaded interacts",
+    "name": "clean_all_loaded_interact",
+    "helperTitle": "Interact : Unload all forceload interact"
+  },
+  "attitude_group_against_group": {
+    "attitude": "hostile",
+    "attitudegroup": "6thStreet",
+    "attitudegrouptarget": "mq030_max_tac",
+    "helperTitle": "Group : change attitude against another group",
+    "helper": "This action will change attitude from a group to another group",
+    "name": "attitude_group_against_group",
+    "target": "maxtacsquad",
+    "tag": "gangteam"
+  },
+  "set_mappin": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Map : Set Mappin",
+    "position_node_usegameplay": false,
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "help": "This action will summon a custom npc with several custom parameter ",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_from_position_x": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_searchdistance": "near|far|random",
+    "typemap": "ExclamationMarkVariant",
+    "mapgroup": "",
+    "x": 0,
+    "y": 0,
+    "desc": "mydesc",
+    "z": 0,
+    "range": 0,
+    "icon": "",
+    "wall": true,
+    "color": [ {
+      "blue": 255,
+      "red": 255,
+      "green": 255
+    } ],
+    "name": "set_mappin",
+    "title": "myttitle",
+    "tag": "mymappintag",
+    "position": "at",
+    "active": true,
+    "helper": "This action will summon a custom mappin with several custom parameter. Range 0 means always visible, instead range X means visible when in range ",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_poi_from_position_z": 0
+  },
+  "set_gang_currentdistrict_score": {
+    "value": 5,
+    "name": "set_gang_currentdistrict_score",
+    "helper": "This action will set a value to the Gang Current District Score ",
+    "helperTitle": "Gang : Set Current District Score",
+    "faction": "faction_mox"
+  },
+  "entity_set_seat_looked_av": {
+    "help": "seat_front_right||seat_back_right||seat_back_left||seat_front_left",
+    "helperTitle": "Entity : Set Seat to Looked Custom AV",
+    "helper": "This action will set seat to an entity in the Custom AV you are looking at.",
+    "name": "entity_set_seat_looked_av",
+    "seat": "seat_back_left",
+    "tag": "player"
+  },
+  "delete_map_group": {
+    "helper": "This action will delete all of mappin in a specific mapPin group",
+    "name": "delete_map_group",
+    "tag": "mymappintaggroup",
+    "helperTitle": "Map : Delete group"
+  },
+  "unfreeze_player": {
+    "helper": "This action will unfreeze player",
+    "name": "unfreeze_player",
+    "helperTitle": "Player : Unfreeze player"
+  },
+  "teleport_entity_at_current_node": {
+    "tag": "metroInside",
+    "name": "teleport_entity_at_current_node",
+    "helper": "This action will teleport entity to current custom node",
+    "helperTitle": "Entity : teleport a entity at current Node",
+    "atgameplayposition": false
+  },
+  "concate_custom_variable_with_score": {
+    "key": "myKey",
+    "resultvariable": "customVariable",
+    "score": "customVariable",
+    "name": "concate_custom_variable_with_score",
+    "helper": "This action will concate the value of a key of a custom variable with a score and store into a result variable",
+    "resultkey": "myKey",
+    "helperTitle": "Score :  concate the value of a key of a custom variable with a score",
+    "variable": "customVariable"
+  },
+  "teleport_group_at_position": {
+    "tag": "grouptag",
+    "y": -10,
+    "helperTitle": "Group : Teleport Group at position",
+    "helper": "This action will teleport a group of entity",
+    "z": 0,
+    "x": -10,
+    "name": "teleport_group_at_position"
+  },
+  "freeze_player": {
+    "helper": "This action will freeze player",
+    "name": "freeze_player",
+    "helperTitle": "Player : freeze movement"
+  },
+  "subscribe_function_to_direct_execution": {
+    "tag": "myshardtag",
+    "helperTitle": "Script : Register Function to Direct Execution",
+    "helper": "This action will subscribe function to direct execution engine",
+    "name": "subscribe_function_to_direct_execution",
+    "after": false
+  },
+  "create_group": {
+    "helper": "This action will create a group of entity ",
+    "name": "create_group",
+    "tag": "grouptag",
+    "helperTitle": "Group : create a group"
+  },
+  "set_map_group_position": {
+    "helper": "This action will change position of all of mappin in a specific mapPin group",
+    "name": "set_map_group_position",
+    "tag": "mymappintaggroup",
+    "helperTitle": "Map : Set Map Pin Group Position "
+  },
+  "unlock_conversation": {
+    "helper": "This action will unlock the conversation ",
+    "name": "unlock_conversation",
+    "tag": "myobj",
+    "helperTitle": "Interface : Unlock Conversation"
+  },
+  "concate_custom_variable_with_variable": {
+    "key": "myKey",
+    "name": "concate_custom_variable_with_variable",
+    "helper": "This action will concate the value of a key of a custom variable with another one and store into a result variable",
+    "targetvariable": "customVariable",
+    "variable": "customVariable",
+    "resultvariable": "customVariable",
+    "resultkey": "myKey",
+    "targetkey": "myKey",
+    "helperTitle": "Score :  concate the value of a key of a custom variable with another variable"
+  },
+  "change_objective_text": {
+    "tag": "myobjectivetag",
+    "value": "I love train",
+    "helperTitle": "Quest : Change Objective Text",
+    "helper": "This action will change quest's objective Text",
+    "name": "change_objective_text"
+  },
+  "move_entity_at_player_lookat": {
+    "tag": "blue01",
+    "move": "Walk",
+    "name": "move_entity_at_player_lookat",
+    "helper": "This action will move a custom entity at where the Player is looking at",
+    "distance": 10,
+    "helperTitle": "Entity : Move to Player look at position"
+  },
+  "subscribe_event_to_direct_execution": {
+    "tag": "myeventtag",
+    "helperTitle": "Script : Register Event to Direct Execution",
+    "helper": "This action will subscribe a Event to direct execution engine. !!! The triggers are checked once before register !!!",
+    "name": "subscribe_event_to_direct_execution",
+    "after": false
+  },
+  "buyCurrentHouse": {
+    "helper": "This action will buy the custom place where you are if you have enough money and if it's buyable ",
+    "name": "buyCurrentHouse",
+    "helperTitle": "House : Buy the current house where player is"
+  },
+  "set_map_group_tracking_to": {
+    "tag": "mymappintaggroup",
+    "helperTitle": "Map : Set Map Pin Group track a entity",
+    "helper": "This action will make all of mappin in a specific mapPin group track a specific target",
+    "name": "set_map_group_tracking_to",
+    "target": "myentitytag"
+  },
+  "getSalaryFromCurrentRent": {
+    "helper": "This action will give the salary of the current custom place that you are in ",
+    "name": "getSalaryFromCurrentRent",
+    "help": "give the salary of the current house",
+    "helperTitle": "House : Get Salary from current place"
+  },
+  "subscribe_actionlist_to_direct_execution": {
+    "after": false,
+    "action": [ {
+      "name": "notify",
+      "value": "hello"
+    } ],
+    "helper": "This action will subscribe a list of action to direct execution engine",
+    "name": "subscribe_actionlist_to_direct_execution",
+    "tag": "myshardtag",
+    "helperTitle": "Script : Register Action List to Direct Execution"
+  },
+  "fail_mission": {
+    "helper": "This action will fail current mission",
+    "name": "fail_mission",
+    "helperTitle": "Quest : Fail Mission"
+  },
+  "look_at_entity_entity": {
+    "tag": "blue01",
+    "name": "look_at_entity_entity",
+    "helper": "This action will make the entity look at to another custom entity ",
+    "entity": "blue02||player",
+    "helperTitle": "Entity : Look at another entity"
+  },
+  "fail_objective": {
+    "helper": "This action will fail objective",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Fail Objective",
+    "name": "fail_objective"
+  },
+  "set_map_group_type": {
+    "typemap": "ExclamationMarkVariant",
+    "helperTitle": "Map : Set Map Pin Group type",
+    "helper": "This action will change type of  all of mappin in a specific mapPin group",
+    "name": "set_map_group_type",
+    "tag": "mymappintaggroup"
+  },
+  "give_item": {
+    "value": "Items.Vest_06_rich_03",
+    "name": "give_item",
+    "helper": "This action will a amount of a item to the player",
+    "amount": 5,
+    "helperTitle": "Items : Give items"
+  },
+  "random_custom_score": {
+    "max": 50,
+    "helperTitle": "Score : randomize the value of a custom score, can be negative",
+    "helper": "This action will randomize the value of a custom score, can be negative",
+    "name": "random_custom_score",
+    "min": 50,
+    "variable": "customScore"
+  },
+  "finish_mission": {
+    "helper": "This action will set finish mission",
+    "value": "mymissiontag",
+    "helperTitle": "Quest : Finish Mission",
+    "name": "finish_mission"
+  },
+  "open_shard": {
+    "helper": "This action will open an shard popup with custom shard content",
+    "name": "open_shard",
+    "tag": "myshardtag",
+    "helperTitle": "UI : Open Shard Popup"
+  },
+  "clean_thread": {
+    "tag": "mytag",
+    "name": "clean_thread",
+    "helper": "This action will Clean a thread in scripting execution system",
+    "help": "Clean a thread in scripting execution system",
+    "helperTitle": "Logic : Clean Threads"
+  },
+  "set_mappin_position": {
+    "helper": "This action will change position of a specific mapPin",
+    "name": "set_mappin_position",
+    "tag": "mymappintag",
+    "helperTitle": "Map : Set Map Pin position"
+  },
+  "play_game_sound": {
+    "help": "Play an Game's Sound",
+    "value": "test",
+    "name": "play_game_sound",
+    "helper": "This action will Play an Game's Sound",
+    "helperTitle": "Sound : Play Game Sound"
+  },
+  "trigger_edit_housing_mode": {
+    "helper": "This action will trigger housing mode",
+    "value": false,
+    "helperTitle": "House : Toggle House Mode",
+    "name": "trigger_edit_housing_mode"
+  },
+  "stop_game_sound_test": {
+    "help": "Stop an Game's Sound",
+    "value": "test",
+    "name": "stop_game_sound_test",
+    "helper": "This action will Play an Game's Sound",
+    "helperTitle": "Sound : Stop Game Sound (direct input)"
+  },
+  "clean_dialog": {
+    "helper": "This action will clean displayed dialog",
+    "name": "clean_dialog",
+    "helperTitle": "Dialog : Clean displayed dialog"
+  },
+  "bound_entity_to_entity": {
+    "tag": "item01",
+    "copyrotation": true,
+    "isitem": true,
+    "roll": 0,
+    "pitch": 0,
+    "helperTitle": "Entity : Bound Entity Position to another one ",
+    "helper": "This action will bound entity position to another entity",
+    "name": "bound_entity_to_entity",
+    "z": 3,
+    "x": 0,
+    "y": 0,
+    "entity": "judy01",
+    "yaw": 0
+  },
+  "consolelog": {
+    "helper": "This action will display a log in CET log ",
+    "value": "This is a CET console log !",
+    "helperTitle": "UI : CET log",
+    "name": "consolelog"
+  },
+  "change_zone": {
+    "help": "safe||neutral||hostile",
+    "value": "hostile",
+    "name": "change_zone",
+    "helper": "This action will make change the state of the area you are in",
+    "helperTitle": "Map : change the state of the area you are in"
+  },
+  "change_play_anim_entity_workspot": {
+    "tag": "myshardtag",
+    "isinstant": true,
+    "workspottag": "myworkspot",
+    "helperTitle": "Anim : Change Workspot to Entity",
+    "helper": "This action will change workspot to entity",
+    "unlockcamera": true,
+    "workspot": "cyberscript_workspot_custom_base",
+    "anim": "myanim",
+    "name": "change_play_anim_entity_workspot"
+  },
+  "news_subtitle": {
+    "helper": "This action will fire a radio subtitle on your bottom portion of the screen, The duration must complete in order for the next action to call. usecorponews field at true will display an random CorpoNews ",
+    "name": "news_subtitle",
+    "duration": 3,
+    "helperTitle": "Dialog : run a radio subtitle",
+    "title": "Hey you're finally awake!",
+    "speaker": "Judy",
+    "target": "player",
+    "usecorponews": true
+  },
+  "play_animpack_entity": {
+    "tag": "myshardtag",
+    "helperTitle": "Anim : Play Animpack to Entity",
+    "helper": "This action will play an pack of animations to entity",
+    "name": "play_animpack_entity",
+    "parallele": false,
+    "packtag": "packtagtag"
+  },
+  "play_several_anim_entity": {
+    "tag": "myshardtag",
+    "helperTitle": "Anim : Play severals Anims to Entity (if in same workspot)",
+    "helper": "This action will play chain of animations to entity (anims need to be in same workspot)",
+    "name": "play_several_anim_entity",
+    "parallele": false,
+    "anims": [ {
+      "timer": 20,
+      "isinstant": false,
+      "anim": "add__stand__2h_front__01__dynamic"
+    }, {
+      "timer": 20,
+      "isinstant": false,
+      "anim": "add__stand__2h_front__01__dynamic"
+    }, {
+      "timer": 20,
+      "isinstant": false,
+      "anim": "add__stand__2h_front__01__dynamic"
+    }, {
+      "timer": 20,
+      "isinstant": false,
+      "anim": "add__stand__2h_front__01__dynamic"
+    } ]
+  },
+  "unset_timedilationforplayer": {
+    "helper": "This action will unset current time dilatation only for player",
+    "name": "unset_timedilationforplayer",
+    "helperTitle": "Game : Unset Time Dilatation for Player"
+  },
+  "change_house_score": {
+    "value": "houseTag",
+    "name": "change_house_score",
+    "helper": "This action will change the score of a custom place",
+    "helperTitle": "House : change the score of a custom place",
+    "score": 50
+  },
+  "unset_timedilation": {
+    "helper": "This action will unset the time dilatation",
+    "name": "unset_timedilation",
+    "helperTitle": "Game : Unset Time Dilatation"
+  },
+  "change_journal_entry_state_by_hash": {
+    "notify": true,
+    "name": "change_journal_entry_state_by_hash",
+    "helper": "This action will change a journal entry to a state. 0 = Undefined, 1 = Inactive, 2 = Active, 3 = Success, 4 =  Failed",
+    "state": 3,
+    "helperTitle": "Quest : Change Journal entry to state",
+    "hash": "-1655870506"
+  },
+  "lock_mission": {
+    "helper": "This action will hide mission from journal ",
+    "value": "mymissiontag",
+    "helperTitle": "Quest : Lock Mission",
+    "name": "lock_mission"
+  },
+  "delete_tweak": {
+    "helper": "This action will delete a TweakDB record by name. value is the recordTypeName",
+    "source": "DualBasePoolEntry",
+    "name": "delete_tweak",
+    "helperTitle": "TweakDB : Delete Record"
+  },
+  "create_tweak": {
+    "value": "gamedataNPCEquipmentItemsPoolEntry_Record",
+    "source": "DualBasePoolEntry",
+    "helper": "This action will create a new TweakDB record by name. value is the recordTypeName",
+    "helperTitle": "TweakDB : Create Record",
+    "name": "create_tweak"
+  },
+  "do_random_dialog": {
+    "helper": "This action will fire a random dialog from the list of your dialog tags. NOTE: Which ever one is in the list, Their Trigger requirements have to be met.",
+    "name": "do_random_dialog",
+    "dialog": [ "dialogTAG1", "dialogTAG2", "dialogTAG3", "dialogTAG4" ],
+    "helperTitle": "Dialog : run random dialog"
+  },
+  "clone_tweak": {
+    "value": "Cyberscript.EntityB",
+    "source": "Cyberscript.EntityA",
+    "helper": "This action will Clone an existing record from another TweakDB to a flat by name.",
+    "helperTitle": "TweakDB : Clone Record",
+    "name": "clone_tweak"
+  },
+  "dialog": {
+    "helper": "This action will fire a dialog if the trigger requirements are met",
+    "name": "dialog",
+    "dialog": "dialogTag",
+    "helperTitle": "Dialog : run a dialog"
+  },
+  "set_by_get_noupdate_tweak": {
+    "value": "Cyberscript.myboss2.rarity",
+    "source": "Cyberscript.myboss.rarity",
+    "helper": "This action will set a TweakDB flat from another TweakDB flat by name and WILL NOT update it.",
+    "helperTitle": "TweakDB : Set flat by get (No Update)",
+    "name": "set_by_get_noupdate_tweak"
+  },
+  "set_by_get_tweak": {
+    "value": "Cyberscript.myboss2.rarity",
+    "source": "Cyberscript.myboss.rarity",
+    "helper": "This action will set a TweakDB flat from another TweakDB flat by name and update it.",
+    "helperTitle": "TweakDB : Set flat by get",
+    "name": "set_by_get_tweak"
+  },
+  "update_tweak": {
+    "helper": "This action will update a TweakDB flat by name.",
+    "source": "Cyberscript.myboss.rarity",
+    "name": "update_tweak",
+    "helperTitle": "TweakDB : Update"
+  },
+  "set_noupdate_tweak": {
+    "value": "NPCRarity.Elite",
+    "source": "Cyberscript.myboss.rarity",
+    "helper": "This action will set a TweakDB flat by name and WILL NOT update it.",
+    "helperTitle": "TweakDB : Set flat (No Update)",
+    "name": "set_noupdate_tweak"
+  },
+  "set_tweak": {
+    "value": "NPCRarity.Elite",
+    "source": "Cyberscript.myboss.rarity",
+    "helper": "This action will set a TweakDB flat by name and update it.",
+    "helperTitle": "TweakDB : Set flat",
+    "name": "set_tweak"
+  },
+  "goto_alias": {
+    "tag": "myactionalias",
+    "helperTitle": "Logic : Go to Alias",
+    "helper": "This action will set the current action to another action by an alias. Useful to go back to a previous action of the list. Parent is for go to the parent action list of this action (if the action is called into a sublist)",
+    "parent": true,
+    "name": "goto_alias"
+  },
+  "pull_force_entity": {
+    "name": "pull_force_entity",
+    "z": 100,
+    "helperTitle": "Entity : Pull Force",
+    "helper": "This action will Pull force an entity",
+    "y": 100,
+    "target": "judy01",
+    "x": 100
+  },
+  "push_force_entity": {
+    "name": "push_force_entity",
+    "z": 100,
+    "helperTitle": "Entity : Push Force",
+    "helper": "This action will Push force an entity",
+    "y": 100,
+    "target": "judy01",
+    "x": 100
+  },
+  "vehicle_toggle_collision": {
+    "tag": "metroVeh",
+    "value": true,
+    "helperTitle": "Vehicle : Toggle Collision",
+    "helper": "This action toggle Collision of an vehicle",
+    "name": "vehicle_toggle_collision"
+  },
+  "reset_mission": {
+    "helper": "This action will reset the mission",
+    "value": "mymissiontag",
+    "helperTitle": "Quest : Reset Mission",
+    "name": "reset_mission"
+  },
+  "vehicle_cancel_last_cmd": {
+    "helper": "This action stop the last command of an vehicle if it exist",
+    "name": "vehicle_cancel_last_cmd",
+    "tag": "metroVeh",
+    "helperTitle": "Vehicle : Cancel last command"
+  },
+  "device_glitch_on": {
+    "tag": "grouptag",
+    "value": 1,
+    "helperTitle": "Device : Glitch on compatible entity ",
+    "helper": "This action will glitch on compatible device \n 0 : Partial, 1 : Normal, 2 : Subliminal",
+    "name": "device_glitch_on"
+  },
+  "track_objective": {
+    "helper": "This action will track objective",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Track Objective",
+    "name": "track_objective"
+  },
+  "play_in_workspot": {
+    "tag": "metroVeh",
+    "isinstant": true,
+    "anim": "idle_stand",
+    "helper": "This action play the animation of an entity in the workspot",
+    "name": "play_in_workspot",
+    "helperTitle": "Entity : Play in Workspot"
+  },
+  "enter_in_workspot": {
+    "tag": "metroVeh",
+    "workspot": "cyberscript_workspot_custom_base",
+    "workspottag": "myworkspotentity",
+    "helperTitle": "Entity : Enter in workspot",
+    "helper": "This action will bound the entity to the workspot",
+    "unlockcamera": true,
+    "name": "enter_in_workspot"
+  },
+  "random_subtitle": {
+    "type": 1,
+    "title": [ "Donk is my lover", "16 time the detail", "You were trying to cross the boarder right?" ],
+    "duration": 3,
+    "helperTitle": "Dialog : run random subtitle",
+    "helper": "This action will fire a random subtitle on your bottom portion of the screen, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "random_subtitle",
+    "target": "player"
+  },
+  "device_start_using": {
+    "helper": "This action will start using compatible device",
+    "name": "device_start_using",
+    "tag": "grouptag",
+    "helperTitle": "Device : Start using compatible entity"
+  },
+  "device_stop_using": {
+    "helper": "This action will stop using compatible device",
+    "name": "device_stop_using",
+    "tag": "grouptag",
+    "helperTitle": "Device : Stop using compatible entity"
+  },
+  "vehicle_go_to_position": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Vehicle : Go to position",
+    "position_node_usegameplay": false,
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_searchdistance": "near|far|random",
+    "distance": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "position_spawnlocation": false,
+    "position": "at",
+    "help": "This action will move an vehicle with several custom parameter ",
+    "name": "vehicle_go_to_position",
+    "maxspeed": 15,
+    "minspeed": 10,
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "helper": "This action will move an vehicle with several custom parameter "
+  },
+  "fake_lips_sync": {
+    "tag": "judy",
+    "duration": 3,
+    "helperTitle": "Entity : Lips movement",
+    "helper": "This action will make a lips movement to the entity. Duration in seconds.\nParallele means it can be executed in parallele of the script or not. By default yes",
+    "parallele": true,
+    "name": "fake_lips_sync"
+  },
+  "player_look_at_position": {
+    "z": 0,
+    "name": "player_look_at_position",
+    "helper": "This action will player look at a position ",
+    "y": 0,
+    "x": 0,
+    "helperTitle": "Player : Look at position"
+  },
+  "play_random_custom_sound_with_subtitle": {
+    "type": 1,
+    "value": [ "mysound1", "mysound2", "mysound3" ],
+    "volume": 1,
+    "helperTitle": "Dialog : run Random Custom Sound Subtitle",
+    "helper": "This action will fire a random subtitle based on sound dialog on your bottom portion of the screen, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "play_random_custom_sound_with_subtitle",
+    "target": "judy"
+  },
+  "apply_effect_to_group": {
+    "tag": "mygrouptag",
+    "value": "Burning",
+    "helperTitle": "Group : apply effect to entity",
+    "helper": "This action will apply effect to a group",
+    "name": "apply_effect_to_group"
+  },
+  "toggle_infinite_ammo": {
+    "helper": "This action will toggle Infinte Ammo",
+    "value": true,
+    "name": "toggle_infinite_ammo",
+    "helperTitle": "Player : Toggle Infinte Ammo"
+  },
+  "delete_position": {
+    "helper": "This action will delete position in manager",
+    "name": "delete_position",
+    "tag": "mytag",
+    "helperTitle": "Logic : delete position from manager"
+  },
+  "register_garage_spawn_position": {
+    "helper": "This action will register the current garage spawn position in manager",
+    "name": "register_garage_spawn_position",
+    "tag": "mytag",
+    "helperTitle": "Logic : Register garage spawn position"
+  },
+  "replace_entity": {
+    "tag": "newjudy",
+    "helperTitle": "Entity : Replace entity",
+    "helper": "This action will clone an entity",
+    "persiststate": false,
+    "persistspawn": false,
+    "alwaysspawned": false,
+    "spawninview": true,
+    "deleteoriginal": false,
+    "appearance": "",
+    "target": "targettag",
+    "despawntimer": 300,
+    "source_tag": "Character.Judy",
+    "name": "replace_entity"
+  },
+  "play_custom_sound_with_subtitle": {
+    "type": 1,
+    "value": "mysound1",
+    "volume": 1,
+    "helperTitle": "Dialog : run Custom Sound Subtitle",
+    "helper": "This action will fire a subtitle based on sound dialog on your bottom portion of the screen, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "play_custom_sound_with_subtitle",
+    "target": "judy"
+  },
+  "clone_entity": {
+    "tag": "newjudy",
+    "helperTitle": "Entity : clone entity",
+    "helper": "This action will clone an entity",
+    "persiststate": false,
+    "persistspawn": false,
+    "alwaysspawned": false,
+    "spawninview": true,
+    "deleteoriginal": false,
+    "target": "targettag",
+    "despawntimer": 300,
+    "name": "clone_entity"
+  },
+  "reset_weather": {
+    "helper": "This action will reset Weather. To immediately restore the weather for the area without waiting for the next cycle, set value field to true",
+    "value": false,
+    "name": "reset_weather",
+    "helperTitle": "World : Reset Weather"
+  },
+  "play_custom_sound_with_subtitle_as_chat": {
+    "type": 1,
+    "value": "mysound1",
+    "volume": 1,
+    "helperTitle": "Dialog : run Custom Sound NPC Chat",
+    "helper": "This action will fire a NPC Chat based on sound dialog on your bottom portion of the screen, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "play_custom_sound_with_subtitle_as_chat",
+    "target": "judy01"
+  },
+  "change_weather": {
+    "blendtime": 10,
+    "value": "24h_weather_rain",
+    "name": "change_weather",
+    "helper": "This action will change Weather. The field blendTime controls the smoothness of the weather transition.\nDepending on the area and current weather cycle, it may be necessary to pass a higher priority for the weather to take effect.\nPossible Weather :\n24h_weather_toxic_rain\n24h_weather_cloudy\n24h_weather_cloudy_new\n24h_weather_default\n24h_weather_fog\n24h_weather_fog_new\n24h_weather_heavy_clouds\n24h_weather_heavy_clouds_new\n24h_weather_light_clouds\n24h_weather_pollution\n24h_weather_rain\n24h_weather_rain_3q\n24h_weather_rain_dry\n24h_weather_rain_halojump\n24h_weather_rain_new\n24h_weather_rain_new_02\n24h_weather_rain_q\n24h_weather_rain_v2\n24h_weather_sandstorm\n24h_weather_sunny",
+    "priority": 5,
+    "helperTitle": "World : Change Weather"
+  },
+  "authorization_notification": {
+    "helper": "This action will make display a Authorization notification . Type :  Unknown = 0,  GotKeycard = 1,  AccessGranted = 2,",
+    "type": 2,
+    "name": "authorization_notification",
+    "helperTitle": "UI : Authorization Notification"
+  },
+  "unlock_mission": {
+    "helper": "This action will unlock a specific custom quest",
+    "value": "mymissiontag",
+    "helperTitle": "Quest : Unlock a quest",
+    "name": "unlock_mission"
+  },
+  "custom_notification": {
+    "type": 0,
+    "value": "This is an in-Game Notification",
+    "duration": 5,
+    "name": "custom_notification",
+    "helper": "This action will display Custom Notification.  Type : \r\n Undefined = 0,\r\n   Negative = 1,\r\n   Neutral = 2,\r\n   Vehicle = 3,\r\n   Apartment = 4,\r\n   Relic = 5,\r\n   Money = 6,\r\n   Reveal = 7 ",
+    "helperTitle": "UI : Display Custom Notification"
+  },
+  "ai_phone_notification": {
+    "conversation": "testtag",
+    "duration": 5,
+    "name": "set_choice_from_ai",
+    "helper": "This action will display Phone Notification and Conversation the CyberAI mod answer",
+    "speaker": "Judy",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Display Phone Notification and Conversation From AI"
+  },
+  "unlock_objective": {
+    "helper": "This action will unlock objective",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Unlock objective",
+    "name": "unlock_objective"
+  },
+  "set_choice_from_ai": {
+    "name": "set_choice_from_ai",
+    "helper": "This action will create a choice from the CyberAI mod answer",
+    "speaker": "Judy",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Display Choice from AI"
+  },
+  "ask_ai_from_item_with_new_contexts": {
+    "tag": "mytag",
+    "contexts": [ {
+      "value": "We are in Cyberpunk 20777 game universe. Act as Judy and I'm acting as male V. We are friend and Judy know about the relic and Johnny.",
+      "context_type": "System"
+    }, {
+      "value": "Evelyn is dead. Judy, who is lesbian, start to get feeling about V, who is male.",
+      "context_type": "System"
+    } ],
+    "helperTitle": "AI : Ask from AI item with new contexts. ",
+    "helper": "This action will ask the CyberAI mod from AI item with new contexts.\n Context Type : \n - System \n - Assistant \n - User",
+    "aitag": "myconversation01",
+    "name": "ask_ai_from_item_with_new_contexts"
+  },
+  "choose_target": {
+    "helper": "This action will set the current looked at entity as Target",
+    "name": "choose_target",
+    "helperTitle": "Entity : Choose Target"
+  },
+  "ask_ai_from_item_with_value": {
+    "tag": "mytag",
+    "value": "How are Panam ?",
+    "helperTitle": "AI : Ask from AI item with new User entry",
+    "helper": "This action will ask the CyberAI mod from AI item with a new User entry",
+    "aitag": "myconversation01",
+    "name": "ask_ai_from_item_with_value"
+  },
+  "unload_scene": {
+    "helper": "This action will unload the current loaded scene",
+    "name": " unload_scene",
+    "helperTitle": "Scene : Unload an scene"
+  },
+  "win_objective": {
+    "helper": "This action will win objective",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Win Objective",
+    "name": "win_objective"
+  },
+  "change_entity_tag": {
+    "tag": "mynewtag",
+    "name": "change_entity_tag",
+    "helper": "this action will change an tentity's tag by another one",
+    "target": "judy01",
+    "helperTitle": "Entity : Change Tag"
+  },
+  "close_interface": {
+    "helper": "This action will close the current interface",
+    "name": "close_interface",
+    "helperTitle": "Interface : Close custom interface"
+  },
+  "npc_custom_copy": {
+    "newtag": "judy02",
+    "newname": "Judy Evil Twins",
+    "name": "npc_custom_copy",
+    "helper": "This action will copy a custom NPC and add it to the  entity manager",
+    "helperTitle": "Entity : Custom NPC : Copy NPC",
+    "sourcetag": "judy"
+  },
+  "get_ai_answer_in_score": {
+    "key": "answer",
+    "helperTitle": "AI : Get AI answer in Variable",
+    "helper": "This action will get the CyberAI answer in variable",
+    "aitag": "myconversation01",
+    "name": "get_ai_answer_in_score",
+    "variable": "cyberAI"
+  },
+  "change_hack_animation_percent": {
+    "value": 50,
+    "helperTitle": "UI : Set Hacking Progression bar percentage",
+    "helper": "This action will set Hacking Progression bar percentage. Text is optionnal, leave blank if not used",
+    "text": "Donk hacking you !",
+    "name": "change_hack_animation_percent"
+  },
+  "ask_ai_with_context": {
+    "value": "How are the gang ?",
+    "name": "ask_ai_with_context",
+    "helper": "This action will ask CyberAI with a system context",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Ask AI with System Context"
+  },
+  "ask_ai": {
+    "value": "How are the gang ?",
+    "name": "ask_ai",
+    "helper": "This action will ask CyberAI",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Ask AI"
+  },
+  "setup_ai_context": {
+    "value": "You are in cyberpunk 2077 world. I'm acting as V and you as bartender in Lizzie's bar in Kabuki. You know last news about gangs and street rumors. Answser me normally but bored ",
+    "name": "setup_ai_context",
+    "helper": "This action will setup CyberAI context",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Setup AI Context"
+  },
+  "set_datapack_group": {
+    "helper": "This action will set Current Interaction Group, use tag of the datapack",
+    "value": "cyberscript",
+    "helperTitle": "UI : Set Current Interaction Group",
+    "name": "set_datapack_group"
+  },
+  "unequip_item_on_slot": {
+    "tag": "player",
+    "helperTitle": "Entity : Unequip Item on Slot",
+    "helper": "This action will uneequip item on slot for entity",
+    "slot": "",
+    "name": "unequip_item_on_slot"
+  },
+  "change_quest_content": {
+    "tag": "myquesttag",
+    "value": "I change the description of the quest inside the quest UI",
+    "helperTitle": "Quest : change the (content) value of a custom quest",
+    "helper": "This action will change the (content) value of a custom quest",
+    "name": "change_quest_content"
+  },
+  "remove_group": {
+    "helper": "This action will remove a group ",
+    "name": "remove_group",
+    "tag": "grouptag",
+    "helperTitle": "Group : Delete Group"
+  },
+  "equip_item_on_slot": {
+    "tag": "player",
+    "item": "Items.crowd_cigarette_i_stick",
+    "helper": "This action will equip item on slot for entity",
+    "name": "equip_item_on_slot",
+    "slot": "",
+    "helperTitle": "Entity : Equip Item on Slot"
+  },
+  "set_timedilation_for_entity": {
+    "tag": "judy01||player",
+    "value": 5,
+    "helperTitle": "Entity : Set Time Dilatation",
+    "helper": "This action will change time dilatation for NPC",
+    "name": "set_timedilation_for_entity"
+  },
+  "hide_hack_animation": {
+    "helper": "This action will hide Hacking Progression bar",
+    "name": "hide_hack_animation",
+    "helperTitle": "UI : Hide Hacking Progression bar"
+  },
+  "equip_weapon_entity_from_current_player": {
+    "helper": "This action will equip entity with the current weapon of the player",
+    "name": "equip_weapon_entity_from_current_player",
+    "tag": "blue01",
+    "helperTitle": "Entity : Equip Player current weapons"
+  },
+  "add_stat": {
+    "help": "add 50 heath",
+    "value": "Heath",
+    "name": "add_stat",
+    "helper": "This action will add value to a stat (can be negative) ",
+    "helperTitle": "Stat : add a numerical value",
+    "score": 50
+  },
+  "change_radio_index": {
+    "tag": "grouptag",
+    "value": 1,
+    "helperTitle": "Device : Change current played radio for compatible entity",
+    "helper": "This action will change current played radio for compatible entity \n Radio Vexelstrom 0, \n Night FM 1, \n The Dirge 2, \n Radio Pebkac 3,\n Pacific Dreams 4, \n Morro Rock Radio 5, \n Body Heat Radio 6, \n 30 Principales 7, \n Ritual FM 8",
+    "name": "change_radio_index"
+  },
+  "npc_custom_summon_custom_npc": {
+    "tag": "TagExample",
+    "replacelocation": true,
+    "name": "npc_custom_summon_custom_npc",
+    "helper": "This action will summon a custom NPC at XYZ",
+    "z": 0,
+    "group": "",
+    "dospawnaction": true,
+    "doroutineaction": true,
+    "dodeathaction": true,
+    "x": -10,
+    "y": -10,
+    "dodespawnaction": true,
+    "helperTitle": "Entity : Custom NPC : Spawn a custom NPC to XYZ"
+  },
+  "yaw_looked_item": {
+    "helper": "This action will move the housing item to Yaw + value (can be negative)",
+    "value": 5,
+    "helperTitle": "Housing : move looked item to Yaw ",
+    "name": "yaw_looked_item"
+  },
+  "vehicle_add_to_traffic": {
+    "helper": "This action will change vehicle as traffic",
+    "tag": "myvehiculetag",
+    "name": "vehicle_add_to_traffic",
+    "helperTitle": "Vehicle : Add to Traffic"
+  },
+  "kill_group": {
+    "helper": "This action will kill a group ",
+    "name": "kill_group",
+    "tag": "blue01",
+    "helperTitle": "Group : Kill"
+  },
+  "set_group_circuit": {
+    "tag": "metroVeh",
+    "helperTitle": "Group : Set circuit",
+    "reverse": false,
+    "circuit": "arasaka_to_northside",
+    "name": "set_group_circuit",
+    "helper": "This action will set the circuit for a group of entity"
+  },
+  "set_entity_circuit": {
+    "tag": "myentity",
+    "helperTitle": "Node : Set Entity Circuit",
+    "reverse": false,
+    "circuit": "mycircuit",
+    "name": "set_entity_circuit",
+    "helper": "This action will set circuit for a entity"
+  },
+  "wait_tick": {
+    "help": "Wait x ticks",
+    "value": 100,
+    "name": "wait_tick",
+    "helper": "This action will wait x ticks. before perform the next action (60 ticks = 1 sec approx)",
+    "helperTitle": "Logic : Wait X ticks"
+  },
+  "remove_gang_currentsubdistrict_score": {
+    "value": 5,
+    "name": "remove_gang_currentsubdistrict_score",
+    "helper": "This action will add a value to the Gang District Score ",
+    "helperTitle": "Gang : Remove Current Sub District Score",
+    "faction": "faction_mox"
+  },
+  "move_looked_item_Z": {
+    "helper": "This action will move the housing item to player",
+    "name": "move_looked_item_Z",
+    "helperTitle": "Housing : move looked item to player"
+  },
+  "change_quest_title": {
+    "tag": "myquesttag",
+    "value": "I change the title of the quest inside the quest UI",
+    "helperTitle": "Quest : change the (title) value of a custom quest",
+    "helper": "This action will change the (title) value of a custom quest",
+    "name": "change_quest_title"
+  },
+  "active_map_group": {
+    "helper": "This action will active all of mappin in a specific mapPin group",
+    "name": "active_map_group",
+    "tag": "mymappintaggroup",
+    "helperTitle": "Map : Active all map Pin of group"
+  },
+  "set_entity_to_group": {
+    "tag": "grouptag",
+    "name": "set_entity_to_group",
+    "helper": "This action will set entity of a group of entity ",
+    "entities": [ "blue01", "red01" ],
+    "helperTitle": "Group : Set entities"
+  },
+  "reset_target": {
+    "helper": "This action will reset Target",
+    "name": "reset_target",
+    "helperTitle": "Entity : Reset Target"
+  },
+  "group_look_at_next_path_position": {
+    "tag": "metroVeh",
+    "helperTitle": "Group : Look at next Path postion",
+    "helper": "This action will turn group of entity depending of a path setted before to the next path. (zoffset) will separate in Z position each entity, (separate) will separate each entity",
+    "name": "group_look_at_next_path_position",
+    "separate": false,
+    "zoffset": 1
+  },
+  "close_menu": {
+    "helper": "This action will close the menu ",
+    "name": "close_menu",
+    "helperTitle": "Interface : Close Menu"
+  },
+  "equip_item": {
+    "helper": "This action will equip the desired item.",
+    "value": "Items.Helmet_02_old_04",
+    "helperTitle": "Item : Equip Item ",
+    "name": "equip_item"
+  },
+  "entity_stop_movement": {
+    "helper": "This action will stop the entity",
+    "name": "entity_stop_movement",
+    "tag": "judy01",
+    "helperTitle": "Entity : Stop Movement"
+  },
+  "change_anim_entity_workspot": {
+    "tag": "myshardtag",
+    "workspot": "cyberscript_workspot_custom_base",
+    "workspottag": "myworkspot",
+    "helperTitle": "Anim : Change Workspot to Entity",
+    "helper": "This action will change workspot to entity",
+    "unlockcamera": true,
+    "name": "change_anim_entity_workspot"
+  },
+  "add_leader_currentsubdistrict_score": {
+    "helper": "This action will add a value to the Gang District Score ",
+    "value": 5,
+    "helperTitle": "Gang : Remove Current Sub District Current Leader Score ",
+    "name": "add_leader_currentsubdistrict_score"
+  },
+  "set_objective_state": {
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Set objective state",
+    "helper": "This action will set state to objective. It will not play the associated action. \n  -- Undefined = 0 \n   -- Inactive = 1 \n   -- Active = 2 \n   -- Succeeded = 3 \n   -- Failed = 4",
+    "state": 0,
+    "name": "set_objective_state"
+  },
+  "move_group_at_entity_relative_position": {
+    "tag": "grouptag",
+    "move": "Walk",
+    "helperTitle": "Group : Move to another entity's relative position",
+    "helper": "This action will move a group of entity of another entity's XYZ relative position",
+    "z": 0,
+    "x": -10,
+    "y": -10,
+    "entity": "judy01||player",
+    "name": "move_group_at_entity_relative_position"
+  },
+  "register_position": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Logic : Register position",
+    "helper": "This action will register position in manager",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_from_position_x": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_searchdistance": "near|far|random",
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "position": "at",
+    "position_poi_from_position_z": 0,
+    "position_node_usegameplay": false,
+    "name": "register_position",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "tag": "mytag"
+  },
+  "set_entity_node_current": {
+    "tag": "myentity",
+    "name": "set_entity_node_current",
+    "helper": "This action will set current node for a entity",
+    "node": "mynode",
+    "helperTitle": "Node : Set Entity Current Node"
+  },
+  "move_group_at_position": {
+    "tag": "grouptag",
+    "y": -10,
+    "move": "Walk",
+    "helperTitle": "Group : Move to position",
+    "helper": "This action will move a group of entity",
+    "z": 0,
+    "x": -10,
+    "name": "move_group_at_position"
+  },
+  "custom_star_message": {
+    "help": "will display a event dialog window with currentStar as speaker, useful to make a answer from interaction if you have a star",
+    "value": "Kanpai !",
+    "name": "custom_star_message",
+    "helper": "This action will display a event dialog window with currentStar as speaker, useful to make a answer from interaction if you have a star ",
+    "helperTitle": "Dialog : Custom Star Message"
+  },
+  "set_player_attribute": {
+    "value": "Body",
+    "name": "set_player_attribute",
+    "helper": "This action will set Player Attributes",
+    "helperTitle": "Player : Set Attribute",
+    "score": 5
+  },
+  "move_looked_item_to_player_position": {
+    "helper": "This action will move the housing item to player",
+    "name": "move_looked_item_to_player_position",
+    "helperTitle": "Housing : move looked item to player"
+  },
+  "despawn_group": {
+    "helper": "This action will despawn a group of entity ",
+    "name": "despawn_group",
+    "tag": "grouptag",
+    "helperTitle": "Group : Despawn a group"
+  },
+  "remove_effect_to_group": {
+    "tag": "mygrouptag",
+    "value": "Burning",
+    "helperTitle": "Group : remove effect to entity",
+    "helper": "This action will apply effect to a group",
+    "name": "remove_effect_to_group"
+  },
+  "lock_objective": {
+    "helper": "This action will lock objective and untrack it",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : lock objective ",
+    "name": "lock_objective"
+  },
+  "set_entity_node_current_auto": {
+    "helper": "This action will set current node automatically for a entity",
+    "name": "set_entity_node_current_auto",
+    "tag": "myentity",
+    "helperTitle": "Node : Set Entity Current Node Auto"
+  },
+  "play_group_facial": {
+    "tag": "gangteam",
+    "value": "Smile",
+    "helperTitle": "Group : Play facial expression",
+    "helper": "This action will change play facial expression of each entity of a group",
+    "name": "play_group_facial"
+  },
+  "wait_for_target": {
+    "helper": "This action will wait for a selected target before do the next action ",
+    "name": "wait_for_target",
+    "helperTitle": "Logic : Wait for Target"
+  },
+  "set_relation_from_faction_to_faction": {
+    "tag": "faction_maelstrom",
+    "name": "set_relation_from_faction_to_faction",
+    "helperTitle": "Gameplay : Set Attitude Relation Between Faction",
+    "helper": "This action will set relation between a faction and another faction",
+    "target": "faction_scavengers",
+    "relation": "hostile",
+    "apply_player": true
+  },
+  "play_group_voice": {
+    "tag": "gangteam",
+    "voice": "greeting",
+    "helper": "This action will change play voice of each entity of a group",
+    "name": "play_group_voice",
+    "helperTitle": "Group : Play game voice"
+  },
+  "npc_custom_set_autoroutine": {
+    "tag": "mycustomNpcTag",
+    "value": true,
+    "helperTitle": "NPC : Custom NPC : set Repeat Routine value",
+    "helper": "This action will set the repeat_routine field of a Custom NPC",
+    "name": "npc_custom_set_autoroutine"
+  },
+  "set_component_hidden": {
+    "tag": "judy",
+    "value": "door_a_hidable",
+    "helperTitle": "Entity : Hide component",
+    "helper": "This action will hide/show a entity's component.",
+    "hide": true,
+    "name": "set_component_hidden"
+  },
+  "vehicle_go_to_fasttravel_point": {
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Go to Fast Travel Point",
+    "greenlight": true,
+    "needdriver": true,
+    "usetraffic": true,
+    "speed": 50,
+    "name": "vehicle_go_to_fasttravel_point",
+    "destination": "#hey_gle_dataterm_04",
+    "helper": "This action will launch the vehicle to the expected fast travel point. you can find travel point markerred in quest_mod\\data\\db\\fasttravelmarkref"
+  },
+  "remove_entity_from_group": {
+    "tag": "grouptag",
+    "name": "remove_entity_from_group",
+    "helper": "This action will remove a entity of a group of entity",
+    "entities": [ "blue01", "red01" ],
+    "helperTitle": "Group : Remove Entity"
+  },
+  "add_to_custom_score": {
+    "helperTitle": "Score :  add to the value of a custom score, can be negative for remove",
+    "helper": "This action will change the value of a custom score, can be negative for remove",
+    "name": "add_to_custom_score",
+    "score": 50,
+    "variable": "customScore"
+  },
+  "refresh_shard_cache": {
+    "helper": "This action will refresh shard cache",
+    "name": "refresh_shard_cache",
+    "helperTitle": "Misc : Refresh shard cache"
+  },
+  "clear_transmog_slot": {
+    "helper": "This action will unequip the desired transmog slot (need to be active).",
+    "value": 16,
+    "helperTitle": "Item : Unequip Transmog slot ",
+    "name": "clear_transmog_slot"
+  },
+  "set_entity_node_next": {
+    "tag": "myentity",
+    "name": "set_entity_node_next",
+    "helper": "This action will set Next node for a entity",
+    "node": "mynode",
+    "helperTitle": "Node : Set Entity Next Node"
+  },
+  "while_one": {
+    "trigger": {
+      "tag": "helico",
+      "radius": 2,
+      "name": "entity_at_relative_position",
+      "x": 0,
+      "y": 0,
+      "z": 65
+    },
+    "action": {
+      "name": "consolelog",
+      "value": "True"
+    },
+    "helper": "This action will check a trigger and execute 1 action while this trigger is fullfilled",
+    "name": "while_one",
+    "helperTitle": "Logic : While 1 action"
+  },
+  "set_entity_highlight": {
+    "tag": "judy01",
+    "value": true,
+    "helperTitle": "Entity : Toggle Hightlight  ",
+    "helper": "This action will toggle gold highlight the entity",
+    "name": "set_entity_highlight"
+  },
+  "execute_at_script_level": {
+    "tag": "judy01",
+    "scriptlevel": 1,
+    "name": "execute_at_script_level",
+    "helper": "This action will execute an list of action if the target have the same scriptlevel than the action",
+    "helperTitle": "Entity : Execute At Script Level",
+    "action": [ {
+      "name": "consolelog",
+      "value": "True"
+    }, {
+      "name": "notify",
+      "value": "True"
+    } ]
+  },
+  "set_player_skill_progression": {
+    "value": "Athletics",
+    "name": "set_player_skill_progression",
+    "helper": "This action will set Player Skill Progression",
+    "helperTitle": "Player : Set Skill Progression",
+    "score": 5
+  },
+  "rotate_entity": {
+    "tag": "guy01",
+    "helper": "This action will rotate a custom entity",
+    "helperTitle": "Entity : Rotate",
+    "roll": 0,
+    "pitch": 0,
+    "name": "rotate_entity",
+    "yaw": 0
+  },
+  "for_entity_around_you": {
+    "action": [],
+    "name": "for_entity_around_you",
+    "filter": [ "mox", "npc" ],
+    "helperTitle": "Entity : For Entity around you",
+    "helper": "This action will register each entity founded in the player's view in an determined range and filter. \n leave filter at [] for take all. \n The filter will check in the name, display name and appearance of the entity \n The founded entities will be registred in script manager and added in an group called temp_around_group. \n Fill the action list will perform theses action to each founded entities. \n limit 0 means it will take at max 9999 entities",
+    "limit": 0,
+    "group": "",
+    "range": 5
+  },
+  "change_anim_entity": {
+    "tag": "myshardtag",
+    "isinstant": false,
+    "anim": "add__stand__2h_front__01__dynamic",
+    "helper": "This action will change animation to entity",
+    "name": "change_anim_entity",
+    "helperTitle": "Anim : Change Anim to Entity (if in same workspot)"
+  },
+  "stop_in_workspot": {
+    "helper": "This action stop the animation of an entity in the workspot",
+    "name": "stop_in_workspot",
+    "tag": "metroVeh",
+    "helperTitle": "Entity : Stop in Workspot"
+  },
+  "for_enemy_around_you": {
+    "action": [],
+    "filter": [ "mox", "npc" ],
+    "helperTitle": "Entity : For Enemies around you",
+    "helper": "This action will register each enemies founded in the player's view in an determined range and filter. \n leave filter at [] for take all. \n The filter will check in the name, display name and appearance of the entity \n The founded entities will be registred in script manager and added in an group called temp_around_group. \n Fill the action list will perform theses action to each founded entities.\n limit 0 means it will take at max 9999 entities",
+    "name": "for_enemy_around_you",
+    "group": "",
+    "range": 5
+  },
+  "device_turn_on": {
+    "helper": "This action will turn on compatible device",
+    "name": "device_turn_on",
+    "tag": "grouptag",
+    "helperTitle": "Device : Turn on compatible entity"
+  },
+  "change_house_statut": {
+    "help": "-- 0 or nil : not buyed || 1 : buyed || 2 : business",
+    "value": "houseTag",
+    "name": "change_house_statut",
+    "helper": "This action will change the statut of a custom place ",
+    "helperTitle": "House : change the statut of a custom place",
+    "score": 1
+  },
+  "for_entity_in_group": {
+    "tag": "mygroup",
+    "name": "for_entity_in_group",
+    "helper": "This action will apply a sub actionlist to each entity in a group. In the subactionlist, use the tag 'this'",
+    "action": [],
+    "helperTitle": "Group : For each entity in group"
+  },
+  "device_turn_off": {
+    "helper": "This action will turn off compatible device",
+    "name": "device_turn_off",
+    "tag": "grouptag",
+    "helperTitle": "Device : Turn off compatible entity"
+  },
+  "vehicle_change_windows": {
+    "tag": "myvehiculetag",
+    "value": "open",
+    "name": "vehicle_change_windows",
+    "helper": "This action will change the state of car windows (open||close)",
+    "helperTitle": "Vehicule : Change Windows State"
+  },
+  "pause_sound_channel": {
+    "help": "Use Sound Manager Mod to pause a channel (sound, music or env)",
+    "name": "pause_sound_channel",
+    "helper": "This action will use Sound Manager Mod to pause a channel (sound, music or env) ",
+    "channel": "sound",
+    "helperTitle": "Sound : Pause a channel"
+  },
+  "set_group_node_current": {
+    "tag": "metroVeh",
+    "name": "set_group_node_current",
+    "helper": "This action will set the current node for a group of entity ",
+    "node": "myNode",
+    "helperTitle": "Group : Set Current Node "
+  },
+  "unsubscribe_from_direct_action": {
+    "helper": "This action will unsubscribe registred item from direct Action Engine",
+    "name": "unsubscribe_from_direct_action",
+    "tag": "myshardtag",
+    "helperTitle": "Script : Unregister from Direct Action Engine"
+  },
+  "add_camera_position": {
+    "z": 0,
+    "name": "add_camera_position",
+    "helper": "This action will change the position of the camera",
+    "y": -10,
+    "x": -10,
+    "helperTitle": "UI : Change Camera Position"
+  },
+  "npcd_finish_notification": {
+    "name": "npcd_finish_notification",
+    "helper": "This action will make display a NCPD Job Finish Notification",
+    "levelXPAwarded": 50,
+    "streetCredXPAwarded": 50,
+    "helperTitle": "UI : NCPD Job Finish Notification"
+  },
+  "change_custom_score": {
+    "helperTitle": "Score :  change the value of a custom score",
+    "helper": "This action will change the value of a custom score",
+    "name": "change_custom_score",
+    "score": 50,
+    "variable": "customScore"
+  },
+  "change_camera_rotation": {
+    "helper": "This action will the rotation of the camera",
+    "name": "change_camera_rotation",
+    "roll": -10,
+    "pitch": -10,
+    "helperTitle": "UI : Change Camera Rotation",
+    "yaw": 0
+  },
+  "buy_item": {
+    "value": "Items.Vest_06_rich_03",
+    "name": "buy_item",
+    "helper": "This action will buy a item for the player",
+    "helperTitle": "Items : Buy a item",
+    "amount": 5,
+    "price": 1200
+  },
+  "set_group_node_current_auto": {
+    "tag": "metroVeh",
+    "name": "set_group_node_current_auto",
+    "helper": "This action will set the current node automatically for a group of entity depending of a circuit setted before",
+    "helperTitle": "Group : Set Current Node Automatically",
+    "range": 50
+  },
+  "safe_execution": {
+    "help": "will try to execute an action then play an actionlist if it fails",
+    "failactions": [],
+    "action": {
+      "helper": "This action will unset time dilatation for NPC",
+      "name": "unset_timedilation_for_entity",
+      "tag": "judy01||player",
+      "helperTitle": "Entity : Unset Time Dilatation"
+    },
+    "helper": "will try to execute an action then play an actionlist if it fails",
+    "name": "safe_execution",
+    "helperTitle": "Script : Run action in Safe Execution"
+  },
+  "play_scene": {
+    "helper": "This action will play totally the loaded scene",
+    "name": " play_scene",
+    "helperTitle": "Scene : Play an scene"
+  },
+  "pitch_looked_item": {
+    "helper": "This action will move the housing item to Pitch + value (can be negative)",
+    "value": 5,
+    "helperTitle": "Housing : move looked item to Pitch ",
+    "name": "pitch_looked_item"
+  },
+  "change_tv_index": {
+    "tag": "grouptag",
+    "value": 1,
+    "helperTitle": "Device : Change current played channel for compatible TV entity",
+    "helper": "This action will change current played channel for compatible TV entity \n 0 54news \n 1 54 \n 2 wns news \n  3 wns \n  4 just adds",
+    "name": "change_tv_index"
+  },
+  "set_entity_node_path_auto": {
+    "helper": "This action will set path automatically for a entity",
+    "name": "set_entity_node_path_auto",
+    "tag": "myentity",
+    "helperTitle": "Node : Set Entity Path Auto"
+  },
+  "change_vehicle_skin": {
+    "helper": "This action will spawn the vehicle",
+    "value": "Vehicle.cs_savable_archer_hella_police_siren",
+    "helperTitle": "Vehicle : Change Vehicle Skin",
+    "name": "change_vehicle_skin"
+  },
+  "delete_scannerdata": {
+    "helper": "This action will delete Scanner Data",
+    "name": "delete_scannerdata",
+    "tag": "judy01",
+    "helperTitle": "Scanner : Delete Custom Scanner"
+  },
+  "add_camera_rotation": {
+    "helper": "This action will the rotation of the camera",
+    "name": "add_camera_rotation",
+    "roll": -10,
+    "pitch": -10,
+    "helperTitle": "UI : Change Camera Rotation",
+    "yaw": 0
+  },
+  "reset_last_killed_entity": {
+    "helper": "This action will empty last killed entity  ",
+    "name": "reset_last_killed_entity",
+    "helperTitle": "Entity : Empty last killed entity"
+  },
+  "do_random_event": {
+    "events": [ "event01", "event02", "event03", "event04", "event05", "event06" ],
+    "name": "do_random_event",
+    "helper": "This action will do a random event in the list",
+    "helperTitle": "Event : Do a random event from a list",
+    "parallele": false
+  },
+  "set_player_perk": {
+    "value": "SteelAndChrome",
+    "name": "set_player_perk",
+    "helper": "This action will set Player Perk",
+    "helperTitle": "Player : Set Perk",
+    "score": 5
+  },
+  "set_variable": {
+    "key": "MyKey",
+    "value": "Hello",
+    "helperTitle": "Variable : Set Variable",
+    "helper": "This action will set a value for a key of a Variable ",
+    "name": "set_variable",
+    "variable": "MyVar"
+  },
+  "clear_interface_to_inkwidget_entity": {
+    "helper": "This action will clear Interface to inkwidget Entity",
+    "helperTitle": "UI : Clear Interface to InkWidget Entity",
+    "tag": "myentitytag",
+    "name": "clear_interface_to_inkwidget_entity"
+  },
+  "run_entity_path": {
+    "isrelative": false,
+    "tag": "myentity",
+    "helperTitle": "Node : Set Entity Path Auto",
+    "helper": "This action will set path automatically for a entity",
+    "name": "run_entity_path",
+    "separate": 0,
+    "zoffset": 0
+  },
+  "player_look_at_entity": {
+    "helper": "This action will player look at a custom entity ",
+    "name": "player_look_at_entity",
+    "tag": "blue01",
+    "helperTitle": "Player : Look at entity"
+  },
+  "spawn_inkwidget_entity": {
+    "tag": "myentitytag",
+    "helperTitle": "UI : Spawn InkWidget Entity",
+    "name": "spawn_inkwidget_entity",
+    "helper": "This action will Spawn an special inkwidget Entity",
+    "y": 5,
+    "x": 5,
+    "z": 5
+  },
+  "apply_interface_to_inkwidget_entity": {
+    "tag": "myInterfaceTag",
+    "name": "apply_interface_to_inkwidget_entity",
+    "helper": "This action will apply Interface to inkwidget Entity",
+    "entity": "myentitytag",
+    "helperTitle": "UI : Apply Interface to InkWidget Entity"
+  },
+  "open_stash": {
+    "helper": "This action will open stash of V's appartement ",
+    "name": "open_stash",
+    "help": "Open the V's appartement stash everywhere",
+    "helperTitle": "UI : Open Stash"
+  },
+  "open_help": {
+    "tag": "CyberMod_help",
+    "helperTitle": "UI : Open help popup",
+    "helper": "Open an help item as object",
+    "popupposition": 5,
+    "isblocking": true,
+    "name": "open_help",
+    "ismodal": false,
+    "closeatinput": true,
+    "pausegame": true
+  },
+  "rotate_entity_npc_to_position": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Entity : Rotate to NPC entity to position",
+    "helper": "This action will rotate a custom NPC entity to xyz position",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "maxspeed": 15,
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_searchdistance": "near|far|random",
+    "distance": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "roll": 0,
+    "pitch": 0,
+    "position": "at",
+    "position_node_usegameplay": false,
+    "name": "rotate_entity_npc_to_position",
+    "minspeed": 10,
+    "position_spawnlocation": false,
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_poi_subdistrict": ""
+  },
+  "move_looked_item_Y": {
+    "helper": "This action will move the housing item to Y + value (can be negative)",
+    "value": 5,
+    "helperTitle": "Housing : move looked item to Y ",
+    "name": "move_looked_item_Y"
+  },
+  "set_attribute": {
+    "value": "Strength",
+    "name": "set_attribute",
+    "helper": "This action set player attribute (Possible attributes : Reflexes | Strength | Cool | Intelligence | TechnicalAbility | ColdBlood | Hacking | Stealth | Gunslinger | Kenjutsu | Assault | Crafting | Engineering | Hacking | CombatHacking | Athletics | Demolition | Brawling | StreetCred | Level",
+    "helperTitle": "Player : Set Attribute",
+    "score": 5
+  },
+  "current_place_apply_template": {
+    "tag": "mytemplate",
+    "y": 0,
+    "helperTitle": "Housing : Apply template to current place",
+    "helper": "This action will apply a template to the current place. XYZ are the center anchor",
+    "z": 0,
+    "x": 0,
+    "name": "current_place_apply_template"
+  },
+  "set_group_node_path_auto": {
+    "helper": "This action will set a path automatically for a group of entity depending of a circuit setted before",
+    "name": "set_group_node_path_auto",
+    "tag": "metroVeh",
+    "helperTitle": "Group : Set Path Automatically"
+  },
+  "clean_subtitle": {
+    "helper": "This action will clean any subtitle present",
+    "name": "clean_subtitle",
+    "helperTitle": "Dialog : clean subtitle"
+  },
+  "rotate_entity_to_position": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Entity : Rotate to entity to position",
+    "helper": "This action will rotate a custom entity to xyz position",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "maxspeed": 15,
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_searchdistance": "near|far|random",
+    "distance": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "roll": 0,
+    "pitch": 0,
+    "position": "at",
+    "position_node_usegameplay": false,
+    "name": "rotate_entity_to_position",
+    "minspeed": 10,
+    "position_spawnlocation": false,
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_poi_subdistrict": ""
+  },
+  "fade_out": {
+    "help": "will fade out the screen in X second ",
+    "value": 5,
+    "name": "fade_out",
+    "helper": "This action will fade out the screen in X second ",
+    "helperTitle": "UI : Fade Out"
+  },
+  "operate_score": {
+    "key": "MyKey",
+    "helperTitle": "Score : Operate Score",
+    "helper": "This action will operate a value for a key of a score. Can be number, boolean or text \n Operator can be + | -| * | / | positive | negative | random (who take min and max value) | ceil | floor",
+    "min": 0,
+    "max": 5,
+    "value": 2,
+    "operator": "+",
+    "score": "MyScore",
+    "name": "operate_score"
+  },
+  "rotate_entity_to_entity": {
+    "tag": "guy01",
+    "name": "rotate_entity_to_entity",
+    "helper": "This action will rotate a custom entity to another one",
+    "entity": "judy01||player",
+    "helperTitle": "Entity : Rotate to entity"
+  },
+  "give_money": {
+    "helper": "This action will make give a amount of money",
+    "value": 500,
+    "helperTitle": "Money : Give money",
+    "name": "give_money"
+  },
+  "vehicle_set_invincible": {
+    "helper": "This action will make the vehicle invincible",
+    "name": "vehicle_set_invincible",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Invincible"
+  },
+  "phone_notification": {
+    "conversation": "myphoneconvtag",
+    "duration": 5,
+    "name": "phone_notification",
+    "helper": "This action will make display a phone message notification. conversation is optional (leave empty if not need, if not empty it will load an custom conversation in the popup)",
+    "title": "Judy : Thanks for the night, V !",
+    "desc": "I really enjoyed it :) ",
+    "helperTitle": "UI : Phone Notification"
+  },
+  "player_toggle_invisible": {
+    "helper": "This action will make V invisible or not",
+    "value": true,
+    "helperTitle": "Player : Toggle Invisibility",
+    "name": " player_toggle_invisible"
+  },
+  "spawn_npc": {
+    "position_house_tag": "playerhouse01",
+    "create_group_if_not_exist": false,
+    "helperTitle": "Entity : Spawn NPC",
+    "source_tag": "Character.Judy",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "source_use_rival": false,
+    "source_tag_helper": "Character.Judy||faction_mox||district_westbrook||NorthOaks",
+    "alwaysspawned": false,
+    "spawnlevel": 36,
+    "appearance": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "source_use_vip": false,
+    "yaw": 0,
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "spawn_npc",
+    "roll": 0,
+    "position_poi_from_position_x": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_from_position_z": 0,
+    "spawninview": true,
+    "dontregister": false,
+    "persistspawn": false,
+    "persiststate": false,
+    "amount": 1,
+    "y": 0,
+    "usecodeware": true,
+    "use_police_prevention_system": false,
+    "x": 0,
+    "npcname": "Judy",
+    "tag": "blue01",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "source_list": [ "Character.Judy" ],
+    "z": 0,
+    "amountoffsety": 0,
+    "amountoffsetx": 0,
+    "position_poi_use_location_tag": false,
+    "position_poi_subdistrict": "",
+    "position_house_way": "default",
+    "source": "npc",
+    "position_house_way_helper": "default||enter||exit",
+    "pitch": 0,
+    "despawntimer": 300,
+    "help": "This action will summon a custom npc with several custom parameter ",
+    "helper": "This action will summon a custom npc with several custom parameter ",
+    "position": "at",
+    "source_helper": "npc||current_star||faction||faction_random_list||current_district_leader||current_subdistrict_leader||district_leader||subdistrict_leader||random||from_list||district_rival||subdistrict_rival||current_district_rival||current_subdistrict_rival||custom_npc",
+    "source_gang": "faction_mox",
+    "position_node_usegameplay": false,
+    "position_poi_district": "",
+    "group": "",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "scriptlevel": 0,
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_searchdistance": "near|far|random",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "isboss": false
+  },
+  "gang_affinity": {
+    "value": "mymissionTag01",
+    "name": "gang_affinity",
+    "helper": "This action will add affinity to a a specific gang (can be a negative value)",
+    "helperTitle": "Gang : add Affinity",
+    "score": 50
+  },
+  "device_glitch_off": {
+    "helper": "This action will glitch off compatible device",
+    "name": "device_glitch_off",
+    "tag": "grouptag",
+    "helperTitle": "Device : Glitch off compatible entity"
+  },
+  "current_place_clear_all_item": {
+    "helper": "This action will clear all items in the current place",
+    "name": "current_place_clear_all_item",
+    "helperTitle": "Housing : clear all items in current place "
+  },
+  "change_camera_position": {
+    "z": 0,
+    "name": "change_camera_position",
+    "helper": "This action will change the position of the camera",
+    "y": -10,
+    "x": -10,
+    "helperTitle": "UI : Change Camera Position"
+  },
+  "set_score": {
+    "key": "MyKey",
+    "value": 2,
+    "name": "set_score",
+    "helper": "This action will set a value for a key of a score ",
+    "helperTitle": "Score : Set Score",
+    "score": "MyScore"
+  },
+  "stop_anim_entity": {
+    "helper": "This action will stop animation to entity",
+    "name": "stop_anim_entity",
+    "tag": "myshardtag",
+    "helperTitle": "Anim : Stop Anim for Entity"
+  },
+  "gang_affinity_from_current_district_leader": {
+    "helper": "This action will add affinity to current district leader gang (can be a negative value)",
+    "score": 50,
+    "helperTitle": "Gang : add Affinity to current District Leader",
+    "name": "gang_affinity_from_current_district_leader"
+  },
+  "register_last_killed_entity": {
+    "helper": "This action will register last killed entity  ",
+    "name": "register_last_killed_entity",
+    "tag": "killed",
+    "helperTitle": "Entity : Register last killed entity"
+  },
+  "player_toggle_v_component_visibility": {
+    "helper": "This action will make all V's body component invisible or not",
+    "value": true,
+    "helperTitle": "Player : Toggle all V's Body Component Invisibility",
+    "name": " player_toggle_v_component_visibility"
+  },
+  "set_player_skill": {
+    "value": "Athletics",
+    "name": "set_player_skill",
+    "helper": "This action will set Player Skill",
+    "helperTitle": "Player : Set Skill",
+    "score": 5
+  },
+  "track_mappin": {
+    "helper": "This action will track mappin",
+    "name": "track_mappin",
+    "tag": "grouptag",
+    "helperTitle": "Mappin : Track"
+  },
+  "vehicule_autodrive_activate": {
+    "tag": "autobatty",
+    "zfly": 150,
+    "helperTitle": "Vehicule : start Autodrive",
+    "helper": "This action will start autodrive of vehicle to the autodrive saved location",
+    "z": 20,
+    "isAV": true,
+    "name": "vehicule_autodrive_activate",
+    "pathfinding": false,
+    "x": 500,
+    "y": 500,
+    "speed": 0.5,
+    "do_rotation": false
+  },
+  "do_function": {
+    "value": "myfunction",
+    "applyto": "",
+    "name": "do_function",
+    "helper": "This action will fire a function",
+    "helperTitle": "Function : Do a function",
+    "parallele": false,
+    "repeats": 0
+  },
+  "untrack_mappin": {
+    "helper": "This action will stop tracking any mappin",
+    "name": "untrack_mappin",
+    "tag": "grouptag",
+    "helperTitle": "Mappin : Untrack"
+  },
+  "mod_statpool_max": {
+    "tag": "judy",
+    "value": "Health",
+    "score": 50,
+    "helper": "This action will change the stat to the max value",
+    "helperTitle": "Stat : Set Stat to max",
+    "name": "mod_statpool_max"
+  },
+  "set_fact": {
+    "value": "judy_romanceable",
+    "score": 1,
+    "helper": "This action will change Game Fact to score",
+    "name": "set_fact",
+    "helperTitle": "Game : Change Fact"
+  },
+  "remove_leader_currentsubdistrict_score": {
+    "helper": "This action will add a value to the Gang District Score ",
+    "value": 5,
+    "helperTitle": "Gang : Remove Current Sub District Current Leader  Score",
+    "name": "remove_leader_currentsubdistrict_score"
+  },
+  "wait": {
+    "help": "minutes in game",
+    "value": 5,
+    "name": "wait",
+    "helper": "This action will wait X minutes in game time before do the next action ",
+    "helperTitle": "Logic : Wait"
+  },
+  "toggle_infinite_stamina": {
+    "helper": "This action will toggle Infinite Stamina",
+    "value": true,
+    "name": "toggle_infinite_stamina",
+    "helperTitle": "Player : Toggle Infinite Stamina"
+  },
+  "inject_dialog": {
+    "helper": "This action will fire a dialog if the trigger requirements are met",
+    "name": "inject_dialog",
+    "dialog": "dialogTag",
+    "helperTitle": "Dialog : inject a dialog to the next called native dialog"
+  },
+  "unequip_item": {
+    "helper": "This action will unequip the desired item.",
+    "value": "Items.Helmet_02_old_04",
+    "helperTitle": "Item : Unequip Item ",
+    "name": "unequip_item"
+  },
+  "set_level": {
+    "helper": "This action will set the level of the player",
+    "score": 5,
+    "helperTitle": "Player : Set Level",
+    "name": "set_level"
+  },
+  "set_gang_district_score": {
+    "district": "district_westbrook",
+    "value": 5,
+    "helperTitle": "Gang : Set District Score",
+    "helper": "This action will set a value to the Gang District Score ",
+    "help": "refer to the quest_mod folder--> data folder--> db folder to find the district.json to use the proper district tag",
+    "name": "set_gang_district_score",
+    "faction": "faction_mox"
+  },
+  "for": {
+    "name": "for",
+    "helper": "This action will execute a list of actions X times",
+    "amount": 5,
+    "helperTitle": "Logic : For",
+    "action": [ {
+      "name": "consolelog",
+      "value": "True"
+    }, {
+      "name": "notify",
+      "value": "True"
+    } ]
+  },
+  "current_place_clear_all_template": {
+    "helper": "This action will clear all item that are from a template in the current place",
+    "name": "current_place_clear_all_template",
+    "helperTitle": "Housing : clear all item from any template "
+  },
+  "goto": {
+    "name": "goto",
+    "helper": "This action will set the current action to the index. Useful to go back to a previous action of the list. Parent is for go to the parent action list of this action (if the action is called into a sublist)",
+    "parent": true,
+    "helperTitle": "Logic : Go to index",
+    "index": 1
+  },
+  "if": {
+    "trigger": {
+      "tag": "helico",
+      "radius": 2,
+      "name": "entity_at_relative_position",
+      "x": 0,
+      "y": 0,
+      "z": 65
+    },
+    "helperTitle": "Logic : If",
+    "if_action": [ {
+      "name": "consolelog",
+      "value": "True"
+    }, {
+      "name": "notify",
+      "value": "True"
+    } ],
+    "else_action": [ {
+      "name": "consolelog",
+      "value": "False"
+    }, {
+      "name": "notify",
+      "value": "False"
+    } ],
+    "name": "if",
+    "helper": "This action will check a trigger and execute IF actions if the trigger is OK or ELSE action if the trigger is not OK"
+  },
+  "give_perk_point": {
+    "helper": "This action will amount an of perk point",
+    "score": 5,
+    "helperTitle": "Player : Give Perk Point",
+    "name": "give_perk_point"
+  },
+  "remove_leader_currentdistrict_score": {
+    "helper": "This action will add a value to the Gang District Score ",
+    "value": 5,
+    "helperTitle": "Gang : Remove Current District Current Leader Score",
+    "name": "remove_leader_currentdistrict_score"
+  },
+  "current_place_clear_template": {
+    "helper": "This action will clear all item that are from a specific template in the current place",
+    "name": "current_place_clear_template",
+    "tag": "mytemplate",
+    "helperTitle": "Housing : clear all item from template "
+  },
+  "reset_camera": {
+    "helper": "This action will reset camera",
+    "name": "reset_camera",
+    "helperTitle": "UI : Reset Camera Position"
+  },
+  "set_group_node_next_auto": {
+    "helper": "This action will set the next node automatically for a group of entity depending of a circuit setted before",
+    "name": "set_group_node_next_auto",
+    "tag": "metroVeh",
+    "helperTitle": "Group : Set Next Node Automatically"
+  },
+  "open_menu": {
+    "helper": "This action will open the menu ",
+    "value": "world_map",
+    "helperTitle": "Interface : Open Menu",
+    "name": "open_menu"
+  },
+  "vehicule_autodrive_activate_custom_mappin": {
+    "do_rotation": false,
+    "zfly": 150,
+    "pathfinding": false,
+    "helper": "This action will start autodrive of vehicle to the autodrive enabled custom Mappin",
+    "speed": 0.5,
+    "name": "vehicule_autodrive_activate_custom_mappin",
+    "isAV": true,
+    "tag": "autobatty",
+    "helperTitle": "Vehicule : start Autodrive to Custom Mappin"
+  },
+  "kill_entity": {
+    "helper": "This action will kill a custom entity ",
+    "name": "kill_entity",
+    "tag": "blue01",
+    "helperTitle": "Entity : Kill"
+  },
+  "add_leader_currentdistrict_score": {
+    "helper": "This action will add a value to the Gang District Score ",
+    "value": 5,
+    "helperTitle": "Gang : Add Current District Current Leader Score",
+    "name": "add_leader_currentdistrict_score"
+  },
+  "give_skill_point": {
+    "helper": "This action will amount an of skill point",
+    "score": 5,
+    "helperTitle": "Player : Give Skill Point",
+    "name": "give_skill_point"
+  },
+  "vehicle_reset": {
+    "helper": "This action will reset the vehicle",
+    "name": "vehicle_reset",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Reset"
+  },
+  "lock_message": {
+    "helper": "This action will lock the message ",
+    "name": "lock_message",
+    "tag": "myobj",
+    "helperTitle": "Interface : Lock Message"
+  },
+  "reset_timer": {
+    "helper": "This action will reset the timer ",
+    "name": "reset_timer",
+    "helperTitle": "UI : Reset timer"
+  },
+  "hide_timer_remaning": {
+    "helper": "This action will Hide the remaning timer ",
+    "name": "hide_timer_remaning",
+    "help": "Hide the remaning timer",
+    "helperTitle": "UI : Hide Remaning Timer"
+  },
+  "add_gang_currentsubdistrict_score": {
+    "value": 5,
+    "name": "add_gang_currentsubdistrict_score",
+    "helper": "This action will add a value to the Gang District Score ",
+    "helperTitle": "Gang : Remove Current Sub District Score",
+    "faction": "faction_mox"
+  },
+  "set_entity_stat": {
+    "value": 2,
+    "helperTitle": "Entity : Set Stat Modifier",
+    "helper": "This action will set and stat modifier for an entity. look at https://nativedb.red4ext.com/gamedataStatType for the stat and https://nativedb.red4ext.com/gameStatModifierType for the modifiertype ",
+    "stat": "JumpHeight",
+    "name": "set_entity_stat",
+    "modifierType": "Multiplier"
+  },
+  "resume_sound_channel": {
+    "help": "Use Sound Manager Mod to resume a channel (sound, music or env)",
+    "name": "resume_sound_channel",
+    "helper": "This action will Use Sound Manager Mod to resume a channel (sound, music or env) ",
+    "channel": "sound",
+    "helperTitle": "Sound : Resume channel"
+  },
+  "activate_camera": {
+    "helper": "This action will move an camera object (type can be free or entity, entity will bound the camera to an entity current position and angle)",
+    "name": "activate_camera",
+    "tag": "mycamera",
+    "helperTitle": "UI : Active Camera"
+  },
+  "remove_gang_currentdistrict_score": {
+    "value": 5,
+    "name": "remove_gang_currentdistrict_score",
+    "helper": "This action will add a value to the Gang District Score ",
+    "helperTitle": "Gang : Remove Current District Score",
+    "faction": "faction_mox"
+  },
+  "npc_star_affinity": {
+    "helper": "This action will add affinity to the current npc that you have invite to join you (can be a negative value)",
+    "value": 50,
+    "helperTitle": "NPC : add affinity to the current one you ask to join you",
+    "name": "npc_star_affinity"
+  },
+  "incoming_call": {
+    "isrejectable": true,
+    "image": "Avatar_Ncpd",
+    "answer_action": [ {
+      "name": "notify",
+      "value": "YEP"
+    } ],
+    "helperTitle": "UI : Incoming Call",
+    "rejected_action": [ {
+      "name": "notify",
+      "value": "Nope"
+    } ],
+    "helper": "This action will trigger an incoming call Animation. Call Mode : 1 : Audio, 2: Video",
+    "name": "incoming_call",
+    "caller": "Judy"
+  },
+  "reset_av_velocity": {
+    "helper": "This action will reset velocity of AV (0.005)",
+    "name": "reset_av_velocity",
+    "helperTitle": "Vehicule : Reset AV velocity"
+  },
+  "sellCurrentHouse": {
+    "helper": "This action will sell the custom place where you are if you own it",
+    "name": "sellCurrentHouse",
+    "helperTitle": "House : Sell Current House"
+  },
+  "add_gang_currentdistrict_score": {
+    "value": 5,
+    "name": "add_gang_currentdistrict_score",
+    "helper": "This action will add a value to the Gang District Score ",
+    "helperTitle": "Gang : Add Current District Score",
+    "faction": "faction_mox"
+  },
+  "unsubscribe_from_direct_execution": {
+    "helper": "This action will unsubscribe registred item from direct execution engine",
+    "name": "unsubscribe_from_direct_execution",
+    "tag": "myshardtag",
+    "helperTitle": "Script : Unregister from Direct Execution"
+  },
+  "pause_entity_anim": {
+    "helper": "This action will pause the animation of an entity",
+    "name": "pause_entity_anim",
+    "tag": "metroVeh",
+    "helperTitle": "Entity : Pause Animation"
+  },
+  "open_phone": {
+    "helper": "This action will open the phone ",
+    "name": "open_phone",
+    "helperTitle": "Interface : Open Phone"
+  },
+  "simple_message": {
+    "helper": "This action will make display a in game message",
+    "value": "This is a ingame Message !",
+    "helperTitle": "UI : Message",
+    "name": "simple_message"
+  },
+  "outcoming_call": {
+    "image": "Avatar_Ncpd",
+    "name": "outcoming_call",
+    "helper": "This action will trigger an Outcoming call Animation. Call Mode : 1 : Audio, 2: Video",
+    "helperTitle": "UI : Outcoming Call",
+    "caller": "Judy"
+  },
+  "wait_for_ai_answer": {
+    "helper": "This action will wait that the CyberAI finished to answer",
+    "aitag": "myconversation01",
+    "name": "wait_for_ai_answer",
+    "helperTitle": "AI : Wait for answer"
+  },
+  "give_random_money": {
+    "max": 1000,
+    "name": "give_random_money",
+    "helper": "This action will make give a random amount of money",
+    "helperTitle": "Money : Give Random money",
+    "min": 50
+  },
+  "set_metro_time": {
+    "helper": "This action will set custom remaning time for metro TV display",
+    "value": 50,
+    "helperTitle": "UI : Set Metro TV display custom remaning time",
+    "name": "set_metro_time"
+  },
+  "ask_ai_from_item": {
+    "tag": "mytag",
+    "name": "ask_ai_from_item",
+    "helper": "This action will ask the CyberAI mod from AI item",
+    "aitag": "myconversation01",
+    "helperTitle": "AI : Ask from AI item"
+  },
+  "play_entity_voice": {
+    "tag": "blue01",
+    "voice": "greeting",
+    "helper": "This action will play a voice for a custom entity ",
+    "name": "play_entity_voice",
+    "helperTitle": "Entity : Play game voice"
+  },
+  "stop_camera": {
+    "helper": "This action will desactivate an camera object ",
+    "name": "stop_camera",
+    "tag": "mycamera",
+    "helperTitle": "UI : Desactivate Camera"
+  },
+  "nothing": {
+    "helper": "Nothing",
+    "name": "nothing",
+    "helperTitle": "Nothing"
+  },
+  "despawn_lookat": {
+    "helper": "This action will despawn the entity that you look at",
+    "name": "despawn_lookat",
+    "helperTitle": "Entity : Despawn the looked entity"
+  },
+  "move_camera": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "UI : Move Camera",
+    "position_node_usegameplay": false,
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "move_camera",
+    "position_house_way": "default",
+    "pitch": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_from_position_z": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "roll": 0,
+    "helper": "This action will move an camera object (type can be free or entity, entity will bound the camera to an entity current position and angle, coord become relative to it)",
+    "position": "at",
+    "position_poi_use_location_tag": false,
+    "position_poi_searchdistance": "near|far|random",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_from_position_x": 0,
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "tag": "mycamera"
+  },
+  "play_previous_scene_step": {
+    "helper": "This action will play the previous step of the loaded scene",
+    "name": " play_previous_scene_step",
+    "helperTitle": "Scene : Play previous scene step"
+  },
+  "give_money_score": {
+    "helper": "This action will make give a amount of money from a score value",
+    "score": "myscoretag",
+    "helperTitle": "Money : Give money from a score value",
+    "name": "give_money_score"
+  },
+  "set_timer": {
+    "help": "set a timer that will stop in X second with a title. Consuming means player will see how much time passed from start, remaning means player will see how much time remains before the end",
+    "value": 60,
+    "message": "Arrive to watson before : ",
+    "helper": "This action will set a timer that will stop in X second with a title. Consuming means player will see how much time passed from start, remaning means player will see how much time remains before the end ",
+    "type": "remaning||consuming",
+    "name": "set_timer",
+    "helperTitle": "UI : Set Timer"
+  },
+  "unload_interact": {
+    "tag": "myinteracttag",
+    "name": "unload_interact",
+    "helper": "This action will unload an force loaded interact",
+    "helperTitle": "Interact : Unload"
+  },
+  "init_scene": {
+    "helper": "This action will play totally the loaded scene",
+    "name": " init_scene",
+    "helperTitle": "Scene : Play an scene"
+  },
+  "register_entity_you_look_at": {
+    "tag": "blue01",
+    "helperTitle": "Entity : Register a looked entity",
+    "helper": "This action will register the looked entity",
+    "group": "mygroup",
+    "name": "register_entity_you_look_at"
+  },
+  "play_scene_step_index": {
+    "helper": "This action will play the loaded scene step at index",
+    "value": 1,
+    "helperTitle": "Scene : Play an scene step at index",
+    "name": " play_scene_step_index"
+  },
+  "set_timedilation": {
+    "helper": "This action will set current time dilatation",
+    "value": 0,
+    "helperTitle": "Game : Set Time Dilatation",
+    "name": "set_timedilation"
+  },
+  "play_path": {
+    "isrelative": false,
+    "tag": "metroVeh",
+    "name": "play_path",
+    "helperTitle": "Entity : Play Path",
+    "helper": "This action will run a path for a entity.(zoffset) will separate in Z position the entity",
+    "path": "mypath",
+    "separate": false,
+    "zoffset": 1
+  },
+  "register_entities_around_you": {
+    "prefix": "myentities",
+    "startindex": 0,
+    "helperTitle": "Entity : Register entities around you",
+    "helper": "This action will register founded entity in the player's determined range and filter. \n The filter will check in the name, display name and appearance of the entity or hash \n leave filter at [] for take all. ",
+    "group": "",
+    "range": 5,
+    "filter": [ "mox", "npc" ],
+    "name": "register_entities_around_you",
+    "limit": 5
+  },
+  "spawn_camera": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "UI : Spawn Camera",
+    "helper": "This action will spawn an camera object (type can be free or entity, entity will bound the camera to an entity current position and angle, coord become relative to it)",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "despawntimer": 300,
+    "surveillance": false,
+    "yaw": 0,
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "spawn_camera",
+    "roll": 0,
+    "pitch": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_from_position_z": 0,
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "position_house_way": "default",
+    "position_poi_from_position_x": 0,
+    "tag": "mycamera",
+    "position_house_way_helper": "default||enter||exit",
+    "position": "at",
+    "position_poi_use_location_tag": false,
+    "position_poi_type": 1,
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_poi_searchdistance": "near|far|random",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_node_usegameplay": false
+  },
+  "simple_message_metro": {
+    "helper": "This action will make display a in game message From start node to end node of entity according to circuit",
+    "helperTitle": "UI : Metro Message",
+    "entity": "myTrain",
+    "name": "simple_message_metro"
+  },
+  "npc_custom_edit_custom_npc": {
+    "tag": "batty",
+    "y": 0,
+    "replacelocation": true,
+    "helperTitle": "Entity : Custom NPC : Spawn a custom NPC to another entity relative position",
+    "helper": "This action will summon a custom NPC at XYZ relative position from another entity ",
+    "z": 0,
+    "dodeathaction": true,
+    "range": 0,
+    "x": 0,
+    "doroutineaction": true,
+    "dospawnaction": true,
+    "name": "npc_custom_edit_custom_npc",
+    "appeareance": "",
+    "repeat_routine": true,
+    "auto_despawn": true,
+    "dodespawnaction": true
+  },
+  "npc_custom_summon_custom_npc_at_entity_relative": {
+    "replacelocation": true,
+    "dodespawnaction": true,
+    "helper": "This action will summon a custom NPC at XYZ relative position from another entity ",
+    "doroutineaction": true,
+    "dodeathaction": true,
+    "spawnlevel": 98,
+    "tag": "batty",
+    "name": "npc_custom_summon_custom_npc_at_entity_relative",
+    "group": "",
+    "dospawnaction": true,
+    "helperTitle": "Entity : Custom NPC : Spawn a custom NPC to another entity relative position",
+    "distance": 0,
+    "position": "behind||forward",
+    "x": -10,
+    "y": -10,
+    "entity": "player||entityTAG",
+    "z": 0
+  },
+  "set_gang_relation": {
+    "tag": "faction_mox",
+    "mode": "gang",
+    "score": 10,
+    "helper": "This action will set relation score between two gang (can be negative).\n If you put 'player' in tag field, it will take player's current Gang.\n Available Mode : gang || district_leader || district_subleader || current_district_leader || current_district_subleader ",
+    "name": "set_gang_relation",
+    "helperTitle": "Gang : Set Relation toward gang",
+    "target": "faction_mox"
+  },
+  "open_door": {
+    "helper": "This action will Open Looked Door",
+    "helperTitle": "Game : Open Looked Door",
+    "name": "open_door"
+  },
+  "register_enemy_around_you": {
+    "prefix": "myentities",
+    "startindex": 0,
+    "helperTitle": "Entity : Register enemies around you",
+    "helper": "This action will register founded enemies in the player's determined range and filter. \n The filter will check in the name, display name and appearance of the entity or hash \n leave filter at [] for take all. ",
+    "group": "",
+    "range": 5,
+    "filter": [ "mox", "npc" ],
+    "name": "register_enemy_around_you",
+    "limit": 5
+  },
+  "hide_phone_avatar": {
+    "helper": "This action will Hide Npc Phone Portrait",
+    "name": "hide_phone_avatar",
+    "helperTitle": "Ui : Hide Phone Avatar "
+  },
+  "play_next_scene_step": {
+    "helper": "This action will play the next step of the loaded scene",
+    "name": " play_next_scene_step",
+    "helperTitle": "Scene : Play next scene step"
+  },
+  "register_entities_around_entity": {
+    "tag": "judy",
+    "filter": [ "mox", "npc" ],
+    "helperTitle": "Entity : Register entities around Entity",
+    "helper": "This action will register founded entity in the entity's determined range and filter. \n The filter will check in the name, display name and appearance of the entity or hash \n leave filter at [] for take all. ",
+    "name": "register_entities_around_entity",
+    "group": "",
+    "range": 5
+  },
+  "teleport_group_at_entity_relative_position": {
+    "tag": "grouptag",
+    "y": -10,
+    "x": -10,
+    "helperTitle": "Group : Teleport Group to another entity relative position",
+    "helper": "This action will teleport a group of entity of another one entity's XYZ relative position ",
+    "z": 0,
+    "entity": "judy01||player",
+    "name": "teleport_group_at_entity_relative_position"
+  },
+  "add_gang_district_score": {
+    "district": "district_westbrook",
+    "value": 5,
+    "helperTitle": "Gang : Add District or SubDistrict Score",
+    "helper": "This action will add a value to the Gang District or SubDistrict Score ",
+    "help": "refer to the quest_mod folder--> data folder--> db folder to find the district.json to use the proper district tag",
+    "name": "add_gang_district_score",
+    "faction": "faction_mox"
+  },
+  "register_entity_by_hash": {
+    "tag": "fixer_rita",
+    "value": "9001172ULL",
+    "helperTitle": "Entity : Register entity around you by hash",
+    "helper": "This action will register founded entity in the player's determined range and hash. ",
+    "name": "register_entity_by_hash",
+    "group": "",
+    "range": 5
+  },
+  "npc_custom_set_autodespawn": {
+    "tag": "mycustomNpcTag",
+    "value": true,
+    "helperTitle": "NPC : Custom NPC : set Auto Despawn value",
+    "helper": "This action will set the AutoDespawn field of a Custom NPC",
+    "name": "npc_custom_set_autodespawn"
+  },
+  "play_scene_step_by_tag": {
+    "helper": "This action will play the loaded scene step at tag",
+    "value": "myscenestep",
+    "helperTitle": "Scene : Play an scene step at tag",
+    "name": " play_scene_step_by_tag"
+  },
+  "concate_variable": {
+    "key": "MyKey",
+    "value": "Hello",
+    "helperTitle": "Variable : Concatenate Variable",
+    "helper": "This action will concatenate a value for a key of a Variable ",
+    "name": "concate_variable",
+    "variable": "MyVar"
+  },
+  "setup_gang_rival_affinity": {
+    "helper": "This action will  Setup Gang affinity toward their default Rival.",
+    "name": "setup_gang_rival_affinity",
+    "helperTitle": "Gang : Setup Rival Affinity"
+  },
+  "ignore_timedilatationforplayer": {
+    "helper": "This action will set if current time dilatation should be ignored only for player",
+    "value": false,
+    "helperTitle": "Game : Ingore Time Dilatation for Player",
+    "name": "ignore_timedilatationforplayer"
+  },
+  "swap_character_current_star": {
+    "help": "If you plan to swap joytoys to your star follower, do the joytoy scene first, and then the npc will swap after scene ends",
+    "name": "swap_character_current_star",
+    "helper": "This action will swap character to the current Star that you have ",
+    "helperTitle": "Entity : Swap character by the current star",
+    "target": "Character.wbr_jpn_prostitute_female"
+  },
+  "trigger_metro_time": {
+    "helper": "This action will trigger custom remaning time for metro TV display",
+    "value": true,
+    "helperTitle": "UI : Trigger Metro TV display custom remaning time",
+    "name": "trigger_metro_time"
+  },
+  "set_timedilationforplayer": {
+    "helper": "This action will set current time dilatation only for player",
+    "value": 0,
+    "helperTitle": "Game : Set Time Dilatation for Player",
+    "name": "set_timedilationforplayer"
+  },
+  "remove_money": {
+    "helper": "This action will make remove a amount of money",
+    "value": 500,
+    "helperTitle": "Money : Remove Money",
+    "name": "remove_money"
+  },
+  "load_interact": {
+    "tag": "myinteracttag",
+    "name": "load_interact",
+    "helper": "This action will force load and display an interact without check requirements",
+    "helperTitle": "Interact : Force Load"
+  },
+  "unbound_entity": {
+    "helper": "This action will unbound entity position",
+    "name": "unbound_entity",
+    "tag": "item01",
+    "helperTitle": "Entity : Unbound Entity Position  "
+  },
+  "show_hack_animation": {
+    "helper": "This action will hacking progression bar",
+    "value": "Donk hacking you !",
+    "helperTitle": "UI : Show Hacking Progression bar",
+    "name": "show_hack_animation"
+  },
+  "concate_variable_with_variable": {
+    "key": "MyKey",
+    "name": "concate_variable_with_variable",
+    "helperTitle": "Variable : Concatenate Variable with another Variable",
+    "helper": "This action will concatenate a value from another variable/key combo to a key of a Variable ",
+    "variable": "MyVar",
+    "targetvariable": "MyVar2",
+    "targetkey": "MyKey2"
+  },
+  "despawn_item": {
+    "helper": "This action will despawn an item that was previously spawned by spawn_item action",
+    "name": "despawn_item",
+    "tag": "item01",
+    "helperTitle": "Entity : Despawn Item"
+  },
+  "add_stat_perc": {
+    "help": "add 5% heath",
+    "value": "Heath",
+    "name": "add_stat_perc",
+    "helper": "This action will add a percent value to a stat, can be negative ",
+    "helperTitle": "Stat : Add a percent",
+    "score": 5
+  },
+  "take_call": {
+    "helper": "This action will Take Phone call",
+    "name": "take_call",
+    "helperTitle": "Ui : Take Phone call "
+  },
+  "add_gang_relation": {
+    "tag": "faction_mox",
+    "mode": "gang",
+    "score": 10,
+    "helper": "This action will add relation score between two gang (can be negative).\n If you put 'player' in tag field, it will take player's current Gang.\n Available Mode : gang || district_leader || district_subleader || current_district_leader || current_district_subleader || district_leader || district_leader || district_leader || district_leader ",
+    "name": "add_gang_relation",
+    "helperTitle": "Gang : Add Relation toward gang",
+    "target": "faction_mox"
+  },
+  "setGameVolume": {
+    "help": "edit the game setting volume (MasterVolume||SfxVolume||DialogueVolume||MusicVolume||CarRadioVolume)",
+    "value": "SfxVolume",
+    "name": "setGameVolume",
+    "helper": "This action will edit the game setting volume (MasterVolume||SfxVolume||DialogueVolume||MusicVolume||CarRadioVolume)",
+    "helperTitle": "Sound : Set Game Volume",
+    "score": 5
+  },
+  "refuse_call": {
+    "helper": "This action will refuse Phone call",
+    "name": "refuse_call",
+    "helperTitle": "Ui : Refuse Phone call "
+  },
+  "remove_random_money": {
+    "max": 1000,
+    "name": "remove_random_money",
+    "helper": "This action will make remove a random amount of money",
+    "helperTitle": "Money : Remove Random Money",
+    "min": 50
+  },
+  "npc_custom_despawn_custom_npc": {
+    "helper": "This action will despawn a custom NPC",
+    "name": "npc_custom_despawn_custom_npc",
+    "tag": "batty",
+    "helperTitle": "Entity : Custom NPC : despawn a custom NPC"
+  },
+  "switch_primary_secondary_weapon_entity": {
+    "helper": "This action will switch between primary and secondary weapon for entity",
+    "name": "switch_primary_secondary_weapon_entity",
+    "tag": "blue01",
+    "helperTitle": "Entity : Switch weapons"
+  },
+  "stop_sound_channel": {
+    "help": "Use Sound Manager Mod to stop a channel (sound, music or env)",
+    "name": "stop_sound_channel",
+    "helper": "This action will Use Sound Manager Mod to stop a channel (sound, music or env) ",
+    "channel": "sound",
+    "helperTitle": "Sound : Stop Channel"
+  },
+  "entity_stop_fight": {
+    "helper": "This action will interrupt entity",
+    "name": "entity_stop_fight",
+    "tag": "blue01",
+    "helperTitle": "Entity : Stop Fight"
+  },
+  "active_mappin": {
+    "helper": "This action will active a specific mapPin",
+    "name": "active_mappin",
+    "tag": "mymappintag",
+    "helperTitle": "Map : Active a specific map Pin"
+  },
+  "ressurect_group": {
+    "helper": "This action will ressurect every member of an group",
+    "name": "ressurect_group",
+    "tag": "mygroup",
+    "helperTitle": "Group : Ressurect"
+  },
+  "set_entity_node_path": {
+    "tag": "myentity",
+    "name": "set_entity_node_path",
+    "helper": "This action will set Next node for a entity",
+    "helperTitle": "Node : Set Entity Path",
+    "path": "mypath"
+  },
+  "concate_variable_with_score": {
+    "key": "MyKey",
+    "name": "concate_variable_with_score",
+    "helperTitle": "Variable : Concatenate Variable with Score",
+    "helper": "This action will concatenate a value from a score/key combo to a key of a Variable ",
+    "score": "MyScore",
+    "scorekey": "MyKey2",
+    "variable": "MyVar"
+  },
+  "give_reward_from_scannerdata": {
+    "helper": "This action will give money and street cred reward from an scanner data bounty",
+    "name": "give_reward_from_scannerdata",
+    "tag": "scanner_mission_target",
+    "helperTitle": "Gameplay : Give reward from scanner data "
+  },
+  "vehicle_force_brake": {
+    "tag": "myvehiculetag",
+    "value": 5,
+    "name": "vehicle_force_brake",
+    "helper": "This action will force brake on vehicle",
+    "helperTitle": "Vehicule : Force Brake"
+  },
+  "remove_money_score": {
+    "helper": "This action will make remove a amount of money from a score value",
+    "score": "myscoretag",
+    "helperTitle": "Money : Remove Money from a score value",
+    "name": "remove_money_score"
+  },
+  "teleport_entity_at_node": {
+    "tag": "player",
+    "offset": 0,
+    "helperTitle": "Entity : Teleport Entity at Node",
+    "helper": "This action will teleport entity to a specific custom node",
+    "name": "teleport_entity_at_node",
+    "node": "metro_arasaka",
+    "atgameplayposition": false
+  },
+  "vehicle_force_brake_until_stop": {
+    "tag": "myvehiculetag",
+    "value": 5,
+    "name": "vehicle_force_brake_until_stop",
+    "helper": "This action will force brake on vehicle until stop",
+    "helperTitle": "Vehicule : Force Brake Until Stop"
+  },
+  "set_time": {
+    "hour": 22,
+    "name": "set_time",
+    "helper": "This action will make set in game time to HH:MM",
+    "minute": 30,
+    "helperTitle": "Time : Set Time "
+  },
+  "do_random_function": {
+    "helperTitle": "Function : Do a random function from a list",
+    "helper": "This action will do a random function in the list",
+    "funcs": [ "myfunction", "myfunction02" ],
+    "name": "do_random_function",
+    "parallele": false
+  },
+  "remove_gang_district_score": {
+    "district": "district_westbrook",
+    "value": 5,
+    "helperTitle": "Gang : Remove District or SubDistrict Score",
+    "helper": "This action will add a value to the Gang District or SubDistrict Score ",
+    "help": "refer to the quest_mod folder--> data folder--> db folder to find the district.json to use the proper district tag",
+    "name": "remove_gang_district_score",
+    "faction": "faction_mox"
+  },
+  "add_time": {
+    "help": "minute",
+    "value": 5,
+    "name": "add_time",
+    "helper": "This action will add X minute to in game time",
+    "helperTitle": "Time : Add minutes"
+  },
+  "load_scene": {
+    "helper": "This action will load an scene (doesn't means it will play it)",
+    "name": " load_scene",
+    "tag": "myscene",
+    "helperTitle": "Scene : Load an scene"
+  },
+  "wait_for_trigger": {
+    "help": "Wait that trigger condition is valid",
+    "trigger": {
+      "name": "metro_H7_station",
+      "value": "triggervalue"
+    },
+    "name": "wait_for_trigger",
+    "helper": "This action will wait that the trigger is valid before do the next action ",
+    "helperTitle": "Logic : Wait For Trigger"
+  },
+  "setup_gang_player_affinity": {
+    "helper": "This action will Setup player affinity toward NPC and gang based on player fact. Based on the file 'data/gameaffinity.json' ",
+    "name": "setup_gang_player_affinity",
+    "helperTitle": "Gang : Setup Player Affinity"
+  },
+  "npc_chat": {
+    "type": 1,
+    "title": "This is an Example of a Title",
+    "duration": 3,
+    "helperTitle": "Dialog : run a npc chat",
+    "helper": "This action will fire a npc chat above the head of the NPC, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "npc_chat",
+    "target": "player"
+  },
+  "inactive_objective": {
+    "helper": "This action will untrack objective ",
+    "value": "myobjectivetag",
+    "helperTitle": "Quest : Inactive objective ",
+    "name": "inactive_objective"
+  },
+  "register_entity_you_look_at_in_group": {
+    "helper": "This action will register the looked entity in a group",
+    "helperTitle": "Entity : Register a looked entity in a group",
+    "group": "grouptag",
+    "name": "register_entity_you_look_at_in_group"
+  },
+  "stop_effect_test": {
+    "tag": "lookat",
+    "value": "blackout",
+    "name": "stop_effect_test",
+    "helper": "This action will stop an FX animation to the target",
+    "helperTitle": "UI : Stop FX TEST"
+  },
+  "vehicle_explose": {
+    "helper": "This action will explode the vehicle",
+    "name": "vehicle_explose",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Explode"
+  },
+  "entity_set_seat": {
+    "help": "seat_front_right||seat_back_right||seat_back_left||seat_front_left",
+    "waitforsit": false,
+    "name": "entity_set_seat",
+    "helperTitle": "Entity : Set Seat",
+    "helper": "This action will set seat to a entity for a specific vehicule entity",
+    "seat": "seat_back_left",
+    "tag": "player",
+    "vehicle": "metroInside"
+  },
+  "stop_effect": {
+    "tag": "lookat",
+    "value": "blackout",
+    "name": "stop_effect",
+    "helper": "This action will stop an FX animation to the target",
+    "helperTitle": "UI : Stop FX"
+  },
+  "teleport_entity_at_position": {
+    "tag": "blue01",
+    "y": -10,
+    "collision": false,
+    "helperTitle": "Entity : Teleport Entity at Position",
+    "helper": "This action will teleport a custom entity at XYZ ",
+    "z": 0,
+    "x": -10,
+    "name": "teleport_entity_at_position"
+  },
+  "set_gang_currentsubdistrict_score": {
+    "value": 5,
+    "name": "set_gang_currentsubdistrict_score",
+    "helper": "This action will set a value to the Gang Current Sub District Score ",
+    "helperTitle": "Gang : Set Current Sub District Score",
+    "faction": "faction_mox"
+  },
+  "do_event": {
+    "help": "do a event",
+    "value": "myeventTag",
+    "name": "do_event",
+    "parallele": false,
+    "helper": "This action will fire a custom event",
+    "helperTitle": "Event : Do a event"
+  },
+  "start_effect": {
+    "tag": "lookat",
+    "value": "blackout",
+    "name": "start_effect",
+    "helper": "This action will play an FX animation to the target",
+    "helperTitle": "UI : Play FX"
+  },
+  "mod_statpool": {
+    "tag": "judy",
+    "value": "Health",
+    "score": 20,
+    "helper": "This action will change the stat to the current value",
+    "helperTitle": "Stat : Change Statpool",
+    "name": "mod_statpool",
+    "perc": true
+  },
+  "random_npc_chat": {
+    "type": 1,
+    "title": [ "Hey you're finally awake!", "Hey! Listen!", "I'm all out of gum" ],
+    "duration": 3,
+    "helperTitle": "Dialog : run a random npc chat",
+    "helper": "This action will fire a npc chat Above the Npc's Head, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "random_npc_chat",
+    "target": "player"
+  },
+  "start_effect_test": {
+    "tag": "lookat",
+    "value": "blackout",
+    "name": "start_effect_test",
+    "helper": "This action will play an FX animation to the target",
+    "helperTitle": "UI : Play FX TEST"
+  },
+  "set_vehicule_to_garage": {
+    "asAV": true,
+    "helperTitle": "Entity : Register vehicle to Garage",
+    "helper": "This action will register vehicule in garage",
+    "enabled": true,
+    "tweakid": "Vehicle.cs_savable_archer_hella_police_siren",
+    "name": "set_vehicule_to_garage"
+  },
+  "vehicle_follow_entity": {
+    "tag": "judy01||player",
+    "helperTitle": "Vehicule : Follow a entity",
+    "distanceMax": 50,
+    "stopWhenTargetReached": true,
+    "needDriver": false,
+    "useTraffic": true,
+    "useKinematic": true,
+    "name": "vehicle_follow_entity",
+    "distanceMin": 2,
+    "vehicle": "myvehiculetag",
+    "helper": "This action will make the vehicule follow an entity"
+  },
+  "gang_affinity_from_current_district_leader_rival": {
+    "helper": "This action will add affinity to current district leader rival gang (can be a negative value)",
+    "score": 50,
+    "helperTitle": "Gang : add Affinity current District Leader Rival",
+    "name": "gang_affinity_from_current_district_leader_rival"
+  },
+  "destroy_entity_you_look_at": {
+    "helper": "This action will destroy the looked entity",
+    "name": "destroy_entity_you_look_at",
+    "helperTitle": "Entity : destroy a looked entity"
+  },
+  "activity_notification": {
+    "duration": 4,
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "helper": "This action will make display a NCPD activity notification ",
+    "title": "Judy Alvarez",
+    "helperTitle": "UI : NCPD activity Notification",
+    "name": "activity_notification"
+  },
+  "equip_transmog_item": {
+    "helper": "This action will equip the desired item in transmog slot (need to be active).",
+    "value": "Items.Helmet_02_old_04",
+    "helperTitle": "Item : Equip Transmog Item ",
+    "name": "equip_transmog_item"
+  },
+  "change_stance_entity": {
+    "tag": "blue01",
+    "value": "stance",
+    "helperTitle": "Entity : change the stance a custom entity",
+    "helper": "This action will change the stance a custom entity",
+    "name": "change_stance_entity"
+  },
+  "despawn_entity": {
+    "helper": "This action will despawn a custom entity ",
+    "name": "despawn_entity",
+    "tag": "blue01",
+    "helperTitle": "Entity : Despawn a entity"
+  },
+  "setup_gang_district_affinity": {
+    "helper": "This action will  Setup Gang affinity toward their default district.",
+    "name": "setup_gang_district_affinity",
+    "helperTitle": "Gang : Setup District Affinity"
+  },
+  "vehicle_honk_and_flash": {
+    "helper": "This action will activate Honk And Flash on the vehicle",
+    "name": "vehicle_honk_and_flash",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Honk and Flash"
+  },
+  "location_notification": {
+    "duration": 4,
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "helper": "This action will make display a location notification ",
+    "title": "Judy Alvarez Body",
+    "helperTitle": "UI : Location Notification",
+    "name": "location_notification"
+  },
+  "remove_effect": {
+    "tag": "judy01||player",
+    "value": "Burning",
+    "helperTitle": "Entity : Remove Effect",
+    "helper": "This action will remove effect to a entity",
+    "name": "remove_effect"
+  },
+  "notify": {
+    "helper": "This action will make display a in game notification",
+    "value": "This is a ingame Notification !",
+    "helperTitle": "UI : Notification",
+    "name": "notify"
+  },
+  "concate_custom_variable": {
+    "key": "myKey",
+    "value": "customVariable",
+    "helperTitle": "Score :  concate the value of a key of a custom variable",
+    "helper": "This action will concate the value of a key of a custom variable with a value store into a result variable",
+    "name": "concate_custom_variable",
+    "variable": "customVariable"
+  },
+  "attitude_entity_against_entity": {
+    "attitude": "hostile||companion||passive||friendly||psycho",
+    "tag": "blue01",
+    "helperTitle": "Entity : change attitude against another entity",
+    "helper": "This action will change attitude of a custom entity to another one",
+    "name": "attitude_entity_against_entity",
+    "entity": "judy01||player",
+    "help": "companion will work only for entity player"
+  },
+  "clean_entity_circuit": {
+    "helper": "This action will clean circuit for a entity",
+    "name": "clean_entity_circuit",
+    "tag": "myentity",
+    "helperTitle": "Node : Clean Entity Circuit"
+  },
+  "wait_second": {
+    "help": "Wait x second",
+    "value": 3,
+    "name": "wait_second",
+    "helper": "This action will wait x second before perform the next action",
+    "helperTitle": "Logic : Wait X seconds"
+  },
+  "vehicle_chase_entity": {
+    "max": 10,
+    "vehicle": "myvehiculetag",
+    "startspeed": 50,
+    "helperTitle": "Vehicule : Chase a entity",
+    "helper": "This action will make the vehicule chase an entity. Min equal minimum distance, max equal maximum distance",
+    "name": "vehicle_chase_entity",
+    "tag": "judy01||player",
+    "min": 5
+  },
+  "subscribe_event_to_direct_action": {
+    "tag": "myeventtag",
+    "helperTitle": "Script : Register Event to Direct Action Engine",
+    "helper": "This action will subscribe a Event to direct execution Action Engine. !!! The triggers are checked once before register !!!",
+    "name": "subscribe_event_to_direct_action",
+    "after": false
+  },
+  "clear_entity_from_group_and_manager": {
+    "helper": "This action will remove all entities of a group of entity and from the entity manager (it doesn't despawn it)",
+    "name": "clear_entity_from_group_and_manager",
+    "tag": "grouptag",
+    "helperTitle": "Group : Clear entity from group and Entity Manager"
+  },
+  "hide_texture": {
+    "helper": "This action will hide an picture",
+    "name": "hide_texture",
+    "tag": "judy01.png",
+    "helperTitle": "UI : Hide picture"
+  },
+  "teleport_entity_at_relative_position": {
+    "tag": "blue01",
+    "y": -10,
+    "helperTitle": "Entity : Teleport Entity to relative position",
+    "helper": "This action will teleport a custom entity to entity's XYZ relative position",
+    "z": 0,
+    "x": -10,
+    "name": "teleport_entity_at_relative_position"
+  },
+  "change_custom_variable": {
+    "key": "myKey",
+    "value": "HelloWorld",
+    "helperTitle": "Score :  change the value of a key of a custom variable",
+    "helper": "This action will change the value of a key of a custom variable",
+    "name": "change_custom_variable",
+    "variable": "customVariable"
+  },
+  "run_group_path": {
+    "isrelative": false,
+    "path": "mypath",
+    "name": "run_group_path",
+    "helperTitle": "Group : Play Path",
+    "helper": "This action will run a path for a group of entity . (zoffset) will separate in Z position each entity, (separate) will separate each entity",
+    "tag": "metroVeh",
+    "separate": false,
+    "zoffset": 1
+  },
+  "hacking_notification": {
+    "duration": 4,
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "helper": "This action will make display a Hacking reward notification ",
+    "title": "Judy Alvarez",
+    "helperTitle": "UI : Hacking reward Notification",
+    "name": "hacking_notification"
+  },
+  "execute_at_script_level_group": {
+    "tag": "group01",
+    "scriptlevel": 1,
+    "name": "execute_at_script_level_group",
+    "helper": "This action will execute an list of action if the entities of the targeted group have the same scriptlevel than the action",
+    "helperTitle": "Group : Execute At Script Level",
+    "action": [ {
+      "name": "consolelog",
+      "value": "True"
+    }, {
+      "name": "notify",
+      "value": "True"
+    } ]
+  },
+  "set_script_level": {
+    "tag": "judy01",
+    "scriptlevel": 1,
+    "name": "set_script_level",
+    "helper": "This action will set an script level to the entity",
+    "helperTitle": "Entity : Set Script Level"
+  },
+  "vehicle_detach_all_part": {
+    "helper": "This action will detach all part of the vehicle",
+    "name": "vehicle_detach_all_part",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Detach All Part"
+  },
+  "set_script_level_group": {
+    "tag": "group01",
+    "scriptlevel": 1,
+    "name": "set_script_level_group",
+    "helper": "This action will set an script level to the entities of the targeted group ",
+    "helperTitle": "Group : Set Script Level"
+  },
+  "teleport_player_at_relative_position": {
+    "z": 0,
+    "name": "teleport_player_at_relative_position",
+    "helper": "This action will teleport player to player's XYZ relative position ",
+    "y": -10,
+    "x": -10,
+    "helperTitle": "Player : Teleport at relative position"
+  },
+  "toggle_immortal_entity": {
+    "tag": "metroInside",
+    "immortal": true,
+    "helperTitle": "Entity : Toggle Immortality",
+    "helper": "This action will toggle immortal entity ",
+    "name": "toggle_immortal_entity"
+  },
+  "wanted_level": {
+    "helper": "This action will set the curretn wanted level",
+    "value": 2,
+    "helperTitle": "Player : Set Wanted Level",
+    "name": "wanted_level"
+  },
+  "quest_notification": {
+    "type": "new",
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "helper": "This action will make display a quest notification (type : new | update | success | fail) \n field quest is for track a quest by tag. \n field objective is for track an objective by his tag \n of the quest that you filled in 'quest'",
+    "duration": 4,
+    "title": "Judy Alvarez",
+    "helperTitle": "UI : Quest Notification",
+    "quest": "",
+    "objective": "",
+    "name": "quest_notification"
+  },
+  "swap_character": {
+    "name": "swap_character",
+    "helper": "This action will swap character to another one ",
+    "swap": "Character.Panam",
+    "target": "Character.Judy",
+    "helperTitle": "Entity : Swap character"
+  },
+  "vehicle_repair": {
+    "helper": "This action will repair the vehicle",
+    "name": "vehicle_repair",
+    "tag": "myvehiculetag",
+    "helperTitle": "Vehicule : Repair"
+  },
+  "ressurect_entity": {
+    "helper": "This action will ressurect an entity",
+    "name": "ressurect_entity",
+    "tag": "dialogTag",
+    "helperTitle": "Entity : ressurect"
+  },
+  "tutorial_notification": {
+    "isblocking": false,
+    "name": "tutorial_notification",
+    "title": "Judy Alvarez",
+    "popupposition": 4,
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "helperTitle": "UI : Tutorial Popup",
+    "helper": "This action will make display a tutorial popup || popupposition :  Undefined = 0, UpperRight = 1, UpperLeft = 2, LowerLeft = 3, LowerRight = 4, Center = 5",
+    "ismodal": false,
+    "closeatinput": true,
+    "pausegame": true
+  },
+  "toggle_av_engine_for_current_drived_vehicule": {
+    "helper": "This action will toggle the av engine for the current drived vehicle",
+    "name": "toggle_av_engine_for_current_drived_vehicule",
+    "helperTitle": "Vehicule : Toggle AV Engine for Drived Vehicle"
+  },
+  "despawnAll": {
+    "helper": "This action will despawn all custom entity that IRP call ",
+    "name": "despawnAll",
+    "helperTitle": "Entity : Despawn All"
+  },
+  "teleport_entity_to_entity_relative": {
+    "tag": "blue01",
+    "y": -10,
+    "x": -10,
+    "helperTitle": "Entity : Teleport Entity to another entity relative position",
+    "helper": "This action will teleport a custom entity to another XYZ's relative entity position ",
+    "z": 0,
+    "entity": "judy01||player",
+    "name": "teleport_entity_to_entity_relative"
+  },
+  "unregister_entity": {
+    "helper": "This action will unregister the entity ",
+    "name": "unregister_entity",
+    "tag": "blue01",
+    "helperTitle": "Entity : Unregister a entity"
+  },
+  "vehicle_change_light": {
+    "tag": "myvehiculetag",
+    "value": "Normal",
+    "helperTitle": "Vehicule : Change Light State",
+    "helper": "This action will change the state of light on the vehicle (Off||Normal||High Beams)",
+    "name": "vehicle_change_light"
+  },
+  "vehicle_change_engine": {
+    "tag": "myvehiculetag",
+    "value": "on",
+    "name": "vehicle_change_engine",
+    "helper": "This action will change the state of engine of the vehicle (on||off)",
+    "helperTitle": "Vehicule : Change Engine State"
+  },
+  "set_scannerdata": {
+    "tag": "judy01",
+    "helperTitle": "Scanner : Set Custom Scanner Data",
+    "helper": "This action will register Scanner Data. Bound it to an scripted entity by using the same tag for both",
+    "primaryname": "Judy's Bad Sister",
+    "level": 5,
+    "rarity": 0,
+    "secondaryname": "Twin",
+    "bounty": {
+      "streetreward": 5,
+      "issuedby": "Eli",
+      "reward": 500,
+      "transgressions": [ "UnpaidDebt" ],
+      "customtransgressions": [ "cookie eaters" ],
+      "danger": 5
+    },
+    "name": "set_scannerdata",
+    "text": "The evil twin of Judy, don't meet her at night !",
+    "faction": "faction_mox"
+  },
+  "reset_scene": {
+    "helper": "This action will play totally the loaded scene",
+    "name": " reset_scene",
+    "helperTitle": "Scene : Play an scene"
+  },
+  "vehicle_change_doors": {
+    "tag": "myvehiculetag",
+    "value": "open",
+    "name": "vehicle_change_doors",
+    "helper": "This action will change the state of doors (open||close||lock||unlock)",
+    "helperTitle": "Vehicule : Change Doors State"
+  },
+  "entity_hold_position": {
+    "stealth": true,
+    "helperTitle": "Entity : Hold position",
+    "helper": "This action will make a custom entity hold position for x seconds",
+    "tag": "blue01",
+    "name": "entity_hold_position",
+    "timer": 5
+  },
+  "help_faction": {
+    "helper": "This action will increase your corpo's share online",
+    "name": "help_faction",
+    "helperTitle": "Corpo : Help your Corpo's Stock price"
+  },
+  "spawn_item": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Entity : Spawn Item",
+    "position_node_usegameplay": false,
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "despawntimer": 300,
+    "position_house_way_helper": "default||enter||exit",
+    "yaw": 0,
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "spawn_item",
+    "roll": 0,
+    "pitch": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_from_position_z": 0,
+    "amount": 1,
+    "y": 0,
+    "z": 0,
+    "path": "Character.Judy",
+    "x": 0,
+    "position_house_way": "default",
+    "isentity": false,
+    "tag": "item01",
+    "help": "This action will summon a item with several custom parameter ",
+    "helper": "This action will summon a item with several custom parameter ",
+    "position": "at",
+    "position_poi_from_position_x": 0,
+    "position_poi_type": 1,
+    "position_poi_searchdistance": "near|far|random",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_poi_use_location_tag": false
+  },
+  "lightif": {
+    "trigger": {
+      "tag": "helico",
+      "radius": 2,
+      "name": "entity_at_relative_position",
+      "x": 0,
+      "y": 0,
+      "z": 65
+    },
+    "helperTitle": "Logic : Light If",
+    "if_action": [ {
+      "name": "consolelog",
+      "value": "True"
+    }, {
+      "name": "notify",
+      "value": "True"
+    } ],
+    "else_action": [ {
+      "name": "consolelog",
+      "value": "False"
+    }, {
+      "name": "notify",
+      "value": "False"
+    } ],
+    "name": "lightif",
+    "helper": "This action will check a trigger and execute IF actions if the trigger is OK or ELSE action if the trigger is not OK, light mode, don't make complex thing here"
+  },
+  "set_player_current_gang": {
+    "helper": "This action will set the Player's current Faction",
+    "name": "set_player_current_gang",
+    "tag": "faction_mox",
+    "helperTitle": "Player : Current Gang"
+  },
+  "phone_news_notification": {
+    "conversation": "myphoneconvtag",
+    "duration": 5,
+    "name": "phone_news_notification",
+    "helper": "This action will make display a phone message notification with an random corpo News. conversation is optional (leave empty if not need, if not empty it will load an custom conversation in the popup)",
+    "title": "Judy : Thanks for the night, V !",
+    "helperTitle": "UI : Phone News Notification"
+  },
+  "spawn_vehicule": {
+    "position_house_tag": "playerhouse01",
+    "fakeav": false,
+    "create_group_if_not_exist": false,
+    "helperTitle": "Vehicle : Spawn a Vehicle",
+    "source_tag": "Vehicle.cs_savable_archer_hella_police_siren",
+    "source_helper": "vehicle||faction||current_district_leader||current_subdistrict_leader||district_leader||subdistrict_leader||random||from_list||district_rival||subdistrict_rival||current_district_rival||current_subdistrict_rival",
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "source_use_rival": false,
+    "source_tag_helper": "Vehicle.cs_savable_archer_hella_police_siren||faction_mox||district_westbrook||NorthOaks",
+    "roll": 0,
+    "spawnlevel": 36,
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "despawntimer": 300,
+    "position_house_way_helper": "default||enter||exit",
+    "amountoffsetx": 0,
+    "tag": "blue01",
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "name": "spawn_vehicule",
+    "position_house_way": "default",
+    "position_poi_from_position_x": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_from_position_z": 0,
+    "spawninview": true,
+    "dontregister": false,
+    "pitch": 0,
+    "yaw": 0,
+    "amount": 1,
+    "y": 0,
+    "alwaysspawned": false,
+    "persistspawn": false,
+    "persiststate": false,
+    "x": 0,
+    "position_way_helper": "normal||behind||forward",
+    "amountoffsety": 0,
+    "position_spawnlocation": false,
+    "z": 0,
+    "source_list": [ "Vehicle.cs_savable_archer_hella_police_siren" ],
+    "position_poi_use_location_tag": false,
+    "isAV": false,
+    "wait_for_vehicle_second": 7,
+    "help": "This action will summon a Vehicle with several custom parameter ",
+    "source": "vehicle",
+    "helper": "This action will summon Vehicle with several custom parameter.\nSpawn system : \n-1 : From Garage\n-2 : ExEntity\n-3 : Prevention\n-4 : Codeware(recommended, need Codeware 1.1.0+)",
+    "position": "at",
+    "appearance": "",
+    "position_poi_type": 1,
+    "position_poi_district": "",
+    "position_poi_searchdistance": "near|far|random",
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_lookatdistance": 0,
+    "scriptlevel": 0,
+    "position_node_usegameplay": false,
+    "group": "grouptag",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "spawn_system": 4,
+    "wait_for_vehicle": false,
+    "source_gang": "faction_mox",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "appears_from_behind": false
+  },
+  "unlock_message": {
+    "helper": "This action will unlock the message ",
+    "name": "unlock_message",
+    "tag": "myobj",
+    "helperTitle": "Interface : Unlock Message"
+  },
+  "subtitle": {
+    "type": 1,
+    "title": "Hey you're finally awake!",
+    "duration": 3,
+    "helperTitle": "Dialog : run a subtitle",
+    "helper": "This action will fire a subtitle on your bottom portion of the screen, The duration must complete in order for the next action to call. Type value just keep at 1 for now.",
+    "speaker": "Judy",
+    "name": "subtitle",
+    "target": "player"
+  },
+  "subscribe_actionlist_to_direct_action": {
+    "after": false,
+    "action": [ {
+      "name": "notify",
+      "value": "hello"
+    } ],
+    "helper": "This action will subscribe a list of action to direct Action Engine",
+    "name": "subscribe_actionlist_to_direct_action",
+    "tag": "myshardtag",
+    "helperTitle": "Script : Register Action List to Direct Action Engine"
+  },
+  "hide_timer_consume": {
+    "helper": "This action will Hide the consuming timer ",
+    "name": "hide_timer_consume",
+    "help": "Hide the consuming timer",
+    "helperTitle": "UI : Hide Consuming Timer"
+  },
+  "change_dialog_windows": {
+    "window": "quest||speak||phone||Interact",
+    "value": true,
+    "helperTitle": "Dialog : open||close a specific dialog window ",
+    "helper": "This action will open||close a specific dialog window",
+    "name": "change_dialog_windows"
+  },
+  "looked_item_remove": {
+    "helper": "This action will remove the housing item and add it to player housing stash",
+    "name": "looked_item_remove",
+    "helperTitle": "Housing : Remove looked item "
+  },
+  "set_mappin_tracking_to": {
+    "tag": "mymappintag",
+    "helperTitle": "Map : Set Map Pin tracking a entity",
+    "helper": "This action will make a specific mapPin track a specific target",
+    "name": "set_mappin_tracking_to",
+    "target": "myentitytag"
+  },
+  "vehicle_go_to_current_fasttravel_point": {
+    "tag": "myvehiculetag",
+    "name": "vehicle_go_to_current_fasttravel_point",
+    "greenlight": true,
+    "needdriver": true,
+    "usetraffic": true,
+    "speed": 50,
+    "useKinematic": true,
+    "helper": "This action will launch the vehicle to the current selected fast travel point",
+    "helperTitle": "Vehicule : Go to Selected Fast Travel Point"
+  },
+  "set_group_node_path": {
+    "tag": "metroVeh",
+    "name": "set_group_node_path",
+    "helper": "This action will set a path for a group of entity ",
+    "helperTitle": "Group : Set Path",
+    "path": "mypath"
+  },
+  "move_entity_at_entity_relative": {
+    "tag": "blue01",
+    "move": "Walk",
+    "name": "move_entity_at_entity_relative",
+    "helper": "This action will move an entity at XYZ's relative position of another entity",
+    "z": 0,
+    "help": "Walk||Run||Sprint",
+    "x": -10,
+    "y": -10,
+    "entity": "judy01||player",
+    "helperTitle": "Entity : Move to Entity relative"
+  },
+  "entity_unset_seat": {
+    "help": "seat_front_right||seat_back_right||seat_back_left||seat_front_left",
+    "waitforsit": false,
+    "name": "entity_unset_seat",
+    "helperTitle": "Entity : Unset Seat",
+    "helper": "This action will unset seat to a entity for a specific vehicule entity",
+    "seat": "seat_back_right",
+    "tag": "judy01",
+    "vehicle": "myvehiculetag"
+  },
+  "reset_entity_facial": {
+    "helper": "This action will reset a facial expression of a custom entity ",
+    "name": "reset_entity_facial",
+    "tag": "blue01",
+    "helperTitle": "Entity : Reset Facial expression"
+  },
+  "move_looked_item_X": {
+    "helper": "This action will move the housing item to X + value (can be negative)",
+    "value": 5,
+    "helperTitle": "Housing : move looked item to X ",
+    "name": "move_looked_item_X"
+  },
+  "stop_game_sound": {
+    "help": "Stop an Game's Sound",
+    "value": "test",
+    "name": "stop_game_sound",
+    "helper": "This action will Stop an Game's Sound",
+    "helperTitle": "Sound : Stop Game Sound"
+  },
+  "npc_affinity": {
+    "value": "mymissionTag01",
+    "name": "npc_affinity",
+    "helper": "This action will add affinity to a specific npc (can be a negative value)",
+    "helperTitle": "NPC : add affinity",
+    "score": 50
+  },
+  "mission": {
+    "helper": "This action will make launch a specific custom quest if her triggers are ok",
+    "value": "mymissiontag",
+    "helperTitle": "Quest : Launch(Forced) a quest",
+    "name": "mission"
+  },
+  "set_mappin_type": {
+    "typemap": "ExclamationMarkVariant",
+    "helperTitle": "Map : Set Map Pin type ",
+    "helper": "This action will change type of a specific mapPin",
+    "name": "set_mappin_type",
+    "tag": "mymappintag"
+  },
+  "change_custom_score_key": {
+    "key": "myKey",
+    "helperTitle": "Score :  change the value of a key of custom score",
+    "helper": "This action will change the value of a key of custom score",
+    "name": "change_custom_score_key",
+    "score": 50,
+    "variable": "customScore"
+  },
+  "roll_looked_item": {
+    "helper": "This action will move the housing item to Roll + value (can be negative)",
+    "value": 5,
+    "helperTitle": "Housing : move looked item to Roll ",
+    "name": "roll_looked_item"
+  },
+  "rentCurrentHouse": {
+    "helper": "This action will start a business in these house, if open for business ",
+    "name": "rentCurrentHouse",
+    "help": "Start a business in these house, if open for business",
+    "helperTitle": "House : Start business into the current house"
+  },
+  "clean_group_circuit": {
+    "helper": "This action will clean the circuit value for a group of entity ",
+    "name": "clean_group_circuit",
+    "tag": "metroVeh",
+    "helperTitle": "Group : Clean circuit"
+  },
+  "set_group_node_next": {
+    "tag": "metroVeh",
+    "name": "set_group_node_next",
+    "helper": "This action will set the next node  for a group of entity ",
+    "node": "myNode",
+    "helperTitle": "Group : Set Next Node "
+  },
+  "apply_effect": {
+    "tag": "judy01||player",
+    "value": "Burning",
+    "helperTitle": "Entity : apply effect to entity",
+    "helper": "This action will apply effect to a entity",
+    "name": "apply_effect"
+  },
+  "update_faction_relation_attitude": {
+    "helper": "This action will set relation between a faction and an AttitudeGroup",
+    "name": "update_faction_relation_attitude",
+    "apply_player": true,
+    "helperTitle": "Gameplay : Update Attitude Relation for every Factions from Affinity board"
+  },
+  "set_entity_node_next_auto": {
+    "helper": "This action will set Next node automatically for a entity",
+    "name": "set_entity_node_next_auto",
+    "tag": "myentity",
+    "helperTitle": "Node : Set Entity Next Node Auto"
+  },
+  "shard_notification": {
+    "title": "Judy Alvarez",
+    "duration": 4,
+    "iscrypted": true,
+    "helperTitle": "UI : Shard Notification",
+    "helper": "This action will make display a shard notification. shard is optional (leave empty if not need, if not empty it will load an custom shard in the popup)",
+    "desc": "Hey you, I was thinking about you... without any clothes",
+    "name": "shard_notification",
+    "shard": "myshard"
+  },
+  "unset_timedilation_for_entity": {
+    "helper": "This action will unset time dilatation for NPC",
+    "name": "unset_timedilation_for_entity",
+    "tag": "judy01||player",
+    "helperTitle": "Entity : Unset Time Dilatation"
+  },
+  "move_entity_at_position": {
+    "tag": "blue01",
+    "y": -10,
+    "move": "Walk",
+    "helperTitle": "Entity : Move to position",
+    "helper": "This action will move a custom entity to XYZ",
+    "z": 0,
+    "x": -10,
+    "name": "move_entity_at_position"
+  },
+  "change_av_velocity": {
+    "helper": "This action will wait change velocity of AVs",
+    "value": 0.005,
+    "helperTitle": "Vehicule : Change AV velocity",
+    "name": "change_av_velocity"
+  },
+  "rotate_entity_relative": {
+    "tag": "guy01",
+    "helper": "This action will rotate a custom entity relatively",
+    "helperTitle": "Entity : Relative Rotate ",
+    "roll": 0,
+    "pitch": 0,
+    "name": "rotate_entity_relative",
+    "yaw": 0
+  },
+  "show_phone_avatar": {
+    "image": "Avatar_Ncpd",
+    "name": "show_phone_avatar",
+    "helper": "This action will show Npc Phone Portrait",
+    "desc": "NCPD",
+    "helperTitle": "Ui : Show Phone Avatar ",
+    "caller": "NCPD Bounty Departement"
+  },
+  "gang_affinity_from_current_subdistrict_leader": {
+    "helper": "This action will add affinity to current district leader gang (can be a negative value)",
+    "score": 50,
+    "helperTitle": "Gang : add Affinity to current Sub District Leader",
+    "name": "gang_affinity_from_current_subdistrict_leader"
+  },
+  "reset_group_facial": {
+    "helper": "This action will reset facial expression of each entity of a group",
+    "name": "reset_group_facial",
+    "tag": "gangteam",
+    "helperTitle": "Group : Reset Facial expression"
+  },
+  "change_character_preset": {
+    "preset": "Character.Panam",
+    "name": "change_character_preset",
+    "helper": "This action will change preset of character to another one ",
+    "helperTitle": "Entity : change a preset of character to another one ",
+    "target": "Character.Judy"
+  },
+  "resume_entity_anim": {
+    "helper": "This action resume the animation of an entity",
+    "name": "resume_entity_anim",
+    "tag": "metroVeh",
+    "helperTitle": "Entity : Resume Animation"
+  },
+  "gang_affinity_from_current_subdistrict_leader_rival": {
+    "helper": "This action will add affinity to current district leader rival gang (can be a negative value)",
+    "score": 50,
+    "helperTitle": "Gang : add Affinity current Sub District Leader Rival",
+    "name": "gang_affinity_from_current_subdistrict_leader_rival"
+  },
+  "show_call_avatar": {
+    "image": "Avatar_Ncpd",
+    "name": "show_call_avatar",
+    "helper": "This action will show Npc Phone Portrait",
+    "desc": "NCPD",
+    "helperTitle": "Ui : Show Call Avatar ",
+    "caller": "NCPD Bounty Departement"
+  },
+  "move_group_at_relative_position": {
+    "tag": "grouptag",
+    "y": -10,
+    "move": "Walk",
+    "helperTitle": "Group : Move to relative position",
+    "helper": "This action will move a group of entity of each's XYZ relative position ",
+    "z": 0,
+    "x": -10,
+    "name": "move_group_at_relative_position"
+  },
+  "set_relation_from_faction_to_attitude": {
+    "tag": "faction_maelstrom",
+    "helperTitle": "Gameplay : Set Attitude Relation Between a Faction and an Attitude",
+    "helper": "This action will set relation between a faction and an AttitudeGroup",
+    "name": "set_relation_from_faction_to_attitude",
+    "relation": "hostile",
+    "target": "ina_11_scavs"
+  },
+  "contact_notification": {
+    "duration": 4,
+    "desc": "Judy Alvarez",
+    "helper": "This action will make display a contact notification ",
+    "title": "Judy Alvarez",
+    "helperTitle": "UI : Contact Notification",
+    "name": "contact_notification"
+  },
+  "loot_item": {
+    "y": 0,
+    "value": [ "Items.SexToyJunkItem1" ],
+    "x": 0,
+    "helperTitle": "Item : Loot Items at position ",
+    "helper": "This action will loot item at XYZ position. If item is Clothing,General or Consumable, it will spawn in an bag. Else, it spawn as object on floor. (Game Behavior)",
+    "z": 0,
+    "name": "loot_item",
+    "target": "player"
+  },
+  "look_at_entity_group": {
+    "tag": "gangteam",
+    "name": "look_at_entity_group",
+    "helper": "This action will make each entity of a group look at a entity",
+    "entity": "judy01||player",
+    "helperTitle": "Group : Look at another entity"
+  },
+  "move_entity_at_relative_position": {
+    "tag": "blue01",
+    "y": -10,
+    "move": "Walk",
+    "helperTitle": "Entity : Move to relative position",
+    "helper": "This action will move a custom entity to XYZ from her relative position",
+    "z": 0,
+    "x": -10,
+    "name": "move_entity_at_relative_position"
+  },
+  "vehicle_go_to_current_mappin_point": {
+    "tag": "myvehiculetag",
+    "minspeed": 10,
+    "maxspeed": 15,
+    "helper": "This action will launch the vehicle to the current custom point",
+    "name": "vehicle_go_to_current_mappin_point",
+    "helperTitle": "Vehicule : Go to Selected Custom Point"
+  },
+  "edit_mappin": {
+    "position_house_tag": "playerhouse01",
+    "position_change_helper": "Write 'current' in position_tag for get current node,mappin, fasttravel, custom_place or custom_room. \n For poi if you write 'current' in position_poi_district you will get the current district, \n if you write 'current in position_poi_subdistrict you will get the current subdistrict. \n also if you write 'random' in position_poi_subdistrict or position_poi_district, you will get an 'random' value",
+    "helperTitle": "Map : Edit Mappin",
+    "helper": "This action will summon a custom npc with several custom parameter ",
+    "position_lookatdistance": 0,
+    "position_tag_helper": "judy01||playerhouse01||playerhouse_bed||",
+    "help": "This action will edit a custom npc with several custom parameter ",
+    "position_poi_district": "",
+    "position_poi_subdistrict": "",
+    "position_poi_from_position": false,
+    "position_poi_type": 1,
+    "position_house_way_helper": "default||enter||exit",
+    "position_spawnlocation": false,
+    "position_poi_is_for_car": false,
+    "position_range": 50,
+    "position_poi_use_location_tag": false,
+    "position_house_way": "default",
+    "position_poi_from_position_x": 0,
+    "position_poi_from_position_y": 0,
+    "position_poi_searchdistance": "near|far|random",
+    "typemap": "ExclamationMarkVariant",
+    "mapgroup": "",
+    "x": 0,
+    "y": 0,
+    "desc": "mydesc",
+    "z": 0,
+    "color": [ {
+      "blue": 255,
+      "red": 255,
+      "green": 255
+    } ],
+    "icon": "",
+    "name": "edit_mappin",
+    "title": "myttitle",
+    "tag": "mymappintag",
+    "position": "at",
+    "active": true,
+    "position_way_helper": "normal||behind||forward",
+    "position_poi_from_position_z": 0,
+    "position_poi_search": "type|subdistrict|district|tag",
+    "position_tag": "judy01",
+    "position_way": "normal",
+    "position_distance": 5,
+    "position_helper": "at||relative_to_entity||node||player_look_at||poi||mappin||fasttravel||custom_place||custom_room||manager",
+    "position_node_usegameplay": false
+  },
+  "play_custom_sound": {
+    "help": "Value is name of the file wihtout extension",
+    "value": "youarebreathtaking",
+    "helperTitle": "Sound : Play Custom Sound",
+    "helper": "This action will play redmod custom sound",
+    "needrepeat": false,
+    "isradio": false,
+    "name": "play_custom_sound"
+  },
+  "play_game_sound_test": {
+    "help": "Play an Game's Sound",
+    "value": "test",
+    "name": "play_game_sound_test",
+    "helper": "This action will Play an Game's Sound",
+    "helperTitle": "Sound : Play Game Sound (direct input)"
+  },
+  "subscribe_function_to_direct_action": {
+    "tag": "myshardtag",
+    "helperTitle": "Script : Register Function to Direct Action Engine",
+    "helper": "This action will subscribe function to direct execution Action Engine",
+    "name": "subscribe_function_to_direct_action",
+    "after": false
+  },
+  "set_entity_appearance": {
+    "tag": "judy",
+    "name": "set_entity_appearance",
+    "helper": "This action will change custom appearance of a custom entity ",
+    "helperTitle": "Entity : Set appearance",
+    "appearance": "judy_nude"
+  },
+  "fade_in": {
+    "help": "will fade in the screen in X second and display the message ",
+    "value": 5,
+    "name": "fade_in",
+    "helper": "This action will fade in the screen in X second and display a small message ",
+    "message": "the next day...",
+    "helperTitle": "UI : Fade In"
+  },
+  "teleport_group_at_relative_position": {
+    "tag": "grouptag",
+    "y": -10,
+    "helperTitle": "Group : Teleport Group at relative position",
+    "helper": "This action will teleport a group of entity of each's XYZ relative position",
+    "z": 0,
+    "x": -10,
+    "name": "teleport_group_at_relative_position"
+  },
+  "open_interface": {
+    "helper": "This action will open the interface by tag",
+    "name": "open_interface",
+    "tag": "myinterfacetag",
+    "helperTitle": "Interface : Open a custom interface"
+  },
+  "play_custom_sound_at_entity": {
+    "help": "Value is name of the file wihtout extension",
+    "value": "youarebreathtaking",
+    "tag": "judy",
+    "helperTitle": "Sound : Play Custom Sound At Entity",
+    "helper": "This action will play redmod custom sound at entity",
+    "needrepeat": false,
+    "isradio": false,
+    "name": "play_custom_sound_at_entity"
+  },
+  "player_look_at_forward": {
+    "helper": "This action will player look at forward ",
+    "name": "player_look_at_forward",
+    "tag": "blue01",
+    "helperTitle": "Player : Look forward"
+  },
+  "toggle_av_engine": {
+    "helper": "This action will toggle the av engine for this vehicule",
+    "name": "toggle_av_engine",
+    "tag": "battyAV",
+    "helperTitle": "Vehicule : Toggle AV Engine"
+  },
+  "set_relation_between_attitude": {
+    "attitude": "nid_04_maelstrom",
+    "helperTitle": "Gameplay : Set Attitude Relation Between Attitude",
+    "helper": "This action will set relation between two AttitudeGroup",
+    "name": "set_relation_between_attitude",
+    "relation": "hostile",
+    "target": "ina_11_scavs"
+  },
+  "lock_conversation": {
+    "helper": "This action will lock the conversation ",
+    "name": "lock_conversation",
+    "tag": "myobj",
+    "helperTitle": "Interface : Lock Conversation"
+  },
+  "edit_scannerdata": {
+    "tag": "judy01",
+    "helperTitle": "Scanner : Edit Custom Scanner Data",
+    "helper": "This action will edit an field  Scanner Data. \n Value can be an string for 'primaryname' ,'secondaryname' ,'text' ,'faction' ,'issuedby'  ; \n an number for 'level', 'rarity', 'attitude', 'danger' ,'reward' ,'streetreward' ;\n  an list of text for 'transgressions', 'customtransgressions'. \n for reward or streetreward, Operator can be + | -| * | / | positive | negative | random (who take min and max value). leave it blank result as '=' ",
+    "min": 1,
+    "max": 5,
+    "value": "Judy's Bad Sister",
+    "operator": "+",
+    "prop": "primaryname",
+    "name": "edit_scannerdata"
+  },
+  "show_texture": {
+    "tag": "judy_screen.jpg",
+    "sizeY": 230,
+    "positionX": 50,
+    "title": "JUDY ALVAREZ",
+    "bordercolor": "000000",
+    "sizeX": 230,
+    "helperTitle": "UI : Show picture",
+    "titlecolor": "00FFFF",
+    "name": "show_texture",
+    "borderopacity": 0,
+    "bgopacity": 0,
+    "bgcolor": "000000",
+    "showtitle": true,
+    "positionY": 200,
+    "helper": "This action will show an picture. bgcolor and bordercolor are html color"
+  }
+}

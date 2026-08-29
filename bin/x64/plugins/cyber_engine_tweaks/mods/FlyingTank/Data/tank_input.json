@@ -1,0 +1,42 @@
+{
+    "KEY_TANK_FORWARD_MOVE": {
+        "name": "Accelerate",
+        "type": "AXIS_CHANGE",
+        "value": "POSITIVE"
+    },
+    "KEY_TANK_BACK_MOVE": {
+        "name": "Accelerate",
+        "type": "AXIS_CHANGE",
+        "value": "NEGATIVE"
+    },
+    "KEY_TANK_RIGHT_MOVE": {
+        "name": "TurnX",
+        "type": "AXIS_CHANGE",
+        "value": "POSITIVE"
+    },
+    "KEY_TANK_LEFT_MOVE": {
+        "name": "TurnX",
+        "type": "AXIS_CHANGE",
+        "value": "NEGATIVE"
+    },
+    "KEY_TANK_RIGHT_ROTATE": {
+        "name": "UI_MoveX_Axis",
+        "type": "AXIS_CHANGE",
+        "value": "POSITIVE"
+    },
+    "KEY_TANK_LEFT_ROTATE": {
+        "name": "UI_MoveX_Axis",
+        "type": "AXIS_CHANGE",
+        "value": "NEGATIVE"
+    },
+    "MOUSE_TANK_RIGHT_ROTATE": {
+        "name": "CameraMouseX",
+        "type": "RELATIVE_CHANGE",
+        "value": "POSITIVE"
+    },
+    "MOUSE_TANK_LEFT_ROTATE": {
+        "name": "CameraMouseX",
+        "type": "RELATIVE_CHANGE",
+        "value": "NEGATIVE"
+    }
+}

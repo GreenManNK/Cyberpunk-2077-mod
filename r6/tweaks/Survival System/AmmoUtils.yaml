@@ -1,0 +1,144 @@
+Price.AmmoSellMultiplier:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.5
+  modifierType: Multiplier
+  statType: BaseStats.Price
+
+Price.HandgunAmmoMultiplier:
+  $type: gamedataConstantStatModifier_Record
+  value: 1
+  modifierType: Multiplier
+  statType: BaseStats.Price
+
+Price.ShotgunAmmoMultiplier:
+  $type: gamedataConstantStatModifier_Record
+  value: 1
+  modifierType: Multiplier
+  statType: BaseStats.Price
+
+Price.RifleAmmoMultiplier:
+  $type: gamedataConstantStatModifier_Record
+  value: 1
+  modifierType: Multiplier
+  statType: BaseStats.Price
+
+Price.SniperAmmoMultiplier:
+  $type: gamedataConstantStatModifier_Record
+  value: 1
+  modifierType: Multiplier
+  statType: BaseStats.Price
+
+Vendors.HandgunAmmoQuantity:
+  $type: gamedataConstantStatModifier_Record
+  modifierType: Additive
+  statType: BaseStats.Quantity
+
+Vendors.ShotgunAmmoQuantity:
+  $type: gamedataConstantStatModifier_Record
+  modifierType: Additive
+  statType: BaseStats.Quantity
+
+Vendors.RifleAmmoQuantity:
+  $type: gamedataConstantStatModifier_Record
+  modifierType: Additive
+  statType: BaseStats.Quantity
+
+Vendors.SniperAmmoQuantity:
+  $type: gamedataConstantStatModifier_Record
+  modifierType: Additive
+  statType: BaseStats.Quantity
+
+Vendors.Gunsmith_inline10:
+  $type: gamedataVendorItem_Record
+  item: Ammo.HandgunAmmo
+  generationPrereqs: []
+  quantity:
+    - Vendors.HandgunAmmoQuantity
+
+Vendors.Gunsmith_inline12:
+  $type: gamedataVendorItem_Record
+  item: Ammo.ShotgunAmmo
+  generationPrereqs: []
+  quantity:
+    - Vendors.ShotgunAmmoQuantity
+
+Vendors.Gunsmith_inline14:
+  $type: gamedataVendorItem_Record
+  item: Ammo.RifleAmmo
+  generationPrereqs: []
+  quantity:
+    - Vendors.RifleAmmoQuantity
+
+Vendors.Gunsmith_inline16:
+  $type: gamedataVendorItem_Record
+  item: Ammo.SniperRifleAmmo
+  generationPrereqs: []
+  quantity:
+    - Vendors.SniperAmmoQuantity
+
+Ammo.HandgunAmmo:
+  objectActions:
+    - ItemAction.Drop
+  statModifiers:
+    - Items.AmmoQuantity
+  buyPrice:
+    - Price.Ammo
+    - Price.BuyPrice_StreetCred_Discount
+    - Price.HandgunAmmoMultiplier
+  sellPrice:
+    - Price.Ammo
+    - Price.AmmoSellMultiplier
+    - Price.HandgunAmmoMultiplier
+
+Ammo.ShotgunAmmo:
+  objectActions:
+    - ItemAction.Drop
+  statModifiers:
+    - Items.AmmoQuantity
+  buyPrice:
+    - Price.Ammo
+    - Price.BuyPrice_StreetCred_Discount
+    - Price.ShotgunAmmoMultiplier
+  sellPrice:
+    - Price.Ammo
+    - Price.AmmoSellMultiplier
+    - Price.ShotgunAmmoMultiplier
+
+Ammo.RifleAmmo:
+  objectActions:
+    - ItemAction.Drop
+  statModifiers:
+    - Items.AmmoQuantity
+  buyPrice:
+    - Price.Ammo
+    - Price.BuyPrice_StreetCred_Discount
+    - Price.RifleAmmoMultiplier
+  sellPrice:
+    - Price.Ammo
+    - Price.AmmoSellMultiplier
+    - Price.RifleAmmoMultiplier
+
+Ammo.SniperRifleAmmo:
+  objectActions:
+    - ItemAction.Drop
+  statModifiers:
+    - Items.AmmoQuantity
+  buyPrice:
+    - Price.Ammo
+    - Price.BuyPrice_StreetCred_Discount
+    - Price.SniperAmmoMultiplier
+  sellPrice:
+    - Price.Ammo
+    - Price.AmmoSellMultiplier
+    - Price.SniperAmmoMultiplier
+
+Items.AmmoQuantity:
+  $type: gamedataConstantStatModifier_Record
+  value: 9999999
+  modifierType: Additive
+  statType: BaseStats.Quantity
+
+UIIcon.Filter_Ammunition:
+  $type: gamedataUIIcon_Record
+  atlasPartName: ammo_rifle
+  atlasResourcePath: base\gameplay\gui\common\icons\mappin_icons.inkatlas

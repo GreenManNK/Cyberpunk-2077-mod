@@ -1,0 +1,110 @@
+# Blade=======================================================
+
+AttachmentSlots.Blade_WeaponMod3:
+    $base: AttachmentSlots.Blade_WeaponMod1
+    
+AttachmentSlots.Blade_WeaponMod4:
+    $base: AttachmentSlots.Blade_WeaponMod2
+
+AttachmentSlots.Blade_WeaponMod5:
+    $base: AttachmentSlots.Blade_WeaponMod3
+
+AttachmentSlots.Blade_WeaponMod6:
+    $base: AttachmentSlots.Blade_WeaponMod4
+
+Items.Blade_WeaponMod3Element:
+    $base: Items.Blade_WeaponMod1Element
+    slot: AttachmentSlots.Blade_WeaponMod3
+    
+Items.Blade_WeaponMod4Element:
+    $base: Items.Blade_WeaponMod2Element
+    slot: AttachmentSlots.Blade_WeaponMod4
+
+Items.Blade_WeaponMod5Element:
+    $base: Items.Blade_WeaponMod3Element
+    slot: AttachmentSlots.Blade_WeaponMod5
+
+Items.Blade_WeaponMod6Element:
+    $base: Items.Blade_WeaponMod4Element
+    slot: AttachmentSlots.Blade_WeaponMod6
+
+Items.Base_Blade_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Blade_WeaponMod3Element
+        - !append-once Items.Blade_WeaponMod4Element
+        - !append-once Items.Blade_WeaponMod5Element
+        - !append-once Items.Blade_WeaponMod6Element
+
+# Blunt=======================================================
+
+AttachmentSlots.Blunt_WeaponMod3:
+    $base: AttachmentSlots.Blunt_WeaponMod1
+    
+AttachmentSlots.Blunt_WeaponMod4:
+    $base: AttachmentSlots.Blunt_WeaponMod2
+
+AttachmentSlots.Blunt_WeaponMod5:
+    $base: AttachmentSlots.Blunt_WeaponMod3
+
+AttachmentSlots.Blunt_WeaponMod6:
+    $base: AttachmentSlots.Blunt_WeaponMod4
+
+Items.Blunt_WeaponMod3Element:
+    $base: Items.Blunt_WeaponMod1Element
+    slot: AttachmentSlots.Blunt_WeaponMod3
+    
+Items.Blunt_WeaponMod4Element:
+    $base: Items.Blunt_WeaponMod2Element
+    slot: AttachmentSlots.Blunt_WeaponMod4
+
+Items.Blunt_WeaponMod5Element:
+    $base: Items.Blunt_WeaponMod3Element
+    slot: AttachmentSlots.Blunt_WeaponMod5
+
+Items.Blunt_WeaponMod6Element:
+    $base: Items.Blunt_WeaponMod4Element
+    slot: AttachmentSlots.Blunt_WeaponMod6
+
+Items.Base_Blunt_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Blunt_WeaponMod3Element
+        - !append-once Items.Blunt_WeaponMod4Element
+        - !append-once Items.Blunt_WeaponMod5Element
+        - !append-once Items.Blunt_WeaponMod6Element
+
+# Throwable===================================================
+
+AttachmentSlots.Throwable_WeaponMod3:
+    $base: AttachmentSlots.Throwable_WeaponMod1
+    
+AttachmentSlots.Throwable_WeaponMod4:
+    $base: AttachmentSlots.Throwable_WeaponMod2
+
+AttachmentSlots.Throwable_WeaponMod5:
+    $base: AttachmentSlots.Throwable_WeaponMod3
+
+AttachmentSlots.Throwable_WeaponMod6:
+    $base: AttachmentSlots.Throwable_WeaponMod4
+
+Items.Throwable_WeaponMod3Element:
+    $base: Items.Throwable_WeaponMod1Element
+    slot: AttachmentSlots.Throwable_WeaponMod3
+    
+Items.Throwable_WeaponMod4Element:
+    $base: Items.Throwable_WeaponMod2Element
+    slot: AttachmentSlots.Throwable_WeaponMod4
+
+Items.Throwable_WeaponMod5Element:
+    $base: Items.Throwable_WeaponMod3Element
+    slot: AttachmentSlots.Throwable_WeaponMod5
+
+Items.Throwable_WeaponMod6Element:
+    $base: Items.Throwable_WeaponMod4Element
+    slot: AttachmentSlots.Throwable_WeaponMod6
+
+Items.Base_Throwable_Blueprint_inline0:
+    childElements:
+        - !append-once Items.Throwable_WeaponMod3Element
+        - !append-once Items.Throwable_WeaponMod4Element
+        - !append-once Items.Throwable_WeaponMod5Element
+        - !append-once Items.Throwable_WeaponMod6Element

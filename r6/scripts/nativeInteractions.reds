@@ -1,0 +1,33 @@
+native func Log(const text: script_ref<String>) -> Void
+
+@addMethod(PlayerPuppet)
+protected cb func OnNIFSceneEvent(event: ref<ActionEvent>) {}
+
+@if(ModuleExists("Codeware"))
+class NativeInteractions extends ScriptableService {
+    private cb func OnLoad() {
+        GameInstance.GetCallbackSystem().RegisterCallback(n"Resource/PostLoad", this, n"ProcessScene")
+        .AddTarget(ResourceTarget.Type(n"scnSceneResource"));
+        GameInstance.GetCallbackSystem().RegisterCallback(n"Resource/Load", this, n"ProcessJournal")
+        .AddTarget(ResourceTarget.Path(r"nif\\dummy.journal"));
+    }
+
+    public func IsCustomMappin(mappin: wref<IMappin>) -> Bool {
+        return false;
+    }
+
+    private cb func ProcessScene(event: ref<ResourceEvent>) {};
+    private cb func ProcessJournal(event: ref<ResourceEvent>) {};
+
+    public func ToggleProject(projectName: String, state: Bool) -> Void {};
+    public func ToggleAll(state: Bool) -> Void {};
+}
+
+@wrapMethod(WorldMappinsContainerController)
+public func CreateMappinUIProfile(mappin: wref<IMappin>, mappinVariant: gamedataMappinVariant, customData: ref<MappinControllerCustomData>) -> MappinUIProfile {
+    let service = GameInstance.GetScriptableServiceContainer().GetService(n"NativeInteractions") as NativeInteractions;
+    if (IsDefined(service) && service.IsCustomMappin(mappin)) {
+        return MappinUIProfile.Create(r"base\\gameplay\\gui\\widgets\\mappins\\quest\\default_mappin.inkwidget", t"MappinUISpawnProfile.MediumRange", t"WorldMappinUIProfile.nif");
+    }
+    return wrappedMethod(mappin, mappinVariant, customData);
+}

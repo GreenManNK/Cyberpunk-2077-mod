@@ -1,0 +1,38 @@
+playerStateMachineInputContext.vehicleDriverCombatMountedWeaponsContext.hasOnUpdate: true
+
+
+### Vehicle Restriction
+# How to find mounted vehicle's TweakDB ID
+# Get in the vehicle and enter the following into the CET Console:
+# print(GetPlayer():GetMountedVehicle():GetRecord():GetID().value)
+
+# Tag vehicles as CanAutoDrive
+# delamain
+Vehicle.v_standard2_villefort_cortes_delamain_player:
+  tags:
+    - !append n"CanAutoDrive"
+
+# aerondight
+Vehicle.v_sport1_rayfield_aerondight_player:
+  tags:
+    - !append n"CanAutoDrive"
+
+# caliburn
+Vehicle.v_sport1_rayfield_caliburn_player:
+  tags:
+    - !append n"CanAutoDrive"
+
+# caliburn musk mobile
+Vehicle.v_sport1_rayfield_caliburn_02_player:
+  tags:
+    - !append n"CanAutoDrive"
+
+# Tag vehicles as CannotAutoDrive
+# This vehicles cannot AutoDrive even if "Restrict Vehicles" is OFF.
+
+# porsche 911
+# Vehicle.v_sport2_porsche_911turbo_player:
+#  tags:
+#    - !append n"CannotAutoDrive"
+
+###

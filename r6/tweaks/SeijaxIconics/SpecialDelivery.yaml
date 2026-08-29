@@ -1,0 +1,186 @@
+Items.SJ_Nailer__base:
+    $base: Items.w_rifle_precision__midnight_sor22__base1
+    appearanceResourceName: seijax_sdelivery_appfile_base
+    
+Items.SJ_Nailer__mag_std:
+    $base: Items.w_rifle_precision__midnight_sor22__mag_std
+    appearanceResourceName: seijax_sdelivery_appfile_std
+
+Items.SJ_Nailer__mag_stdr:
+    $base: Items.w_rifle_precision__midnight_sor22__mag_stdr
+    appearanceResourceName: seijax_sdelivery_appfile_stdr
+
+BaseStatusEffect.SJ_DelayedExplosionFuse:
+    $base: BaseStatusEffect.DebuffStatusEffect
+    duration: BaseStats.InfiniteDuration
+    maxStacks:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxStacks
+            modifierType: Additive
+            value: 1.0
+    gameplayTags:
+    -   !append DelayedExplosionFuse
+    packages:
+    -   $type: GameplayLogicPackage
+        effectors:
+        -   $type: ApplyStatusEffectEffector
+            inverted: true
+            statusEffect: 
+                $base: BaseStatusEffect.DebuffStatusEffect
+                duration:
+                    statModifiers:
+                    -   $type: ConstantStatModifier
+                        statType: BaseStats.MaxDuration
+                        modifierType: Additive
+                        value: 0.1
+                maxStacks:
+                    statModifiers:
+                    -   $type: ConstantStatModifier
+                        statType: BaseStats.MaxStacks
+                        modifierType: Additive
+                        value: 1.0
+                packages:
+                -   $type: GameplayLogicPackage
+                    effectors:
+                    -   $base: Effectors.TriggerAttackOnOwnerEffect
+                        prereqRecord: Prereqs.AlwaysTruePrereq
+                        attackRecord: 
+                            $base: Attacks.FragGrenade
+                            effectTag: bullet_explosion_panzer
+                            hitReactionSeverityMin: 2
+                            statModifiers:
+                            -   !append
+                                $type: CombinedStatModifier
+                                refStat: BaseStats.PhysicalDamage
+                                statType: BaseStats.ThermalDamage
+                                modifierType: Additive
+                                refObject: Root
+                                opSymbol: "*"
+                                value: 3.0
+                        playerAsInstigator: true
+
+Items.SJ_NailerWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_SDelivery_iconic_description
+    effectors:
+    -   $type: AddHitFlagToAttackEffector
+        prereqRecord: Perks.IsAttackRanged
+        hitFlag: ForceKnockdown
+    -   $type: ApplyEffectorEffector
+        prereqRecord: Prereqs.ReloadStartPrereq
+        effectorToApply:
+            $base: Effectors.RemoveStatusEffectInAreaEffector
+            prereqRecord:
+                $base: Prereqs.DurationPrereq
+                duration: 0.4
+            tags: [ DelayedExplosionFuse ]
+            range: 40.0
+
+Items.SJ_NailerWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_NailerWeaponModAbility ]
+    statModifiers:
+    -   $base: BaseStats.MagazineCapacityModifier
+        value: -7
+    -   $type: ConstantStatModifier
+        statType: BaseStats.PhysicalImpulse
+        modifierType: Additive
+        value: 100.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.KnockdownImpulse
+        modifierType: Additive
+        value: 100.0
+
+Attacks.SJ_NailerBullet:
+    $base: Attacks.Bullet_GameEffect
+    hitReactionSeverityMin: 0
+    hitReactionSeverityMax: 3
+    statusEffects:
+    -   $type: StatusEffectAttackData
+        statusEffect: BaseStatusEffect.SJ_DelayedExplosionFuse
+        applyImmediately: true
+
+Attacks.SJ_NailerBulletFire:
+    $type: RangedAttack
+    playerAttack: Attacks.SJ_NailerBullet
+    secondaryPlayerAttack: Attacks.SJ_NailerBullet
+    playerTimeDilated: Attacks.SJ_NailerBullet
+    secondaryPlayerTimeDilated: Attacks.SJ_NailerBullet
+
+Attacks.SJ_NailerAttackPackage:
+    $type: RangedAttackPackage
+    defaultFire: Attacks.SJ_NailerBulletFire
+    chargeFire: Attacks.SJ_NailerBulletFire
+
+Items.SJ_Nailer:
+    $base: Items.Preset_Sor22_Default
+    displayName: LocKey#SJ_SDelivery_name
+    localizedDescription: LocKey#SJ_SDelivery_description
+    blueprint: Items.Iconic_Ranged_Weapon_NoMuzzle_Blueprint
+    appearanceName: nusa2
+    appearanceResourceName: seijax_sdelivery_appfile
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_nailer
+    rangedAttacks: Attacks.SJ_NailerAttackPackage
+    attacks:
+    -   !append Attacks.SJ_NailerBullet
+    npcRPGData:
+        $base: Items.Base_Sor22_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    quality: Quality.Rare
+    tags:
+    -   !append Nailer
+    -   !append DelayedExplosion
+    -   !append NoAutomaticReload
+    -   !append ProtectedAttackPackage
+    -   !append IconicWeapon
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartList:
+    -   Items.Base_Sor22_inline2
+    -   $base: Items.Base_Sor22_inline4
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Nailer__base
+    -   $base: Items.Base_Sor22_inline6
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Nailer__mag_std
+    -   $base: Items.Base_Sor22_inline8
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Nailer__mag_stdr
+    -   Items.RiflePossibleScopesList
+    slotPartListPreset:
+    -   Items.Preset_Sor22_Default_inline0
+    -   $base: Items.Preset_Sor22_Default_inline1
+        itemPartPreset: Items.SJ_Nailer__base
+    -   $base: Items.Preset_Sor22_Default_inline2
+        itemPartPreset: Items.SJ_Nailer__mag_std
+    -   $base: Items.Preset_Sor22_Default_inline3
+        itemPartPreset: Items.SJ_Nailer__mag_stdr
+    -   Items.RifleScopesPartList
+#    -   Items.Preset_Sor22_Default_inline4
+#    -   Items.Preset_Sor22_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_NailerWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+
+Items.SJ_SpecialDelivery:
+    $base: Items.SJ_Nailer
+
+Items.SJ_SpecialDelivery_Pickup:
+    $base: Items.SJ_Nailer
+    quality: Quality.Random
+    statModifierGroups:
+    -   !remove Items.QualityRandomization

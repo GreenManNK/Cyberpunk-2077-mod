@@ -1,0 +1,90 @@
+{
+    "tag": "check_ ma_wat_nid_11_onscreen_taken",
+    "trigger": {
+        "mappin_exist": {
+            "tag": "ma_wat_nid_11_onscreen",
+            "helperTitle": "Map : Mappin exist",
+            "name": "mappin_exist",
+            "helper": "This trigger will be triggered if the mappin exist"
+        },
+        "shard_get": {
+            "helper": "This trigger will be triggered if player get the shard by Lockey",
+            "helperTitle": "Misc : Have Shard",
+            "name": "have_shard",
+            "value": "LocKey#34463"
+        }
+    },
+    "header": {
+        "version": 1
+    },
+    "action": [
+        {
+            "tag": "ma_wat_nid_11_onscreen",
+            "name": "delete_mappin",
+            "helperTitle": "Map : Delete Point",
+            "helper": "This action will delete a specific mapPin"
+        },
+        {
+            "helper": "This action will set a value for a key of a Variable ",
+            "variable": "hackfixermsg",
+            "name": "set_variable",
+            "key": "hackfixermsg",
+            "value": "Transmitting data to Regina Jones ...",
+            "helperTitle": "Variable : Set Variable"
+        },
+        {
+            "name": "set_variable",
+            "variable": "Hacking",
+            "key": "Percent",
+            "value": 0
+        },
+        {
+            "name": "do_function",
+            "value": "hack_animation",
+            "parallele": true
+        },
+        {
+            "name": "for",
+            "amount": 200,
+            "action": [
+                {
+                    "name": "operate_score",
+                    "score": "Hacking",
+                    "key": "Percent",
+                    "value": 0.5,
+                    "operator": "+",
+                    "min": 0,
+                    "max": 5
+                }
+            ]
+        },
+        {
+            "name": "wait_second",
+            "value": 8,
+            "helper": "This action will set a value for a key of a Variable ",
+            "helperTitle": "Variable : Set Variable"
+        },
+		{
+			"type": 2,
+			"value": "Regina Jones\nExcellent work V... as always.",
+			"name": "custom_notification",
+			"duration": 6,
+			"helperTitle": "UI : Display Custom Notification",
+			"helper": "This action will display Custom Notification.  Type : \r\n Undefined = 0,\r\n   Negative = 1,\r\n   Neutral = 2,\r\n   Vehicle = 3,\r\n   Apartment = 4,\r\n   Relic = 5,\r\n   Money = 6,\r\n   Reveal = 7 "
+		},
+        {
+            "name": "do_function",
+            "value": "reward",
+            "parallele": false
+        }
+    ],
+    "name": "check_ ma_wat_nid_11_onscreen_taken",
+    "context": [],
+    "way": "world",
+    "requirement": [
+        [
+            "shard_get",
+            "mappin_exist"
+        ]
+    ]
+}

@@ -1,0 +1,25 @@
+journal:
+  - mod\arman3_dwelling\journal\dwelling.journal
+streaming:
+  blocks:
+    - mod\arman3_dwelling\worlds\dwelling.streamingblock
+quest:
+  phases:
+    - path: mod\arman3_dwelling\quest\dwelling.questphase
+      parent: base\quest\cyberpunk2077.quest
+localization:
+  onscreens:
+    en-us: mod\arman3_dwelling\localization\en-us\onscreens\dwelling_onscreens.json
+    cz-cz: mod\arman3_dwelling\localization\cz-cz\onscreens\dwelling_onscreens.json
+  lipmaps:
+    en-us: mod\arman3_dwelling\localization\en-us.lipmap
+    de-de: mod\arman3_dwelling\localization\de-de.lipmap
+    es-es: mod\arman3_dwelling\localization\es-es.lipmap
+    fr-fr: mod\arman3_dwelling\localization\fr-fr.lipmap
+    it-it: mod\arman3_dwelling\localization\it-it.lipmap
+    jp-jp: mod\arman3_dwelling\localization\jp-jp.lipmap
+    kr-kr: mod\arman3_dwelling\localization\kr-kr.lipmap
+    pl-pl: mod\arman3_dwelling\localization\pl-pl.lipmap
+    pt-br: mod\arman3_dwelling\localization\pt-br.lipmap
+    ru-ru: mod\arman3_dwelling\localization\ru-ru.lipmap
+    zh-cn: mod\arman3_dwelling\localization\zh-cn.lipmap

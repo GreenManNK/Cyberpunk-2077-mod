@@ -1,0 +1,10 @@
+Adverts.Palladia_center_billboard_bennett:
+  $type: gamedataAdvertisement_Record
+  resource: ep1\gameplay\gui\world\adverts\palladia_center\bennett_announcement.inkwidget
+  definitions:
+    - Adverts.Palladia_center_billboard_k
+  localizationKey: LocKey#36326
+Adverts.Palladia_center_billboard_k:
+  $type: gamedataAdvertisementFormatDef_Record
+  format: Format_k
+  libraryName: palladia_center_billboard_k

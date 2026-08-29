@@ -1,0 +1,21 @@
+streaming:
+  sectors:
+  - nodeMutations:
+    - type: worldStaticMeshNode
+      index: 1251
+      position: [1798.423, 2255.478, 180.321, 0.0]
+      scale: [1.0, 1.0, 1.01]
+    - type: worldStaticDecalNode
+      index: 1883
+      position: [1798.640, 2255.304, 181.131, 0.0]
+    - type: worldStaticDecalNode
+      index: 1884
+      position: [1798.677, 2255.466, 181.131, 0.0]
+    - type: worldStaticDecalNode
+      index: 1885
+      position: [1798.528, 2255.444, 181.131, 0.0]
+    - type: worldStaticDecalNode
+      index: 1912
+      position: [1798.328, 2255.444, 181.089, 0.0]
+    expectedNodes: 2967
+    path: base\worlds\03_night_city\_compiled\default\exterior_28_35_2_0.streamingsector

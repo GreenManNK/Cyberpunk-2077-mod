@@ -1,0 +1,142 @@
+{
+  "streaming": {
+    "sectors": [
+      {
+        "nodeDeletions": [
+          {
+            "debugName": "VariantCollisionNode_023",
+            "orientation": {
+              "i": 0,
+              "r": 0.99555265903473,
+              "j": 0,
+              "k": -0.09420707821846
+            },
+            "position": {
+              "y": 2230.4968261719,
+              "x": 1878.7349853516,
+              "z": 177.40463256836
+            },
+            "resource": "",
+            "actorDeletions": [
+              34,
+              35,
+              79,
+              80,
+              82,
+              83,
+              88,
+              96,
+              99,
+              100,
+              110,
+              111,
+              113,
+              115,
+              117,
+              120,
+              121,
+              125,
+              126
+            ],
+            "nodeRef": "",
+            "index": 327,
+            "type": "worldCollisionNode",
+            "expectedActors": 128
+          }
+        ],
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_14_17_1_1.streamingsector",
+        "expectedNodes": 435
+      },
+      {
+        "nodeDeletions": [
+          {
+            "debugName": "VariantCollisionNode_012",
+            "orientation": {
+              "i": 0.44925671815872,
+              "r": -0.44925671815872,
+              "j": -0.54604798555374,
+              "k": 0.54604798555374
+            },
+            "position": {
+              "z": 182.67216491699,
+              "x": 1888.4641113281,
+              "y": 2233.7016601563
+            },
+            "type": "worldCollisionNode",
+            "actorDeletions": [
+              1,
+              65,
+              66,
+              67,
+              68
+            ],
+            "expectedActors": 128,
+            "index": 284,
+            "nodeRef": "",
+            "resource": ""
+          },
+          {
+            "debugName": "VariantCollisionNode_024",
+            "orientation": {
+              "i": -0.99996107816696,
+              "r": -3.2867973231987e-08,
+              "j": -0.0088306833058596,
+              "k": -5.304604044909e-08
+            },
+            "position": {
+              "z": 181.07452392578,
+              "x": 1889.8227539063,
+              "y": 2235.0166015625
+            },
+            "type": "worldCollisionNode",
+            "actorDeletions": [
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              19,
+              20,
+              40,
+              41,
+              50,
+              51,
+              58,
+              59,
+              60,
+              61,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74
+            ],
+            "expectedActors": 128,
+            "index": 285,
+            "nodeRef": "",
+            "resource": ""
+          },
+          {
+            "debugName": "VariantCollisionNode_029",
+            "type": "worldCollisionNode",
+            "actorDeletions": [
+              54,
+              56,
+              63
+            ],
+            "expectedActors": 68,
+            "index": 286,
+            "nodeRef": "",
+            "resource": ""
+          }
+        ],
+        "path": "base\\worlds\\03_night_city\\_compiled\\default\\exterior_7_8_0_2.streamingsector",
+        "expectedNodes": 310
+      }
+    ]
+  }
+}

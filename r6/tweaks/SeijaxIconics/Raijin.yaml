@@ -1,0 +1,173 @@
+Items.SJ_Raijin__rcv:
+    $base: Items.w_handgun__arasaka_kenshin__rcv1
+    appearanceResourceName: seijax_raijin_appfile_rcv
+
+Items.SJ_Raijin__base:
+    $base: Items.w_handgun__arasaka_kenshin__base1
+    appearanceResourceName: seijax_raijin_appfile_base
+
+Items.SJ_Raijin__mag_std:
+    $base: Items.w_handgun__arasaka_kenshin__mag_std
+    appearanceResourceName: seijax_raijin_appfile_std
+
+Items.SJ_Raijin__mag_stdr:
+    $base: Items.w_handgun__arasaka_kenshin__mag_stdr
+    appearanceResourceName: seijax_raijin_appfile_stdr
+
+WeaponFxPackage.SJ_RaijinFxPackage:
+    $base: WeaponFxPackage.TechHandgun
+    vfx_hitscan_trail: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    NPC_vfx_hitscan_trail: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    vfx_hitscan_trail_slowmo: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    vfx_hitscan_trail_ricochet: base\fx\weapons\trails\power\electric\w_trail_electric_power_pistol.effect
+    vfx_impact_damage_thermal: base\fx\weapons\impacts\_elemental\electric\imp_add_on_electric.effect
+    vfx_impact_damage_electric: base\fx\weapons\impacts\_elemental\electric\imp_add_on_electric.effect
+    vfx_impact_damage_chemical: base\fx\weapons\impacts\_elemental\electric\imp_add_on_electric.effect
+    vfx_impact_add_enable: true
+    vfx_impact_add: seijax\iconic_weapons\vfx\electric\electric_hit_static.effect
+
+BaseStatusEffect.SJ_Raijin_Tagged:
+    $base: BaseStatusEffect.DebuffStatusEffect
+    duration:
+        statModifiers:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.MaxDuration
+            modifierType: Additive
+            value: 0.2
+    packages:
+    -   $type: GameplayLogicPackage
+        effectors:
+        -   $base: Perks.MultiplyDamage
+            prereqRecord:
+                $base: Prereqs.ProcessHitReceived
+                conditions:
+                -   $base: Prereqs.StatusEffectPresentHitPrereqCondition
+                    checkType: CheckType.Type
+                    statusEffect: Burning
+            value: 1.1
+        stats:
+        -   $type: ConstantStatModifier
+            statType: BaseStats.ImpactDamageThreshold
+            modifierType: Multiplier
+            value: 0.1
+        -   $type: ConstantStatModifier
+            statType: BaseStats.StaggerDamageThreshold
+            modifierType: Multiplier
+            value: 0.1
+        -   $type: ConstantStatModifier
+            statType: BaseStats.KnockdownDamageThreshold
+            modifierType: Multiplier
+            value: 0.1
+        -   $type: ConstantStatModifier
+            statType: BaseStats.ImpactDamageThresholdInCover
+            modifierType: Multiplier
+            value: 0.1
+        -   $type: ConstantStatModifier
+            statType: BaseStats.StaggerDamageThresholdInCover
+            modifierType: Multiplier
+            value: 0.1
+        -   $type: ConstantStatModifier
+            statType: BaseStats.KnockdownDamageThresholdInCover
+            modifierType: Multiplier
+            value: 0.1
+
+Items.SJ_RaijinWeaponModAbility:
+    $base: Items.IconicWeaponModAbilityBase
+    UIData:
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#SJ_Raijin_iconic_description
+    effectors:
+    -   $type: AddStatusEffectToAttackEffector
+        prereqRecord: Prereqs.SJ_ChargedShotHit
+        statusEffect: BaseStatusEffect.SJ_Raijin_Tagged
+        applicationChance:
+        -   BaseStats.AlwaysApplyChance
+
+Items.SJ_RaijinWeaponMod:
+    $base: Items.IconicWeaponModBase
+    OnAttach: [ Items.SJ_RaijinWeaponModAbility ]
+    statModifiers:
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BulletMagnetismDefaultAngle
+        modifierType: Multiplier
+        value: 2.0
+    -   $type: ConstantStatModifier
+        statType: BaseStats.BulletMagnetismHighVelocityAngle
+        modifierType: Multiplier
+        value: 2.0
+    -   $type: CombinedStatModifier
+        statType: BaseStats.PhysicalDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: -0.3
+    -   $type: CombinedStatModifier
+        statType: BaseStats.ElectricDamage
+        modifierType: Additive
+        refStat: BaseStats.DamagePerHit
+        refObject: Root
+        opSymbol: "*"
+        value: 0.3
+
+Items.SJ_Raijin:
+    $base: Items.Preset_Kenshin_Default
+    displayName: LocKey#SJ_Raijin_name
+    localizedDescription: LocKey#SJ_Raijin_description
+    appearanceResourceName: seijax_raiju_appfile
+    icon:
+        atlasResourcePath: seijax\iconic_weapons\icons\icons.inkatlas
+        atlasPartName: sj_raiju
+    blueprint: Items.Iconic_Ranged_Weapon_NoMuzzle_Blueprint
+    fxPackage: WeaponFxPackage.SJ_RaijinFxPackage
+    tags:
+    -   !append Raijin
+    -   !append ForceAutoPrimary
+    -   !append GradualChargeDecay
+    -   !append-once IconicWeapon
+    npcRPGData:
+        $base: Items.Base_Kenshin_NPC_Data
+        statModifiers:
+        -   !append Quality.IconicItem
+        statModifierGroups:
+        -   !append-once Items.IconicQualityRandomization
+        -   !remove Items.NPCQualityRandomization
+    statModifiers:
+    -   !append-once Quality.IconicItem
+    slotPartList:
+    -   $base: Items.Base_Kenshin_inline1
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Raijin__rcv
+    -   $base: Items.Base_Kenshin_inline3
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Raijin__base
+    -   $base: Items.Base_Kenshin_inline5
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Raijin__mag_std
+    -   $base: Items.Base_Kenshin_inline7
+        itemPartList:
+        -   $type: ItemPartListElement
+            item: Items.SJ_Raijin__mag_stdr
+    -   Items.HandgunPossibleScopesList
+    slotPartListPreset:
+    -   $base: Items.Preset_Kenshin_Default_inline0
+        itemPartPreset: Items.SJ_Raijin__rcv
+    -   $base: Items.Preset_Kenshin_Default_inline1
+        itemPartPreset: Items.SJ_Raijin__base
+    -   $base: Items.Preset_Kenshin_Default_inline2
+        itemPartPreset: Items.SJ_Raijin__mag_std
+    -   $base: Items.Preset_Kenshin_Default_inline3
+        itemPartPreset: Items.SJ_Raijin__mag_stdr
+#    -   Items.HandgunAndRevolverScopesPartList
+#    -   Items.Preset_Kenshin_Default_inline4
+#    -   Items.Preset_Kenshin_Default_inline5
+    -   $type: SlotItemPartPreset
+        itemPartPreset: Items.SJ_RaijinWeaponMod
+        slot: AttachmentSlots.IconicWeaponModLegendary
+    statModifierGroups:
+    -   !append-once Items.IconicQualityRandomization
+    -   !remove Items.QualityRandomization
+    
