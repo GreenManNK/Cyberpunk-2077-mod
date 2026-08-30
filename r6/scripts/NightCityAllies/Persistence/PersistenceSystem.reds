@@ -103,6 +103,7 @@ public class PersistenceSystem extends ScriptableSystem {
     }
 
     public func Invalidate() -> Void {
+        let purged: Bool = false;
         let i: Int32 = ArraySize(this.m_companionRegistry) - 1;
         while i >= 0 {
             if (this.IsValid(this.m_companionRegistry[i])) {
@@ -113,8 +114,13 @@ public class PersistenceSystem extends ScriptableSystem {
             } else {
                 //this.m_companionRegistry[i].spawnState = CompanionSpawnState.Invalid;
                 ArrayErase(this.m_companionRegistry, i);
+                purged = true;
             }
             i -= 1;
+        }
+
+        if (purged) {
+            NCA.NPC().RefreshCompanionIds();
         }
     }
 

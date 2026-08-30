@@ -48,6 +48,9 @@ public class GRTygerEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnGraceEnd();
   }
 }
@@ -62,6 +65,9 @@ public class GRTygerCallSuccessCooldownEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnCallSuccessCooldownEnd();
   }
 }

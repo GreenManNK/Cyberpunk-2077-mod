@@ -53,6 +53,9 @@ public class GRAnimalsGraceEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnGraceEnd();
   }
 }
@@ -67,6 +70,9 @@ public class GRAnimalsCallSuccessCooldownEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnCallSuccessCooldownEnd();
   }
 }

@@ -1,6 +1,7 @@
 module iconicshop.Helpers.Products
 
 import iconicshop.Settings.General.*
+import iconicshop.Helpers.ProductsList.*
 
 public class ISProduct {
   public let name: String;
@@ -16,6 +17,36 @@ public func ISCreateProduct(name: String, itemId: String, price: Int32, quality:
   product.price = price;
   product.quality = quality;
   return product;
+}
+
+public func GetProductsList (quality: String) -> array<ref<ISProduct>> {
+  let itemsList = GetItemsList();
+  let itemsModList = GetModItemsList();
+  let productsList: array<ref<ISProduct>>;
+  let settings: ref<ISGeneralSetting> = new ISGeneralSetting();
+
+  if (!!settings.isDuplicate) {
+    for elem in itemsList {
+      elem.itemId = elem.itemId + "_IS";
+    }
+    for elem in itemsModList {
+      elem.itemId = elem.itemId + "_IS";
+    }
+  }
+
+  for elem in itemsList {
+    if (Equals(elem.quality, quality)) {
+      ArrayPush(productsList, elem);
+    }
+  }
+
+  for elem in itemsModList {
+    if (Equals(elem.quality, quality)) {
+      ArrayPush(productsList, elem);
+    }
+  }
+
+  return productsList;
 }
 
 public func ISGetItems(products: array<ref<ISProduct>>) -> array<String> {

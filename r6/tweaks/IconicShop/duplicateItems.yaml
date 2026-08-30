@@ -777,3 +777,98 @@
         $base: Items.Q005_Yorinobu_FormalShirt
       Items.Q005_Yorinobu_FormalPants_IS:
         $base: Items.Q005_Yorinobu_FormalPants
+### ---------------------------- MODS ---------------------------###
+  # Extra Iconic #
+      Items.SJ_DangerRoom:
+        $base: Items.Preset_Saratoga_Arasaka_2077
+      Items.SJ_DangerRoom_IS:
+        $base: Items.SJ_DangerRoom
+
+      Items.SJ_Desert_Snake:
+        $base: Items.Preset_Nue_Arasaka_2020
+      Items.SJ_DesertSnake_IS:
+        $base: Items.SJ_Desert_Snake
+
+      Items.SND_Dice:
+        $base: Items.Preset_Lexington_Default
+      Items.SJ_Dice_IS:
+        $base: Items.SND_Dice
+
+      Items.SJ_Preset_Firestorm:
+        $base: Items.Preset_Ajax_Default
+      Items.SJ_Firestorm_IS:
+        $base: Items.SJ_Preset_Firestorm
+
+      Items.SJ_Gambiteer:
+        $base: Items.Preset_Palica_Default
+      Items.SJ_Gambiteer_IS:
+        $base: Items.SJ_Gambiteer
+        quality: Quality.Random
+
+      Items.SJ_GhostBlade:
+        $base: Items.Preset_Katana_Default
+      Items.SJ_GhostBlade_IS:
+        $base: Items.SJ_GhostBlade
+        quality: Quality.Random
+
+      Items.Preset_High_Doom:
+        $base: Items.Preset_Overture_Default
+      Items.SJ_HighDoom_IS:
+        $base: Items.Preset_High_Doom
+
+      Items.SJ_Mercy:
+        $base: Items.Preset_Masamune_Arasaka_2020
+      Items.SJ_Mercy_IS:
+        $base: Items.SJ_Mercy
+        quality: Quality.Random
+
+      Items.SJ_Mistifier:
+        $base: Items.Preset_Senkoh_Default
+      Items.SJ_Mistifier_IS:
+        $base: Items.SJ_Mistifier
+        quality: Quality.Random
+        statModifiers:
+        - !append Quality.IconicItem   
+
+      Items.Preset_NetHound:
+        $base: Items.Preset_Ashura_Default
+      Items.SJ_NetHound_IS:
+        $base: Items.Preset_NetHound
+
+      Items.Preset_NetRam:
+        $base: Items.Preset_Ashura_Default
+      Items.SJ_NetRam_IS:
+        $base: Items.Preset_NetRam
+
+      Items.Preset_PlasmaShotgun:
+        $base: Items.Preset_Carnage_Default
+      Items.SJ_PlasmaShotgun_IS:
+        $base: Items.Preset_PlasmaShotgun
+
+      Items.SJ_Raijin:
+        $base: Items.Preset_Kenshin_Default
+      Items.SJ_Raijin_IS:
+        $base: Items.SJ_Raijin
+
+      Items.SND_Slice:
+        $base: Items.Preset_Machete_Valentinos
+      Items.SJ_Slice_IS:
+        $base: Items.SND_Slice
+        quality: Quality.Random
+
+      Items.SJ_Nailer:
+        $base: Items.Preset_Sor22_Default
+      Items.SJ_SpecialDelivery_IS:
+        $base: Items.SJ_Nailer
+        quality: Quality.Random
+
+      Items.SJ_Thunderstrike:
+        $base: Items.Preset_Nekomata_Default
+      Items.SJ_Thunderstrike_IS:
+        $base: Items.SJ_Thunderstrike
+        quality: Quality.Random
+
+      Items.Preset_Tzijimura:
+        $base: Items.Preset_Shingen_Pimp
+      Items.SJ_Tzijimura_IS:
+        $base: Items.Preset_Tzijimura

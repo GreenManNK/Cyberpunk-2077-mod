@@ -10,7 +10,9 @@ protected cb func OnGameAttached() -> Bool {
         let reinSystem: wref<GRReinforcementSystem> = GRReinforcementSystem.GetInstance(GetGameInstance());
         let factionHandler = reinSystem.GetFactionHandler(this);
 
-        this.GRAttitudeFix(factionHandler.GetLastCaller(), factionHandler.GetLastTarget(), factionHandler.GetAttitudeGroup(), factionHandler.GetLastSecondaryTarget());
+        if IsDefined(factionHandler) {
+            this.GRAttitudeFix(factionHandler.GetLastCaller(), factionHandler.GetLastTarget(), factionHandler.GetAttitudeGroup(), factionHandler.GetLastSecondaryTarget());
+        }
     }
     
     return outcome;

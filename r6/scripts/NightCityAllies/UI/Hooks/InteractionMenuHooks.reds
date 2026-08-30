@@ -7,11 +7,18 @@ import NightCityAllies.UI.*
 protected cb func OnDialogsData(value: Variant) -> Bool {
     let menu = NCA.InteractionMenu();
 
-    if !IsDefined(menu) || !menu.IsShown() {
+    if !IsDefined(menu) {
         return wrappedMethod(value);
     }
 
     let data: DialogChoiceHubs = FromVariant<DialogChoiceHubs>(value);
+
+    menu.SetNativeHubCount(ArraySize(data.choiceHubs));
+
+    if !menu.IsShown() {
+        return wrappedMethod(value);
+    }
+
     ArrayPush(data.choiceHubs, menu.GetHub());
 
     return wrappedMethod(ToVariant(data));
@@ -50,4 +57,28 @@ protected cb func OnDialogsActivateHub(activeHubId: Int32) -> Bool {
     }
 
     return wrappedMethod(activeHubId);
+}
+
+@wrapMethod(InteractionUIBase)
+protected cb func OnInteractionData(value: Variant) -> Bool {
+    let menu = NCA.InteractionMenu();
+
+    if IsDefined(menu) {
+        let data: InteractionChoiceHubData = FromVariant<InteractionChoiceHubData>(value);
+        menu.SetNativePrompt(data.id, data.active);
+    }
+
+    return wrappedMethod(value);
+}
+
+@wrapMethod(InteractionUIBase)
+protected cb func OnLootingData(value: Variant) -> Bool {
+    let menu = NCA.InteractionMenu();
+
+    if IsDefined(menu) {
+        let data: LootData = FromVariant<LootData>(value);
+        menu.SetNativeLootActive(data.isActive);
+    }
+
+    return wrappedMethod(value);
 }

@@ -49,6 +49,9 @@ public class GRMilitechGraceEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnGraceEnd();
   }
 }
@@ -63,6 +66,9 @@ public class GRMilitechCallSuccessCooldownEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnCallSuccessCooldownEnd();
   }
 }

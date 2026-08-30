@@ -1,7 +1,7 @@
 NCA = {
     name = "Night City Allies",
     author = "Dray",
-    version = "1.5.4",
+    version = "1.5.6",
     ready = false,
 }
 

@@ -50,6 +50,9 @@ public class GRSixthGraceEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnGraceEnd();
   }
 }
@@ -64,6 +67,9 @@ public class GRSixthCallSuccessCooldownEndCallback extends DelayCallback {
     }
 
   public func Call() -> Void {
+    if !IsDefined(this.handler) {
+      return;
+    }
     this.handler.OnCallSuccessCooldownEnd();
   }
 }

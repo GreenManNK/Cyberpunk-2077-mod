@@ -15,6 +15,10 @@ public abstract class GRGangData {
 }
 
 public func IsDistrictWithinZones(district: ref<District>, zones: array<String>) -> Bool {
+    if !IsDefined(district) {
+        return false;
+    }
+
     let record = district.GetDistrictRecord();
 
     while IsDefined(record.ParentDistrict()) {

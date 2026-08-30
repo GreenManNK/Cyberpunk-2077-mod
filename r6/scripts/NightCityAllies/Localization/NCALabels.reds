@@ -44,6 +44,7 @@ public class NCALabels extends ScriptableSystem {
 	public func Return_all() -> String = this.T(n"Return all")
 	public func Weapon() -> String = this.T(n"Weapon")
 	public func Squad() -> String = this.T(n"Squad")
+	public func Interact() -> String = this.T(n"Interact")
 
 	public func Join_me() -> String = this.T(n"Join me")
 	public func Stay_here() -> String = this.T(n"Stay here")

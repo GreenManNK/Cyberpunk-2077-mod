@@ -6,16 +6,27 @@ import NightCityAllies.Persistence.*
 import NightCityAllies.Settings.*
 import NightCityAllies.UI.Interactions.*
 import NightCityAllies.Event.*
+import NightCityAllies.Localization.*
 
 public class NCAInteractionMenu extends ScriptableSystem {
+    private static func GetButtonHubId() -> Int32 = -69419;
+    private static func GetMenuHubId() -> Int32 = -69420;
     private let m_hub: ListChoiceHubData;
     private let m_isShown: Bool;
     private let m_selectedIndex: Int32;
     private let m_lastNativeEdge: Int32;
     private let m_swallowNextScroll: Bool;
+    private let m_confirmDone: Bool;
     private let m_inProximity: array<ref<NpcHandle>>;
     private let m_lookAtNpc: ref<NpcHandle>;
     private let m_activeNpc: ref<NpcHandle>;
+    private let m_isCollapsed: Bool;
+    private let m_buttonNpc: ref<NpcHandle>;
+    private let m_nativeHubCount: Int32;
+    private let m_nativePromptActive: Bool;
+    private let m_nativePromptId: Int32;
+    private let m_inDialogsEvent: Bool;
+    private let m_nativeLootActive: Bool;
     private let m_entries: array<ref<NCAInteractionEntry>>;
     private let m_pageEntries: array<ref<NCAInteractionEntry>>;
     private let m_pageTitle: String;
@@ -24,6 +35,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
     private let m_visibleRows: array<Int32>;
     private let m_scrollOffset: Int32;
     private let m_totalRows: Int32;
+
 
     public func OpenPage(title: String, entries: array<ref<NCAInteractionEntry>>) -> Void {
         if !IsDefined(this.m_activeNpc) {
@@ -105,7 +117,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
     }
 
     public func OnTick() -> Void {
-        if !this.m_isShown {
+        if !this.m_isShown && !IsDefined(this.m_buttonNpc) {
             return;
         }
 
@@ -120,14 +132,73 @@ public class NCAInteractionMenu extends ScriptableSystem {
             return;
         }
 
-        if target == this.m_activeNpc && this.m_isShown {
+        if this.IsBlockedByNativeUI() {
+            this.HideHub();
             return;
         }
 
-        this.OpenRootPage(target);
+        if this.m_isShown && !this.m_isCollapsed {
+            if target != this.m_activeNpc {
+                this.OpenRootPage(target);
+            }
+
+            return;
+        }
+
+        if NCA.Settings().collapseInteractionMenu {
+            this.ShowCollapsed(target);
+            return;
+        }
+
+        if target != this.m_activeNpc || !this.m_isShown {
+            this.OpenRootPage(target);
+        }
+    }
+
+    public func SetNativeHubCount(count: Int32) -> Void {
+        if count == this.m_nativeHubCount {
+            return;
+        }
+
+        this.m_nativeHubCount = count;
+
+        this.m_inDialogsEvent = true;
+        this.UpdateHub();
+        this.m_inDialogsEvent = false;
+    }
+
+    public func SetNativePrompt(id: Int32, active: Bool) -> Void {
+        let value: Bool = active && id != NCAInteractionMenu.GetButtonHubId();
+
+        if Equals(value, this.m_nativePromptActive) && id == this.m_nativePromptId {
+            return;
+        }
+
+        this.m_nativePromptActive = value;
+        this.m_nativePromptId = id;
+        this.UpdateHub();
+    }
+
+    public func SetNativeLootActive(active: Bool) -> Void {
+        if Equals(active, this.m_nativeLootActive) {
+            return;
+        }
+
+        this.m_nativeLootActive = active;
+        this.UpdateHub();
+    }
+
+    private func IsBlockedByNativeUI() -> Bool {
+        if this.m_nativeHubCount > 0 {
+            return false;
+        }
+
+        return this.m_nativePromptActive || this.m_nativeLootActive;
     }
 
     private func OpenRootPage(npc: ref<NpcHandle>) -> Void {
+        this.HideButton();
+        this.m_isCollapsed = false;
         this.SetActiveNpc(npc);
         this.m_pageTitle = npc.GetName();
         this.m_pageEntries = this.m_entries;
@@ -145,7 +216,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
     }
 
     public func RefreshFor(npc: ref<NpcHandle>) -> Void {
-        if !this.m_isShown || npc != this.m_activeNpc {
+        if !this.m_isShown || this.m_isCollapsed || npc != this.m_activeNpc {
             return;
         }
 
@@ -284,6 +355,8 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
     public func HideHub() -> Void {
         this.SetActiveNpc(null);
+        this.HideButton();
+        this.m_isCollapsed = false;
 
         if !this.m_isShown {
             return;
@@ -314,7 +387,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
     private func ShowHub(npc: ref<NpcHandle>) -> Void {
         this.m_scrollOffset = 0;
 
-        let hub: ListChoiceHubData = this.BuildHub(npc, RandRange(69420, 169419));
+        let hub: ListChoiceHubData = this.BuildHub(npc, NCAInteractionMenu.GetMenuHubId());
 
         if ArraySize(hub.choices) <= 0 {
             this.HideHub();
@@ -331,6 +404,140 @@ public class NCAInteractionMenu extends ScriptableSystem {
         if this.NativeHubCount() <= 0 {
             this.AssertCursor();
         }
+    }
+
+    private func ShowCollapsed(npc: ref<NpcHandle>) -> Void {
+        if this.m_nativeHubCount > 0 {
+            this.HideButton();
+            this.ShowCollapsedHub(npc);
+            return;
+        }
+
+        this.HideDialogHub();
+        this.ShowButton(npc);
+    }
+
+    private func ShowCollapsedHub(npc: ref<NpcHandle>) -> Void {
+        if this.m_isShown && this.m_isCollapsed && this.m_activeNpc == npc {
+            return;
+        }
+
+        this.SetActiveNpc(npc);
+        this.m_scrollOffset = 0;
+
+        ArrayClear(this.m_visibleEntries);
+        ArrayClear(this.m_visibleRows);
+
+        let hub: ListChoiceHubData;
+        hub.id = NCAInteractionMenu.GetMenuHubId();
+        hub.title = NCA.Labels().Interact();
+        hub.activityState = EVisualizerActivityState.Active;
+        ArrayPush(hub.choices, this.BuildChoice(npc.GetName(), t"ChoiceCaptionParts.None", gameinteractionsChoiceType.Blueline));
+
+        this.m_hub = hub;
+        this.m_totalRows = 1;
+        this.m_selectedIndex = 0;
+        this.m_lastNativeEdge = 0;
+        this.m_swallowNextScroll = false;
+        this.m_isCollapsed = true;
+        this.m_isShown = true;
+        this.RefreshDialogHubs();
+
+        if this.NativeHubCount() <= 0 {
+            this.AssertCursor();
+        }
+    }
+
+    private func HideDialogHub() -> Void {
+        if !this.m_isShown {
+            return;
+        }
+
+        this.m_isShown = false;
+        this.m_isCollapsed = false;
+        this.RefreshDialogHubs();
+    }
+
+    private func ShowButton(npc: ref<NpcHandle>) -> Void {
+        if this.m_buttonNpc == npc && this.ReadButtonHub().id == NCAInteractionMenu.GetButtonHubId() {
+            return;
+        }
+
+        let current: InteractionChoiceHubData = this.ReadButtonHub();
+
+        if current.active && current.id != NCAInteractionMenu.GetButtonHubId() {
+            return;
+        }
+
+        let choiceType: ChoiceTypeWrapper;
+        ChoiceTypeWrapper.SetType(choiceType, gameinteractionsChoiceType.Blueline);
+
+        let choice: InteractionChoiceData;
+        choice.localizedName = npc.GetName();
+        choice.inputAction = n"Choice1";
+        choice.type = choiceType;
+
+        let hub: InteractionChoiceHubData;
+        hub.id = NCAInteractionMenu.GetButtonHubId();
+        hub.active = true;
+        ArrayPush(hub.choices, choice);
+
+        this.WriteButtonHub(hub);
+
+        this.m_buttonNpc = npc;
+        this.m_isCollapsed = true;
+        this.SetActiveNpc(npc);
+    }
+
+    private func HideButton() -> Void {
+        let hadButton: Bool = IsDefined(this.m_buttonNpc);
+        this.m_buttonNpc = null;
+
+        let current: InteractionChoiceHubData = this.ReadButtonHub();
+
+        if current.active && current.id != NCAInteractionMenu.GetButtonHubId() {
+            return;
+        }
+
+        if !hadButton && current.id != NCAInteractionMenu.GetButtonHubId() {
+            return;
+        }
+
+        let empty: InteractionChoiceHubData;
+        this.WriteButtonHub(empty);
+    }
+
+    private func ReadButtonHub() -> InteractionChoiceHubData {
+        let empty: InteractionChoiceHubData;
+        let defs = GetAllBlackboardDefs();
+        let blackboard = GameInstance.GetBlackboardSystem(GetGameInstance()).Get(defs.UIInteractions);
+
+        if !IsDefined(blackboard) {
+            return empty;
+        }
+
+        return FromVariant<InteractionChoiceHubData>(blackboard.GetVariant(defs.UIInteractions.InteractionChoiceHub));
+    }
+
+    private func WriteButtonHub(hub: InteractionChoiceHubData) -> Void {
+        let defs = GetAllBlackboardDefs();
+        let blackboard = GameInstance.GetBlackboardSystem(GetGameInstance()).Get(defs.UIInteractions);
+
+        if !IsDefined(blackboard) {
+            return;
+        }
+
+        let visualizers: VisualizersInfo;
+
+        if hub.active {
+            visualizers.activeVisId = hub.id;
+            visualizers.visIds = [hub.id];
+        } else {
+            visualizers.activeVisId = -1;
+        }
+
+        blackboard.SetVariant(defs.UIInteractions.InteractionChoiceHub, ToVariant(hub), true);
+        blackboard.SetVariant(defs.UIInteractions.VisualizersInfo, ToVariant(visualizers), true);
     }
 
     private func GetBuildEntries() -> array<ref<NCAInteractionEntry>> {
@@ -578,10 +785,19 @@ public class NCAInteractionMenu extends ScriptableSystem {
             return;
         }
 
+        if NCA.Settings().collapseInteractionMenu && NCA.Settings().collapseAfterSelection {
+            this.ShowCollapsed(target);
+            return;
+        }
+
         this.OpenRootPage(target);
     }
 
     private func RefreshDialogHubs() -> Void {
+        if this.m_inDialogsEvent {
+            return;
+        }
+
         let defs = GetAllBlackboardDefs();
         let blackboard = GameInstance.GetBlackboardSystem(GetGameInstance()).Get(defs.UIInteractions);
 
@@ -594,15 +810,52 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
 // =================================================== Input ===========================================================
 
+    private func GetConfirmAction() -> CName {
+        if IsDefined(this.m_buttonNpc) {
+            return n"Choice1";
+        }
+
+        return n"ChoiceApply";
+    }
+
+    private func ConfirmsOnRelease() -> Bool {
+        return IsDefined(this.m_buttonNpc);
+    }
+
+    private static func IsConfirmKey(actionName: CName) -> Bool {
+        return Equals(actionName, n"Choice1") || Equals(actionName, n"ChoiceApply");
+    }
+
     public func HandleAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Void {
-        if !ListenerAction.IsButtonJustPressed(action) {
+        let actionName: CName = ListenerAction.GetName(action);
+
+        if NCA.Context().isInInteraction && Equals(actionName, n"ChoiceApply")
+        && ListenerAction.IsButtonJustPressed(action) {
+            NCA.NPC().StopPerformanceWithPlayer();
             return;
         }
 
-        let actionName: CName = ListenerAction.GetName(action);
+        if NCAInteractionMenu.IsConfirmKey(actionName) && ListenerAction.IsButtonJustPressed(action) {
+            this.m_confirmDone = false;
+        }
 
-        if NCA.Context().isInInteraction && Equals(actionName, n"ChoiceApply") {
-            NCA.NPC().StopPerformanceWithPlayer();
+        if Equals(actionName, this.GetConfirmAction()) && !this.m_confirmDone {
+            let isConfirmEdge: Bool = this.ConfirmsOnRelease()
+                ? ListenerAction.IsButtonJustReleased(action)
+                : ListenerAction.IsButtonJustPressed(action);
+
+            if isConfirmEdge {
+                if this.IsActive() && this.CursorIsOurs() {
+                    ListenerActionConsumer.Consume(consumer);
+                }
+
+                this.m_confirmDone = true;
+                this.Confirm();
+                return;
+            }
+        }
+
+        if !ListenerAction.IsButtonJustPressed(action) {
             return;
         }
 
@@ -619,11 +872,27 @@ public class NCAInteractionMenu extends ScriptableSystem {
             this.ScrollUp(consumer);
             return;
         }
+    }
 
-        if Equals(actionName, n"ChoiceApply") && this.CursorIsOurs() {
-            ListenerActionConsumer.Consume(consumer);
-            this.ConfirmSelection();
+    private func Confirm() -> Void {
+        if IsDefined(this.m_buttonNpc) {
+            this.OpenRootPage(this.m_buttonNpc);
+            return;
         }
+
+        if !this.CursorIsOurs() {
+            return;
+        }
+
+        if this.m_isCollapsed {
+            if IsDefined(this.m_activeNpc) {
+                this.OpenRootPage(this.m_activeNpc);
+            }
+
+            return;
+        }
+
+        this.ConfirmSelection();
     }
 
     private func ScrollDown(consumer: ListenerActionConsumer) -> Void {

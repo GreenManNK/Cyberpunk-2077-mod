@@ -77,15 +77,29 @@ Invalid = 66
 @wrapMethod(ReactionManagerComponent)
 protected final func HandleStimEvent(stimData: ref<StimEventTaskData>) -> Void {
 	wrappedMethod(stimData);
-
-	//potential edge case
-	//if(Equals(stimData.cachedEvt.stimType, gamedataStimType.Dying)) {
-	//	return;
-	//}
-
 	let ownerPuppet: ref<ScriptedPuppet>;
+    let stimType: gamedataStimType;
+
+    //find every possible reason to exit and not process the event!
+
+    //vanilla checks repl verbatim
+    if !IsDefined(stimData) || !IsDefined(stimData.cachedEvt) || !this.IsEnabled() {
+      return;
+    };
+
+    stimType = stimData.cachedEvt.GetStimType();
+
+    if(Equals(stimType, gamedataStimType.Dying) || StimFilters.IsForTheDead(stimType)) {
+		return;
+	}
 
 	ownerPuppet = this.GetOwnerPuppet();
+    if !IsDefined(ownerPuppet) {
+        return;
+    }
+    if !IsDefined(ownerPuppet.GetPuppetStateBlackboard()) {
+        return;
+    }
 
 	if( NPCPuppet.IsInCombatWithTarget(ownerPuppet, GetPlayer(GetGameInstance()))
 	|| !NPCPuppet.IsInCombatWithTarget(ownerPuppet, stimData.cachedEvt.sourceObject)) {
@@ -93,6 +107,10 @@ protected final func HandleStimEvent(stimData: ref<StimEventTaskData>) -> Void {
 	}
 
 	let reinSystem: wref<GRReinforcementSystem> = GRReinforcementSystem.GetInstance(GetGameInstance());
+    if !IsDefined(reinSystem) {
+        return;
+    }
+
 	if (reinSystem.m_settings.enabled) {
 		reinSystem.TryCallingReinforcements(ownerPuppet, stimData.cachedEvt.sourceObject);
 	}

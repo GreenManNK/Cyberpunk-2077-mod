@@ -125,8 +125,6 @@ public abstract class GRGangHandler extends ScriptableSystem {
     this.m_lastTarget = target;
     this.m_lastSecondaryTarget = null;
 
-	GRLog(s"Caller AttitudeGroup: \(puppet.GetAttitudeAgent().GetAttitudeGroup()), Target AttitudeGroup: \(target.GetAttitudeAgent().GetAttitudeGroup())");
-
     if this.m_lastCallAnswered {
       this.m_callsPerformed += 1;
 	}

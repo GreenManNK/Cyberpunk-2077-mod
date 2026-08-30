@@ -128,6 +128,19 @@ public class NpcManager extends ScriptableSystem {
         return handle;
     }
 
+    public func RefreshCompanionIds() -> Void {
+        let i: Int32 = ArraySize(this.m_npcs) - 1;
+        while i >= 0 {
+            if NCA.Persistence().GetIndex(this.m_npcs[i].recordID) < 0 {
+                GameInstance.GetDynamicEntitySystem().DeleteEntity(this.m_npcs[i].entityID);
+                ArrayErase(this.m_npcs, i);
+            } else {
+                this.m_npcs[i].LoadCompanionData();
+            }
+            i -= 1;
+        }
+    }
+
     public func Commute(recordID: TweakDBID, opt minutes: Int32) -> ref<NpcHandle> {
         let present = this.FindHandle(recordID);
         if IsDefined(present) && present.IsSpawned() && present.IsValid() {

@@ -19,25 +19,37 @@ protected final func SpawnRequestFinished(requestResult: DSSSpawnRequestResult) 
     let aiVehicleChaseCommand: ref<AIVehicleChaseCommand>;
     let aiVehicleMovecommand: ref<AIVehicleDriveToPointAutonomousCommand>;
     let aiCommandEvent: ref<AICommandEvent>;
+    let vehicleAIComponent: ref<AIVehicleAgent>;
+    let vehicleComponent: ref<VehicleComponent>;
 
     if !requestResult.success {
+        return;
+    }
+
+    if !IsDefined(reinSystem) {
+        wrappedMethod(requestResult);
         return;
     }
 
     i = 0;
     while i < ArraySize(requestResult.spawnedObjects) {
         spawnedObject = requestResult.spawnedObjects[i];
-        if !spawnedObject.IsPuppet() && spawnedObject.IsVehicle() {
-            ArrayPush(wheeledObjects, spawnedObject as WheeledObject);
-        } else {
-            if !gotModTag {
-                puppet = spawnedObject as ScriptedPuppet;
-                if NPCManager.HasTag(puppet.GetRecordID(), n"GRModPuppet") {
-                    gotModTag = true;
-					gangHandler = reinSystem.GetFactionHandler(puppet);
+        if IsDefined(spawnedObject) {
+            if !spawnedObject.IsPuppet() && spawnedObject.IsVehicle() {
+                let candidateVehicle = spawnedObject as WheeledObject;
+                if IsDefined(candidateVehicle) {
+                    ArrayPush(wheeledObjects, candidateVehicle);
+                }
+            } else {
+                let candidatePuppet = spawnedObject as ScriptedPuppet;
+                if IsDefined(candidatePuppet) {
+                    if !gotModTag && NPCManager.HasTag(candidatePuppet.GetRecordID(), n"GRModPuppet") {
+                        puppet = candidatePuppet;
+                        gotModTag = true;
+                        gangHandler = reinSystem.GetFactionHandler(puppet);
+                    }
                 }
             }
-			NPCPuppet.ChangeHighLevelState(puppet, gamedataNPCHighLevelState.Combat);
         }
         i += 1;
     }
@@ -77,7 +89,10 @@ protected final func SpawnRequestFinished(requestResult: DSSSpawnRequestResult) 
             aiCommandEvent.command = aiVehicleChaseCommand;
             wheeledObject.SetPoliceStrategyDestination(target.GetWorldPosition());
             wheeledObject.QueueEvent(aiCommandEvent);
-            wheeledObject.GetAIComponent().SetInitCmd(aiVehicleChaseCommand);
+            vehicleAIComponent = wheeledObject.GetAIComponent();
+            if IsDefined(vehicleAIComponent) {
+                vehicleAIComponent.SetInitCmd(aiVehicleChaseCommand);
+            }
         } else if !Vector4.IsZero(targetPosition) {
             aiVehicleMovecommand = new AIVehicleDriveToPointAutonomousCommand();
             aiVehicleMovecommand.driveDownTheRoadIndefinitely = false;
@@ -90,11 +105,17 @@ protected final func SpawnRequestFinished(requestResult: DSSSpawnRequestResult) 
             aiCommandEvent.command = aiVehicleMovecommand;
             wheeledObject.SetPoliceStrategyDestination(targetPosition);
             wheeledObject.QueueEvent(aiCommandEvent);
-            wheeledObject.GetAIComponent().SetInitCmd(aiVehicleMovecommand);
+            vehicleAIComponent = wheeledObject.GetAIComponent();
+            if IsDefined(vehicleAIComponent) {
+                vehicleAIComponent.SetInitCmd(aiVehicleMovecommand);
+            }
         }
 
         if Equals(gangHandler.m_affiliation, gamedataAffiliation.NCPD) {
-            wheeledObject.GetVehicleComponent().ToggleSiren(true, true);
+            vehicleComponent = wheeledObject.GetVehicleComponent();
+            if IsDefined(vehicleComponent) {
+                vehicleComponent.ToggleSiren(true, true);
+            }
         }
 
         i += 1;

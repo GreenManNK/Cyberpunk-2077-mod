@@ -663,29 +663,85 @@ public func GetItemsList () -> array<ref<ISProduct>> {
     ArrayPush(ItemsList, ISCreateProduct("Kōtetsu no Ryū coat", "Items.Q005_Steel_Dragons_Coat", GetLegendaryCustomPrice("HeistSetOuterTorso"), "Legendary"));
     ArrayPush(ItemsList, ISCreateProduct("Yorinobu's formal shirt", "Items.Q005_Yorinobu_FormalShirt", GetLegendaryCustomPrice("HeistSetInnerTorso"), "Legendary"));
     ArrayPush(ItemsList, ISCreateProduct("Yorinobu's slacks", "Items.Q005_Yorinobu_FormalPants", GetLegendaryCustomPrice("HeistSetLegs"), "Legendary"));
-    
+
+ 
  // ### Return ###
   return ItemsList;
 }
 
-public func GetProductsList (quality: String) -> array<ref<ISProduct>> {
-  let itemsList = GetItemsList();
-  let productsList: array<ref<ISProduct>>;
-  let settings: ref<ISGeneralSetting> = new ISGeneralSetting();
+public func GetModItemsList () -> array<ref<ISProduct>> {
+  let ItemsList: array<ref<ISProduct>>;
+ // ### Extra Iconic ###
+  ArrayPush(ItemsList, ISCreateProduct("Danger Room", "Items.SJ_DangerRoom", GetCommonCustomPrice("SJ_DangerRoom"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Danger Room", "Items.SJ_DangerRoom", GetLegendaryCustomPrice("SJ_DangerRoom"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Danger Room", "Items.SJ_DangerRoom", GetTopCustomPrice("SJ_DangerRoom"), "LegendaryPlusPlus"));
 
-  if (!!settings.isDuplicate) {
-    for elem in itemsList {
-      elem.itemId = elem.itemId + "_IS";
-    }
-  }
+  ArrayPush(ItemsList, ISCreateProduct("Desert Snake", "Items.SJ_DesertSnake", GetCommonCustomPrice("SJ_DesertSnake"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Desert Snake", "Items.SJ_DesertSnake", GetLegendaryCustomPrice("SJ_DesertSnake"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Desert Snake", "Items.SJ_DesertSnake", GetTopCustomPrice("SJ_DesertSnake"), "LegendaryPlusPlus"));
 
-  for elem in itemsList {
-    if (Equals(elem.quality, quality)) {
-      ArrayPush(productsList, elem);
-    }
-  }
-  return productsList;
-}
+  ArrayPush(ItemsList, ISCreateProduct("Dice", "Items.SJ_Dice", GetCommonCustomPrice("SJ_Dice"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Dice", "Items.SJ_Dice", GetLegendaryCustomPrice("SJ_Dice"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Dice", "Items.SJ_Dice", GetTopCustomPrice("SJ_Dice"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Firestorm", "Items.SJ_Firestorm", GetCommonCustomPrice("SJ_Firestorm"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Firestorm", "Items.SJ_Firestorm", GetLegendaryCustomPrice("SJ_Firestorm"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Firestorm", "Items.SJ_Firestorm", GetTopCustomPrice("SJ_Firestorm"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Gambiteer", "Items.SJ_Gambiteer", GetCommonCustomPrice("SJ_Gambiteer"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Gambiteer", "Items.SJ_Gambiteer", GetLegendaryCustomPrice("SJ_Gambiteer"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Gambiteer", "Items.SJ_Gambiteer", GetTopCustomPrice("SJ_Gambiteer"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Ghost Blade", "Items.SJ_GhostBlade", GetCommonCustomPrice("SJ_GhostBlade"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Ghost Blade", "Items.SJ_GhostBlade", GetLegendaryCustomPrice("SJ_GhostBlade"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Ghost Blade", "Items.SJ_GhostBlade", GetTopCustomPrice("SJ_GhostBlade"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("High Doom", "Items.SJ_HighDoom", GetCommonCustomPrice("SJ_HighDoom"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("High Doom", "Items.SJ_HighDoom", GetLegendaryCustomPrice("SJ_HighDoom"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("High Doom", "Items.SJ_HighDoom", GetTopCustomPrice("SJ_HighDoom"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Mercy", "Items.SJ_Mercy", GetCommonCustomPrice("SJ_Mercy"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Mercy", "Items.SJ_Mercy", GetLegendaryCustomPrice("SJ_Mercy"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Mercy", "Items.SJ_Mercy", GetTopCustomPrice("SJ_Mercy"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Mistifier", "Items.SJ_Mistifier", GetCommonCustomPrice("SJ_Mistifier"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Mistifier", "Items.SJ_Mistifier", GetLegendaryCustomPrice("SJ_Mistifier"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Mistifier", "Items.SJ_Mistifier", GetTopCustomPrice("SJ_Mistifier"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("NetHound", "Items.SJ_NetHound", GetCommonCustomPrice("SJ_NetHound"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("NetHound", "Items.SJ_NetHound", GetLegendaryCustomPrice("SJ_NetHound"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("NetHound", "Items.SJ_NetHound", GetTopCustomPrice("SJ_NetHound"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("NetRam", "Items.SJ_NetRam", GetCommonCustomPrice("SJ_NetRam"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("NetRam", "Items.SJ_NetRam", GetLegendaryCustomPrice("SJ_NetRam"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("NetRam", "Items.SJ_NetRam", GetTopCustomPrice("SJ_NetRam"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Plasma Shotgun", "Items.SJ_PlasmaShotgun", GetCommonCustomPrice("SJ_PlasmaShotgun"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Plasma Shotgun", "Items.SJ_PlasmaShotgun", GetLegendaryCustomPrice("SJ_PlasmaShotgun"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Plasma Shotgun", "Items.SJ_PlasmaShotgun", GetTopCustomPrice("SJ_PlasmaShotgun"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Raijin", "Items.SJ_Raijin", GetCommonCustomPrice("SJ_Raijin"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Raijin", "Items.SJ_Raijin", GetLegendaryCustomPrice("SJ_Raijin"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Raijin", "Items.SJ_Raijin", GetTopCustomPrice("SJ_Raijin"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Slice", "Items.SJ_Slice", GetCommonCustomPrice("SJ_Slice"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Slice", "Items.SJ_Slice", GetLegendaryCustomPrice("SJ_Slice"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Slice", "Items.SJ_Slice", GetTopCustomPrice("SJ_Slice"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Special Delivery", "Items.SJ_SpecialDelivery", GetCommonCustomPrice("SJ_SpecialDelivery"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Special Delivery", "Items.SJ_SpecialDelivery", GetLegendaryCustomPrice("SJ_SpecialDelivery"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Special Delivery", "Items.SJ_SpecialDelivery", GetTopCustomPrice("SJ_SpecialDelivery"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Thunderstrike", "Items.SJ_Thunderstrike", GetCommonCustomPrice("SJ_Thunderstrike"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Thunderstrike", "Items.SJ_Thunderstrike", GetLegendaryCustomPrice("SJ_Thunderstrike"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Thunderstrike", "Items.SJ_Thunderstrike", GetTopCustomPrice("SJ_Thunderstrike"), "LegendaryPlusPlus"));
+
+  ArrayPush(ItemsList, ISCreateProduct("Tzijimura", "Items.SJ_Tzijimura", GetCommonCustomPrice("SJ_Tzijimura"), "Common"));
+  ArrayPush(ItemsList, ISCreateProduct("Tzijimura", "Items.SJ_Tzijimura", GetLegendaryCustomPrice("SJ_Tzijimura"), "Legendary"));
+  ArrayPush(ItemsList, ISCreateProduct("Tzijimura", "Items.SJ_Tzijimura", GetTopCustomPrice("SJ_Tzijimura"), "LegendaryPlusPlus"));
+ // ### Return ###
+  return ItemsList; 
+}  
 
 public func GetSettingPrices (itemID: String, defaultPrice: Int32, settings: ref<ISSetting>) -> Int32 {
   switch (itemID) {

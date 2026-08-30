@@ -94,6 +94,10 @@ public class NpcHandle extends IEntityResolver {
 
         this.SetRelaxedState();
 
+		// disabled so the custom F-Interact button is not removed by the engine
+        entity.EnableInteraction(n"GenericTalk", false);
+        entity.EnableInteraction(n"ReturnTalk", false);
+
         let player = GetPlayer(GetGameInstance());
 
         // Friendly attitude

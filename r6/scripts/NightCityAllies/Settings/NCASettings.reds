@@ -44,7 +44,22 @@ public class NCASettings extends ScriptableSystem {
 	@runtimeProperty("ModSettings.step", "1")
 	@runtimeProperty("ModSettings.min", "4")
 	@runtimeProperty("ModSettings.max", "20")
-	public let interactionMenuRows: Int32 = 12;
+	public let interactionMenuRows: Int32 = 10;
+
+	@runtimeProperty("ModSettings.mod", "Night City Allies")
+	@runtimeProperty("ModSettings.category", "User Interface")
+	@runtimeProperty("ModSettings.category.order", "10")
+	@runtimeProperty("ModSettings.displayName", "Interact Button")
+	@runtimeProperty("ModSettings.description", "Show button before opening the full menu")
+	public let collapseInteractionMenu: Bool = true;
+
+	@runtimeProperty("ModSettings.mod", "Night City Allies")
+	@runtimeProperty("ModSettings.category", "User Interface")
+	@runtimeProperty("ModSettings.category.order", "10")
+	@runtimeProperty("ModSettings.dependency", "collapseInteractionMenu")
+	@runtimeProperty("ModSettings.displayName", "Close Menu After Selection")
+	@runtimeProperty("ModSettings.description", "Close the interaction menu after selecting an option")
+	public let collapseAfterSelection: Bool = false;
 
 	@runtimeProperty("ModSettings.mod", "Night City Allies")
 	@runtimeProperty("ModSettings.category", "User Interface")
