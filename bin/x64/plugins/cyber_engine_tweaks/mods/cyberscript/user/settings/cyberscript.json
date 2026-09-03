@@ -1,8 +1,4 @@
 {
-  "CurrentPOIDetectionRange": 10,
-  "enableCustomQuest": true,
-  "AutoRefreshDatapack": false,
-  "Player_Sprint_Multiplier": 1,
   "Player_Run_Multiplier": 1,
   "Jump_Height": 1,
   "Double_Jump_Height": 1,
@@ -13,9 +9,13 @@
   "holdTime": 1,
   "favoriteInteractGroup": "cyberscript",
   "debugLog": false,
-  "Immortal": false,
+  "logrecordlevel": 3,
   "moddisabled": false,
   "currentController": false,
-  "logrecordlevel": 3,
-  "AmbushMin": 5
+  "Immortal": false,
+  "AmbushMin": 5,
+  "CurrentPOIDetectionRange": 10,
+  "enableCustomQuest": true,
+  "AutoRefreshDatapack": false,
+  "Player_Sprint_Multiplier": 1
 }
