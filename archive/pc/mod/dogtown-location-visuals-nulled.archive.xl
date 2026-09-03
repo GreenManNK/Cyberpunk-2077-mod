@@ -1,0 +1,481 @@
+# Dogtown Location Visuals Nulled [2.23.250718]
+# by nullfractal (xtaltha) &  NeHooYeY (basically the real mod author, all kudos go to him).
+# updated for 2.3 by robber804
+streaming:
+  sectors:
+    ##########################################################
+    # tower ending - nulling causes over exposure
+    ##########################################################
+#    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-2_-2_0_6.streamingsector
+#      expectedNodes: 8
+#      nodeDeletions:
+#        - index: 3
+#          type: worldTriggerAreaNode
+#          debugName: "{T_Post_Penultimate}"
+#        - index: 4
+#          type: worldTriggerAreaNode
+#          debugName: "{T_Post_Second}"
+#        - index: 5
+#          type: worldTriggerAreaNode
+#          debugName: "{T_Post_Third}"
+#        - index: 6
+#          type: worldTriggerAreaNode
+#          debugName: "{T_Post_First}"
+#        - index: 7
+#          type: worldTriggerAreaNode
+#          debugName: "{T_Post_Final}"
+    ##########################################################
+    # greater dogtown area visual triggers deletion.
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_-1_0_6.streamingsector
+      expectedNodes: 67
+      nodeDeletions:
+        - index: 54
+          type: worldTriggerAreaNode
+          debugName: "{T_CZ_LUT_Char_Brightening}"
+        - index: 55
+          type: worldTriggerAreaNode
+          debugName: "{T_CZ}"
+    ##########################################################
+    # party in the black sapphire (i think...)
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-8_-9_1_2.streamingsector
+      expectedNodes: 1859
+      nodeDeletions:
+        - index: 1464
+          type: worldTriggerAreaNode
+          debugName: "{trigger_casino}"
+    ##########################################################
+    # vignette at casino table with cassel twins (NOTE: kind of set-dressing, could maybe override in your own mod.)
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-29_-36_6_0.streamingsector
+      expectedNodes: 392
+      nodeDeletions:
+        - index: 367
+          type: worldTriggerAreaNode
+          debugName: "{vigniette_trigger}"
+    ##########################################################
+    # Kurt Funeral **not verified on 2.3**
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-30_-36_6_0.streamingsector
+      expectedNodes: 3066
+      nodeDeletions:
+        - index: 1597
+          type: worldTriggerAreaNode
+          debugName: "{vigniette_override}"
+    ##########################################################
+    # unkown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-33_-32_-4_0.streamingsector
+      expectedNodes: 1323
+      nodeDeletions:
+        - index: 179
+          type: worldTriggerAreaNode
+          debugName: "{exposure}"
+    ##########################################################
+    # greater black sapphire triggers
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-4_-5_0_3.streamingsector
+      expectedNodes: 440
+      nodeDeletions:
+        - index: 391
+          type: worldTriggerAreaNode
+          debugName: "trigger"
+        - index: 397
+          type: worldTriggerAreaNode
+          debugName: "trigger_001"
+        - index: 399
+          type: worldTriggerAreaNode
+          debugName: "trigger_002"
+        - index: 426
+          type: worldTriggerAreaNode
+          debugName: "trigger"
+    ##########################################################
+    # Flooded Tunnels Post A
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-8_-10_0_2.streamingsector
+      expectedNodes: 1107
+      nodeDeletions:
+        - index: 1089
+          type: worldTriggerAreaNode
+          debugName: "trigger"
+        - index: 1096
+          type: worldTriggerAreaNode
+          debugName: "{underwater_post_A}"
+        - index: 1099
+          type: worldTriggerAreaNode
+          debugName: "{camera_lock}"
+    ##########################################################
+    # Flooded Tunnels Post B
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-15_-19_0_1.streamingsector
+      expectedNodes: 1755
+      nodeDeletions:
+        - index: 1699
+          type: worldTriggerAreaNode
+          debugName: "{underwater_post_B}"
+    ##########################################################
+    # Crash Landing
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-3_-3_0_4.streamingsector
+      expectedNodes: 149
+      nodeDeletions:
+        - index: 78
+          type: worldTriggerAreaNode
+          debugName: "{T_Crash_Landing}"
+    ##########################################################
+    # hansen's funeral, & maybe sapphire parking(?)
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_-2_0_5.streamingsector
+      expectedNodes: 150
+      nodeDeletions:
+        - index: 131
+          type: worldTriggerAreaNode
+          debugName: "{T_Stadium_Garage}"
+        - index: 143
+          type: worldTriggerAreaNode
+          debugName: "{T_Funeral}"
+    ##########################################################
+    # cynosure shaft
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-5_-5_-1_3.streamingsector
+      expectedNodes: 87
+      nodeDeletions:
+        - index: 45
+          type: worldTriggerAreaNode
+          debugName: "{wtp_shaft_trigger}"
+#        - index: 46
+#          type: worldTriggerAreaNode
+#          debugName: "{q305_elevator_death_zone_}01"
+#        - index: 47
+#          type: worldTriggerAreaNode
+#          debugName: "{q305_elevator_death_zone_}02"
+        - index: 48
+          type: worldTriggerAreaNode
+          debugName: "{wtp_bottom_trigger}"
+#        - index: 49
+#          type: worldTriggerAreaNode
+#          debugName: "{SSR_fix}"
+        - index: 50
+          type: worldTriggerAreaNode
+          debugName: "{trigger}"
+    ##########################################################
+    # cynosure core
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-17_-18_-2_1.streamingsector
+      expectedNodes: 390
+      nodeDeletions:
+        - index: 346
+          type: worldTriggerAreaNode
+          debugName: "{trigger_001}"
+    ##########################################################
+    # cynosure core_2
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-17_-17_-2_1.streamingsector
+      expectedNodes: 174
+      nodeDeletions:
+        - index: 5
+          type: worldTriggerAreaNode
+          debugName: "{core_cc}"
+    ##########################################################
+    # Stadium Triggers [Beginning of PL]
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-2_-3_0_4.streamingsector
+      expectedNodes: 407
+      nodeDeletions:
+        - index: 345
+          type: worldTriggerAreaNode
+          debugName: "{T_Roof}"
+        - index: 346
+          type: worldTriggerAreaNode
+          debugName: "{T_Roof_Clouds}"
+        - index: 350
+          type: worldTriggerAreaNode
+          debugName: "{T_Bottom}"
+        - index: 405
+          type: worldTriggerAreaNode
+          debugName: "{T_Fire_Ambient}"
+    ##########################################################
+    # Down The Chute [Beginning of PL]
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-3_-5_0_3.streamingsector
+      expectedNodes: 356
+      nodeDeletions:
+        - index: 351
+          type: worldTriggerAreaNode
+          debugName: "{T_Transition_Clouds}"
+        - index: 353
+          type: worldTriggerAreaNode
+          debugName: "{T_Vista_Clouds}"
+        - index: 120
+          type: worldTriggerAreaNode
+          debugName: "{T_Q304_Homeless_Camp_Exposure}"
+        - index: 352
+          type: worldTriggerAreaNode
+          debugName: "{T_Vista}"
+    ##########################################################
+    # Entering Dogtown?
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-2_-2_0_5.streamingsector
+      expectedNodes: 118
+      nodeDeletions:
+        - index: 78
+          type: worldTriggerAreaNode
+          debugName: "{T_Secondary}"
+        - index: 98
+          type: worldTriggerAreaNode
+          debugName: "{T_Longshore}"
+    ##########################################################
+    # Trigger on way to Space Force One?
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-9_-11_0_2.streamingsector
+      expectedNodes: 664
+      nodeDeletions:
+        - index: 461
+          type: worldTriggerAreaNode
+          debugName: "{T_Fog}"
+    ##########################################################
+    # Trigger For Space Force One Interior/Meeting Rosalind Myers
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-18_-22_0_1.streamingsector
+      expectedNodes: 3208
+      nodeDeletions:
+        - index: 419
+          type: worldTriggerAreaNode
+          debugName: "{T_SF}1"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-22_-20_0_1.streamingsector
+      expectedNodes: 164
+      nodeDeletions:
+        - index: 13
+          type: worldTriggerAreaNode
+          debugName: "{trigger_004}"
+    ##########################################################
+    # another gate trigger? not sure which one tho, but wont hurt to have it
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_-1_0_5.streamingsector
+      expectedNodes: 109
+      nodeDeletions:
+        - index: 58
+          type: worldTriggerAreaNode
+          debugName: "{T_Underground_Parking}"
+        - index: 62
+          type: worldTriggerAreaNode
+          debugName: "{T_Gate}"
+    ##########################################################
+    # Trigger For Slider hideout and meeting Songbirb?
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-7_-11_0_2.streamingsector
+      expectedNodes: 638
+      nodeDeletions:
+        - index: 636
+          type: worldTriggerAreaNode
+          debugName: "{spa_exposure_trigger}"
+    ##########################################################
+    # Boss Fight?
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_-1_-1_6.streamingsector
+      expectedNodes: 27
+      nodeDeletions:
+        - index: 16
+          type: worldTriggerAreaNode
+          debugName: "{metro_tunnels_}003"
+    ##########################################################
+    # Trigger For Slider hideout after Songbirb contacts V using Blackwall
+    # it is important to have chromatic aberration vanilla for this sector, otherwise your conversation with songbirb will be bugged visually
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-4_-6_0_3.streamingsector
+      expectedNodes: 272
+      nodeDeletions:
+        - index: 248
+          type: worldTriggerAreaNode
+          debugName: "{spa_exposure_trigger}_001"
+        - index: 250
+          type: worldTriggerAreaNode
+          debugName: "{T_Fire_Left}"
+        - index: 271
+          type: worldTriggerAreaNode
+          debugName: "trigger"
+    ##########################################################
+    # related to maxtac ambush quest with Reed
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-11_-10_0_2.streamingsector
+      expectedNodes: 94
+      nodeDeletions:
+        - index: 72
+          type: worldTriggerAreaNode
+          debugName: "{ambush_start_trigger}"
+        - index: 73
+          type: worldTriggerAreaNode
+          debugName: "{trigger_002}"
+        - index: 76
+          type: worldTriggerAreaNode
+          debugName: "{chase_rain_trigger}"
+        - index: 78
+          type: worldTriggerAreaNode
+          debugName: "{ambush_maxtac_fight_trigger}"
+        - index: 85
+          type: worldTriggerAreaNode
+          debugName: "{ambush_start_cloud_trigger}"
+        - index: 86
+          type: worldTriggerAreaNode
+          debugName: "{fail_trigger}"
+    ##########################################################
+    # running away with songbirb
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-3_-4_0_3.streamingsector
+      expectedNodes: 93
+      nodeDeletions:
+        - index: 21
+          type: worldTriggerAreaNode
+          debugName: "{T_Exit_Area}"
+    ##########################################################
+    # shaft entrance trigger
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-10_-10_0_2.streamingsector
+      expectedNodes: 215
+      nodeDeletions:
+        - index: 119
+          type: worldTriggerAreaNode
+          debugName: "{wtp_shaft_entrance_trigger}"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-5_-6_0_3.streamingsector
+      expectedNodes: 406
+      nodeDeletions:
+        - index: 401
+          type: worldTriggerAreaNode
+          debugName: "{Exposition_akebono_top}"
+    ##########################################################
+    # bottom abyss trigger cynosure
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-5_-6_-1_3.streamingsector
+      expectedNodes: 107
+      nodeDeletions:
+        - index: 48
+          type: worldTriggerAreaNode
+          debugName: "{wtp_bottom_abyss_trigger}"
+    ##########################################################
+    # Bennet Arasaka Meeting
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-5_0_0_3.streamingsector
+      expectedNodes: 85
+      nodeDeletions:
+        - index: 50
+          type: worldTriggerAreaNode
+          debugName: "{T_Bennett}"
+    ##########################################################
+    # Docks Distant Fog trigger
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_0_0_5.streamingsector
+      expectedNodes: 144
+      nodeDeletions:
+        - index: 43
+          type: worldTriggerAreaNode
+          debugName: "{T_Docks_Lighting}"
+    ##########################################################
+    # Space Port
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-1_0_0_6.streamingsector
+      expectedNodes: 47
+      nodeDeletions:
+        - index: 28
+          type: worldTriggerAreaNode
+          debugName: "{T_ColorGrading_Tram}"
+        - index: 43
+          type: worldTriggerAreaNode
+          debugName: "{Q307_Cutscene_SH2_A}"
+    ##########################################################
+    # Space Port
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-3_-1_0_5.streamingsector
+      expectedNodes: 86
+      nodeDeletions:
+        - index: 83
+          type: worldTriggerAreaNode
+          debugName: "{T_Colorgrading}"
+    ##########################################################
+    # space port
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-4_0_0_4.streamingsector
+      expectedNodes: 110
+      nodeDeletions:
+        - index: 59
+          type: worldTriggerAreaNode
+          debugName: "{T_Colorgrading}_001"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-6_-7_0_2.streamingsector
+      expectedNodes: 92
+      nodeDeletions:
+        - index: 84
+          type: worldTriggerAreaNode
+          debugName: "{T_Entrance_Area_Bottom_Activation}"
+        - index: 91
+          type: worldTriggerAreaNode
+          debugName: "{T_Entrance_Area_Bottom_Off}"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-6_-9_0_2.streamingsector
+      expectedNodes: 789
+      nodeDeletions:
+        - index: 738
+          type: worldTriggerAreaNode
+          debugName: "{T_AV}"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-8_-10_-1_2.streamingsector
+      expectedNodes: 36
+      nodeDeletions:
+        - index: 14
+          type: worldTriggerAreaNode
+          debugName: "{trigger}"
+    ##########################################################
+    # unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-9_-12_0_2.streamingsector
+      expectedNodes: 2361
+      nodeDeletions:
+        - index: 388
+          type: worldTriggerAreaNode
+          debugName: "{T_Main}"
+    ##########################################################
+    # launch pad?
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-10_-1_0_3.streamingsector
+      expectedNodes: 343
+      nodeDeletions:
+        - index: 102
+          type: worldTriggerAreaNode
+          debugName: "{T_Launchpad}"
+    # unknown
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-11_-14_0_1.streamingsector
+      expectedNodes: 1318
+      nodeDeletions:
+        - index: 1309
+          type: worldTriggerAreaNode
+          debugName: "{T_Entrance_Area_Top_Activation}"
+        - index: 1317
+          type: worldTriggerAreaNode
+          debugName: "{T_Entrance_Area_Top_Off}"
+    ##########################################################
+    #unknown
+    ##########################################################
+    - path: base\worlds\03_night_city\_compiled\default\ep1\exterior_-13_-19_0_1.streamingsector
+      expectedNodes: 3492
+      nodeDeletions:
+        - index: 1342
+          type: worldTriggerAreaNode
+          debugName: "{low_exposure_}001"
+        - index: 1343
+          type: worldTriggerAreaNode
+          debugName: "{trigger}"
+        - index: 1344
+          type: worldTriggerAreaNode
+          debugName: "{low_exposure}"
