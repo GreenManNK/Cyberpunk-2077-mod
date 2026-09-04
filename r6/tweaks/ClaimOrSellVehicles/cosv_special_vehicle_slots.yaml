@@ -1,0 +1,897 @@
+﻿# ClaimOrSellVehicles - final special controlled wrapper slots
+# Slot-in-slot wrappers for special/deathrace source records.
+# Each record inherits from its exact source token to avoid raw source garage unlocks.
+
+# Chevillon Black SUV controlled garage records
+# family: special_chevalier_emperor_black_suv
+# base: Vehicle.mq026_mib_van
+# 2 overflow records force the fixed black appearance
+Vehicle.mq026_mib_van_cosv_overflow_01:
+  $base: Vehicle.mq026_mib_van
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.mq026_mib_van_cosv_overflow_02:
+  $base: Vehicle.mq026_mib_van
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+# Chevalier Emperor NCU Deathrace controlled garage records
+# family: special_chevalier_emperor_ncu_deathrace
+# base: Vehicle.v_standard3_chevalier_emperor_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_02_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_02_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_03_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_arasaka_q000_chase_03_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_autonomous_truck_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_autonomous_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_autonomous_truck_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_autonomous_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_militech_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_militech_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_militech_camo_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_militech_camo_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_mobile_lab_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_mobile_lab_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_netwatch_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_netwatch_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_netwatch_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_netwatch_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_player_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_player_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_4_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_4_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_5_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_5_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_6_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_suburban_1_6_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_3_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_3_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_4_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_4_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_5_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_5_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_6_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_urban_1_6_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_zetatech_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_zetatech_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_zetatech_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_zetatech_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_zetatech_02_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_zetatech_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv__basic_zetatech_02_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_zetatech_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv_nusa_nusa_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor_nusa_nusa_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv_nusa_nusa_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor_nusa_nusa_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard3_chevalier_emperor_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_standard3_chevalier_emperor_ncu
+  appearanceName: chevalier_emperor__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# Galena NCU Deathrace controlled garage records
+# family: special_thorton_galena_ncu_deathrace
+# base: Vehicle.v_standard2_thorton_galena_ncu
+# Existing slot01/slot02 already live under the same template; add slot03 only.
+Vehicle.v_standard2_thorton_galena_the_rat_cosv_basic_deathrace_galena_02_slot03:
+  $base: Vehicle.v_standard2_thorton_galena_ncu
+  appearanceName: thorton_galena__basic_deathrace_galena_02
+  icon: UIIcon.COSVVehicle
+
+# Thorton Colby Nomad NCU Deathrace controlled garage records
+# family: special_thorton_colby_nomad_ncu_deathrace
+# base: Vehicle.v_standard25_thorton_colby_nomad_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_standard25_thorton_colby_nomad_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_ncu
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_ncu
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_ncu
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Hella NCU Deathrace controlled garage records
+# family: special_archer_hella_ncu_deathrace
+# base: Vehicle.v_standard2_archer_hella_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_standard2_archer_hella_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_ncu
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_ncu
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_archer_hella_ncu_cosv_police_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_ncu
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_ncu_cosv_police_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_ncu
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_archer_hella_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_standard2_archer_hella_ncu
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Hella Scavengers controlled garage records
+# family: special_archer_hella_scavengers
+# base: Vehicle.v_standard2_archer_hella_scavengers
+# 2 appearances x 2 exact slots = 4 records
+Vehicle.v_standard2_archer_hella_scavengers_cosv_basic_scavenger_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_scavengers
+  appearanceName: archer_hella__basic_scavenger_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_scavengers_cosv_basic_scavenger_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_scavengers
+  appearanceName: archer_hella__basic_scavenger_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_scavengers_cosv_basic_scavenger_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_scavengers
+  appearanceName: archer_hella__basic_scavenger_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_scavengers_cosv_basic_scavenger_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_scavengers
+  appearanceName: archer_hella__basic_scavenger_2
+  icon: UIIcon.COSVVehicle
+
+# Mizutani Shion Nomad NCU Deathrace controlled garage records
+# family: special_mizutani_shion_nomad_ncu_deathrace
+# base: Vehicle.v_sport2_mizutani_shion_nomad_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_ncu
+  appearanceName: mizutani_shion_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_ncu
+  appearanceName: mizutani_shion_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_03_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_03_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_player_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_03_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_03_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_02_player
+  appearanceName: mizutani_shion_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport2_mizutani_shion_nomad_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_ncu
+  appearanceName: mizutani_shion_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# Chevalier Thrax NCU Deathrace controlled garage records
+# family: special_chevalier_thrax_ncu_deathrace
+# base: Vehicle.v_standard2_chevalier_thrax_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_6th_street_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_6th_street_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_combat_cab_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_combat_cab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_combat_cab_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_combat_cab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_maelstrom_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_maelstrom_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_maelstrom_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_maelstrom_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_mafia_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_mafia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_mafia_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_mafia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_player_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_player_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_02_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_02_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_03_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_poor_03_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_02_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_02_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_03_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_03_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_04_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_04_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_05_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_05_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_06_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_06_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_07_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_suburban_07_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_urban_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_urban_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_valentinos_01_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_valentinos_01_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_valentinos_02_slot01:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_valentinos_02_slot02:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_chevalier_thrax_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_standard2_chevalier_thrax_ncu
+  appearanceName: chevalier_thrax__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# Thorton Mackinaw Nomad Panam controlled garage records
+# family: special_thorton_mackinaw_nomad_panam
+# base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+# 1 appearance x 1 exact slot = 1 record
+Vehicle.v_standard3_thorton_mackinaw_nomad_panam_cosv_panams_truck_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+  appearanceName: v_standard3_thorton_mackinaw_nomad__basic_01_panams_truck
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_panam_cosv_thorton_mackinaw_nomad_panams_truck_q103_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_panam_cosv_thorton_mackinaw_nomad_panams_truck_q103_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_panam_cosv_v_standard3_thorton_mackinaw_nomad__basic_01_panams_truck_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+  appearanceName: v_standard3_thorton_mackinaw_nomad__basic_01_panams_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_panam_cosv_v_standard3_thorton_mackinaw_nomad__basic_01_panams_truck_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_panam
+  appearanceName: v_standard3_thorton_mackinaw_nomad__basic_01_panams_truck
+  icon: UIIcon.COSVVehicle
+# Thorton Mackinaw Nomad Saguaro controlled garage records
+# family: special_thorton_mackinaw_nomad_saguaro
+# base: Vehicle.v_standard3_thorton_mackinaw_02_player
+# 1 appearance x 2 exact slots = 2 records
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_saguaro_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_saguaro_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_saguaro_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_saguaro_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_panams_truck_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_panams_truck_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_panams_truck_q103_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_02_player_cosv_panams_truck_q103_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_02_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+# Thorton Mackinaw Nomad NCU Deathrace controlled garage records
+# family: special_thorton_mackinaw_nomad_ncu_deathrace
+# base: Vehicle.v_standard3_thorton_mackinaw_nomad_ncu
+# 1 appearance x 3 exact slots = 3 records
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_ncu
+  appearanceName: thorton_mackinaw_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_ncu
+  appearanceName: thorton_mackinaw_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_panams_truck_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_panams_truck_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_panams_truck_q103_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_panams_truck_q103_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_panams_truck_q103
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_saguaro_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_saguaro_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_thorton_mackinaw_nomad_saguaro_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_ncu_player
+  appearanceName: thorton_mackinaw_nomad_saguaro_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_v_standard3_thorton_mackinaw_nomad__basic_01_deathrace_01_slot01:
+  $base: Vehicle.sq024_claire_truck
+  appearanceName: v_standard3_thorton_mackinaw_nomad__basic_01_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_v_standard3_thorton_mackinaw_nomad__basic_01_deathrace_01_slot02:
+  $base: Vehicle.sq024_claire_truck
+  appearanceName: v_standard3_thorton_mackinaw_nomad__basic_01_deathrace_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard3_thorton_mackinaw_nomad_ncu_cosv_deathrace_01_slot03:
+  $base: Vehicle.v_standard3_thorton_mackinaw_nomad_ncu
+  appearanceName: thorton_mackinaw_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle

@@ -109,7 +109,7 @@ public class VM_FuelGauge extends IScriptable {
 	private let ndHLRef:   wref<inkRectangle>;
 
 	// ── Fuel gauge color themes ────────────────────────────────────────────────
-	// CET fact: vm_fg_theme
+	// Runtime fact: vm_fg_theme
 	// 0 = current/default
 	// 1 = cyberpunk yellow
 	// 2 = E3 red
@@ -352,7 +352,7 @@ public class VM_FuelGauge extends IScriptable {
 		let fdy: Int32 = IsDefined(qs) ? qs.GetFact(n"vm_gauge_dy") : 0;
 		let fsc: Int32 = IsDefined(qs) ? qs.GetFact(n"vm_gauge_scale_milli") : 0;
 
-		// initialize with code defaults (match init.lua FG_DEF_*)
+		// Initialize with the established fuel-gauge defaults.
 		let dx: Float = -this.FG_DEF_DX_MAG;
 		let dy: Float =  this.FG_DEF_DY_PX;
 		let sc: Float =  this.FG_DEF_SCALE;
@@ -1160,12 +1160,17 @@ public func OnNewWorld() -> Void {
     if !IsDefined(qs) { return; }
 
 		this.ApplyVisibilityGate();
+		// Inactive HUD modes still keep their lightweight polling callback so a
+		// settings change is detected immediately, but skip all drawing work.
+		if !this.wantVisible && !this.bootupActive && !this.shutdownActive {
+			return;
+		}
 		this.ApplyUserTransform();
 		this.ApplyOdoScale();
 		// also update Temp meter visibility (even if root is hidden; cheap & safe)
 		this.ApplyTempVisibility();
 
-		// read CET theme fact and recolor if changed
+		// Read the runtime theme fact and recolor if changed.
 		this.__ApplyThemePalette(false);
 
     // If we are fully hidden and no animation is playing, skip the heavy work
@@ -1961,7 +1966,7 @@ private func __ApplyThemePalette(force: Bool) -> Void {
 
 	// End ApplyWarnPalette
 
-	// Show/hide the Temp meter group from CET fact vm_fg_temp_visible (1=on, 0=off)
+	// Show/hide the Temp meter group from runtime fact vm_fg_temp_visible.
 	private func ApplyTempVisibility() -> Void {
 		if !IsDefined(this.tempWrapRef) { return; }
 		let qs = GameInstance.GetQuestsSystem(GetGameInstance());

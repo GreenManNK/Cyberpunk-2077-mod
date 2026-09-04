@@ -1,0 +1,384 @@
+﻿# ClaimOrSellVehicles - Mahir Supron controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+
+# Mahir Supron FS3 controlled garage records
+# family: mahir_supron_fs3
+# base: Vehicle.v_standard25_mahir_supron_player
+# 27 appearances x 2 exact slots = 54 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_02_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_02_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_03_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_03_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_04_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_04_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_05_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_05_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_06_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_06_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_07_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_07_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_08_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_08_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_09_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_09_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_10_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_poor_10_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_poor_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_06_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_06_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_07_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_suburban_07_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_tap_tap_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_tap_tap
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_tap_tap_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_tap_tap
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_02_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_02_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_03_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_03_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_04_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_04_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_05_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_05_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_06_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_06_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_07_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_urban_07_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_aldecaldos_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_aldecaldos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_basic_aldecaldos_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_aldecaldos_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_mahir_supron_cosv_mox_01_slot01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_mox_01_slot02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_suburban_rave_ow_01_slot01:
+  $base: Vehicle.cs_savable_mahir_supron_rave_ow
+  appearanceName: mahir_supron__basic_suburban_rave_ow_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_suburban_rave_ow_01_slot02:
+  $base: Vehicle.cs_savable_mahir_supron_rave_ow
+  appearanceName: mahir_supron__basic_suburban_rave_ow_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_mahir_supron_cosv_overflow_01:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_mahir_supron_cosv_overflow_02:
+  $base: Vehicle.v_standard25_mahir_supron_player
+  appearanceName: mahir_supron__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Mahir Supron BARGHEST controlled garage records
+# family: mahir_supron_barghest
+# scanner family stays Supron BARGHEST, but exact slots must follow donor-compatible appearance subsets
+# 6 appearances x 2 exact slots = 12 records
+# Excluded by policy: burnt_01, burnt_player_01 (burnt skins not claimable)
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_base_01_slot01:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_base_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_base_01_slot02:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_base_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_barghest_slot01:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_barghest_slot02:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_militia_01_slot01:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_militia_01_slot02:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_kurtz_02_slot01:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_kurtz_02_slot02:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_kurtz_03_slot01:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_kurtz_03_slot02:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_militia_02_slot01:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_militia_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_militia_02_slot02:
+  $base: Vehicle.v_standard3_mahir_supron_kurtz_prevention
+  appearanceName: mahir_supron_kurtz_basic_kurtz_militia_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_player_01_slot01:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_mahir_supron_kurtz_cosv_player_01_slot02:
+  $base: Vehicle.cs_savable_mahir_supron_kurtz
+  appearanceName: mahir_supron_kurtz_basic_player_01
+  icon: UIIcon.COSVVehicle

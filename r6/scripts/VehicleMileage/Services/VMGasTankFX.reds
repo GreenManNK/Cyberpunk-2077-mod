@@ -7,7 +7,7 @@ module VehicleMileage.GasTankFX
 // This version does not add native components during vehicle assembly.
 //
 // Instead:
-// - Nothing runs until you use a CET command.
+// - VMRuntimeSystem enables it only while maintenance is overdue.
 // - The mounted vehicle component named "gas_tank" is located.
 // - Its real local position and orientation are combined with the vehicle
 //   world transform.
@@ -15,19 +15,8 @@ module VehicleMileage.GasTankFX
 // - Both use the gas_tank transform while they are active.
 // - The decompression effect replays at random 10-30 second intervals.
 //
-// CET commands:
-//
-// Enable:
-//   print(Game.GetPlayer():VMGasTankFX_Enable())
-//
-// Disable:
-//   print(Game.GetPlayer():VMGasTankFX_Disable())
-//
-// Set XYZ + Roll/Pitch/Yaw offset:
-//   print(Game.GetPlayer():VMGasTankFX_SetOffset(
-//     0.0, 0.0, 0.10,
-//     0.0, 0.0, 0.0
-//   ))
+// PlayerPuppet helper methods remain available for runtime control and
+// diagnostics, but normal gameplay is owned by the REDscript runtime.
 //
 // Status:
 //   print(Game.GetPlayer():VMGasTankFX_Status())
@@ -470,8 +459,8 @@ public class VMGasTankFXService extends IScriptable {
 
     if !IsDefined(anchor) {
       // Keep the maintenance cadence alive even when a vehicle exposes no
-      // usable component. Lua turns this event into persistent fuel loss and
-      // a red simulated-failure warning.
+      // usable component. VMRuntimeSystem turns this event into persistent
+      // fuel loss and a simulated-failure warning.
       this.decompressionEffectStarted = true;
       this.SignalDecompressionEvent(0);
       this.lastStatus =
@@ -761,7 +750,7 @@ public class VMGasTankFXService extends IScriptable {
 
 
   // ==========================================================================
-  // CET-facing service methods
+  // Runtime-facing service methods
   // ==========================================================================
 
   public func Enable() -> String {
@@ -935,7 +924,7 @@ public class VMGasTankFXService extends IScriptable {
 
 
 // ============================================================================
-// PlayerPuppet CET methods
+// PlayerPuppet runtime methods
 // ============================================================================
 
 @addField(PlayerPuppet)
@@ -1015,7 +1004,7 @@ public func VMGasTankFX_Status() -> String {
 }
 
 // ============================================================================
-// Maintenance CET test command
+// Maintenance diagnostic command
 // ============================================================================
 
 @addMethod(PlayerPuppet)

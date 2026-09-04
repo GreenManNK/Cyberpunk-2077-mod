@@ -1,0 +1,236 @@
+﻿# ClaimOrSellVehicles - Quadra Turbo-R "Raijin" controlled garage records
+# Turbo-R Tyger Claws variant; _tc suffix = Tyger Claw abbreviation
+# Base: Vehicle.cs_savable_quadra_turbo_tyger_claw (skin-in-skin)
+# tygerclaws_01-06 duplicated from quadra_turbo_r_740 per CDPR Ñ€Ð°Ð·Ð³Ð¸Ð»ÑŒÐ´ÑÐ¹ÑÑ‚Ð²Ð¾ policy
+# 6 appearances x 2 exact slots = 12 records
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_01_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_01_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_02_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_02_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_03_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_03_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_04_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_04_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_05_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_05_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_06_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_tygerclaws_06_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_tygerclaws_06
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_player_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_player_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_player_02_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_player_02_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_01_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_01_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_02_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_02_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_03_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_03_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_04_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_04_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_05_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_poor_05_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_01_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_01_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_02_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_02_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_03_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_03_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_04_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_04_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_05_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_05_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_06_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_06_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_07_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_07_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_08_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_08_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_09_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_09_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_10_slot01:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_raijin_cosv_urban_10_slot02:
+  $base: Vehicle.cs_savable_quadra_turbo_tyger_claw
+  appearanceName: quadra_turbo_basic_urban_10
+  icon: UIIcon.COSVVehicle

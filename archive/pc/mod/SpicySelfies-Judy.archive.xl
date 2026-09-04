@@ -1,0 +1,11 @@
+quest:
+  phases:
+    - path: base\quest\spicy_selfies_judy_rootphase.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: base\quest\spicy_selfies_judy_rootphase.questphase
+      parent: ep1\quest\ep1_standalone.quest
+journal:
+    - base\journal\spicy_selfies_judy_journal.journal
+localization:
+  onscreens:
+    en-us: base\onscreens\en-us\spicy_selfies_judy_onscreens.json

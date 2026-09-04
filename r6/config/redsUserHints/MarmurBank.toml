@@ -1,0 +1,11 @@
+[[UNRESOLVED_IMPORT]]
+id = "MISSING_NIGHTLYNOW"
+file = "MarmurBankPhone/MarmurBankPhone.reds"
+line_contains = "NightlyNow.Holo"
+message = "Marmur Bank phone/text notifications require NightlyNow/NightlyCore. Install or update NightlyNow/NightlyCore, then launch the game again so redscript can rebuild."
+
+[[UNRESOLVED_IMPORT]]
+id = "MISSING_CODEWARE"
+file = "MarmurBankATM/MarmurBankATMPopup.reds"
+line_contains = "Codeware.UI"
+message = "Marmur Bank's ATM popup requires Codeware. Install or update Codeware, then fully restart the game so redscript can rebuild."

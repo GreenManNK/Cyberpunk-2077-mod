@@ -1,0 +1,128 @@
+﻿# ClaimOrSellVehicles - Rayfield Aerondight controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+
+# Rayfield Aerondight controlled garage records
+# family: rayfield_aerondight
+# base: Vehicle.v_013_rayfield_aerodnight
+# 9 appearances x 2 exact slots = 18 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_kerry_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_kerry_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_02_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_02_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_03_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_03_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_04_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_04_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_05_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_05_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_06_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_06_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_07_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_basic_urban_07_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_player_01_customizable_01_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01_customizable_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_player_01_customizable_01_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01_customizable_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_q000_streetkid_slot01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_q000_streetkid_slot02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_q000_streetkid
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport1_rayfield_aerondight_cosv_overflow_01:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_aerondight_cosv_overflow_02:
+  $base: Vehicle.v_013_rayfield_aerodnight
+  appearanceName: rayfield_aerondight__basic_player_01
+  icon: UIIcon.COSVVehicle

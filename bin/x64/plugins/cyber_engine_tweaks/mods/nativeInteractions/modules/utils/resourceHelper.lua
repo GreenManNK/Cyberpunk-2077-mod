@@ -11,6 +11,8 @@ local helper = {
 local inputListener
 
 function helper.hook()
+    if not Codeware then return end
+
     inputListener = NewProxy({
         OnJournalLoaded = {
             args = {"handle:ResourceEvent"},

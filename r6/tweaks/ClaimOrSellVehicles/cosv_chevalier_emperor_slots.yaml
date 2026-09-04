@@ -1,0 +1,350 @@
+﻿# ClaimOrSellVehicles - Chevalier Emperor controlled garage records
+# Generated from Vehicle Customizer SVE options.json: Emperor appearance set
+# Router policy belongs in init.lua; do not route baked-appearance records through COSV.
+#
+# Policy note:
+# - Emperor 620 Ragnar is a normal skin-preserving COSV bucket.
+# - Emperor 720 NCPD Ironclad is intentionally normalized into clean police slots only.
+#   If a 720 donor appears with a burnt/damaged appearance, Lua must still resolve it
+#   into one of the clean police slots below. Burnt/damaged Ironclad is treated as
+#   damaged state, not as a collectible skin.
+
+# Emperor 620 Ragnar
+# 21 appearances x 2 exact slots = 42 records
+# 2 overflow records use a safe appearance for the same base
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_arasaka_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_arasaka_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_autonomous_truck_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_autonomous_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_autonomous_truck_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_autonomous_truck
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_deathrace_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_deathrace_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_slot03:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_slot04:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_camo_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_camo_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_camo_01_slot03:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_militech_camo_01_slot04:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_militech_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_mobile_lab_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_mobile_lab_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_netwatch_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_netwatch_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_netwatch_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_netwatch_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_4_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_4_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_5_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_5_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_6_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_suburban_1_6_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_suburban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_3_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_3_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_4_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_4_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_5_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_5_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_6_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_urban_1_6_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_zetatech_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_zetatech_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_zetatech_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_zetatech_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_zetatech_02_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_zetatech_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_basic_zetatech_02_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_zetatech_02
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_02_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_02_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_03_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_arasaka_q000_chase_03_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_arasaka_q000_chase_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_militech_q003_slot01:
+  $base: Vehicle.q003_suv
+  appearanceName: chevalier_emperor__basic_militech_q003
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor__basic_militech_q003_slot02:
+  $base: Vehicle.q003_suv
+  appearanceName: chevalier_emperor__basic_militech_q003
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_nusa_01_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor_nusa_nusa_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_nusa_01_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor_nusa_nusa_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_q305_hologram_slot01:
+  $base: Vehicle.q305_holo_chevalier
+  appearanceName: chevalier_emperor_nusa_q305_hologram
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_q305_hologram_slot02:
+  $base: Vehicle.q305_holo_chevalier
+  appearanceName: chevalier_emperor_nusa_q305_hologram
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_q305_hologram_red_slot01:
+  $base: Vehicle.q305_holo_chevalier
+  appearanceName: chevalier_emperor_nusa_q305_hologram_red
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_chevalier_emperor_nusa_q305_hologram_red_slot02:
+  $base: Vehicle.q305_holo_chevalier
+  appearanceName: chevalier_emperor_nusa_q305_hologram_red
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_v_standard3_chevalier_emperor_01__basic_mobile_lab_slot01:
+  $base: Vehicle.sq006_mobile_lab
+  appearanceName: v_standard3_chevalier_emperor_01__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_v_standard3_chevalier_emperor_01__basic_mobile_lab_slot02:
+  $base: Vehicle.sq006_mobile_lab
+  appearanceName: v_standard3_chevalier_emperor_01__basic_mobile_lab
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard3_chevalier_emperor_620_cosv_overflow_01:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_620_cosv_overflow_02:
+  $base: Vehicle.v_standard3_chevalier_emperor_player
+  appearanceName: chevalier_emperor__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Emperor 720 NCPD Ironclad
+# Intentional cleanup bucket: all routed 720/Ironclad source records normalize to clean police.
+# 1 clean police appearance x 2 exact slots = 2 records.
+# No overflow and no burnt/damaged slots. Burnt/damaged observed appearances must be
+# handled in Lua by selecting a clean police slot for family chevalier_emperor_720.
+
+Vehicle.v_standard3_chevalier_emperor_720_cosv_basic_police_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_police
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_720_cosv_basic_police_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_police
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle

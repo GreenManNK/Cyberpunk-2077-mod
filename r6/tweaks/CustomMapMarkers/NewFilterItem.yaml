@@ -1,0 +1,42 @@
+Mappins.CustomMapMarkersVariant:
+  $type: gamedataMappinVariant_Record
+  enumName: CPO_PingGoHereVariant
+
+WorldMap.CustomMapMarkersFilter:
+  $type: gamedataWorldMapFilter_Record
+  enumName: CustomFilter
+
+WorldMap.CustomMapMarkersFilterGroup:
+  $type: gamedataMappinUIFilterGroup_Record
+  filterName: CustomMarkers-FilterName
+  filterType: WorldMap.CustomMapMarkersFilter
+  mappins:
+    - Mappins.CustomMapMarkersVariant
+  shouldCollectMappins: False
+
+WorldMap.WorldMapCustomFiltersList.list:
+  - !append-once WorldMap.CustomMapMarkersFilterGroup
+
+Mappins.CustomMapMarkersMappinDefinition:
+  $type: gamedataMappinDefinition_Record
+  showInWorld: True
+  showOnMap: True
+  showOnMinimap: True
+  visibilityRange: 0
+  possibleVariants:
+    - Mappins.CustomMapMarkersVariant
+
+WorldMappinUIProfile.CustomMapMarkers:
+  $base: WorldMappinUIProfile.Quest
+
+WorldMap.ZoomLevelImportant.mappinFilterGroups:
+  - !append-once WorldMap.CustomMapMarkersFilterGroup
+
+WorldMap.ZoomLevelAllMappins.mappinFilterGroups:
+  - !append-once WorldMap.CustomMapMarkersFilterGroup
+
+WorldMap.ZoomLevelExtraMappins.mappinFilterGroups:
+  - !append-once WorldMap.CustomMapMarkersFilterGroup
+
+WorldMap.ZoomLevelSubDistricts.mappinFilterGroups:
+  - !append-once WorldMap.CustomMapMarkersFilterGroup

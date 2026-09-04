@@ -13,7 +13,7 @@ module OdoHUD
 
 // ============================================================================
 // Price sign widget controller
-// Reads the existing Lua/CET quest fact:
+// Reads the runtime quest fact:
 //   vm_hud_price_cents = current fuel price * 100
 // Example: 5000 = 50.00
 // ============================================================================

@@ -504,7 +504,10 @@ public class VM_HUD extends IScriptable {
 			// NEW: make the slot respect vm_fg_enabled immediately after (re)build
 			let qs = GameInstance.GetQuestsSystem(GetGameInstance());
 			if IsDefined(qs) {
-				slot.SetVisible(qs.GetFact(n"vm_fg_enabled") == 0);
+				slot.SetVisible(
+					qs.GetFact(n"vm_fg_enabled") == 0
+						&& qs.GetFact(n"vm_3d_enabled") == 0
+				);
 			}
 
       // (3) content root (create or reuse)
@@ -960,8 +963,9 @@ public class VM_HUD extends IScriptable {
 		if IsDefined(qs) {
 			let hudOn: Bool = qs.GetFact(n"vm_hud_visible") == 1;
 			let fgOn:  Bool = qs.GetFact(n"vm_fg_enabled") == 1;
-			// Only show legacy digits when selected (i.e. FuelGauge not selected)
-			show = hudOn && !fgOn && (this.modalDepth == 0);
+			let threeDOn: Bool = qs.GetFact(n"vm_3d_enabled") == 1;
+			// Legacy digits are a distinct mode; both other widgets must suppress it.
+			show = hudOn && !fgOn && !threeDOn && (this.modalDepth == 0);
 		}
 		root.SetVisible(show);
 	}
@@ -988,6 +992,13 @@ public class VM_HUD extends IScriptable {
 
 		let qs = GameInstance.GetQuestsSystem(GetGameInstance());
 		if !IsDefined(qs) { return; }
+		// The price plate above is shared by every HUD mode. The legacy digits
+		// below only need updates while that mode is actually visible.
+		if qs.GetFact(n"vm_hud_visible") != 1
+			|| qs.GetFact(n"vm_fg_enabled") == 1
+			|| qs.GetFact(n"vm_3d_enabled") == 1 {
+			return;
+		}
 
 		// ----- read facts -----
 		let meters: Int32   = qs.GetFact(n"vm_hud_meters");
@@ -1416,7 +1427,7 @@ public class VM_HUD extends IScriptable {
 	
 // ==========================================================================
 // Leaderboard theme helpers
-// Uses the same CET fact as VMFuelGauge.reds:
+// Uses the same runtime fact as VMFuelGauge.reds:
 // vm_fg_theme
 // ==========================================================================
 
@@ -1471,7 +1482,7 @@ private func __ApplyLBTheme(force: Bool) -> Void {
 	let main: HDRColor = this.__LBThemeMainColor(theme);
 
 	// Big leaderboard frame
-	// Rebind every time so live CET theme changes also affect the frame stroke.
+	// Rebind every time so live theme changes also affect the frame stroke.
 	this.lbBgStrokeRef = this.lbRoot.GetWidgetByPathName(n"LB_BgStroke") as inkImage;
 
 	if IsDefined(this.lbBgStrokeRef) {
@@ -1484,7 +1495,7 @@ private func __ApplyLBTheme(force: Bool) -> Void {
   }
 
 	// Row strokes
-	// Rebind every time so live CET theme changes also affect all row frames.
+	// Rebind every time so live theme changes also affect all row frames.
 	ArrayClear(this.lbRowStrokeRefs);
 
 	if IsDefined(this.lbRowsRoot) {
@@ -1540,7 +1551,7 @@ private func __ApplyLBTheme(force: Bool) -> Void {
   private func ApplyLBOffsetScale(dx: Float, dy: Float, sc: Float) -> Void {
     if !IsDefined(this.lbRoot) { return; }
     this.lbRoot.SetTranslation(new Vector2(dx, dy));
-    let s: Float = (sc <= 0.0) ? 1.0 : (sc / 600.0); // match Lua “600” baseline like FG
+    let s: Float = (sc <= 0.0) ? 1.0 : (sc / 600.0); // established 600 baseline
     this.lbRoot.SetScale(new Vector2(s, s));
   }
 
@@ -1594,7 +1605,13 @@ private func __ApplyLBTheme(force: Bool) -> Void {
 		// NEW: robust sync in case LB state ever drifts from the price-plate gate
 		this.SyncLeaderboardVisibility(wantVis);
 
-		if !wantVis { return; }                          // skip price value update when hidden
+		if !wantVis {
+			// The falling-edge bookkeeping above resets the leaderboard, but the
+			// price container itself must also be hidden. Enforce this every tick
+			// so a reused HUD root cannot retain stale visibility after a reload.
+			this.priceRoot.SetVisible(false);
+			return;
+		}
 
 
 
@@ -1672,7 +1689,7 @@ protected cb func OnTakeControl(resolver: EntityResolveComponentsInterface) -> B
 }
 
 // ============================================================================
-// UI bridge methods for Lua (widget mode + FuelGauge stubs)
+// UI bridge methods for VMRuntimeSystem (widget mode + FuelGauge stubs)
 // - Safe to call even if a FuelGauge UI does not exist yet.
 // - Legacy VMHUD is toggled by showing/hiding VM_WidgetSlot.
 // - FuelGauge assumes a root canvas at: Root/VM_FullScreenSlot/FG_RootSlot
@@ -1709,19 +1726,20 @@ public func VM__FGRootPath() -> CName {
 
 
 // --------------------------------------------------------------------------
-// Preferred single-call API used by Lua
+// Preferred single-call runtime API
 // --------------------------------------------------------------------------
 @addMethod(UISystem)
 public func VM_SetWidgetMode(mode: String) -> Void {
   let useFG: Bool = Equals(mode, "fuelgauge");
+  let useLegacy: Bool = Equals(mode, "vmhud");
   this.FG_EnableFuelGauge(useFG);
-  this.VM_EnableLegacyHUD(!useFG);
+  this.VM_EnableLegacyHUD(useLegacy);
 }
 
 
 
 // --------------------------------------------------------------------------
-// Fallback pair (Lua will use these if VM_SetWidgetMode doesn't exist)
+// Compatibility pair retained for existing callers
 // --------------------------------------------------------------------------
 @addMethod(UISystem)
 public func VM_EnableLegacyHUD(enabled: Bool) -> Void {
@@ -1764,7 +1782,7 @@ public func FG_EnableFuelGauge(enabled: Bool) -> Void {
 // --------------------------------------------------------------------------
 // FuelGauge transforms (safe stubs)
 // - dx,dy are pixels relative to screen center; positive => LEFT/UP
-// - scale uses 600 as "1.0x" baseline (matches Lua defaults)
+// - scale uses 600 as the established "1.0x" baseline
 // --------------------------------------------------------------------------
 @addMethod(UISystem)
 public func FG_SetOffset(dx: Float, dy: Float) -> Void {
@@ -1782,7 +1800,7 @@ public func FG_SetScale(scale: Float) -> Void {
   if !IsDefined(vwin) { return; }
   let place: ref<inkCanvas> = vwin.GetWidgetByPathName(this.VM__FGPlacePath()) as inkCanvas;
   if IsDefined(place) {
-    let s: Float = (scale <= 0.0) ? 1.0 : (scale / 600.0); // 600 = your Lua baseline
+    let s: Float = (scale <= 0.0) ? 1.0 : (scale / 600.0); // 600 = established baseline
     place.SetScale(new Vector2(s, s));
   }
 }
@@ -1800,7 +1818,7 @@ public func FG_HavePlace() -> Bool {
 }
 
 // ==========================================================================
-// ODO TOP10 — UISystem helpers for CET (Lua)
+// ODO TOP10 — UISystem helpers for VMRuntimeSystem
 // ==========================================================================
 @addMethod(UISystem)
 public func VM__LBRootPath() -> CName {

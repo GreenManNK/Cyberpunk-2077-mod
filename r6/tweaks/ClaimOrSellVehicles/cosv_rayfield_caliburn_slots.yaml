@@ -1,0 +1,138 @@
+﻿# ClaimOrSellVehicles - Rayfield Caliburn controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+
+# Rayfield Caliburn controlled garage records
+# family: rayfield_caliburn
+# base: Vehicle.v_sport1_rayfield_caliburn_player
+# 8 appearances x 2 exact slots = 16 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_00_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_00
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_00_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_00
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_01_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_01_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_02_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_02_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_03_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_03_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_04_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_04_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_05_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_05_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_06_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_premium_06_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_premium_06
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_ma_bls_ina_se1_40_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_ma_bls_ina_se1_40
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_ma_bls_ina_se1_40_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_ma_bls_ina_se1_40
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_mordred_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_mordred
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_mordred_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_mordred
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_player_01_customizable_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01_customizable
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_basic_player_01_customizable_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01_customizable
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_orbitalair_orbital_air_01_slot01:
+  $base: Vehicle.q306_oa_rayfield
+  appearanceName: rayfield_caliburn__orbitalair_orbital_air_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_orbitalair_orbital_air_01_slot02:
+  $base: Vehicle.q306_oa_rayfield
+  appearanceName: rayfield_caliburn__orbitalair_orbital_air_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport1_rayfield_caliburn_cosv_overflow_neutral_slot01:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_rayfield_caliburn_cosv_overflow_neutral_slot02:
+  $base: Vehicle.v_sport1_rayfield_caliburn_player
+  appearanceName: rayfield_caliburn__basic_player_01
+  icon: UIIcon.COSVVehicle

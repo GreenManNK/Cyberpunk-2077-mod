@@ -1,0 +1,304 @@
+# Game.AddToInventory("Items.ActualBlackwallQuickhack")
+
+Items.ActualBlackwallQuickhack:
+  $type: gamedataItem_Record
+  animFeatureName: ItemData
+  animName: ui_garment_pose
+  animSetResource: ''
+  canDrop: True
+  crosshair: Crosshairs.None
+  deprecated: False
+  dropObject: defaultItemDrop
+  enableNpcRPGData: False
+  friendlyName: ''
+  garmentOffset: 0
+  icon:
+    atlasResourcePath: blackwall_quickhacks\icons\blackwall_quickhack_icon.inkatlas
+    atlasPartName: blackwall_quickhack_icon
+  isCached: False
+  isCoreCW: False
+  isCustomizable: False
+  isGarment: False
+  isPart: True
+  isSingleInstance: False
+  itemCategory: ItemCategory.Part
+  itemType: ItemType.Prt_Program
+  localizedName: Actual_Blackwall
+  mass: 1
+  minigameInstance: minigame_v2.DefaultItemMinigame
+  powerLevelDeterminedByParent: False
+  quality: Quality.Legendary
+  qualityRestrictedByParent: False
+  replicateWhenNotActive: False
+  upgradeCostMult: 1
+  useHeadgearGarmentAggregator: False
+  useNewSpawnMethod: False
+  usesVariants: False
+  savable: False
+  animationParameters: []
+  appearanceSuffixes: []
+  appearanceSuffixesOwnerOverride: []
+  attachmentSlots: []
+  buyPrice:
+    - Price.BaseHackPrice
+    - Price.ItemQualityMultiplier
+    - Price.BuyPrice_StreetCred_Discount
+    - Price.UltimateHackMultiplier
+  cameraForward: {x: 0, y: 0, z: 0}
+  cameraUp: {x: 0, y: 0, z: 0}
+  connections: []
+  displayName: Actual_Blackwall
+  equipAreas: []
+  equipPrereqs: []
+  gameplayRestrictions:
+    - GameplayRestriction.VehicleCombatNoInterruptions
+  hairSkinnedMeshComponents: []
+  localizedDescription: LocKey#86797
+  OnAttach:
+    - EquipmentGLP.BlackwallProgramLvl4_modified_Single
+  OnEquip:
+    - EquipmentGLP.BlackwallLvl2Passive
+    - EquipmentGLP.BlackwallLvl3Passive
+    - EquipmentGLP.BlackwallLvl4Passive
+  OnLooted: []
+  parts: []
+  placementSlots:
+    - AttachmentSlots.CyberdeckProgram1
+    - AttachmentSlots.CyberdeckProgram2
+    - AttachmentSlots.CyberdeckProgram3
+    - AttachmentSlots.CyberdeckProgram4
+    - AttachmentSlots.CyberdeckProgram5
+    - AttachmentSlots.CyberdeckProgram6
+    - AttachmentSlots.CyberdeckProgram7
+    - AttachmentSlots.CyberdeckProgram8
+  previewBBoxOverride: []
+  requiredSlots: []
+  sellPrice:
+    - Price.BaseHackPrice
+    - Price.ItemQualitySellMultiplier
+    - Price.SellMultiplier
+    - Price.UltimateHackMultiplier
+  slotPartList: []
+  slotPartListPreset: []
+  tags:
+    - itemPart
+    - SoftwareShard
+    - Tier2Shard
+    # - DummyPart
+    # - HideInUI
+    - Tier3Shard
+    - Tier4Shard
+  variants: []
+  visualTags: []
+  effectors: []
+  objectActions:
+    - ItemAction.ProgramDisassemble
+    - QuickHack.BlackWallHack_modified_Multi
+    - QuickHack.BlackWallHack_modified_Single
+    # - QuickHack.BossBlackWallHack
+    # - QuickHack.ChimeraBlackWallHack
+    # - QuickHack.BlackWallHack
+    # - QuickHack.BossBlackWallHack
+    # - QuickHack.ChimeraBlackWallHack
+    # - QuickHack.BlackWallHack
+    # - QuickHack.BossBlackWallHack
+    # - QuickHack.ChimeraBlackWallHack
+  statModifierGroups: []
+  statModifiers: 
+    - Quality.IconicItem
+  statPools: []
+  weakspots: []
+  shardType: BlackWall_Single
+  hideDurationUI: False
+  hideCooldownUI: False
+
+EquipmentGLP.BlackwallProgramLvl4_modified_Single:
+  $type: gamedataGameplayLogicPackage_Record
+  stackable: False
+  UIData: EquipmentGLP.BlackwallProgramLvl4_inline0_modified_Single
+  animationWrapperOverrides: []
+  effectors: []
+  items: []
+  statPools: []
+  stats: []
+
+EquipmentGLP.BlackwallProgramLvl4_inline0_modified_Single:
+  $base: EquipmentGLP.BlackwallProgramLvl4_inline0
+  floatValues: []
+  localizedDescription: It's hard to say what exactly makes this shard able to open temporary gates through the Blackwall. It could be a permaflux algorithm, or perhaps even more terrifyingly, it's capable of directly communicating with rogue AIs from beyond the Blackwall and somehow persuading them to open these gates.\n\nUnlocks the <Rich color="TooltipText.cyberwareDescriptionHighlightColor" style="Semi-Bold">Blackwall (single target)</> quickhack.\n\nThis quickhack causes <Rich color="TooltipText.cyberwareDescriptionHighlightColor" style="Semi-Bold">lethal damage</> to cyberware and neural systems.\n\nUnlocks the <Rich color="TooltipText.cyberwareDescriptionHighlightColor" style="Semi-Bold">Blackwall (multi target)</> quickhack.\n\nThis quickhack spreads and causes <Rich color="TooltipText.cyberwareDescriptionHighlightColor" style="Semi-Bold">lethal damage</> to cyberware and neural systems.
+  localizedName: Blackwall_single_target
+
+QuickHack.BlackWallHack_modified_Single:
+  $type: gamedataObjectAction_Record
+  actionName: BlackWall_Single
+  hackCategory: HackCategory.UltimateHack_modified
+  interactionLayer: remote
+  objectActionType: ObjectActionType.PuppetQuickHack
+  objectActionUI: Interactions.BlackwallHack_modified_Single
+  priority: 3
+  activationTime:
+    - QuickHack.BaseBlackWallHack_inline11_modified_Single
+  completionEffects:
+    - QuickHack.QuickHack_inline2
+    - QuickHack.QuickHack_inline6
+    - QuickHack.QuickHack_inline8
+    - QuickHack.QuickHack_inline9
+    - QuickHack.UltimateHack_inline7
+    - QuickHack.BaseBlackWallHack_inline9
+    # - QuickHack.BlackWallHack_inline3 # bounce
+    - QuickHack.BlackWallHack_inline6_modified_Single # BaseStatusEffect.BaseBlackWallHackEffect
+    # - QuickHack.BlackWallHack_inline12
+  costs:
+    - QuickHack.BaseBlackWallHack_inline7_modified_Single
+  durationTime: []
+  instigatorActivePrereqs: []
+  instigatorPrereqs:
+    - QuickHack.QuickHack_inline1
+    - QuickHack.BaseBlackWallHack_inline0
+  interruptionPrereqs: []
+  rewards: []
+  startEffects:
+    - QuickHack.QuickHack_inline10
+    - QuickHack.UltimateHack_inline1
+    # - QuickHack.BaseBlackWallHack_inline1 #
+    # - QuickHack.BaseBlackWallHack_inline2 #
+    - QuickHack.BaseBlackWallHack_inline3 # cooldown
+    - QuickHack.BaseBlackWallHack_inline4 # fact helper
+    # - QuickHack.BaseBlackWallHack_inline5 #
+    # - QuickHack.BlackWallHack_inline0 ##
+  targetActivePrereqs:
+    - Prereqs.QuickHackUploadingPrereq
+    - Prereqs.ChimeraNoQuickHackPrereq
+    - Prereqs.QuickHackTargetMortalPrereq
+    - Prereqs.BlackwallPrereq_modified_Single
+  targetPrereqs: []
+  awarenessCost: QuickHack.UltimateHack_inline2
+  memoryCostReductionInOverclock: 0.725000024
+  isQuickHack: True
+
+HackCategory.UltimateHack_modified:
+  $type: gamedataHackCategory_Record
+  enumComment: Most powerfull hacks able to one shot enemies
+  enumName: DamageHack
+  localizedDescription: Ultimate Hack
+
+Prereqs.BlackwallPrereq_modified_Single:
+  $type: gamedataObjectActionPrereq_Record
+  failureExplanation: Blackwall (single target) is already active
+  failureConditionPrereq:
+    - Prereqs.BlackwallPrereq_inline0
+    - Prereqs.BlackwallPrereq_inline1
+
+Interactions.BlackwallHack_modified_Single:
+  $type: gamedataInteractionBase_Record
+  action: Choice1
+  captionIcon: ChoiceCaptionParts.BlackwallBreachIcon
+  name: BlackwallHack
+  prereqID: ''
+  caption: Blackwall_single_target # LocKey#86796
+  description: LocKey#86797
+
+QuickHack.BaseBlackWallHack_inline11_modified_Single:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.001 # 9
+  modifierType: Additive
+  statType: BaseStats.QuickHackUpload
+
+QuickHack.BaseBlackWallHack_inline7_modified_Single:
+  $type: gamedataStatPoolCost_Record
+  statPool: BaseStatPools.Memory
+  costMods:
+    - QuickHack.MemoryCostReductionMod
+    - QuickHack.ConsumableCostReduction
+    # - QuickHack.TargetResistance
+    # - QuickHack.TargetResistanceExtraUltimate
+    - QuickHack.UltimateMemoryCostReductionMod
+    - QuickHack.BaseBlackWallHack_inline8_modified_Single
+
+QuickHack.BaseBlackWallHack_inline8_modified_Single:
+  $type: gamedataConstantStatModifier_Record
+  value: 0 # 12
+  modifierType: Additive
+  statType: BaseStats.Memory
+
+QuickHack.BlackWallHack_inline6_modified_Single:
+  $type: gamedataObjectActionEffect_Record
+  effectorToTrigger: QuickHack.BlackWallHack_inline7_modified_Single
+  recipient: ObjectActionReference.Target
+
+QuickHack.BlackWallHack_inline7_modified_Single:
+  $type: gamedataApplyStatusEffectEffector_Record
+  count: 1
+  instigator: ''
+  inverted: False
+  removeWithEffector: True
+  statusEffect: BaseStatusEffect.BaseBlackWallHackEffect_Trigger_Single
+  useCountWhenRemoving: False
+  effectorClassName: ApplyStatusEffectEffector
+  prereqRecord: Prereqs.AlwaysTruePrereq # QuickHack.BlackWallHack_inline8
+  removeAfterActionCall: False
+  removeAfterPrereqCheck: False
+  statModifierGroups: []
+
+BaseStatusEffect.BaseBlackWallHackEffect_Trigger_Single:
+  $type: gamedataStatusEffect_Record
+  AIData: BaseStatusEffect.BaseQuickHackStatusEffect_inline0
+  dynamicDuration: False
+  isAffectedByTimeDilationNPC: True
+  isAffectedByTimeDilationPlayer: True
+  maxStacks: RTDB.StatusEffect_inline0
+  reapplyPackagesOnMaxStacks: False
+  removeAllStacksWhenDurationEnds: False
+  removeOnStoryTier: False
+  replicated: False
+  savable: True
+  statusEffectType: BaseStatusEffectTypes.Quickhack
+  stopActiveSfxOnDeactivate: True
+  debugTags: []
+  gameplayTags:
+    - Debuff
+    - Quickhack
+    - BlackWallHack
+  immunityStats: []
+  packages:
+    - BaseStatusEffect.BaseBlackWallHackEffect_inline0_modified_Single
+  SFX: []
+  VFX: []
+
+BaseStatusEffect.BaseBlackWallHackEffect_inline0_modified_Single:
+  $type: gamedataGameplayLogicPackage_Record
+  stackable: False
+  animationWrapperOverrides: []
+  effectors:
+    - BaseStatusEffect.BaseBlackWallHackEffect_inline1_modified_Single
+  items: []
+  statPools: []
+  stats: []
+
+BaseStatusEffect.BaseBlackWallHackEffect_inline1_modified_Single:
+  $type: gamedataApplyStatusEffectEffector_Record
+  count: 1
+  instigator: ''
+  inverted: False
+  removeWithEffector: True
+  statusEffect: '' # BaseStatusEffect.HauntedBlackwallForceKill
+  useCountWhenRemoving: False
+  effectorClassName: ApplyStatusEffectEffector
+  prereqRecord: Prereqs.AlwaysTruePrereq
+  removeAfterActionCall: False
+  removeAfterPrereqCheck: False
+  statModifierGroups: []
+
+# Vendors.wat_lch_gunsmith_01:
+#   itemStock:
+#     - !append
+#       item: Items.ActualBlackwallQuickhack
+#       quantity: 
+#         - !append Vendors.Always_Present
+
+# Vendors.BlackMarketer_HUB:
+#   itemStock:
+#     - !append
+#       item: Items.ActualBlackwallQuickhack
+#       quantity: 
+#         - !append Vendors.Always_Present

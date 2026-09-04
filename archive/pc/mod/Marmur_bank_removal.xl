@@ -1,0 +1,96 @@
+streaming:
+    sectors:
+        - nodeDeletions:
+              - resource: base\gameplay\devices\doors\final\double_door_decorative.ent
+                debugName: "{double_door}"
+                position:
+                    z: 19.097915649414
+                    y: 1190.6109619141
+                    x: -1478.9320068359
+                index: 1461
+                nodeRef: $/03_night_city/c_watson/little_china/wlc_01/wlc_01_b_env_prefab6TCITNI/#wlc_01_b_decoration/decorative_double_door_001_prefabFRVN5RA/{double_door}_prefabNV2Z7ZI
+                orientation:
+                    k: 0.64641267061234
+                    i: 0.073432683944702
+                    r: 0.75685197114944
+                    j: 0.062717452645302
+                type: worldEntityNode
+          nodeMutations: []
+          expectedNodes: 2743
+          path: base\worlds\03_night_city\_compiled\default\exterior_-24_18_0_0.streamingsector
+        - nodeDeletions:
+              - resource: base\worlds\03_night_city\sectors\_external\proxy\2634966995\kitsch_e.mesh
+                debugName: ""
+                position:
+                    z: 19.097915649414
+                    y: 1190.6109619141
+                    x: -1478.9320068359
+                index: 600
+                nodeRef: $/03_night_city/c_watson/little_china/wlc_01/wlc_01_b_env_prefab6TCITNI/#wlc_01_b_decoration/decorative_double_door_001_prefabFRVN5RA/{double_door}_prefabNV2Z7ZI/_entityProxyMesh
+                orientation:
+                    k: 0.64641267061234
+                    i: 0.073432683944702
+                    r: 0.75685197114944
+                    j: 0.062717452645302
+                type: worldEntityProxyMeshNode
+          nodeMutations: []
+          expectedNodes: 1834
+          path: base\worlds\03_night_city\_compiled\default\exterior_-12_9_0_1.streamingsector
+        - nodeDeletions:
+              - resource: engine\meshes\editor\box_occluder.w2mesh
+                debugName: occluder_002
+                position:
+                    z: 25.655090332031
+                    y: 1193.6259765625
+                    x: -1489.2979736328
+                index: 1086
+                nodeRef: ""
+                orientation:
+                    k: 0.30070579051971
+                    i: 0
+                    r: 0.95371693372726
+                    j: 0
+                type: worldStaticOccluderMeshNode
+          nodeMutations: []
+          expectedNodes: 2043
+          path: base\worlds\03_night_city\_compiled\default\exterior_-3_2_0_3.streamingsector
+        - nodeDeletions:
+              - resource: engine\meshes\editor\box_occluder.w2mesh
+                debugName: occluder_003
+                position:
+                    z: 25.655090332031
+                    y: 1199.4722900391
+                    x: -1485.9873046875
+                index: 1057
+                nodeRef: ""
+                orientation:
+                    k: 0.30070579051971
+                    i: 0
+                    r: 0.95371693372726
+                    j: 0
+                type: worldStaticOccluderMeshNode
+          nodeMutations: []
+          expectedNodes: 3648
+          path: base\worlds\03_night_city\_compiled\default\exterior_-6_4_0_2.streamingsector
+        - path: base\worlds\03_night_city\_compiled\default\exterior_-23_18_0_0.streamingsector
+          expectedNodes: 3712
+          nodeDeletions:
+              - resource: ""
+                debugName: "{L_Sign_FoodScape}"
+                position:
+                    y: 1184.6298828125
+                    z: 22.846967697144
+                    x: -1465.1893310547
+                index: 303
+                nodeRef: ""
+                orientation:
+                    r: 0.94495207071304
+                    i: -0.13032481074333
+                    j: -0.041005540639162
+                    k: 0.29732072353363
+                type: worldStaticLightNode
+        - path: base\worlds\03_night_city\_compiled\default\exterior_-12_9_0_1.streamingsector
+          expectedNodes: 1834
+          nodeDeletions:
+              - index: 697
+                type: worldCompiledCommunityAreaNode_Streamable

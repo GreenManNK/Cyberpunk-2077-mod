@@ -1,0 +1,316 @@
+﻿# ClaimOrSellVehicles - ARCH NazarÃ© ordinary controlled garage records
+# Generated from Vehicle Customizer SVE options.json: ARCH NAZARÃ‰ / NazarÃ© non-exclusive appearance set
+# Excludes Jackie / tuned Jackie / Lina Malina exclusive appearances by policy.
+# 25 appearances x 2 exact slots = 50 records
+# 2 overflow records use a safe neutral/player appearance for the same base
+# Router policy belongs in init.lua; do not route baked-appearance records through COSV.
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_02_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_02_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_03_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_player_03_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_black_02_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_black_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_black_02_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_black_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_blue_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_blue_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_blue_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_blue_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_blue_03_neon_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_blue_03_neon
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_blue_03_neon_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_blue_03_neon
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_gray_02_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_gray_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_gray_02_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_gray_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_green_02_neon_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_green_02_neon
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_green_02_neon_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_green_02_neon
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_neon_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_neon_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_neon_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_neon_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_orange_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_orange_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_orange_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_orange_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_red_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_red_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_red_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_red_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_white_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_white_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_white_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_white_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_yellow_02_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_yellow_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_sport_yellow_02_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_sport_yellow_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_black_03_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_black_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_black_03_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_black_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_blue_04_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_blue_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_blue_04_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_blue_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_camo_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_camo_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_camo_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_camo_02_dark_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_camo_02_dark
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_camo_02_dark_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_camo_02_dark
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_gray_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_gray_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_gray_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_gray_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_green_03_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_green_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_green_03_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_green_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_silver_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_silver_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_standard_silver_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_standard_silver_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_boss_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_boss_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_boss_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_boss_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_green_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_green_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_green_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_green_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_pink_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_pink_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_pink_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_pink_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_red_02_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_red_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_red_02_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_red_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_violet_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_violet_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_basic_tygerclaws_violet_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_tygerclaws_violet_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_jackie_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_jackie
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_jackie_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_jackie
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_jackie_tuned_up_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_jackie_tuned_up
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_jackie_tuned_up_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_jackie_tuned_up
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_q101_troy_01_slot01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_q101_troy_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_basic_q101_troy_01_slot02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_q101_troy_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_lina_lina_malina_02_slot01:
+  $base: Vehicle.mq303_lina_bike
+  appearanceName: arch_nemesis_lina_lina_malina_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_arch_nemesis_lina_lina_malina_02_slot02:
+  $base: Vehicle.mq303_lina_bike
+  appearanceName: arch_nemesis_lina_lina_malina_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_v_sportbike2_arch_nemesis_basic_jackie_slot01:
+  $base: Vehicle.jackie_bike
+  appearanceName: v_sportbike2_arch_nemesis_basic_jackie
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_v_sportbike2_arch_nemesis_basic_jackie_slot02:
+  $base: Vehicle.jackie_bike
+  appearanceName: v_sportbike2_arch_nemesis_basic_jackie
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sportbike2_arch_cosv_overflow_01:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike2_arch_cosv_overflow_02:
+  $base: Vehicle.v_sportbike2_arch_player
+  appearanceName: arch_nemesis_basic_player_01
+  icon: UIIcon.COSVVehicle

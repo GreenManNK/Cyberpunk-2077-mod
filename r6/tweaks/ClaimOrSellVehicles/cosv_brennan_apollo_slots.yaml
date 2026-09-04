@@ -1,0 +1,797 @@
+﻿# ClaimOrSellVehicles - Brennan Apollo controlled garage records
+# One YAML file, bucket-only Apollo pass.
+# Router policy belongs in init.lua; do not route baked-appearance records through COSV.
+# Record table decides policy first. options.json only supplies appearance names.
+# Current confirmed bucket families: ordinary Apollo, Apollo Cicada, Apollo 650-S, and Apollo BARGHEST.
+
+# Brennan Apollo ordinary controlled garage records
+# Base: Vehicle.v_sportbike3_brennan_apollo_player
+# 4 appearances x 2 exact slots = 8 records
+# 2 overflow records use a safe appearance for the same family
+# Excludes all non-bucket Apollo variants outside this pass.
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_adventure_01_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_03_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_aldecados_03_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v2_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v3_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v3_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v3_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_brennan_apollo_v3_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_q108_santiago_slot01:
+  $base: Vehicle.santiago_bike
+  appearanceName: brennan_apollo_basic_q108_santiago
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_q108_santiago_slot02:
+  $base: Vehicle.santiago_bike
+  appearanceName: brennan_apollo_basic_q108_santiago
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_scorpion_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_basic_scorpion_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_kurtz_01_slot01:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_kurtz_01_slot02:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_militia_01_slot01:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_militia_01_slot02:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_player_02_slot01:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_player_02_slot02:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_police_01_slot01:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_police_basic_police_01_slot02:
+  $base: Vehicle.mws_kurtz_brennan_apollo
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sportbike3_brennan_apollo_cosv_overflow_01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cosv_overflow_02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Brennan Apollo Cicada controlled garage records
+# Base: Vehicle.v_sportbike3_brennan_apollo_nomad
+# 3 appearances x 2 exact slots = 6 records
+# Apollo Cicada/Nomad bucket only.
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_03_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_basic_aldecados_03_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_adventure_01_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v2_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v3_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v3_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v3_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_brennan_apollo_v3_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_default1_slot01:
+  $base: Vehicle.q114_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_default1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_default1_slot02:
+  $base: Vehicle.q114_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_default1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_player_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_player_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_scorpion_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_cicada_cosv_scorpion_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_nomad
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+# Brennan Apollo Kaminari controlled garage records
+# family: brennan_apollo_kaminari
+# base: Vehicle.v_sportbike3_brennan_apollo_tyger
+# Full dump-derived Apollo "Kaminari" appearance set.
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_adventure_01_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_03_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_aldecados_03_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v2_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v3_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v3_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v3_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_v3_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_brennan_damage_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_damage
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_brennan_damage_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_brennan_damage
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_scorpion_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_basic_scorpion_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_overflow_01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kaminari_cosv_overflow_02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_tyger
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Brennan Apollo 650-S Sport controlled garage records
+# Base: Vehicle.v_sportbike3_brennan_apollo_player_02
+# 12 appearances x 2 exact slots = 24 records
+# Excluded: burnt_player_02, burnt_v3, burnt_v_2, brennan_damage
+# Scout YAML deferred pending appearance confirmation.
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_adventure_01_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_adventure_01_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_03_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_aldecados_03_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_2_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v2_2_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v3_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v3_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v3_1_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_v3_1_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_brennan_apollo_v3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_scorpion_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_basic_scorpion_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_scorpion
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_sport_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_player_02
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+# Brennan Apollo BARGHEST controlled garage records
+# family: brennan_apollo_barghest
+# base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+# 4 appearances x 2 exact slots = 8 records
+# Excluded by policy: all burnt police/kurtz/militia/player variants
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_barghest_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_barghest_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_militia_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_militia_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_police_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_kurtz_cosv_police_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_kurtz
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# Brennan Apollo BARGHEST prevention controlled garage records
+# family: brennan_apollo_barghest_prevention
+# base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+# 4 appearances x 2 exact slots = 8 records
+# Excluded by policy: all burnt police/kurtz/militia/player variants
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_barghest_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_barghest_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_militia_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_militia_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_police_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_prevention_cosv_police_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_basic_01_prevention
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+
+# Brennan Apollo 650-S Scout controlled garage records
+# family: brennan_apollo_scout
+# base: Vehicle.v_sportbike3_brennan_apollo_police
+# Added from full scanner dump; router wiring stays separate in cosv_slots.lua for now.
+
+Vehicle.v_sportbike3_brennan_apollo_scout_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_police
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_scout_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_police
+  appearanceName: brennan_apollo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_scout_cosv_police_01_slot01:
+  $base: Vehicle.v_sportbike3_brennan_apollo_police
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike3_brennan_apollo_scout_cosv_police_01_slot02:
+  $base: Vehicle.v_sportbike3_brennan_apollo_police
+  appearanceName: brennan_apollo_police_basic_police_01
+  icon: UIIcon.COSVVehicle

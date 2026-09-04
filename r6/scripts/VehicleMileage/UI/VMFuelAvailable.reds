@@ -12,6 +12,9 @@
 // The three-digit suffix selects:
 //   vm_gas_station_005_available_fuel_l
 module OdoHUD
+
+import VehicleMileage.Runtime.VMRuntimeSystem
+
 public class inkFuelAvailable extends inkGameController {
   private let root: wref<inkCompoundWidget>;
   private let fuelText: wref<inkText>;
@@ -176,8 +179,6 @@ public class VMFuelAvailableService extends IScriptable {
   private let fastTicksLeft: Int32;
   private let tickPeriodFast: Float = 0.25;
   private let tickPeriodSlow: Float = 2.0;
-  // vm_gas_locations.json currently produces 51 clusters.
-  private let maximumStationIndex: Int32 = 51;
   public func Start() -> Void {
     if !this.registered {
       this.callbackSystem = GameInstance.GetCallbackSystem();
@@ -210,6 +211,18 @@ public class VMFuelAvailableService extends IScriptable {
     };
     return StringToName("vm_fuel_available_" + suffix);
   }
+  private func StationSearchLimit() -> Int32 {
+    let runtime: ref<VMRuntimeSystem> = VMRuntimeSystem.Get();
+    if IsDefined(runtime) {
+      let stationCount: Int32 = runtime.GetGasStationCount();
+      if stationCount > 0 {
+        return stationCount;
+      };
+    };
+    // Entity assembly can precede runtime station construction. Component
+    // suffixes are three digits, so scan that supported range as a fallback.
+    return 999;
+  }
   private func EnsureWorldWidget(widget: wref<worlduiWidgetComponent>) -> Void {
     if !IsDefined(widget) {
       return;
@@ -237,12 +250,13 @@ public class VMFuelAvailableService extends IScriptable {
     if !IsDefined(entity) {
       return;
     };
-    // Cheap gate: avoid 51 indexed lookups for unrelated assembled entities.
+    // Cheap gate avoids indexed lookups for unrelated assembled entities.
     if !IsDefined(entity.FindComponentByName(n"fuel_available_mesh")) {
       return;
     };
     let index: Int32 = 1;
-    while index <= this.maximumStationIndex {
+    let searchLimit: Int32 = this.StationSearchLimit();
+    while index <= searchLimit {
       let widget = entity.FindComponentByName(this.ComponentName(index))
         as worlduiWidgetComponent;
       if IsDefined(widget) {

@@ -1,0 +1,497 @@
+# ClaimOrSellVehicles - police siren controlled wrapper slots
+# Slot-in-slot wrappers for every dump-confirmed *_siren record.
+# Each wrapper inherits from its own siren source token.
+# Burnt/damaged states remain excluded by policy; overflow stays neutral.
+
+# source: Vehicle.cs_savable_archer_hella_police_siren
+Vehicle.cs_savable_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot01:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot02:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot01:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot02:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_archer_hella_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_archer_hella_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.cs_savable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.cs_savable_chevalier_emperor_police_siren
+Vehicle.cs_savable_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot01:
+  $base: Vehicle.cs_savable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot02:
+  $base: Vehicle.cs_savable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_chevalier_emperor_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.cs_savable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_chevalier_emperor_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.cs_savable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren
+Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren_cosv_thorton_merrimac_basic_police_01_slot01:
+  $base: Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren_cosv_thorton_merrimac_basic_police_01_slot02:
+  $base: Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.cs_savable_v_standard25_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_01_slot01:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_01_slot02:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_02_slot01:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_02_slot02:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_03_slot01:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_03_slot02:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.cs_savable_v_standard3_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.cs_savable_villefort_cortes_police_siren
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.cs_savable_villefort_cortes_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.cs_savable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.hackable_archer_hella_police_siren
+Vehicle.hackable_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot01:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot02:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot01:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot02:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_archer_hella_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_archer_hella_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.hackable_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.hackable_chevalier_emperor_police_siren
+Vehicle.hackable_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot01:
+  $base: Vehicle.hackable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot02:
+  $base: Vehicle.hackable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_chevalier_emperor_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.hackable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_chevalier_emperor_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.hackable_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.hackable_militech_hellhound_police_siren
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_01_slot01:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_01_slot02:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_02_slot01:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_02_slot02:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_03_slot01:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_militech_hellhound__basic_police_03_slot02:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_militech_hellhound_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.hackable_militech_hellhound_police_siren
+  appearanceName: militech_hellhound__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.hackable_thorton_merrimac_police_siren
+Vehicle.hackable_thorton_merrimac_police_siren_cosv_thorton_merrimac_basic_police_01_slot01:
+  $base: Vehicle.hackable_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_thorton_merrimac_police_siren_cosv_thorton_merrimac_basic_police_01_slot02:
+  $base: Vehicle.hackable_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_thorton_merrimac_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.hackable_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_thorton_merrimac_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.hackable_thorton_merrimac_police_siren
+  appearanceName: thorton_merrimac_basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.hackable_villefort_cortes_police_siren
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.hackable_villefort_cortes_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.hackable_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.v_standard2_archer_hella_police_siren
+Vehicle.v_standard2_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_siren_cosv_archer_hella__basic_deathrace_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_siren_cosv_archer_hella__basic_police_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.v_standard2_archer_hella_police_siren
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.v_standard2_villefort_cortes_police_siren
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_black_agent_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_boder_patrol_01_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_boder_patrol_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_01_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_police_q000_streetkid_02_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_police_q000_streetkid_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_villefort_cortes__basic_sheriff_01_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_sheriff_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.v_standard2_villefort_cortes_police_siren
+  appearanceName: villefort_cortes__basic_black_agent
+  icon: UIIcon.COSVVehicle
+
+# source: Vehicle.v_standard3_chevalier_emperor_police_siren
+Vehicle.v_standard3_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_police_siren_cosv_chevalier_emperor__basic_police_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_police_siren_cosv_overflow_neutral_slot01:
+  $base: Vehicle.v_standard3_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_chevalier_emperor_police_siren_cosv_overflow_neutral_slot02:
+  $base: Vehicle.v_standard3_chevalier_emperor_police_siren
+  appearanceName: chevalier_emperor__basic_police
+  icon: UIIcon.COSVVehicle

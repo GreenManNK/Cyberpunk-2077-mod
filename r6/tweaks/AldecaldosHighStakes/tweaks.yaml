@@ -1,0 +1,32 @@
+Items.sq_hs_regina_shard:
+  animFeatureName: ItemData
+  $type: gamedataItem_Record
+  itemType: ItemType.Gen_Readable
+  itemSecondaryAction: Items.sq_hs_regina_shard_1_inline0
+  canDrop: True
+  dropObject: defaultItemDrop
+  objectActions:
+    - ItemAction.Drop
+    - ItemAction.Disassemble
+  tags:
+    - Readable
+    - Shard
+    - SkipActivityLog
+    - HideInBackpackUI
+    - HideAtVendor
+
+Items.sq_hs_regina_shard_1_inline0:
+  $type: gamedataItemAction_Record
+  actionName: Read
+  hackCategory: HackCategory.DeviceHack
+  objectActionType: ObjectActionType.Item
+  journalEntry: onscreens/high_stakes/regina_shard
+
+Vehicle.sq_hs_behemoth_UIData:
+  $base: Vehicle.VehicleMilitechBehemothUIData
+  info: LocKey#53848382
+
+Vehicle.sq_hs_behemoth:
+  $base: Vehicle.cs_savable_militech_behemoth
+  vehicleUIData: Vehicle.sq_hs_behemoth_UIData
+  appearanceName: militech_behemoth_basic_arasaka

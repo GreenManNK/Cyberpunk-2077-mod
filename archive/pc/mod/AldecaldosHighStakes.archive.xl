@@ -1,0 +1,100 @@
+journal:
+  - mod\journal\sq_high_stakes.journal
+streaming:
+  blocks:
+    - mod\worlds\sq_high_stakes.streamingblock
+quest:
+  phases:
+    - path: mod\quest\sq_high_stakes.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\quest\sq_high_stakes.questphase
+      parent: ep1\quest\ep1_standalone.quest
+
+    # NG+ compatibility
+    - path: mod\quest\sq_high_stakes.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: mod\quest\sq_high_stakes.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: mod\quest\sq_high_stakes.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+localization:
+  onscreens:
+    en-us: mod\localization\en-us\aldecaldos_onscreen.json
+    ar-ar: mod\localization\en-us\aldecaldos_onscreen.json
+    cz-cz: mod\localization\en-us\aldecaldos_onscreen.json
+    de-de: mod\localization\en-us\aldecaldos_onscreen.json
+    es-es: mod\localization\en-us\aldecaldos_onscreen.json
+    es-mx: mod\localization\en-us\aldecaldos_onscreen.json
+    fr-fr: mod\localization\en-us\aldecaldos_onscreen.json
+    hu-hu: mod\localization\en-us\aldecaldos_onscreen.json
+    it-it: mod\localization\en-us\aldecaldos_onscreen.json
+    jp-jp: mod\localization\en-us\aldecaldos_onscreen.json
+    kr-kr: mod\localization\en-us\aldecaldos_onscreen.json
+    pl-pl: mod\localization\en-us\aldecaldos_onscreen.json
+    pt-br: mod\localization\en-us\aldecaldos_onscreen.json
+    ru-ru: mod\localization\en-us\aldecaldos_onscreen.json
+    th-th: mod\localization\en-us\aldecaldos_onscreen.json
+    tr-tr: mod\localization\en-us\aldecaldos_onscreen.json
+    ua-ua: mod\localization\en-us\aldecaldos_onscreen.json
+    zh-cn: mod\localization\en-us\aldecaldos_onscreen.json
+    zh-tw: mod\localization\en-us\aldecaldos_onscreen.json
+  vomaps:
+    en-us: mod\localization\en-us\aldecaldos_voiceovermap.json
+    ar-ar: mod\localization\en-us\aldecaldos_voiceovermap.json
+    cz-cz: mod\localization\en-us\aldecaldos_voiceovermap.json
+    de-de: mod\localization\en-us\aldecaldos_voiceovermap.json
+    es-es: mod\localization\en-us\aldecaldos_voiceovermap.json
+    es-mx: mod\localization\en-us\aldecaldos_voiceovermap.json
+    fr-fr: mod\localization\en-us\aldecaldos_voiceovermap.json
+    hu-hu: mod\localization\en-us\aldecaldos_voiceovermap.json
+    it-it: mod\localization\en-us\aldecaldos_voiceovermap.json
+    jp-jp: mod\localization\en-us\aldecaldos_voiceovermap.json
+    kr-kr: mod\localization\en-us\aldecaldos_voiceovermap.json
+    pl-pl: mod\localization\en-us\aldecaldos_voiceovermap.json
+    pt-br: mod\localization\en-us\aldecaldos_voiceovermap.json
+    ru-ru: mod\localization\en-us\aldecaldos_voiceovermap.json
+    th-th: mod\localization\en-us\aldecaldos_voiceovermap.json
+    tr-tr: mod\localization\en-us\aldecaldos_voiceovermap.json
+    ua-ua: mod\localization\en-us\aldecaldos_voiceovermap.json
+    zh-cn: mod\localization\en-us\aldecaldos_voiceovermap.json
+    zh-tw: mod\localization\en-us\aldecaldos_voiceovermap.json
+  subtitles:
+    en-us: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    ar-ar: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    cz-cz: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    de-de: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    es-es: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    es-mx: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    fr-fr: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    hu-hu: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    it-it: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    jp-jp: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    kr-kr: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    pl-pl: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    pt-br: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    ru-ru: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    th-th: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    tr-tr: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    ua-ua: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    zh-cn: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+    zh-tw: mod\localization\en-us\subtitles\aldecaldos_subs_entry.json
+  lipmaps:
+    en-us: mod\localization\en-us\sq_high_stakes.lipmap
+    ar-ar: mod\localization\ar-ar\sq_high_stakes.lipmap
+    cz-cz: mod\localization\cz-cz\sq_high_stakes.lipmap
+    de-de: mod\localization\de-de\sq_high_stakes.lipmap
+    es-es: mod\localization\es-es\sq_high_stakes.lipmap
+    es-mx: mod\localization\es-mx\sq_high_stakes.lipmap
+    fr-fr: mod\localization\fr-fr\sq_high_stakes.lipmap
+    hu-hu: mod\localization\hu-hu\sq_high_stakes.lipmap
+    it-it: mod\localization\it-it\sq_high_stakes.lipmap
+    jp-jp: mod\localization\jp-jp\sq_high_stakes.lipmap
+    kr-kr: mod\localization\kr-kr\sq_high_stakes.lipmap
+    pl-pl: mod\localization\pl-pl\sq_high_stakes.lipmap
+    pt-br: mod\localization\pt-br\sq_high_stakes.lipmap
+    ru-ru: mod\localization\ru-ru\sq_high_stakes.lipmap
+    th-th: mod\localization\th-th\sq_high_stakes.lipmap
+    tr-tr: mod\localization\tr-tr\sq_high_stakes.lipmap
+    ua-ua: mod\localization\ua-ua\sq_high_stakes.lipmap
+    zh-cn: mod\localization\zh-cn\sq_high_stakes.lipmap
+    zh-tw: mod\localization\zh-tw\sq_high_stakes.lipmap

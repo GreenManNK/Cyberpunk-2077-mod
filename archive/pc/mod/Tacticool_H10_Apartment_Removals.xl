@@ -17,33 +17,72 @@ streaming:
     - path: base\worlds\03_night_city\_compiled\default\quest_acd280b2b73c4d5b.streamingsector
       expectedNodes: 166
       nodeDeletions:
+        - index: 9
+          type: worldStaticMeshNode
         - index: 12
           type: worldStaticMeshNode
         - index: 13
+          type: worldStaticMeshNode
+        - index: 37
           type: worldStaticMeshNode
         - index: 40
           type: worldStaticMeshNode
         - index: 41
           type: worldStaticMeshNode
+        - index: 65
+          type: worldStaticMeshNode
         - index: 68
           type: worldStaticMeshNode
         - index: 69
+          type: worldStaticMeshNode
+        - index: 91
           type: worldStaticMeshNode
         - index: 94
           type: worldStaticMeshNode
         - index: 95
           type: worldStaticMeshNode
+        - index: 119
+          type: worldStaticMeshNode
         - index: 122
           type: worldStaticMeshNode
         - index: 123
+          type: worldStaticMeshNode
+        - index: 147
           type: worldStaticMeshNode
         - index: 150
           type: worldStaticMeshNode
         - index: 151
           type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\quest_2467054678ccf8f6.streamingsector
+      expectedNodes: 482
+      nodeDeletions:
+        - index: 41
+          type: worldEntityNode
+        - index: 185
+          type: worldEntityNode
+        - index: 217
+          type: worldEntityNode
+        - index: 281
+          type: worldEntityNode
+        - index: 361
+          type: worldEntityNode
+        - index: 457
+          type: worldEntityNode
     - path: base\worlds\03_night_city\_compiled\default\exterior_-22_19_1_0.streamingsector
       expectedNodes: 846
       nodeDeletions:
+        - index: 251
+          type: worldEntityNode
+        - index: 256
+          type: worldEntityNode
+        - index: 312
+          type: worldStaticMeshNode
+        - index: 316
+          type: worldStaticMeshNode
+        - index: 338
+          type: worldStaticMeshNode
+        - index: 345
+          type: worldStaticMeshNode
         - index: 346
           type: worldStaticMeshNode
         - index: 436
@@ -60,8 +99,14 @@ streaming:
           type: worldStaticMeshNode
         - index: 727
           type: worldStaticMeshNode
+        - index: 728
+          type: worldStaticMeshNode
         - index: 749
           type: worldInstancedDestructibleMeshNode
+        - index: 753
+          type: worldStaticMeshNode
+        - index: 758
+          type: worldStaticMeshNode
         - index: 773
           type: worldEntityNode
     - path: base\worlds\03_night_city\_compiled\default\interior_-43_39_3_0.streamingsector
@@ -138,6 +183,10 @@ streaming:
           type: worldStaticDecalNode
         - index: 133
           type: worldStaticDecalNode
+        - index: 282
+          type: worldInstancedDestructibleMeshNode
+        - index: 296
+          type: worldInstancedDestructibleMeshNode
         - index: 297
           type: worldInstancedDestructibleMeshNode
         - index: 385

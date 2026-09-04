@@ -1,0 +1,670 @@
+﻿# ClaimOrSellVehicles - Alvarado Delegate controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Generated from Vehicle Customizer SVE options.json: Alvarado V4F 570 Delegate
+
+# ClaimOrSellVehicles - Alvarado Delegate controlled garage records
+# family: villefort_alvarado_delegate
+# base: Vehicle.v_sport2_villefort_alvarado_player
+# 24 appearances x 2 exact slots = 48 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_mafia_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_mafia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_mafia_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_mafia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_poor_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_posh_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_posh_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_posh_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_posh_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_06_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_06_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_07_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_07_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_08_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_suburban_08_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_suburban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_06_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_06_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_07_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_urban_07_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_valentinos_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_basic_valentinos_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport2_villefort_alvarado_cosv_mq301_paco_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_mq301_paco
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_mq301_paco_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_mq301_paco
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_09_slot01:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_09_slot02:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_10_slot01:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_10_slot02:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_11_slot01:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_11
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_suburban_11_slot02:
+  $base: Vehicle.q304_v_sport2_villefort_alvarado_scanning
+  appearanceName: villefort_alvarado__basic_suburban_11
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport2_villefort_alvarado_cosv_overflow_01:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_cosv_overflow_02:
+  $base: Vehicle.v_sport2_villefort_alvarado_player
+  appearanceName: villefort_alvarado__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# ClaimOrSellVehicles - Alvarado Playboy controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Generated from Vehicle Customizer SVE options.json: Alvarado V4FC 580 Playboy / Mox
+# Excludes Vato-associated cabrio skin by policy.
+
+# ClaimOrSellVehicles - Alvarado Playboy controlled garage records
+# family: villefort_alvarado_playboy
+# base: Vehicle.v_sport2_villefort_alvarado_mox
+# 2 appearances x 2 exact slots = 4 records
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_basic_mox_cabrio_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_mox_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_basic_mox_cabrio_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_mox_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_basic_premium_cabrio_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_premium_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_basic_premium_cabrio_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_premium_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_valentinos_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_mox_cosv_valentinos_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_mox
+  appearanceName: villefort_alvarado__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+# ClaimOrSellVehicles - Alvarado Herman controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Generated from Vehicle Customizer SVE options.json: Alvarado V4FH 570 Herman
+
+# ClaimOrSellVehicles - Alvarado Herman controlled garage records
+# family: villefort_alvarado_hearse
+# base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+# 27 appearances x 2 exact slots = 54 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_web_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_web_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_web_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_web_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_06_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_06_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_07_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_07_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_08_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_08_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_09_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_09_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_10_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_poor_10_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_poor_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_06_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_06_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_07_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_07_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_08_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_urban_08_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_06_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_06_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_07_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_07_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_08_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_basic_suburban_08_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_suburban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_overflow_01:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_web_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_hearse_cosv_overflow_02:
+  $base: Vehicle.v_sport2_villefort_alvarado_hearse_player
+  appearanceName: villefort_alvarado_hearse_01_basic_web_01
+  icon: UIIcon.COSVVehicle
+
+# ClaimOrSellVehicles - Alvarado Vato controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Generated from Vehicle Customizer SVE options.json: Alvarado V4FC 580 "Vato"
+
+# ClaimOrSellVehicles - Alvarado Vato controlled garage records
+# family: villefort_alvarado_vato
+# base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+# (cabrio variant: Vehicle.v_sport2_villefort_alvarado_valentinos_cabrio)
+# 1 appearance x 2 exact slots = 2 records
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_basic_valentinos_02_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_basic_valentinos_02_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_valentinos_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_mox_cabrio_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_mox_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_mox_cabrio_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_mox_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_premium_cabrio_01_slot01:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_premium_cabrio_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_villefort_alvarado_valentinos_cosv_premium_cabrio_01_slot02:
+  $base: Vehicle.v_sport2_villefort_alvarado_valentinos_player
+  appearanceName: villefort_alvarado__basic_premium_cabrio_01
+  icon: UIIcon.COSVVehicle

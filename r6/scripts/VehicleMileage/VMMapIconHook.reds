@@ -1,6 +1,6 @@
 module VehicleMileage
 
-// ---- shared: detect our mappins via the debugCaption we set in vm_gas_markers.lua ----
+// Detect the gas-station mappins registered by VMRuntimeSystem.
 @addMethod(BaseMappinBaseController)
 protected final func __vmIsOurFuelPin() -> Bool {
   if !IsDefined(this.GetMappin()) {

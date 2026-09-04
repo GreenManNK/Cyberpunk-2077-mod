@@ -1,0 +1,24 @@
+# ArchiveXL — GettenSOMeredithStouttRomanceAddon
+
+quest:
+  phases:
+    - path: mod\gt_meredith_pv\quest\gt_meredith_pv_rootphase.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\gt_meredith_pv\quest\gt_meredith_pv_rootphase.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: mod\gt_meredith_pv\quest\gt_meredith_pv_q302phase.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\gt_meredith_pv\quest\gt_meredith_pv_q302phase.questphase
+      parent: ep1\quest\ep1_standalone.quest
+
+journal:
+  - mod\gt_meredith_pv\journal\gt_meredith_pv.journal
+
+localization:
+  onscreens:
+    en-us: mod\gt_meredith_pv\onscreens\en-us\gt_meredith_pv_onscreens.json
+    ru-ru: mod\gt_meredith_pv\onscreens\ru-ru\gt_meredith_pv_onscreens.json
+    ua-ua: mod\gt_meredith_pv\onscreens\ua-ua\gt_meredith_pv_onscreens.json
+    zh-cn: mod\gt_meredith_pv\onscreens\zh-cn\gt_meredith_pv_onscreens.json
+    fr-fr: mod\gt_meredith_pv\onscreens\fr-fr\gt_meredith_pv_onscreens.json
+    de-de: mod\gt_meredith_pv\onscreens\de-de\gt_meredith_pv_onscreens.json

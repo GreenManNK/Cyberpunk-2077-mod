@@ -1,0 +1,14 @@
+﻿# ClaimOrSellVehicles - Mizutani Shion Blackbird controlled garage records
+# Unique Blackbird wrapper. Keep separate from Coyote and Wendigo families.
+# Base: Vehicle.v_sport2_mizutani_shion_nomad_technical
+# 1 appearance x 2 exact slots = 2 records
+
+Vehicle.v_sport2_mizutani_shion_nomad_blackbird_cosv__technical_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_technical
+  appearanceName: mizutani_shion_nomad__technical_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_blackbird_cosv__technical_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_technical
+  appearanceName: mizutani_shion_nomad__technical_01
+  icon: UIIcon.COSVVehicle

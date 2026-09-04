@@ -1,0 +1,883 @@
+﻿# ClaimOrSellVehicles - Archer Hella controlled garage records
+# Generated from options.json appearance names.
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Eradicator / NCU special is intentionally not included.
+# Sections: EC-D i360, EC-H i860 Enforcer, EC-V i660 Voyage.
+
+# Archer Hella EC-D i360 controlled garage records
+# family: archer_hella_ecd
+# base: Vehicle.v_standard2_archer_hella_player
+# 35 appearances x 2 exact slots = 70 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_hella_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_ep_10_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_ep_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_ep_10_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_ep_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_6_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_6_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_7_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_7
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_1_7_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_1_7
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_3_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_poor_4_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_poor_4_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_suburban_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_combatcab_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_combatcab_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_6th_street_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_basic_6th_street_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_archer_hella_cosv__basic_after_accident_01_slot01:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_after_accident_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_after_accident_01_slot02:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_after_accident_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_poor_1_new_slot01:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_poor_1_new
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_poor_1_new_slot02:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_poor_1_new
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_q304_combatcab_01_slot01:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_q304_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_q304_combatcab_01_slot02:
+  $base: Vehicle.q000_hym_player_car
+  appearanceName: archer_hella__basic_q304_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_scavenger_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_scavenger_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_scavenger_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_scavenger_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_scavenger_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_scavenger_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv__basic_scavenger_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_scavenger_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_kurtz_basic_kurtz_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_kurtz
+  appearanceName: archer_hella_kurtz_basic_kurtz_3
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_archer_hella_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_hella_player
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Hella EC-H i860 Enforcer controlled garage records
+# family: archer_hella_enforcer
+# base: Vehicle.v_standard2_archer_hella_police
+# 2 appearances x 2 exact slots = 4 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_hella_police_cosv_basic_police_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_cosv_basic_police_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_cosv_basic_deathrace_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_cosv_basic_deathrace_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_police_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_hella_police
+  appearanceName: archer_hella__basic_police_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Hella EC-V i660 Voyage controlled garage records
+# family: archer_hella_voyage
+# base: Vehicle.v_standard2_archer_hella_combat_cab
+# 34 appearances x 2 exact slots = 68 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_combatcab_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_combatcab_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_6_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_6_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_7_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_7
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_1_7_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_7
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_3_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_poor_4_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_4_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_suburban_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_6th_street_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_basic_6th_street_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_after_accident_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_after_accident_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_after_accident_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_after_accident_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_ep_10_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_ep_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_ep_10_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_ep_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_poor_1_new_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_new
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_poor_1_new_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_poor_1_new
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_q304_combatcab_01_slot01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_q304_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_q304_combatcab_01_slot02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_q304_combatcab_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_archer_hella_voyage_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_hella_voyage_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_hella_combat_cab
+  appearanceName: archer_hella__basic_combatcab_01
+  icon: UIIcon.COSVVehicle

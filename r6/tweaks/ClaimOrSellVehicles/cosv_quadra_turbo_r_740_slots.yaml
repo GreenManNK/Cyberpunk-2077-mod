@@ -1,0 +1,249 @@
+﻿# ClaimOrSellVehicles - Quadra Turbo-R 740 controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# All supported Turbo-R 740 donor/helper/source tokens and known quadra_turbo skins route into one player-owned Turbo-R 740 family.
+
+# Quadra Turbo-R 740 controlled garage records
+# family: quadra_turbo_r_740
+# base: Vehicle.v_sport1_quadra_turbo_player
+# 22 appearances x 2 exact slots = 44 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_04_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_04_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_01_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_01_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_03_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_03_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_05_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_05_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_06_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_06_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_07_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_07_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_08_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_08_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_09_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_09_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_09
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_10_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_10_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_10
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_player_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_player_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_player_02_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_player_02_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_01_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_01_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_02_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_02_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_03_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_03_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_04_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_04_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_05_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_poor_05_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_01_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_01_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_02_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_02_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_03_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_03_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_04_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_04_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_05_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_05_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_06_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_tygerclaws_06_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_tygerclaws_06
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_02_slot01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_urban_02_slot02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_urban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport1_quadra_turbo_cosv_overflow_01:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport1_quadra_turbo_cosv_overflow_02:
+  $base: Vehicle.v_sport1_quadra_turbo_player
+  appearanceName: quadra_turbo_basic_player
+  icon: UIIcon.COSVVehicle

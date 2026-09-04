@@ -1,0 +1,89 @@
+Items.SongsDeck:
+  $base: Items.HauntedCyberdeck_LegendaryPlusPlus
+  blueprint: Items.CyberdeckBlueprint8Slots
+  displayName: LocKey#songsdeck
+  OnEquip:
+    - Items.BaseDeck_inline0
+    - Items.BaseDeck_inline3
+    - Items.HauntedCyberdeck_inline2
+    - Items.SpreadingRangeIncreaseAbility
+    - Items.ExtendRevealTimeAbilityLegendaryPlus
+    - EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus
+    - EquipmentGLP.SongsDeck_BlackwallDownlink
+    - Items.HauntedCyberdeck_LegendaryPlusPlus_inline2
+    - EquipmentGLP.SongsDeck_QuickHack_Boost
+  slotPartList:
+  # yaml-language-server-disable
+    - !remove Items.HauntedCyberdeck_LegendaryPlusPlus_inline0
+  # yaml-language-server-disable
+    - !append Items.CantoMk7_LegendaryPlusPlus_inline0
+  tags:
+  # yaml-language-server-disable
+    - !append BlackwallInterface
+  # RPGManager.GetPlayerQuickHackListWithQuality reads this off the equipped deck, so the
+  # hacks leave the panel on their own when the deck is unequipped
+  objectActions:
+  # yaml-language-server-disable
+    - !append-once DeviceAction.SongsDeckDoorHack
+  # yaml-language-server-disable
+    - !append-once DeviceAction.SongsDeckCameraHack
+  icon:
+    atlasResourcePath: base\songsdeck_icons.inkatlas
+    atlasPartName: songsdeck
+
+
+EquipmentGLP.SongsDeck_QuickHack_Boost:
+  $type: gamedataGameplayLogicPackage_Record
+  stats:
+    - SongsDeck.LowerCost_inline0
+    - SongsDeck.InstantUpload_inline0
+
+SongsDeck.LowerCost_inline0:
+  $type: ConstantStatModifier
+  statType: BaseStats.MemoryCostReduction
+  modifierType: Additive
+  value: 100.0
+
+SongsDeck.InstantUpload_inline0:
+  $type: ConstantStatModifier
+  statType: BaseStats.QuickHackUploadTimeDecrease
+  modifierType: Additive
+  value: 0.99
+
+EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus
+  UIData: EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus_inline0
+
+EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus_inline0:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus_inline0
+  localizedDescription: LocKey#blackwall_hack_desc
+
+EquipmentGLP.SongsDeck_BlackwallDownlink:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus
+  UIData: EquipmentGLP.SongsDeck_BlackwallDownlink_inline0
+
+EquipmentGLP.SongsDeck_BlackwallDownlink_inline0:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus_inline0
+  localizedName: LocKey#songsdeck_desc_name
+  floatValues:
+  # yaml-language-server-disable
+    - !remove 5
+  # yaml-language-server-disable
+    - !remove 30
+  localizedDescription: LocKey#songsdeck_desc
+
+LootTables.ep1_q306_songbirds_cache.maxItemsToLoot: 4
+LootTables.ep1_q306_songbirds_cache.minItemsToLoot: 4
+
+LootTables.ep1_q306_songbirds_cache.lootItems:
+  - LootTables.ep1_q306_songbirds_cache_inline0
+  - LootTables.ep1_q306_songbirds_cache_inline1
+  - LootTables.ep1_q306_songbirds_cache_inline2
+  - LootTables.ep1_q306_songbirds_cache_SongsDeck
+
+LootTables.ep1_q306_songbirds_cache_SongsDeck:
+  $type: gamedataLootItem_Record
+  itemID: Items.SongsDeck
+  dropChance: 1
+  dropCountMax: 1
+  dropCountMin: 1

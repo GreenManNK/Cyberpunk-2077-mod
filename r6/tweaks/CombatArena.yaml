@@ -1,0 +1,77 @@
+# =====================================================================
+#  Combat Arena - interaction injection
+#
+#  Adds "Enter the Combat Arena" to Mateo, the bartender at Lizzie's Bar
+#  (Character.wat_kab_foodshop_02, base\quest\tertiary_characters\
+#  lizzies_barman.ent, at -1172.257, 1572.536, 23.120).
+#
+#  Two records are needed and they are NOT the same type:
+#
+#    Interactions.*        a ChoiceRecord - the caption you see in the hub
+#                          (action, caption, captionIcon, description,
+#                           name, prereqID)
+#
+#    GenericInteraction.*  the ObjectAction the game actually runs
+#                          (actionName, objectActionType, objectActionUI,
+#                           prereqs, effects, priority, ...)
+#
+#  The first attempt at this set ObjectAction properties on a ChoiceRecord,
+#  which TweakXL rejected with "Unknown property actionName".
+#
+#  Basing the action on GenericInteraction.Talk inherits the prereqs that
+#  decide when an NPC is talkable, so our choice appears exactly when his
+#  normal Talk does. Nothing vanilla is overwritten - it is appended.
+# =====================================================================
+
+# --- the caption shown in the interaction hub -------------------------
+Interactions.CombatArenaChoice:
+  $base: Interactions.GenericTalk
+  name: CombatArenaChoice
+  caption: "Enter the Combat Arena"
+
+# --- the action itself ------------------------------------------------
+#
+#  Cloning GenericInteraction.Talk also clones its prereqs, and those are
+#  what decide when the vanilla Talk prompt is allowed to appear - they
+#  are tied to the quest/dialogue state that drives a real conversation.
+#  Inheriting them filtered our choice straight back out again, so they
+#  are cleared here: this action has no conditions, it is always offered.
+#
+GenericInteraction.CombatArenaJackIn:
+  $base: GenericInteraction.Talk
+  actionName: CombatArenaJackIn
+  objectActionUI: Interactions.CombatArenaChoice
+  objectActionType: ObjectActionType.Direct
+  instigatorPrereqs: []
+  targetPrereqs: []
+  instigatorActivePrereqs: []
+  targetActivePrereqs: []
+  interruptionPrereqs: []
+  priority: 100.0
+
+# --- hang it on the bartender ----------------------------------------
+Character.wat_kab_foodshop_02:
+  objectActions: !append-once
+    - GenericInteraction.CombatArenaJackIn
+
+# --- the entrance map pin --------------------------------------------
+#
+#  A NEW mappin type record - nothing vanilla is touched - carrying the
+#  custom hover name. The icon comes from the melee-combat variant
+#  passed at registration (arena_spawner.reds), the closest bladed
+#  glyph the game ships. A true crossed-swords-in-red icon requires
+#  custom texture art in an archive, which is an asset-authoring step.
+# A pristine clone - adding extra flats to this record type was one of
+# the two suspects for the pins vanishing entirely, so it carries
+# nothing beyond its base. (localizedName was rejected by TweakXL and
+# never worked; custom hover naming is parked.)
+Mappins.CombatArenaEntrance:
+  $base: Mappins.DefaultStaticMappin
+
+# The crossed-swords icon as a properly TYPED new record - the earlier
+# attempt cloned a runtime-generated weapon icon record, which is the
+# likely reason the minimap showed a wrong icon instead of the swords.
+UIIcon.CombatArenaEntrance:
+  $type: UIIcon
+  atlasResourcePath: combatarena\icons\arena_mappin.inkatlas
+  atlasPartName: arena_crossed_swords

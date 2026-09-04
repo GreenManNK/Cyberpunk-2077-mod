@@ -1,0 +1,31 @@
+version: 1.0.0
+voices:
+  panamd4:
+    en-us:
+      fem:
+        file: ./panamd4.wav
+        settings:
+          volume: 0.5
+        subtitle: "*giggles*"
+      male:
+        file: ./panamd4.wav
+        settings:
+          volume: 0.5
+        subtitle: "*giggles*"
+sfx:
+  pwhale:
+    file: pwhale.wav
+    settings:
+      volume: 0.7
+  panamgrill:
+    file: panamgrill.wav
+    settings:
+      volume: 0.7
+  pship:
+    file: pship.wav
+    settings:
+      volume: 0.5
+  panamgun:
+    file: panamgun.wav
+    settings:
+      volume: 0.7

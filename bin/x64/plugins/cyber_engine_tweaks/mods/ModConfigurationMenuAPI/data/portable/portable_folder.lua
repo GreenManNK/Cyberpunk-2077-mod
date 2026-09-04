@@ -1,0 +1,2 @@
+-- This file keeps the API-owned portable collection directory in release archives.
+-- MCM stores user-created .mcmcollection files beside it.

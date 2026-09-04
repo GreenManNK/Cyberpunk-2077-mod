@@ -1,0 +1,296 @@
+﻿# ClaimOrSellVehicles - Mizutani Shion MZ1 controlled garage records
+# Source: Vehicle Customizer SVE options.json: Shion MZ1
+# Base: Vehicle.v_sport2_mizutani_shion_base_player
+# 21 appearances x 2 exact slots = 42 records
+# 2 overflow records use a safe neutral/player appearance
+# Important: MZ1 player base is shion_base_player, not shion_player.
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_poor_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_06_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_06_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_07_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_suburban_07_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_tygerclaws_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_tygerclaws_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_basic_urban_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_urban_05
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_default_01_slot01:
+  $base: Vehicle.q304_songbird_escape_trap_car_01
+  appearanceName: mizutani_shion__basic_default_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_default_01_slot02:
+  $base: Vehicle.q304_songbird_escape_trap_car_01
+  appearanceName: mizutani_shion__basic_default_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_01_q101_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_01_q101
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_01_q101_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_01_q101
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_black_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_black
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_black_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_black
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_blue_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_blue
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_blue_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_blue
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_red_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_red
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_targa_red_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_targa_red
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_urban_base_do_not_include_slot01:
+  $base: Vehicle.q304_songbird_escape_trap_car_01
+  appearanceName: mizutani_shion__basic_urban_base_do_not_include
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_urban_base_do_not_include_slot02:
+  $base: Vehicle.q304_songbird_escape_trap_car_01
+  appearanceName: mizutani_shion__basic_urban_base_do_not_include
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_overflow_01:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_mz1_cosv_overflow_02:
+  $base: Vehicle.v_sport2_mizutani_shion_base_player
+  appearanceName: mizutani_shion__basic_player_01
+  icon: UIIcon.COSVVehicle

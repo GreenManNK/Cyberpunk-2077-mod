@@ -1,0 +1,279 @@
+# ClaimOrSellVehicles - Thorton Colby C210 Camper controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Mirrors the shared Colby appearance pool while preserving C210 scanner identity.
+
+# Thorton Colby C210 Camper controlled garage records
+# family: thorton_colby_c210_camper
+# base: Vehicle.v_standard2_thorton_colby_family
+# 26 appearances x 2 exact slots = 52 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_family_car_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_family_car
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_family_car_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_family_car
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_muamar_reyes_car_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_muamar_reyes_car
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_muamar_reyes_car_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_muamar_reyes_car
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_3_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_3_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_4_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_1_4_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_3_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_3_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_4_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_poor_2_4_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_4_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_1_4_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_2_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_2_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_3_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_3_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_4_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_suburban_2_4_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_suburban_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_urban_01_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_urban_01_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_urban_01_1_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_urban_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_urban_01_1_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_urban_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_valentinos_01_slot01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_basic_valentinos_01_slot02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_valentinos_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_overflow_01:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_thorton_colby_family_cosv_overflow_02:
+  $base: Vehicle.v_standard2_thorton_colby_family
+  appearanceName: thorton_colby__basic_player_01
+  icon: UIIcon.COSVVehicle

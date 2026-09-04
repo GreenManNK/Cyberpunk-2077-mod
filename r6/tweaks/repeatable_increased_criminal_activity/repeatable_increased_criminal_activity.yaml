@@ -1,0 +1,130 @@
+# Repeatable Increased Criminal Activity v0.1.4-alpha
+# Namespaced per-entity scaling bridge. Values are written only to tracked replay actors.
+
+BaseStats.RICAEnemyScaleBase:
+  $type: gamedataStat_Record
+  enumName: RICAEnemyScaleBase
+  canBeForcedByQuests: False
+  decimalPlaces: 2
+  displayPercent: False
+  displayPlus: False
+  improvementRelation: ImprovementRelation.None
+  inMeters: False
+  inSeconds: False
+  inSpeed: False
+  localizedDescription: ''
+  localizedStatDisplay: ''
+  max: 9999999
+  min: -9999999
+  multiplyBy100InText: False
+  roundValue: False
+  flags: []
+  substats: []
+  themes: []
+
+BaseStats.RICAEnemyHealthScale:
+  $base: BaseStats.RICAEnemyScaleBase
+  enumName: RICAEnemyHealthScale
+
+BaseStats.RICAEnemyDamageScale:
+  $base: BaseStats.RICAEnemyScaleBase
+  enumName: RICAEnemyDamageScale
+
+BaseStats.RICAEnemyArmorScale:
+  $base: BaseStats.RICAEnemyScaleBase
+  enumName: RICAEnemyArmorScale
+
+BaseStats.RICAEnemyQuickhackScale:
+  $base: BaseStats.RICAEnemyScaleBase
+  enumName: RICAEnemyQuickhackScale
+
+BaseStatusEffect.RICAEnemyEffect_health:
+  $type: gamedataCombinedStatModifier_Record
+  opSymbol: '*'
+  refObject: Self
+  refStat: BaseStats.RICAEnemyHealthScale
+  value: 1.0
+  modifierType: AdditiveMultiplier
+  statType: BaseStats.Health
+
+BaseStatusEffect.RICAEnemyEffect_damage:
+  $type: gamedataCombinedStatModifier_Record
+  opSymbol: '*'
+  refObject: Self
+  refStat: BaseStats.RICAEnemyDamageScale
+  value: 1.0
+  modifierType: AdditiveMultiplier
+  statType: BaseStats.NPCDamage
+
+BaseStatusEffect.RICAEnemyEffect_armor:
+  $type: gamedataCombinedStatModifier_Record
+  opSymbol: '*'
+  refObject: Self
+  refStat: BaseStats.RICAEnemyArmorScale
+  value: 1.0
+  modifierType: AdditiveMultiplier
+  statType: BaseStats.Armor
+
+BaseStatusEffect.RICAEnemyEffect_quickhack:
+  $type: gamedataCombinedStatModifier_Record
+  opSymbol: '*'
+  refObject: Self
+  refStat: BaseStats.RICAEnemyQuickhackScale
+  value: 1.0
+  modifierType: AdditiveMultiplier
+  statType: BaseStats.HackingResistance
+
+BaseStatusEffect.RICAEnemyEffect:
+  $type: gamedataStatusEffect_Record
+  duration: BaseStatusEffectTypes.Misc
+  dynamicDuration: False
+  isAffectedByTimeDilationNPC: True
+  isAffectedByTimeDilationPlayer: True
+  maxStacks: RTDB.StatusEffect_inline0
+  reapplyPackagesOnMaxStacks: False
+  removeAllStacksWhenDurationEnds: False
+  removeOnStoryTier: False
+  replicated: False
+  savable: True
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: True
+  debugTags: []
+  gameplayTags:
+    - Buff
+  immunityStats: []
+  packages:
+    - $type: gamedataGameplayLogicPackage_Record
+      stackable: False
+      animationWrapperOverrides: []
+      effectors: []
+      items: []
+      statPools: []
+      stats:
+        - BaseStatusEffect.RICAEnemyEffect_health
+        - BaseStatusEffect.RICAEnemyEffect_damage
+        - BaseStatusEffect.RICAEnemyEffect_armor
+        - BaseStatusEffect.RICAEnemyEffect_quickhack
+  SFX: []
+  VFX: []
+
+BaseStatusEffect.RICABodyRewardedEffect:
+  $type: gamedataStatusEffect_Record
+  duration: BaseStatusEffectTypes.Misc
+  dynamicDuration: False
+  isAffectedByTimeDilationNPC: True
+  isAffectedByTimeDilationPlayer: True
+  maxStacks: RTDB.StatusEffect_inline0
+  reapplyPackagesOnMaxStacks: False
+  removeAllStacksWhenDurationEnds: False
+  removeOnStoryTier: False
+  replicated: False
+  savable: True
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: True
+  debugTags: []
+  gameplayTags:
+    - Buff
+  immunityStats: []
+  packages: []
+  SFX: []
+  VFX: []

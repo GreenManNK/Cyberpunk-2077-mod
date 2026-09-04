@@ -1,0 +1,48 @@
+# ClaimOrSellVehicles - Cortez urban 1_05 extra controlled garage records
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Temporary modular add-on for extra same-appearance Cortez slots.
+
+# Cortez controlled garage records
+# family: cortez
+# base: Vehicle.v_standard2_villefort_cortes_player
+# 1 appearance x 8 extra exact slots = 8 records
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot03:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot04:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot05:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot06:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot07:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot08:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot09:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_villefort_cortes_cosv_basic_urban_1_05_slot10:
+  $base: Vehicle.v_standard2_villefort_cortes_player
+  appearanceName: villefort_cortes__basic_urban_1_05
+  icon: UIIcon.COSVVehicle

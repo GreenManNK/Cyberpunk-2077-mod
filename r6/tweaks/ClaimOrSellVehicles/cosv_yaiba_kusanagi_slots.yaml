@@ -1,0 +1,959 @@
+﻿# ClaimOrSellVehicles - Yaiba Kusanagi controlled garage records
+# Combined Kusanagi backing file for CT-3X, Mizuchi/Tyger, and Misfit/Animals.
+# Router policy belongs in init.lua; do not route baked-appearance records through COSV.
+#
+# Families in this file:
+# - yaiba_kusanagi: CT-3X / normal / Mox / suburban skins
+#   base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+#   10 appearances x 2 exact slots = 20 records, plus 2 overflow
+# - yaiba_kusanagi_tyger: Mizuchi / Tyger skin
+#   base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+#   1 appearance x 2 exact slots = 2 records
+# - yaiba_kusanagi_animals: Misfit / Animals skins
+#   base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+#   3 appearances x 2 exact slots = 6 records
+#
+# Note:
+# Vehicle.v_sportbike1_yaiba_kusanagi_animal is not player-capable and Twintone is not expected.
+# This is intentional for Animals/Misfit because scanner identity preservation matters more here.
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_player_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_mox_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_mox_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_mox_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_mox_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_v_sportbike1_yaiba_kusanagi_basic_animals_03_slot01:
+  $base: Vehicle.mq013_bike
+  appearanceName: v_sportbike1_yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_v_sportbike1_yaiba_kusanagi_basic_animals_03_slot02:
+  $base: Vehicle.mq013_bike
+  appearanceName: v_sportbike1_yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_v_sportbike1_yaiba_kusanagi_basic_default_slot01:
+  $base: Vehicle.saul_bike
+  appearanceName: v_sportbike1_yaiba_kusanagi_basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_v_sportbike1_yaiba_kusanagi_basic_default_slot02:
+  $base: Vehicle.saul_bike
+  appearanceName: v_sportbike1_yaiba_kusanagi_basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_animals_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_naked_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_asm_r250_regular_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_q108_rogue_slot01:
+  $base: Vehicle.rogue_bike
+  appearanceName: yaiba_kusanagi_basic_q108_rogue
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_q108_rogue_slot02:
+  $base: Vehicle.rogue_bike
+  appearanceName: yaiba_kusanagi_basic_q108_rogue
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_tyger_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_yaiba_kusanagi_basic_tyger_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_overflow_01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_cosv_overflow_02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_basic_tyger_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_basic_tyger_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle
+
+
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_animals_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_naked_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_asm_r250_regular_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_mox_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_mox_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_mox_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_mox_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_player_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_04_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_04_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_05_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_tyger_cosv_suburban_05_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_basic_animals_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_animals_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_naked_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_naked_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_as_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_as_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_ns_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_ns_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_ns_nr_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_asm_r250_regular_ns_nr_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_asm_r250_regular_ns_nr
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_mox_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_mox_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_mox_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_mox_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_mox_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_player_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_player_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_02_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_02_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_03_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_03_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_04_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_04_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_05_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_suburban_05_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_tyger_01_slot01:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sportbike1_yaiba_kusanagi_animals_cosv_tyger_01_slot02:
+  $base: Vehicle.v_sportbike1_yaiba_kusanagi_animal
+  appearanceName: yaiba_kusanagi_basic_tyger_01
+  icon: UIIcon.COSVVehicle

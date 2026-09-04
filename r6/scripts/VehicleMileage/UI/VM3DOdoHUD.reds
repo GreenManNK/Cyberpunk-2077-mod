@@ -73,6 +73,15 @@ private class VM3DOdoMeshComponent extends MeshComponent {
   private let PANEL_Z: Float = 0.18;
 
 	private let placementMode: Int32; // 1 = fuel, 2 = ODO plate, 3 = fuel alt, 4 = ODO plate alt
+	private let livePlacementReady: Bool;
+	private let liveSide: Int32;
+	private let liveOutCm: Int32;
+	private let liveYCm: Int32;
+	private let liveZCm: Int32;
+	private let liveRollDeg: Int32;
+	private let livePitchDeg: Int32;
+	private let liveYawDeg: Int32;
+	private let liveScaleMilli: Int32;
 
 	// Default ODO plate vertical offset when vm_3d_odo_z_cm is 0.
 	// Positive magnitude only; the minus is applied at runtime.
@@ -148,9 +157,7 @@ private class VM3DOdoMeshComponent extends MeshComponent {
     return v;
   }
 
-  private func __SideFromFact() -> CName {
-    let side: Int32 = this.__ModeFact(n"vm_3d_fuel_side", n"vm_3d_odo_side", n"vm_3d_fuel_alt_side", n"vm_3d_odo_alt_side");
-
+  private func __SideFromValue(side: Int32) -> CName {
     if side == 1 {
       return n"BackRight";
     };
@@ -171,7 +178,10 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 	}
 
 	public func VM_HardHide() -> Void {
-		this.visualScale = Vector3(0.0, 0.0, 0.0);
+		if this.livePlacementReady {
+			this.visualScale = Vector3(0.0, 0.0, 0.0);
+			this.livePlacementReady = false;
+		};
 	}
 
 	public func ApplyLivePlacementFor(car: wref<WheeledObject>) -> Void {
@@ -179,7 +189,15 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 			return;
 		};
 
-		let side: CName = this.__SideFromFact();
+		// Hidden widgets stay at zero scale without repeatedly rebuilding their
+		// placement. VM_HardHide invalidates the cache so the next reveal is forced.
+		if this.__Fact(n"vm_3d_enabled") <= 0 || this.__IsHidden() {
+			this.VM_HardHide();
+			return;
+		};
+
+		let sideValue: Int32 = this.__ModeFact(n"vm_3d_fuel_side", n"vm_3d_odo_side", n"vm_3d_fuel_alt_side", n"vm_3d_odo_alt_side");
+		let side: CName = this.__SideFromValue(sideValue);
 
 		let outCm: Int32 = this.__ClampInt(this.__ModeFact(n"vm_3d_fuel_out_cm", n"vm_3d_odo_out_cm", n"vm_3d_fuel_alt_out_cm", n"vm_3d_odo_alt_out_cm"), -300, 300);
 		let yCm: Int32 = this.__ClampInt(this.__ModeFact(n"vm_3d_fuel_y_cm", n"vm_3d_odo_y_cm", n"vm_3d_fuel_alt_y_cm", n"vm_3d_odo_alt_y_cm"), -300, 300);
@@ -204,20 +222,32 @@ private class VM3DOdoMeshComponent extends MeshComponent {
 			n"vm_3d_odo_alt_scale_milli"
 		);
 
-		// Runtime-only hide fix:
-		// The saved user scale stays untouched.
-		// But when the widget is hidden, the mesh plane is scaled to 0.
-		// This removes the Path Tracing / Ray Tracing reflection from hidden widgets.
-		if this.__Fact(n"vm_3d_enabled") <= 0 || this.__IsHidden() {
-			this.visualScale = Vector3(0.0, 0.0, 0.0);
-			return;
-		};
-
 		if scaleRaw <= 0 {
 			scaleRaw = 600;
 		};
 
 		scaleRaw = this.__ClampInt(scaleRaw, 10, 2000);
+
+		if this.livePlacementReady
+			&& sideValue == this.liveSide
+			&& outCm == this.liveOutCm
+			&& yCm == this.liveYCm
+			&& zCm == this.liveZCm
+			&& rollDeg == this.liveRollDeg
+			&& pitchDeg == this.livePitchDeg
+			&& yawDeg == this.liveYawDeg
+			&& scaleRaw == this.liveScaleMilli {
+			return;
+		};
+		this.livePlacementReady = true;
+		this.liveSide = sideValue;
+		this.liveOutCm = outCm;
+		this.liveYCm = yCm;
+		this.liveZCm = zCm;
+		this.liveRollDeg = rollDeg;
+		this.livePitchDeg = pitchDeg;
+		this.liveYawDeg = yawDeg;
+		this.liveScaleMilli = scaleRaw;
 
 		let outM: Float = Cast<Float>(outCm) / 100.0;
 		let yM: Float = Cast<Float>(yCm) / 100.0;
@@ -358,6 +388,15 @@ public class inkOdoHUD extends inkGameController {
 
   private let lastFuelPermille: Int32;
   private let lastOdoText: String;
+	private let modeVisibilityReady: Bool;
+	private let modeVisibilityLastMode: Int32;
+	private let modeVisibilityLastStyle: Int32;
+	private let frameVisibilityReady: Bool;
+	private let frameVisibilityLastMode: Int32;
+	private let frameVisibilityLastHidden: Int32;
+	private let altStyleLastFuel: Int32;
+	private let altStyleLastTheme: Int32;
+	private let altStyleLastBrightness: Int32;
 
 	// Geometry for 3D widget version.
 	private let RIM_R: Float = 150.0;
@@ -441,7 +480,7 @@ public class inkOdoHUD extends inkGameController {
 
 	// Positive magnitude only.
 	// Redscript does not allow negative expressions in class constants.
-	// Font scale from CET:
+	// Font scale from runtime settings:
 	// vm_3d_font_scale_milli
 	// 1000 = original size
 	private let FONT_SCALE_DEFAULT: Int32 = 1000;
@@ -463,6 +502,11 @@ public class inkOdoHUD extends inkGameController {
     this.root = root;
     this.lastFuelPermille = -1;
     this.lastOdoText = "";
+		this.modeVisibilityReady = false;
+		this.frameVisibilityReady = false;
+		this.altStyleLastFuel = -1;
+		this.altStyleLastTheme = -999;
+		this.altStyleLastBrightness = -999;
 		ArrayClear(this.fuelTickRefs);
 		ArrayClear(this.classicTickRefs);
 		ArrayClear(this.segmentRefs);
@@ -1081,6 +1125,7 @@ public class inkOdoHUD extends inkGameController {
 
 
 	public func VM_SetMode(mode: Int32) -> Void {
+		if mode == this.hudMode && this.modeVisibilityReady { return; };
 		this.hudMode = mode;
 		this.__ApplyModeVisibility();
 	}
@@ -1270,6 +1315,14 @@ private func __FuelStyleFromFact() -> Int32 {
 		let showOdo: Bool = this.hudMode == 0 || this.hudMode == 2 || this.hudMode == 4;
 
 		let style: Int32 = this.__FuelStyleFromFact();
+		if this.modeVisibilityReady
+			&& this.modeVisibilityLastMode == this.hudMode
+			&& this.modeVisibilityLastStyle == style {
+			return;
+		};
+		this.modeVisibilityReady = true;
+		this.modeVisibilityLastMode = this.hudMode;
+		this.modeVisibilityLastStyle = style;
 
 		let showArc: Bool = showFuel && style == 0;
 		let showBar: Bool = showFuel && style == 1;
@@ -1321,6 +1374,15 @@ private func __FuelStyleFromFact() -> Int32 {
 			(this.hudMode == 4 && qs.GetFact(n"vm_3d_odo_alt_hide_frame") > 0)
 			|| (this.hudMode != 4 && qs.GetFact(n"vm_3d_odo_hide_frame") > 0)
 		);
+		let hiddenValue: Int32 = hideFrame ? 1 : 0;
+		if this.frameVisibilityReady
+			&& this.frameVisibilityLastMode == this.hudMode
+			&& this.frameVisibilityLastHidden == hiddenValue {
+			return;
+		};
+		this.frameVisibilityReady = true;
+		this.frameVisibilityLastMode = this.hudMode;
+		this.frameVisibilityLastHidden = hiddenValue;
 
 		let showFrame: Bool = !hideFrame;
 
@@ -1338,23 +1400,21 @@ private func __FuelStyleFromFact() -> Int32 {
   }
 
 	public func VM_SetFuelGaugeData(odoValue: String, fuelPermille: Int32) -> Void {
-		if IsDefined(this.root) {
-			this.root.SetVisible(true);
-			this.root.SetOpacity(1.0);
-		};
+		this.VM_SetVisible(true);
 
 
-		// Re-check style/frame/theme/font every tick so CET switches work live.
+		// Re-check style/frame/theme/font every tick so live preview works.
 		this.__ApplyModeVisibility();
 		this.__ApplyOdoFrameVisibility();
 		this.__ApplyFontFromFactIfChanged();
 		this.__ApplyThemePalette(false);
 		this.__UpdateFuelAltStyles(fuelPermille);
 
-		this.lastOdoText = odoValue;
-
-		if IsDefined(this.odoText) {
-			this.odoText.SetText(odoValue);
+		if NotEquals(this.lastOdoText, odoValue) {
+			this.lastOdoText = odoValue;
+			if IsDefined(this.odoText) {
+				this.odoText.SetText(odoValue);
+			};
 		};
 
 		if fuelPermille != this.lastFuelPermille {
@@ -1402,6 +1462,16 @@ private func __FuelStyleFromFact() -> Int32 {
 		if p > 1000 {
 			p = 1000;
 		};
+		let theme: Int32 = this.__ThemeFromFact();
+		let brightness: Int32 = this.__BrightnessDeciFromFact();
+		if p == this.altStyleLastFuel
+			&& theme == this.altStyleLastTheme
+			&& brightness == this.altStyleLastBrightness {
+			return;
+		};
+		this.altStyleLastFuel = p;
+		this.altStyleLastTheme = theme;
+		this.altStyleLastBrightness = brightness;
 
 		let pct: Int32 = (p + 5) / 10;
 
@@ -1415,7 +1485,6 @@ private func __FuelStyleFromFact() -> Int32 {
 		};
 		
 		// Style 4: vertical segments
-		let theme: Int32 = this.__ThemeFromFact();
 		let main: HDRColor = this.__ThemeMainColor(theme);
 		let white: HDRColor = this.__ThemeWhiteColor(theme);
 		let reserveRed: HDRColor = this.__ThemeReserveRed(theme);
@@ -1884,6 +1953,17 @@ private func HideCarMeshes(car: wref<WheeledObject>) -> Void {
 	if IsDefined(odoAltMesh) { odoAltMesh.VM_HardHide(); };
 }
 
+private func ClearMountedComponents() -> Void {
+	this.lastFuelMesh = null;
+	this.lastOdoMesh = null;
+	this.lastFuelAltMesh = null;
+	this.lastOdoAltMesh = null;
+	this.lastFuelWidget = null;
+	this.lastOdoWidget = null;
+	this.lastFuelAltWidget = null;
+	this.lastOdoAltWidget = null;
+}
+
 private func PlacementChanged() -> Bool {
   let side: Int32 = this.Fact(n"vm_3d_odo_side");
   let outCm: Int32 = this.Fact(n"vm_3d_odo_out_cm");
@@ -2022,6 +2102,38 @@ private func PlacementChanged() -> Bool {
 		};
 	}
 
+	private func ResolveMountedComponents(car: wref<WheeledObject>) -> Bool {
+		if IsDefined(this.lastFuelMesh)
+			&& IsDefined(this.lastOdoMesh)
+			&& IsDefined(this.lastFuelAltMesh)
+			&& IsDefined(this.lastOdoAltMesh)
+			&& IsDefined(this.lastFuelWidget)
+			&& IsDefined(this.lastOdoWidget)
+			&& IsDefined(this.lastFuelAltWidget)
+			&& IsDefined(this.lastOdoAltWidget) {
+			return true;
+		};
+
+		this.EnsureCarComponents(car);
+		this.lastFuelMesh = car.FindComponentByName(n"fuel_mesh") as VM3DOdoMeshComponent;
+		this.lastOdoMesh = car.FindComponentByName(n"odo_mesh") as VM3DOdoMeshComponent;
+		this.lastFuelAltMesh = car.FindComponentByName(n"fuel_alt_mesh") as VM3DOdoMeshComponent;
+		this.lastOdoAltMesh = car.FindComponentByName(n"odo_alt_mesh") as VM3DOdoMeshComponent;
+		this.lastFuelWidget = car.FindComponentByName(n"fuel_widget") as VM3DOdoWidgetComponent;
+		this.lastOdoWidget = car.FindComponentByName(n"odo_widget") as VM3DOdoWidgetComponent;
+		this.lastFuelAltWidget = car.FindComponentByName(n"fuel_alt_widget") as VM3DOdoWidgetComponent;
+		this.lastOdoAltWidget = car.FindComponentByName(n"odo_alt_widget") as VM3DOdoWidgetComponent;
+
+		return IsDefined(this.lastFuelMesh)
+			&& IsDefined(this.lastOdoMesh)
+			&& IsDefined(this.lastFuelAltMesh)
+			&& IsDefined(this.lastOdoAltMesh)
+			&& IsDefined(this.lastFuelWidget)
+			&& IsDefined(this.lastOdoWidget)
+			&& IsDefined(this.lastFuelAltWidget)
+			&& IsDefined(this.lastOdoAltWidget);
+	}
+
 	protected cb func OnVehicleAssemble(event: ref<EntityLifecycleEvent>) -> Void {
 		let car = event.GetEntity() as WheeledObject;
 
@@ -2055,17 +2167,32 @@ public func Tick() -> Void {
 
   if !IsDefined(car) {
     this.placementCacheReady = false;
-    this.lastVehicleHash = 0ul;
-    this.HideLastWidget();
+		if this.lastVehicleHash != 0ul {
+			this.HideLastWidget();
+			this.ClearMountedComponents();
+			this.lastVehicleHash = 0ul;
+		};
     this.ArmTick();
     return;
   };
-	// Master switch from Lua.
+
+	let carHash: Uint64 = EntityID.ToHash(car.GetEntityID());
+	let vehicleChanged: Bool = carHash != this.lastVehicleHash;
+	if vehicleChanged {
+		this.HideLastWidget();
+		this.ClearMountedComponents();
+		this.lastVehicleHash = carHash;
+		this.placementCacheReady = false;
+	};
+	// Master switch from VMRuntimeSystem.
 	// If 3D Widget mode is not active, keep everything hidden.
 	if this.Fact(n"vm_3d_enabled") <= 0 {
 		this.placementCacheReady = false;
-		this.HideCarMeshes(car);
-		this.HideLastWidget();
+		if vehicleChanged {
+			this.HideCarMeshes(car);
+		} else {
+			this.HideLastWidget();
+		};
 		this.ArmTick();
 		return;
 	};
@@ -2075,60 +2202,30 @@ public func Tick() -> Void {
 	// while the backing mesh still renders, so hard-hide both layers.
 	if !this.IsVehicleUIActive(car) {
 		this.placementCacheReady = false;
-		this.HideCarMeshes(car);
+		if vehicleChanged {
+			this.HideCarMeshes(car);
+		} else {
+			this.HideLastWidget();
+		};
+		this.ArmTick();
+		return;
+	};
+
+	// Resolve the eight mounted components once per vehicle. Weak references are
+	// validated every tick and rebuilt automatically if the entity reconstructs.
+	if !this.ResolveMountedComponents(car) {
 		this.HideLastWidget();
 		this.ArmTick();
 		return;
 	};
-
-  let carHash: Uint64 = EntityID.ToHash(car.GetEntityID());
-
-  if carHash != this.lastVehicleHash {
-    this.HideLastWidget();
-    this.lastVehicleHash = carHash;
-    this.placementCacheReady = false;
-  };
-	// Safety fallback:
-	// If this mounted vehicle did not receive the 3D components during assembly,
-	// create them now. This only runs for the currently mounted vehicle.
-	this.EnsureCarComponents(car);
-  // --------------------------------------------------------------------------
-  // Find both independent 3D widget pairs
-  // --------------------------------------------------------------------------
-	let fuelMesh = car.FindComponentByName(n"fuel_mesh") as VM3DOdoMeshComponent;
-	let fuelWidget = car.FindComponentByName(n"fuel_widget") as VM3DOdoWidgetComponent;
-
-	let odoMesh = car.FindComponentByName(n"odo_mesh") as VM3DOdoMeshComponent;
-	let odoWidget = car.FindComponentByName(n"odo_widget") as VM3DOdoWidgetComponent;
-
-	let fuelAltMesh = car.FindComponentByName(n"fuel_alt_mesh") as VM3DOdoMeshComponent;
-	let fuelAltWidget = car.FindComponentByName(n"fuel_alt_widget") as VM3DOdoWidgetComponent;
-
-	let odoAltMesh = car.FindComponentByName(n"odo_alt_mesh") as VM3DOdoMeshComponent;
-	let odoAltWidget = car.FindComponentByName(n"odo_alt_widget") as VM3DOdoWidgetComponent;
-
-	if !IsDefined(fuelMesh) || !IsDefined(fuelWidget)
-		|| !IsDefined(odoMesh) || !IsDefined(odoWidget)
-		|| !IsDefined(fuelAltMesh) || !IsDefined(fuelAltWidget)
-		|| !IsDefined(odoAltMesh) || !IsDefined(odoAltWidget) {
-		this.HideCarMeshes(car);
-		this.ArmTick();
-		return;
-	};
-
-	this.lastFuelMesh = fuelMesh;
-	this.lastOdoMesh = odoMesh;
-	this.lastFuelAltMesh = fuelAltMesh;
-	this.lastOdoAltMesh = odoAltMesh;
-
-  // --------------------------------------------------------------------------
-	// Remember the current widget components.
-  // --------------------------------------------------------------------------
-  this.lastFuelWidget = fuelWidget;
-  this.lastOdoWidget = odoWidget;
-
-	this.lastFuelAltWidget = fuelAltWidget;
-	this.lastOdoAltWidget = odoAltWidget;
+	let fuelMesh = this.lastFuelMesh;
+	let odoMesh = this.lastOdoMesh;
+	let fuelAltMesh = this.lastFuelAltMesh;
+	let odoAltMesh = this.lastOdoAltMesh;
+	let fuelWidget = this.lastFuelWidget;
+	let odoWidget = this.lastOdoWidget;
+	let fuelAltWidget = this.lastFuelAltWidget;
+	let odoAltWidget = this.lastOdoAltWidget;
 
   // --------------------------------------------------------------------------
   // Read VehicleMileage facts once

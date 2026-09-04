@@ -1,0 +1,1139 @@
+﻿# ClaimOrSellVehicles - Archer Quartz controlled garage records
+# Generated from options.json appearance names.
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Bandit is a one-skin custom/special vehicle and is intentionally not included.
+# Sections: EC-L r275, EC-T2 r660, Sidewinder, Specter.
+
+# Archer Quartz EC-L r275 controlled garage records
+# family: archer_quartz_ecl
+# base: Vehicle.v_standard2_archer_quartz_base_player
+# 31 appearances x 2 exact slots = 62 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_kerry_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_kerry_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_mox_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_mox_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_poor_3_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_tygerclaws_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_tygerclaws_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_tygerclaws_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_tygerclaws_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_6_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_basic_urban_1_6_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ecl_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_quartz_base_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Quartz EC-T2 r660 controlled garage records
+# family: archer_quartz_ect2
+# base: Vehicle.v_standard2_archer_quartz_player
+# 30 appearances x 2 exact slots = 60 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_kerry_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_kerry_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_kerry
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_mox_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_mox_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_mox_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_2_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_2_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_4_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_poor_3_4_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_poor_3_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_suburban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_tygerclaws_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_tygerclaws_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_tygerclaws_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_tygerclaws_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_tygerclaws_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_2_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_2_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_3_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_3_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_5_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_5_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_5
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_6_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_basic_urban_1_6_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_urban_1_6
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_suburban_1_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_suburban_1_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_suburban_1_1
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_archer_quartz_ect2_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_ect2_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_quartz_player
+  appearanceName: archer_quartz__basic_player_01
+  icon: UIIcon.COSVVehicle
+
+# Archer Quartz Sidewinder controlled garage records
+# family: archer_quartz_sidewinder
+# base: Vehicle.v_standard2_archer_quartz_nomad_player
+# 9 appearances x 2 exact slots = 18 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_player_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_player_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_03_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_03_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_03_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_03_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_nomad_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_01_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_01_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_player_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_player_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_01_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_01_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_overflow_01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_sidewinder_cosv_overflow_02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+# Archer Quartz Specter controlled garage records
+# family: archer_quartz_specter
+# base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+# 5 appearances x 2 exact slots = 10 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_player_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_player_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_aldecados_01_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_aldecados_01_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_aldecados_04_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_aldecados_04_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_wraiths_01_1_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_wraiths_01_1_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_wraiths_04_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_nomad_wraiths_04_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_03_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_03_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_player_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_player_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_01_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_01_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_03_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_03_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard2_archer_quartz_specter_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_standard2_archer_quartz_nomad_player_02
+  appearanceName: archer_quartz_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle

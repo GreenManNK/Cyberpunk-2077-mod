@@ -1,0 +1,238 @@
+Items.CantoMk7_LegendaryPlusPlus:
+  $base: Items.HauntedCyberdeck_LegendaryPlusPlus
+  blueprint: Items.CyberdeckBlueprint8Slots
+  displayName: LocKey#canto_mk7
+  OnEquip:
+    - Items.BaseDeck_inline0
+    - Items.BaseDeck_inline3
+    - Items.HauntedCyberdeck_inline2
+    - Items.SpreadingRangeIncreaseAbility
+    - Items.ExtendRevealTimeAbilityLegendaryPlus
+    - EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus
+    - Items.HauntedCyberdeck_LegendaryPlusPlus_inline2
+  slotPartList:
+    - !remove Items.HauntedCyberdeck_LegendaryPlusPlus_inline0
+    - !append Items.CantoMk7_LegendaryPlusPlus_inline0
+    
+
+#-------------------------------------------------------------------
+EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus
+  UIData: EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus_inline0
+
+EquipmentGLP.CantoMk7_BlackwallProgramLvl4PlusPlus_inline0:
+  $base: EquipmentGLP.BlackwallProgramLvl4PlusPlus_inline0
+  localizedDescription: LocKey#canto_mk7_desc
+
+Items.CantoMk7_LegendaryPlusPlus_inline0:
+  $base: Items.HauntedCyberdeck_LegendaryPlusPlus_inline0
+  itemPartList:
+    - !remove Items.HauntedCyberdeck_LegendaryPlusPlus_inline1
+    - !append Items.CantoMk7_LegendaryPlusPlus_inline1
+    
+Items.CantoMk7_LegendaryPlusPlus_inline1:
+  $base: Items.HauntedCyberdeck_LegendaryPlusPlus_inline1
+  item: Items.CantoMk7_BlackWallProgramLvl4
+  
+  
+#------------------------------------------------------------------- 
+Items.CantoMk7_BlackWallProgramLvl4:
+  $base: Items.BlackWallProgramLvl4
+  OnAttach:
+    - EquipmentGLP.UntraceableHack
+    - EquipmentGLP.BlackwallProgramLvl4
+  objectActions:
+    - ItemAction.ProgramDisassemble
+    - QuickHack.CantoMk7_BlackWallHack
+    - QuickHack.CantoMk7_BossBlackWallHack
+    - QuickHack.CantoMk7_ChimeraBlackWallHack
+    - QuickHack.CantoMk7_BlackWallHack
+    - QuickHack.CantoMk7_BossBlackWallHack
+    - QuickHack.CantoMk7_ChimeraBlackWallHack
+    - QuickHack.CantoMk7_BlackWallHack
+    - QuickHack.CantoMk7_BossBlackWallHack
+    - QuickHack.CantoMk7_ChimeraBlackWallHack
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackWallHack:
+  $base: QuickHack.BlackWallHack
+  activationTime: 
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !append QuickHack.CantoMk7_BaseBlackWallHack_inline11
+  completionEffects:
+    - QuickHack.QuickHack_inline2
+    - QuickHack.QuickHack_inline6
+    - QuickHack.QuickHack_inline8
+    - QuickHack.QuickHack_inline9
+    - QuickHack.UltimateHack_inline7
+    - QuickHack.BaseBlackWallHack_inline9
+    - QuickHack.CantoMk7_BlackWallHack_inline3
+    - QuickHack.BlackWallHack_inline6
+    - QuickHack.BlackWallHack_inline12
+
+QuickHack.CantoMk7_BaseBlackWallHack_inline11:
+  $base: QuickHack.BaseBlackWallHack_inline11
+  value: 1.5 #Initial upload time
+  
+QuickHack.CantoMk7_BlackWallHack_inline3:
+  $base: QuickHack.BlackWallHack_inline3
+  effectorToTrigger: QuickHack.CantoMk7_BlackWallHack_inline4
+  
+QuickHack.CantoMk7_BlackWallHack_inline4:
+  $base: QuickHack.BlackWallHack_inline4
+  objectAction: QuickHack.CantoMk7_BlackwallHackBounce2
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackwallHackBounce2:
+  $base: QuickHack.BlackwallHackBounce2
+  activationTime: 
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BlackwallHackBounce2_inline0
+    - !append QuickHack.CantoMk7_BlackwallHackBounce2_inline0
+  completionEffects:
+    - !remove QuickHack.BlackwallHackBounce2_inline8
+    - !append QuickHack.CantoMk7_BlackwallHackBounce2_inline8
+  costs: 
+    - !remove QuickHack.BlackwallHackBounce2_inline1
+
+QuickHack.CantoMk7_BlackwallHackBounce2_inline0:
+  $base: QuickHack.BlackwallHackBounce2_inline0
+  value: 2.0 #Succeeding upload time
+  
+QuickHack.CantoMk7_BlackwallHackBounce2_inline8:
+  $base: QuickHack.BlackwallHackBounce2_inline8
+  effectorToTrigger: QuickHack.CantoMk7_BlackwallHackBounce2_inline9
+  
+QuickHack.CantoMk7_BlackwallHackBounce2_inline9:
+  $base: QuickHack.BlackwallHackBounce2_inline9
+  objectAction: QuickHack.CantoMk7_BlackwallHackBounce3
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackwallHackBounce3:
+  $base: QuickHack.BlackwallHackBounce3
+  activationTime:
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BlackwallHackBounce3_inline0
+    - !append QuickHack.CantoMk7_BlackwallHackBounce3_inline0
+  completionEffects:
+    - !remove QuickHack.BlackwallHackBounce3_inline8
+    - !append QuickHack.CantoMk7_BlackwallHackBounce3_inline8
+  costs: 
+    - !remove QuickHack.BlackwallHackBounce3_inline1
+
+QuickHack.CantoMk7_BlackwallHackBounce3_inline0:
+  $base: QuickHack.BlackwallHackBounce3_inline0
+  value: 2.5 #Succeeding upload time
+
+QuickHack.CantoMk7_BlackwallHackBounce3_inline8:
+  $base: QuickHack.BlackwallHackBounce3_inline8
+  effectorToTrigger: QuickHack.CantoMk7_BlackwallHackBounce3_inline9
+  
+QuickHack.CantoMk7_BlackwallHackBounce3_inline9:
+  $base: QuickHack.BlackwallHackBounce3_inline9
+  objectAction: QuickHack.CantoMk7_BlackwallHackBounce4
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackwallHackBounce4:
+  $base: QuickHack.BlackwallHackBounce4
+  activationTime:
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BlackwallHackBounce4_inline0
+    - !append QuickHack.CantoMk7_BlackwallHackBounce4_inline0
+  completionEffects:
+    - !remove QuickHack.BlackwallHackBounce4_inline8
+    - !append QuickHack.CantoMk7_BlackwallHackBounce4_inline8
+  costs: 
+    - !remove QuickHack.BlackwallHackBounce4_inline1
+
+QuickHack.CantoMk7_BlackwallHackBounce4_inline0:
+  $base: QuickHack.BlackwallHackBounce4_inline0
+  value: 3.0 #Succeeding upload time
+
+QuickHack.CantoMk7_BlackwallHackBounce4_inline8:
+  $base: QuickHack.BlackwallHackBounce4_inline8
+  effectorToTrigger: QuickHack.CantoMk7_BlackwallHackBounce4_inline9
+  
+QuickHack.CantoMk7_BlackwallHackBounce4_inline9:
+  $base: QuickHack.BlackwallHackBounce4_inline9
+  objectAction: QuickHack.CantoMk7_BlackwallHackBounce5
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackwallHackBounce5:
+  $base: QuickHack.BlackwallHackBounce5
+  activationTime:
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BlackwallHackBounce5_inline0
+    - !append QuickHack.CantoMk7_BlackwallHackBounce5_inline0
+  completionEffects:
+    - !remove QuickHack.BlackwallHackBounce5_inline8
+    - !append QuickHack.CantoMk7_BlackwallHackBounce5_inline8
+  costs: 
+    - !remove QuickHack.BlackwallHackBounce5_inline1
+
+QuickHack.CantoMk7_BlackwallHackBounce5_inline0:
+  $base: QuickHack.BlackwallHackBounce5_inline0
+  value: 3.5 #Succeeding upload time
+
+QuickHack.CantoMk7_BlackwallHackBounce5_inline8:
+  $base: QuickHack.BlackwallHackBounce5_inline8
+  effectorToTrigger: QuickHack.CantoMk7_BlackwallHackBounce5_inline9
+  
+QuickHack.CantoMk7_BlackwallHackBounce5_inline9:
+  $base: QuickHack.BlackwallHackBounce5_inline9
+  objectAction: QuickHack.CantoMk7_BlackwallHackBounce6
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BlackwallHackBounce6:
+  $base: QuickHack.BlackwallHackBounce6
+  activationTime:
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BlackwallHackBounce6_inline0
+    - !append QuickHack.CantoMk7_BlackwallHackBounce6_inline0
+  costs: 
+    - !remove QuickHack.BlackwallHackBounce6_inline1
+
+QuickHack.CantoMk7_BlackwallHackBounce6_inline0:
+  $base: QuickHack.BlackwallHackBounce6_inline0
+  value: 5.0 #Succeeding upload time
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_BossBlackWallHack:
+  $base: QuickHack.BossBlackWallHack
+  activationTime:
+    - !remove QuickHack.BaseBlackWallHack_inline11
+    - !remove QuickHack.BossBlackWallHack_inline0
+    - !append QuickHack.CantoMk7_BossBlackWallHack_inline0
+
+QuickHack.CantoMk7_BossBlackWallHack_inline0:
+  $base: QuickHack.BossBlackWallHack_inline0
+  value: 4.0
+
+
+#-------------------------------------------------------------------
+QuickHack.CantoMk7_ChimeraBlackWallHack:
+  $base: QuickHack.ChimeraBlackWallHack
+  activationTime:
+  - !remove QuickHack.BaseBlackWallHack_inline11
+  - !remove QuickHack.ChimeraBlackWallHack_inline0
+  - !append QuickHack.CantoMk7_ChimeraBlackWallHack_inline0
+  
+QuickHack.CantoMk7_ChimeraBlackWallHack_inline0:
+  $base: QuickHack.ChimeraBlackWallHack_inline0
+  value: 4.0
+
+
+#-------------------------------------------------------------------
+Vendors.BlackMarketer_HUB:
+  itemStock:
+    - !append
+      item: Items.CantoMk7_LegendaryPlusPlus
+      quantity: 
+        - !append Vendors.Always_Present

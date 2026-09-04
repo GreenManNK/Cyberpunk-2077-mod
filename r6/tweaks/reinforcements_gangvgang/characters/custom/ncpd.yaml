@@ -1,0 +1,131 @@
+# ncpd_elite_ajax
+Character.GR_ncpd_elite_ajax:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_ajax_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT3
+    rarity: NPCRarity.Elite
+    abilities:
+        - !append-once Ability.CanSeeThroughSmoke
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_ajax_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_ajax_primary_item
+
+Character.GR_ncpd_elite_ajax_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Ajax_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# ncpd_elite_crusher
+Character.GR_ncpd_elite_crusher:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_crusher_primary_equipment
+    archetypeData: ArchetypeData.FastShotgunnerT3
+    rarity: NPCRarity.Elite
+    abilities:
+        - !append-once Ability.CanSeeThroughSmoke
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_crusher_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_crusher_primary_item
+
+Character.GR_ncpd_elite_crusher_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Crusher_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# ncpd_elite_gorilla
+Character.GR_ncpd_elite_gorilla:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_gorilla_primary_equipment
+    archetypeData: ArchetypeData.HeavyMeleeT3
+    rarity: NPCRarity.Elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_gorilla_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_gorilla_primary_item
+
+Character.GR_ncpd_elite_gorilla_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.NPC_Strong_Arms
+    equipCondition:
+        - WeaponConditions.BaseMeleePrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseMeleePrimaryWeaponUnequipCondition
+
+# ncpd_elite_hmg
+Character.GR_ncpd_elite_hmg:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_hmg_primary_equipment
+    archetypeData: ArchetypeData.HeavyRangedT3
+    rarity: NPCRarity.Elite
+    abilities:
+        - !append-once Ability.CanSeeThroughSmoke
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_hmg_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_hmg_primary_item
+
+Character.GR_ncpd_elite_hmg_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_HMG_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# ncpd_elite_kolac
+Character.GR_ncpd_elite_kolac:
+    $base: Character.ncpd_hwp_gunner2_defender_mb_rare
+    primaryEquipment: Character.GR_ncpd_elite_kolac_primary_equipment
+    archetypeData: ArchetypeData.HeavyRangedT3
+    rarity: NPCRarity.Elite
+    abilities:
+        - !append-once Ability.CanSeeThroughSmoke
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_ncpd_elite_kolac_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_ncpd_elite_kolac_primary_item
+
+Character.GR_ncpd_elite_kolac_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Kolac_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

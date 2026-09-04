@@ -1,0 +1,333 @@
+﻿# ClaimOrSellVehicles - Villefort Columbus V340-F Freight controlled garage records
+# Generated from Vehicle Customizer SVE options.json: Columbus V340-F Freight appearance set.
+# Router policy belongs in init.lua; COSV keeps one skin-based Columbus family.
+# 25 appearances x 2 exact slots = 50 records
+# 2 overflow records use a safe appearance for the same family
+Vehicle.v_standard25_villefort_columbus_cosv_basic_player_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_player_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_6th_street_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_6th_street_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_6th_street_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_aldecaldos_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_aldecaldos_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_aldecaldos_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_aldecaldos_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_arasaka_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_arasaka_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_arasaka_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_corpo_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_corpo_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_corpo_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_corpo_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_jammer_truck_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_jammer_truck
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_jammer_truck_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_jammer_truck
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_judys_van_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_judys_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_judys_van_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_judys_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_kangtao_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_kangtao_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_kangtao_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_kangtao_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_netwatch_van_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_netwatch_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_netwatch_van_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_netwatch_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_growl_fm_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_growl_fm
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_growl_fm_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_growl_fm
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_rcs_van_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_rcs_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_rcs_van_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_rcs_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_medical_cargo_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_medical_cargo_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_medical_cargo_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_medical_cargo_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_02_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_02_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_03_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_03
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_03_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_03
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_04_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_04
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_04_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_04
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_05_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_05
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_poor_05_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_poor_05
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_01_2_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_01_2
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_01_2_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_01_2
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_2_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_2
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_2_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_2
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_3_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_3
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_3_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_3
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_4_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_4
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_4_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_4
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_5_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_5
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_suburban_02_5_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_suburban_02_5
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_tygerclaws_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_basic_tygerclaws_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_tygerclaws_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_01_slot01:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_01_slot02:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_q204_slot01:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_q204
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_q204_slot02:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_q204
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_q204_final_slot01:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_q204_final
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_mahir_mt28_basic_coach_q204_final_slot02:
+  $base: Vehicle.q204_bus
+  appearanceName: mahir_mt28_basic_coach_q204_final
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_01__basic_default_slot01:
+  $base: Vehicle.santiago_truck
+  appearanceName: v_standard25_villefort_columbus_01__basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_01__basic_default_slot02:
+  $base: Vehicle.santiago_truck
+  appearanceName: v_standard25_villefort_columbus_01__basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_poor_05_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_songbird
+  appearanceName: v_standard25_villefort_columbus_songbird_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_poor_05_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_songbird
+  appearanceName: v_standard25_villefort_columbus_songbird_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_scavenger_01_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_scavengers
+  appearanceName: v_standard25_villefort_columbus_songbird_scavenger_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_scavenger_01_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_scavengers
+  appearanceName: v_standard25_villefort_columbus_songbird_scavenger_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_scavenger_02_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_scavengers
+  appearanceName: v_standard25_villefort_columbus_songbird_scavenger_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_scavenger_02_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_scavengers
+  appearanceName: v_standard25_villefort_columbus_songbird_scavenger_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_suburban_01_slot01:
+  $base: Vehicle.wst_ep1_10_scavenger_vehicle
+  appearanceName: v_standard25_villefort_columbus_songbird_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_suburban_01_slot02:
+  $base: Vehicle.wst_ep1_10_scavenger_vehicle
+  appearanceName: v_standard25_villefort_columbus_songbird_suburban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_suburban_02_slot01:
+  $base: Vehicle.wst_ep1_10_scavenger_vehicle
+  appearanceName: v_standard25_villefort_columbus_songbird_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_v_standard25_villefort_columbus_songbird_suburban_02_slot02:
+  $base: Vehicle.wst_ep1_10_scavenger_vehicle
+  appearanceName: v_standard25_villefort_columbus_songbird_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_default_slot01:
+  $base: Vehicle.q114_villefort_columbus_nomad
+  appearanceName: villefort_columbus__basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_default_slot02:
+  $base: Vehicle.q114_villefort_columbus_nomad
+  appearanceName: villefort_columbus__basic_default
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_q_104_jammer_holo_slot01:
+  $base: Vehicle.q104_tracking_vehicle_02
+  appearanceName: villefort_columbus__basic_q_104_jammer_holo
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_q_104_jammer_holo_slot02:
+  $base: Vehicle.q104_tracking_vehicle_02
+  appearanceName: villefort_columbus__basic_q_104_jammer_holo
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_sq004_saul_rescue_van_slot01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_sq004_saul_rescue_van
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_villefort_columbus_cosv_villefort_columbus__basic_sq004_saul_rescue_van_slot02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_sq004_saul_rescue_van
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_overflow_01:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_villefort_columbus_cosv_overflow_02:
+  $base: Vehicle.v_standard25_villefort_columbus_player
+  appearanceName: villefort_columbus__basic_player_01
+  icon: UIIcon.COSVVehicle

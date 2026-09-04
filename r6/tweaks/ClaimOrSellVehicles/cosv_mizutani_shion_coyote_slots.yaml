@@ -1,0 +1,206 @@
+﻿# ClaimOrSellVehicles - Mizutani Shion Coyote controlled garage records
+# Source: Vehicle Customizer SVE options.json: Shion Coyote, expanded with confirmed Wraith-tagged appearances on this record family
+# Base: Vehicle.v_sport2_mizutani_shion_nomad_player
+# 12 appearances x 2 exact slots = 24 records
+# Keep this family constrained to confirmed supported appearances on Vehicle.v_sport2_mizutani_shion_nomad.
+# Do not merge Bonewrecker/Samum/Blackbird/Wendigo base families into this family.
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_03_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_03_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_03_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_03_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_03_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_sport2_mizutani_shion_nomad_coyote_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_sport2_mizutani_shion_nomad_player
+  appearanceName: mizutani_shion_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle

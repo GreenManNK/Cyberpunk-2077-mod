@@ -1,0 +1,139 @@
+quest:
+  phases:
+    - path: mod\ra_bluemoon_native\quest\ra_bluemoon_native_root.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\ra_bluemoon_native\quest\ra_bluemoon_native_root.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: mod\ra_bluemoon_native\quest\ra_bluemoon_native_root.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: mod\ra_bluemoon_native\quest\ra_bluemoon_native_root.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: mod\ra_bluemoon_native\quest\ra_bluemoon_native_root.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: mod\blue_ra\quest\blue_ra_run.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\blue_ra\quest\blue_ra_run.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: mod\blue_ra\quest\blue_ra_run.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: mod\blue_ra\quest\blue_ra_run.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: mod\blue_ra\quest\blue_ra_run.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+    - path: mod\ra_bluemoon_hangout_v11\quest\phases\mq055_apartment.questphase
+      parent: base\quest\cyberpunk2077.quest
+    - path: mod\ra_bluemoon_hangout_v11\quest\phases\mq055_apartment.questphase
+      parent: ep1\quest\ep1_standalone.quest
+    - path: mod\ra_bluemoon_hangout_v11\quest\phases\mq055_apartment.questphase
+      parent: mod\quest\newgameplus.quest
+    - path: mod\ra_bluemoon_hangout_v11\quest\phases\mq055_apartment.questphase
+      parent: mod\quest\newgameplus_q001.quest
+    - path: mod\ra_bluemoon_hangout_v11\quest\phases\mq055_apartment.questphase
+      parent: mod\quest\newgameplus_standalone.quest
+
+journal:
+  - mod\ra_bluemoon_native\journal\ra_bluemoon_native.journal
+  - mod\blue_ra\journal\blue_ra.journal
+  - mod\ra_blue_soulless\journal\ra_blue_soulless_girl.journal
+  - mod\ra_bluemoon_hangout\journal\blue_moon.journal
+
+localization:
+  lipmaps:
+    en-us:
+      - mod\ra_bluemoon_hangout_v11\localization\en-us\blue_moon_hangout.lipmap
+  onscreens:
+    en-us:
+      - mod\ra_bluemoon_native\localization\en-us\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\en-us\blue_moon.json
+      - mod\blue_ra\onscreens\en-us\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\en-us\ra_blue_soulless_girl.json
+    ru-ru:
+      - mod\ra_bluemoon_native\localization\ru-ru\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\ru-ru\blue_moon.json
+      - mod\blue_ra\onscreens\ru-ru\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\ru-ru\ra_blue_soulless_girl.json
+    ua-ua:
+      - mod\ra_bluemoon_native\localization\ua-ua\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\ua-ua\blue_moon.json
+      - mod\blue_ra\onscreens\ua-ua\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\ua-ua\ra_blue_soulless_girl.json
+    ar-ar:
+      - mod\ra_bluemoon_native\localization\ar-ar\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\ar-ar\blue_moon.json
+      - mod\blue_ra\onscreens\ar-ar\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\ar-ar\ra_blue_soulless_girl.json
+    cz-cz:
+      - mod\ra_bluemoon_native\localization\cz-cz\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\cz-cz\blue_moon.json
+      - mod\blue_ra\onscreens\cz-cz\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\cz-cz\ra_blue_soulless_girl.json
+    de-de:
+      - mod\ra_bluemoon_native\localization\de-de\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\de-de\blue_moon.json
+      - mod\blue_ra\onscreens\de-de\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\de-de\ra_blue_soulless_girl.json
+    es-es:
+      - mod\ra_bluemoon_native\localization\es-es\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\es-es\blue_moon.json
+      - mod\blue_ra\onscreens\es-es\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\es-es\ra_blue_soulless_girl.json
+    es-mx:
+      - mod\ra_bluemoon_native\localization\es-mx\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\es-mx\blue_moon.json
+      - mod\blue_ra\onscreens\es-mx\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\es-mx\ra_blue_soulless_girl.json
+    fr-fr:
+      - mod\ra_bluemoon_native\localization\fr-fr\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\fr-fr\blue_moon.json
+      - mod\blue_ra\onscreens\fr-fr\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\fr-fr\ra_blue_soulless_girl.json
+    hu-hu:
+      - mod\ra_bluemoon_native\localization\hu-hu\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\hu-hu\blue_moon.json
+      - mod\blue_ra\onscreens\hu-hu\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\hu-hu\ra_blue_soulless_girl.json
+    it-it:
+      - mod\ra_bluemoon_native\localization\it-it\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\it-it\blue_moon.json
+      - mod\blue_ra\onscreens\it-it\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\it-it\ra_blue_soulless_girl.json
+    jp-jp:
+      - mod\ra_bluemoon_native\localization\jp-jp\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\jp-jp\blue_moon.json
+      - mod\blue_ra\onscreens\jp-jp\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\jp-jp\ra_blue_soulless_girl.json
+    kr-kr:
+      - mod\ra_bluemoon_native\localization\kr-kr\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\kr-kr\blue_moon.json
+      - mod\blue_ra\onscreens\kr-kr\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\kr-kr\ra_blue_soulless_girl.json
+    pl-pl:
+      - mod\ra_bluemoon_native\localization\pl-pl\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\pl-pl\blue_moon.json
+      - mod\blue_ra\onscreens\pl-pl\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\pl-pl\ra_blue_soulless_girl.json
+    pt-br:
+      - mod\ra_bluemoon_native\localization\pt-br\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\pt-br\blue_moon.json
+      - mod\blue_ra\onscreens\pt-br\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\pt-br\ra_blue_soulless_girl.json
+    th-th:
+      - mod\ra_bluemoon_native\localization\th-th\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\th-th\blue_moon.json
+      - mod\blue_ra\onscreens\th-th\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\th-th\ra_blue_soulless_girl.json
+    tr-tr:
+      - mod\ra_bluemoon_native\localization\tr-tr\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\tr-tr\blue_moon.json
+      - mod\blue_ra\onscreens\tr-tr\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\tr-tr\ra_blue_soulless_girl.json
+    zh-cn:
+      - mod\ra_bluemoon_native\localization\zh-cn\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\zh-cn\blue_moon.json
+      - mod\blue_ra\onscreens\zh-cn\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\zh-cn\ra_blue_soulless_girl.json
+    zh-tw:
+      - mod\ra_bluemoon_native\localization\zh-tw\ra_bluemoon_native.json
+      - mod\ra_bluemoon_hangout\localization\zh-tw\blue_moon.json
+      - mod\blue_ra\onscreens\zh-tw\blue_ra_onscreens.json
+      - mod\ra_blue_soulless\localization\zh-tw\ra_blue_soulless_girl.json

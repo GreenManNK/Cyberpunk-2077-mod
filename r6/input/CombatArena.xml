@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+  Combat Arena - key bindings (Input Loader)
+
+  The overridableUI names here match the EInputKey field names in
+  Settings.reds, which is the contract Mod Settings uses to render its
+  press-a-key binding widgets and to push rebinds into the input system.
+
+    ArenaMenuKey    IK_Z  - open / close the arena terminal
+    ArenaExitKey    IK_X  - hold to exit the arena
+    ArenaSummonKey  IK_B  - summon the best crew member you can afford
+                            (B, because C is crouch)
+-->
+<bindings>
+    <context name="CombatArena">
+        <action name="combat_arena_exit"   map="combat_arena_exit" />
+        <action name="combat_arena_summon" map="combat_arena_summon" />
+        <action name="combat_arena_menu"   map="combat_arena_menu" />
+    </context>
+
+    <context name="Exploration" append="true">
+        <include name="CombatArena" />
+    </context>
+    <context name="UINotifications" append="true">
+        <include name="CombatArena" />
+    </context>
+
+    <acceptedEvents action="combat_arena_exit">
+        <event name="BUTTON_HOLD_COMPLETE" />
+    </acceptedEvents>
+    <acceptedEvents action="combat_arena_summon">
+        <event name="BUTTON_RELEASED" />
+    </acceptedEvents>
+    <acceptedEvents action="combat_arena_menu">
+        <event name="BUTTON_RELEASED" />
+    </acceptedEvents>
+
+    <hold action="combat_arena_exit" timeout="0.6" />
+
+    <mapping name="combat_arena_exit" type="Button">
+        <button id="IK_X" overridableUI="ArenaExitKey" />
+    </mapping>
+    <mapping name="combat_arena_summon" type="Button">
+        <button id="IK_B" overridableUI="ArenaSummonKey" />
+    </mapping>
+    <mapping name="combat_arena_menu" type="Button">
+        <button id="IK_Z" overridableUI="ArenaMenuKey" />
+    </mapping>
+</bindings>

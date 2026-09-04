@@ -1,0 +1,1168 @@
+﻿# ClaimOrSellVehicles - Thorton Colby Pickup controlled garage records
+# Generated from options.json appearance names.
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# Sections: Colby CX410 Butte, Colby BARGHEST.
+# Gran Butte, Little Mule, Vulture/Revenant/Shootin' Brake and other named/fixed branches are intentionally not included.
+
+# Colby CX410 Butte controlled garage records
+# family: thorton_colby_pickup_butte
+# base: Vehicle.v_standard25_thorton_colby_pickup_player
+# 12 appearances x 2 exact slots = 24 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_player_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_player_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_1_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_1_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_2_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_2_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_3_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_3_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_3
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_4_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_poor_1_4_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_poor_1_4
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_1_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_1_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1_1
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_2_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_1_2_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_1_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_2_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_suburban_2_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_suburban_2
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_jake_estevez_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_jake_estevez_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_jake_estevez_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_jake_estevez_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_valentino_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_valentino_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_valentino_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_valentino_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_kurtz_kurtz_q302_slot01:
+  $base: Vehicle.q302_militia_car
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_kurtz_kurtz_q302_slot02:
+  $base: Vehicle.q302_militia_car
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_kurtz_kurtz_q302_custom_lighting_slot01:
+  $base: Vehicle.q302_militia_car
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_kurtz_kurtz_q302_custom_lighting_slot02:
+  $base: Vehicle.q302_militia_car
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_ma_bls_ina_se1_44_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_ma_bls_ina_se1_44
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_ma_bls_ina_se1_44_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_ma_bls_ina_se1_44
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_thorton_colby_pickup_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_player
+  appearanceName: thorton_colby_pickup_player_01
+  icon: UIIcon.COSVVehicle
+
+
+# Colby BARGHEST controlled garage records
+# scanner identity is shared across physically different DLC records.
+# Do not collapse ordinary, prevention, CD weaponized, and CD no-hull weaponized variants.
+
+# Colby BARGHEST ordinary controlled garage records
+# family: thorton_colby_pickup_barghest
+# base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+# 7 appearances x 2 exact slots = 14 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_01_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_01_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_02_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_02_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_03_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_03_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_04_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_kurtz_04_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_q302_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_q302_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_q302_custom_lighting_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_q302_custom_lighting_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_militia_01_slot01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_militia_01_slot02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_kurtz_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_cd_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_kurtz_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_cd_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_kurtz_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_cd_kurtz_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_kurtz_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_cd_kurtz_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_militia_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_cd_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_cd_militia_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_cd_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_player_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_player
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_player_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_player
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_overflow_01:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cosv_overflow_02:
+  $base: Vehicle.ep1_hackable_thorton_colby_pickup_kurtz
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+# Colby BARGHEST prevention/no-hull controlled garage records
+# family: thorton_colby_pickup_barghest_prevention
+# base: Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention
+# 2 appearances x 2 exact slots = 4 records
+
+Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention_cosv_kurtz_01_no_hull_slot01:
+  $base: Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01_no_hull
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention_cosv_kurtz_01_no_hull_slot02:
+  $base: Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01_no_hull
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention_cosv_militia_01_no_hull_slot01:
+  $base: Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention
+  appearanceName: thorton_colby_pickup_kurtz_militia_01_no_hull
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention_cosv_militia_01_no_hull_slot02:
+  $base: Vehicle.v_standard25_thorton_kurtz_no_hull_01_prevention
+  appearanceName: thorton_colby_pickup_kurtz_militia_01_no_hull
+  icon: UIIcon.COSVVehicle
+
+# Colby BARGHEST CD weaponized controlled garage records
+# family: thorton_colby_pickup_barghest_cd
+# base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+# 7 appearances x 2 exact slots = 14 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_kurtz_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_q302_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_q302_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_q302_custom_lighting_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_q302_custom_lighting_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_militia_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_militia_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+# Colby BARGHEST CD no-hull weaponized controlled garage records
+# family: thorton_colby_pickup_barghest_cd_no_hull
+# base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+# 7 appearances x 2 exact slots = 14 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_kurtz_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_q302_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_q302_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_q302_custom_lighting_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_q302_custom_lighting_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_kurtz_q302_custom_lighting
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_militia_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_militia_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_militia_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_pickup_kurtz_cd_no_hull
+  appearanceName: thorton_colby_pickup_kurtz_player_01
+  icon: UIIcon.COSVVehicle
+
+# Thorton Colby "Little Mule" controlled garage records
+# family: thorton_colby_little_mule
+# base: Vehicle.v_standard25_thorton_colby_nomad_player
+# 12 appearances x 2 exact slots = 24 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_player_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_player_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_thorton_colby_nomad_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+# Thorton Colby "Revenant" controlled garage records
+# family: thorton_colby_revenant
+# base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+# 10 appearances x 2 exact slots = 20 records
+# 2 overflow records use a distinctive full-bank marker for the same family
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_deathrace_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_deathrace_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_player_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_player_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_wraith_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_wraith
+  appearanceName: thorton_colby_pickup_nomad_deathrace_01
+  icon: UIIcon.COSVVehicle
+
+
+# Thorton Colby "Vulture" controlled garage records
+# family: thorton_colby_vulture
+# base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+# 3 appearances x 2 exact slots = 6 records
+# 2 overflow records use a safe appearance for the same family
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_player_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_player_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04_missiles
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_aldecados_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_aldecados_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_player_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_player_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_01_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_01_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_01_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_01_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_02_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_02_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_02_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_02_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_02_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_03_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_03_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_04_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_04_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_04_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_04_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_04_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_05_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_05_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_05_missiles_slot01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_wraiths_05_missiles_slot02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_player_missiles
+  appearanceName: thorton_colby_pickup_nomad_wraiths_05_missiles
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_overflow_01:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard25_thorton_colby_nomad_vulture_cosv_overflow_02:
+  $base: Vehicle.v_standard25_thorton_colby_nomad_vulture
+  appearanceName: thorton_colby_pickup_nomad_player_01_missiles
+  icon: UIIcon.COSVVehicle

@@ -1,0 +1,199 @@
+# kangtao_elite_shotgun3_zhuo
+Character.GR_kangtao_elite_shotgun3_zhuo:
+    $base: Character.kangtao_soldier2_shotgun3_zhuo_mah_elite
+    primaryEquipment: Character.GR_kangtao_elite_shotgun3_zhuo_primary_equipment
+    archetypeData: ArchetypeData.FastShotgunnerT3
+    rarity: NPCRarity.Elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_elite_shotgun3_zhuo_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_elite_shotgun3_zhuo_primary_item
+
+Character.GR_kangtao_elite_shotgun3_zhuo_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Zhuo_Default
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_elite_sniper3_ashura
+Character.GR_kangtao_elite_sniper3_ashura:
+    $base: Character.kangtao_officer_grenadier3_mah_elite
+    primaryEquipment: Character.GR_kangtao_elite_sniper3_ashura_primary_equipment
+    archetypeData: ArchetypeData.FastSniperT3
+    rarity: NPCRarity.Elite
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_elite_sniper3_ashura_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_elite_sniper3_ashura_primary_item
+
+Character.GR_kangtao_elite_sniper3_ashura_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Ashura_Military
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_normal2_ranged2_dian
+Character.GR_kangtao_normal2_ranged2_dian:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    primaryEquipment: Character.GR_kangtao_normal2_ranged2_dian_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT2
+    rarity: NPCRarity.Normal
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_normal2_ranged2_dian_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_normal2_ranged2_dian_primary_item
+
+Character.GR_kangtao_normal2_ranged2_dian_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Dian_Military
+    onBodySlot: AttachmentSlots.ItemSlotSMG
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_normal2_shotgun2_palica
+Character.GR_kangtao_normal2_shotgun2_palica:
+    $base: Character.kangtao_android_android2_dian_ma
+    primaryEquipment: Character.GR_kangtao_normal2_shotgun2_palica_primary_equipment
+    archetypeData: ArchetypeData.ShotgunnerT2
+    rarity: NPCRarity.Normal
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_normal2_shotgun2_palica_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_normal2_shotgun2_palica_primary_item
+
+Character.GR_kangtao_normal2_shotgun2_palica_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Palica_Military
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_rare_ranged2_dian
+Character.GR_kangtao_rare_ranged2_dian:
+    $base: Character.kangtao_soldier2_shotgun2_zhuo_mah_rare
+    primaryEquipment: Character.GR_kangtao_rare_ranged2_dian_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT2
+    rarity: NPCRarity.Rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_rare_ranged2_dian_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_rare_ranged2_dian_primary_item
+
+Character.GR_kangtao_rare_ranged2_dian_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Dian_Military
+    onBodySlot: AttachmentSlots.ItemSlotSMG
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_rare_ranged3_sidewinder
+Character.GR_kangtao_rare_ranged3_sidewinder:
+    $base: Character.kangtao_soldier2_shotgun2_zhuo_mah_rare
+    primaryEquipment: Character.GR_kangtao_rare_ranged3_sidewinder_primary_equipment
+    archetypeData: ArchetypeData.FastRangedT3
+    rarity: NPCRarity.Rare
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_rare_ranged3_sidewinder_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_rare_ranged3_sidewinder_primary_item
+
+Character.GR_kangtao_rare_ranged3_sidewinder_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Sidewinder_Military
+    onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_weak1_ranged1_chao
+Character.GR_kangtao_weak1_ranged1_chao:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    primaryEquipment: Character.GR_kangtao_weak1_ranged1_chao_primary_equipment
+    archetypeData: ArchetypeData.GenericRangedT1
+    rarity: NPCRarity.Weak
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_weak1_ranged1_chao_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_weak1_ranged1_chao_primary_item
+
+Character.GR_kangtao_weak1_ranged1_chao_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Chao_Military
+    onBodySlot: AttachmentSlots.ItemSlotHandgunRight
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+# kangtao_weak1_ranged1_kappa
+Character.GR_kangtao_weak1_ranged1_kappa:
+    $base: Character.kangtao_ranger1_ranged2_dian_ma
+    primaryEquipment: Character.GR_kangtao_weak1_ranged1_kappa_primary_equipment
+    archetypeData: ArchetypeData.GenericRangedT1
+    rarity: NPCRarity.Weak
+    tags:
+        - !append-once GRModPuppet
+        - !append-once pcf_GangerCanRetreat
+
+Character.GR_kangtao_weak1_ranged1_kappa_primary_equipment:
+    $type: gamedataNPCEquipmentGroup_Record
+    equipmentItems:
+        - Character.GR_kangtao_weak1_ranged1_kappa_primary_item
+
+Character.GR_kangtao_weak1_ranged1_kappa_primary_item:
+    $type: gamedataNPCEquipmentItem_Record
+    equipSlot: AttachmentSlots.WeaponRight
+    item: Items.Preset_Kappa_Military
+    onBodySlot: AttachmentSlots.ItemSlotHandgunRight
+    equipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+    unequipCondition:
+        - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition

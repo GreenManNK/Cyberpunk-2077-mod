@@ -1,0 +1,173 @@
+# ClaimOrSellVehicles - Makigai MaiMai E126 controlled garage records
+# Generated from Vehicle Customizer SVE options.json: MaiMai E126 appearance set.
+# Router policy belongs in init.lua; COSV only routes supported skin buckets.
+# 20 appearances x 2 exact slots = 40 records
+# 2 overflow records use a safe appearance for the same family
+Vehicle.cs_savable_makigai_maimai_cosv_basic_player_01_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_player_01_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_gt_01_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_gt_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_gt_01_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_gt_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_01_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_01_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_02_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_02_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_03_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_03_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_04_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_04
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_04_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_04
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_05_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_05_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_06_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_06
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_06_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_06
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_07_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_07
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_poor_07_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_poor_07
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_01_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_01_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_02_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_02_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_03_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_03_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_04_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_04_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_04
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_05_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_05_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_06_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_06_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_06
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_07_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_suburban_07_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_suburban_07
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_01_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_01_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_02_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_02_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_02
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_03_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_03_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_03
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_05_slot01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_basic_urban_05_slot02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_urban_05
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_overflow_01:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_player_01
+  icon: UIIcon.COSVVehicle
+Vehicle.cs_savable_makigai_maimai_cosv_overflow_02:
+  $base: Vehicle.cs_savable_makigai_maimai
+  appearanceName: makigai_maimai__basic_player_01
+  icon: UIIcon.COSVVehicle

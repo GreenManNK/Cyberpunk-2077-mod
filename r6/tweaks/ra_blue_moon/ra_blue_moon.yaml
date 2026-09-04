@@ -1,0 +1,6 @@
+# Visit puppet — does NOT override vanilla Character.sq017_blue_moon
+# (concert / appearance mods stay on the vanilla record).
+
+Character.ra_blue_moon:
+  $base: Character.sq017_blue_moon
+  entityTemplatePath: mod\ra_blue_moon\characters\ra_blue_moon.ent

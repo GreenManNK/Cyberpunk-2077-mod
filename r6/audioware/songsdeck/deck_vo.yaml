@@ -1,0 +1,16 @@
+version: 1.0.0
+voices:
+  blackwall_deck_voiceover_1:
+    en-us:
+      fem: deck_vo.Wav
+      male: deck_vo.Wav
+      subtitle: "You attempt to wound that which cannot be wounded."
+    settings:
+      volume: 1.5
+  blackwall_deck_voiceover_2:
+    en-us:
+      fem: deck_vo2.Wav
+      male: deck_vo2.Wav
+      subtitle: "Suicidal bravado, whom do you wish to impress?"
+    settings:
+      volume: 1.5

@@ -1,0 +1,215 @@
+﻿# ClaimOrSellVehicles - Thorton Mackinaw Larimore controlled garage records
+# Generated from Vehicle Customizer SVE options.json: Mackinaw Larimore appearance set
+# 19 appearances x 2 exact slots = 38 records
+# 2 overflow records use the safe player/Larimore appearance
+# Router policy belongs in init.lua; keep Larimore separate from Mackinaw MTL1.
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_player_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_player_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_02_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_02_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_03_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_03_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_04_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_04_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_05_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_05_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_06_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_poor_06_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_poor_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_01_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_01_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_02_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_02_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_03_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_03_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_04_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_04_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_05_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_05_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_02_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_02_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_02
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_03_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_03_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_03
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_04_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_04_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_04
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_05_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_05_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_05
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_06_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_06_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_07_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_07_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_07
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_08_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_08
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_suburban_08_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_suburban_08
+  icon: UIIcon.COSVVehicle
+
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_06_slot01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_06
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_urban_06_slot02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_urban_06
+  icon: UIIcon.COSVVehicle
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_overflow_01:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_player_01
+  icon: UIIcon.COSVVehicle
+
+Vehicle.v_standard3_thorton_mackinaw_larimore_cosv_overflow_02:
+  $base: Vehicle.v_standard3_thorton_mackinaw_country
+  appearanceName: v_standard3_thorton_mackinaw_larimore_player_01
+  icon: UIIcon.COSVVehicle

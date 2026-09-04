@@ -20,6 +20,7 @@ class NativeInteractions extends ScriptableService {
     public func ToggleAll(state: Bool) -> Void {};
 }
 
+@if(ModuleExists("Codeware"))
 @wrapMethod(WorldMappinsContainerController)
 public func CreateMappinUIProfile(mappin: wref<IMappin>, mappinVariant: gamedataMappinVariant, customData: ref<MappinControllerCustomData>) -> MappinUIProfile {
     let service = GameInstance.GetScriptableServiceContainer().GetService(n"NativeInteractions") as NativeInteractions;

@@ -15,8 +15,8 @@ module OdoHUD
 
 
 // ============================================================================
-// Lua -> Redscript bridge storage
-// Lua fills these rows through UISystem:VM_WorldLB_Clear / VM_WorldLB_SetRow
+// Runtime-to-UI bridge storage. VMRuntimeSystem fills these rows through
+// UISystem:VM_WorldLB_Clear / VM_WorldLB_SetRow.
 // ============================================================================
 
 @addField(UISystem)
@@ -118,7 +118,7 @@ public func VM_WorldLB_GetRow(index1: Int32) -> String {
 }
 
 // ============================================================================
-// Runtime transform bridge for CET console testing
+// Runtime transform bridge
 // Moves/scales the leaderboard content inside the world widget canvas.
 // ============================================================================
 
@@ -183,7 +183,7 @@ public func VM_WorldLB_ResetTransform() -> Void {
 
 // ============================================================================
 // Global 3D World style/config bridge
-// Lua writes these from the CET "3D World" tab.
+// VMRuntimeSystem writes these from the persisted 3D World settings.
 // ============================================================================
 
 @addField(UISystem)
@@ -284,7 +284,7 @@ public let vmWorldAux3ScaleMilli: Int32;
 public let vmWorldAux3Shown: Bool;
 
 // Aux dynamic text bridge.
-// Lua/CET can write text here without touching style/position config.
+// The runtime can write text here without touching style/position config.
 @addField(UISystem)
 public let vmWorldAux1Text: String;
 
@@ -943,7 +943,7 @@ private func EnsureAuxTexts() -> Void {
 	public func RefreshFromUISystem() -> Void {
 		this.EnsureLeaderboard();
 
-		// Apply live CET / vm_settings.json config.
+		// Apply live RedFileSystem vm_settings.json config.
 		this.ApplyLeaderboardScale();
 		this.ApplyLeaderboardStyle();
 		this.ApplyAuxTexts();
@@ -1020,7 +1020,7 @@ public class VMWorldLeaderboardService extends IScriptable {
 
 	private let tick: ref<VMWorldLeaderboardTick>;
 
-	// Fast while using CET sliders.
+	// Fast while using live configuration sliders.
 	private let tickPeriodFast: Float = 0.25;
 
 	// Slow normal idle refresh.

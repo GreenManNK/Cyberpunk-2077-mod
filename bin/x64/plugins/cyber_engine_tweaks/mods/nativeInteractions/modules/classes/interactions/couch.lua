@@ -48,8 +48,8 @@ end
 
 function couch:start()
     if not self.sceneRunning then
-        Game.GetQuestsSystem():SetFactStr("nif_couch_enable_tv_controls", self.enableTVControls and 1 or 0)
-        Game.GetQuestsSystem():SetFactStr("nif_couch_sit_type", self.sitType)
+        Game.GetQuestsSystem():SetFactStr("nif_tv_controls", self.enableTVControls and 1 or 0)
+        Game.GetQuestsSystem():SetFactStr("nif_sit_type", self.sitType)
     end
 
     workspot.start(self)

@@ -4,7 +4,7 @@ module VehicleMileage.Services
 // VMSettingsService
 // ----------------------------------------------------------------------------
 // Lightweight global settings store for the VehicleMileage HUD.
-// Lives on UISystem (as vmSettings) so both Lua (CET) and REDscript can read/write.
+// Lives on UISystem (as vmSettings) so the runtime and UI controllers share it.
 //
 // Stores:
 //   - HUD position (normalized 0..1): X (left→right), Y (bottom→top)
@@ -13,7 +13,7 @@ module VehicleMileage.Services
 //
 // Access patterns:
 //   - From REDscript: VMSettingsService.Svc() -> Get*/Set*()
-//   - From Lua/CET: Game.GetUISystem():VM_* helpers (see bottom of file)
+//   - Through UISystem: VM_* helpers (see bottom of file)
 // ============================================================================
 public class VMSettingsService extends IScriptable {
 
@@ -71,7 +71,7 @@ public class VMSettingsService extends IScriptable {
     this.ver += 1u;
   }
 
-  // --- Defaults (match CET-side defaults) ---
+  // --- Defaults (match VMSettings defaults) ---
   public func Reset() -> Void {
     // HUD defaults = your margins on 3840x2160
     this.hudX = 280.0 / 3840.0;
@@ -113,18 +113,18 @@ public class VMSettingsService extends IScriptable {
 
 
 // ============================================================================
-// UISystem storage & Lua/CET bridge
+// UISystem storage & runtime bridge
 // ----------------------------------------------------------------------------
-// Expose one shared instance on UISystem and provide friendly VM_* helpers
-// callable from Lua (e.g., Game.GetUISystem():VM_GetHUDPosX()).
+// Expose one shared instance on UISystem and provide VM_* helpers used by the
+// REDscript runtime and HUD controllers.
 // ============================================================================
 
-// Store a single instance on UISystem so Lua & HUD can always reach it
+// Store a single instance on UISystem so the runtime and HUD can reach it.
 @addField(UISystem)
 public let vmSettings: ref<VMSettingsService>;
 
 
-// --- Lua/CET bridge on UISystem (callable as Game.GetUISystem():VM_*) ---
+// --- Runtime bridge on UISystem ---
 
 @addMethod(UISystem)
 public final func VM_GetHUDPosX() -> Float {

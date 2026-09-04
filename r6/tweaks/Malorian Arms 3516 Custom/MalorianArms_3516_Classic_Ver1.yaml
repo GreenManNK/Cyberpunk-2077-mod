@@ -1,0 +1,267 @@
+Items.MalorianArms_3516_Classic_Ver1:
+  $base: Items.Preset_Silverhand_3516
+  tags:
+    - !append-once IconicWeapon
+  statModifiers: 
+    - !append-once Quality.IconicItem 
+    - !append-once Items.3516customstats_damage
+    - !append-once Items.3516customstats_rof
+    - !append-once Items.3516customstats_spread
+    - !append-once Items.3516customstats_mag
+    - !append-once Items.3516customstats_pierce
+    - !append-once Items.3516customstats_armor
+    - !append-once Items.3516customstats_crit
+    - !append-once Items.3516customstats_bleeding
+    - !append-once Items.3516customstats_burning
+    - !append-once Items.3516customstats_electrocute
+    - !append-once Items.3516customstats_poison
+    - !append-once Items.3516customstats_stun
+    - !append-once Items.3516customstats_headshotmult
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  appearanceResourceName: 3516custom_app
+  audioName: wea_set_silverhand
+  blueprint: Items.Iconic_Ranged_Weapon_Blueprint_3516custom
+  hudIcon:
+    atlasResourcePath: 3516custom\icon\3516custom_hud.inkatlas
+    atlasPartName: slot_01
+  icon:  
+    atlasResourcePath: 3516custom\icon\3516custom.inkatlas
+    atlasPartName: slot_01
+  quality: Quality.Legendary
+  displayName: 3516custom_name
+  localizedDescription: 3516custom_description
+  slotPartList:
+    - Items.Base_3516custom_inline3
+    - Items.Base_3516custom_inline5
+    - Items.Base_3516custom_inline7
+    - Items.Base_3516custom_inline9
+    - Items.RiflePossibleMuzzleBrakeList
+    - Items.RiflePossibleScopesList
+    - Items.HandgunPossibleScopesList
+    - Items.RangedWeaponPossibleMuzzleList
+    - Items.NekomataPossibleScopesList
+  slotPartListPreset:
+    - Items.Preset_3516custom_inline3
+    - Items.Preset_3516custom_inline4
+    - Items.Preset_3516custom_inline5
+    - Items.Preset_3516custom_inline6
+    - Items.Preset_Silverhand_3516_inline7
+  visualTags:
+    - Default
+
+#rcv
+Items.Base_3516custom_inline3:
+  $base: Items.Base_Silverhand_inline3
+  itemPartList:
+    - Items.Base_3516custom_inline4
+Items.Base_3516custom_inline4:
+  $base: Items.Base_Silverhand_inline4
+  item: Items.3516custom_rcv_prt
+Items.3516custom_rcv_prt:
+  $base: Items.w_handgun__malorian_silverhand__rcv1
+  appearanceResourceName: 3516custom_rcv
+#base
+Items.Base_3516custom_inline5:
+  $base: Items.Base_Silverhand_inline5
+  itemPartList:
+    - Items.Base_3516custom_inline6
+Items.Base_3516custom_inline6:
+  $base: Items.Base_Silverhand_inline6
+  item: Items.3516custom_base_prt
+Items.3516custom_base_prt:
+  $base: Items.w_handgun__malorian_silverhand__base1
+  appearanceResourceName: 3516custom_base
+#mag
+Items.Base_3516custom_inline7:
+  $base: Items.Base_Silverhand_inline7
+  itemPartList:
+    - Items.Base_3516custom_inline8
+Items.Base_3516custom_inline8:
+  $base: Items.Base_Silverhand_inline8
+  item: Items.3516custom_std_prt
+Items.3516custom_std_prt:
+  $base: Items.w_handgun__malorian_silverhand__mag_std
+  appearanceResourceName: 3516custom_mag_std
+#reload
+Items.Base_3516custom_inline9:
+  $base: Items.Base_Silverhand_inline9
+  itemPartList:
+    - Items.Base_3516custom_inline10
+Items.Base_3516custom_inline10:
+  $base: Items.Base_Silverhand_inline10
+  item: Items.3516custom_stdr_prt
+Items.3516custom_stdr_prt:
+  $base: Items.w_handgun__malorian_silverhand__mag_stdr
+  appearanceResourceName: 3516custom_mag_stdr
+  
+#preset
+Items.Preset_3516custom_inline3:
+  $base: Items.Preset_Silverhand_3516_inline3
+  itemPartPreset: Items.3516custom_rcv_prt
+Items.Preset_3516custom_inline4:
+  $base: Items.Preset_Silverhand_3516_inline4
+  itemPartPreset: Items.3516custom_base_prt
+Items.Preset_3516custom_inline5:
+  $base: Items.Preset_Silverhand_3516_inline5
+  itemPartPreset: Items.3516custom_std_prt
+Items.Preset_3516custom_inline6:
+  $base: Items.Preset_Silverhand_3516_inline6
+  itemPartPreset: Items.3516custom_stdr_prt
+Items.Preset_3516custom_inline7:
+  $base: Items.Preset_Silverhand_3516_inline7
+  itemPartPreset: Items.3516custom_base_prt
+  
+# Weapon stats
+Items.3516customstats_damage:
+  $type: gamedataConstantStatModifier_Record
+  value: 8                                           #CHANGE DAMAGE VALUE - LOWER NUMBER=LOWER DAMAGE, HIGHER NUMBER=HIGHER DAMAGE.
+  modifierType: Additive
+  statType: BaseStats.DPS
+  
+Items.3516customstats_rof:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.00                                        #CHANGE RATE OF FIRE- HIGHER NUMBER=LOWER ROF, LOWER NUMBER=HIGHER ROF (TRY TO KEEP THIS VALUE BETWEEN "-0.15" AND "0.15")
+  modifierType: Additive
+  statType: BaseStats.CycleTimeBase
+  
+Items.3516customstats_mag:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE MAG CAPACITY - 0=DEFAULT (10 ROUNDS)  EXAMPLE: IF YOU WANT 12 ROUNDS YOU WOULD PUT "2" AS THE VALUE
+  modifierType: Additive
+  statType: BaseStats.MagazineCapacityBase
+  
+Items.3516customstats_pierce:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #ENABLE/DISABLE WEAPON PIERCE - 0=DISABLED, 1=ENABLED
+  modifierType: Additive
+  statType: BaseStats.TechPierceEnabled
+  
+Items.3516customstats_crit:
+  $type: gamedataConstantStatModifier_Record
+  value: 5                                            #CHANGE CRIT CHANCE - THE NUMBER YOU INPUT WILL BE THE CRIT CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.CritChance
+  
+Items.3516customstats_stun:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE STUN CHANCE - THE NUMBER YOU INPUT WILL BE THE STUN CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.StunApplicationRate
+  
+Items.3516customstats_poison:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE POISON CHANCE - THE NUMBER YOU INPUT WILL BE THE POISON CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.PoisonedApplicationRate
+  
+Items.3516customstats_electrocute:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE ELECTROCUTE CHANCE - THE NUMBER YOU INPUT WILL BE THE ELECTROCUTE CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.ElectrocutedApplicationRate
+  
+Items.3516customstats_bleeding:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE BLEEDING CHANCE - THE NUMBER YOU INPUT WILL BE THE BLEEDING CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.BleedingApplicationRate
+  
+Items.3516customstats_burning:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE BURNING CHANCE - THE NUMBER YOU INPUT WILL BE THE BURNING CHANCE PERCENTAGE
+  modifierType: Additive
+  statType: BaseStats.BurningApplicationRate
+  
+Items.3516customstats_headshotmult:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE HEADSHOT DAMAGE PERCENTAGE - 0=DEFAULT (150% Headshot Damage)  EXAMPLE: "-1.5=0%",  "-1=50%",  "-0.5=100%",  "0=150%",  "1=250%",  "2=350%",  "3=450%"
+  modifierType: Additive
+  statType: BaseStats.HeadshotDamageMultiplier
+
+Items.3516customstats_spread:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #ENABLE/DISABLE ADS BULLET SPREAD - "-1=WEAPON SPREAD DISABLED",  "0=WEAPON SPREAD ENABLED"  ONLY EFFECTS BULLET SPREAD WHILE AIMING
+  modifierType: Additive
+  statType: BaseStats.SpreadUseInAds
+  
+Items.3516customstats_armor:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.50                                        #CHANGE ARMOR PENETRATION PERCENTAGE - 0=DEFAULT (50% ARMOR PENETRATION)  EXAMPLE: "0=50%", "0.25=75%",  "0.50=100%"
+  modifierType: Additive
+  statType: BaseStats.CanWeaponIgnoreArmor
+
+#blueprint
+Items.Iconic_Ranged_Weapon_Blueprint_3516custom:
+  $type: gamedataItemBlueprint_Record
+  rootElement: Items.Iconic_Ranged_Weapon_Blueprint_inline0_3516custom
+  
+Items.Iconic_Ranged_Weapon_Blueprint_inline0_3516custom:
+  $type: gamedataItemBlueprintElement_Record
+  slot: AttachmentSlots.Receiver
+  childElements:
+    - Items.IconicRangedWeaponModElement
+    - Items.Power_Handgun_WeaponMod1Element
+    - Items.Power_Handgun_WeaponMod2Element
+    - Items.Iconic_Ranged_Weapon_Blueprint_inline1
+    - Items.Iconic_Ranged_Weapon_Blueprint_inline2
+    - Items.Iconic_Ranged_Weapon_Blueprint_inline3
+
+
+#vendors
+Vendors.pac_wwd_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.hey_rey_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+
+Vendors.wbr_jpn_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.wat_nid_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.wat_lch_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.wat_kab_gunsmith_02:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.wat_kab_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.hey_gle_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.hey_spr_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.std_arr_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.std_rcr_gunsmith_01:
+  itemStock:
+    - !append Items.3516custom_stock
+    
+Vendors.cct_dtn_guns_01:
+  itemStock:
+    - !append Items.3516custom_stock
+
+Items.3516custom_stock:
+  $type: VendorItem
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_3_Start_Prereq
+  item: Items.MalorianArms_3516_Classic_Ver1
+  quantity:
+    - !append Vendors.Always_Present
+ 

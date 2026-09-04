@@ -1,0 +1,34 @@
+DeviceAction.SongsDeckDoorHack:
+  $base: DeviceAction.QuickHackToggleOpen
+  actionName: SongsDeckDoorHack
+  objectActionUI: Interactions.SongsDeckDoorHack
+  objectActionType: ObjectActionType.DeviceQuickHack
+  # $base drags these in; the effect belongs to init.lua alone, and the target-side
+  # prereqs are what would otherwise re-block unnetworked devices
+  startEffects: []
+  completionEffects: []
+  targetPrereqs: []
+  targetActivePrereqs: []
+
+DeviceAction.SongsDeckCameraHack:
+  $base: DeviceAction.TakeControlCameraClassHack
+  actionName: SongsDeckCameraHack
+  objectActionUI: Interactions.SongsDeckCameraHack
+  objectActionType: ObjectActionType.DeviceQuickHack
+  startEffects: []
+  completionEffects: []
+  targetPrereqs: []
+  targetActivePrereqs: []
+
+
+Interactions.SongsDeckDoorHack:
+  $base: Interactions.HackOpen
+  captionIcon: ChoiceCaptionParts.BlackwallBreachIcon
+  caption: LocKey#songsdeck_doorhack_name
+  description: LocKey#songsdeck_doorhack_desc
+
+Interactions.SongsDeckCameraHack:
+  $base: Interactions.TakeControlCameraHack
+  captionIcon: ChoiceCaptionParts.BlackwallBreachIcon
+  caption: LocKey#songsdeck_camerahack_name
+  description: LocKey#songsdeck_camerahack_desc
