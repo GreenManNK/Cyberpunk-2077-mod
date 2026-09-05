@@ -9,6 +9,7 @@ import NightCityAllies.Event.*
 import NightCityAllies.Timer.*
 import NightCityAllies.Location.*
 import NightCityAllies.Location.Entity.*
+import NightCityAllies.Equipment.*
 
 // 
 // Manages spawning and despawning NPCs
@@ -120,8 +121,9 @@ public class NpcManager extends ScriptableSystem {
 
         let handle = new NpcHandle();
         handle.recordID = recordID;
-        handle.archetype = TweakDBInterface.GetCharacterRecord(recordID).ArchetypeName();
         handle.LoadCompanionData();
+
+        NCA.Equipment().PrepareCharacter(recordID);
 
         ArrayPush(this.m_npcs, handle);
 
@@ -305,9 +307,9 @@ public class NpcManager extends ScriptableSystem {
         let playerPos = player.GetWorldPosition();
 
         let attempt: Int32 = 0;
-        while attempt < NpcManager.GetSpawnMaxAttempts() {
+        while attempt < NCAConstants.SpawnMaxAttempts() {
             let angle = Deg2Rad(RandRangeF(0.0, 360.0));
-            let distance = RandRangeF(NpcManager.GetSpawnMinDistance(), NpcManager.GetSpawnMaxDistance());
+            let distance = RandRangeF(NCAConstants.SpawnMinDistance(), NCAConstants.SpawnMaxDistance());
             let probe = playerPos + new Vector4(CosF(angle) * distance, SinF(angle) * distance, 0.0, 0.0);
 
             let result = navigationSystem.FindPointInSphereForCharacter(probe, 5.0, player);
@@ -323,13 +325,9 @@ public class NpcManager extends ScriptableSystem {
         return false;
     }
 
-    private static func GetSpawnMinDistance() -> Float = 15.0;
-    private static func GetSpawnMaxDistance() -> Float = 30.0;
-    private static func GetSpawnMaxAttempts() -> Int32 = 12;
-
     // TODO move to util
     private func FindCrowdMemberPosition(player: ref<ScriptedPuppet>, out pos: Vector4) -> Bool {
-        let npcs: array<ref<NPCPuppet>> = player.GetNPCsAroundObject(NpcManager.GetSpawnMaxDistance());
+        let npcs: array<ref<NPCPuppet>> = player.GetNPCsAroundObject(NCAConstants.SpawnMaxDistance());
         let playerPos = player.GetWorldPosition();
         let candidates: array<Vector4>;
 
@@ -338,7 +336,7 @@ public class NpcManager extends ScriptableSystem {
             let npc = npcs[i];
             if IsDefined(npc) && IsDefined(npc.GetCrowdMemberComponent()) {
                 // Far enough that they are not appearing in our face.
-                if Vector4.Distance(playerPos, npc.GetWorldPosition()) > NpcManager.GetSpawnMinDistance() {
+                if Vector4.Distance(playerPos, npc.GetWorldPosition()) > NCAConstants.SpawnMinDistance() {
                     ArrayPush(candidates, npc.GetWorldPosition());
                 }
             }

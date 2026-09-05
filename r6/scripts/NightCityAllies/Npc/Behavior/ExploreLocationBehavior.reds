@@ -10,20 +10,6 @@ import NightCityAllies.Event.*
 
 public class NCAExploreLocationBehavior extends NCABehavior {
     public func GetName() -> String = "ExploreLocation";
-    private static func GetMinInteractionTime() -> Float = 30.0;   // shortest stay at one interaction point
-    private static func GetMaxInteractionTime() -> Float = 120.0;  // longest stay at one interaction point
-    private static func GetSearchRetryTime() -> Float = 10.0;      // wait before looking for a free point again
-    private static func GetWalkToRandomPropTime() -> Float = 1.5;  // how long to walk towards a random prop
-    private static func GetMoveGiveUpTime() -> Float = 30.0;       // how long a walk across the location to an interaction gets before it counts as failed TODO maybe add "isWalking" probe, observe how it behaves
-    private static func GetExitGiveUpTime() -> Float = 5.0;        // the walk back out is only a step or two, so it fails much sooner
-    private static func GetArrivalDistance() -> Float = 1.25;      // start animation when this far from the walk target
-    private static func GetExitArrivalDistance() -> Float = 0.5;   // they have to be properly back out before moving on
-    private static func GetLocationEntryDelay() -> Float = 5.0;    // settle time after walking in, before heading anywhere
-    private static func GetEntryFollowDistance() -> Float = 3.0;   // how close squad members stay to V during the settle time
-    private static func GetEntryFollowTolerance() -> Float = 1.0;
-    private static func GetNavmeshSnapRadius() -> Float = 3.0;      // How far beside an interaction its stand-in point may be and still count as being at the prop
-    private static func GetPathNodeArrivalDistance() -> Float = 1.25;
-    private static func GetPathNodeGiveUpTime() -> Float = 15.0;
 
     protected let m_location: ref<NCALocation>;
     protected let m_state: Int32; // 0 = idle, 1 = moving to interaction, 2 = interacting, 3 = leaving, 4 = walking back out
@@ -64,10 +50,10 @@ public class NCAExploreLocationBehavior extends NCABehavior {
     public func OnAttach() -> Void {
         if (!this.ResumeSavedInteraction()) {
             this.SetState(0);
-            this.m_timeout = NCAExploreLocationBehavior.GetLocationEntryDelay();
+            this.m_timeout = NCAConstants.LocationEntryDelay();
 
             if (this.m_npcHandle.IsSquad()) {
-                this.FollowTarget(NCA.Player(), NCAExploreLocationBehavior.GetEntryFollowDistance(), NCAExploreLocationBehavior.GetEntryFollowTolerance(), moveMovementType.Walk);
+                this.FollowTarget(NCA.Player(), NCAConstants.EntryFollowDistance(), NCAConstants.EntryFollowTolerance(), moveMovementType.Walk);
             }
         }
         this.SetCurrentLocation(this.m_location.tag);
@@ -177,7 +163,7 @@ public class NCAExploreLocationBehavior extends NCABehavior {
             return super.GetSyncedRoutines();
         }
 
-        return NCA.Animation().GetSyncedRoutines(type, this.m_npcHandle.rig, NCA.Util().GetPlayerRig());
+        return NCA.Animation().GetSyncedRoutines(type, this.m_npcHandle.GetRig(), NCA.Util().GetPlayerRig());
     }
 
     public func PlaySyncedRoutine(routine: ref<NCARoutine>) -> Bool {
@@ -217,7 +203,7 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         }
 
         if (!this.StartInteraction(null)) {
-            this.m_timeout = NCAExploreLocationBehavior.GetSearchRetryTime();
+            this.m_timeout = NCAConstants.SearchRetryTime();
         }
     }
 
@@ -279,10 +265,10 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         }
 
         if (Equals(step, NCAApproachStep.Failed)) {
-            NCA.CETLog("WARNING Never made it out of " + NameToString(this.m_currentProp.tag) + ", still "
-                + FloatToString(Vector4.Distance(this.m_npcHandle.GetEntity().GetWorldPosition(), this.m_walkTarget))
-                + "m from the walk target after "
-                + FloatToString(NCAExploreLocationBehavior.GetExitGiveUpTime()) + "s, giving up");
+            //NCA.CETLog("WARNING Never made it out of " + NameToString(this.m_currentProp.tag) + ", still "
+            //    + FloatToString(Vector4.Distance(this.m_npcHandle.GetEntity().GetWorldPosition(), this.m_walkTarget))
+            //    + "m from the walk target after "
+            //    + FloatToString(NCAConstants.ExitGiveUpTime()) + "s, giving up");
             this.ReleaseInteraction();
             this.EnterIdle();
         }
@@ -306,8 +292,8 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         // back to entry point
         let approach = NCAApproach.Create();
         approach.AddLeg(this.m_walkTarget, true,
-            NCAExploreLocationBehavior.GetExitArrivalDistance(),
-            NCAExploreLocationBehavior.GetExitGiveUpTime());
+            NCAConstants.ExitArrivalDistance(),
+            NCAConstants.ExitGiveUpTime());
 
         this.SetState(4);
         this.StartApproach(approach);
@@ -392,7 +378,7 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         prop.OccupyInteractionPoint(interaction);
         this.SetCurrentSpot(prop.tag, index);
 
-        this.m_hasWalkTarget = NCA.Util().FindNavmeshPointNear(this.m_npcHandle.GetEntity(), interaction.pos, NCAExploreLocationBehavior.GetNavmeshSnapRadius(), this.m_walkTarget);
+        this.m_hasWalkTarget = NCA.Util().FindNavmeshPointNear(this.m_npcHandle.GetEntity(), interaction.pos, NCAConstants.NavmeshSnapRadius(), this.m_walkTarget);
         this.SetState(2);
         this.ResetInteractionTimer();
         return true;
@@ -419,7 +405,7 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         }
 
         let routine: ref<NCARoutine>;
-        if (!NCA.Animation().GetSoloRoutine(this.m_currentInteraction.type, this.m_npcHandle.rig, routine)) {
+        if (!NCA.Animation().GetSoloRoutine(this.m_currentInteraction.type, this.m_npcHandle.GetRig(), routine)) {
             return false;
         }
 
@@ -433,8 +419,8 @@ public class NCAExploreLocationBehavior extends NCABehavior {
     private func EnterIdle() -> Void {
         this.m_approach = null;
         this.SetState(0);
-        this.m_timeout = NCAExploreLocationBehavior.GetSearchRetryTime();
-        this.m_walkTimeout = NCAExploreLocationBehavior.GetWalkToRandomPropTime(); // for exit move command
+        this.m_timeout = NCAConstants.SearchRetryTime();
+        this.m_walkTimeout = NCAConstants.WalkToRandomPropTime(); // for exit move command
     }
 
     private func ReleaseInteraction(opt isDetaching: Bool) -> Void {
@@ -463,8 +449,8 @@ public class NCAExploreLocationBehavior extends NCABehavior {
     private func ResetInteractionTimer() -> Void {
         this.m_interactionTime = 0.0;
         this.m_interactionDuration = RandRangeF(
-            NCAExploreLocationBehavior.GetMinInteractionTime(),
-            NCAExploreLocationBehavior.GetMaxInteractionTime()
+            NCAConstants.MinInteractionTime(),
+            NCAConstants.MaxInteractionTime()
         );
     }
 
@@ -496,7 +482,7 @@ public class NCAExploreLocationBehavior extends NCABehavior {
         while ArraySize(candidateInteractions) > 0 {
             randIndex = RandRange(0, ArraySize(candidateInteractions));
 
-            if !NCA.Animation().HasSoloRoutineForRig(candidateInteractions[randIndex].type, this.m_npcHandle.rig) {
+            if !NCA.Animation().HasSoloRoutineForRig(candidateInteractions[randIndex].type, this.m_npcHandle.GetRig()) {
             } else if this.BuildApproach(entity, candidateProps[randIndex], candidateInteractions[randIndex], approach, walkTarget) {
                 prop = candidateProps[randIndex];
                 interaction = candidateInteractions[randIndex];
@@ -530,13 +516,13 @@ public class NCAExploreLocationBehavior extends NCABehavior {
 
         if IsDefined(path) {
             approach.AddPathNodes(path.nodes,
-                NCAExploreLocationBehavior.GetPathNodeArrivalDistance(),
-                NCAExploreLocationBehavior.GetPathNodeGiveUpTime());
+                NCAConstants.PathNodeArrivalDistance(),
+                NCAConstants.PathNodeGiveUpTime());
         }
 
         approach.AddLeg(walkTarget, walkDirect,
-            NCAExploreLocationBehavior.GetArrivalDistance(),
-            NCAExploreLocationBehavior.GetMoveGiveUpTime());
+            NCAConstants.ArrivalDistance(),
+            NCAConstants.MoveGiveUpTime());
 
         return true;
     }
@@ -549,12 +535,12 @@ public class NCAExploreLocationBehavior extends NCABehavior {
             return;
         }
 
-        if NCA.Util().FindNavmeshPointNear(entity, interaction.pos, NCAExploreLocationBehavior.GetNavmeshSnapRadius(), walkTarget)
+        if NCA.Util().FindNavmeshPointNear(entity, interaction.pos, NCAConstants.NavmeshSnapRadius(), walkTarget)
         && AINavigationSystem.HasPathFromAtoB(entity, GetGameInstance(), from, walkTarget) {
             return;
         }
 
-        //NCA.CETLog("WARNING No path to the interaction and nothing walkable within " + FloatToString(NCAExploreLocationBehavior.GetNavmeshSnapRadius()) + "m of it, going straight at it instead");
+        //NCA.CETLog("WARNING No path to the interaction and nothing walkable within " + FloatToString(NCAConstants.NavmeshSnapRadius()) + "m of it, going straight at it instead");
         walkTarget = interaction.pos;
         walkDirect = true;
     }

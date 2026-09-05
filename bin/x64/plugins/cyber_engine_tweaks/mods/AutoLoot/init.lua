@@ -24,7 +24,7 @@ The translations must follow the Nexusmods translation publishing rules.
 -- DO NOT TRANSLATE THIS FILE!
 -- Translation support is described in the file: "..\Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\mods\AutoLoot\language\Readme.txt"
 
--- Aug 15, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
+-- Sep 4, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
 
 -------------
 
@@ -49,8 +49,8 @@ end)))
 local isGameV2 = cetVer >= 1.26
 
 local autoLoot = {
-	modVer = 'v3.10.5',
-	moduleVer = 'v3.10.5',
+	modVer = 'v3.11.0',
+	moduleVer = 'v3.11.0',
 	modName = 'Autoloot',
 	modAuthorName = 'keanuWheeze idea and initial coding - anygoodname expansion and additional coding',
 
@@ -75,6 +75,7 @@ local autoLoot = {
 		enableTakedownLoot = false,
 		enableBurstTrigger = false,
 		burstTriggerCooldownTime = 60,
+		limitOnLootAutosaves = true,
 	},
 
 	CPS = require("CPStyling"),

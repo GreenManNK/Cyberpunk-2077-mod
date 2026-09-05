@@ -23,13 +23,13 @@ The translations must follow the Nexusmods translation publishing rules.
 
 -- THIS MODULE DOES NOT SUPPORT TRANSLATIONS IN IT'S CURRENT SHAPE
 
--- Aug 15, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
+-- Sep 4, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
 -- Uses (c)psiberx code snippets and libraries on his license.
 
 
 logic = {
-			modVer = 'v3.10.5',
-			moduleVer = 'v3.10.5',
+			modVer = 'v3.11.0',
+			moduleVer = 'v3.11.0',
 			modName = 'Autoloot',
 			modAuthorName = 'keanuWheeze and anygoodname',
 			lastLootCompletedTime = 0,
@@ -258,6 +258,7 @@ local tableInsert = table.insert
 local stringMatch = string.match
 local stringFind = string.find
 
+local savelockTimeout = 0
 local isGameV23
 local psilcLookup = {}
 local psiLookup = {}
@@ -549,6 +550,29 @@ function setObservers()
 		lastTakedownTargetPos = this:GetWorldPosition()
 		player:StartCooldown(lastLootedTakedownCooldownName, 3)
 	end)
+	if gameAutoSaveSystem and gameAutoSaveSystem.RequestCheckpoint then
+		local RPGManagerGetItemDataQuality = RPGManager.GetItemDataQuality
+		local gamedataQualityLegendary = gamedataQuality.Legendary
+		local gamedataQualityIconic = gamedataQuality.Iconic
+		local ItemIDIsValid = ItemID.IsValid
+		local shouldBlockAutosave = false
+		ObserveBefore("PlayerPuppet", "OnItemAddedToInventory", function(this, evt)
+			shouldBlockAutosave = false
+			if os.clock() > savelockTimeout then return end
+			if not ItemIDIsValid(evt.itemID) then return end
+			local itemQuality = RPGManagerGetItemDataQuality(evt.itemData);
+			if itemQuality == gamedataQualityLegendary or itemQuality == gamedataQualityIconic then
+				shouldBlockAutosave = true
+			end
+		end)
+		Override("gameAutoSaveSystem", "RequestCheckpoint", function(this, wrapped)
+			if shouldBlockAutosave then
+				shouldBlockAutosave = false
+				return true
+			end
+			return wrapped()
+		end)
+	end
 	local psilc = {
 		{position = Vector4new(3739.2185, 818.25415, 135.05168, 1)},
 		{position = Vector4new(-632.92017, 773.5254, 132.27121, 1)},
@@ -960,10 +984,16 @@ function setObservers()
 		{position = Vector4new(-2220.0601, -2920.4004, 109.1700, 1)},
 		{position = Vector4new(-2209.3909, -2917.4067, 107.9900, 1), lrsq = 4, pdt = 1},
 		{position = Vector4new(-2209.3909, -2917.4067, 107.9900, 1), lrsq = 4, pdt = 1},
+		{position = Vector4new(-1983.6299, -2727.6199, 68.509995, 1), lrsq = 25},
 		{position = Vector4new(-2018.5375, -2793.8574, 92.5260, 1), lrsq = 9},
 		{position = Vector4new(-1457.5702, -2685.9893, 90.78, 1), lrsq = 25,  pdt = 1},
 		{position = Vector4new(-1457.5702, -2685.9893, 90.78, 1), lrsq = 25,  pdt = 1},
 		{position = Vector4new(-1536.9404, -2600.9902, 85.71, 1), lrsq = 25},
+		{position = Vector4new(-1516.4203, -2468.34, 83.18999, 1), lrsq = 16},
+		{position = Vector4new(-1519.0621, -2465.0647, 84.21709, 1), lrsq = 16},
+		{position = Vector4new(-1516.5565, -2462.7822, 84.11586, 1), lrsq = 25},
+		{position = Vector4new(-1913.2229, -2740.9272, 63.9050, 1), lrsq = 25},
+		{position = Vector4new(-1369.0045, -1956.1155, 88.28613, 1), lrsq = 25},
 		{position = Vector4new(3193.9905, -2090.7122, 118.49533, 1), lrsq = 25},
 		{position = Vector4new(3194.1094, -2089.4258, 118.43974, 1), lrsq = 25},
 		{position = Vector4new(3195.4158, -2091.6897, 118.49533, 1), lrsq = 25},
@@ -1136,6 +1166,7 @@ function setObservers()
 		t(4051939949, 19),
 		t(2894998260, 32),
 		t(3479250575, 25),
+		t(186152825, 40),
 		t(0xFF9F289C, 18),
 		t(0x66967926, 18),
 		t(0x119149B0, 18),
@@ -1442,6 +1473,7 @@ function setObservers()
 		t(968495751, 29),
 		t(1851549978, 40),
 		t(1845554939, 35),
+		t(0x40A03403, 32),
 	}
 	for i, entry in pairs(psnpcs) do
 		local k = tonumber(entry.hash)
@@ -1498,6 +1530,7 @@ function addToObjectMappins(owner, mappinObjectRef, forceNew)
 	local payload = function()
 		local result, data = pcall(function()
 			local ownerItemData = owner:GetItemData()
+			savelockTimeout = os.clock() + 0.05
 			if transactionSystem:TransferAllItems(parent, player) then
 				if objectMappins[ownerHashStr] then objectMappins[ownerHashStr].isNew = false end
 				if ownerItemData then audioSystem:PlayItemLootedSound(ownerItemData) end
@@ -1805,6 +1838,7 @@ local function isStringValid(input)
 	if type(input) ~= 'string' then return end
 	return stringLen(input) > 0
 end
+
 function lootObjectItems(gameObj, forceShard, fqa, skipPreCheck, playerPos)
 	if not skipPreCheck then
 		if not isObjectOfInterest(gameObj) then return lootResult.notLootObject end
@@ -1948,6 +1982,7 @@ function lootObjectItems(gameObj, forceShard, fqa, skipPreCheck, playerPos)
 			end
 
 			if (not isHeavyWeaponItem) and (not isItemWeaponGradeProtected) and (not isItemQuestProtected) then
+				savelockTimeout = os.clock() + 0.05
 				if transactionSystem:TransferItem(gameObj, player, itemId, item:GetQuantity()) then
 					lootedItems = lootedItems + 1
 				end

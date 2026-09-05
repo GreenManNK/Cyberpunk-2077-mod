@@ -22,7 +22,7 @@ public class V1_2_0 extends Migration {
         // Set all companions to base exp
         let i: Int32 = 0;
         while i < ArraySize(NCA.Persistence().m_companionRegistry) {
-            NCA.Persistence().m_companionRegistry[i].exp = Cast<Int32>(ExpLogic.GetBaseXP());
+            NCA.Persistence().m_companionRegistry[i].exp = Cast<Int32>(NCAConstants.BaseXP());
             i += 1;
         }
 
@@ -56,27 +56,9 @@ public class V1_3_4 extends Migration {
 }
 
 public class V1_4_4 extends Migration {
-    // Up to 1.4.3 finishing an unlock conversation did not actually unlock the character:
-    // the ConversationFinished handler in init.lua compared a CName against a Lua String, which is
-    // never equal, so NCA:UnlockCharacter() was never reached. Players who declined the immediate
-    // "commute" option were left with a finished conversation and a permanently locked character.
-    //
-    // Repair those saves: a finished unlock conversation means the character was earned.
-    // Only Locked is touched - every other spawn state is left exactly as it is.
-    //
-    // Any finished conversation counts as an unlock conversation here, which is safe because a
-    // conversation can only be triggered while the character is Standby (= already unlocked), or
-    // while Locked if its trigger has allowForLocked - and only unlock conversations get that, via
-    // NCA:UnlockConversation. So "finished conversation + still Locked" can only mean the unlock
-    // never applied.
     // (!) If a conversation is ever added that can be finished BEFORE its character is unlocked
     // (allowLocked = true on NCA:SetConversationTrigger, or NCA:UnlockConversation(id, true)), this
-    // would unlock that character by mistake and the migration needs an explicit unlock-conversation
-    // flag instead.
-    //
-    // Characters that are supposed to be locked again by a quest (currently only Jackie, after the
-    // Heist) are re-locked by the OnQuestComplete() pass at the end of EventBus.OnSessionStart,
-    // which runs after Migrations.Run() in the same session start.
+    // would unlock that character by mistake and the migration needs an explicit unlock-conversation flag instead
     public func Run() -> Void {
         let ps: ref<PersistenceSystem> = NCA.Persistence();
         let recordID: TweakDBID;

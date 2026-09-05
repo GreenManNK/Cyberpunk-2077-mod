@@ -17,12 +17,6 @@ end
 
 function App:OnSessionStart()
     local NCA = GetMod("NightCityAllies")
-    
-    --local ids = {}; 
-    --for _, r in ipairs(TweakDB:GetRecords("gamedataCharacter_Record")) do 
-    --    table.insert(ids, r:GetID()) 
-    --end
-    --Game.GetScriptableSystemsContainer():Get("NightCityAllies.Loader.TweakDBScanner"):ProcessBatch(ids)
 
     -- legacy & amm loader
     for _, foundChar in ipairs(self.availableNPCs) do

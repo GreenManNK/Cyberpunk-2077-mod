@@ -50,14 +50,9 @@ public abstract class NCABehavior extends IScriptable {
     private let m_requestedDelay: Float;    // what it was booked for, so lateness can be measured
     private let m_scheduleDebt: Float;      // accumulated scheduler lateness, still to be paid back
 
-    private static func GetWorkspotHandoverDelay() -> Float = 0.3;
-
     private static func GetClipLead(duration: Float) -> Float {
         return duration * 0.5;
     }
-
-    private static func GetMinBooking() -> Float = 0.1;
-    private static func GetInterruptGrace() -> Float = 0.5;
 
     public func Attach(npcHandle: ref<NpcHandle>, aiController: ref<AIHumanComponent>) -> Void {
         this.m_npcHandle = npcHandle;
@@ -113,7 +108,7 @@ public abstract class NCABehavior extends IScriptable {
 
         return NCA.Animation().GetSyncedRoutines(
             NCAAnimationSystem.StandingType(),
-            this.m_npcHandle.rig,
+            this.m_npcHandle.GetRig(),
             NCA.Util().GetPlayerRig()
         );
     }
@@ -313,7 +308,7 @@ public abstract class NCABehavior extends IScriptable {
 
     private func FinishRoutine() -> Void {
         let remaining: Float = (this.m_clipStartedAt + this.m_clipDuration) - NCA.Util().Now();
-        if remaining > NCABehavior.GetMinBooking() {
+        if remaining > NCAConstants.MinBooking() {
             this.m_routineToken += 1;
             GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(
                 NCARoutineFinishDelayCallback.Create(this, this.m_routineToken),
@@ -353,7 +348,7 @@ public abstract class NCABehavior extends IScriptable {
     private func ScheduleRoutineAdvance(delay: Float) -> Void {
         this.m_routineToken += 1;
 
-        let corrected: Float = MaxF(delay - this.m_scheduleDebt, NCABehavior.GetMinBooking());
+        let corrected: Float = MaxF(delay - this.m_scheduleDebt, NCAConstants.MinBooking());
         this.m_scheduleDebt -= (delay - corrected);   // only drain what was actually applied
 
         this.m_askedAt = NCA.Util().Now();
@@ -414,7 +409,7 @@ public abstract class NCABehavior extends IScriptable {
     public func IsPerformingWithPlayer() -> Bool {
         return this.m_routineRunning
             && this.IsPlayerPartner()
-            && (NCA.Util().Now() - this.m_routineStartedAt) >= NCABehavior.GetInterruptGrace();
+            && (NCA.Util().Now() - this.m_routineStartedAt) >= NCAConstants.InterruptGrace();
     }
 
     public func StopPerformanceWithPlayer() -> Bool {
@@ -496,9 +491,9 @@ public abstract class NCABehavior extends IScriptable {
         this.m_clipNextGroup = animation.nextGroup;
 
         let respawned: Bool = this.MoveToClip(animation);
-        let startsIn: Float = respawned ? NCABehavior.GetWorkspotHandoverDelay() : this.m_clipLead;
+        let startsIn: Float = respawned ? NCAConstants.WorkspotHandoverDelay() : this.m_clipLead;
         let lead: Float = NCABehavior.GetClipLead(animation.duration);
-        let delay: Float = MaxF(startsIn + animation.duration - lead, NCABehavior.GetMinBooking());
+        let delay: Float = MaxF(startsIn + animation.duration - lead, NCAConstants.MinBooking());
 
         this.m_clipStartedAt = NCA.Util().Now() + startsIn;
         this.m_clipDuration = animation.duration;
@@ -533,7 +528,7 @@ public abstract class NCABehavior extends IScriptable {
 
         GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(
             NCASpawnClipDelayCallback.Create(this, this.m_clipToken),
-            NCABehavior.GetWorkspotHandoverDelay(),
+            NCAConstants.WorkspotHandoverDelay(),
             false
         );
 

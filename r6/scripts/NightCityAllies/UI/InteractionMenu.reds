@@ -21,12 +21,14 @@ public class NCAInteractionMenu extends ScriptableSystem {
     private let m_lookAtNpc: ref<NpcHandle>;
     private let m_activeNpc: ref<NpcHandle>;
     private let m_isCollapsed: Bool;
+    private let m_collapsedGearRow: Int32;
     private let m_buttonNpc: ref<NpcHandle>;
     private let m_nativeHubCount: Int32;
     private let m_nativePromptActive: Bool;
     private let m_nativePromptId: Int32;
     private let m_inDialogsEvent: Bool;
     private let m_nativeLootActive: Bool;
+    private let m_suppressed: Bool;
     private let m_entries: array<ref<NCAInteractionEntry>>;
     private let m_pageEntries: array<ref<NCAInteractionEntry>>;
     private let m_pageTitle: String;
@@ -35,7 +37,6 @@ public class NCAInteractionMenu extends ScriptableSystem {
     private let m_visibleRows: array<Int32>;
     private let m_scrollOffset: Int32;
     private let m_totalRows: Int32;
-
 
     public func OpenPage(title: String, entries: array<ref<NCAInteractionEntry>>) -> Void {
         if !IsDefined(this.m_activeNpc) {
@@ -54,7 +55,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
     private let m_luaEntries: array<ref<NCALuaInteractionEntry>>;
     private let m_luaToken: Int32;
     private let m_isRootPage: Bool;
-    private let m_isAskingLua: Bool;
+    private let m_isBuildingPage: Bool;
 
     public func AddLuaEntry(token: Int32, id: Int32, label: String, icon: TweakDBID, choiceType: gameinteractionsChoiceType) -> Void {
         if token != this.m_luaToken || !IsDefined(this.m_activeNpc) {
@@ -63,7 +64,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
         ArrayPush(this.m_luaEntries, NCALuaInteractionEntry.Create(id, label, icon, choiceType));
 
-        if !this.m_isAskingLua {
+        if !this.m_isBuildingPage {
             this.RefreshFor(this.m_activeNpc);
         }
     }
@@ -84,12 +85,8 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
     public func GetSelectedIndex() -> Int32 = this.m_selectedIndex
 
-    public func IsActive() -> Bool {
-        return this.m_isShown;
-    }
-
     public func CursorIsOurs() -> Bool {
-        return this.IsActive() && this.GetActiveHubId() == this.m_hub.id;
+        return this.IsShown() && this.GetActiveHubId() == this.m_hub.id;
     }
 
     public func OwnsCursor() -> Bool {
@@ -124,7 +121,24 @@ public class NCAInteractionMenu extends ScriptableSystem {
         this.UpdateHub();
     }
 
+    // Hides the prompt and the menu for as long as something else owns the screen, and puts them
+    // back by re-running the normal decision rather than restoring what was showing before - the
+    // player may have walked away or looked elsewhere while it was hidden.
+    public func SetSuppressed(suppressed: Bool) -> Void {
+        if Equals(suppressed, this.m_suppressed) {
+            return;
+        }
+
+        this.m_suppressed = suppressed;
+        this.UpdateHub();
+    }
+
     public func UpdateHub() -> Void {
+        if this.m_suppressed {
+            this.HideHub();
+            return;
+        }
+
         let target: ref<NpcHandle> = this.GetProximityTarget();
 
         if !IsDefined(target) {
@@ -208,9 +222,9 @@ public class NCAInteractionMenu extends ScriptableSystem {
         ArrayClear(this.m_luaEntries);
         this.m_luaToken += 1;
 
-        this.m_isAskingLua = true;
+        this.m_isBuildingPage = true;
         NCA.Events().OnBuildInteractionMenu(npc, this.m_luaToken);
-        this.m_isAskingLua = false;
+        this.m_isBuildingPage = false;
 
         this.ShowHub(npc);
     }
@@ -340,21 +354,13 @@ public class NCAInteractionMenu extends ScriptableSystem {
         return closest;
     }
 
-    private func DistanceTo(npc: ref<NpcHandle>) -> Float {
-        let player: ref<PlayerPuppet> = NCA.Player();
-        let entity: wref<ScriptedPuppet> = npc.GetEntity();
-
-        if !IsDefined(player) || !IsDefined(entity) {
-            return 0.0;
-        }
-
-        return Vector4.Distance(player.GetWorldPosition(), entity.GetWorldPosition());
-    }
-
 // ================================================== Display ==========================================================
 
     public func HideHub() -> Void {
-        this.SetActiveNpc(null);
+        if !this.m_suppressed {
+            this.SetActiveNpc(null);
+        }
+
         this.HideButton();
         this.m_isCollapsed = false;
 
@@ -434,8 +440,15 @@ public class NCAInteractionMenu extends ScriptableSystem {
         hub.activityState = EVisualizerActivityState.Active;
         ArrayPush(hub.choices, this.BuildChoice(npc.GetName(), t"ChoiceCaptionParts.None", gameinteractionsChoiceType.Blueline));
 
+        this.m_collapsedGearRow = -1;
+
+        if NCAInteractionMenu.ShowsEquipmentButtonFor(npc) {
+            ArrayPush(hub.choices, this.BuildChoice(NCA.Labels().Gear(), t"ChoiceCaptionParts.GunIcon", gameinteractionsChoiceType.Blueline));
+            this.m_collapsedGearRow = ArraySize(hub.choices) - 1;
+        }
+
         this.m_hub = hub;
-        this.m_totalRows = 1;
+        this.m_totalRows = ArraySize(hub.choices);
         this.m_selectedIndex = 0;
         this.m_lastNativeEdge = 0;
         this.m_swallowNextScroll = false;
@@ -481,6 +494,15 @@ public class NCAInteractionMenu extends ScriptableSystem {
         hub.id = NCAInteractionMenu.GetButtonHubId();
         hub.active = true;
         ArrayPush(hub.choices, choice);
+
+        if NCAInteractionMenu.ShowsEquipmentButtonFor(npc) {
+            let equipment: InteractionChoiceData;
+            equipment.localizedName = NCA.Labels().Gear();
+            equipment.inputAction = n"Choice2";
+            equipment.type = choiceType;
+
+            ArrayPush(hub.choices, equipment);
+        }
 
         this.WriteButtonHub(hub);
 
@@ -652,10 +674,6 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
         first = Max(0, Min(offset, total - windowRows + 1));
 
-        // <= 1, not <= 0: a marker standing in for a single row costs exactly the slot that row
-        // would have used, so it shows nothing and hides something. Snap to the top instead. This
-        // is the mirror of the tail check below, which already drops the marker below for the same
-        // reason - that side has always looked right, this one did not.
         if first <= 1 {
             first = 0;
             last = windowRows - 2;
@@ -695,7 +713,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
             return;
         }
 
-        this.m_scrollOffset = offset;   // ContentRange clamps it during the build
+        this.m_scrollOffset = offset; // ContentRange clamps it during the build
         this.m_hub = this.BuildHub(this.m_activeNpc, this.m_hub.id);
         this.RefreshDialogHubs();
     }
@@ -822,12 +840,30 @@ public class NCAInteractionMenu extends ScriptableSystem {
         return IsDefined(this.m_buttonNpc);
     }
 
+    public static func ShowsEquipmentButton() -> Bool {
+        return NCA.Settings().collapseInteractionMenu && NCA.Settings().equipmentPromptButton;
+    }
+
+    public static func ShowsEquipmentButtonFor(npc: ref<NpcHandle>) -> Bool {
+        return NCAInteractionMenu.ShowsEquipmentButton() && IsDefined(npc) && npc.CanOpenEquipment();
+    }
+
     private static func IsConfirmKey(actionName: CName) -> Bool {
         return Equals(actionName, n"Choice1") || Equals(actionName, n"ChoiceApply");
     }
 
     public func HandleAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Void {
+        if this.m_suppressed {
+            return;
+        }
+
         let actionName: CName = ListenerAction.GetName(action);
+
+        if NCAInteractionMenu.ShowsEquipmentButtonFor(this.m_buttonNpc) && Equals(actionName, n"Choice2_Release")
+        && ListenerAction.IsButtonJustPressed(action) {
+            NCA.UI().OpenEquipmentPanel(this.m_buttonNpc);
+            return;
+        }
 
         if NCA.Context().isInInteraction && Equals(actionName, n"ChoiceApply")
         && ListenerAction.IsButtonJustPressed(action) {
@@ -845,7 +881,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
                 : ListenerAction.IsButtonJustPressed(action);
 
             if isConfirmEdge {
-                if this.IsActive() && this.CursorIsOurs() {
+                if this.CursorIsOurs() {
                     ListenerActionConsumer.Consume(consumer);
                 }
 
@@ -859,7 +895,7 @@ public class NCAInteractionMenu extends ScriptableSystem {
             return;
         }
 
-        if !this.IsActive() || ArraySize(this.m_hub.choices) <= 0 {
+        if !this.IsShown() || ArraySize(this.m_hub.choices) <= 0 {
             return;
         }
 
@@ -886,6 +922,11 @@ public class NCAInteractionMenu extends ScriptableSystem {
 
         if this.m_isCollapsed {
             if IsDefined(this.m_activeNpc) {
+                if this.m_collapsedGearRow > 0 && this.SelectedRow() == this.m_collapsedGearRow {
+                    NCA.UI().OpenEquipmentPanel(this.m_activeNpc);
+                    return;
+                }
+
                 this.OpenRootPage(this.m_activeNpc);
             }
 
@@ -1021,7 +1062,9 @@ public class NCAInteractionMenu extends ScriptableSystem {
     }
 
     private func NativeHubCount() -> Int32 {
-        return ArraySize(this.NativeHubs());
+        let hubs: array<ListChoiceHubData> = this.NativeHubs();
+
+        return ArraySize(hubs);
     }
 
     private func GetActiveHubId() -> Int32 {

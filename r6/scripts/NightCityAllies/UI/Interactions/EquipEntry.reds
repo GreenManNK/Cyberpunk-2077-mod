@@ -5,10 +5,10 @@ import NightCityAllies.Npc.*
 import NightCityAllies.UI.*
 import NightCityAllies.Localization.*
 
-// Root of: outfit, wardrobe, weapon
+// Root of: outfit, wardrobe, the three weapon actions
 public class NCAEquipEntry extends NCAInteractionEntry {
     public func GetLabel(npc: ref<NpcHandle>, index: Int32) -> String {
-        return NCA.Labels().Equip();
+        return NCA.Labels().Appearance();
     }
 
     public func GetIcon(npc: ref<NpcHandle>, index: Int32) -> TweakDBID {
@@ -27,7 +27,9 @@ public class NCAEquipEntry extends NCAInteractionEntry {
         let entries: array<ref<NCAInteractionEntry>>;
         ArrayPush(entries, new NCAOutfitEntry());
         ArrayPush(entries, new NCAWardrobeEntry());
-        ArrayPush(entries, new NCAWeaponEntry());
+        ArrayPush(entries, new NCAEquipPrimaryWeaponEntry());
+        ArrayPush(entries, new NCAEquipSecondaryWeaponEntry());
+        ArrayPush(entries, new NCAStowWeaponEntry());
 
         menu.OpenPage(npc.GetName(), entries);
     }

@@ -24,7 +24,7 @@ The translations must follow the Nexusmods translation publishing rules.
 -- DO NOT TRANSLATE THIS FILE!
 -- Translation support is described in the file: "..\Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\mods\AutoLoot\language\Readme.txt"
 
--- Aug 15, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
+-- sep 5, 2026 based on the (c)keanuWheeze original script modified by (c)anygoodname by the keanuWheeze consent
 
 function printError(...)
 	local args = {...}
@@ -66,8 +66,8 @@ local isGameV2 = false
 if cetVer >= 1.26 then isGameV2 = true end
 
 ui = {
-		modVer = 'v3.10.5',
-		moduleVer = 'v3.10.5',
+		modVer = 'v3.11.0',
+		moduleVer = 'v3.11.',
 		modName = 'Autoloot',
 		modAuthorName = 'keanuWheeze and anygoodname',
 		isInitialized = false,
@@ -84,7 +84,7 @@ local uiDefaultStrings = {
 			autolootTriggerKey = "AutoLoot",
 		},
 		settings = {
-			exportOrder = {"windowTitle", "general_settings", "tooltipsHeader", "range", "useDefaultActionKey", "enableTakedownLoot", "enableBurstTrigger", "burstTriggerCooldownTime", "monitor_settings", "showDebugMonitorWindow", "monitorType", "showMonitorWindowOnlyWhenTriggerActive", "autohideMonitorWindow"},
+			exportOrder = {"windowTitle", "general_settings", "tooltipsHeader", "range", "useDefaultActionKey", "enableTakedownLoot", "enableBurstTrigger", "burstTriggerCooldownTime", "monitor_settings", "showDebugMonitorWindow", "monitorType", "showMonitorWindowOnlyWhenTriggerActive", "autohideMonitorWindow", "limitOnLootAutosaves"},
 			windowTitle = "AutoLoot",
 			general_settings = "General settings:",
 			tooltipsHeader = "Hover your mouse over a menu item on the left to see its tooltip displayed here.",
@@ -98,6 +98,7 @@ local uiDefaultStrings = {
 			monitorType = {title = "Select Monitor type:", tooltips = "Select the type of the Looting Monitor to display.", choices = {"CET window", "Minimap indicator", "CET window and Minimap indicator"}},
 			showMonitorWindowOnlyWhenTriggerActive = {title = "Show Monitor only if looting trigger active.", tooltips = "Show the monitor only when the looting trigger is active (key/button pressed or Burst mode active)."},
 			autohideMonitorWindow = {title = "Autohide Monitor window.", tooltips = "When enabled, it will automatically hide and show the monitor window following the game cinematic state."},
+			limitOnLootAutosaves = {title = "Limit Autoloot Autosaves.", tooltips = "This option improves performance by greatly reducing unnecessary game autosaves when autolooting, while preserving autosaves triggered by normal gameplay.\n\nNote: The game is designed to create autosaves when looting certain items.\nSince the game may briefly freeze while creating a save, limiting autosaves can improve overall gameplay performance."},
 		},
 		monitor = {
 			idleStr = "Idle.",
@@ -109,7 +110,7 @@ local uiDefaultStrings = {
 	},
 	nuiUiStrings = {
 		settings = {
-			exportOrder = {"windowTitle", "general_settings", "range", "useDefaultActionKey", "enableTakedownLoot", "enableBurstTrigger", "burstTriggerCooldownTime", "monitor_settings", "showDebugMonitorWindow", "monitorType", "showMonitorWindowOnlyWhenTriggerActive", "autohideMonitorWindow"},
+			exportOrder = {"windowTitle", "general_settings", "range", "useDefaultActionKey", "enableTakedownLoot", "enableBurstTrigger", "burstTriggerCooldownTime", "monitor_settings", "showDebugMonitorWindow", "monitorType", "showMonitorWindowOnlyWhenTriggerActive", "autohideMonitorWindow", "limitOnLootAutosaves"},
 			windowTitle = "AutoLoot",
 			general_settings = "General settings:",
 			range = {title = "Range", tooltips = "This sets the maximum range for the auto loot."},
@@ -122,6 +123,7 @@ local uiDefaultStrings = {
 			monitorType = {title = "Select Monitor type", tooltips = "Select the type of the Looting Monitor to display.", choices = {"CET window", "Minimap indicator", "CET window and Minimap indicator"}},
 			showMonitorWindowOnlyWhenTriggerActive = {title = "Show Monitor only if looting trigger active", tooltips = "Show the monitor only when the looting trigger is active (key/button pressed or Burst mode active)."},
 			autohideMonitorWindow = {title = "Autohide Monitor window", tooltips = "When enabled, it will automatically hide and show the monitor window following the game cinematic state."},
+			limitOnLootAutosaves = {title = "Limit Autoloot Autosaves", tooltips = "This option improves performance by greatly reducing unnecessary game autosaves when autolooting, while preserving autosaves triggered by normal gameplay.\n\nNote: The game is designed to create autosaves when looting certain items.\nSince the game may briefly freeze while creating a save, limiting autosaves can improve overall gameplay performance."},
 		},
 		monitor = {
 			idleStr = "Autoloot is idle",
@@ -744,6 +746,15 @@ function setupNativeSettings(forceNew, showAll)
 			end
 		end)
 	end
+	buttonTitle = uiStrings.nuiUiStrings.settings.limitOnLootAutosaves.title
+	buttonTooltips = uiStrings.nuiUiStrings.settings.limitOnLootAutosaves.tooltips
+	nativeSettingsOptions.limitOnLootAutosaves = nativeSettings.addSwitch(buttonsPath, buttonTitle, buttonTooltips, ui.settings.limitOnLootAutosaves, ui.defaultSettings.limitOnLootAutosaves, function(newState)
+		nativeSettingsPlaySounds = false
+		if nativeSettingsIgnoreNextAction then nativeSettingsIgnoreNextAction = false return end
+		local isStateChanged = ui.settings.limitOnLootAutosaves ~= newState
+		ui.settings.limitOnLootAutosaves = newState
+		if isStateChanged then ui.config.saveConfig("config/config.json", ui.settings) end
+	end)
 end
 
 local minimapMonitorWidget = {}
@@ -1168,6 +1179,21 @@ function ui.draw(autoLoot)
 				end
 				ImGui.Spacing()
 			end
+
+			if type(autoLoot.settings.limitOnLootAutosaves) ~= 'boolean' then autoLoot.settings.limitOnLootAutosaves = false end
+			autoLoot.settings.limitOnLootAutosaves, changed = ImGui.Checkbox(uiStrings.cetUiStrings.settings.limitOnLootAutosaves.title, autoLoot.settings.limitOnLootAutosaves)
+			if changed then
+				if isUsingNativeSettings and nativeSettingsOptions.limitOnLootAutosaves then
+					nativeSettingsIgnoreNextAction = true
+					nativeSettingsPlaySounds = true
+					nativeSettings.setOption(nativeSettingsOptions.limitOnLootAutosaves, autoLoot.settings.limitOnLootAutosaves)
+				end
+				autoLoot.config.saveConfig("config/config.json", autoLoot.settings)
+			end
+			if ImGui.IsItemHovered() then
+				tooltips = uiStrings.cetUiStrings.settings.limitOnLootAutosaves.tooltips
+			end
+			ImGui.Spacing()
 
 			if isTable then
 				ImGui.TableNextColumn()

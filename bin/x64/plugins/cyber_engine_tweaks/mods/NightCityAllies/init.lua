@@ -90,15 +90,6 @@ registerForEvent("onInit", function()
     Observe('NightCityAllies.Persistence.PersistenceSystem', 'CETDump', function(self, data)
         debug.print(data)
     end)
-    
-    Observe('NightCityAllies.Loader.TweakDBScanner', 'DumpMetadata', function(self, data)
-        --print('NCA:ForceSpawnCharacter("' .. data.recordID.value .. '")');
-        file = io.open("./Modules/nca_test.lua", "a")
-        io.output(file)
-        io.write('NCA:RegisterCharacter({name = "' .. (GetLocalizedTextByKey(data.name) or NameToString(data.name)) .. '", record = "' .. data.recordID.value ..'", type="generic"})\n')
-        io.close(file)
-        debug.print(data)
-    end)
 
     print("----------------------------------------------------------------------------")
     print(NCA.name .. " " .. NCA.version)
@@ -209,6 +200,10 @@ function NCA:Util()
     return Game.GetScriptableSystemsContainer():Get("NightCityAllies.Util.NCAUtil")
 end
 
+function NCA:Metadata()
+    return Game.GetScriptableSystemsContainer():Get("NightCityAllies.Metadata.NCAMetadataSystem")
+end
+
 function NCA:Location()
     return Game.GetScriptableSystemsContainer():Get("NightCityAllies.Location.LocationSystem")
 end
@@ -237,11 +232,9 @@ function NCA:RegisterCharacter(data)
     end
 
     local isLocked = (data.unlock ~= nil) or (data.locked == true)
-    local autoRarity = "common"
     local autoType = "undefined"
-    
+
     if isLocked then
-        autoRarity = "special"
         autoType = "regular"
     end
 
@@ -250,7 +243,6 @@ function NCA:RegisterCharacter(data)
         data.name or "",
         isLocked,
         data.appearance or -1,
-        data.rarity or autoRarity,
         data.type or autoType
     )
 

@@ -4,6 +4,8 @@ import NightCityAllies.*
 import NightCityAllies.Npc.*
 import NightCityAllies.Settings.*
 import NightCityAllies.Util.*
+import NightCityAllies.Metadata.*
+import NightCityAllies.Equipment.*
        
 // 
 // Database for persistent mod data
@@ -27,14 +29,6 @@ public enum CompanionSpawnState {
     Commuting = 8       // for mercs that are on their way to the player, but haven't arrived yet - basically a temporary state between standby and squad
 }
 
-public enum CompanionRarity {
-    Common = 0,
-    Rare = 1,
-    Elite = 2,
-    Legendary = 3,
-    Special = 4         // never spawns - for non merc chars
-}
-
 public enum CompanionType {
     Undefined = 0,
     Regular = 1,
@@ -45,8 +39,8 @@ public enum CompanionType {
 public struct CompanionModData {
     public let isRegistered: Bool;
     public let name: String;
-    public let rarity: CompanionRarity;
-    public persistent let type: CompanionType; 
+
+    public persistent let type: CompanionType;
     public persistent let recordID: TweakDBID;
     public persistent let spawnState: CompanionSpawnState;
     public persistent let level: Int32;
@@ -63,6 +57,21 @@ public struct CommpanionOutfit {
     public persistent let companionId: TweakDBID;
     public persistent let tag: CName;
     public persistent let outfitId: Int32;
+}
+
+public struct NCACompanionEquipment {
+    public persistent let companionId: TweakDBID;
+    public persistent let equipSlot: CName; // n"primary" / n"primary2" / n"secondary"
+    public persistent let item: TweakDBID; // vanilla item record
+    public persistent let quality: Float;
+    public persistent let upgrade: Float;
+}
+
+public struct NCACompanionEquipmentPart {
+    public persistent let companionId: TweakDBID;
+    public persistent let equipSlot: CName;
+    public persistent let attachmentSlot: TweakDBID; // AttachmentSlots.*
+    public persistent let part: TweakDBID;           // mod item record
 }
 
 public struct ConversationProgression {
@@ -92,6 +101,8 @@ public class PersistenceSystem extends ScriptableSystem {
     public persistent let m_conversationRegistry: array<ConversationProgression>;
     public persistent let m_timerRegistry: array<NCATimerData>;
     public persistent let m_companionOutfitRegistry: array<CommpanionOutfit>;
+    public persistent let m_companionEquipmentRegistry: array<NCACompanionEquipment>;
+    public persistent let m_companionEquipmentPartRegistry: array<NCACompanionEquipmentPart>;
     public persistent let m_staticData: StaticModData;
 
     public func GetModVersion() -> Int32 {
@@ -113,11 +124,17 @@ public class PersistenceSystem extends ScriptableSystem {
                 }
             } else {
                 //this.m_companionRegistry[i].spawnState = CompanionSpawnState.Invalid;
+                NCA.Equipment().ReturnAllWeapons(this.m_companionRegistry[i].recordID);
+
+                this.PurgeCompanionEquipment(this.m_companionRegistry[i].recordID);
+                this.PurgeCompanionOutfits(this.m_companionRegistry[i].recordID);
                 ArrayErase(this.m_companionRegistry, i);
                 purged = true;
             }
             i -= 1;
         }
+
+        this.PurgeOrphanedEquipmentParts();
 
         if (purged) {
             NCA.NPC().RefreshCompanionIds();
@@ -160,9 +177,6 @@ public class PersistenceSystem extends ScriptableSystem {
         }
     }
 
-    // Set counterparts to the Add* pair above, for tooling that edits a value rather than nudging it.
-    // Clamped at both ends because the caller is a text field, not gameplay - Add only ever needs the
-    // upper bound since nothing in the mod subtracts.
     public func SetFriendship(recordID: TweakDBID, value: Int32) -> Void {
         let index: Int32 = this.GetIndex(recordID);
         if (index >= 0) {
@@ -177,8 +191,6 @@ public class PersistenceSystem extends ScriptableSystem {
         }
     }
 
-    // Level is derived, never stored independently - AddExp recomputes it the same way. So there is
-    // deliberately no SetLevel: setting one would be overwritten by the next exp gain.
     public func SetExp(recordID: TweakDBID, value: Int32) -> Void {
         let index: Int32 = this.GetIndex(recordID);
         if (index >= 0) {
@@ -192,11 +204,6 @@ public class PersistenceSystem extends ScriptableSystem {
         this.SetState(TDBID.Create(record), NCA.Util().StringToCompanionSpawnState(state));
     }
 
-    // ⚠ Uniquely named, and it has to stay that way. Both SetState overloads take two arguments, so
-    // a Lua caller passing two strings does not reliably reach the String one - the marshaller can
-    // just as well pick (TweakDBID, CompanionSpawnState) and convert the state string to an enum
-    // itself, which never runs StringToCompanionSpawnState and lands on the wrong state entirely.
-    // Returns whether the companion was found, so a caller can tell a no-op from a change.
     public func SetSpawnStateString(record: String, state: String) -> Bool {
         let recordID: TweakDBID = TDBID.Create(record);
         if (this.GetIndex(recordID) < 0) {
@@ -248,6 +255,8 @@ public class PersistenceSystem extends ScriptableSystem {
         let i: Int32 = 0;
         while i < ArraySize(this.m_companionRegistry) {
             if Equals(this.m_companionRegistry[i].recordID, recordID) {
+                NCA.Equipment().ReturnAllWeapons(recordID);
+
                 this.m_companionRegistry[i].spawnState = CompanionSpawnState.Locked;
                 // TODO despawn if squad? idk.. maybe just make sure it executes before respawns
                 // test case: go into heist with jackie as companion, he should not respawn after
@@ -284,19 +293,20 @@ public class PersistenceSystem extends ScriptableSystem {
         return record;
     }
 
-    public func RegisterCharacterFromString(record: String, name: String, opt isLocked: Bool, opt appearance: Int32, opt rarity: String, opt type: String) -> Int32 {
+    public func RegisterCharacterFromString(record: String, name: String, opt isLocked: Bool, opt appearance: Int32, opt type: String) -> Int32 {
         return this.RegisterCharacter(
-            TDBID.Create(record), 
+            TDBID.Create(record),
             Equals(name, "") ? this.ResolveRecordDisplayName(record) : name,
             isLocked,
             appearance,
-            NCA.Util().StringToRarity(rarity),
             NCA.Util().StringToCompanionType(type)
         );
     }
 
-    public func RegisterCharacter(recordID: TweakDBID, name: String, opt isLocked: Bool, opt appearance: Int32, opt rarity: CompanionRarity, opt type: CompanionType) -> Int32 {
-        if (!IsDefined(TweakDBInterface.GetCharacterRecord(recordID))) {
+    public func RegisterCharacter(recordID: TweakDBID, name: String, opt isLocked: Bool, opt appearance: Int32, opt type: CompanionType) -> Int32 {
+        let metadata: ref<CompanionMetadata> = NCA.Metadata().Collect(recordID);
+
+        if (!metadata.isValidRecord) {
             NCA.CETLog("Character record not found: " + ToString(recordID) + " " + name);
             return -1;
         }
@@ -325,26 +335,24 @@ public class PersistenceSystem extends ScriptableSystem {
             }
 
             this.m_companionRegistry[index].type = type;
-            this.m_companionRegistry[index].rarity = rarity;
 
             return index;
         }
 
         return this.PushCompanionData(new CompanionModData(
-            true,                              // isRegistered
-            name,                              // name
-            rarity,                            // rarity
-            type,                              // type
-            recordID,                          // recordID
-            spawnState,                        // spawnState
-            1,                                 // level
-            Cast<Int32>(ExpLogic.GetBaseXP()), // exp
-            0,                                 // friendship
-            0,                                 // love
-            appearance,                        // equippedOutfit
-            n"",                               // currentLocation
-            n"",                               // currentSpot
-            -1                                 // currentInteractionIndex
+            true,                               // isRegistered
+            name,                               // name
+            type,                               // type
+            recordID,                           // recordID
+            spawnState,                         // spawnState
+            1,                                  // level
+            Cast<Int32>(NCAConstants.BaseXP()), // exp
+            0,                                  // friendship
+            0,                                  // love
+            appearance,                         // equippedOutfit
+            n"",                                // currentLocation
+            n"",                                // currentSpot
+            -1                                  // currentInteractionIndex
         ));
     }
 
@@ -381,6 +389,16 @@ public class PersistenceSystem extends ScriptableSystem {
         this.m_companionOutfitRegistry[index].outfitId = outfitId;
     }
 
+    public func PurgeCompanionOutfits(companionId: TweakDBID) -> Void {
+        let i: Int32 = ArraySize(this.m_companionOutfitRegistry) - 1;
+        while i >= 0 {
+            if Equals(this.m_companionOutfitRegistry[i].companionId, companionId) {
+                ArrayErase(this.m_companionOutfitRegistry, i);
+            };
+            i -= 1;
+        };
+    }
+
     public func GetCompanionOutfitIndex(companionId: TweakDBID, tag: CName) -> Int32 {
         let i: Int32 = 0;
         while i < ArraySize(this.m_companionOutfitRegistry) {
@@ -402,8 +420,6 @@ public class PersistenceSystem extends ScriptableSystem {
         return this.m_companionOutfitRegistry[index].outfitId;
     }
 
-    // Reading an outfit without a live NpcHandle, for tooling that has to show a value for a character
-    // who is not spawned. -1 for "nothing registered under that tag", same as GetCompanionOutfit.
     public func GetCompanionOutfitString(record: String, tag: String) -> Int32 {
         return this.GetCompanionOutfit(TDBID.Create(record), StringToName(tag));
     }
@@ -411,6 +427,149 @@ public class PersistenceSystem extends ScriptableSystem {
     public func HasCompanionOutfit(companionId: TweakDBID, tag: CName) -> Bool {
         let index: Int32 = this.GetCompanionOutfitIndex(companionId, tag);
         return index >= 0;
+    }
+
+    public func SetCompanionEquipment(companionId: TweakDBID, equipSlot: CName, item: TweakDBID, quality: Float, upgrade: Float) -> Void {
+        if (this.GetIndex(companionId) < 0) {
+            NCA.CETLog("ERROR Companion not found for recordID " + TDBID.ToStringDEBUG(companionId) + ", can't assign equipment");
+            return;
+        }
+
+        this.ClearCompanionEquipmentParts(companionId, equipSlot);
+
+        let index: Int32 = this.GetCompanionEquipmentIndex(companionId, equipSlot);
+        if (index >= 0) {
+            this.m_companionEquipmentRegistry[index].item = item;
+            this.m_companionEquipmentRegistry[index].quality = quality;
+            this.m_companionEquipmentRegistry[index].upgrade = upgrade;
+            return;
+        }
+
+        ArrayPush(this.m_companionEquipmentRegistry, new NCACompanionEquipment(
+            companionId, // companionId
+            equipSlot,   // equipSlot
+            item,        // item
+            quality,     // quality
+            upgrade      // upgrade
+        ));
+    }
+
+    public func AddCompanionEquipmentPart(companionId: TweakDBID, equipSlot: CName, attachmentSlot: TweakDBID, part: TweakDBID) -> Void {
+        if (this.GetCompanionEquipmentIndex(companionId, equipSlot) < 0) {
+            NCA.CETLog("ERROR No equipment in " + NameToString(equipSlot) + " for recordID "
+                + TDBID.ToStringDEBUG(companionId) + ", can't add attachment");
+            return;
+        }
+
+        ArrayPush(this.m_companionEquipmentPartRegistry, new NCACompanionEquipmentPart(
+            companionId,    // companionId
+            equipSlot,      // equipSlot
+            attachmentSlot, // attachmentSlot
+            part            // part
+        ));
+    }
+
+    public func GetCompanionEquipmentIndex(companionId: TweakDBID, equipSlot: CName) -> Int32 {
+        let i: Int32 = 0;
+        while i < ArraySize(this.m_companionEquipmentRegistry) {
+            if Equals(this.m_companionEquipmentRegistry[i].companionId, companionId)
+            && Equals(this.m_companionEquipmentRegistry[i].equipSlot, equipSlot) {
+                return i;
+            };
+            i += 1;
+        };
+        return -1;
+    }
+
+    public func GetCompanionEquipmentRows(companionId: TweakDBID, equipSlot: CName) -> array<NCACompanionEquipment> {
+        let rows: array<NCACompanionEquipment>;
+
+        let i: Int32 = 0;
+        while i < ArraySize(this.m_companionEquipmentRegistry) {
+            if Equals(this.m_companionEquipmentRegistry[i].companionId, companionId)
+            && Equals(this.m_companionEquipmentRegistry[i].equipSlot, equipSlot) {
+                ArrayPush(rows, this.m_companionEquipmentRegistry[i]);
+            };
+            i += 1;
+        };
+
+        return rows;
+    }
+
+    public func ClearCompanionEquipment(companionId: TweakDBID, equipSlot: CName) -> Bool {
+        this.ClearCompanionEquipmentParts(companionId, equipSlot);
+
+        let index: Int32 = this.GetCompanionEquipmentIndex(companionId, equipSlot);
+        if (index < 0) {
+            return false;
+        }
+
+        ArrayErase(this.m_companionEquipmentRegistry, index);
+
+        return true;
+    }
+
+    public func PurgeCompanionEquipment(companionId: TweakDBID) -> Void {
+        let i: Int32 = ArraySize(this.m_companionEquipmentRegistry) - 1;
+        while i >= 0 {
+            if Equals(this.m_companionEquipmentRegistry[i].companionId, companionId) {
+                ArrayErase(this.m_companionEquipmentRegistry, i);
+            };
+            i -= 1;
+        };
+
+        i = ArraySize(this.m_companionEquipmentPartRegistry) - 1;
+        while i >= 0 {
+            if Equals(this.m_companionEquipmentPartRegistry[i].companionId, companionId) {
+                ArrayErase(this.m_companionEquipmentPartRegistry, i);
+            };
+            i -= 1;
+        };
+    }
+
+    public func PurgeOrphanedEquipmentParts() -> Void {
+        let purged: Int32 = 0;
+
+        let i: Int32 = ArraySize(this.m_companionEquipmentPartRegistry) - 1;
+        while i >= 0 {
+            if (this.GetCompanionEquipmentIndex(
+                    this.m_companionEquipmentPartRegistry[i].companionId,
+                    this.m_companionEquipmentPartRegistry[i].equipSlot) < 0) {
+                ArrayErase(this.m_companionEquipmentPartRegistry, i);
+                purged += 1;
+            };
+            i -= 1;
+        };
+
+        if (purged > 0) {
+            NCA.CETLog("[equip] purged " + IntToString(purged) + " orphaned attachment rows");
+        }
+    }
+
+    public func GetCompanionEquipmentParts(companionId: TweakDBID, equipSlot: CName) -> array<NCACompanionEquipmentPart> {
+        let parts: array<NCACompanionEquipmentPart>;
+
+        let i: Int32 = 0;
+        while i < ArraySize(this.m_companionEquipmentPartRegistry) {
+            if Equals(this.m_companionEquipmentPartRegistry[i].companionId, companionId)
+            && Equals(this.m_companionEquipmentPartRegistry[i].equipSlot, equipSlot) {
+                ArrayPush(parts, this.m_companionEquipmentPartRegistry[i]);
+            };
+            i += 1;
+        };
+
+        return parts;
+    }
+
+    private func ClearCompanionEquipmentParts(companionId: TweakDBID, equipSlot: CName) -> Void {
+        let i: Int32 = ArraySize(this.m_companionEquipmentPartRegistry) - 1;
+        while i >= 0 {
+            if Equals(this.m_companionEquipmentPartRegistry[i].companionId, companionId)
+            && Equals(this.m_companionEquipmentPartRegistry[i].equipSlot, equipSlot) {
+                ArrayErase(this.m_companionEquipmentPartRegistry, i);
+            };
+            i -= 1;
+        };
     }
 
     public func RegisterConversation(id: CName) -> Int32 {
@@ -530,18 +689,18 @@ public class PersistenceSystem extends ScriptableSystem {
     }
 
     private func IsValid(companion: CompanionModData) -> Bool {
-        let record = TweakDBInterface.GetCharacterRecord(companion.recordID);
+        let metadata: ref<CompanionMetadata> = NCA.Metadata().Get(companion.recordID);
         switch (true) {
             case !companion.isRegistered:
                 return false;
-            
-            case !IsDefined(record):
+
+            case !metadata.isValidRecord:
                 NCA.CETLog("ERROR: Invalid character record");
                 return false;
 
-            case record.IsChild():
-            case record.IsLightCrowd():
-            case record.IsCrowd():
+            case metadata.isChild:
+            case metadata.isLightCrowd:
+            case metadata.isCrowd:
                 NCA.CETLog("ERROR: Unusable npc type");
                 return false;
 
@@ -551,27 +710,17 @@ public class PersistenceSystem extends ScriptableSystem {
     }
 
     // --- Editor support ---------------------------------------------------------------------
-    //
-    // Registering a character already updates one that exists, so adding needs nothing new. These
-    // two cover the rest of it.
-
-    // Name, rarity and type only. Deliberately leaves spawnState and all progression alone: those
-    // belong to the save, not to the character's declaration.
-    public func UpdateCharacterString(record: String, name: String, rarity: String, type: String) -> Bool {
+    public func UpdateCharacterString(record: String, name: String, type: String) -> Bool {
         let index: Int32 = this.GetIndex(TDBID.Create(record));
         if (index < 0) {
             return false;
         }
 
         this.m_companionRegistry[index].name = name;
-        this.m_companionRegistry[index].rarity = NCA.Util().StringToRarity(rarity);
         this.m_companionRegistry[index].type = NCA.Util().StringToCompanionType(type);
         return true;
     }
 
-    // Companion progression for tooling, in the same shape as UpdateCharacterString: one call taking
-    // a record string, because Lua cannot build a TweakDBID. Level is not a parameter - SetExp derives
-    // it. Returns whether the companion was found, so a caller can tell a no-op from a change.
     public func UpdateProgressionString(record: String, exp: Int32, friendship: Int32, love: Int32) -> Bool {
         let recordID: TweakDBID = TDBID.Create(record);
         if (this.GetIndex(recordID) < 0) {
@@ -583,12 +732,6 @@ public class PersistenceSystem extends ScriptableSystem {
         this.SetLove(recordID, love);
         return true;
     }
-
-    // ⚠ There is deliberately no RemoveCharacter. Erasing shifts every index after it, and the index
-    // is cached in NpcHandle.m_companionId - and, since this mod is a dependency for others, quite
-    // possibly outside this project too. Nothing here can refresh a consumer it does not know about,
-    // so a mid-session erase would break them silently. Registry entries are added, never removed;
-    // a character leaves play by module or by spawn state.
 
     public func GetIndex(id: TweakDBID) -> Int32 {
         let i: Int32 = 0;
@@ -714,6 +857,38 @@ public class PersistenceSystem extends ScriptableSystem {
         this.DumpConversations();
         this.DumpCompanions();
         this.DumpTimers();
+        this.DumpCompanionEquipment();
+    }
+
+    public func DumpCompanionEquipment() -> Void {
+        let i: Int32 = 0;
+        let count: Int32 = ArraySize(this.m_companionEquipmentRegistry);
+        let e: NCACompanionEquipment;
+
+        NCA.CETLog("==== Companion Equipment Dump (" + IntToString(count) + ") ====");
+        while i < count {
+            e = this.m_companionEquipmentRegistry[i];
+
+            NCA.CETLog(
+                "[" + IntToString(i) + "] " +
+                TDBID.ToStringDEBUG(e.companionId) +
+                " - " + NameToString(e.equipSlot) +
+                " - " + TDBID.ToStringDEBUG(e.item) +
+                " - quality " + FloatToString(e.quality) + " upgrade " + FloatToString(e.upgrade)
+            );
+
+            let parts: array<NCACompanionEquipmentPart> = this.GetCompanionEquipmentParts(e.companionId, e.equipSlot);
+            let j: Int32 = 0;
+            while j < ArraySize(parts) {
+                NCA.CETLog(
+                    "      " + TDBID.ToStringDEBUG(parts[j].attachmentSlot) +
+                    " = " + TDBID.ToStringDEBUG(parts[j].part)
+                );
+                j += 1;
+            };
+
+            i += 1;
+        };
     }
 
     public func DumpCompanions() -> Void {
@@ -732,7 +907,7 @@ public class PersistenceSystem extends ScriptableSystem {
                 e.name +
                 " - " + TDBID.ToStringDEBUG(e.recordID) +
                 " - " + ToString(e.spawnState) +
-                " " + ToString(e.rarity) +
+                " " + ToString(NCA.Metadata().Get(e.recordID).rarity) +
                 " " + ToString(e.type) +
                 "   // Lvl " + IntToString(e.level) +
                 " - Exp " + IntToString(e.exp) +

@@ -13,6 +13,8 @@ import NightCityAllies.Effect.*
 import NightCityAllies.Util.*
 import NightCityAllies.Timer.*
 import NightCityAllies.Animation.*
+import NightCityAllies.Metadata.*
+import NightCityAllies.Equipment.*
 
 // API class for quick access to all systems
 public final class NCA {
@@ -32,6 +34,8 @@ public final class NCA {
     public static func Timer() -> ref<NCATimerSystem> = GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(NameOf<NCATimerSystem>()) as NCATimerSystem;
     public static func Animation() -> ref<NCAAnimationSystem> = GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(NameOf<NCAAnimationSystem>()) as NCAAnimationSystem;
     public static func InteractionMenu() -> ref<NCAInteractionMenu> = GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(NameOf<NCAInteractionMenu>()) as NCAInteractionMenu;
+    public static func Equipment() -> ref<NCAEquipmentSystem> = GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(NameOf<NCAEquipmentSystem>()) as NCAEquipmentSystem;
+    public static func Metadata() -> ref<NCAMetadataSystem> = GameInstance.GetScriptableSystemsContainer(GetGameInstance()).Get(NameOf<NCAMetadataSystem>()) as NCAMetadataSystem;
 
     public static func Player() -> ref<PlayerPuppet> = GetPlayer(GetGameInstance()) as PlayerPuppet;
 

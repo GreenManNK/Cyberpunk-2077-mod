@@ -19,8 +19,6 @@ public class SquadContainerController extends inkLogicController {
 
     private let m_memberWidgetControllers: array<ref<SquadMemberController>>;
 
-    private static func GetDisplaySquadCap() -> Int32 = 4; // todo placeholder
-
     public func Setup() {
         this.m_root = this.GetChildWidgetByPath(n"Main") as inkCanvas;
         this.m_header = this.GetChildWidgetByPath(n"Main/Header") as inkText;
@@ -49,7 +47,7 @@ public class SquadContainerController extends inkLogicController {
             return;
         }
 
-        let text: String = NCA.Labels().Squad() + " (" + ToString(NCA.NPC().GetSquadSize()) + "/" + ToString(SquadContainerController.GetDisplaySquadCap()) + ")";
+        let text: String = NCA.Labels().Squad() + " (" + ToString(NCA.NPC().GetSquadSize()) + "/" + ToString(NCAConstants.DisplaySquadCap()) + ")";
         this.m_header.SetText(text);
     }
 
@@ -119,6 +117,10 @@ public class SquadContainerController extends inkLogicController {
 
         this.m_hasAnyMembers = false;
         this.m_memberWidgetControllers = [];
+    }
+
+    public func ShowNotification(data: ref<inkGameNotificationData>) -> ref<inkGameNotificationToken> {
+        return this.ShowGameNotification(data);
     }
 
     public func Open() -> Void {

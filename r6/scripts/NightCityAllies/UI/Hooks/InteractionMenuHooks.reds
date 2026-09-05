@@ -34,6 +34,12 @@ protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsu
         menu.HandleAction(action, consumer);
     }
 
+    let ui = NCA.UI();
+
+    if IsDefined(ui) {
+        ui.HandleEquipmentPanelAction(action, consumer);
+    }
+
     return result;
 }
 

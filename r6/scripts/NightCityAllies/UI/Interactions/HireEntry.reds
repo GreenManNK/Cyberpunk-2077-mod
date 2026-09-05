@@ -3,16 +3,12 @@ module NightCityAllies.UI.Interactions
 import NightCityAllies.*
 import NightCityAllies.Npc.*
 import NightCityAllies.UI.*
+import NightCityAllies.Util.*
 import NightCityAllies.Localization.*
 
 public class NCAHireEntry extends NCAInteractionEntry {
-    public static func GetPlayerMoney() -> Int32 {
-        return GameInstance.GetTransactionSystem(GetGameInstance())
-            .GetItemQuantity(GetPlayer(GetGameInstance()), ItemID.FromTDBID(t"Items.money"));
-    }
-
     public static func CanAfford(npc: ref<NpcHandle>) -> Bool {
-        return NCAHireEntry.GetPlayerMoney() >= Cast<Int32>(npc.GetPrice());
+        return NCA.Util().GetPlayerMoney() >= Cast<Int32>(npc.GetPrice());
     }
 
     public func GetLabel(npc: ref<NpcHandle>, index: Int32) -> String {
@@ -41,8 +37,7 @@ public class NCAHireEntry extends NCAInteractionEntry {
             return;
         }
 
-        GameInstance.GetTransactionSystem(GetGameInstance())
-            .RemoveItem(GetPlayer(GetGameInstance()), ItemID.FromTDBID(t"Items.money"), Cast<Int32>(npc.GetPrice()));
+        NCA.Util().TakePlayerMoney(Cast<Int32>(npc.GetPrice()));
 
         npc.Talk();
         npc.Acquire();

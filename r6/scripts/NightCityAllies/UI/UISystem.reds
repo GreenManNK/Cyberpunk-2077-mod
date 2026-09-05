@@ -13,6 +13,10 @@ public class UISystem extends ScriptableSystem {
     private let m_addWidgetRequests: array<ref<NpcHandle>>;
     private let m_isHiddenByMenu: Bool;
     private let m_notificationCount: Int32;
+    private let m_equipmentPanelNpc: ref<NpcHandle>;
+    private let m_equipmentPanelData: ref<inkGameNotificationData>;
+    private let m_equipmentPanelToken: ref<inkGameNotificationToken>;
+    private let m_equipmentPanelController: ref<NCAEquipmentPanelController>;
 
     public func AddSquadMemberWidget(npc: ref<NpcHandle>) -> Void {
         if Equals(NCA.Context().isSessionStarted, true) {
@@ -44,6 +48,59 @@ public class UISystem extends ScriptableSystem {
         }
 
         this.m_controller.RefreshHeader();
+    }
+
+    public func OpenEquipmentPanel(npc: ref<NpcHandle>) -> Void {
+        if !IsDefined(this.m_controller) || IsDefined(this.m_equipmentPanelToken) {
+            return;
+        }
+
+        let data = new inkGameNotificationData();
+        data.notificationName = NCAEquipmentPanel.WidgetName();
+        data.queueName = NCAEquipmentPanel.QueueName();
+        data.isBlocking = true;
+        data.useCursor = true;
+
+        this.m_equipmentPanelNpc = npc;
+        this.m_equipmentPanelData = data;
+        this.m_equipmentPanelToken = this.m_controller.ShowNotification(data);
+
+        NCA.InteractionMenu().SetSuppressed(true);
+    }
+
+    public func OnEquipmentPanelClosed() -> Void {
+        this.m_equipmentPanelController = null;
+
+        NCA.InteractionMenu().SetSuppressed(false);
+    }
+
+    public func RegisterEquipmentPanel(controller: ref<NCAEquipmentPanelController>) -> Void {
+        this.m_equipmentPanelController = controller;
+    }
+
+    public func HandleEquipmentPanelAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Void {
+        if IsDefined(this.m_equipmentPanelController) {
+            this.m_equipmentPanelController.HandleAction(action, consumer);
+        }
+    }
+
+    public func CloseEquipmentPanel() -> Void {
+        if !IsDefined(this.m_equipmentPanelToken) {
+            return;
+        }
+
+        let token: ref<inkGameNotificationToken> = this.m_equipmentPanelToken;
+        let data: ref<inkGameNotificationData> = this.m_equipmentPanelData;
+
+        this.m_equipmentPanelToken = null;
+        this.m_equipmentPanelData = null;
+        this.m_equipmentPanelNpc = null;
+
+        token.TriggerCallback(data);
+    }
+
+    public func GetEquipmentPanelNpc() -> ref<NpcHandle> {
+        return this.m_equipmentPanelNpc;
     }
 
     public func RegisterWidgets(fullScreenSlot: ref<inkCompoundWidget>, controller: ref<SquadContainerController>) -> Void {
@@ -99,7 +156,6 @@ public class UISystem extends ScriptableSystem {
         this.UpdateVisibility();
     }
 
-    // Notifications fire independently of the session, so the widget is not guaranteed to exist yet.
     private func UpdateVisibility() -> Void {
         if (!IsDefined(this.m_controller) || !NCA.Settings().showSquadHUD) {
             return;

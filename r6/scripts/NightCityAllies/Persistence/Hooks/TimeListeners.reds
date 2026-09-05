@@ -9,7 +9,6 @@ public class TimeListeners extends ScriptableSystem {
     private let m_shouldStop: Bool;
     private let m_isStarted: Bool;
     private let m_lastTickAt: Float;
-    public static func TickDelay() -> Float = 0.75;
 
     private func MeasureTick() -> Float {
         let now: Float = EngineTime.ToFloat(GameInstance.GetSimTime(GetGameInstance()));
@@ -17,8 +16,8 @@ public class TimeListeners extends ScriptableSystem {
         this.m_lastTickAt = now;
 
         // First tick has nothing to measure from
-        if elapsed <= 0.0 || elapsed > TimeListeners.TickDelay() * 5.0 {
-            return TimeListeners.TickDelay();
+        if elapsed <= 0.0 || elapsed > NCAConstants.TickDelay() * 5.0 {
+            return NCAConstants.TickDelay();
         }
         return elapsed;
     }
@@ -34,7 +33,7 @@ public class TimeListeners extends ScriptableSystem {
         }
         this.m_isStarted = true;
         this.m_lastTickAt = EngineTime.ToFloat(GameInstance.GetSimTime(GetGameInstance()));
-        GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(NCATickDelayCallback.Create(), TimeListeners.TickDelay(), true);
+        GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(NCATickDelayCallback.Create(), NCAConstants.TickDelay(), true);
     }
 
     public final func Stop() {
@@ -68,7 +67,7 @@ public class TimeListeners extends ScriptableSystem {
         }
 
         if !this.m_shouldStop {
-            GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(NCATickDelayCallback.Create(), TimeListeners.TickDelay(), true); 
+            GameInstance.GetDelaySystem(GetGameInstance()).DelayCallback(NCATickDelayCallback.Create(), NCAConstants.TickDelay(), true); 
         } else {
             this.m_isStarted = false;
         }

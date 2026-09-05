@@ -10,12 +10,12 @@ import NightCityAllies.Util.*
 import NightCityAllies.Location.*
 import NightCityAllies.Npc.Behavior.*
 import NightCityAllies.Animation.*
+import NightCityAllies.Equipment.*
+import NightCityAllies.Metadata.*
 
 public class NpcHandle extends IEntityResolver {
     public let entityID: EntityID;
     public let recordID: TweakDBID;
-    public let archetype: CName;
-    public let rig: String; // TODO save as resref?
 
     public let playerProximity: Bool;
     public let currentArea: CName;
@@ -24,8 +24,8 @@ public class NpcHandle extends IEntityResolver {
     private let m_aiController: ref<AIHumanComponent>;
     private let m_entity: wref<ScriptedPuppet>;
     private let m_isResolved: Bool; // resolved at least once and not despawned since - see IsResolved
-    private let m_appearances: array<entTemplateAppearance>;
 
+    private let m_metadata: ref<CompanionMetadata>;
     private let m_companionId : Int32;
 
     private let m_behavior: ref<NCABehavior>;
@@ -33,7 +33,7 @@ public class NpcHandle extends IEntityResolver {
     private let m_outOfRangeTime: Float;
 
     private let m_isSpawned: Bool;
-    
+
 // ==================================================== Init ===========================================================
 
     public func LoadCompanionData() -> Void {
@@ -42,7 +42,6 @@ public class NpcHandle extends IEntityResolver {
             this.m_companionId = NCA.Persistence().PushCompanionData(new CompanionModData(
                 false,                              // isRegistered
                 "",                                 // name
-                CompanionRarity.Common,             // rarity
                 CompanionType.Undefined,            // type
                 this.recordID,                      // recordID
                 CompanionSpawnState.Invalid,        // spawnState
@@ -56,6 +55,10 @@ public class NpcHandle extends IEntityResolver {
                 -1                                  // currentInteractionIndex
             ));
         }
+
+        // The whole object, not a copy of the parts of it this class happens to want today. Adding a
+        // field to CompanionMetadata makes it readable here without touching NpcHandle at all.
+        this.m_metadata = NCA.Metadata().Get(this.recordID);
     }
 
     public func SpawnAt(position: Vector4, rotation: Quaternion) -> Void {
@@ -66,7 +69,7 @@ public class NpcHandle extends IEntityResolver {
 
         // Create spec for spawning
         let spec = new DynamicEntitySpec();
-        spec.recordID = this.recordID;
+        spec.recordID = this.GetSpawnRecordID();
         spec.position = position;
         spec.orientation = rotation;
         spec.tags = [n"NCA_Companion"];
@@ -106,6 +109,7 @@ public class NpcHandle extends IEntityResolver {
         attitudeAgent.SetAttitudeTowards(player.GetAttitudeAgent(), EAIAttitude.AIA_Friendly);
 
         this.ApplyGodMode();
+        this.ApplyLevel();
 
         this.LoadMetadata();
         if this.m_behavior == null {
@@ -118,6 +122,24 @@ public class NpcHandle extends IEntityResolver {
         if !this.IsMech() {
             this.LoadSelectedAppearance();
         }
+
+        NCA.Equipment().SyncPuppet(this.recordID);
+    }
+
+    public func ApplyLevel() -> Void {
+        if !this.IsValid() {
+            return;
+        }
+
+        let level: Float = Cast<Float>(this.GetEffectiveLevel());
+        let objectID: StatsObjectID = Cast<StatsObjectID>(this.entityID);
+        let statsSystem = GameInstance.GetStatsSystem(GetGameInstance());
+
+        statsSystem.RemoveAllModifiers(objectID, gamedataStatType.PowerLevel);
+        statsSystem.RemoveAllModifiers(objectID, gamedataStatType.Level);
+
+        statsSystem.AddModifier(objectID, RPGManager.CreateStatModifier(gamedataStatType.PowerLevel, gameStatModifierType.Additive, level));
+        statsSystem.AddModifier(objectID, RPGManager.CreateStatModifier(gamedataStatType.Level, gameStatModifierType.Additive, level));
     }
 
     public func ApplyGodMode() -> Void {
@@ -261,6 +283,19 @@ public class NpcHandle extends IEntityResolver {
         return NCA.Persistence().m_companionRegistry[this.m_companionId].level;
     }
 
+    public func GetEffectiveLevel() -> Int32 {
+        let level: Int32 = this.GetLevel();
+        let floor: Int32 = Max(
+            NCA.Util().GetPlayerLevel() - NCAConstants.LevelFloorBelowPlayer(),
+            NCAConstants.MinimumLevel());
+
+        if level < floor {
+            return floor;
+        }
+
+        return level;
+    }
+
     public func GetName() -> String {
         return NCA.Persistence().m_companionRegistry[this.m_companionId].name;
     }
@@ -357,17 +392,8 @@ public class NpcHandle extends IEntityResolver {
     }
 
     private func LoadMetadata() -> Void {
-        let record = TweakDBInterface.GetCharacterRecord(this.recordID);
-        let path: ResRef = record.EntityTemplatePath();
-        let token: ref<ResourceToken> = GameInstance.GetResourceDepot().LoadResource(path);
-        if token.IsLoaded() {
-            let template: ref<entEntityTemplate> = token.GetResource() as entEntityTemplate;
-            if IsDefined(template) {
-                this.m_appearances = template.appearances;
-            }
-        }
-        
-        this.rig = NCA.Util().GetRig(this.GetEntity()); // eg. base\characters\base_entities\man_base\man_base.rig
+        NCA.Metadata().CollectAppearances(this.recordID);
+        this.m_metadata.TakeRig(NCA.Util().GetRig(this.GetEntity()));
     }
 
     public func IsSpawned() -> Bool {
@@ -390,27 +416,46 @@ public class NpcHandle extends IEntityResolver {
         return Equals(NCA.Persistence().m_companionRegistry[this.m_companionId].spawnState, CompanionSpawnState.Unacquired);
     }
 
+    public func CanOpenEquipment() -> Bool {
+        return this.IsSquad() || this.IsStandby() || this.IsAcquirable();
+    }
+
+    public func CanEditEquipment() -> Bool {
+        return this.IsSquad() || this.IsStandby();
+    }
+
     public func GetType() -> CompanionType {
         return NCA.Persistence().m_companionRegistry[this.m_companionId].type;
     }
 
-    public func GetRarity() -> CompanionRarity {
-        return NCA.Persistence().m_companionRegistry[this.m_companionId].rarity;
+    public func GetMetadata() -> ref<CompanionMetadata> {
+        return this.m_metadata;
+    }
+
+    public func GetRig() -> String {
+        return this.m_metadata.rig;
+    }
+
+    public func GetRarity() -> gamedataNPCRarity {
+        return this.m_metadata.rarity;
+    }
+
+    public func GetRarityValue() -> Float {
+        return this.m_metadata.rarityValue;
+    }
+
+    public func GetArchetype() -> gamedataArchetypeType {
+        return this.m_metadata.archetype;
+    }
+
+    public func GetBasePrice() -> Float {
+        return Cast<Float>(this.GetEffectiveLevel())
+            * this.GetRarityValue()
+            * NCA.Util().ArchetypeMultiplier(this.GetArchetype());
     }
 
     public func GetPrice() -> Float {
-        switch (this.GetRarity()) {
-            case CompanionRarity.Common:
-                return 1000.0;
-            case CompanionRarity.Rare:
-                return 2500.0;
-            case CompanionRarity.Elite:
-                return 5000.0;
-            case CompanionRarity.Legendary:
-                return 10000.0;
-            default:
-                return 0.0;
-        }
+        return this.GetBasePrice() * NCAConstants.HiringPriceFactor();
     }
 
     // Legacy name
@@ -418,12 +463,14 @@ public class NpcHandle extends IEntityResolver {
         return this.IsSquad();
     }
 
+    // ArchetypeName is the COARSE archetype - "humanoid" for nearly everything, which is exactly why
+    // it is the one that tells a mech and a drone apart. The fine one is GetArchetype.
     public func IsMech() -> Bool {
-        return Equals(this.archetype, n"mech");
+        return Equals(this.m_metadata.archetypeName, n"mech");
     }
 
     public func IsDrone() -> Bool {
-        return Equals(this.archetype, n"drone");
+        return Equals(this.m_metadata.archetypeName, n"drone");
     }
 
     public func GetRecordID() -> TweakDBID {
@@ -649,6 +696,9 @@ public class NpcHandle extends IEntityResolver {
         this.SetMoveToPositionBehavior(pos);
     }
 
+    // ⚠ The switch commands name a GROUP, not an item inside one, so both primary slots prompt the same
+    // draw and the engine picks which of the two it comes out with. Nothing found so far can name the
+    // second primary specifically.
     public func EquipPrimaryWeapon() -> Void {
       let cmd: ref<AISwitchToPrimaryWeaponCommand> = new AISwitchToPrimaryWeaponCommand();
       cmd.unEquip = false;
@@ -668,6 +718,30 @@ public class NpcHandle extends IEntityResolver {
       cmd.unEquip = true;
 
       this.ResumeBehaviorAfterAction(cmd);
+    }
+
+// ================================================= Equipment =========================================================
+
+    public func GetSpawnRecordID() -> TweakDBID {
+        return NCA.Equipment().GetSpawnRecordID(this.recordID);
+    }
+
+    public func GiveWeapon(equipSlot: CName, sourceItem: ItemID) -> Bool {
+        return NCA.Equipment().GiveWeapon(this.recordID, equipSlot, sourceItem);
+    }
+
+    public func TakeWeapon(equipSlot: CName) -> Bool {
+        let taken: Bool = NCA.Equipment().TakeWeapon(this.recordID, equipSlot);
+
+        if taken && this.IsValid() {
+            this.UnEquipWeapon();
+        }
+
+        return taken;
+    }
+
+    public func HasWeapon(equipSlot: CName) -> Bool {
+        return NCA.Equipment().HasWeapon(this.recordID, equipSlot);
     }
 
     public func ResumeBehaviorAfterAction(actionCommand: ref<AICommand>) -> Void {
@@ -734,9 +808,6 @@ public class NpcHandle extends IEntityResolver {
         NCA.NPC().RemoveFromSquad(this);
     }
 
-    private static func GetCrowdHandoverTime() -> Float = 1.0;   // let the torn down workspot release the puppet
-    private static func GetCrowdWalkAwayTime() -> Float = 25.0;  // how long they get to walk out of sight
-
     public func Dismiss() -> Void {
         if (!this.LeaveAsCrowd()) {
             this.Despawn();
@@ -791,7 +862,6 @@ public class NpcHandle extends IEntityResolver {
             this.m_entity = null;
             this.m_isResolved = false; // waiting on a fresh spawn again, not unloaded mid-life
             this.m_aiController = null;
-            this.m_appearances = [];
         }
     }
     
@@ -815,8 +885,6 @@ public class NpcHandle extends IEntityResolver {
         return this.m_behavior.PlaySyncedRoutine(routine);
     }
 
-    // Whether this companion is currently holding a pose the player is the other half of, and which
-    // will not end on its own.
     public func IsPerformingWithPlayer() -> Bool {
         return this.IsValid() && this.HasActiveBehavior() && this.m_behavior.IsPerformingWithPlayer();
     }
@@ -828,10 +896,15 @@ public class NpcHandle extends IEntityResolver {
 // =================================================== Outfits =========================================================
 
     public func ChangeAppearance(index: Int32) -> Void {
-        if (this.IsMech()) {
+        if (this.IsMech() || !this.IsValid()) {
             return;
         }
-        let appearanceName: CName = this.m_appearances[index].name;
+
+        if index < 0 || index >= ArraySize(this.m_metadata.appearances) {
+            return;
+        }
+
+        let appearanceName: CName = this.m_metadata.appearances[index].name;
         this.SetSelectedAppearance(index);
         this.m_entity.PrefetchAppearanceChange(appearanceName);
         this.m_entity.ScheduleAppearanceChange(appearanceName);
@@ -841,7 +914,7 @@ public class NpcHandle extends IEntityResolver {
         if (this.IsMech()) {
             return [];
         }
-        return this.m_appearances;
+        return this.m_metadata.appearances;
     }
 
 // ================================================ Voice Over =========================================================
@@ -914,8 +987,8 @@ public class NpcHandle extends IEntityResolver {
         GameInstance.GetGodModeSystem(GetGameInstance()).ClearGodMode(this.entityID, n"Default");
 
         let delaySystem = GameInstance.GetDelaySystem(GetGameInstance());
-        delaySystem.DelayCallback(NCACrowdDismissalDelayCallback.Create(this.entityID, false), NpcHandle.GetCrowdHandoverTime(), false);
-        delaySystem.DelayCallback(NCACrowdDismissalDelayCallback.Create(this.entityID, true), NpcHandle.GetCrowdWalkAwayTime(), false); // TODO I think the engine handles this anyways
+        delaySystem.DelayCallback(NCACrowdDismissalDelayCallback.Create(this.entityID, false), NCAConstants.CrowdHandoverTime(), false);
+        delaySystem.DelayCallback(NCACrowdDismissalDelayCallback.Create(this.entityID, true), NCAConstants.CrowdWalkAwayTime(), false); // TODO I think the engine handles this anyways
 
         // TODO sort of duplicate code
         if (this.IsSquad()) {
@@ -928,7 +1001,6 @@ public class NpcHandle extends IEntityResolver {
         this.m_entity = null;
         this.m_isResolved = false;
         this.m_aiController = null;
-        this.m_appearances = [];
 
         return true;
     }
@@ -952,9 +1024,9 @@ public class NpcHandle extends IEntityResolver {
 
     private func PickFirstAppearance() -> Void {
         let i = 0;
-        let count = ArraySize(this.m_appearances);
+        let count = ArraySize(this.m_metadata.appearances);
         while i < count {
-            let appearanceName: CName = this.m_appearances[i].name;
+            let appearanceName: CName = this.m_metadata.appearances[i].name;
             let lower: String = StrLower(NameToString(appearanceName));
             if !StrContains(lower, "nude") &&
                 !StrContains(lower, "naked") &&
@@ -971,7 +1043,7 @@ public class NpcHandle extends IEntityResolver {
 
     private func PickAppearance() -> Void {
         let randIndex: Int32;
-        let pool = this.m_appearances;    
+        let pool = this.m_metadata.appearances;    
         let remaining: Int32 = ArraySize(pool);
 
         while remaining > 0 {
@@ -999,9 +1071,6 @@ public final func SetFollowerRef(followerRef: EntityReference) -> Void {
     this.followerRef = followerRef;
 }
 
-// The two beats of a crowd dismissal: the join command waits for the workspot the behavior just tore
-// down to release the puppet, and the removal waits for the walk away. Both hold the EntityID rather
-// than the handle, because the handle is gone by the time either fires.
 public class NCACrowdDismissalDelayCallback extends DelayCallback {
     private let m_entityID: EntityID;
     private let m_isRemoval: Bool;

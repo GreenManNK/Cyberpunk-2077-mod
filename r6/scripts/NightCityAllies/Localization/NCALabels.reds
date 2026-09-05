@@ -42,15 +42,36 @@ public class NCALabels extends ScriptableSystem {
 	public func Previous_page() -> String = this.T(n"Previous page")
 	public func Next_page() -> String = this.T(n"Next page")
 	public func Return_all() -> String = this.T(n"Return all")
-	public func Weapon() -> String = this.T(n"Weapon")
+	public func Weapon() -> String = this.T(n"Weapon") // unused atm
+
+	public func Friendship() -> String = this.T(n"Friendship")
+	public func Love() -> String = this.T(n"Love")
+	public func Faction() -> String = this.T(n"Faction")
+	public func Archetype() -> String = this.T(n"Archetype")
+	public func Type() -> String = this.T(n"Type")
+	public func Rarity() -> String = this.T(n"Rarity")
+	public func Power_level() -> String = this.T(n"Power level")
 	public func Squad() -> String = this.T(n"Squad")
 	public func Interact() -> String = this.T(n"Interact")
+
+	public func Stranger() -> String = this.T(n"Stranger")
+	public func Acquaintance() -> String = this.T(n"Acquaintance")
+	public func Buddy() -> String = this.T(n"Buddy")
+	public func Friend() -> String = this.T(n"Friend")
+	public func Best_friend() -> String = this.T(n"Best friend")
+
+	public func Indifferent() -> String = this.T(n"Indifferent")
+	public func Curious() -> String = this.T(n"Curious")
+	public func Attracted() -> String = this.T(n"Attracted")
+	public func In_love() -> String = this.T(n"In love")
+	public func Devoted() -> String = this.T(n"Devoted")
 
 	public func Join_me() -> String = this.T(n"Join me")
 	public func Stay_here() -> String = this.T(n"Stay here")
 	public func Hire() -> String = this.T(n"Hire")
 	public func Deny() -> String = this.T(n"Deny") // unused atm
-	public func Equip() -> String = this.T(n"Equip")
+	public func Equip() -> String = this.T(n"Equip") // unused atm
+	public func Appearance() -> String = this.T(n"Appearance")
 	public func Wardrobe() -> String = this.T(n"Wardrobe")
 	public func Select_category() -> String = this.T(n"Select category")
 	public func More() -> String = this.T(n"More ...") // unused atm

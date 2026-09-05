@@ -1,0 +1,197 @@
+Items.MK78_SAW_Rare:
+  $base: Items.MK78_SAW
+  quality: Quality.Rare
+  statModifiers: 
+    - !append-once Quality.IconicItem 
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  
+Items.MK78SAW_Recipe_Rare:
+  $type: gamedataItemRecipe_Record
+  craftingResult: Items.MK78SAW_Recipe_Rare_inline0
+  itemType: ItemType.Gen_Misc
+  quality: Quality.Rare
+  displayName: mk78_name
+  tags:
+    - Recipe
+    - SkipActivityLogOnRemove
+    - HideInBackpackUI
+    - Rare
+
+Items.MK78SAW_Recipe_Rare_inline0:
+  $type: gamedataCraftingResult_Record
+  amount: 1
+  item: Items.MK78SAW_Crafting_Recipe_Rare
+    
+Items.MK78SAW_Crafting_Recipe_Rare:
+  $base: Items.MK78_SAW_Rare
+  quality: Quality.Rare
+  CraftingData: Items.Big_Rare_Crafting_Materials_Weapon
+  
+Vendors.hey_rey_gunsmith_01:
+  itemStock:
+    - !append Items.MK78SAW_recipe_Rare_stock
+    
+Items.MK78SAW_recipe_Rare_stock:
+  $type: VendorItem
+  item: Items.MK78SAW_Recipe_Rare
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_3_Start_Prereq
+  quantity:
+    - !append Vendors.Always_Present
+  
+Items.MK78_SAW_Epic:
+  $base: Items.MK78_SAW
+  quality: Quality.Epic
+  statModifiers: 
+    - !append-once Quality.IconicItem 
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  
+Items.MK78SAW_Recipe_Epic:
+  $type: gamedataItemRecipe_Record
+  craftingResult: Items.MK78SAW_Recipe_Epic_inline0
+  itemType: ItemType.Gen_Misc
+  quality: Quality.Epic
+  displayName: mk78_name
+  tags:
+    - Recipe
+    - SkipActivityLogOnRemove
+    - HideInBackpackUI
+    - Epic
+
+Items.MK78SAW_Recipe_Epic_inline0:
+  $type: gamedataCraftingResult_Record
+  amount: 1
+  item: Items.MK78SAW_Crafting_Recipe_Epic
+    
+Items.MK78SAW_Crafting_Recipe_Epic:
+  $base: Items.MK78_SAW_Epic
+  quality: Quality.Epic
+  CraftingData: Items.Big_Epic_Crafting_Materials_Weapon
+  
+Vendors.pac_wwd_gunsmith_01:
+  itemStock:
+    - !append Items.MK78SAW_recipe_Epic_stock
+    
+Items.MK78SAW_recipe_Epic_stock:
+  $type: VendorItem
+  item: Items.MK78SAW_Recipe_Epic
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_4_Start_Prereq
+  quantity:
+    - !append Vendors.Always_Present
+  
+Items.MK78_SAW_Uncommon:
+  $base: Items.MK78_SAW
+  quality: Quality.Uncommon
+  statModifiers: 
+    - !append-once Quality.IconicItem 
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  
+Items.MK78SAW_Recipe_Uncommon:
+  $type: gamedataItemRecipe_Record
+  craftingResult: Items.MK78SAW_Recipe_Uncommon_inline0
+  itemType: ItemType.Gen_Misc
+  quality: Quality.Uncommon
+  displayName: mk78_name
+  tags:
+    - Recipe
+    - SkipActivityLogOnRemove
+    - HideInBackpackUI
+    - Uncommon
+
+Items.MK78SAW_Recipe_Uncommon_inline0:
+  $type: gamedataCraftingResult_Record
+  amount: 1
+  item: Items.MK78SAW_Crafting_Recipe_Uncommon
+    
+Items.MK78SAW_Crafting_Recipe_Uncommon:
+  $base: Items.MK78_SAW_Uncommon
+  quality: Quality.Uncommon
+  CraftingData: Items.Big_Uncommon_Crafting_Materials_Weapon
+  
+Vendors.hey_spr_gunsmith_01:
+  itemStock:
+    - !append Items.MK78SAW_recipe_Uncommon_stock
+    
+Items.MK78SAW_recipe_Uncommon_stock:
+  $type: VendorItem
+  item: Items.MK78SAW_Recipe_Uncommon
+  quantity:
+    - !append Vendors.Always_Present
+    
+Items.MK78_SAW_Common:
+  $base: Items.MK78_SAW
+  quality: Quality.Common
+  statModifiers: 
+    - !append-once Quality.IconicItem 
+  statModifierGroups: 
+    - !append-once Items.IconicQualityRandomization
+  
+Items.MK78SAW_Recipe_Common:
+  $type: gamedataItemRecipe_Record
+  craftingResult: Items.MK78SAW_Recipe_Common_inline0
+  itemType: ItemType.Gen_Misc
+  quality: Quality.Common
+  displayName: mk78_name
+  tags:
+    - Recipe
+    - SkipActivityLogOnRemove
+    - HideInBackpackUI
+    - Common
+
+Items.MK78SAW_Recipe_Common_inline0:
+  $type: gamedataCraftingResult_Record
+  amount: 1
+  item: Items.MK78SAW_Crafting_Recipe_Common
+    
+Items.MK78SAW_Crafting_Recipe_Common:
+  $base: Items.MK78_SAW_Common
+  quality: Quality.Common
+  CraftingData: Items.Big_Common_Crafting_Materials_Weapon
+  
+Vendors.hey_gle_gunsmith_01:
+  itemStock:
+    - !append Items.MK78SAW_recipe_Common_stock
+    
+Items.MK78SAW_recipe_Common_stock:
+  $type: VendorItem
+  item: Items.MK78SAW_Recipe_Common
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_2_Start_Prereq
+  quantity:
+    - !append Vendors.Always_Present
+    
+Items.MK78SAW_Recipe_Legendary:
+  $type: gamedataItemRecipe_Record
+  craftingResult: Items.MK78SAW_Recipe_Legendary_inline0
+  itemType: ItemType.Gen_Misc
+  quality: Quality.Legendary
+  displayName: mk78_name
+  tags:
+    - Recipe
+    - SkipActivityLogOnRemove
+    - HideInBackpackUI
+    - Legendary
+
+Items.MK78SAW_Recipe_Legendary_inline0:
+  $type: gamedataCraftingResult_Record
+  amount: 1
+  item: Items.MK78SAW_Crafting_Recipe_Legendary
+    
+Items.MK78SAW_Crafting_Recipe_Legendary:
+  $base: Items.MK78_SAW
+  quality: Quality.Legendary
+  CraftingData: Items.Big_Legendary_Crafting_Materials_Weapon
+  
+Vendors.wat_lch_gunsmith_01:
+  itemStock:
+    - !append Items.MK78SAW_recipe_Legendary_stock
+    
+Items.MK78SAW_recipe_Legendary_stock:
+  $type: VendorItem
+  item: Items.MK78SAW_Recipe_Legendary
+  quantity:
+    - !append Vendors.Always_Present

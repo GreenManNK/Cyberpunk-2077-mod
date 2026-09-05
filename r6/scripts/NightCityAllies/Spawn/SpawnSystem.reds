@@ -4,6 +4,7 @@ import NightCityAllies.*
 import NightCityAllies.Npc.*
 import NightCityAllies.Phone.*
 import NightCityAllies.Persistence.*
+import NightCityAllies.Metadata.*
 import NightCityAllies.Settings.*
 import NightCityAllies.Location.*
 import NightCityAllies.Location.Entity.*
@@ -18,16 +19,12 @@ public abstract class SpawnRule {
         point: ref<NCASpawn>
     ) -> Float;
 
-    // Human readable summary, the same idea as NCALocationTrigger.Describe: the editor reads rules
-    // back as these rather than reaching into the private fields of each subclass.
     public func Describe() -> String;
 
     public func GetLocationTag() -> CName {
         return this.m_locationTag;
     }
 
-    // A rule keeps its own copy of the tag rather than a reference to the location, so a rename has
-    // to be followed here too - see LocationSystem.RenameLocation.
     public func Retag(newTag: CName) -> Void {
         this.m_locationTag = newTag;
     }
@@ -46,10 +43,9 @@ public class AffiliationSpawnRule extends SpawnRule {
     }
 
     public func CheckSpawnCondition(companion: CompanionModData, location: ref<NCALocation>, point: ref<NCASpawn>) -> Float {
-        let record = TweakDBInterface.GetCharacterRecord(companion.recordID);
-        let affiliation: ref<Affiliation_Record> = record.Affiliation();
+        let affiliation: TweakDBID = NCA.Metadata().Get(companion.recordID).affiliation;
 
-        if !Equals(location.tag, this.m_locationTag) || !Equals(affiliation.GetID(), this.m_affiliation) {
+        if !Equals(location.tag, this.m_locationTag) || !Equals(affiliation, this.m_affiliation) {
             return 1.0;
         }
 
@@ -75,10 +71,9 @@ public class NotAffiliationSpawnRule extends SpawnRule {
     }
 
     public func CheckSpawnCondition(companion: CompanionModData, location: ref<NCALocation>, point: ref<NCASpawn>) -> Float {
-        let record = TweakDBInterface.GetCharacterRecord(companion.recordID);
-        let affiliation: ref<Affiliation_Record> = record.Affiliation();
+        let affiliation: TweakDBID = NCA.Metadata().Get(companion.recordID).affiliation;
 
-        if !Equals(location.tag, this.m_locationTag) || Equals(affiliation.GetID(), this.m_affiliation) {
+        if !Equals(location.tag, this.m_locationTag) || Equals(affiliation, this.m_affiliation) {
             return 1.0;
         }
 
@@ -110,9 +105,6 @@ public class SpawnSystem extends ScriptableSystem {
     }
 
     // --- Editor support ---------------------------------------------------------------------
-    // Registration only appends here too, so the editor reads the rules for a location back as
-    // descriptions, clears them, and registers its working copy.
-
     public func GetSpawnRuleDescriptionsString(locationTag: String) -> array<String> {
         return this.GetSpawnRuleDescriptions(StringToName(locationTag));
     }
@@ -133,7 +125,6 @@ public class SpawnSystem extends ScriptableSystem {
         this.ClearSpawnRules(StringToName(locationTag));
     }
 
-    // Walked backwards so erasing one does not skip the next.
     public func ClearSpawnRules(locationTag: CName) -> Void {
         let i: Int32 = ArraySize(this.m_spawnRules) - 1;
         while i >= 0 {
@@ -144,8 +135,6 @@ public class SpawnSystem extends ScriptableSystem {
         }
     }
 
-    // Called by LocationSystem.RenameLocation. Rules hold a copy of the tag, not a reference to the
-    // location, so without this every rule for a renamed location silently stops matching.
     public func RetagSpawnRules(oldTag: CName, newTag: CName) -> Void {
         let i: Int32 = 0;
         while i < ArraySize(this.m_spawnRules) {
@@ -156,7 +145,6 @@ public class SpawnSystem extends ScriptableSystem {
         }
     }
 
-    // Randomized the "current location" stored for each companion that is not already acquired
     public func Reroll() -> Void {
          //  TODO only rerolls merc spawns curerently. add logic for roaming characters
         NCA.Persistence().ClearUnacquiredSpawnLocations();
@@ -207,7 +195,7 @@ public class SpawnSystem extends ScriptableSystem {
     private func CheckSpawnCondition(companion: CompanionModData, location: ref<NCALocation>, point: ref<NCASpawn>) -> Float {
         // Spawntables
         let value = RandF(); // 0.0 - 1.0
-        if value < 1.0 - (this.GetSpawnProbabilityPercent(companion.rarity) / 100.0) {
+        if value < 1.0 - (this.GetSpawnProbabilityPercent(NCA.Metadata().Get(companion.recordID).rarity) / 100.0) {
             return 0.0;
         }
 
@@ -221,13 +209,17 @@ public class SpawnSystem extends ScriptableSystem {
         return value;
     }
 
-    private func GetSpawnProbabilityPercent(rarity: CompanionRarity) -> Float {
+    private func GetSpawnProbabilityPercent(rarity: gamedataNPCRarity) -> Float {
         switch (rarity) {
-            case CompanionRarity.Common: return 60.0;
-            case CompanionRarity.Rare: return 25.0;
-            case CompanionRarity.Elite: return 10.0;
-            case CompanionRarity.Legendary: return 1.5;
-            case CompanionRarity.Special: return 0.0;
+            case gamedataNPCRarity.Trash: return 60.0;      // RarityValue 1
+            case gamedataNPCRarity.Weak: return 60.0;       // 2
+            case gamedataNPCRarity.Normal: return 60.0;     // 3
+            case gamedataNPCRarity.Rare: return 25.0;       // 4
+            case gamedataNPCRarity.Officer: return 10.0;    // 4.5
+            case gamedataNPCRarity.Elite: return 3.0;       // 5
+            case gamedataNPCRarity.MaxTac: return 2.0;      // 6
+            case gamedataNPCRarity.Boss: return 1.5;        // 7
+            default: return 60.0;
         }
     }
 }

@@ -1,0 +1,9 @@
+quest:
+  phases:
+    - path: mod\mrbill61\prme\quest\prme_root.questphase
+      parent: cyberpunk2077.quest
+journal:
+  - mod\mrbill61\prme\journal\prme_journal.journal
+localization:
+  onscreens:
+    en-us: mod\mrbill61\prme\onscreens\en-us\prme_onscreens.json

@@ -8,8 +8,6 @@ import NightCityAllies.Animation.*
 
 public class NCACatchUpToPlayerBehavior extends NCABehavior {
     public func GetName() -> String = "CatchUpToPlayer";
-    private static func GetApproachDistance() -> Float = 3.0;
-    private static func GetApproachTolerance() -> Float = 1.0;
 
     let m_timeout: Float;
     let m_retryCount: Int32;
@@ -44,7 +42,7 @@ public class NCACatchUpToPlayerBehavior extends NCABehavior {
             // retry movement if stuck
             this.m_timeout -= deltaTime;
             if (this.m_timeout <= 0.0) {
-                this.FollowTarget(player, NCACatchUpToPlayerBehavior.GetApproachDistance(), NCACatchUpToPlayerBehavior.GetApproachTolerance(), moveMovementType.Walk);
+                this.FollowTarget(player, NCAConstants.CatchUpApproachDistance(), NCAConstants.CatchUpApproachTolerance(), moveMovementType.Walk);
                 this.m_retryCount += 1;
                 this.m_timeout = 10.0;
                 //NCA.CETLog("Retrying movement to player, attempt " + IntToString(this.m_retryCount) + ", timeout set to " + FloatToString(this.m_timeout) + " seconds");
@@ -65,7 +63,7 @@ public class NCACatchUpToPlayerBehavior extends NCABehavior {
             NCA.CETLog("ERROR Player not found, cannot catch up");
             return;
         };
-        this.FollowTarget(player, NCACatchUpToPlayerBehavior.GetApproachDistance(), NCACatchUpToPlayerBehavior.GetApproachTolerance(), moveMovementType.Walk);
+        this.FollowTarget(player, NCAConstants.CatchUpApproachDistance(), NCAConstants.CatchUpApproachTolerance(), moveMovementType.Walk);
         this.m_timeout = 10.0;
     }
 

@@ -1,0 +1,53 @@
+NCAEquipment.WeaponGroup:
+  $type: gamedataNPCEquipmentGroup_Record
+  equipmentItems: []
+
+NCAEquipment.RangedItem:
+  $type: gamedataNPCEquipmentItem_Record
+  equipSlot: AttachmentSlots.WeaponRight
+  onBodySlot: AttachmentSlots.ItemSlotGenericRanged
+  item: Items.Preset_Unity_Default
+  equipCondition:
+    - WeaponConditions.BaseRangedPrimaryWeaponEquipCondition
+  unequipCondition:
+    - WeaponConditions.BaseRangedPrimaryWeaponUnequipCondition
+
+NCAEquipment.MeleeItem:
+  $type: gamedataNPCEquipmentItem_Record
+  equipSlot: AttachmentSlots.WeaponRight
+  onBodySlot: AttachmentSlots.ItemSlotGenericMelee
+  item: Items.Preset_Unity_Default
+  equipCondition: []
+  unequipCondition: []
+
+NCAEquipment.PartPreset:
+  $type: gamedataSlotItemPartPreset_Record
+  slot: AttachmentSlots.Scope
+  itemPartPreset: Items.w_att_scope_short_01
+
+NCAEquipment.CombatAbilities:
+  $type: gamedataGameplayAbilityGroup_Record
+  abilities:
+    - Ability.CanCrouch
+    - Ability.CanSprint
+    - Ability.CanSwitchWeapon
+    - Ability.CanShootWhileMoving
+    - Ability.CanPreciseShoot
+    - Ability.CanChargedShoot
+    - Ability.CanSmartShoot
+    - Ability.CanUseLeftHand
+    - Ability.CanUseRightHand
+    - Ability.CanUseLegs
+    - Ability.CanTaunt
+    - Ability.CanCloseCombat
+
+#NCAEquipment.DoubleHealthModifier:
+#  $type: gamedataConstantStatModifier_Record
+#  statType: BaseStats.Health
+#  modifierType: Multiplier
+#  value: 2.0
+#
+#NCAEquipment.DoubleHealth:
+#  $type: gamedataStatModifierGroup_Record
+#  statModifiers:
+#    - NCAEquipment.DoubleHealthModifier

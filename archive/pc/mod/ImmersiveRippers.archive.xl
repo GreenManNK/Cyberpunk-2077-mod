@@ -1,0 +1,189 @@
+streaming:
+  blocks:
+    - base\worlds\immersive_rippers.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_53_-7_2_0.streamingsector
+      expectedNodes: 1184
+      nodeMutations:
+        - index: 620 #surgery_lamp_large_b_arm_c 3439.43457 -387.925171 137.881546
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 1156 #surgery_lamp_large_b_arm_f_005 3440.11865 -386.722076 137.893829
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 1159 #node 3440.54565 -386.276123 137.497238
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 601 #monitor_device_b 3440.71362 -386.286438 137.524216
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 600 #monitor_b_screen 3440.71362 -386.286438 137.524216
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 1115 #surgery_lamp_large_b_arm_g_002 3440.41699 -386.5849 137.573044
+          type: worldStaticMeshNode
+          position: [3440.0,-386.0,-100.0, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-17_-20_0_1.streamingsector
+      expectedNodes: 108
+      nodeMutations:
+        - index: 0 #industrial_curtain_f_clh -1071.27551 -1270.00378 11.6868696
+          type: worldClothMeshNode
+          position: [-1071.27551,-1270.00378,13.6868696, 0.0]
+          orientation: [0.0, 0.0, -0.754003167, 0.656870842]
+          scale: [1.0, 1.0, 0.33]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-34_-40_0_0.streamingsector
+      expectedNodes: 394
+      nodeMutations:
+        - index: 155 #poor_office_stool_a
+          type: worldInstancedDestructibleMeshNode
+          position: [-1069.75,-1272.40137, 11.4568691, 0.0]
+          orientation: [0.0, 0.0, 0.537299514,-0.843391597]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-39_60_0_0.streamingsector
+      expectedNodes: 584
+      nodeMutations:
+        - index: 335 #base\environment\decoration\electronics\medical\medical_electronic_large\medical_electronic_largel_b.mesh
+          type: worldStaticMeshNode
+          position: [-1239.62646,1938.28821,11.7417374, 0.0]
+          orientation: [0, 0, -0.0869999975, 0.995999992]
+          scale: [0.5, 0.5, 0.5]
+        - index: 321 #screen_device_c_4x3 
+          type: worldStaticMeshNode
+          position: [-1239.62646,1938.28821,-11.7417374, 0.0]
+          orientation: [0, 0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+        - index: 195 #medical_cart_b_001 -1241.13928 1939.65918 8.05450344
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.63928,1941.0592,8.05450344, 0.0]
+          orientation: [-0.00155573024, -0.0034014706, 0.750573337, 0.660776615]
+          scale: [1.0, 1.0, 1.0]
+        - index: 176 #surgical_tool_a_syringe -1241.01794 1939.6875 9.1179657
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.51794,1941.08752,9.1179657, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+        - index: 175 #medical_container_f_surgical_cloth_a -1240.94189 1939.7074 9.07650471
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.44189,1941.10742,9.07650471, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [0.954227388, 1.0, 1.10554433]
+        - index: 174 #medical_container_f_tray -1240.93921 1939.70508 9.0717535
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.43921,1941.1051,9.0717535, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+        - index: 155 #medical_electronic_small_merged_c_001 -1242.33728 1940.94165 9.19484806
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.62646,1938.28821,-11.7417374, 0.0]
+          orientation: [0, 0, -0.0869999975, 0.995999992]
+          scale: [1.0, 1.0, 1.0]
+        - index: 154 #medical_electronic_small_merged_a_001 -1242.29736 1940.94629 9.01917839
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.62646,1938.28821,-11.7417374, 0.0]
+          orientation: [0, 0, -0.0869999975, 0.995999992]
+          scale: [1.0, 1.0, 1.0]
+        - index: 150 #hardware_electronic_device_a -1240.76208 1941.54248 8.84460449
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.62646,1938.28821,-11.7417374, 0.0]
+          orientation: [0, 0, -0.0869999975, 0.995999992]
+          scale: [1.0, 1.0, 1.0]
+        - index: 140 #surgical_tool_b_tongs -1241.0835 1939.68652 9.12510681
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.5835,1941.08655,9.12510681, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+        - index: 133 #surgical_tool_j_gauze -1240.96692 1939.79785 9.09896851
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.46692,1941.19788,9.09896851, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+        - index: 130 #surgical_tool_j_gauze -1240.64514 1941.4187 9.22624969
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.62646,1938.28821,-11.7417374, 0.0]
+          orientation: [0, 0, -0.0869999975, 0.995999992]
+          scale: [1.0, 1.0, 1.0]
+        - index: 128 #surgical_tool_f_scalpel -1240.97119 1939.71802 9.12038326
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.47119,1941.11804,9.12038326, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+        - index: 124 #surgical_tool_d_scissors -1240.98352 1939.88538 9.10666084
+          type: worldInstancedDestructibleMeshNode
+          position: [-1239.48352,1941.2854,9.10666084, 0.0]
+          orientation: [0.00287889759, 0.00540943258, -0.293763041, -0.955858648]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-33_45_0_0.streamingsector
+      expectedNodes: 440
+      nodeMutations:
+        - index: 12 #medkit_c_pro_stuff_b_001 -1038.82056 1445.42371 1.51329792
+          type: worldDynamicMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 162 #medical_container_f_surgical_cloth_a_001 -1038.77686 1445.21887 1.48547101
+          type: worldInstancedDestructibleMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 163 #medical_container_e_tray_001 -1038.77649 1445.21863 1.48789191
+          type: worldInstancedDestructibleMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 167 #medical_container_e_tray_001 -1039.36865 1446.87134 1.29155421
+          type: worldInstancedDestructibleMeshNode
+          position: [-1038.68005, 1445.16003, 1.48547101, 0.0]
+          orientation: [0.0, 0.0, -0.300999999, 0.953999996]
+          scale: [1.0, 1.0, 0.699999988]
+        - index: 278 #tablet_a_entropy
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-53_74_0_0.streamingsector
+      expectedNodes: 631
+      nodeMutations:
+        - index: 328 #poor_office_stool_a 
+          type: worldInstancedDestructibleMeshNode
+          position: [0,0,-100.0, 0.0]
+    - path: base\worlds\03_night_city\_compiled\default\exterior_9_-35_0_0.streamingsector
+      expectedNodes: 2006
+      nodeMutations:
+        - index: 1553 #surgical_chair_b_armrest_aa
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1554 #surgical_chair_b_armrest_ab_001 586.0577 -2177.8770 43.0895
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1555 #surgical_chair_b_armrest_ad_001 586.041443 -2177.90796 43.0909309
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1556 #surgical_chair_b_backrest_aa_001 586.25415 -2178.35278 43.0974808
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1557 #surgical_chair_b_base_aa_001 586.550537 -2178.5083 42.4274826
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1558 #surgical_chair_b_headrest_aa_001 585.678955 -2178.05103 43.2464371
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1559 #surgical_chair_b_seat_aa_001 586.519836 -2178.49219 42.9474831
+          type: worldStaticMeshNode
+          position: [0,0,-100.0, 0.0]
+        - index: 1924 #base\environment\decoration\electronics\medical\surgical_chair\surgical_chair_b_footrest_aa.mesh
+          type: worldInstancedMeshNode
+          expectedInstances: 2
+          instanceMutations: 
+            - index: 1
+              position: [0,0,-100, 0.0]
+    - path: base\worlds\03_night_city\_compiled\default\interior_-10_15_0_2.streamingsector
+      expectedNodes: 87
+      nodeDeletions:
+        - index: 84 #NormalCollisionNode_398
+          type: worldCollisionNode
+journal:
+  - base\journal\ripper_journal.journal

@@ -17,11 +17,12 @@ public class DamageTrackerSystem extends ScriptableSystem {
 
     private let m_stats: array<SquadDamageStats>;
 
+    private let m_playerCombatExp: Int32;
+
     public func StartCombat() -> Void {
         this.m_combatActive = true;
         this.m_startTime = EngineTime.ToFloat(GameInstance.GetSimTime(GetGameInstance()));
         ArrayClear(this.m_stats);
-        //NCA.CETLog("Squad combat started");
     }
 
     public func StopCombat() -> Void {
@@ -29,7 +30,16 @@ public class DamageTrackerSystem extends ScriptableSystem {
             return;
         }
         this.m_combatActive = false;
-        //this.PrintSummary();
+    }
+
+    public func RecordPlayerExp(amount: Int32) -> Void {
+        this.m_playerCombatExp += amount;
+    }
+
+    public func ConsumeCombatExp() -> Int32 {
+        let exp: Int32 = this.m_playerCombatExp;
+        this.m_playerCombatExp = 0;
+        return exp;
     }
 
     public func RecordHit(npc: ref<NpcHandle>, evt: ref<gameHitEvent>) -> Void {
@@ -98,28 +108,5 @@ public class DamageTrackerSystem extends ScriptableSystem {
     private func GetCombatDuration() -> Float {
         let now: Float = EngineTime.ToFloat(GameInstance.GetSimTime(GetGameInstance()));
         return MaxF(0.1, now - this.m_startTime);
-    }
-
-    private func PrintSummary() -> Void {
-        let duration: Float = this.GetCombatDuration();
-        let totalSquadDamage: Float = 0.0;
-
-        let i: Int32 = 0;
-
-        NCA.CETLog("----- Combat Summary -----");
-        while i < ArraySize(this.m_stats) {
-            let stats: SquadDamageStats = this.m_stats[i];
-            let dps: Float = stats.totalDamage / duration;
-            totalSquadDamage += stats.totalDamage;
-            NCA.CETLog(
-                stats.name +
-                " | Damage: " + ToString(stats.totalDamage) +
-                " | DPS: " + ToString(dps)
-            );
-            i += 1;
-        }
-        NCA.CETLog("--------------------------");
-        NCA.CETLog("Squad Damage: " + ToString(totalSquadDamage));
-        NCA.CETLog("Squad DPS: " + ToString(totalSquadDamage / duration));
     }
 }

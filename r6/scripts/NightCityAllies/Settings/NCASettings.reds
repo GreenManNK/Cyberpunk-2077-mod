@@ -57,9 +57,17 @@ public class NCASettings extends ScriptableSystem {
 	@runtimeProperty("ModSettings.category", "User Interface")
 	@runtimeProperty("ModSettings.category.order", "10")
 	@runtimeProperty("ModSettings.dependency", "collapseInteractionMenu")
+	@runtimeProperty("ModSettings.displayName", "Equipment Button")
+	@runtimeProperty("ModSettings.description", "Add a second key to the interact button that opens companion equipment directly, instead of reaching it through the menu")
+	public let equipmentPromptButton: Bool = true;
+
+	@runtimeProperty("ModSettings.mod", "Night City Allies")
+	@runtimeProperty("ModSettings.category", "User Interface")
+	@runtimeProperty("ModSettings.category.order", "10")
+	@runtimeProperty("ModSettings.dependency", "collapseInteractionMenu")
 	@runtimeProperty("ModSettings.displayName", "Close Menu After Selection")
 	@runtimeProperty("ModSettings.description", "Close the interaction menu after selecting an option")
-	public let collapseAfterSelection: Bool = false;
+	public let collapseAfterSelection: Bool = true;
 
 	@runtimeProperty("ModSettings.mod", "Night City Allies")
 	@runtimeProperty("ModSettings.category", "User Interface")

@@ -1,0 +1,26 @@
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-26_-40_0_1.streamingsector
+      expectedNodes: 1051
+      nodeMutations:
+        - index: 1045 #industrial_curtain_c_011
+          type: worldStaticMeshNode
+          position: [-1633.77502, -2534.7793, -1000, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-46_-63_2_0.streamingsector
+      expectedNodes: 506
+      nodeMutations:
+        - index: 230 #poor_utility_chair_d_white_dst
+          type: worldEntityNode
+          position: [-1450.36633,-2012.52161,-71.86409, 0.0]
+          orientation: [0.0, 0.0, 0, 1]
+          scale: [1.0, 1.0, 1.0]
+    - path: base\worlds\03_night_city\_compiled\default\ep1\interior_-52_-80_1_0.streamingsector
+      expectedNodes: 757
+      nodeMutations:
+        - index: 244 #bar_stool_b_dirty
+          type: worldInstancedDestructibleMeshNode
+          position: [-1634.2572,-2534.41675,-39.7642975, 0.0]
+          orientation: [0, 0, 0, 1]
+          scale: [1.0, 1.0, 1.0]

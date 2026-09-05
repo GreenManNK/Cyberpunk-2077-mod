@@ -1,0 +1,563 @@
+Items.MK78_SAW:
+  $base: Items.Preset_Hercules_Prototype
+  tags:
+    - !append-once IconicWeapon
+  statModifiers: 
+    - !append-once Quality.IconicItem
+    - !append-once Items.mk78stats_damage
+    - !append-once Items.mk78stats_mag
+    - !append-once Items.mk78stats_rof
+    - !append-once Items.mk78stats_reload
+    - !append-once Items.mk78stats_reload2
+    - !append-once Items.mk78stats_reload3
+    - !append-once Items.mk78stats_reload4
+    - !append-once Items.mk78stats_effectiverange
+    - !append-once Items.mk78stats_firstequip
+    - !append-once Items.mk78stats_armor
+    - !append-once Items.mk78stats_headshotmult
+    - !append-once Items.mk78stats_spread
+    - !append-once Items.mk78stats_pierce
+    - !append-once Items.mk78stats_fov
+    - !append-once Items.mk78stats_scopefov
+  evolution: WeaponEvolution.Power
+  blueprint: Items.Base_Power_AR_SMG_LMG_Blueprint
+  fxPackage: WeaponFxPackage.mk78_fx
+  primaryTriggerMode: TriggerMode.FullAuto
+  rangedAttacks: Attacks.PowerRoundsBulletPackage
+  secondaryTriggerMode: TriggerMode.FullAuto
+  crosshair: Crosshairs.Basic
+  appearanceResourceName: mk78_app
+  audioName: wea_set_defender
+  itemType: ItemType.Wea_SAW      #Change Item Type to Light machinegun Replace "ItemType.Wea_SAW"  with  "ItemType.Wea_LightMachineGun"
+  IsIKEnabled: True
+  quality: Quality.Legendary
+  attacks:
+    - Attacks.Bullet_GameEffect
+    - Attacks.ThermalBulletEffect
+    - Attacks.ChemicalBulletEffect
+    - Attacks.ElectricBulletEffect
+    - Attacks.BurningBulletEffect
+    - Attacks.SmartBulletLow
+    - Attacks.SmartBulletMed
+    - Attacks.SmartBulletHigh
+    - Attacks.SmartBulletTwoStage
+    - Attacks.QuickMelee
+    - Attacks.Bullet_Projectile
+    - Attacks.ThermalBulletProjectile
+    - Attacks.ChemicalBulletProjectile
+    - Attacks.ElectricBulletProjectile
+    - Attacks.BurningBulletProjectile
+    - Attacks.PowerRounds_Projectile
+    - Attacks.PowerBuckshots_Projectile
+    - Attacks.PowerBullets_Projectile
+    - Attacks.NPCBulletEffect
+    - Attacks.NPCThermalBulletEffect
+    - Attacks.NPCChemicalBulletEffect
+    - Attacks.NPCElectricBulletEffect
+    - Attacks.NPCBurningBulletEffect
+    - Attacks.NPCSmartBullet
+    - Attacks.NPCBulletProjectile
+    - Attacks.NPCThermalBulletProjectile
+    - Attacks.NPCChemicalBulletProjectile
+    - Attacks.NPCElectricBulletProjectile
+    - Attacks.NPCBurningBulletProjectile
+    - NPCAttacks.QuickMelee
+    - NPCAttacks.StompAttackStagger
+    - NPCAttacks.StrongAttackStagger
+    - NPCAttacks.StrongAttackStompKnockdown
+    - NPCAttacks.StrongAttackStompStun
+    - NPCAttacks.PushEffect
+    - NPCAttacks.ParryEffect
+    - Attacks.BaseLaserSight
+    - Attacks.TechLaserSight
+    - Attacks.ExplosiveBulletEffect
+    - Attacks.ExplodingBulletProjectile
+    - Attacks.ReedLaserSight
+    - Attacks.ReedSniperAttack
+    - NPCAttacks.QuickMeleeWithKnockdown
+    - NPCAttacks.KurtTakedownAttack01
+    - NPCAttacks.KurtTakedownAttack02
+    - NPCAttacks.KurtTakedownAttackFar02
+    - NPCAttacks.KurtJump_StrongAttackKnockdown
+    - NPCAttacks.KurtMeleeExplosion
+    - Attacks.ChimeraPowerMod_ExplosiveBulletEffect
+    - Attacks.HerculesProjectile
+    - Attacks.HerculesSmartBullet
+  gameplayDescription: ''
+  triggerModes:
+    - TriggerMode.FullAuto
+  displayName: mk78_name
+  localizedDescription: mk78_description
+  hudIcon:
+    atlasResourcePath: mk78\icon\mk78_hud.inkatlas
+    atlasPartName: slot_01
+  icon:  
+    atlasResourcePath: mk78\icon\mk78.inkatlas
+    atlasPartName: slot_01
+  visualTags:
+    - Default
+  statModifierGroups:
+    - Items.Base_Weapon_Damage_Type_Min_Max
+    - Items.Base_Weapon_Damage_Type_Physical
+    - Items.ItemPlusRandomizer_MaxQuality
+    - Items.ItemPlusRandomizer_Below_MaxQuality
+    - Items.IconicQualityRandomization
+    - Items.WeaponModsWeights_On_Tier2Plus
+    - Items.WeaponModsWeights_On_Tier3Plus
+    - Items.WeaponModsWeights_On_Tier4Plus
+    - Items.WeaponModsWeights_On_Tier5Plus
+    - Items.WeaponModsWeights_On_Tier5PlusPlus
+    - Items.Base_Lightmachinegun_RPG_Stats
+    - Items.Base_Lightmachinegun_Misc_Stats
+    - Items.Base_Lightmachinegun_DeadReckoning_Stats
+    - Items.Base_Lightmachinegun_Sway_Stats
+    - Items.Base_PlayerState_Spread_Stats
+    - Items.Base_Power_Stats
+    - Items.Base_Power_Lightmachinegun_Mult_Stats
+    - Items.Base_Power_Lightmachinegun_Stats
+    - Items.Base_Defender_Technical_Stats
+    - Items.Base_Defender_Handling_Stats
+    - Items.Base_Defender_Recoil_Stats
+    - Items.Base_Defender_Spread_Stats
+    - Items.Base_Defender_Aim_Stats
+    - Items.Base_Defender_Constant_Stats
+    - Items.Base_Defender_Damage_Stats  
+  OnAttach:
+    - Items.Base_Assault_Rifle_inline0
+    - EquipmentGLP.MediumStaminaRegen
+    - EquipmentGLP.MediumStaminaDelay
+    - EquipmentGLP.MediumWeapon
+    - EquipmentGLP.HeavyFastFiringWeaponCloseRangeDamageMult
+  slotPartList:
+    - Items.Base_mk78_inline1
+    - Items.Base_mk78_inline3
+    - Items.Base_mk78_inline5
+    - Items.Base_mk78_inline7
+    - Items.RiflePossibleScopesList
+    - Items.RangedWeaponPossibleMuzzleList
+    - Items.RiflePossibleMuzzleBrakeList
+    - Items.HandgunPossibleScopesList
+    - Items.GradPossibleScopesList
+    - Items.NekomataPossibleScopesList
+  slotPartListPreset:
+    - Items.Preset_mk78_inline0
+    - Items.Preset_mk78_inline1
+    - Items.Preset_mk78_inline2
+    - Items.Preset_mk78_inline3
+    
+#rcv
+Items.Base_mk78_inline1:
+  $base: Items.Base_Hercules_inline1
+  itemPartList:
+    - Items.Base_mk78_inline2
+Items.Base_mk78_inline2:
+  $base: Items.Base_Hercules_inline2
+  item: Items.mk78_rcv_prt
+Items.mk78_rcv_prt:
+  $base: Items.w_special__militech_hercules__rcv1
+  appearanceResourceName: mk78_rcv
+#base
+Items.Base_mk78_inline3:
+  $base: Items.Base_Hercules_inline3
+  itemPartList:
+    - Items.Base_mk78_inline4
+Items.Base_mk78_inline4:
+  $base: Items.Base_Hercules_inline4
+  item: Items.mk78_base_prt
+Items.mk78_base_prt:
+  $base: Items.w_special__militech_hercules__base1
+  appearanceResourceName: mk78_base
+#mag
+Items.Base_mk78_inline5:
+  $base: Items.Base_Hercules_inline5
+  itemPartList:
+    - Items.Base_mk78_inline6
+Items.Base_mk78_inline6:
+  $base: Items.Base_Hercules_inline6
+  item: Items.mk78_mag_std_prt
+Items.mk78_mag_std_prt:
+  $base: Items.w_special__militech_hercules__mag_std
+  appearanceResourceName: mk78_mag_std
+#reload
+Items.Base_mk78_inline7:
+  $base: Items.Base_Hercules_inline7
+  itemPartList:
+    - Items.Base_mk78_inline8
+Items.Base_mk78_inline8:
+  $base: Items.Base_Hercules_inline8
+  item: Items.mk78_mag_stdr_prt
+Items.mk78_mag_stdr_prt:
+  $base: Items.w_special__militech_hercules__mag_stdr_1
+  appearanceResourceName: mk78_mag_stdr
+#preset
+Items.Preset_mk78_inline0:
+  $base: Items.Preset_Hercules_Prototype_inline3
+  itemPartPreset: Items.mk78_rcv_prt
+Items.Preset_mk78_inline1:
+  $base: Items.Preset_Hercules_Prototype_inline5
+  itemPartPreset: Items.mk78_base_prt
+Items.Preset_mk78_inline2:
+  $base: Items.Preset_Hercules_Prototype_inline7
+  itemPartPreset: Items.mk78_mag_std_prt
+Items.Preset_mk78_inline3:
+  $base: Items.Preset_Hercules_Prototype_inline9
+  itemPartPreset: Items.mk78_mag_stdr_prt
+    
+Items.mk78stats_damage:
+  $type: gamedataConstantStatModifier_Record
+  value: 120                                            #CHANGE DAMAGE VALUE - LOWER NUMBER=LOWER DAMAGE, HIGHER NUMBER=HIGHER DAMAGE.
+  modifierType: Additive
+  statType: BaseStats.DPS
+  
+Items.mk78stats_mag:
+  $type: gamedataConstantStatModifier_Record
+  value: 220                                          #CHANGE MAG SIZE - 0=DEFAULT (80 ROUNDS)  EXAMPLE: IF YOU WANT 150 ROUNDS YOU WOULD PUT "70" AS THE VALUE
+  modifierType: Additive
+  statType: BaseStats.MagazineCapacityBase
+  
+Items.mk78stats_rof:
+  $type: gamedataConstantStatModifier_Record
+  value: -0.02                                        #CHANGE RATE OF FIRE- HIGHER NUMBER=LOWER ROF, LOWER NUMBER=HIGHER ROF (TRY TO KEEP THIS VALUE BETWEEN "-0.25" AND "0.25")
+  modifierType: Additive
+  statType: BaseStats.CycleTimeBase
+  
+Items.mk78stats_pierce:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #ENAABLE WALL PIERCE ABILITY - 0=OFF, 1=ON
+  modifierType: Additive
+  statType: BaseStats.TechPierceEnabled
+  
+Items.mk78stats_fov:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                            #CHANGE IRONSIGHT FOV- DEFAULT=0 (20 FOV)  HIGHER NUMBER=HIGHER FOV, LOWER NUMBER=LOWER FOV. EXAMPLE: IF YOU WANT 10 FOV YOU WOULD PUT "-10" AS THE VALUE
+  modifierType: Additive
+  statType: BaseStats.AimFOV
+
+Items.mk78stats_scopefov:
+  $type: gamedataConstantStatModifier_Record
+  value: 0                                             #CHANGE SCOPE FOV- DEFAULT=0 (20 FOV)  HIGHER NUMBER=HIGHER FOV, LOWER NUMBER=LOWER FOV
+  modifierType: Additive
+  statType: BaseStats.ScopeFOV
+  
+Items.mk78stats_effectiverange:
+  $type: gamedataConstantStatModifier_Record
+  value: 30
+  modifierType: Additive
+  statType: BaseStats.EffectiveRange
+  
+#DO NOT CHANGE ANY STATS BELOW THIS TEXT
+Items.mk78stats_reload:
+  $type: gamedataConstantStatModifier_Record
+  value: 1.70
+  modifierType: Additive
+  statType: BaseStats.ReloadTimeBase
+  
+Items.mk78stats_reload2:
+  $type: gamedataConstantStatModifier_Record
+  value: 1.77
+  modifierType: Additive
+  statType: BaseStats.EmptyReloadTime
+  
+Items.mk78stats_reload3:
+  $type: gamedataConstantStatModifier_Record
+  value: 1.90
+  modifierType: Additive
+  statType: BaseStats.ReloadEndTimeBase
+  
+Items.mk78stats_reload4:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.94
+  modifierType: Additive
+  statType: BaseStats.EmptyReloadEndTime
+  
+Items.mk78stats_firstequip:
+  $type: gamedataConstantStatModifier_Record
+  value: 1.80000019
+  modifierType: Additive
+  statType: BaseStats.EquipDuration_First
+  
+Items.mk78stats_armor:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.75
+  modifierType: Additive
+  statType: BaseStats.CanWeaponIgnoreArmor
+  
+Items.mk78stats_headshotmult:
+  $type: gamedataConstantStatModifier_Record
+  value: 0.15
+  modifierType: Additive
+  statType: BaseStats.HeadshotDamageMultiplier
+  
+Items.mk78stats_spread:
+  $type: gamedataConstantStatModifier_Record
+  value: -1
+  modifierType: Additive
+  statType: BaseStats.SpreadUseInAds
+  
+EquipmentGLP.HeavyFastFiringWeaponCloseRangeDamageMult:
+  $type: gamedataGameplayLogicPackage_Record
+  stackable: False
+  animationWrapperOverrides: []
+  effectors:
+    - EquipmentGLP.HeavyFastFiringWeaponCloseRangeDamageMult_inline0
+    
+ItemType.Wea_SAW:
+  $type: gamedataItemType_Record
+  animFeatureIndex: 2
+  name: Wea_Rifle
+  localizedType: mk78_type
+  
+WeaponFxPackage.mk78_fx:
+  $type: gamedataWeaponFxPackage_Record
+  NPC_vfx_hitscan_trail: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  NPC_vfx_hitscan_trail_chemical: base\fx\weapons\trails\power\chemical\w_trail_chemical_power_hmg_npc.effect
+  NPC_vfx_hitscan_trail_electric: base\fx\weapons\trails\power\electric\w_trail_electric_power_hmg_npc.effect
+  NPC_vfx_hitscan_trail_thermal: base\fx\weapons\trails\power\thermal\w_trail_thermal_power_hmg_npc.effect
+  npc_vfx_set: WeaponFxPackage.PowerBaseNPCSet
+  player_vfx_set: WeaponFxPackage.PowerBaseSet
+  preloadWaterEffects: False
+  vfx_extra_hit: ''
+  vfx_ground_throw: ''
+  vfx_hitscan_trail: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_hitscan_trail_chemical: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_hitscan_trail_electric: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_hitscan_trail_ricochet: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_hitscan_trail_slowmo: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_hitscan_trail_thermal: base\fx\weapons\trails\power\w_trail_power_hmg_npc.effect
+  vfx_impact_add: base\fx\weapons\smart\_impacts\s_impact_default.effect
+  vfx_impact_add_enable: False
+  vfx_impact_asphalt: WeaponFxPackage.PowerLargeCaliber_inline23
+  vfx_impact_asphalt_material: asphalt.physmat
+  vfx_impact_brick: WeaponFxPackage.PowerLargeCaliber_inline12
+  vfx_impact_brick_material: brick.physmat
+  vfx_impact_cardboard: WeaponFxPackage.PowerLargeCaliber_inline52
+  vfx_impact_cardboard_material: cardboard.physmat
+  vfx_impact_carpet: WeaponFxPackage.PowerLargeCaliber_inline54
+  vfx_impact_carpet_material: carpet.physmat
+  vfx_impact_carpet_techpiercable: WeaponFxPackage.MaterialFxCarpetTechpiercable
+  vfx_impact_carpet_techpiercable_material: carpet_techpiercable.physmat
+  vfx_impact_ceramic: WeaponFxPackage.PowerLargeCaliber_inline11
+  vfx_impact_ceramic_material: ceramic.physmat
+  vfx_impact_character_armor: WeaponFxPackage.MaterialFxCharacterArmor
+  vfx_impact_character_armor_material: character_armor.physmat
+  vfx_impact_character_cyberflesh: WeaponFxPackage.PowerLargeCaliber_inline50
+  vfx_impact_character_cyberflesh_material: character_cyberflesh.physmat
+  vfx_impact_character_flesh: WeaponFxPackage.PowerLargeCaliber_inline48
+  vfx_impact_character_flesh_head: WeaponFxPackage.PowerLargeCaliber_inline29
+  vfx_impact_character_flesh_head_material: character_flesh_head.physmat
+  vfx_impact_character_flesh_material: character_flesh.physmat
+  vfx_impact_character_metal: WeaponFxPackage.MaterialFxCharacterMetal
+  vfx_impact_character_metal_material: character_metal.physmat
+  vfx_impact_character_vr: WeaponFxPackage.PowerLargeCaliber_inline41
+  vfx_impact_character_vr_material: character_vr.physmat
+  vfx_impact_concrete: WeaponFxPackage.PowerLargeCaliber_inline4
+  vfx_impact_concrete_material: concrete.physmat
+  vfx_impact_concrete_water_puddles: WeaponFxPackage.PowerLargeCaliber_inline63
+  vfx_impact_concrete_water_puddles_material: concrete_water_puddles.physmat
+  vfx_impact_cyberware_flesh: WeaponFxPackage.PowerLargeCaliber_inline9
+  vfx_impact_cyberware_flesh_material: cyberware_flesh.physmat
+  vfx_impact_cyberware_metal: WeaponFxPackage.PowerLargeCaliber_inline43
+  vfx_impact_cyberware_metal_head: WeaponFxPackage.MaterialFxCyberwareMetalHead
+  vfx_impact_cyberware_metal_head_material: cyberware_metal_head.physmat
+  vfx_impact_cyberware_metal_material: cyberware_metal.physmat
+  vfx_impact_damage_chemical: base\fx\weapons\impacts\_elemental\chemical\imp_add_on_chemical.effect
+  vfx_impact_damage_electric: base\fx\weapons\impacts\_elemental\electric\imp_add_on_electric.effect
+  vfx_impact_damage_thermal: base\fx\weapons\impacts\_elemental\thermal\imp_add_on_thermal.effect
+  vfx_impact_default: WeaponFxPackage.MaterialFxDefault
+  vfx_impact_dirt: WeaponFxPackage.PowerLargeCaliber_inline59
+  vfx_impact_dirt_material: dirt.physmat
+  vfx_impact_fabrics: WeaponFxPackage.PowerLargeCaliber_inline53
+  vfx_impact_fabrics_material: fabrics.physmat
+  vfx_impact_flesh: WeaponFxPackage.PowerLargeCaliber_inline20
+  vfx_impact_flesh_material: flesh.physmat
+  vfx_impact_food: WeaponFxPackage.PowerLargeCaliber_inline36
+  vfx_impact_food_material: food.physmat
+  vfx_impact_furniture_leather: WeaponFxPackage.PowerLargeCaliber_inline55
+  vfx_impact_furniture_leather_material: furniture_leather.physmat
+  vfx_impact_furniture_upholstery: WeaponFxPackage.PowerLargeCaliber_inline56
+  vfx_impact_furniture_upholstery_material: furniture_upholstery.physmat
+  vfx_impact_glass: WeaponFxPackage.PowerLargeCaliber_inline51
+  vfx_impact_glass_bulletproof: WeaponFxPackage.MaterialFxGlassBulletproof
+  vfx_impact_glass_bulletproof_material: glass_bulletproof.physmat
+  vfx_impact_glass_car: WeaponFxPackage.PowerLargeCaliber_inline16
+  vfx_impact_glass_car_material: glass_car.physmat
+  vfx_impact_glass_car_tpp: WeaponFxPackage.MaterialFxGlassCarTPP
+  vfx_impact_glass_dst: WeaponFxPackage.MaterialFxGlassDst
+  vfx_impact_glass_dst_material: glass_dst.physmat
+  vfx_impact_glass_electronics: WeaponFxPackage.PowerLargeCaliber_inline49
+  vfx_impact_glass_electronics_material: glass_electronics.physmat
+  vfx_impact_glass_material: glass.physmat
+  vfx_impact_glass_opaque: WeaponFxPackage.MaterialFxGlassBulletproof
+  vfx_impact_glass_opaque_material: glass_opaque.physmat
+  vfx_impact_glass_semitransparent: WeaponFxPackage.PowerLargeCaliber_inline33
+  vfx_impact_glass_semitransparent_material: glass_semitransparent.physmat
+  vfx_impact_grass: WeaponFxPackage.PowerLargeCaliber_inline61
+  vfx_impact_grass_material: grass.physmat
+  vfx_impact_leather: WeaponFxPackage.PowerLargeCaliber_inline57
+  vfx_impact_leather_material: leather.physmat
+  vfx_impact_leaves: WeaponFxPackage.PowerLargeCaliber_inline47
+  vfx_impact_leaves_material: leaves.physmat
+  vfx_impact_leaves_semitransparent: WeaponFxPackage.PowerLargeCaliber_inline30
+  vfx_impact_leaves_semitransparent_material: leaves_semitransparent.physmat
+  vfx_impact_linoleum: WeaponFxPackage.PowerLargeCaliber_inline21
+  vfx_impact_linoleum_material: linoleum.physmat
+  vfx_impact_meat: WeaponFxPackage.PowerLargeCaliber_inline13
+  vfx_impact_meat_material: meat.physmat
+  vfx_impact_meatbag: WeaponFxPackage.PowerLargeCaliber_inline40
+  vfx_impact_meatbag_material: character_meatbag.physmat
+  vfx_impact_metal: WeaponFxPackage.PowerLargeCaliber_inline14
+  vfx_impact_metal_car: WeaponFxPackage.PowerLargeCaliber_inline15
+  vfx_impact_metal_car_electronics: WeaponFxPackage.MaterialFxMetalCarElectronics
+  vfx_impact_metal_car_electronics_material: metal_car_electronics.physmat
+  vfx_impact_metal_car_material: metal_car.physmat
+  vfx_impact_metal_car_pipe_steam: WeaponFxPackage.MaterialFxMetalCarPipeSteam
+  vfx_impact_metal_car_pipe_steam_material: metal_car_pipe_steam.physmat
+  vfx_impact_metal_car_pipe_water: WeaponFxPackage.MaterialFxMetalCarPipeWater
+  vfx_impact_metal_car_pipe_water_material: metal_car_pipe_water.physmat
+  vfx_impact_metal_car_ricochet: WeaponFxPackage.PowerLargeCaliber_inline2
+  vfx_impact_metal_car_ricochet_material: metal_car_ricochet.physmat
+  vfx_impact_metal_car_ricochet_tpp: WeaponFxPackage.MaterialFxMetalCarTPP
+  vfx_impact_metal_car_tpp: WeaponFxPackage.MaterialFxMetalCarTPP
+  vfx_impact_metal_catwalk: WeaponFxPackage.PowerLargeCaliber_inline0
+  vfx_impact_metal_catwalk_material: metal_catwalk.physmat
+  vfx_impact_metal_heavypiercable: WeaponFxPackage.MaterialFxMetal
+  vfx_impact_metal_heavypiercable_material: metal_heavypiercable.physmat
+  vfx_impact_metal_hollow: WeaponFxPackage.PowerLargeCaliber_inline18
+  vfx_impact_metal_hollow_material: metal_hollow.physmat
+  vfx_impact_metal_material: metal.physmat
+  vfx_impact_metal_painted: WeaponFxPackage.PowerLargeCaliber_inline31
+  vfx_impact_metal_painted_material: metal_painted.physmat
+  vfx_impact_metal_pipe_steam: WeaponFxPackage.PowerLargeCaliber_inline5
+  vfx_impact_metal_pipe_steam_material: metal_pipe_steam.physmat
+  vfx_impact_metal_pipe_water: WeaponFxPackage.PowerLargeCaliber_inline10
+  vfx_impact_metal_pipe_water_material: metal_pipe_water.physmat
+  vfx_impact_metal_ricochet: WeaponFxPackage.PowerLargeCaliber_inline6
+  vfx_impact_metal_ricochet_material: metal_ricochet.physmat
+  vfx_impact_metal_road: WeaponFxPackage.PowerLargeCaliber_inline44
+  vfx_impact_metal_road_material: metal_road.physmat
+  vfx_impact_metal_semitransparent: WeaponFxPackage.PowerLargeCaliber_inline32
+  vfx_impact_metal_semitransparent_material: metal_semitransparent.physmat
+  vfx_impact_metal_techpiercable: WeaponFxPackage.MaterialFxMetal
+  vfx_impact_metal_techpiercable_material: metal_techpiercable.physmat
+  vfx_impact_metal_transparent: WeaponFxPackage.PowerLargeCaliber_inline39
+  vfx_impact_metal_transparent_material: metal_transparent.physmat
+  vfx_impact_mud: WeaponFxPackage.MaterialFxMud
+  vfx_impact_mud_material: mud.physmat
+  vfx_impact_neon: WeaponFxPackage.MaterialFxNeon
+  vfx_impact_neon_material: neon.physmat
+  vfx_impact_paper: WeaponFxPackage.PowerLargeCaliber_inline28
+  vfx_impact_paper_material: paper.physmat
+  vfx_impact_plaster: WeaponFxPackage.PowerLargeCaliber_inline35
+  vfx_impact_plaster_material: plaster.physmat
+  vfx_impact_plastic: WeaponFxPackage.PowerLargeCaliber_inline19
+  vfx_impact_plastic_car: WeaponFxPackage.PowerLargeCaliber_inline34
+  vfx_impact_plastic_car_electronics: WeaponFxPackage.MaterialFxPlasticCarElectronics
+  vfx_impact_plastic_car_electronics_material: plastic_car_electronics.physmat
+  vfx_impact_plastic_car_material: plastic_car.physmat
+  vfx_impact_plastic_electronics: WeaponFxPackage.PowerLargeCaliber_inline27
+  vfx_impact_plastic_electronics_material: plastic_electronics.physmat
+  vfx_impact_plastic_material: plastic.physmat
+  vfx_impact_plastic_road: WeaponFxPackage.PowerLargeCaliber_inline38
+  vfx_impact_plastic_road_material: plastic_road.physmat
+  vfx_impact_plexiglass: WeaponFxPackage.PowerLargeCaliber_inline22
+  vfx_impact_plexiglass_material: plexiglass.physmat
+  vfx_impact_rubber: WeaponFxPackage.PowerLargeCaliber_inline25
+  vfx_impact_rubber_material: rubber.physmat
+  vfx_impact_sand: WeaponFxPackage.PowerLargeCaliber_inline60
+  vfx_impact_sand_material: sand.physmat
+  vfx_impact_stone: WeaponFxPackage.PowerLargeCaliber_inline42
+  vfx_impact_stone_material: stone.physmat
+  vfx_impact_tiles: WeaponFxPackage.PowerLargeCaliber_inline37
+  vfx_impact_tiles_material: tiles.physmat
+  vfx_impact_tire_car: WeaponFxPackage.PowerLargeCaliber_inline17
+  vfx_impact_tire_car_material: tire_car.physmat
+  vfx_impact_tire_car_tpp: WeaponFxPackage.MaterialFxTireCarTPP
+  vfx_impact_trash: WeaponFxPackage.PowerLargeCaliber_inline1
+  vfx_impact_trash_bag: WeaponFxPackage.PowerLargeCaliber_inline26
+  vfx_impact_trash_bag_material: trash_bag.physmat
+  vfx_impact_trash_material: trash.physmat
+  vfx_impact_upholstery_car: WeaponFxPackage.PowerLargeCaliber_inline58
+  vfx_impact_upholstery_car_material: upholstery_car.physmat
+  vfx_impact_vehicle_chassis: WeaponFxPackage.PowerLargeCaliber_inline7
+  vfx_impact_vehicle_chassis_material: vehicle_chassis.physmat
+  vfx_impact_water: WeaponFxPackage.PowerLargeCaliber_inline62
+  vfx_impact_water_material: water.physmat
+  vfx_impact_wood: WeaponFxPackage.PowerLargeCaliber_inline8
+  vfx_impact_wood_bamboo_poles: WeaponFxPackage.PowerLargeCaliber_inline24
+  vfx_impact_wood_bamboo_poles_material: wood_bamboo_poles.physmat
+  vfx_impact_wood_crown: WeaponFxPackage.PowerLargeCaliber_inline46
+  vfx_impact_wood_crown_material: wood_crown.physmat
+  vfx_impact_wood_hedge: WeaponFxPackage.PowerLargeCaliber_inline3
+  vfx_impact_wood_hedge_material: wood_hedge.physmat
+  vfx_impact_wood_material: wood.physmat
+  vfx_impact_wood_tree: WeaponFxPackage.PowerLargeCaliber_inline45
+  vfx_impact_wood_tree_material: wood_tree.physmat
+  vfx_projectile_trail_name: trail
+  vfx_ricochet: base\fx\weapons\ricochet\w_ricochet_impact.effect
+  waterImpulseFrames: 2
+  waterImpulseRadius: 0.0399999991
+  waterImpulseStrength: 0.00400000019
+  character_pseudo_piercing:
+    - base\fx\characters\_damage\impacts\_splatters\ch_pseudo_piercing_splatter_01.effect
+    - base\fx\characters\_damage\impacts\_splatters\ch_pseudo_piercing_splatter_02.effect
+  character_surrounding_decals:
+    - base\fx\characters\_damage\impacts\_splatters\ch_surrounding_splatter_01.effect
+  vfx_impact_add_names: []
+
+  
+Vendors.pac_wwd_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.hey_rey_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+
+Vendors.wbr_jpn_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.wat_nid_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.wat_lch_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.wat_kab_gunsmith_02:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.wat_kab_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.hey_gle_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.hey_spr_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.std_arr_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.std_rcr_gunsmith_01:
+  itemStock:
+    - !append Items.mk78_stock
+    
+Vendors.cct_dtn_guns_01:
+  itemStock:
+    - !append Items.mk78_stock
+
+Items.mk78_stock:
+  $type: VendorItem
+  generationPrereqs:
+    - !append LootPrereqs.PlayerLevel_Tier_3_Start_Prereq
+  item: Items.MK78_SAW
+  quantity:
+    - !append Vendors.Always_Present
+   

@@ -6,8 +6,8 @@ return{
     name = "NCA Maelstrom - Royce and Brick",
     author = "NCA",
     load = function(NCA)
-        NCA:RegisterCharacter({name = "Brick", record = "Character.Brick", locked=true, type="mercenary", rarity="elite"})
-        NCA:RegisterCharacter({name = "Royce", record = "Character.Royce", locked=true, type="mercenary", rarity="elite"})
+        NCA:RegisterCharacter({name = "Brick", record = "Character.Brick", locked=true, type="mercenary"})
+        NCA:RegisterCharacter({name = "Royce", record = "Character.Royce", locked=true, type="mercenary"})
         NCA:On("QuestComplete", function()
             if NCA:CheckQuest("q003_royce_dead") then
                 NCA:LockCharacter("Character.Royce")

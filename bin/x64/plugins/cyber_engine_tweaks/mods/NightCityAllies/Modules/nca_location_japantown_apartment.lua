@@ -63,6 +63,68 @@ return {
                 },
             }
         })
+        
+        NCA:RegisterProp("JapanTown_Apartment", {
+            name = "JapanTown_Apartment_Shower",
+            slots = { "Shower" },
+            pos = { -780.9079590, 972.3012695, 28.2095413, 1 },
+            rot = { 0.0000000, 0.0000000, -0.6444207, 0.7646713 },
+            interactions = {
+                {
+                    type = "stand_shower",
+                    slots = { "Shower" },
+                    pos = { -779.0219727, 972.4935303, 28.2183456, 1 },
+                    rot = { 0.0000000, 0.0000000, -0.6271782, 0.7788759 },
+                },
+            }
+        })
+
+        NCA:RegisterProp("JapanTown_Apartment", {
+            name = "JapanTown_Apartment_Kitchen",
+            slots = { "Wall" },
+            pos = { -784.2409058, 969.6445923, 28.2095413, 1 },
+            rot = { 0.0000000, 0.0000000, 0.7475408, 0.6642159 },
+            interactions = {
+                {
+                    type = "stand_wall",
+                    slots = { "Wall" },
+                    pos = { -782.8850098, 970.6090088, 28.2181244, 1 },
+                    rot = { 0.0000000, 0.0000000, 0.7370152, 0.6758762 },
+                },
+            }
+        })
+
+        NCA:RegisterProp("JapanTown_Apartment", {
+            name = "JapanTown_Apartment_Bed",
+            area = "Bed",
+            slots = { "Bed" },
+            pos = { -785.9284668, 987.3969116, 28.2257385, 1 },
+            rot = { 0.0000000, 0.0000000, 0.9989180, -0.0465067 },
+            interactions = {
+                {
+                    type = "lie_sleep",
+                    slots = { "Bed" },
+                    pos = { -783.6229858, 987.2449951, 28.4014130, 1 },
+                    rot = { 0.0000000, 0.0000000, 0.7387569, 0.6739720 },
+                },
+            }
+        })
+
+        NCA:RegisterPath("JapanTown_Apartment", {
+            from = "", to = "Bed",
+            nodes = {
+                { -785.9447632, 986.6317139, 28.2263336 },
+                { -785.1598511, 986.8560181, 28.4014130 },
+            },
+        })
+
+        NCA:RegisterPath("JapanTown_Apartment", {
+            from = "Bed", to = "",
+            nodes = {
+                { -785.3229980, 987.4043579, 28.4014130 },
+                { -786.3219604, 986.6270142, 28.2263336 },
+            },
+        })
 
         NCA:Location():RegisterDistrictTrigger("JapanTown_Apartment", gamedataDistrict.JapanTown_Apartment)
     end

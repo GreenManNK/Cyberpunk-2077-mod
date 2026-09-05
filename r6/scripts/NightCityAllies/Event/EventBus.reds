@@ -81,6 +81,7 @@ public class EventBus extends ScriptableSystem {
         NCA.Damage().StopCombat();
         NCA.UI().RefreshVisibility();
 
+        let combatExp: Float = Cast<Float>(NCA.Damage().ConsumeCombatExp());
         let squad: array<ref<NpcHandle>> = NCA.NPC().GetSquad();
         let squadSize: Int32 = ArraySize(squad);
         if squadSize <= 0 {
@@ -88,13 +89,19 @@ public class EventBus extends ScriptableSystem {
         }
 
         let totalDamage: Float = NCA.Damage().GetTotalSquadDamage();
-        let sharedExp: Float = (totalDamage / Cast<Float>(squadSize)) * ExpLogic.GetSharedExpRate();
-        //NCA.CETLog("SharedEXP= " + ToString(sharedExp));
+        let baseExp: Float = combatExp * NCAConstants.CombatExpBaseRate();
+        let contributionPool: Float = combatExp * NCAConstants.CombatExpContributionRate();
 
-        // apply shared exp to each member
         let i: Int32 = 0;
         while i < squadSize {
-            squad[i].AddExp(Cast<Int32>(sharedExp));
+            let share: Float = 0.0;
+            if totalDamage > 0.0 {
+                let stats: SquadDamageStats = NCA.Damage().GetStats(squad[i]);
+                share = stats.totalDamage / totalDamage;
+            }
+
+            squad[i].AddExp(Cast<Int32>(baseExp + contributionPool * share));
+            squad[i].ApplyLevel(); // scale to the new level
             squad[i].DetermineBehavior(); // back into the seat when in a car, see NpcHandle
             i += 1;
         }; // works while out of car companions are despawned, check if changing it
@@ -110,13 +117,11 @@ public class EventBus extends ScriptableSystem {
     public final func OnCompanionDealDamage(npc: ref<NpcHandle>, evt: ref<gameHitEvent>) -> Void {
         NCA.Damage().RecordHit(npc, evt);
         let stats: SquadDamageStats = NCA.Damage().GetStats(npc);
-        npc.AddExp(Cast<Int32>(stats.lastHitDamage * ExpLogic.GetOnHitExpRate()));
-        npc.OnDealDamage(stats);
+        npc.OnDealDamage(stats); // the damage itself only pays out at combat end, see OnCombatEnd
     }
     public final func OnCompanionTakeDamage(npc: ref<NpcHandle>, evt: ref<gameHitEvent>) -> Void {
         //NCA.Damage().RecordHit(npc, evt);
         let stats: SquadDamageStats = NCA.Damage().GetStats(npc);
-        //npc.AddExp(Cast<Int32>(stats.lastHitDamage * ExpLogic.GetOnHitExpRate()));
         npc.OnTakeDamage(stats); // stub.
     }
     public final func OnQuestStart() -> Void {}
@@ -186,13 +191,14 @@ public class EventBus extends ScriptableSystem {
         // add interaction menu entries
         NCA.InteractionMenu().ClearEntries();
         NCA.InteractionMenu().RegisterEntry(new NCAHireEntry());
-        NCA.InteractionMenu().RegisterEntry(new NCAGreetEntry());
+        //NCA.InteractionMenu().RegisterEntry(new NCAGreetEntry()); // TODO social submenu
         NCA.InteractionMenu().RegisterEntry(new NCARoutineEntry());
         NCA.InteractionMenu().RegisterEntry(new NCAJoinSquadEntry());
         NCA.InteractionMenu().RegisterEntry(new NCAFollowEntry());
         NCA.InteractionMenu().RegisterEntry(new NCAHoldPositionEntry());
         NCA.InteractionMenu().RegisterEntry(new NCAStayHereEntry());
         NCA.InteractionMenu().RegisterEntry(new NCAEquipEntry());
+        NCA.InteractionMenu().RegisterEntry(new NCAEquipmentPanelEntry());
         NCA.InteractionMenu().RegisterEntry(new NCASendAwayEntry());
 
         // detect active location
@@ -278,20 +284,3 @@ public class EventBus extends ScriptableSystem {
         }
     }
 }
-
-//@wrapMethod(PlayerPuppet)
-//protected cb func OnAction(action: ListenerAction, consumer: ListenerActionConsumer) -> Bool {
-//    wrappedMethod(action, consumer);
-//    if Equals(ListenerAction.GetName(action), n"ChoiceApply")
-//    && Equals(ListenerAction.GetType(action), gameinputActionType.BUTTON_PRESSED) {
-//        let hit: Vector3;
-//        if (NCA.Util().RaycastFromPlayerView(hit)) {
-//            //NCA.Editor().MoveTheHandle(hit);
-//            let squad: array<ref<NpcHandle>> = NCA.NPC().GetSquad();
-//            if ArraySize(squad) > 0 {
-//                let npc = squad[0];
-//                npc.MoveTo(hit);
-//            }
-//        }
-//    }
-//}
