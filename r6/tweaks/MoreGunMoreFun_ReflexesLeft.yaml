@@ -1,0 +1,183 @@
+Prereqs.RangedAndThowableWeaponHeldPrereq:
+    $base: Prereqs.CoolPerksGunsHeldPrereq
+    nestedPrereqs: [ Prereqs.RangedWeaponHeldPrereq, Prereqs.ThrowableWeaponHeldPrereq ]
+    
+NewPerks.Reflexes_Left_Milestone_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Milestone_2_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Left_Milestone_2_inline11:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.IsPlayerAboveFatigue ]
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction3:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.DualShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction4:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.HandgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction5:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.DualShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction6:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.HandgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction7:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.LightMachinegunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction8:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.PrecisionRifleStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction9:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.RevolverStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction10:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.ShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction11:
+    $base: NewPerks.Reflexes_Left_Milestone_2_inline5
+    statType: BaseStats.SniperStaminaCostReduction
+
+NewPerks.Reflexes_Left_Milestone_2_inline4:
+    statModifiers: [ NewPerks.Reflexes_Left_Milestone_2_inline5, NewPerks.Reflexes_Left_Milestone_2_inline6, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction3, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction4, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction5, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction6, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction7, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction8, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction9, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction10, NewPerks.Reflexes_Left_Milestone_2_StaminaCostReduction11 ]
+
+NewPerks.Reflexes_Left_Perk_2_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Perk_2_2_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Left_Perk_2_2_inline7:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+
+NewPerks.Reflexes_Left_Perk_2_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Perk_2_3_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsAiming ]
+
+NewPerks.Reflexes_Left_Perk_2_4:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Perk_2_4_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Left_Milestone_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Milestone_3_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Left_Milestone_3_inline11:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+
+NewPerks.Reflexes_Left_Milestone_3_inline23:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.Reflexes_Left_Milestone_3_inline24 ]
+    
+NewPerks.Reflexes_Left_Milestone_3_inline24:
+    conditions: [ Perks.IsHitTargetAlive_inline0, Perks.IsHitTargetAlive_inline1, Perks.IsHitTargetAlive_inline2, NewPerks.Reflexes_Left_Milestone_3_inline25, NewPerks.Reflexes_Left_Milestone_3_inline27 ]
+
+NewPerks.Reflexes_Left_Perk_3_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Perk_3_1_inline2:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Left_Perk_3_1_inline6:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsAiming ]
+
+NewPerks.Reflexes_Left_Perk_3_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Left_Perk_3_2_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsNotAiming ]
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction3:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.DualShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction4:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.HandgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction5:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.DualShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction6:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.HandgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction7:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.LightMachinegunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction8:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.PrecisionRifleStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction9:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.RevolverStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction10:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.ShotgunStaminaCostReduction
+    
+NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction11:
+    $base: NewPerks.Reflexes_Left_Perk_3_2_inline6
+    statType: BaseStats.SniperStaminaCostReduction
+
+NewPerks.Reflexes_Left_Perk_3_2_inline5:
+    statModifiers: [ NewPerks.Reflexes_Left_Perk_3_2_inline6, NewPerks.Reflexes_Left_Perk_3_2_inline7, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction3, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction4, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction5, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction6, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction7, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction8, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction9, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction10, NewPerks.Reflexes_Left_Perk_3_2_StaminaCostReduction11 ]
+
+NewPerks.Reflexes_Left_Perk_3_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+
+NewPerks.Reflexes_Left_Perk_3_3_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.Reflexes_Left_Perk_3_3_inline5 ]
+    
+NewPerks.Reflexes_Left_Perk_3_3_inline5:
+    conditions: [ Perks.IsHitTargetAlive_inline0, Perks.IsHitTargetAlive_inline1, Perks.IsHitTargetAlive_inline2, NewPerks.Reflexes_Left_Perk_3_3_inline6, NewPerks.Reflexes_Left_Perk_3_3_inline8 ]
+
+NewPerks.Reflexes_Left_Perk_3_4:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+
+NewPerks.Reflexes_Left_Perk_3_4_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.Reflexes_Left_Perk_3_4_inline5 ]
+    
+NewPerks.Reflexes_Left_Perk_3_4_inline5:
+    conditions: [ Perks.IsHitTargetAlive_inline0, Perks.IsHitTargetAlive_inline1, Perks.IsHitTargetAlive_inline2, NewPerks.Reflexes_Left_Perk_3_4_inline6, NewPerks.Reflexes_Left_Perk_3_4_inline8 ]
+    
+NewPerks.Reflexes_Master_Perk_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Master_Perk_1_inline4:
+    nestedPrereqs: [ NewPerks.Reflexes_Master_Perk_1_inline6 ]
+    
+NewPerks.Reflexes_Master_Perk_1_inline6:
+    conditions: [ Perks.IsHitTargetAlive_inline0, Perks.IsHitTargetAlive_inline1, Perks.IsHitTargetAlive_inline2, NewPerks.Reflexes_Master_Perk_1_inline7, NewPerks.Reflexes_Master_Perk_1_inline9, NewPerks.Reflexes_Master_Perk_1_inline10 ]
+    
+NewPerks.Reflexes_Master_Perk_1_inline12:
+    nestedPrereqs: [ NewPerks.Reflexes_Master_Perk_1_inline14 ]
+    
+NewPerks.Reflexes_Master_Perk_1_inline14:
+    conditions: [ Perks.IsHitTargetAlive_inline0, Perks.IsHitTargetAlive_inline1, Perks.IsHitTargetAlive_inline2, NewPerks.Reflexes_Master_Perk_1_inline15, NewPerks.Reflexes_Master_Perk_1_inline17, NewPerks.Reflexes_Master_Perk_1_inline18 ]
+    
+NewPerks.Reflexes_Master_Perk_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Reflexes_Master_Perk_2_inline7:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Reflexes_Master_Perk_2_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, Prereqs.SampleWeaponFirstReloadStatePrereq ]

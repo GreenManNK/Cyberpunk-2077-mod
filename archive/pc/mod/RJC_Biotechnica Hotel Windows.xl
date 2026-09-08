@@ -1,0 +1,102 @@
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\interior_-34_7_1_1.streamingsector
+      expectedNodes: 274
+      nodeDeletions:
+        - index: 110
+          type: worldStaticMeshNode
+        - index: 252
+          type: worldInstancedMeshNode
+          expectedActors: 5
+          actorDeletions: [3]
+        - index: 252
+          type: worldInstancedMeshNode
+          expectedActors: 5
+          actorDeletions: [4]
+        - index: 252
+          type: worldInstancedMeshNode
+          expectedActors: 5
+          actorDeletions: [0]
+        - index: 252
+          type: worldInstancedMeshNode
+          expectedActors: 5
+          actorDeletions: [2]
+        - index: 252
+          type: worldInstancedMeshNode
+          expectedActors: 5
+          actorDeletions: [1]
+        - index: 257
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [0]
+        - index: 200
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [1]
+        - index: 201
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [1]
+        - index: 194
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [1]
+        - index: 212
+          type: worldInstancedMeshNode
+          expectedActors: 2
+          actorDeletions: [1]
+        - index: 192
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [2]
+        - index: 200
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [2]
+        - index: 201
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [2]
+        - index: 194
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [2]
+        - index: 212
+          type: worldInstancedMeshNode
+          expectedActors: 2
+          actorDeletions: [0]
+        - index: 192
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [0]
+        - index: 194
+          type: worldInstancedMeshNode
+          expectedActors: 3
+          actorDeletions: [0]
+        - index: 53
+          type: worldStaticMeshNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-17_3_0_2.streamingsector
+      expectedNodes: 41
+      nodeDeletions:
+        - index: 129
+          type: worldCollisionNode
+          expectedActors: 64
+          actorDeletions: [10]
+        - index: 29
+          type: worldCollisionNode
+          expectedActors: 64
+          actorDeletions: [10]
+
+
+
+
+
+
+        
+
+
+
+
+
+
+        

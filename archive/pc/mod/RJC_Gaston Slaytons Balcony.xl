@@ -1,0 +1,21 @@
+streaming:
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-23_-16_1_0.streamingsector
+      expectedNodes: 302
+      nodeDeletions:
+        - index: 154
+          type: worldPhysicalDestructionNode
+    - path: base\worlds\03_night_city\_compiled\default\interior_-23_-17_1_1.streamingsector
+      expectedNodes: 192
+      nodeDeletions:
+        - index: 63
+          type: worldStaticMeshNode
+        - index: 180
+          type: worldCollisionNode
+          expectedActors: 64
+          actorDeletions: [62]
+        - index: 184
+          type: worldCollisionNode
+          expectedActors: 40
+          actorDeletions: [39]
+

@@ -1,0 +1,96 @@
+Prereqs.RangedAndThowableWeaponHeldPrereq:
+    $base: Prereqs.CoolPerksGunsHeldPrereq
+    nestedPrereqs: [ Prereqs.RangedWeaponHeldPrereq, Prereqs.ThrowableWeaponHeldPrereq ]
+    
+NewPerks.Body_Left_Milestone_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Milestone_2_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Milestone_2_inline9:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_2_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_2_1_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_2_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_2_3_inline4:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.Body_Left_Perk_2_3_inline5 ]
+    
+NewPerks.Body_Left_Perk_2_4:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_2_4_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Milestone_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Milestone_3_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Milestone_3_inline17:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Milestone_3_inline10:
+    nestedPrereqs: [ NewPerks.Body_Left_Milestone_3_inline11, Prereqs.RangedAndThowableWeaponHeldPrereq ]
+    
+NewPerks.Body_Left_Milestone_3_inline11:
+    conditions: [ NewPerks.Body_Left_Milestone_3_inline12 ]
+    
+NewPerks.Body_Left_Perk_3_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_3_1_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_3_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_3_2_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_3_3:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_3_3_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_3_3_inline5:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Left_Perk_3_4:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Left_Perk_3_4_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Master_Perk_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Master_Perk_1_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Master_Perk_1_inline5:
+    conditions: [ NewPerks.Body_Master_Perk_1_inline6, NewPerks.Body_Master_Perk_1_inline8, NewPerks.Body_Master_Perk_1_inline9 ]
+    
+NewPerks.Body_Master_Perk_1_inline10:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Master_Perk_1_inline12:
+    conditions: [ NewPerks.Body_Master_Perk_1_inline13, NewPerks.Body_Master_Perk_1_inline15, NewPerks.Body_Master_Perk_1_inline16 ]
+    
+NewPerks.RipAndTearQuickmelee_Buff_inline5:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Body_Master_Perk_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Body_Master_Perk_2_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq

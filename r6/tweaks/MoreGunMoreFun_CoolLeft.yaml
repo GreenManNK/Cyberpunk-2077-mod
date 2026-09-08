@@ -1,0 +1,59 @@
+Prereqs.RangedAndThowableWeaponHeldPrereq:
+    $base: Prereqs.CoolPerksGunsHeldPrereq
+    nestedPrereqs: [ Prereqs.RangedWeaponHeldPrereq, Prereqs.ThrowableWeaponHeldPrereq ]
+
+Prereqs.RangedAndThowableWeaponHeldPrereqNotBodyGun:
+    $base: Prereqs.CoolPerksGunsHeldPrereq
+    nestedPrereqs: [ Prereqs.CoolPerksGunsHeldPrereq, Perks.RiflesAndSMGPrereq, Prereqs.ThrowableWeaponHeldPrereq ]
+    
+NewPerks.Cool_Left_Milestone_2_inline4:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.RelaxedPerkPrereq:
+    nestedPrereqs: [ Perks.IsTargetKilled, Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsAiming ]
+      
+NewPerks.DeadlyFocusPrereq:
+    nestedPrereqs: [ Perks.IsTargetKilled, Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsAiming ]
+      
+NewPerks.CalculatedShotsPrereq:
+    nestedPrereqs: [ Perks.IsTargetKilled, Prereqs.RangedAndThowableWeaponHeldPrereq, Perks.PlayerIsAiming ]
+
+NewPerks.ComposureMasterPerkPrereq:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.DeadeyeHitPerkPrereq ]
+    
+NewPerks.HandgunNotAimingPrereq:
+    nestedPrereqs: [ Perks.PlayerIsNotAiming, Prereqs.RangedAndThowableWeaponHeldPrereqNotBodyGun ]
+    
+NewPerks.HandgunFocusedPrereq:
+    nestedPrereqs: [ Prereqs.RangedAndThowableWeaponHeldPrereq, NewPerks.HandgunFocusedPrereq_inline0 ]
+    
+NewPerks.Cool_Left_Milestone_3_inline4:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Cool_Left_Milestone_3_inline11:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Cool_Left_Perk_3_1_inline3:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+
+NewPerks.Cool_Left_Perk_3_1_inline7:
+    prereqRecord: Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.DeadeyePerkPrereq.nestedPrereqs:
+    - Prereqs.RangedAndThowableWeaponHeldPrereq
+    - NewPerks.DeadeyePerkPrereq_inline0
+    - NewPerks.DeadeyePerkPrereq_inline2
+    
+NewPerks.WildWestPerkPrereq.nestedPrereqs:
+    - Prereqs.RangedAndThowableWeaponHeldPrereq
+    - NewPerks.WildWestPerkPrereq_inline0
+    
+NewPerks.CoolGunHeadshotWeakspotKillPrereq.nestedPrereqs:
+    - NewPerks.WeakspotOrHeadshotRangedKillPrereq
+    - Prereqs.RangedAndThowableWeaponHeldPrereq
+    
+NewPerks.Cool_Master_Perk_1:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup
+    
+NewPerks.Cool_Master_Perk_2:
+    perkWeaponGroup: NewPerks.CoolGunsPerkWeaponGroup

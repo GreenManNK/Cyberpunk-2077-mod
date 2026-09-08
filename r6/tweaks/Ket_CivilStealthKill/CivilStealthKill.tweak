@@ -1,0 +1,367 @@
+// Ket_CivilStealthKill
+// Enables stealth takedowns, quickhacking, and carrying on civilian NPCs
+// No loot modifications - civilians drop nothing extra
+
+package Character
+using RTDB, BaseStats, Crowds, Ability, Perks
+
+// Base crowd NPC - enable grapple, takedowns, quickhacks, and carrying
+Crowd_NPC_Base : NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.PickUpBody", 
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.LethalTakedown", 
+        "Takedown.NonLethalTakedown", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "Takedown.NewPerkFinisher", 
+        "Takedown.NewPerkFinisherBlunt", 
+        "Takedown.NewPerkFinisherBluntHold", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+// Monks - no cyberware, so no quickhacks (lore-accurate)
+Monk : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.PickUpBody", 
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.LethalTakedown", 
+        "Takedown.NonLethalTakedown", 
+        "Takedown.AerialTakedown", 
+        "Takedown.NewPerkFinisher", 
+        "Takedown.NewPerkFinisherBlunt", 
+        "Takedown.NewPerkFinisherBluntHold"
+    ];
+}
+
+// Obese/Fatty NPCs - no grapple animation exists, only aerial takedown
+FattyMale : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+ObeseMale : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+// Children - can grapple but no lethal takedowns, only quickhacks
+CreoleChild : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+ChildAverage : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+ChildPoor : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
+
+ChildRich : Crowd_NPC_Base
+{
+    fk< ObjectAction >[] objectActions = 
+    [
+        "GenericInteraction.Talk", 
+        "GenericInteraction.ReturnTalk", 
+        "Takedown.Grapple", 
+        "Takedown.AerialTakedown", 
+        "Takedown.BlackwallTakedown", 
+        "QuickHack.RemoteBreach", 
+        "QuickHack.SuicideHackBase", 
+        "QuickHack.GrenadeHackBase", 
+        "QuickHack.SystemCollapseHackBase", 
+        "QuickHack.MadnessHackBase", 
+        "QuickHack.BaseBlackWallHack", 
+        "QuickHack.BaseOverheatHack", 
+        "QuickHack.BaseContagionHack", 
+        "QuickHack.OverloadBaseHack", 
+        "QuickHack.BrainMeltBaseHack", 
+        "QuickHack.BaseBlindHack", 
+        "QuickHack.BaseWeaponMalfunctionHack", 
+        "QuickHack.BaseLocomotionMalfunctionHack", 
+        "QuickHack.BaseCyberwareMalfunctionHack", 
+        "QuickHack.BaseCommsCallInHack", 
+        "QuickHack.BaseCommsNoiseHack", 
+        "QuickHack.BasePingHack", 
+        "QuickHack.BaseMemoryWipeHack", 
+        "QuickHack.BaseWhistleHack", 
+        "MinigameAction.NetworkSuicideHack", 
+        "MinigameAction.NetworkJamWeaponHack", 
+        "MinigameAction.NetworkPingHack", 
+        "MinigameAction.NetworkAutoJamHack", 
+        "MinigameAction.NetworkAutoBlindHack", 
+        "MinigameAction.NetworkAutoLocomotionHack", 
+        "MinigameAction.NetworkWeakNPCs", 
+        "MinigameAction.NetworkVulnerableNPCs", 
+        "MinigameAction.NetworkMadnessHack", 
+        "MinigameAction.NetworkWeaponMalfunctionHack", 
+        "MinigameAction.NetworkCyberwareMalfunctionHack", 
+        "MinigameAction.NetworkLowerICEMinorFirst", 
+        "MinigameAction.NetworkLowerICEMinorSecond", 
+        "MinigameAction.NetworkLowerICEMinorThird", 
+        "MinigameAction.NetworkLowerICEMedium", 
+        "MinigameAction.NetworkLowerICETutorial", 
+        "MinigameAction.NetworkLowerICEMajor"
+    ];
+}
