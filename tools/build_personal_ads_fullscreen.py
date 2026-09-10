@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
-"""Build a full-screen replacement for Cyberpunk 2077 world adverts.
+"""Build personal-photo replacements for Cyberpunk 2077 world adverts.
 
 The stock adverts are INK widgets composed from many sprites in texture atlases.
-Replacing an entire atlas with one photograph makes every sprite sample a random
-piece of that photograph, which produces the familiar mosaic/striping failure.
-
-This builder keeps the stock XBM formats but:
-  * expands one existing atlas part to the full texture;
-  * reduces every advert library item to one centered image widget;
-  * disables the old animation sequences; and
-  * replaces all world-advert textures, including 720p/1080p/UltraHD slots.
+A whole-atlas photograph makes each sprite read an unrelated crop and produces
+mosaic or striping artefacts. This builder preserves the stock UV layout and
+draws a photo only into the atlas's primary named region. All other atlas regions
+keep their original CARE pixels, so direct billboard consumers stay coherent.
 """
 
 from __future__ import annotations
@@ -211,6 +207,51 @@ def choose_universal_part(slots: list[dict]) -> str:
     return spelling[key]
 
 
+def rect_values(part: dict) -> tuple[float, float, float, float]:
+    rect = part.get("clippingRectInUVCoords")
+    if not isinstance(rect, dict):
+        raise ValueError(f"Atlas part {part_name(part)!r} has no UV rectangle")
+    try:
+        left = float(rect["Left"])
+        top = float(rect["Top"])
+        right = float(rect["Right"])
+        bottom = float(rect["Bottom"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError(f"Invalid UV rectangle for atlas part {part_name(part)!r}") from error
+    if not (0 <= left < right <= 1 and 0 <= top < bottom <= 1):
+        raise ValueError(f"Out-of-range UV rectangle for atlas part {part_name(part)!r}")
+    return left, top, right, bottom
+
+
+def primary_regions(asset_root: Path) -> dict[str, tuple[float, float, float, float]]:
+    """Return the primary sprite rectangle for every atlas texture slot."""
+    regions: dict[str, tuple[float, float, float, float]] = {}
+    for source_json in sorted((asset_root / "all-atlases-json").glob("*.json")):
+        with source_json.open("r", encoding="utf-8-sig") as handle:
+            document = json.load(handle)
+        slots = document["Data"]["RootChunk"]["slots"]["Elements"]
+        chosen = choose_universal_part(slots)
+        for slot in slots:
+            texture = depot_value(slot.get("texture"))
+            if not texture or texture == "0":
+                continue
+            matches = [
+                part
+                for part in slot.get("parts", [])
+                if part_name(part).lower() == chosen.lower()
+            ]
+            if len(matches) != 1:
+                raise RuntimeError(
+                    f"Expected one primary part {chosen!r} in {source_json.name} for {texture}"
+                )
+            texture_path = norm_depot(texture)
+            rectangle = rect_values(matches[0])
+            existing = regions.setdefault(texture_path, rectangle)
+            if existing != rectangle:
+                raise RuntimeError(f"Conflicting primary atlas regions for {texture_path}")
+    return regions
+
+
 def find_original_by_name(root: Path, suffix: str) -> dict[str, Path]:
     result: dict[str, Path] = {}
     for path in root.rglob(f"*{suffix}"):
@@ -236,7 +277,6 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
         slots = document["Data"]["RootChunk"]["slots"]["Elements"]
         chosen = choose_universal_part(slots)
         texture_paths: list[str] = []
-        parts_remapped = 0
         for slot in slots:
             parts = slot.get("parts", [])
             # A few stock atlases contain an intentionally empty fallback slot
@@ -246,20 +286,7 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
             texture = depot_value(slot.get("texture"))
             if texture and texture != "0":
                 texture_paths.append(norm_depot(texture))
-            chosen_found = False
-            for part in parts:
-                if part_name(part).lower() == chosen.lower():
-                    chosen_found = True
-                # World billboards can request any atlas part directly, without
-                # going through the simplified advert widget. Make every named
-                # part sample the complete personal texture so those consumers
-                # cannot cut the photograph into the template's old UV tiles.
-                if not part_name(part):
-                    continue
-                rect = part["clippingRectInUVCoords"]
-                rect["Left"], rect["Top"], rect["Right"], rect["Bottom"] = 0, 0, 1, 1
-                parts_remapped += 1
-            if not chosen_found:
+            if not any(part_name(part).lower() == chosen.lower() for part in parts):
                 raise RuntimeError(f"Part {chosen!r} is missing from a slot in {depot_path}")
 
         destination = modified_json / source_json.name
@@ -276,7 +303,7 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
                 "atlas": depot_path,
                 "part": chosen,
                 "textures": len(texture_paths),
-                "parts_remapped": parts_remapped,
+                "primary_regions": len(texture_paths),
             }
         )
     return infos, reports
@@ -625,6 +652,7 @@ def render_textures(
     asset_root: Path,
     stage: Path,
     photo_count: int,
+    atlas_regions: dict[str, tuple[float, float, float, float]],
 ) -> tuple[list[dict], list[Path]]:
     original_root = asset_root / "all-textures"
     raw_root = asset_root / "all-textures-raw"
@@ -634,6 +662,7 @@ def render_textures(
     selections = assign_sources(groups, pool)
 
     count_by_group: dict[str, int] = defaultdict(int)
+    regions_by_group: dict[str, int] = defaultdict(int)
     representative: dict[str, Path] = {}
     largest_area: dict[str, int] = defaultdict(int)
     for index, original in enumerate(originals, 1):
@@ -651,14 +680,34 @@ def render_textures(
             # Block-compressed XBM imports require even edges. A few CARE 720p
             # sources have an odd height, so pad that edge by one pixel.
             size = tuple(value + (value % 2) for value in template.size)
+            mode = "RGBA" if "A" in template.getbands() else "RGB"
+            canvas = Image.new(mode, size)
+            canvas.paste(template.convert(mode), (0, 0))
             oriented = ImageOps.exif_transpose(photograph).convert("RGB")
+            rectangle = atlas_regions.get(norm_depot(str(relative)))
+            if rectangle is None:
+                target_box = (0, 0, size[0], size[1])
+            else:
+                left, top, right, bottom = rectangle
+                target_box = (
+                    max(0, min(size[0] - 1, math.floor(left * size[0]))),
+                    max(0, min(size[1] - 1, math.floor(top * size[1]))),
+                    max(1, min(size[0], math.ceil(right * size[0]))),
+                    max(1, min(size[1], math.ceil(bottom * size[1]))),
+                )
+                if target_box[2] <= target_box[0] or target_box[3] <= target_box[1]:
+                    raise RuntimeError(f"Invalid rendered atlas region for {relative}")
+                regions_by_group[group] += 1
             fitted = ImageOps.fit(
                 oriented,
-                size,
+                (target_box[2] - target_box[0], target_box[3] - target_box[1]),
                 method=Image.Resampling.LANCZOS,
                 centering=(focus_x, focus_y),
             )
-            fitted.save(destination_png, format="PNG", optimize=False)
+            if mode == "RGBA":
+                fitted = fitted.convert("RGBA")
+            canvas.paste(fitted, target_box[:2])
+            canvas.save(destination_png, format="PNG", optimize=False)
         count_by_group[group] += 1
         area = size[0] * size[1]
         if area > largest_area[group]:
@@ -677,6 +726,7 @@ def render_textures(
                 "focus_x": focus_x,
                 "focus_y": focus_y,
                 "textures": count_by_group[group],
+                "primary_atlas_regions": regions_by_group[group],
             }
         )
     return report, [representative[group] for group in groups]
@@ -756,9 +806,10 @@ def main() -> int:
             binary_flat, stage, args.asset_root, atlas_infos, widget_originals
         )
 
-    print("Rendering all world-advert texture slots", flush=True)
+    atlas_regions = primary_regions(args.asset_root)
+    print("Rendering world-advert textures into their primary atlas regions", flush=True)
     texture_report, representatives = render_textures(
-        args.source_root, args.asset_root, stage, args.photo_count
+        args.source_root, args.asset_root, stage, args.photo_count, atlas_regions
     )
     write_csv(args.build_root / "atlas-manifest.csv", atlas_report)
     write_csv(args.build_root / "widget-manifest.csv", widget_report)

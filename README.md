@@ -35,9 +35,10 @@ atlases, 74 widgets, and 20 CARE support resources generated from 167 distinct
 source photos. Keeping the support resources and personal replacements in one
 archive removes load-order ambiguity.
 
-The archive also resets all 2,448 named atlas UV regions to the full image.
-This prevents world billboards that reference atlas regions directly from
-showing fragments from the template's old tiled layout.
+The archive preserves all 2,448 named atlas UV regions. It draws a personal
+photo only into the primary region of each of 229 atlas texture slots and keeps
+the CARE artwork in every other region. This prevents direct billboard consumers
+from showing fragments of a photograph.
 
 The reproducible builder is `tools/build_personal_ads_fullscreen.py`. Its build
 manifests and preview are stored outside the game drive under

@@ -13,11 +13,12 @@ dimensions are padded by one pixel instead of stretching the image.
 
 The unified archive contains exactly 702 resources: 531 XBM textures, 77 Ink
 atlases, 74 Ink widgets, and 20 CARE support resources. Its SHA-256 is
-`64F02A52D18C0F3B52EEC6DD2155D74F20C51A7E82C77A8DE1A68BB08ACA3F4E`.
+`9AE9D2A46F09659D311E81F7D1FC3BB12C8F7CFFFA7CABBDA88088CC76E7C0A9`.
 
-The atlas fix remaps all 2,448 named atlas regions to the full corresponding
-photo. This covers world billboard consumers that access a region directly and
-prevents the old template UV tiles from fragmenting the image.
+The atlas-layout fix preserves all 2,448 original UV regions. A personal photo
+is rendered only into the primary region of each of 229 atlas texture slots;
+the remaining CARE artwork is retained so directly addressed billboard regions
+cannot fragment the photo.
 
 The installed records YAML removes five invalid properties reported by TweakXL
 1.11.4 on Cyberpunk 2077 2.31. The affected advertisement records retain their
