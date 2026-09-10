@@ -7,14 +7,17 @@ dimensions are padded by one pixel instead of stretching the image.
 
 ## Installed files
 
-- `archive/pc/mod/Community_Ad_Replacers_Extended.archive`
-- `archive/pc/mod/zzzzzzzzzzzzzzzzzz_Personal_CARE_Photos.archive`
+- `archive/pc/mod/zzzzzzzzzzzzzzzzzz_Personal_CARE_Full.archive`
 - `r6/tweaks/Community_Ad_Replacers_Extended/care_pkg_records.yaml`
 - `r6/tweaks/Community_Ad_Replacers_Extended/care_pkg_districts.yaml`
 
-The personal archive contains exactly 682 resources: 531 XBM textures, 77 Ink
-atlases, and 74 Ink widgets. Its SHA-256 is
-`5937C97F6562EA40843E109D2359E8A6C5432ECD09B67E243F48DDB5FFC28D51`.
+The unified archive contains exactly 702 resources: 531 XBM textures, 77 Ink
+atlases, 74 Ink widgets, and 20 CARE support resources. Its SHA-256 is
+`F5741D726B5F8FD88CC195E7C279DF2894BE25797F0DB1DBB6B4C0BBAA6BF3F7`.
+
+The installed records YAML removes five invalid properties reported by TweakXL
+1.11.4 on Cyberpunk 2077 2.31. The affected advertisement records retain their
+format and library mappings.
 
 ## Build and recovery data
 

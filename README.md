@@ -29,11 +29,11 @@ conflict error in game logs before replacing an active framework.
 
 ## Personal CARE adverts
 
-The active advert stack uses `Community_Ad_Replacers_Extended.archive` for the
-CARE records and supporting resources, then loads
-`zzzzzzzzzzzzzzzzzz_Personal_CARE_Photos.archive` as its image/UI override.
-The personal archive contains 531 textures, 77 atlases, and 74 widgets generated
-from 167 distinct source photos.
+The active advert stack uses the unified
+`zzzzzzzzzzzzzzzzzz_Personal_CARE_Full.archive`. It contains 531 textures, 77
+atlases, 74 widgets, and 20 CARE support resources generated from 167 distinct
+source photos. Keeping the support resources and personal replacements in one
+archive removes load-order ambiguity.
 
 The reproducible builder is `tools/build_personal_ads_fullscreen.py`. Its build
 manifests and preview are stored outside the game drive under
