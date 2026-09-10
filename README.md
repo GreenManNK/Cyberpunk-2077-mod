@@ -26,3 +26,18 @@ relative path, byte size, and UTC last-write time.
 Before committing, keep only the newest package for a Nexus mod ID. Do not
 restore files recorded under `_disabled_mods`. Review any version downgrade or
 conflict error in game logs before replacing an active framework.
+
+## Personal CARE adverts
+
+The active advert stack uses `Community_Ad_Replacers_Extended.archive` for the
+CARE records and supporting resources, then loads
+`zzzzzzzzzzzzzzzzzz_Personal_CARE_Photos.archive` as its image/UI override.
+The personal archive contains 531 textures, 77 atlases, and 74 widgets generated
+from 167 distinct source photos.
+
+The reproducible builder is `tools/build_personal_ads_fullscreen.py`. Its build
+manifests and preview are stored outside the game drive under
+`C:\Users\NITRO\.codex\community-personal-ads-build-20260908\personal-care-v1`.
+The 39 superseded advert archives and the Virtual Atelier Delivery advert tweak
+remain recoverable under
+`C:\Users\NITRO\.codex\mod-build-backups\20260908-community-personal-ads`.

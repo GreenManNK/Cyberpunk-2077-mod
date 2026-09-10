@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import math
 import re
@@ -30,6 +31,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+CARE_WORK_ROOT = Path.home() / ".codex" / "community-personal-ads-build-20260908"
 
 
 # Preserve the hand-picked photographs and focal points from the first build.
@@ -82,12 +84,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--asset-root",
         type=Path,
-        default=REPO_ROOT / "_tools" / "billboard-fix-20260906",
+        default=CARE_WORK_ROOT / "care-assets",
     )
     parser.add_argument(
         "--build-root",
         type=Path,
-        default=REPO_ROOT / "_tools" / "personal-ads-fullscreen-20260906-v3",
+        default=CARE_WORK_ROOT / "personal-care-v1",
     )
     parser.add_argument(
         "--cli",
@@ -101,8 +103,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--archive-name",
-        default="zzzzzz_personal_ads_fullscreen_fixed.archive",
+        default="zzzzzzzzzzzzzzzzzz_Personal_CARE_Photos.archive",
     )
+    parser.add_argument("--photo-count", type=int, default=167)
+    parser.add_argument("--expected-textures", type=int, default=531)
+    parser.add_argument("--import-workers", type=int, default=1)
+    parser.add_argument("--resume-stage", action="store_true")
     parser.add_argument("--no-install", action="store_true")
     return parser.parse_args()
 
@@ -111,14 +117,40 @@ def norm_depot(value: str) -> str:
     return value.replace("/", "\\").lower()
 
 
+def texture_family(stem: str) -> str:
+    value = stem.lower()
+    value = re.sub(r"_(720p|1080p)$", "", value)
+    value = re.sub(r"_atlas(?:_02)?$", "", value)
+    value = re.sub(r"_(16_9|21_9|3_3_1|3_4|9_16)$", "", value)
+    return value
+
+
 def depot_group(value: str) -> str:
     parts = PureWindowsPath(value).parts
     lowered = [part.lower() for part in parts]
+    stem = texture_family(PureWindowsPath(value).stem)
+    if "ads_extended" in lowered:
+        index = lowered.index("ads_extended")
+        author = lowered[index + 1] if index + 1 < len(lowered) - 1 else "root"
+        stem = stem.replace("wetdream_", "wet_dream_")
+        return f"extended:{author}:{stem}"
     try:
         index = lowered.index("adverts")
     except ValueError:
-        return "_root"
-    return lowered[index + 1] if index + 1 < len(lowered) - 1 else "_root"
+        joined = "\\".join(lowered)
+        if "mayor_campaign" in joined:
+            package = "mayor_campaign"
+        elif "sq023" in lowered:
+            package = "sq023"
+        elif any(part.startswith("vector_boards_ratio_") for part in lowered):
+            package = "vector_board_masks"
+        elif "animated" in lowered and stem.startswith("ads_set_"):
+            package = "animated_textures"
+        else:
+            package = "asian_banner"
+        return f"base:external:{package}"
+    folder = lowered[index + 1] if index + 1 < len(lowered) - 1 else "root"
+    return f"base:{folder}:{stem}"
 
 
 def depot_value(node: object) -> str | None:
@@ -211,7 +243,7 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
             if not parts:
                 continue
             texture = depot_value(slot.get("texture"))
-            if texture:
+            if texture and texture != "0":
                 texture_paths.append(norm_depot(texture))
             match = None
             for part in parts:
@@ -382,7 +414,7 @@ def run(command: list[str | Path], *, capture: bool = False) -> subprocess.Compl
     return subprocess.run(rendered, check=True, text=True, capture_output=capture)
 
 
-def import_texture_buffers(cli: Path, stage: Path) -> int:
+def import_texture_buffers(cli: Path, stage: Path, workers: int) -> int:
     """Import in small batches; WolvenKit 8.20 does not discover these PNGs
     when only the common parent directory is passed on Windows.
     """
@@ -419,10 +451,21 @@ def import_texture_buffers(cli: Path, stage: Path) -> int:
             raise RuntimeError(
                 f"Texture import failed for {directory}:\n{completed.stdout}\n{completed.stderr}"
             )
+        unchanged = [
+            png.name
+            for png in pngs
+            if not png.with_suffix(".xbm").is_file()
+            or png.with_suffix(".xbm").stat().st_mtime <= png.stat().st_mtime
+        ]
+        if unchanged:
+            raise RuntimeError(
+                f"Texture import silently skipped {len(unchanged)} file(s) in {directory}: "
+                + ", ".join(unchanged)
+            )
         return len(pngs)
 
     imported = already_imported
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
         futures = [executor.submit(import_directory, item) for item in pending]
         for index, future in enumerate(as_completed(futures), 1):
             imported += future.result()
@@ -467,30 +510,114 @@ def copy_deserialized(
     return atlas_count, widget_count
 
 
-def source_for_group(group: str, fallback_index: int) -> tuple[str, float, float]:
-    if group in CURATED:
-        return CURATED[group]
-    pool = list(dict.fromkeys(CURATED.values()))
-    return pool[fallback_index % len(pool)]
+def source_files(source_root: Path, desired: int) -> list[Path]:
+    """Select a stable, unique pool without interpreting or altering its content."""
+    if desired < 1:
+        raise ValueError("Photo count must be positive")
+
+    available = sorted(
+        (
+            path
+            for path in source_root.rglob("*")
+            if path.is_file() and path.suffix.lower() in {".jpg", ".jpeg"}
+        ),
+        key=lambda path: path.relative_to(source_root).as_posix().casefold(),
+    )
+    by_name: dict[str, Path] = {}
+    for path in available:
+        by_name.setdefault(path.name.casefold(), path)
+
+    ordered: list[Path] = []
+    for filename, _, _ in dict.fromkeys(CURATED.values()):
+        path = by_name.get(filename.casefold())
+        if path is not None:
+            ordered.append(path)
+
+    curated_set = set(ordered)
+    remaining = [path for path in available if path not in curated_set]
+    remaining.sort(
+        key=lambda path: hashlib.sha256(
+            path.relative_to(source_root).as_posix().casefold().encode("utf-8")
+        ).digest()
+    )
+    ordered.extend(remaining)
+
+    selected: list[Path] = []
+    content_hashes: set[str] = set()
+    for path in ordered:
+        try:
+            with Image.open(path) as image:
+                width, height = ImageOps.exif_transpose(image).size
+            if min(width, height) < 720 or width * height < 1_000_000:
+                continue
+            with path.open("rb") as handle:
+                digest = hashlib.file_digest(handle, "sha256").hexdigest()
+        except (OSError, ValueError):
+            continue
+        if digest in content_hashes:
+            continue
+        content_hashes.add(digest)
+        selected.append(path)
+        if len(selected) == desired:
+            break
+
+    if len(selected) != desired:
+        raise RuntimeError(
+            f"Expected {desired} usable unique source photographs, found {len(selected)}"
+        )
+    return selected
+
+
+def focus_for_source(source: Path) -> tuple[float, float]:
+    for filename, focus_x, focus_y in CURATED.values():
+        if source.name.casefold() == filename.casefold():
+            return focus_x, focus_y
+    return 0.50, 0.42
+
+
+def assign_sources(groups: list[str], pool: list[Path]) -> dict[str, tuple[Path, float, float]]:
+    by_name = {path.name.casefold(): path for path in pool}
+    unused = set(pool)
+    selections: dict[str, tuple[Path, float, float]] = {}
+
+    # Give each known campaign its previously reviewed photo once.
+    for group in groups:
+        for key, (filename, focus_x, focus_y) in CURATED.items():
+            source = by_name.get(filename.casefold())
+            if key in group and source in unused:
+                selections[group] = (source, focus_x, focus_y)
+                unused.remove(source)
+                break
+
+    available = [path for path in pool if path in unused]
+    available_index = 0
+    repeat_index = 0
+    for group in groups:
+        if group in selections:
+            continue
+        if available_index < len(available):
+            source = available[available_index]
+            available_index += 1
+        else:
+            source = pool[repeat_index % len(pool)]
+            repeat_index += 1
+        focus_x, focus_y = focus_for_source(source)
+        selections[group] = (source, focus_x, focus_y)
+    return selections
 
 
 def render_textures(
     source_root: Path,
     asset_root: Path,
     stage: Path,
+    photo_count: int,
 ) -> tuple[list[dict], list[Path]]:
     original_root = asset_root / "all-textures"
     raw_root = asset_root / "all-textures-raw"
     originals = sorted(original_root.rglob("*.xbm"))
     groups = sorted({depot_group(str(path.relative_to(original_root))) for path in originals})
-    fallback_index = {group: index for index, group in enumerate(groups)}
-    selections: dict[str, tuple[Path, float, float]] = {}
-    for group in groups:
-        filename, focus_x, focus_y = source_for_group(group, fallback_index[group])
-        source = source_root / filename
-        if not source.is_file():
-            raise FileNotFoundError(f"Missing selected photograph: {source}")
-        selections[group] = (source, focus_x, focus_y)
+    pool = source_files(source_root, photo_count)
+    selections = assign_sources(groups, pool)
 
     count_by_group: dict[str, int] = defaultdict(int)
     representative: dict[str, Path] = {}
@@ -507,7 +634,9 @@ def render_textures(
         group = depot_group(str(relative))
         source, focus_x, focus_y = selections[group]
         with Image.open(raw) as template, Image.open(source) as photograph:
-            size = template.size
+            # Block-compressed XBM imports require even edges. A few CARE 720p
+            # sources have an odd height, so pad that edge by one pixel.
+            size = tuple(value + (value % 2) for value in template.size)
             oriented = ImageOps.exif_transpose(photograph).convert("RGB")
             fitted = ImageOps.fit(
                 oriented,
@@ -530,7 +659,7 @@ def render_textures(
         report.append(
             {
                 "group": group,
-                "source": source.name,
+                "source": str(source.relative_to(source_root)),
                 "focus_x": focus_x,
                 "focus_y": focus_y,
                 "textures": count_by_group[group],
@@ -581,7 +710,7 @@ def main() -> int:
     for path in required:
         if not path.exists():
             raise FileNotFoundError(f"Required path is missing: {path}")
-    if args.build_root.exists():
+    if args.build_root.exists() and not args.resume_stage:
         raise FileExistsError(f"Build root already exists: {args.build_root}")
 
     stage = args.build_root / args.archive_name.removesuffix(".archive")
@@ -591,21 +720,31 @@ def main() -> int:
     for path in (stage, modified_json, binary_flat, archives):
         path.mkdir(parents=True, exist_ok=True)
 
-    print("Preparing 132 atlas definitions", flush=True)
-    atlas_infos, atlas_report = prepare_atlases(args.asset_root, modified_json)
-    print("Simplifying advert widgets", flush=True)
-    widget_report, widget_originals = prepare_widgets(
-        args.asset_root, modified_json, atlas_infos
-    )
-    print("Deserializing modified INK resources", flush=True)
-    run([args.cli, "convert", "deserialize", modified_json, "-o", binary_flat, "-v", "Minimal"])
-    atlas_count, widget_count = copy_deserialized(
-        binary_flat, stage, args.asset_root, atlas_infos, widget_originals
-    )
+    if args.resume_stage:
+        if not stage.is_dir():
+            raise FileNotFoundError(f"Resume stage is missing: {stage}")
+        atlas_count = len(list(stage.rglob("*.inkatlas")))
+        widget_count = len(list(stage.rglob("*.inkwidget")))
+        if not atlas_count or not widget_count:
+            raise RuntimeError("Resume stage has no prepared INK resources")
+        atlas_report: list[dict] = []
+        widget_report: list[dict] = []
+    else:
+        print("Preparing atlas definitions", flush=True)
+        atlas_infos, atlas_report = prepare_atlases(args.asset_root, modified_json)
+        print("Simplifying advert widgets", flush=True)
+        widget_report, widget_originals = prepare_widgets(
+            args.asset_root, modified_json, atlas_infos
+        )
+        print("Deserializing modified INK resources", flush=True)
+        run([args.cli, "convert", "deserialize", modified_json, "-o", binary_flat, "-v", "Minimal"])
+        atlas_count, widget_count = copy_deserialized(
+            binary_flat, stage, args.asset_root, atlas_infos, widget_originals
+        )
 
     print("Rendering all world-advert texture slots", flush=True)
     texture_report, representatives = render_textures(
-        args.source_root, args.asset_root, stage
+        args.source_root, args.asset_root, stage, args.photo_count
     )
     write_csv(args.build_root / "atlas-manifest.csv", atlas_report)
     write_csv(args.build_root / "widget-manifest.csv", widget_report)
@@ -613,9 +752,11 @@ def main() -> int:
     make_contact_sheet(representatives, args.build_root / "preview-all-groups.png")
 
     print("Importing PNG buffers into the stock XBM containers", flush=True)
-    imported = import_texture_buffers(args.cli, stage)
-    if imported != 390:
-        raise RuntimeError(f"Expected to import 390 textures, imported {imported}")
+    imported = import_texture_buffers(args.cli, stage, args.import_workers)
+    if imported != args.expected_textures:
+        raise RuntimeError(
+            f"Expected to import {args.expected_textures} textures, imported {imported}"
+        )
     for png in stage.rglob("*.png"):
         png.unlink()
 
@@ -629,11 +770,32 @@ def main() -> int:
         [args.cli, "archiveinfo", archive, "--list", "--regex", r"(?i)\.(xbm|inkatlas|inkwidget)$", "-v", "Minimal"],
         capture=True,
     )
-    resources = [line for line in info.stdout.splitlines() if line.lower().startswith("base\\")]
-    expected = 390 + atlas_count + widget_count
-    if len(resources) != expected:
+    resource_suffixes = {".xbm", ".inkatlas", ".inkwidget"}
+    expected_resources = {
+        norm_depot(str(path.relative_to(stage)))
+        for path in stage.rglob("*")
+        if path.is_file() and path.suffix.lower() in resource_suffixes
+    }
+    archive_resource_list = [
+        norm_depot(line.strip())
+        for line in info.stdout.splitlines()
+        if line.strip().lower().startswith(("base\\", "ads_extended\\"))
+    ]
+    archive_resources = set(archive_resource_list)
+    expected = args.expected_textures + atlas_count + widget_count
+    if len(expected_resources) != expected:
         raise RuntimeError(
-            f"Archive validation failed: expected {expected} resources, found {len(resources)}"
+            f"Stage validation failed: expected {expected} resources, "
+            f"found {len(expected_resources)}"
+        )
+    if len(archive_resource_list) != len(archive_resources):
+        raise RuntimeError("Archive validation failed: duplicate depot paths were listed")
+    if archive_resources != expected_resources:
+        missing = sorted(expected_resources - archive_resources)
+        unexpected = sorted(archive_resources - expected_resources)
+        raise RuntimeError(
+            "Archive depot paths differ from the stage; "
+            f"missing={missing[:10]}, unexpected={unexpected[:10]}"
         )
 
     installed = None
@@ -647,11 +809,12 @@ def main() -> int:
     summary = {
         "archive": str(archive),
         "installed": str(installed) if installed else None,
-        "textures": 390,
+        "textures": args.expected_textures,
         "atlases": atlas_count,
         "widgets": widget_count,
-        "resources": len(resources),
+        "resources": len(archive_resources),
         "groups": len(texture_report),
+        "distinct_source_photos": args.photo_count,
         "preview": str(args.build_root / "preview-all-groups.png"),
     }
     with (args.build_root / "build-summary.json").open("w", encoding="utf-8") as handle:
