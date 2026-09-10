@@ -1,5 +1,5 @@
 {
-  "installed_utc": "2026-09-10T03:48:34.2660301Z",
+  "installed_utc": "2026-09-10T13:45:33.8050401Z",
   "template": "Community Ad Replacers Extended 1.95",
   "resources": {
     "textures": 531,
@@ -10,11 +10,15 @@
     "campaign_groups": 167,
     "distinct_source_photos": 167
   },
+  "atlas_uv_fix": {
+    "remapped_named_parts": 2448,
+    "purpose": "Prevent direct billboard consumers from using the template's tiled UV regions."
+  },
   "installed_files": [
     {
       "path": "archive/pc/mod/zzzzzzzzzzzzzzzzzz_Personal_CARE_Full.archive",
-      "bytes": 201068544,
-      "sha256": "F5741D726B5F8FD88CC195E7C279DF2894BE25797F0DB1DBB6B4C0BBAA6BF3F7"
+      "bytes": 201052160,
+      "sha256": "64F02A52D18C0F3B52EEC6DD2155D74F20C51A7E82C77A8DE1A68BB08ACA3F4E"
     },
     {
       "path": "r6/tweaks/Community_Ad_Replacers_Extended/care_pkg_records.yaml",

@@ -236,6 +236,7 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
         slots = document["Data"]["RootChunk"]["slots"]["Elements"]
         chosen = choose_universal_part(slots)
         texture_paths: list[str] = []
+        parts_remapped = 0
         for slot in slots:
             parts = slot.get("parts", [])
             # A few stock atlases contain an intentionally empty fallback slot
@@ -245,15 +246,21 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
             texture = depot_value(slot.get("texture"))
             if texture and texture != "0":
                 texture_paths.append(norm_depot(texture))
-            match = None
+            chosen_found = False
             for part in parts:
                 if part_name(part).lower() == chosen.lower():
-                    match = part
-                    break
-            if match is None:
+                    chosen_found = True
+                # World billboards can request any atlas part directly, without
+                # going through the simplified advert widget. Make every named
+                # part sample the complete personal texture so those consumers
+                # cannot cut the photograph into the template's old UV tiles.
+                if not part_name(part):
+                    continue
+                rect = part["clippingRectInUVCoords"]
+                rect["Left"], rect["Top"], rect["Right"], rect["Bottom"] = 0, 0, 1, 1
+                parts_remapped += 1
+            if not chosen_found:
                 raise RuntimeError(f"Part {chosen!r} is missing from a slot in {depot_path}")
-            rect = match["clippingRectInUVCoords"]
-            rect["Left"], rect["Top"], rect["Right"], rect["Bottom"] = 0, 0, 1, 1
 
         destination = modified_json / source_json.name
         with destination.open("w", encoding="utf-8", newline="\n") as handle:
@@ -264,7 +271,14 @@ def prepare_atlases(asset_root: Path, modified_json: Path) -> tuple[dict[str, di
             "textures": texture_paths,
             "original": original,
         }
-        reports.append({"atlas": depot_path, "part": chosen, "textures": len(texture_paths)})
+        reports.append(
+            {
+                "atlas": depot_path,
+                "part": chosen,
+                "textures": len(texture_paths),
+                "parts_remapped": parts_remapped,
+            }
+        )
     return infos, reports
 
 
